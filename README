@@ -1,0 +1,78 @@
+About
+-----
+
+QasMixer is a mixer application for the Linux sound system ALSA.
+It offers a similar functionality as the console alsamixer but features a
+graphical user interface.
+QasMixer is written in C++ using only the standard and Qt libraries.
+
+
+Copying
+-------
+
+QasMixer is distributed under the terms in the COPYING text file.
+
+
+Requirements
+------------
+
+The following libraries are required on runtime.
+(Debian squeeze package names)
+
+libasound2
+libqtcore4
+libqtgui4
+libqt4-network
+libqt4-svg
+
+The Qt libraries must be of version 4.6 at least.
+
+
+Installation
+------------
+
+The following packages are required for a successful build.
+(Debian squeeze names)
+
+libasound2-dev - ALSA library develoment files
+libqt4-dev     - Qt development files
+cmake          - The build system
+
+
+QasMixer uses the CMake build system.
+
+For a system wide installation type:
+
+tar -xjf qasmixer_X.Y.bz2
+mkdir build
+cd build
+cmake ../qasmixer_X.Y
+make -j8
+sudo make install
+
+
+For a local build instead call:
+
+tar -xjf qasmixer_X.Y.bz2
+mkdir install
+mkdir build
+cd build
+cmake ../qasmixer_X.Y -DCMAKE_INSTALL_PREFIX=../install
+make -j8
+make install
+
+
+Localization
+------------
+
+Translations for QasMixer can be found in a separate package 
+qasmixer-l10n.
+
+
+Authors
+-------
+
+QasMixer was written by:
+
+Sebastian Holtermann <sebholt@xwmw.org>
+

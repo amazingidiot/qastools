@@ -1,0 +1,3 @@
+* Command line argument documentation in manpage
+* cmake option to skip files with l10n versions on install (.desktop)
+* USB plug in/out detection?
