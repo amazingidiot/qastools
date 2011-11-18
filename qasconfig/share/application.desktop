@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=${PROGRAM_TITLE}
+GenericName=ALSA configuration
+GenericName[de]=ALSA-Konfiguration
+Exec=${PROGRAM_NAME}
+Icon=${PROGRAM_NAME}
+StartupNotify=false
+Terminal=false
+Categories=AudioVideo;Audio
+Comment=ALSA configuration browser
+Comment[cs]=Prohlížeč nastavení ALSA
+Comment[de]=ALSA-Konfigurationsbetrachter
+Comment[ru]=Просмотрщик конфигурации звуковой системы ALSA
