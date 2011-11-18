@@ -1,0 +1,68 @@
+//
+// C++ Implementation:
+//
+// Description:
+//
+//
+// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2011
+//
+// Copyright: See COPYING file that comes with this distribution
+//
+//
+
+#include "painter_simple.hpp"
+
+#include "paint_job.hpp"
+#include "image_set.hpp"
+#include "image_set_meta.hpp"
+#include <QImage>
+#include <QColor>
+
+
+namespace dpe
+{
+
+
+Painter_Simple::Painter_Simple ( ) :
+::dpe::Painter ( 0 )
+{
+}
+
+
+Painter_Simple::~Painter_Simple ( )
+{
+}
+
+
+int
+Painter_Simple::paint_image (
+	::dpe::Paint_Job * pjob_n )
+{
+	int res ( 0 );
+
+	::dpe::Image & img ( pjob_n->img_set->image ( pjob_n->img_idx ) );
+	::dpe::Image_Set_Meta * meta ( pjob_n->meta );
+	img.width = meta->size.width();
+	img.height = meta->size.height();
+	img.stride = img.width * 4;
+	img.data = new unsigned char[ img.height * img.stride ];
+
+	{
+		QImage qimg (
+			img.data, img.width, img.height, img.stride,
+			QImage::Format_ARGB32_Premultiplied );
+		QColor col;
+		{
+			unsigned int seed ( pjob_n->img_set->num_images() + pjob_n->img_idx * 10 );
+			seed += time(0);
+			qsrand ( seed );
+			col.setRgb ( qrand() % 256, qrand() % 256, qrand() % 256, 128 );
+		}
+		qimg.fill ( col.rgba() );
+	}
+
+	return res;
+}
+
+
+} // End of namespace

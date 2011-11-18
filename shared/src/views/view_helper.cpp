@@ -1,0 +1,63 @@
+//
+// C++ Implementation:
+//
+// Description:
+//
+//
+// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2011
+//
+// Copyright: See COPYING file that comes with this distribution
+//
+//
+
+#include "view_helper.hpp"
+
+#include <QDesktopWidget>
+#include <QApplication>
+
+namespace Views
+{
+
+
+void
+resize_to_default (
+	QMainWindow * mwin_n )
+{
+
+	// Adjust startup size
+	{
+		const QSize default_size ( 800, 450 );
+		const QRect ravail ( QApplication::desktop()->availableGeometry() );
+
+		if ( ravail.isValid() ) {
+
+			const unsigned int aspect[2] = { 16, 9 };
+			unsigned int rel_width[2];
+			if ( ravail.width() > 1024 ) {
+				// Larger screens
+				rel_width[0] = 2;
+				rel_width[1] = 3;
+			} else {
+				// Small screens - occupy more relative space
+				rel_width[0] = 3;
+				rel_width[1] = 4;
+			}
+
+			QRect wrect;
+			wrect.setWidth ( ( ravail.width() * rel_width[0] ) / rel_width[1] );
+			wrect.setHeight ( ( wrect.width() * aspect[1] ) / aspect[0] );
+			if ( wrect.height() > ravail.height() ) {
+				wrect.setHeight ( ravail.height() );
+			}
+			wrect.moveTop ( ( ravail.height() - wrect.height() ) / 2 );
+			wrect.moveLeft ( ( ravail.width() - wrect.width() ) / 2 );
+			mwin_n->resize ( wrect.size() );
+			mwin_n->move ( wrect.topLeft() );
+		} else {
+			mwin_n->resize ( default_size );
+		}
+	}
+}
+
+
+} // End of namespace
