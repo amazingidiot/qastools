@@ -1,5 +1,6 @@
 # use glob syntax.
 syntax: glob
 *~
+Makefile
 qastools.cbp*
 qastools.layout*
