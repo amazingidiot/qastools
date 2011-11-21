@@ -92,7 +92,7 @@ main (
 	// Restore mixer window state
 	bool size_restored = false;
 	//size_restored =  mwin->restoreGeometry (
-	//	_dsetup.mixer_window.window_geometry );
+	//	_dsetup.main_window.window_geometry );
 
 	// Adjust startup size
 	if ( !size_restored ) {

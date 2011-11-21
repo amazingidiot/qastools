@@ -35,8 +35,8 @@ HEADERS = \
 	../qasmixer/src/desktop_items_setup.hpp \
 	../qasmixer/src/info_texts.hpp \
 	../qasmixer/src/init_globals.hpp \
-	../qasmixer/src/mixer_window.hpp \
-	../qasmixer/src/mixer_window_setup.hpp \
+	../qasmixer/src/main_window.hpp \
+	../qasmixer/src/main_window_setup.hpp \
 	../qasmixer/src/mview/dev_select_view.hpp \
 	../qasmixer/src/mview/dev_select_view_setup.hpp \
 	../qasmixer/src/mview/info_view.hpp \
@@ -247,8 +247,8 @@ SOURCES = \
 	../qasmixer/src/info_texts.cpp \
 	../qasmixer/src/init_globals.cpp \
 	../qasmixer/src/main.cpp \
-	../qasmixer/src/mixer_window.cpp \
-	../qasmixer/src/mixer_window_setup.cpp \
+	../qasmixer/src/main_window.cpp \
+	../qasmixer/src/main_window_setup.cpp \
 	../qasmixer/src/mview/dev_select_view.cpp \
 	../qasmixer/src/mview/dev_select_view_setup.cpp \
 	../qasmixer/src/mview/info_view.cpp \

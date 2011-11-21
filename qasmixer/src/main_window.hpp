@@ -10,11 +10,11 @@
 //
 //
 
-#ifndef __INC_mixer_window_hpp__
-#define __INC_mixer_window_hpp__
+#ifndef __INC_main_window_hpp__
+#define __INC_main_window_hpp__
 
 #include "config.hpp"
-#include "mixer_window_setup.hpp"
+#include "main_window_setup.hpp"
 
 #include <QAction>
 #include <QActionGroup>
@@ -28,7 +28,7 @@ namespace Views {
 }
 
 
-class Mixer_Window :
+class Main_Window :
 	public QMainWindow
 {
 	Q_OBJECT
@@ -36,16 +36,16 @@ class Mixer_Window :
 	// Public methods
 	public:
 
-	Mixer_Window (
+	Main_Window (
 		QWidget * parent_n = 0,
 		Qt::WindowFlags flags_n = 0 );
 
-	~Mixer_Window ( );
+	~Main_Window ( );
 
 
 	void
 	set_mixer_setup (
-		Mixer_Window_Setup * setup_n );
+		Main_Window_Setup * setup_n );
 
 	void
 	select_ctl (
@@ -143,7 +143,7 @@ class Mixer_Window :
 	// Private attributes
 	private:
 
-	Mixer_Window_Setup * _mixer_setup;
+	Main_Window_Setup * _mixer_setup;
 
 	// Base widgets
 	::Views::Mixer_Simple * _mixer_simple;

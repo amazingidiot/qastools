@@ -10,10 +10,10 @@
 //
 //
 
-#include "mixer_window_setup.hpp"
+#include "main_window_setup.hpp"
 
 
-Mixer_Window_Setup::Mixer_Window_Setup ( ) :
+Main_Window_Setup::Main_Window_Setup ( ) :
 show_dev_select ( false )
 {
 }

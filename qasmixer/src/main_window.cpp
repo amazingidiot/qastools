@@ -10,7 +10,7 @@
 //
 //
 
-#include "mixer_window.hpp"
+#include "main_window.hpp"
 
 #include "views/mixer_simple.hpp"
 #include "views/dev_select_view.hpp"
@@ -25,7 +25,7 @@
 #include <iostream>
 
 
-Mixer_Window::Mixer_Window (
+Main_Window::Main_Window (
 	QWidget * parent_n,
 	Qt::WindowFlags flags_n ) :
 QMainWindow ( parent_n, flags_n ),
@@ -53,13 +53,13 @@ _dev_select_dock ( 0 )
 }
 
 
-Mixer_Window::~Mixer_Window ( )
+Main_Window::~Main_Window ( )
 {
 }
 
 
 void
-Mixer_Window::init_menus ( )
+Main_Window::init_menus ( )
 {
 	// Action: Exit / Quit
 	QAction * act_quit = new QAction ( tr ( "&Quit" ), this );
@@ -140,7 +140,7 @@ Mixer_Window::init_menus ( )
 
 
 void
-Mixer_Window::init_docks ( )
+Main_Window::init_docks ( )
 {
 	_dev_select = new ::Views::Dev_Select_View;
 
@@ -168,8 +168,8 @@ Mixer_Window::init_docks ( )
 
 
 void
-Mixer_Window::set_mixer_setup (
-	Mixer_Window_Setup * setup_n )
+Main_Window::set_mixer_setup (
+	Main_Window_Setup * setup_n )
 {
 	if ( _mixer_setup != 0 ) {
 		_mixer_simple->set_mdev_setup ( 0 );
@@ -197,7 +197,7 @@ Mixer_Window::set_mixer_setup (
 
 
 void
-Mixer_Window::update_fullscreen_action ( )
+Main_Window::update_fullscreen_action ( )
 {
 	QString * txt;
 	QIcon * icon;
@@ -220,7 +220,7 @@ Mixer_Window::update_fullscreen_action ( )
 
 
 void
-Mixer_Window::select_ctl (
+Main_Window::select_ctl (
 	const QString & ctl_n )
 {
 	_dev_select->silent_select_ctl ( ctl_n );
@@ -241,7 +241,7 @@ Mixer_Window::select_ctl (
 
 
 void
-Mixer_Window::select_ctl_from_side_iface ( )
+Main_Window::select_ctl_from_side_iface ( )
 {
 	select_ctl ( _dev_select->selected_ctl().addr_str() );
 
@@ -250,9 +250,9 @@ Mixer_Window::select_ctl_from_side_iface ( )
 
 
 void
-Mixer_Window::reload_mixer_device ( )
+Main_Window::reload_mixer_device ( )
 {
-	//::std::cout << "Mixer_Window::reload_mixer_device" << "\n";
+	//::std::cout << "Main_Window::reload_mixer_device" << "\n";
 	_dev_select->reload_database();
 
 	_mixer_simple->set_mdev_setup ( 0 );
@@ -261,25 +261,25 @@ Mixer_Window::reload_mixer_device ( )
 
 
 void
-Mixer_Window::reload_mixer_inputs ( )
+Main_Window::reload_mixer_inputs ( )
 {
-	//::std::cout << "Mixer_Window::reload_mixer_inputs" << "\n";
+	//::std::cout << "Main_Window::reload_mixer_inputs" << "\n";
 	_mixer_simple->set_inputs_setup ( 0 );
 	_mixer_simple->set_inputs_setup ( &_mixer_setup->inputs );
 }
 
 
 void
-Mixer_Window::reload_mixer_view ( )
+Main_Window::reload_mixer_view ( )
 {
-	//::std::cout << "Mixer_Window::reload_mixer_view" << "\n";
+	//::std::cout << "Main_Window::reload_mixer_view" << "\n";
 	_mixer_simple->set_view_setup ( 0 );
 	_mixer_simple->set_view_setup ( &_mixer_setup->mixer_simple );
 }
 
 
 void
-Mixer_Window::set_fullscreen (
+Main_Window::set_fullscreen (
 	bool flag_n )
 {
 	if ( flag_n != isFullScreen() ) {
@@ -294,7 +294,7 @@ Mixer_Window::set_fullscreen (
 
 
 void
-Mixer_Window::show_device_selection (
+Main_Window::show_device_selection (
 	bool flag_n )
 {
 	if ( _mixer_setup != 0 ) {
@@ -307,14 +307,14 @@ Mixer_Window::show_device_selection (
 
 
 void
-Mixer_Window::toggle_device_selection ( )
+Main_Window::toggle_device_selection ( )
 {
 	_act_show_dev_select->setChecked ( !_act_show_dev_select->isChecked() );
 }
 
 
 void
-Mixer_Window::save_state ( )
+Main_Window::save_state ( )
 {
 	if ( _mixer_setup != 0 ) {
 		_mixer_setup->window_state = saveState();
@@ -324,7 +324,7 @@ Mixer_Window::save_state ( )
 
 
 void
-Mixer_Window::changeEvent (
+Main_Window::changeEvent (
 	QEvent * event_n )
 {
 	QMainWindow::changeEvent ( event_n );
@@ -335,7 +335,7 @@ Mixer_Window::changeEvent (
 
 
 void
-Mixer_Window::keyPressEvent (
+Main_Window::keyPressEvent (
 	QKeyEvent * event_n )
 {
 	QMainWindow::keyPressEvent ( event_n );
@@ -349,7 +349,7 @@ Mixer_Window::keyPressEvent (
 
 
 bool
-Mixer_Window::eventFilter (
+Main_Window::eventFilter (
 	QObject * obj_n,
 	QEvent * event_n )
 {

@@ -29,7 +29,7 @@ tray_is_minimized ( false )
 void
 Desktop_Items_Setup::read_from_storage ( )
 {
-	Mixer_Window_Setup & mwin ( mixer_window );
+	Main_Window_Setup & mwin ( main_window );
 
 	QSettings settings;
 
@@ -68,7 +68,7 @@ Desktop_Items_Setup::read_from_storage ( )
 	// Device selection
 	{
 		::Views::Dev_Select_View_Setup & vsetup (
-			mixer_window.dev_select );
+			main_window.dev_select );
 
 		settings.beginGroup ( "device_selection" );
 
@@ -82,7 +82,7 @@ Desktop_Items_Setup::read_from_storage ( )
 	// Simple mixer
 	{
 		::Views::Mixer_Simple_Setup & vsetup (
-			mixer_window.mixer_simple );
+			main_window.mixer_simple );
 
 		settings.beginGroup ( "simple_mixer" );
 
@@ -140,10 +140,10 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	// Sanitize values
 
-	if ( mixer_window.inputs.wheel_degrees == 0 ) {
-		mixer_window.inputs.wheel_degrees = 720;
+	if ( main_window.inputs.wheel_degrees == 0 ) {
+		main_window.inputs.wheel_degrees = 720;
 	}
-	tray_view.wheel_degrees = mixer_window.inputs.wheel_degrees;
+	tray_view.wheel_degrees = main_window.inputs.wheel_degrees;
 
 	if ( start_device_mode > ::Desktop_Items_Setup::MIXER_DEV_LAST ) {
 		start_device_mode = ::Desktop_Items_Setup::MIXER_DEV_DEFAULT;
@@ -154,7 +154,7 @@ Desktop_Items_Setup::read_from_storage ( )
 	}
 
 	{
-		::Views::Mixer_Simple_Setup & vsetup ( mixer_window.mixer_simple );
+		::Views::Mixer_Simple_Setup & vsetup ( main_window.mixer_simple );
 		if ( !( vsetup.show_stream[0] || vsetup.show_stream[1] ) ) {
 			vsetup.show_stream[0] = true;
 		}
@@ -178,13 +178,13 @@ Desktop_Items_Setup::write_to_storage ( )
 		start_user_device );
 
 	settings.setValue ( "current_device",
-		mixer_window.mixer_dev.ctl_addr );
+		main_window.mixer_dev.ctl_addr );
 
 	settings.setValue ( "show_device_selection",
-		mixer_window.show_dev_select );
+		main_window.show_dev_select );
 
 	settings.setValue ( "wheel_degrees",
-		mixer_window.inputs.wheel_degrees );
+		main_window.inputs.wheel_degrees );
 
 
 	settings.setValue ( "tray_on_close",
@@ -198,16 +198,16 @@ Desktop_Items_Setup::write_to_storage ( )
 
 
 	settings.setValue ( "main_window_state",
-		mixer_window.window_state );
+		main_window.window_state );
 
 	settings.setValue ( "main_window_geometry",
-		mixer_window.window_geometry );
+		main_window.window_geometry );
 
 
 	// Device selection
 	{
 		const ::Views::Dev_Select_View_Setup & vsetup (
-			mixer_window.dev_select );
+			main_window.dev_select );
 		settings.beginGroup ( "device_selection" );
 
 		settings.setValue ( "selection_db",
@@ -220,7 +220,7 @@ Desktop_Items_Setup::write_to_storage ( )
 	// Simple mixer
 	{
 		const ::Views::Mixer_Simple_Setup & vsetup (
-			mixer_window.mixer_simple );
+			main_window.mixer_simple );
 
 		settings.beginGroup ( "simple_mixer" );
 

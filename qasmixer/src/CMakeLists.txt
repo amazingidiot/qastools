@@ -158,8 +158,8 @@ SET ( SRC_GUI
 	tray_mixer_balloon.cpp
 	tray_mixer.cpp
 	cmd_options.cpp
-	mixer_window_setup.cpp
-	mixer_window.cpp
+	main_window_setup.cpp
+	main_window.cpp
 	desktop_items_setup.cpp
 	desktop_items.cpp
 
@@ -230,7 +230,7 @@ SET ( SRC_GUI_HEADER_MOC
 	tray_mixer_icon.hpp
 	tray_mixer_balloon.hpp
 	tray_mixer.hpp
-	mixer_window.hpp
+	main_window.hpp
 	desktop_items.hpp
 )
 

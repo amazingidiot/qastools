@@ -15,7 +15,7 @@
 #include "config.hpp"
 #include "info_texts.hpp"
 #include "tray_mixer.hpp"
-#include "mixer_window.hpp"
+#include "main_window.hpp"
 #include <wdg/ds_slider_painter_bevelled.hpp>
 #include <wdg/ds_switch_painter_circle.hpp>
 #include <wdg/ds_switch_painter_close.hpp>
@@ -87,8 +87,8 @@ _shutdown ( false )
 	}
 
 	{
-		_dsetup.mixer_window.mixer_simple.wdg_style_db = &_wdg_style_db;
-		_dsetup.mixer_window.mixer_simple.image_alloc = &_image_alloc;
+		_dsetup.main_window.mixer_simple.wdg_style_db = &_wdg_style_db;
+		_dsetup.main_window.mixer_simple.image_alloc = &_image_alloc;
 	}
 	_dsetup.tray_view.image_alloc = &_image_alloc;
 
@@ -224,7 +224,7 @@ Desktop_Items::parse_cmd_options (
 
 	if ( !ctl_address.isEmpty() ) {
 		_cmd_opts.start_ctl_address = ctl_address;
-		_dsetup.mixer_window.mixer_dev.ctl_addr = ctl_address;
+		_dsetup.main_window.mixer_dev.ctl_addr = ctl_address;
 	}
 
 	return 0;
@@ -257,7 +257,7 @@ Desktop_Items::parse_message (
 			}
 			if ( !ctl_str.isEmpty() ) {
 				if ( _main_mixer == 0 ) {
-					_dsetup.mixer_window.mixer_dev.ctl_addr = ctl_str;
+					_dsetup.main_window.mixer_dev.ctl_addr = ctl_str;
 					tray_mixer_reload_current_mdev();
 				} else {
 					_main_mixer->select_ctl ( ctl_str );
@@ -312,11 +312,11 @@ Desktop_Items::start (
 	_started = true;
 
 	// Translation
-	_dsetup.mixer_window.inputs.update_translation();
+	_dsetup.main_window.inputs.update_translation();
 
 	// Startup mixer device
 	{
-		QString & ctl_addr ( _dsetup.mixer_window.mixer_dev.ctl_addr );
+		QString & ctl_addr ( _dsetup.main_window.mixer_dev.ctl_addr );
 		bool use_default ( true );
 		switch ( _dsetup.start_device_mode ) {
 			case 1:
@@ -406,7 +406,7 @@ Desktop_Items::main_mixer_create ( )
 		return;
 	}
 
-	_main_mixer = new Mixer_Window;
+	_main_mixer = new Main_Window;
 	_main_mixer->installEventFilter ( this );
 
 	connect ( _main_mixer, SIGNAL ( sig_quit() ),
@@ -426,9 +426,9 @@ Desktop_Items::main_mixer_create ( )
 	// Restore mixer window state
 	bool size_restored;
 	_main_mixer->restoreState (
-		_dsetup.mixer_window.window_state );
+		_dsetup.main_window.window_state );
 	size_restored = _main_mixer->restoreGeometry (
-		_dsetup.mixer_window.window_geometry );
+		_dsetup.main_window.window_geometry );
 
 
 	// Adjust startup size
@@ -436,7 +436,7 @@ Desktop_Items::main_mixer_create ( )
 		::Views::resize_to_default ( _main_mixer );
 	}
 
-	_main_mixer->set_mixer_setup ( &_dsetup.mixer_window );
+	_main_mixer->set_mixer_setup ( &_dsetup.main_window );
 	_main_mixer->show();
 }
 
@@ -557,9 +557,9 @@ Desktop_Items::tray_mixer_create ( )
 
 	// Initialize setup tree values
 	_dsetup.tray_view.wheel_degrees =
-		_dsetup.mixer_window.inputs.wheel_degrees;
+		_dsetup.main_window.inputs.wheel_degrees;
 	_dsetup.tray_mdev.current_device =
-		_dsetup.mixer_window.mixer_dev.ctl_addr;
+		_dsetup.main_window.mixer_dev.ctl_addr;
 
 	// Install setup tree
 	_tray_mixer->set_mdev_setup ( &_dsetup.tray_mdev );
@@ -623,7 +623,7 @@ Desktop_Items::tray_mixer_reload_mdev ( )
 void
 Desktop_Items::tray_mixer_reload_current_mdev ( )
 {
-	const QString & ctl_main ( _dsetup.mixer_window.mixer_dev.ctl_addr );
+	const QString & ctl_main ( _dsetup.main_window.mixer_dev.ctl_addr );
 	if ( _dsetup.tray_mdev.current_device != ctl_main ) {
 		_dsetup.tray_mdev.current_device = ctl_main;
 
@@ -655,7 +655,7 @@ Desktop_Items::reload_inputs_setup ( )
 
 	// Tray mixer
 	_dsetup.tray_view.wheel_degrees =
-		_dsetup.mixer_window.inputs.wheel_degrees;
+		_dsetup.main_window.inputs.wheel_degrees;
 	if ( _tray_mixer != 0 ) {
 		_tray_mixer->update_balloon_setup();
 	}

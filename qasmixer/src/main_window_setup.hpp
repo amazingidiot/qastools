@@ -10,8 +10,8 @@
 //
 //
 
-#ifndef __INC_mixer_window_setup_hpp__
-#define __INC_mixer_window_setup_hpp__
+#ifndef __INC_main_window_setup_hpp__
+#define __INC_main_window_setup_hpp__
 
 #include "mwdg/mixer_device_setup.hpp"
 #include "mwdg/inputs_setup.hpp"
@@ -21,14 +21,14 @@
 #include <QKeySequence>
 
 
-/// @brief Mixer_Window_Setup
+/// @brief Main_Window_Setup
 ///
-class Mixer_Window_Setup
+class Main_Window_Setup
 {
 	// Public methods
 	public:
 
-	Mixer_Window_Setup ( );
+	Main_Window_Setup ( );
 
 
 	// Public attributes

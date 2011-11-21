@@ -22,7 +22,7 @@
 #include <QFileInfo>
 
 #include "single_application.hpp"
-#include "mixer_window.hpp"
+#include "main_window.hpp"
 
 #include "init_globals.hpp"
 #include "desktop_items.hpp"

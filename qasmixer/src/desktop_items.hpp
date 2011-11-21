@@ -26,7 +26,7 @@
 
 // Forward declaration
 class Tray_Mixer;
-class Mixer_Window;
+class Main_Window;
 class Dialog_Settings;
 
 
@@ -232,7 +232,7 @@ class Desktop_Items :
 	Desktop_Items_Setup _dsetup;
 
 	QPointer < Tray_Mixer > _tray_mixer;
-	QPointer < Mixer_Window > _main_mixer;
+	QPointer < Main_Window > _main_mixer;
 
 	// Shared storages and settings
 	::MWdg::Mixer_Style _mixer_style;
