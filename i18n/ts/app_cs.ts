@@ -456,7 +456,7 @@
     </message>
 </context>
 <context>
-    <name>MView::Alsa_Config_View</name>
+    <name>Views::Alsa_Config_View</name>
     <message>
         <source>ALSA configuration</source>
         <extracomment>The window title</extracomment>
@@ -472,7 +472,7 @@
     </message>
 </context>
 <context>
-    <name>MView::Dev_Select_View</name>
+    <name>Views::Dev_Select_View</name>
     <message>
         <location filename="../../src/mview/dev_select_view.cpp" line="53"/>
         <source>&amp;Close device selection</source>
@@ -485,7 +485,7 @@
     </message>
 </context>
 <context>
-    <name>MView::Info_View</name>
+    <name>Views::Info_View</name>
     <message>
         <location filename="../../src/mview/info_view.cpp" line="43"/>
         <source>Info</source>
@@ -585,7 +585,7 @@
     </message>
 </context>
 <context>
-    <name>MView::MV_Mixer_Simple</name>
+    <name>Views::MV_Mixer_Simple</name>
     <message>
         <location filename="../../src/mview/mv_mixer_simple.cpp" line="52"/>
         <source>Show playback</source>
@@ -608,7 +608,7 @@
     </message>
 </context>
 <context>
-    <name>MView::Message_Widget</name>
+    <name>Views::Message_Widget</name>
     <message>
         <location filename="../../src/mview/message_widget.cpp" line="42"/>
         <source>Mixer device couldn&apos;t be opened</source>
@@ -640,7 +640,7 @@
     </message>
 </context>
 <context>
-    <name>MView::Settings_View</name>
+    <name>Views::Settings_View</name>
     <message>
         <location filename="../../src/mview/settings_view.cpp" line="44"/>
         <location filename="../../src/mview/settings_view.cpp" line="142"/>
@@ -774,7 +774,7 @@
     </message>
 </context>
 <context>
-    <name>MView::Switcher</name>
+    <name>Views::Switcher</name>
     <message>
         <location filename="../../src/mview/switcher.cpp" line="44"/>
         <source>&amp;Simple mixer</source>
