@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=${PROGRAM_TITLE}
+GenericName=ALSA HCTL mixer
+GenericName[de]=ALSA HCTL mixer
+Exec=${PROGRAM_NAME}
+Icon=${PROGRAM_NAME}
+StartupNotify=false
+Terminal=false
+Categories=AudioVideo;Audio
+Comment=ALSA HCTL mixer
+Comment[de]=ALSA HCTL mixer
