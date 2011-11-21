@@ -12,6 +12,9 @@
 
 #include "mixer_window.hpp"
 
+#include "views/mixer_simple.hpp"
+#include "views/dev_select_view.hpp"
+
 #include <QMenuBar>
 #include <QSplitter>
 #include <QLabel>
@@ -19,10 +22,6 @@
 #include <QFile>
 #include <QVBoxLayout>
 #include <QCloseEvent>
-
-#include "views/mixer_simple.hpp"
-#include "views/dev_select_view.hpp"
-
 #include <iostream>
 
 
@@ -43,11 +42,11 @@ _dev_select_dock ( 0 )
 	_icon_fscreen_enable = QIcon::fromTheme ( "view-fullscreen" );
 	_icon_fscreen_disable = QIcon::fromTheme ( "view-restore" );
 
-	_mixer_simple = new ::Views::Mixer_Simple();
-
 	// Init menus
 	init_menus();
 	init_docks();
+
+	_mixer_simple = new ::Views::Mixer_Simple();
 
 	setCentralWidget ( _mixer_simple );
 	update_fullscreen_action();
@@ -173,6 +172,8 @@ Mixer_Window::set_mixer_setup (
 	Mixer_Window_Setup * setup_n )
 {
 	if ( _mixer_setup != 0 ) {
+		_mixer_simple->set_mdev_setup ( 0 );
+		_mixer_simple->set_inputs_setup ( 0 );
 		_mixer_simple->set_view_setup ( 0 );
 		_dev_select->set_view_setup ( 0 );
 	}
@@ -180,13 +181,17 @@ Mixer_Window::set_mixer_setup (
 	_mixer_setup = setup_n;
 
 	if ( _mixer_setup != 0 ) {
+		// Actions
 		_act_show_dev_select->setShortcut ( _mixer_setup->dev_select.kseq_toggle_vis );
 		_act_show_dev_select->setChecked ( _mixer_setup->show_dev_select );
 
 		// Pass setup tree to child classes
-		_mixer_simple->set_view_setup ( &_mixer_setup->mixer_simple );
 		_dev_select->set_view_setup ( &_mixer_setup->dev_select );
 		_dev_select->silent_select_ctl ( _mixer_setup->mixer_dev.ctl_addr );
+
+		_mixer_simple->set_view_setup ( &_mixer_setup->mixer_simple );
+		_mixer_simple->set_inputs_setup ( &_mixer_setup->inputs );
+		_mixer_simple->set_mdev_setup ( &_mixer_setup->mixer_dev );
 	}
 }
 
@@ -219,7 +224,17 @@ Mixer_Window::select_ctl (
 	const QString & ctl_n )
 {
 	_dev_select->silent_select_ctl ( ctl_n );
-	_mixer_simple->select_snd_ctl ( ctl_n );
+
+	if ( _mixer_setup != 0 ) {
+		if ( ctl_n != _mixer_setup->mixer_dev.ctl_addr ) {
+			// Remove
+			_mixer_simple->set_mdev_setup ( 0 );
+			// Change
+			_mixer_setup->mixer_dev.ctl_addr = ctl_n;
+			// Reinstall
+			_mixer_simple->set_mdev_setup ( &_mixer_setup->mixer_dev );
+		}
+	}
 
 	emit sig_control_changed();
 }
@@ -228,7 +243,7 @@ Mixer_Window::select_ctl (
 void
 Mixer_Window::select_ctl_from_side_iface ( )
 {
-	_mixer_simple->select_snd_ctl ( _dev_select->selected_ctl().addr_str() );
+	select_ctl ( _dev_select->selected_ctl().addr_str() );
 
 	emit sig_control_changed();
 }
@@ -239,7 +254,9 @@ Mixer_Window::reload_mixer_device ( )
 {
 	//::std::cout << "Mixer_Window::reload_mixer_device" << "\n";
 	_dev_select->reload_database();
-	_mixer_simple->reload_mdev_setup();
+
+	_mixer_simple->set_mdev_setup ( 0 );
+	_mixer_simple->set_mdev_setup ( &_mixer_setup->mixer_dev );
 }
 
 
@@ -247,7 +264,8 @@ void
 Mixer_Window::reload_mixer_inputs ( )
 {
 	//::std::cout << "Mixer_Window::reload_mixer_inputs" << "\n";
-	_mixer_simple->reload_inputs_setup();
+	_mixer_simple->set_inputs_setup ( 0 );
+	_mixer_simple->set_inputs_setup ( &_mixer_setup->inputs );
 }
 
 
@@ -255,7 +273,8 @@ void
 Mixer_Window::reload_mixer_view ( )
 {
 	//::std::cout << "Mixer_Window::reload_mixer_view" << "\n";
-	_mixer_simple->reload_view_setup();
+	_mixer_simple->set_view_setup ( 0 );
+	_mixer_simple->set_view_setup ( &_mixer_setup->mixer_simple );
 }
 
 

@@ -10,7 +10,7 @@
 //
 //
 
-#include "mv_mixer_simple_setup.hpp"
+#include "mixer_simple_setup.hpp"
 
 
 namespace Views

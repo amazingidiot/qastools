@@ -147,6 +147,8 @@ SET ( SRC_GUI
 	mwdg/mixer_switches_proxies_group.cpp
 	mwdg/mixer_switches.cpp
 
+	views/mixer_simple_setup.cpp
+	views/mixer_simple.cpp
 	views/settings_view_setup.cpp
 	views/settings_view.cpp
 
@@ -182,14 +184,12 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/wdg/ds_slider.hpp
 	${SHARED_INC_DIR}/wdg/ds_switch.hpp
 	${SHARED_INC_DIR}/wdg/balloon_widget.hpp
-
 	${SHARED_INC_DIR}/wdg/pad_proxy.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxy_slider.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxy_switch.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxy_enum.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxies_column.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxies_group.hpp
-
 	${SHARED_INC_DIR}/wdg/sliders_pad_data.hpp
 	${SHARED_INC_DIR}/wdg/sliders_pad_header.hpp
 	${SHARED_INC_DIR}/wdg/sliders_pad_footer.hpp
@@ -223,6 +223,9 @@ SET ( SRC_GUI_HEADER_MOC
 	mwdg/mixer_switches_proxy_switch.hpp
 	mwdg/mixer_switches_proxies_group.hpp
 	mwdg/mixer_switches.hpp
+
+	views/mixer_simple.hpp
+	views/settings_view.hpp
 
 	tray_mixer_icon.hpp
 	tray_mixer_balloon.hpp

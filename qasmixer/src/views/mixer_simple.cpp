@@ -10,7 +10,7 @@
 //
 //
 
-#include "mv_mixer_simple.hpp"
+#include "mixer_simple.hpp"
 
 #include "config.hpp"
 #include <qsnd/mixer_simple.hpp>
@@ -20,8 +20,8 @@
 #include <mwdg/mixer_style.hpp>
 #include <mwdg/mixer_device_setup.hpp>
 #include <mwdg/mixer_sliders_status_widget.hpp>
-#include <mview/mv_mixer_simple_setup.hpp>
-#include <mview/message_widget.hpp>
+#include <views/mixer_simple_setup.hpp>
+#include <views/message_widget.hpp>
 
 #include <QCoreApplication>
 #include <QHBoxLayout>

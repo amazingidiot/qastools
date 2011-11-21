@@ -21,6 +21,7 @@
 #include <wdg/ds_switch_painter_close.hpp>
 #include <wdg/ds_switch_painter_svg.hpp>
 #include <wdg/ds_widget_types.hpp>
+#include <views/view_helper.hpp>
 #include <views/info_view.hpp>
 #include <views/settings_view.hpp>
 
@@ -432,36 +433,7 @@ Desktop_Items::main_mixer_create ( )
 
 	// Adjust startup size
 	if ( !size_restored ) {
-		const QSize default_size ( 800, 450 );
-		const QRect ravail ( QApplication::desktop()->availableGeometry() );
-
-		if ( ravail.isValid() ) {
-
-			const unsigned int aspect[2] = { 16, 9 };
-			unsigned int rel_width[2];
-			if ( ravail.width() > 1024 ) {
-				// Larger screens
-				rel_width[0] = 2;
-				rel_width[1] = 3;
-			} else {
-				// Small screens - occupy more relative space
-				rel_width[0] = 3;
-				rel_width[1] = 4;
-			}
-
-			QRect wrect;
-			wrect.setWidth ( ( ravail.width() * rel_width[0] ) / rel_width[1] );
-			wrect.setHeight ( ( wrect.width() * aspect[1] ) / aspect[0] );
-			if ( wrect.height() > ravail.height() ) {
-				wrect.setHeight ( ravail.height() );
-			}
-			wrect.moveTop ( ( ravail.height() - wrect.height() ) / 2 );
-			wrect.moveLeft ( ( ravail.width() - wrect.width() ) / 2 );
-			_main_mixer->resize ( wrect.size() );
-			_main_mixer->move ( wrect.topLeft() );
-		} else {
-			_main_mixer->resize ( default_size );
-		}
+		::Views::resize_to_default ( _main_mixer );
 	}
 
 	_main_mixer->set_mixer_setup ( &_dsetup.mixer_window );

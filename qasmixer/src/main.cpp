@@ -42,7 +42,7 @@ main (
 	// Qt Application
 
 	Single_Application app ( argc, argv );
-	app.setOrganizationName ( QString ( PROGRAM_NAME ).toLower() );
+	app.setOrganizationName ( QString ( PACKAGE_NAME ).toLower() );
 	app.setApplicationName ( PROGRAM_NAME );
 	app.setQuitOnLastWindowClosed ( false );
 	app.setAttribute ( Qt::AA_DontShowIconsInMenus, false );

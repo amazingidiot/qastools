@@ -24,7 +24,10 @@ namespace Views
 
 View_Base::View_Base (
 	QWidget * parent_n ) :
-QWidget ( parent_n )
+QWidget ( parent_n ),
+_mdev_setup ( 0 ),
+_inputs_setup ( 0 ),
+_message_wdg ( 0 )
 {
 	_message_wdg = new ::Views::Message_Widget ( this );
 	_message_wdg->hide();
