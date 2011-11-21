@@ -882,7 +882,7 @@
     </message>
 </context>
 <context>
-    <name>MWdg::Mixer_CTL</name>
+    <name>MWdg::Mixer_HCTL</name>
     <message>
         <location filename="../../src/mwdg/mixer_ctl.cpp" line="44"/>
         <source>Element name</source>
@@ -978,7 +978,7 @@
     </message>
 </context>
 <context>
-    <name>MWdg::Mixer_CTL_Edit_Int</name>
+    <name>MWdg::Mixer_HCTL_Edit_Int</name>
     <message>
         <location filename="../../src/mwdg/mixer_ctl_edit_int.cpp" line="54"/>
         <source>minimum</source>
@@ -1011,7 +1011,7 @@
     </message>
 </context>
 <context>
-    <name>MWdg::Mixer_CTL_Edit_Unsupported</name>
+    <name>MWdg::Mixer_HCTL_Edit_Unsupported</name>
     <message>
         <location filename="../../src/mwdg/mixer_ctl_edit_unsupported.cpp" line="35"/>
         <source>Elements of the type %1 are not supported</source>
@@ -1019,7 +1019,7 @@
     </message>
 </context>
 <context>
-    <name>MWdg::Mixer_CTL_Int_Proxy_Column</name>
+    <name>MWdg::Mixer_HCTL_Int_Proxy_Column</name>
     <message>
         <location filename="../../src/mwdg/mixer_ctl_int_proxy_column.cpp" line="25"/>
         <source>%1 dB</source>
@@ -1034,7 +1034,7 @@
     </message>
 </context>
 <context>
-    <name>MWdg::Mixer_CTL_Table_Model</name>
+    <name>MWdg::Mixer_HCTL_Table_Model</name>
     <message>
         <location filename="../../src/mwdg/mixer_ctl_table_model.cpp" line="33"/>
         <source>%1,%2</source>
@@ -1500,7 +1500,7 @@
     </message>
 </context>
 <context>
-    <name>QSnd::Mixer_CTL</name>
+    <name>QSnd::Mixer_HCTL</name>
     <message>
         <location filename="../../src/qsnd/mixer_ctl.cpp" line="110"/>
         <source>Empty device name</source>

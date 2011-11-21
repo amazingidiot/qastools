@@ -37,48 +37,6 @@ HEADERS = \
 	../qasmixer/src/init_globals.hpp \
 	../qasmixer/src/main_window.hpp \
 	../qasmixer/src/main_window_setup.hpp \
-	../qasmixer/src/mview/dev_select_view.hpp \
-	../qasmixer/src/mview/dev_select_view_setup.hpp \
-	../qasmixer/src/mview/info_view.hpp \
-	../qasmixer/src/mview/message_widget.hpp \
-	../qasmixer/src/mview/mv_base.hpp \
-	../qasmixer/src/mview/mv_base_setup.hpp \
-	../qasmixer/src/mview/mv_info.hpp \
-	../qasmixer/src/mview/mv_info_setup.hpp \
-	../qasmixer/src/mview/mv_mixer_ctl.hpp \
-	../qasmixer/src/mview/mv_mixer_ctl_setup.hpp \
-	../qasmixer/src/mview/mv_mixer_simple.hpp \
-	../qasmixer/src/mview/mv_mixer_simple_setup.hpp \
-	../qasmixer/src/mview/settings_view.hpp \
-	../qasmixer/src/mview/settings_view_setup.hpp \
-	../qasmixer/src/mview/switcher.hpp \
-	../qasmixer/src/mview/switcher_setup.hpp \
-	../qasmixer/src/mwdg/controls_delegate.hpp \
-	../qasmixer/src/mwdg/controls_view.hpp \
-	../qasmixer/src/mwdg/ctl_arg_view.hpp \
-	../qasmixer/src/mwdg/ctl_arg_view_card.hpp \
-	../qasmixer/src/mwdg/ctl_arg_view_integer.hpp \
-	../qasmixer/src/mwdg/ctl_arg_view_string.hpp \
-	../qasmixer/src/mwdg/event_types.hpp \
-	../qasmixer/src/mwdg/inputs_setup.hpp \
-	../qasmixer/src/mwdg/mixer_ctl.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_bool.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_enum.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_int.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_unsupported.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_editor.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_editor_data.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_int_proxies_group.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_int_proxy_column.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_int_proxy_slider.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxies_group.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxy.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxy_enum.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxy_switch.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_slider_status_widget.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_table_model.hpp \
-	../qasmixer/src/mwdg/mixer_ctl_tree_model.hpp \
-	../qasmixer/src/mwdg/mixer_device_setup.hpp \
 	../qasmixer/src/mwdg/mixer_gui_state.hpp \
 	../qasmixer/src/mwdg/mixer_separation_info.hpp \
 	../qasmixer/src/mwdg/mixer_simple_setup.hpp \
@@ -88,19 +46,19 @@ HEADERS = \
 	../qasmixer/src/mwdg/mixer_sliders_proxy_slider.hpp \
 	../qasmixer/src/mwdg/mixer_sliders_proxy_switch.hpp \
 	../qasmixer/src/mwdg/mixer_sliders_status_widget.hpp \
-	../qasmixer/src/mwdg/mixer_style.hpp \
 	../qasmixer/src/mwdg/mixer_switches.hpp \
 	../qasmixer/src/mwdg/mixer_switches_proxies_group.hpp \
 	../qasmixer/src/mwdg/mixer_switches_proxy_enum.hpp \
 	../qasmixer/src/mwdg/mixer_switches_proxy_switch.hpp \
-	../qasmixer/src/mwdg/slider_status_widget.hpp \
-	../qasmixer/src/single_application.hpp \
 	../qasmixer/src/tray_mixer.hpp \
 	../qasmixer/src/tray_mixer_balloon.hpp \
 	../qasmixer/src/tray_mixer_icon.hpp \
 	../qasmixer/src/tray_mixer_mdev_setup.hpp \
 	../qasmixer/src/tray_mixer_view_setup.hpp \
-	../qasmixer/src/unix_signal_handler.hpp \
+	../qasmixer/src/views/mixer_simple.hpp \
+	../qasmixer/src/views/mixer_simple_setup.hpp \
+	../qasmixer/src/views/settings_view.hpp \
+	../qasmixer/src/views/settings_view_setup.hpp \
 	../shared/src/dpe/image.hpp \
 	../shared/src/dpe/image_allocator.hpp \
 	../shared/src/dpe/image_request.hpp \
@@ -152,6 +110,8 @@ HEADERS = \
 	../shared/src/qsnd/pcm_device_info.hpp \
 	../shared/src/qsnd/pcm_subdevice_info.hpp \
 	../shared/src/qsnd/pcm_subdevices_info.hpp \
+	../shared/src/single_application.hpp \
+	../shared/src/unix_signal_handler.hpp \
 	../shared/src/views/dev_select_view.hpp \
 	../shared/src/views/dev_select_view_setup.hpp \
 	../shared/src/views/info_view.hpp \
@@ -249,48 +209,6 @@ SOURCES = \
 	../qasmixer/src/main.cpp \
 	../qasmixer/src/main_window.cpp \
 	../qasmixer/src/main_window_setup.cpp \
-	../qasmixer/src/mview/dev_select_view.cpp \
-	../qasmixer/src/mview/dev_select_view_setup.cpp \
-	../qasmixer/src/mview/info_view.cpp \
-	../qasmixer/src/mview/message_widget.cpp \
-	../qasmixer/src/mview/mv_base.cpp \
-	../qasmixer/src/mview/mv_base_setup.cpp \
-	../qasmixer/src/mview/mv_info.cpp \
-	../qasmixer/src/mview/mv_info_setup.cpp \
-	../qasmixer/src/mview/mv_mixer_ctl.cpp \
-	../qasmixer/src/mview/mv_mixer_ctl_setup.cpp \
-	../qasmixer/src/mview/mv_mixer_simple.cpp \
-	../qasmixer/src/mview/mv_mixer_simple_setup.cpp \
-	../qasmixer/src/mview/settings_view.cpp \
-	../qasmixer/src/mview/settings_view_setup.cpp \
-	../qasmixer/src/mview/switcher.cpp \
-	../qasmixer/src/mview/switcher_setup.cpp \
-	../qasmixer/src/mwdg/controls_delegate.cpp \
-	../qasmixer/src/mwdg/controls_view.cpp \
-	../qasmixer/src/mwdg/ctl_arg_view.cpp \
-	../qasmixer/src/mwdg/ctl_arg_view_card.cpp \
-	../qasmixer/src/mwdg/ctl_arg_view_integer.cpp \
-	../qasmixer/src/mwdg/ctl_arg_view_string.cpp \
-	../qasmixer/src/mwdg/event_types.cpp \
-	../qasmixer/src/mwdg/inputs_setup.cpp \
-	../qasmixer/src/mwdg/mixer_ctl.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_bool.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_enum.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_int.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_edit_unsupported.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_editor.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_editor_data.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_int_proxies_group.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_int_proxy_column.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_int_proxy_slider.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxies_group.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxy.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxy_enum.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_proxy_switch.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_slider_status_widget.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_table_model.cpp \
-	../qasmixer/src/mwdg/mixer_ctl_tree_model.cpp \
-	../qasmixer/src/mwdg/mixer_device_setup.cpp \
 	../qasmixer/src/mwdg/mixer_gui_state.cpp \
 	../qasmixer/src/mwdg/mixer_separation_info.cpp \
 	../qasmixer/src/mwdg/mixer_simple_setup.cpp \
@@ -304,14 +222,15 @@ SOURCES = \
 	../qasmixer/src/mwdg/mixer_switches_proxies_group.cpp \
 	../qasmixer/src/mwdg/mixer_switches_proxy_enum.cpp \
 	../qasmixer/src/mwdg/mixer_switches_proxy_switch.cpp \
-	../qasmixer/src/mwdg/slider_status_widget.cpp \
-	../qasmixer/src/single_application.cpp \
 	../qasmixer/src/tray_mixer.cpp \
 	../qasmixer/src/tray_mixer_balloon.cpp \
 	../qasmixer/src/tray_mixer_icon.cpp \
 	../qasmixer/src/tray_mixer_mdev_setup.cpp \
 	../qasmixer/src/tray_mixer_view_setup.cpp \
-	../qasmixer/src/unix_signal_handler.cpp \
+	../qasmixer/src/views/mixer_simple.cpp \
+	../qasmixer/src/views/mixer_simple_setup.cpp \
+	../qasmixer/src/views/settings_view.cpp \
+	../qasmixer/src/views/settings_view_setup.cpp \
 	../shared/src/dpe/image.cpp \
 	../shared/src/dpe/image_allocator.cpp \
 	../shared/src/dpe/image_request.cpp \
@@ -360,6 +279,8 @@ SOURCES = \
 	../shared/src/qsnd/pcm_device_info.cpp \
 	../shared/src/qsnd/pcm_subdevice_info.cpp \
 	../shared/src/qsnd/pcm_subdevices_info.cpp \
+	../shared/src/single_application.cpp \
+	../shared/src/unix_signal_handler.cpp \
 	../shared/src/views/dev_select_view.cpp \
 	../shared/src/views/dev_select_view_setup.cpp \
 	../shared/src/views/info_view.cpp \
