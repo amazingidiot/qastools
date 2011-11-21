@@ -590,7 +590,7 @@
     </message>
 </context>
 <context>
-    <name>Views::MV_Mixer_Simple</name>
+    <name>Views::Mixer_Simple</name>
     <message>
         <location filename="../../src/mview/mv_mixer_simple.cpp" line="52"/>
         <source>Show playback</source>
