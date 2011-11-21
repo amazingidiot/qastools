@@ -1518,7 +1518,7 @@
     </message>
 </context>
 <context>
-    <name>Info_View</name>
+    <name>Views::Info_View</name>
     <message>
         <location filename="../../src/info_view.cpp" line="39"/>
         <source>Info</source>
