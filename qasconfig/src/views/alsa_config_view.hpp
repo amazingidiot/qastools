@@ -10,8 +10,8 @@
 //
 //
 
-#ifndef __INC_alsa_config_view_hpp__
-#define __INC_alsa_config_view_hpp__
+#ifndef __INC_views_alsa_config_view_hpp__
+#define __INC_views_alsa_config_view_hpp__
 
 #include <QPushButton>
 #include <QCheckBox>
@@ -30,6 +30,9 @@ namespace QSnd {
 namespace Wdg {
 	class Tree_View_KV;
 }
+
+namespace Views
+{
 
 
 class Alsa_Config_View :
@@ -125,5 +128,7 @@ Alsa_Config_View::model ( ) const
 	return _alsa_cfg;
 }
 
+
+} // End of namespace
 
 #endif

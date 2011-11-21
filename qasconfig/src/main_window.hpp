@@ -18,7 +18,7 @@
 #include <QPointer>
 
 #include "qsnd/alsa_config_model.hpp"
-#include "alsa_config_view.hpp"
+#include "views/alsa_config_view.hpp"
 
 
 /// @brief Main_Window
@@ -59,7 +59,7 @@ class Main_Window :
 	private:
 
 	::QSnd::Alsa_Config_Model _alsa_cfg_model;
-	Alsa_Config_View _alsa_cfg_view;
+	::Views::Alsa_Config_View _alsa_cfg_view;
 
 	QPointer < QDialog > _info_dialog;
 };

@@ -22,10 +22,11 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/views/info_view.cpp
 
 	qsnd/alsa_config_model.cpp
+	views/alsa_config_view.cpp
 
 	static_tree.cpp
 	static_tree_model.cpp
-	alsa_config_view.cpp
+
 
 	main_window.cpp
 	main.cpp
@@ -37,8 +38,8 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/views/info_view.hpp
 
 	qsnd/alsa_config_model.hpp
+	views/alsa_config_view.hpp
 
-	alsa_config_view.hpp
 	main_window.hpp
 )
 

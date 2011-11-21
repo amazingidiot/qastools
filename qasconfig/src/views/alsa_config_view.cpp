@@ -20,8 +20,10 @@
 #include <QSortFilterProxyModel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-
 #include <iostream>
+
+namespace Views
+{
 
 
 Alsa_Config_View::Alsa_Config_View (
@@ -236,3 +238,5 @@ Alsa_Config_View::update_button_state ( )
 	_expand_depth.setEnabled ( is_enabled );
 }
 
+
+} // End of namespace
