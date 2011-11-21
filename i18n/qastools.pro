@@ -1,10 +1,10 @@
 
 HEADERS = \
-	../qasconfig/src/alsa_config_view.hpp \
 	../qasconfig/src/main_window.hpp \
 	../qasconfig/src/qsnd/alsa_config_model.hpp \
 	../qasconfig/src/static_tree.hpp \
 	../qasconfig/src/static_tree_model.hpp \
+	../qasconfig/src/views/alsa_config_view.hpp \
 	../qashctl/src/main_window.hpp \
 	../qashctl/src/main_window_setup.hpp \
 	../qashctl/src/mwdg/mixer_hctl.hpp \
@@ -169,12 +169,12 @@ HEADERS = \
 	../shared/src/wdg/uint_mapper.hpp
 
 SOURCES = \
-	../qasconfig/src/alsa_config_view.cpp \
 	../qasconfig/src/main.cpp \
 	../qasconfig/src/main_window.cpp \
 	../qasconfig/src/qsnd/alsa_config_model.cpp \
 	../qasconfig/src/static_tree.cpp \
 	../qasconfig/src/static_tree_model.cpp \
+	../qasconfig/src/views/alsa_config_view.cpp \
 	../qashctl/src/main.cpp \
 	../qashctl/src/main_window.cpp \
 	../qashctl/src/main_window_setup.cpp \
