@@ -12,11 +12,11 @@
 
 #include "mixer_hctl_int_proxies_group.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <wdg/pad_proxy_switch.hpp>
-#include <mwdg/mixer_hctl_int_proxy_slider.hpp>
-#include <mwdg/mixer_hctl_int_proxy_column.hpp>
-#include <mwdg/event_types.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "wdg/pad_proxy_switch.hpp"
+#include "mwdg/mixer_hctl_int_proxy_slider.hpp"
+#include "mwdg/mixer_hctl_int_proxy_column.hpp"
+#include "mwdg/event_types.hpp"
 
 #include <QEvent>
 #include <QCoreApplication>

@@ -13,7 +13,7 @@
 #ifndef __INC_wdg_ds_widget_painter_hpp__
 #define __INC_wdg_ds_widget_painter_hpp__
 
-#include <dpe/painter.hpp>
+#include "dpe/painter.hpp"
 
 
 // Forward declaration

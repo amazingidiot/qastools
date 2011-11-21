@@ -13,8 +13,8 @@
 #ifndef __INC_qsnd_mixer_hctl_hpp__
 #define __INC_qsnd_mixer_hctl_hpp__
 
-#include <qsnd/alsa.hpp>
-#include <qsnd/event_types.hpp>
+#include "qsnd/alsa.hpp"
+#include "qsnd/event_types.hpp"
 
 #include <QObject>
 #include <QList>

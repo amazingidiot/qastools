@@ -17,8 +17,8 @@
 #include <QPushButton>
 #include <QPointer>
 
-#include <mwdg/mixer_simple_setup.hpp>
-#include <views/view_base.hpp>
+#include "mwdg/mixer_simple_setup.hpp"
+#include "views/view_base.hpp"
 
 
 // Forward declaration

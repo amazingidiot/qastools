@@ -12,10 +12,10 @@
 
 #include "ds_switch.hpp"
 
-#include <dpe/image_set.hpp>
-#include <dpe/image_request.hpp>
-#include <dpe/image_allocator.hpp>
-#include <wdg/ds_widget_types.hpp>
+#include "dpe/image_set.hpp"
+#include "dpe/image_request.hpp"
+#include "dpe/image_allocator.hpp"
+#include "wdg/ds_widget_types.hpp"
 
 #include <QEvent>
 #include <QPainter>

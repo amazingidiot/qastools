@@ -12,11 +12,11 @@
 
 #include "pad_proxies_group.hpp"
 
-#include <wdg/pad_proxy_slider.hpp>
-#include <wdg/pad_proxy_switch.hpp>
-#include <wdg/pad_proxies_column.hpp>
-#include <wdg/event_types.hpp>
-#include <wdg/pass_events.hpp>
+#include "wdg/pad_proxy_slider.hpp"
+#include "wdg/pad_proxy_switch.hpp"
+#include "wdg/pad_proxies_column.hpp"
+#include "wdg/event_types.hpp"
+#include "wdg/pass_events.hpp"
 
 #include <QCoreApplication>
 #include <iostream>

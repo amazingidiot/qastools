@@ -12,8 +12,8 @@
 
 #include "sliders_pad_header.hpp"
 
-#include <wdg/sliders_pad_data.hpp>
-#include <wdg/sliders_pad_style.hpp>
+#include "wdg/sliders_pad_data.hpp"
+#include "wdg/sliders_pad_style.hpp"
 
 #include <QMouseEvent>
 #include <QPainter>

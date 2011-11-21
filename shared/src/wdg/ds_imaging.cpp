@@ -12,11 +12,11 @@
 
 #include "ds_imaging.hpp"
 
-#include <dpe/image_set_meta.hpp>
-#include <dpe/image_request.hpp>
-#include <dpe/image_allocator.hpp>
+#include "dpe/image_set_meta.hpp"
+#include "dpe/image_request.hpp"
+#include "dpe/image_allocator.hpp"
 
-#include <wdg/ds_widget_types.hpp>
+#include "wdg/ds_widget_types.hpp"
 #include <QWidget>
 
 

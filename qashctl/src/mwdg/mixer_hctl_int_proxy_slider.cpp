@@ -12,7 +12,7 @@
 
 #include "mixer_hctl_int_proxy_slider.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
 
 #include <QApplication>
 #include <QFocusEvent>

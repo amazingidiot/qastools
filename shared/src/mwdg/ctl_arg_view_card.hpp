@@ -13,7 +13,7 @@
 #ifndef __INC_mwdg_ctl_arg_view_card_hpp__
 #define __INC_mwdg_ctl_arg_view_card_hpp__
 
-#include <mwdg/ctl_arg_view.hpp>
+#include "mwdg/ctl_arg_view.hpp"
 
 // Forward declaration
 namespace QSnd {

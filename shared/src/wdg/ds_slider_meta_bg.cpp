@@ -12,7 +12,7 @@
 
 #include "ds_slider_meta_bg.hpp"
 
-#include <wdg/ds_widget_types.hpp>
+#include "wdg/ds_widget_types.hpp"
 
 
 namespace Wdg

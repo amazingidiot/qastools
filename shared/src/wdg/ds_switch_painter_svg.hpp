@@ -13,7 +13,7 @@
 #ifndef __INC_ds_switch_painter_svg_hpp__
 #define __INC_ds_switch_painter_svg_hpp__
 
-#include <wdg/ds_widget_painter.hpp>
+#include "wdg/ds_widget_painter.hpp"
 #include <QString>
 #include <QImage>
 

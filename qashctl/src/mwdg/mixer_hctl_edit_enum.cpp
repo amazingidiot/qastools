@@ -12,12 +12,12 @@
 
 #include "mixer_hctl_edit_enum.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_elem_group.hpp>
-#include <mwdg/mixer_hctl_editor_data.hpp>
-#include <mwdg/mixer_hctl_proxy_enum.hpp>
-#include <mwdg/mixer_hctl_proxies_group.hpp>
-#include <wdg/label_width.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_elem_group.hpp"
+#include "mwdg/mixer_hctl_editor_data.hpp"
+#include "mwdg/mixer_hctl_proxy_enum.hpp"
+#include "mwdg/mixer_hctl_proxies_group.hpp"
+#include "wdg/label_width.hpp"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>

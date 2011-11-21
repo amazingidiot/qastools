@@ -12,15 +12,15 @@
 
 #include "ds_slider_painter_bevelled.hpp"
 
-#include <dpe/paint_job.hpp>
-#include <dpe/image_set.hpp>
-#include <dpe/image_set_meta.hpp>
+#include "dpe/paint_job.hpp"
+#include "dpe/image_set.hpp"
+#include "dpe/image_set_meta.hpp"
 
-#include <wdg/ds_slider_meta_bg.hpp>
-#include <wdg/ds_widget_style_db.hpp>
-#include <wdg/ds_widget_types.hpp>
-#include <wdg/color_methods.hpp>
-#include <wdg/uint_mapper.hpp>
+#include "wdg/ds_slider_meta_bg.hpp"
+#include "wdg/ds_widget_style_db.hpp"
+#include "wdg/ds_widget_types.hpp"
+#include "wdg/color_methods.hpp"
+#include "wdg/uint_mapper.hpp"
 
 #include <QImage>
 #include <QPainter>

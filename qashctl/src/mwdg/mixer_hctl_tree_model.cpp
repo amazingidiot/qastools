@@ -12,9 +12,9 @@
 
 #include "mixer_hctl_tree_model.hpp"
 
-#include <qsnd/mixer_hctl.hpp>
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_elem_group.hpp>
+#include "qsnd/mixer_hctl.hpp"
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_elem_group.hpp"
 
 #include <QFont>
 #include <iostream>

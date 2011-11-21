@@ -15,7 +15,7 @@
 
 #include <QHash>
 #include <QPalette>
-#include <wdg/ds_widget_types.hpp>
+#include "wdg/ds_widget_types.hpp"
 
 
 namespace Wdg

@@ -12,15 +12,15 @@
 
 #include "dev_select_view.hpp"
 
-#include <qsnd/ctl_address.hpp>
-#include <qsnd/ctl_def.hpp>
-#include <qsnd/controls_model.hpp>
-#include <mwdg/controls_view.hpp>
-#include <mwdg/ctl_arg_view.hpp>
-#include <mwdg/ctl_arg_view_string.hpp>
-#include <mwdg/ctl_arg_view_integer.hpp>
-#include <mwdg/ctl_arg_view_card.hpp>
-#include <views/dev_select_view_setup.hpp>
+#include "qsnd/ctl_address.hpp"
+#include "qsnd/ctl_def.hpp"
+#include "qsnd/controls_model.hpp"
+#include "mwdg/controls_view.hpp"
+#include "mwdg/ctl_arg_view.hpp"
+#include "mwdg/ctl_arg_view_string.hpp"
+#include "mwdg/ctl_arg_view_integer.hpp"
+#include "mwdg/ctl_arg_view_card.hpp"
+#include "views/dev_select_view_setup.hpp"
 
 #include <QLabel>
 #include <QMenu>

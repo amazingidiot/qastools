@@ -13,9 +13,9 @@
 #ifndef __INC_tray_mixer_balloon_hpp__
 #define __INC_tray_mixer_balloon_hpp__
 
-#include <dpe/image_allocator.hpp>
-#include <wdg/label_width.hpp>
-#include <wdg/balloon_widget.hpp>
+#include "dpe/image_allocator.hpp"
+#include "wdg/label_width.hpp"
+#include "wdg/balloon_widget.hpp"
 
 #include <QString>
 #include <QLabel>

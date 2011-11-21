@@ -12,7 +12,7 @@
 
 #include "ctl_info.hpp"
 
-#include <qsnd/event_types.hpp>
+#include "qsnd/event_types.hpp"
 
 #include <QCoreApplication>
 #include <iostream>

@@ -13,7 +13,7 @@
 #ifndef __INC_qsnd_mixer_simple_filter_name_hpp__
 #define __INC_qsnd_mixer_simple_filter_name_hpp__
 
-#include <qsnd/mixer_simple_filter.hpp>
+#include "qsnd/mixer_simple_filter.hpp"
 
 
 namespace QSnd

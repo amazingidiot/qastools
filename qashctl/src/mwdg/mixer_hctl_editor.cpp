@@ -10,15 +10,15 @@
 //
 //
 
-#include <mwdg/mixer_hctl_editor.hpp>
+#include "mwdg/mixer_hctl_editor.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <wdg/ds_switch.hpp>
-#include <wdg/ds_widget_types.hpp>
-#include <wdg/label_width.hpp>
-#include <mwdg/mixer_style.hpp>
-#include <mwdg/mixer_hctl_editor_data.hpp>
-#include <mwdg/mixer_hctl_proxies_group.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "wdg/ds_switch.hpp"
+#include "wdg/ds_widget_types.hpp"
+#include "wdg/label_width.hpp"
+#include "mwdg/mixer_style.hpp"
+#include "mwdg/mixer_hctl_editor_data.hpp"
+#include "mwdg/mixer_hctl_proxies_group.hpp"
 
 #include <QCheckBox>
 

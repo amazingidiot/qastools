@@ -13,9 +13,9 @@
 #ifndef __INC_mv_dev_select_view_hpp__
 #define __INC_mv_dev_select_view_hpp__
 
-#include <qsnd/ctl_address.hpp>
-#include <qsnd/controls_db.hpp>
-#include <mwdg/ctl_arg_view.hpp>
+#include "qsnd/ctl_address.hpp"
+#include "qsnd/controls_db.hpp"
+#include "mwdg/ctl_arg_view.hpp"
 
 #include <QWidget>
 #include <QVBoxLayout>

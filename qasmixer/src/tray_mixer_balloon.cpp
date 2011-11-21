@@ -12,8 +12,8 @@
 
 #include "tray_mixer_balloon.hpp"
 
-#include <wdg/ds_switch.hpp>
-#include <wdg/ds_widget_types.hpp>
+#include "wdg/ds_switch.hpp"
+#include "wdg/ds_widget_types.hpp"
 
 #include <QPushButton>
 #include <QIcon>

@@ -13,9 +13,9 @@
 #ifndef __INC_wdg_ds_imaging_hpp__
 #define __INC_wdg_ds_imaging_hpp__
 
-#include <dpe/image_set_group.hpp>
-#include <dpe/image_allocator.hpp>
-#include <dpe/image_request.hpp>
+#include "dpe/image_set_group.hpp"
+#include "dpe/image_allocator.hpp"
+#include "dpe/image_request.hpp"
 
 
 // Forward declaration

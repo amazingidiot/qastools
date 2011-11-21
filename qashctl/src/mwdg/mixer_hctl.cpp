@@ -16,14 +16,14 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_elem_group.hpp>
-#include <mwdg/mixer_hctl_editor_data.hpp>
-#include <mwdg/mixer_hctl_proxy.hpp>
-#include <mwdg/mixer_hctl_edit_bool.hpp>
-#include <mwdg/mixer_hctl_edit_enum.hpp>
-#include <mwdg/mixer_hctl_edit_int.hpp>
-#include <mwdg/mixer_hctl_edit_unsupported.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_elem_group.hpp"
+#include "mwdg/mixer_hctl_editor_data.hpp"
+#include "mwdg/mixer_hctl_proxy.hpp"
+#include "mwdg/mixer_hctl_edit_bool.hpp"
+#include "mwdg/mixer_hctl_edit_enum.hpp"
+#include "mwdg/mixer_hctl_edit_int.hpp"
+#include "mwdg/mixer_hctl_edit_unsupported.hpp"
 
 #include <iostream>
 

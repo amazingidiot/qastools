@@ -12,8 +12,8 @@
 
 #include "mixer_hctl.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_info_db.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_info_db.hpp"
 
 #include <iostream>
 #include <QEvent>

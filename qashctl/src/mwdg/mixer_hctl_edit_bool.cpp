@@ -12,13 +12,13 @@
 
 #include "mixer_hctl_edit_bool.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_elem_group.hpp>
-#include <wdg/ds_switch.hpp>
-#include <wdg/label_width.hpp>
-#include <mwdg/mixer_hctl_proxy_switch.hpp>
-#include <mwdg/mixer_hctl_proxies_group.hpp>
-#include <mwdg/mixer_hctl_editor_data.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_elem_group.hpp"
+#include "wdg/ds_switch.hpp"
+#include "wdg/label_width.hpp"
+#include "mwdg/mixer_hctl_proxy_switch.hpp"
+#include "mwdg/mixer_hctl_proxies_group.hpp"
+#include "mwdg/mixer_hctl_editor_data.hpp"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>

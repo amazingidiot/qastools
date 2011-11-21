@@ -16,8 +16,8 @@
 #include "cmd_options.hpp"
 #include "desktop_items_setup.hpp"
 
-#include <dpe/image_allocator.hpp>
-#include <mwdg/mixer_style.hpp>
+#include "dpe/image_allocator.hpp"
+#include "mwdg/mixer_style.hpp"
 
 #include <QObject>
 #include <QDialog>

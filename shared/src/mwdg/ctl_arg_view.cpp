@@ -12,7 +12,7 @@
 
 #include "ctl_arg_view.hpp"
 
-#include <qsnd/ctl_def_arg.hpp>
+#include "qsnd/ctl_def_arg.hpp"
 #include <QCoreApplication>
 
 

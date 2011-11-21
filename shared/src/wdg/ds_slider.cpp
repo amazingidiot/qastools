@@ -12,12 +12,12 @@
 
 #include "ds_slider.hpp"
 
-#include <dpe/image_set.hpp>
-#include <dpe/image_request.hpp>
-#include <dpe/image_allocator.hpp>
-#include <wdg/ds_widget_types.hpp>
-#include <wdg/ds_widget_style_db.hpp>
-#include <wdg/color_methods.hpp>
+#include "dpe/image_set.hpp"
+#include "dpe/image_request.hpp"
+#include "dpe/image_allocator.hpp"
+#include "wdg/ds_widget_types.hpp"
+#include "wdg/ds_widget_style_db.hpp"
+#include "wdg/color_methods.hpp"
 
 #include <QEvent>
 #include <QMouseEvent>

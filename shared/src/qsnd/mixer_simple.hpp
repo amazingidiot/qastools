@@ -13,7 +13,7 @@
 #ifndef __INC_qsnd_mixer_simple_hpp__
 #define __INC_qsnd_mixer_simple_hpp__
 
-#include <qsnd/alsa.hpp>
+#include "qsnd/alsa.hpp"
 
 #include <vector>
 #include <QObject>

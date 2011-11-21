@@ -13,7 +13,7 @@
 #ifndef __INC_qsnd_pcm_subdevice_info_hpp__
 #define __INC_qsnd_pcm_subdevice_info_hpp__
 
-#include <qsnd/alsa.hpp>
+#include "qsnd/alsa.hpp"
 #include <QString>
 
 

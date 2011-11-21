@@ -13,8 +13,8 @@
 
 #include "mixer_switches_proxies_group.hpp"
 
-#include <wdg/pad_proxies_column.hpp>
-#include <mwdg/event_types.hpp>
+#include "wdg/pad_proxies_column.hpp"
+#include "mwdg/event_types.hpp"
 #include <QCoreApplication>
 #include <iostream>
 

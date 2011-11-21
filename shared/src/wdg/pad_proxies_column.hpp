@@ -15,7 +15,7 @@
 
 #include <QObject>
 
-#include <wdg/pad_proxy.hpp>
+#include "wdg/pad_proxy.hpp"
 
 
 // Forward declaration

@@ -12,8 +12,8 @@
 
 #include "mixer_sliders_proxies_column.hpp"
 
-#include <wdg/event_types.hpp>
-#include <wdg/pass_events.hpp>
+#include "wdg/event_types.hpp"
+#include "wdg/pass_events.hpp"
 #include <QCoreApplication>
 #include <iostream>
 

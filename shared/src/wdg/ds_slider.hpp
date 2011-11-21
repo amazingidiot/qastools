@@ -13,11 +13,11 @@
 #ifndef __INC_ds_slider_hpp__
 #define __INC_ds_slider_hpp__
 
-#include <dpe/image_set_meta.hpp>
-#include <wdg/ds_slider_meta_bg.hpp>
-#include <wdg/ds_imaging.hpp>
-#include <wdg/uint_mapper.hpp>
-#include <wdg/cubic_curve.hpp>
+#include "dpe/image_set_meta.hpp"
+#include "wdg/ds_slider_meta_bg.hpp"
+#include "wdg/ds_imaging.hpp"
+#include "wdg/uint_mapper.hpp"
+#include "wdg/cubic_curve.hpp"
 
 #include <QWidget>
 #include <QTime>

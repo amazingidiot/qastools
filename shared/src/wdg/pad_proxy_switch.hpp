@@ -13,7 +13,7 @@
 #ifndef __INC_wdg_pad_proxy_switch_hpp__
 #define __INC_wdg_pad_proxy_switch_hpp__
 
-#include <wdg/pad_proxy.hpp>
+#include "wdg/pad_proxy.hpp"
 
 
 namespace Wdg

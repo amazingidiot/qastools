@@ -13,7 +13,7 @@
 #ifndef __INC_tray_mixer_setup_hpp__
 #define __INC_tray_mixer_setup_hpp__
 
-#include <dpe/image_allocator.hpp>
+#include "dpe/image_allocator.hpp"
 
 
 /// @brief Tray_Mixer_View_Setup

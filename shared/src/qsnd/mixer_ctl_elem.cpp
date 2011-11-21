@@ -13,7 +13,7 @@
 
 #include "mixer_hctl_elem.hpp"
 
-#include <qsnd/event_types.hpp>
+#include "qsnd/event_types.hpp"
 
 #include <QCoreApplication>
 #include <QEvent>

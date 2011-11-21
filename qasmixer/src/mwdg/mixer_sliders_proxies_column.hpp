@@ -14,7 +14,7 @@
 #define __INC_mixer_sliders_proxies_column_hpp__
 
 #include <QLocale>
-#include <wdg/pad_proxies_column.hpp>
+#include "wdg/pad_proxies_column.hpp"
 #include "mixer_sliders_proxy_slider.hpp"
 #include "mixer_sliders_proxy_switch.hpp"
 

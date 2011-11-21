@@ -16,14 +16,14 @@
 #include "info_texts.hpp"
 #include "tray_mixer.hpp"
 #include "main_window.hpp"
-#include <wdg/ds_slider_painter_bevelled.hpp>
-#include <wdg/ds_switch_painter_circle.hpp>
-#include <wdg/ds_switch_painter_close.hpp>
-#include <wdg/ds_switch_painter_svg.hpp>
-#include <wdg/ds_widget_types.hpp>
-#include <views/view_helper.hpp>
-#include <views/info_view.hpp>
-#include <views/settings_view.hpp>
+#include "wdg/ds_slider_painter_bevelled.hpp"
+#include "wdg/ds_switch_painter_circle.hpp"
+#include "wdg/ds_switch_painter_close.hpp"
+#include "wdg/ds_switch_painter_svg.hpp"
+#include "wdg/ds_widget_types.hpp"
+#include "views/view_helper.hpp"
+#include "views/info_view.hpp"
+#include "views/settings_view.hpp"
 
 #include <QEvent>
 #include <QKeyEvent>

@@ -13,9 +13,9 @@
 #ifndef __INC_mixer_hctl_editor_int_hpp__
 #define __INC_mixer_hctl_editor_int_hpp__
 
-#include <mwdg/mixer_hctl_editor.hpp>
-#include <wdg/scroll_area_horizontal.hpp>
-#include <wdg/sliders_pad.hpp>
+#include "mwdg/mixer_hctl_editor.hpp"
+#include "wdg/scroll_area_horizontal.hpp"
+#include "wdg/sliders_pad.hpp"
 #include <QList>
 #include <QPointer>
 #include <QMenu>

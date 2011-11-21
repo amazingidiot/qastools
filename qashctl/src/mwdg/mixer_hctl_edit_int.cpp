@@ -12,19 +12,19 @@
 
 #include "mixer_hctl_edit_int.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_elem_group.hpp>
-#include <wdg/label_width.hpp>
-#include <wdg/ds_widget_types.hpp>
-#include <wdg/pad_proxy_switch.hpp>
-#include <wdg/pad_proxy_style.hpp>
-#include <mwdg/event_types.hpp>
-#include <mwdg/inputs_setup.hpp>
-#include <mwdg/mixer_hctl_editor_data.hpp>
-#include <mwdg/mixer_hctl_int_proxies_group.hpp>
-#include <mwdg/mixer_hctl_int_proxy_column.hpp>
-#include <mwdg/mixer_hctl_int_proxy_slider.hpp>
-#include <mwdg/mixer_hctl_slider_status_widget.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_elem_group.hpp"
+#include "wdg/label_width.hpp"
+#include "wdg/ds_widget_types.hpp"
+#include "wdg/pad_proxy_switch.hpp"
+#include "wdg/pad_proxy_style.hpp"
+#include "mwdg/event_types.hpp"
+#include "mwdg/inputs_setup.hpp"
+#include "mwdg/mixer_hctl_editor_data.hpp"
+#include "mwdg/mixer_hctl_int_proxies_group.hpp"
+#include "mwdg/mixer_hctl_int_proxy_column.hpp"
+#include "mwdg/mixer_hctl_int_proxy_slider.hpp"
+#include "mwdg/mixer_hctl_slider_status_widget.hpp"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>

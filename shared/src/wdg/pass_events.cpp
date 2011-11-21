@@ -12,7 +12,7 @@
 
 #include "pass_events.hpp"
 
-#include <wdg/event_types.hpp>
+#include "wdg/event_types.hpp"
 
 
 namespace Wdg

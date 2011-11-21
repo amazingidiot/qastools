@@ -13,9 +13,9 @@
 #ifndef __INC_qsnd_ctl_info_hpp__
 #define __INC_qsnd_ctl_info_hpp__
 
-#include <qsnd/alsa.hpp>
-#include <qsnd/pcm_device_info.hpp>
-#include <qsnd/card_info.hpp>
+#include "qsnd/alsa.hpp"
+#include "qsnd/pcm_device_info.hpp"
+#include "qsnd/card_info.hpp"
 
 #include <QObject>
 #include <QString>

@@ -13,8 +13,8 @@
 #ifndef __INC_mixer_switches_proxy_enum_hpp__
 #define __INC_mixer_switches_proxy_enum_hpp__
 
-#include <wdg/pad_proxy_enum.hpp>
-#include <qsnd/mixer_simple_elem.hpp>
+#include "wdg/pad_proxy_enum.hpp"
+#include "qsnd/mixer_simple_elem.hpp"
 
 
 namespace MWdg

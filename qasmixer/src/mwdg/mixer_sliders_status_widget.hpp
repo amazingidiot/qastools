@@ -13,8 +13,8 @@
 #ifndef __INC_mixer_sliders_status_widget_hpp__
 #define __INC_mixer_sliders_status_widget_hpp__
 
-#include <mwdg/mixer_sliders_proxies_group.hpp>
-#include <mwdg/slider_status_widget.hpp>
+#include "mwdg/mixer_sliders_proxies_group.hpp"
+#include "mwdg/slider_status_widget.hpp"
 
 
 namespace MWdg

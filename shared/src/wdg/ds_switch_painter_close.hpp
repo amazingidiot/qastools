@@ -13,7 +13,7 @@
 #ifndef __INC_ds_switch_painter_close_hpp__
 #define __INC_ds_switch_painter_close_hpp__
 
-#include <wdg/ds_widget_painter.hpp>
+#include "wdg/ds_widget_painter.hpp"
 
 
 namespace Wdg

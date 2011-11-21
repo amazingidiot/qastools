@@ -13,8 +13,8 @@
 #ifndef __INC_desktop_items_setup_hpp__
 #define __INC_desktop_items_setup_hpp__
 
-#include <views/dev_select_view.hpp>
-#include <views/settings_view_setup.hpp>
+#include "views/dev_select_view.hpp"
+#include "views/settings_view_setup.hpp"
 #include "tray_mixer_mdev_setup.hpp"
 #include "tray_mixer_view_setup.hpp"
 #include "main_window_setup.hpp"

@@ -12,9 +12,9 @@
 
 #include "mixer_hctl_edit_unsupported.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_elem_group.hpp>
-#include <mwdg/mixer_hctl_editor_data.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_elem_group.hpp"
+#include "mwdg/mixer_hctl_editor_data.hpp"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>

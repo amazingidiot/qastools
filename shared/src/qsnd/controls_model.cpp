@@ -12,10 +12,10 @@
 
 #include "controls_model.hpp"
 
-#include <qsnd/alsa.hpp>
-#include <qsnd/model_keys.hpp>
-#include <qsnd/ctl_def.hpp>
-#include <qsnd/controls_db.hpp>
+#include "qsnd/alsa.hpp"
+#include "qsnd/model_keys.hpp"
+#include "qsnd/ctl_def.hpp"
+#include "qsnd/controls_db.hpp"
 #include <QFont>
 #include <QCoreApplication>
 #include <iostream>

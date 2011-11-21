@@ -12,8 +12,8 @@
 
 #include "view_base.hpp"
 
-#include <mwdg/mixer_device_setup.hpp>
-#include <views/message_widget.hpp>
+#include "mwdg/mixer_device_setup.hpp"
+#include "views/message_widget.hpp"
 
 #include <iostream>
 

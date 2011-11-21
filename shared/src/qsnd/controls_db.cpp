@@ -12,9 +12,9 @@
 
 #include "controls_db.hpp"
 
-#include <qsnd/alsa.hpp>
-#include <qsnd/card_info.hpp>
-#include <qsnd/ctl_def.hpp>
+#include "qsnd/alsa.hpp"
+#include "qsnd/card_info.hpp"
+#include "qsnd/ctl_def.hpp"
 
 #include <QStringList>
 #include <iostream>

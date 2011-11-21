@@ -13,7 +13,7 @@
 #ifndef __INC_ds_slider_meta_bg_hpp__
 #define __INC_ds_slider_meta_bg_hpp__
 
-#include <dpe/image_set_meta.hpp>
+#include "dpe/image_set_meta.hpp"
 
 
 namespace Wdg

@@ -18,7 +18,7 @@
 #include <QList>
 #include <QTimer>
 
-#include <wdg/pad_proxies_group.hpp>
+#include "wdg/pad_proxies_group.hpp"
 #include "mixer_switches_proxy_enum.hpp"
 #include "mixer_switches_proxy_switch.hpp"
 #include "mixer_separation_info.hpp"

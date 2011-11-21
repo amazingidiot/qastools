@@ -12,9 +12,9 @@
 
 #include "mixer_simple.hpp"
 
-#include <qsnd/mixer_simple_elem.hpp>
-#include <qsnd/mixer_simple_filter.hpp>
-#include <qsnd/event_types.hpp>
+#include "qsnd/mixer_simple_elem.hpp"
+#include "qsnd/mixer_simple_filter.hpp"
+#include "qsnd/event_types.hpp"
 
 #include <iostream>
 #include <QEvent>

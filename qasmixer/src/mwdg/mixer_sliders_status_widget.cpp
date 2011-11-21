@@ -12,7 +12,7 @@
 
 #include "mixer_sliders_status_widget.hpp"
 
-#include <wdg/sliders_pad.hpp>
+#include "wdg/sliders_pad.hpp"
 #include <iostream>
 
 

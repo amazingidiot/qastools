@@ -12,7 +12,7 @@
 
 #include "mixer_hctl_proxies_group.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
 #include <iostream>
 
 

@@ -13,7 +13,7 @@
 #ifndef __INC_wdg_sliders_pad_hpp__
 #define __INC_wdg_sliders_pad_hpp__
 
-#include <wdg/pad_focus_info.hpp>
+#include "wdg/pad_focus_info.hpp"
 
 #include <QWidget>
 #include <QList>

@@ -12,18 +12,18 @@
 
 #include "mixer_hctl.hpp"
 
-#include <qsnd/mixer_hctl.hpp>
-#include <qsnd/mixer_hctl_info_db.hpp>
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <qsnd/mixer_hctl_elem_group.hpp>
-#include <wdg/tree_view_kv.hpp>
-#include <mwdg/mixer_style.hpp>
-#include <mwdg/mixer_device_setup.hpp>
-#include <mwdg/mixer_hctl.hpp>
-#include <mwdg/mixer_hctl_tree_model.hpp>
-#include <mwdg/mixer_hctl_table_model.hpp>
-#include <views/mixer_hctl_setup.hpp>
-#include <views/message_widget.hpp>
+#include "qsnd/mixer_hctl.hpp"
+#include "qsnd/mixer_hctl_info_db.hpp"
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "qsnd/mixer_hctl_elem_group.hpp"
+#include "wdg/tree_view_kv.hpp"
+#include "mwdg/mixer_style.hpp"
+#include "mwdg/mixer_device_setup.hpp"
+#include "mwdg/mixer_hctl.hpp"
+#include "mwdg/mixer_hctl_tree_model.hpp"
+#include "mwdg/mixer_hctl_table_model.hpp"
+#include "views/mixer_hctl_setup.hpp"
+#include "views/message_widget.hpp"
 
 
 #include <QHeaderView>

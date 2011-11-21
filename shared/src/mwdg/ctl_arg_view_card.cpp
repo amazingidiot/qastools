@@ -12,9 +12,9 @@
 
 #include "ctl_arg_view_card.hpp"
 
-#include <qsnd/card_info.hpp>
-#include <qsnd/cards_model.hpp>
-#include <mwdg/controls_view.hpp>
+#include "qsnd/card_info.hpp"
+#include "qsnd/cards_model.hpp"
+#include "mwdg/controls_view.hpp"
 #include <QLayout>
 
 

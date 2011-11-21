@@ -17,11 +17,11 @@
 #include "tray_mixer_view_setup.hpp"
 #include "tray_mixer_icon.hpp"
 #include "tray_mixer_balloon.hpp"
-#include <qsnd/event_types.hpp>
-#include <qsnd/mixer_simple.hpp>
-#include <qsnd/mixer_simple_elem.hpp>
-#include <qsnd/mixer_simple_filter_name.hpp>
-#include <wdg/uint_mapper.hpp>
+#include "qsnd/event_types.hpp"
+#include "qsnd/mixer_simple.hpp"
+#include "qsnd/mixer_simple_elem.hpp"
+#include "qsnd/mixer_simple_filter_name.hpp"
+#include "wdg/uint_mapper.hpp"
 
 #include <QCoreApplication>
 #include <QFileInfo>

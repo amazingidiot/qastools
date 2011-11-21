@@ -12,9 +12,9 @@
 
 #include "pad_proxy.hpp"
 
-#include <wdg/pad_proxies_column.hpp>
-#include <wdg/pad_proxy_style.hpp>
-#include <wdg/pass_events.hpp>
+#include "wdg/pad_proxies_column.hpp"
+#include "wdg/pad_proxy_style.hpp"
+#include "wdg/pass_events.hpp"
 
 #include <QCoreApplication>
 #include <QFocusEvent>

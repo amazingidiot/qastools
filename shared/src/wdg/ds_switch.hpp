@@ -13,8 +13,8 @@
 #ifndef __INC_wdg_ds_switch_hpp__
 #define __INC_wdg_ds_switch_hpp__
 
-#include <dpe/image_set_meta.hpp>
-#include <wdg/ds_imaging.hpp>
+#include "dpe/image_set_meta.hpp"
+#include "wdg/ds_imaging.hpp"
 #include <QAbstractButton>
 
 

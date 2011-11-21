@@ -12,17 +12,17 @@
 
 #include "mixer_sliders.hpp"
 
-#include <wdg/pass_events.hpp>
-#include <wdg/scroll_area_horizontal.hpp>
-#include <wdg/pad_proxy_style.hpp>
-#include <wdg/sliders_pad.hpp>
-#include <mwdg/inputs_setup.hpp>
-#include <mwdg/mixer_simple_setup.hpp>
-#include <mwdg/event_types.hpp>
-#include <mwdg/mixer_style.hpp>
-#include <mwdg/mixer_gui_state.hpp>
-#include <mwdg/mixer_sliders_proxies_group.hpp>
-#include <qsnd/mixer_simple.hpp>
+#include "wdg/pass_events.hpp"
+#include "wdg/scroll_area_horizontal.hpp"
+#include "wdg/pad_proxy_style.hpp"
+#include "wdg/sliders_pad.hpp"
+#include "mwdg/inputs_setup.hpp"
+#include "mwdg/mixer_simple_setup.hpp"
+#include "mwdg/event_types.hpp"
+#include "mwdg/mixer_style.hpp"
+#include "mwdg/mixer_gui_state.hpp"
+#include "mwdg/mixer_sliders_proxies_group.hpp"
+#include "qsnd/mixer_simple.hpp"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>

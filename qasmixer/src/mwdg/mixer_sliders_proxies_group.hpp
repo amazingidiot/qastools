@@ -16,7 +16,7 @@
 #include <QString>
 #include <QTimer>
 
-#include <wdg/pad_proxies_group.hpp>
+#include "wdg/pad_proxies_group.hpp"
 #include "mixer_sliders_proxies_column.hpp"
 
 

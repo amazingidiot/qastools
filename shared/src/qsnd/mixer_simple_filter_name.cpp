@@ -12,7 +12,7 @@
 
 #include "mixer_simple_filter_name.hpp"
 
-#include <qsnd/mixer_simple_elem.hpp>
+#include "qsnd/mixer_simple_elem.hpp"
 #include <iostream>
 
 

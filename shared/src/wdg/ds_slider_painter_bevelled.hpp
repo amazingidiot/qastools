@@ -13,7 +13,7 @@
 #ifndef __INC_ds_slider_painter_bevelled_hpp__
 #define __INC_ds_slider_painter_bevelled_hpp__
 
-#include <wdg/ds_widget_painter.hpp>
+#include "wdg/ds_widget_painter.hpp"
 
 
 // Forward declaration

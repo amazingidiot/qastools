@@ -12,9 +12,9 @@
 
 #include "mixer_sliders_proxies_group.hpp"
 
-#include <wdg/event_types.hpp>
-#include <wdg/pass_events.hpp>
-#include <mwdg/event_types.hpp>
+#include "wdg/event_types.hpp"
+#include "wdg/pass_events.hpp"
+#include "mwdg/event_types.hpp"
 #include <QCoreApplication>
 #include <iostream>
 

@@ -13,8 +13,8 @@
 #ifndef __INC_slider_status_widget_hpp__
 #define __INC_slider_status_widget_hpp__
 
-#include <wdg/label_elide.hpp>
-#include <wdg/label_width.hpp>
+#include "wdg/label_elide.hpp"
+#include "wdg/label_width.hpp"
 
 #include <QWidget>
 #include <QLabel>

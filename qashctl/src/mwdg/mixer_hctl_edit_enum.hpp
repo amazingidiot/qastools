@@ -13,7 +13,7 @@
 #ifndef __INC_mixer_hctl_editor_enum_hpp__
 #define __INC_mixer_hctl_editor_enum_hpp__
 
-#include <mwdg/mixer_hctl_editor.hpp>
+#include "mwdg/mixer_hctl_editor.hpp"
 #include <QList>
 
 

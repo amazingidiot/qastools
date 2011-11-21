@@ -13,7 +13,7 @@
 #ifndef __INC_mixer_hctl_int_proxies_group_hpp__
 #define __INC_mixer_hctl_int_proxies_group_hpp__
 
-#include <wdg/pad_proxies_group.hpp>
+#include "wdg/pad_proxies_group.hpp"
 
 
 // Forward declaration

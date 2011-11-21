@@ -17,7 +17,7 @@
 #include <QList>
 #include <QPen>
 
-#include <wdg/pad_focus_info.hpp>
+#include "wdg/pad_focus_info.hpp"
 
 
 // Forward declaration

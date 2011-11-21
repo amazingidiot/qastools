@@ -12,8 +12,8 @@
 
 #include "switches_area.hpp"
 
-#include <wdg/switches_pad.hpp>
-#include <wdg/fill_columns_layout.hpp>
+#include "wdg/switches_pad.hpp"
+#include "wdg/fill_columns_layout.hpp"
 
 #include <QScrollBar>
 #include <QEvent>

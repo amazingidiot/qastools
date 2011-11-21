@@ -12,10 +12,10 @@
 
 #include "cards_model.hpp"
 
-#include <qsnd/alsa.hpp>
-#include <qsnd/model_keys.hpp>
-#include <qsnd/card_info.hpp>
-#include <qsnd/controls_db.hpp>
+#include "qsnd/alsa.hpp"
+#include "qsnd/model_keys.hpp"
+#include "qsnd/card_info.hpp"
+#include "qsnd/controls_db.hpp"
 #include <QFont>
 #include <iostream>
 

@@ -13,7 +13,7 @@
 #ifndef __INC_mwdg_ctl_arg_view_integer_hpp__
 #define __INC_mwdg_ctl_arg_view_integer_hpp__
 
-#include <mwdg/ctl_arg_view.hpp>
+#include "mwdg/ctl_arg_view.hpp"
 #include <QLineEdit>
 
 

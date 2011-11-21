@@ -12,15 +12,15 @@
 
 #include "switches_pad.hpp"
 
-#include <wdg/pad_proxies_group.hpp>
-#include <wdg/pad_proxies_column.hpp>
-#include <wdg/pad_proxy_enum.hpp>
-#include <wdg/pad_proxy_switch.hpp>
-#include <wdg/switches_pad_widgets_group.hpp>
-#include <wdg/fill_columns_layout.hpp>
-#include <wdg/color_methods.hpp>
-#include <wdg/event_types.hpp>
-#include <wdg/pass_events.hpp>
+#include "wdg/pad_proxies_group.hpp"
+#include "wdg/pad_proxies_column.hpp"
+#include "wdg/pad_proxy_enum.hpp"
+#include "wdg/pad_proxy_switch.hpp"
+#include "wdg/switches_pad_widgets_group.hpp"
+#include "wdg/fill_columns_layout.hpp"
+#include "wdg/color_methods.hpp"
+#include "wdg/event_types.hpp"
+#include "wdg/pass_events.hpp"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>

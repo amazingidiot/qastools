@@ -12,8 +12,8 @@
 
 #include "controls_view.hpp"
 
-#include <mwdg/event_types.hpp>
-#include <mwdg/controls_delegate.hpp>
+#include "mwdg/event_types.hpp"
+#include "mwdg/controls_delegate.hpp"
 #include <QCoreApplication>
 #include <QScrollBar>
 #include <iostream>

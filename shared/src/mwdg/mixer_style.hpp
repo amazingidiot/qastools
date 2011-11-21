@@ -13,7 +13,7 @@
 #ifndef __INC_mwdg_mixer_style_hpp__
 #define __INC_mwdg_mixer_style_hpp__
 
-#include <wdg/ds_widget_style_db.hpp>
+#include "wdg/ds_widget_style_db.hpp"
 
 
 namespace MWdg

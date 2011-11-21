@@ -13,7 +13,7 @@
 #include "info_view.hpp"
 
 #include "config.hpp"
-#include <wdg/text_browser.hpp>
+#include "wdg/text_browser.hpp"
 
 #include <QVBoxLayout>
 #include <QLocale>

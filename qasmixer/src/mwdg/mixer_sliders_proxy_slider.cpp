@@ -12,8 +12,8 @@
 
 #include "mixer_sliders_proxy_slider.hpp"
 
-#include <wdg/pass_events.hpp>
-#include <wdg/uint_mapper.hpp>
+#include "wdg/pass_events.hpp"
+#include "wdg/uint_mapper.hpp"
 #include <QApplication>
 #include <iostream>
 

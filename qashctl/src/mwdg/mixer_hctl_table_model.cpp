@@ -12,8 +12,8 @@
 
 #include "mixer_hctl_table_model.hpp"
 
-#include <qsnd/mixer_hctl.hpp>
-#include <qsnd/mixer_hctl_elem.hpp>
+#include "qsnd/mixer_hctl.hpp"
+#include "qsnd/mixer_hctl_elem.hpp"
 
 #include <QFont>
 #include <iostream>

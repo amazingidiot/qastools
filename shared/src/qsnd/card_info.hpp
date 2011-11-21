@@ -14,7 +14,7 @@
 #define __INC_qsnd_qsnd_card_info_hpp__
 
 #include <QString>
-#include <qsnd/alsa.hpp>
+#include "qsnd/alsa.hpp"
 
 
 namespace QSnd

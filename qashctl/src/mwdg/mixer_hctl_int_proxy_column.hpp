@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QLocale>
-#include <wdg/pad_proxies_column.hpp>
+#include "wdg/pad_proxies_column.hpp"
 #include "mixer_hctl_int_proxy_slider.hpp"
 
 

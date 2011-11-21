@@ -12,8 +12,8 @@
 
 #include "ds_widget_painter.hpp"
 
-#include <dpe/image.hpp>
-#include <dpe/image_set_meta.hpp>
+#include "dpe/image.hpp"
+#include "dpe/image_set_meta.hpp"
 #include <cstring>
 
 

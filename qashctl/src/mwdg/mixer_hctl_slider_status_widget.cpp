@@ -12,10 +12,10 @@
 
 #include "mixer_hctl_slider_status_widget.hpp"
 
-#include <qsnd/mixer_hctl_elem.hpp>
-#include <wdg/pad_proxies_column.hpp>
-#include <wdg/pad_proxies_group.hpp>
-#include <wdg/sliders_pad.hpp>
+#include "qsnd/mixer_hctl_elem.hpp"
+#include "wdg/pad_proxies_column.hpp"
+#include "wdg/pad_proxies_group.hpp"
+#include "wdg/sliders_pad.hpp"
 #include <iostream>
 
 

@@ -12,7 +12,7 @@
 
 #include "controls_delegate.hpp"
 
-#include <qsnd/model_keys.hpp>
+#include "qsnd/model_keys.hpp"
 #include <QApplication>
 #include <QPainter>
 #include <iostream>

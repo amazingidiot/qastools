@@ -13,7 +13,7 @@
 #ifndef __INC_mwdg_mixer_hctl_hpp__
 #define __INC_mwdg_mixer_hctl_hpp__
 
-#include <wdg/label_width.hpp>
+#include "wdg/label_width.hpp"
 
 #include <QString>
 #include <QAction>

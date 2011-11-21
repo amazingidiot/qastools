@@ -13,8 +13,8 @@
 #ifndef __INC_qsnd_control_def_hpp__
 #define __INC_qsnd_control_def_hpp__
 
-#include <qsnd/ctl_address.hpp>
-#include <qsnd/ctl_def_arg.hpp>
+#include "qsnd/ctl_address.hpp"
+#include "qsnd/ctl_def_arg.hpp"
 #include <QString>
 #include <QList>
 

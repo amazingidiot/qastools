@@ -13,8 +13,8 @@
 #ifndef __INC_mixer_sliders_proxy_switch_hpp__
 #define __INC_mixer_sliders_proxy_switch_hpp__
 
-#include <wdg/pad_proxy_switch.hpp>
-#include <qsnd/mixer_simple_elem.hpp>
+#include "wdg/pad_proxy_switch.hpp"
+#include "qsnd/mixer_simple_elem.hpp"
 
 
 namespace MWdg

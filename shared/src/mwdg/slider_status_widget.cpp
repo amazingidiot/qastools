@@ -12,7 +12,7 @@
 
 #include "slider_status_widget.hpp"
 
-#include <wdg/sliders_pad.hpp>
+#include "wdg/sliders_pad.hpp"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QFontMetrics>

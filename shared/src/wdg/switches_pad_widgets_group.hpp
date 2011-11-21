@@ -21,8 +21,8 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 
-#include <wdg/switches_pad_widgets.hpp>
-#include <wdg/pad_proxies_group.hpp>
+#include "wdg/switches_pad_widgets.hpp"
+#include "wdg/pad_proxies_group.hpp"
 
 
 namespace Wdg

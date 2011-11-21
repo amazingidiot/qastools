@@ -12,9 +12,9 @@
 
 #include "init_globals.hpp"
 
-#include <qsnd/event_types.hpp>
-#include <wdg/event_types.hpp>
-#include <mwdg/event_types.hpp>
+#include "qsnd/event_types.hpp"
+#include "wdg/event_types.hpp"
+#include "mwdg/event_types.hpp"
 
 
 int

@@ -12,10 +12,10 @@
 
 #include "ds_switch_painter_svg.hpp"
 
-#include <dpe/paint_job.hpp>
-#include <dpe/image_set.hpp>
-#include <dpe/image_set_meta.hpp>
-#include <wdg/ds_widget_types.hpp>
+#include "dpe/paint_job.hpp"
+#include "dpe/image_set.hpp"
+#include "dpe/image_set_meta.hpp"
+#include "wdg/ds_widget_types.hpp"
 
 #include <QFileInfo>
 #include <QFile>

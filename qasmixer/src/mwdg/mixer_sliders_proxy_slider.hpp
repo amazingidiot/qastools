@@ -15,8 +15,8 @@
 
 #include <QString>
 
-#include <wdg/pad_proxy_slider.hpp>
-#include <qsnd/mixer_simple_elem.hpp>
+#include "wdg/pad_proxy_slider.hpp"
+#include "qsnd/mixer_simple_elem.hpp"
 
 
 namespace MWdg

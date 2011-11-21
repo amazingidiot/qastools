@@ -14,8 +14,8 @@
 #define __INC_mixer_hctl_int_proxy_slider_hpp__
 
 #include <QObject>
-#include <wdg/pad_proxy_slider.hpp>
-#include <wdg/uint_mapper.hpp>
+#include "wdg/pad_proxy_slider.hpp"
+#include "wdg/uint_mapper.hpp"
 
 
 // Forward declaration

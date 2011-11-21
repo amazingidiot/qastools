@@ -20,16 +20,16 @@
 #include <QKeyEvent>
 #include <QContextMenuEvent>
 
-#include <qsnd/mixer_simple.hpp>
-#include <wdg/switches_area.hpp>
-#include <wdg/switches_pad.hpp>
-#include <wdg/pad_proxies_group.hpp>
-#include <wdg/pad_proxies_column.hpp>
-#include <mwdg/inputs_setup.hpp>
-#include <mwdg/mixer_simple_setup.hpp>
-#include <mwdg/event_types.hpp>
-#include <mwdg/mixer_switches_proxies_group.hpp>
-#include <mwdg/mixer_gui_state.hpp>
+#include "qsnd/mixer_simple.hpp"
+#include "wdg/switches_area.hpp"
+#include "wdg/switches_pad.hpp"
+#include "wdg/pad_proxies_group.hpp"
+#include "wdg/pad_proxies_column.hpp"
+#include "mwdg/inputs_setup.hpp"
+#include "mwdg/mixer_simple_setup.hpp"
+#include "mwdg/event_types.hpp"
+#include "mwdg/mixer_switches_proxies_group.hpp"
+#include "mwdg/mixer_gui_state.hpp"
 
 #include <iostream>
 

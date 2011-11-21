@@ -12,22 +12,22 @@
 
 #include "sliders_pad.hpp"
 
-#include <wdg/pad_proxy_style.hpp>
-#include <wdg/pad_proxy_slider.hpp>
-#include <wdg/pad_proxy_switch.hpp>
-#include <wdg/pad_proxies_column.hpp>
-#include <wdg/pad_proxies_group.hpp>
-#include <wdg/sliders_pad_data.hpp>
-#include <wdg/sliders_pad_header.hpp>
-#include <wdg/sliders_pad_footer.hpp>
-#include <wdg/sliders_pad_layout.hpp>
-#include <wdg/sliders_pad_style.hpp>
-#include <wdg/ds_switch.hpp>
-#include <wdg/ds_slider.hpp>
-#include <wdg/ds_widget_style_db.hpp>
-#include <wdg/color_methods.hpp>
-#include <wdg/event_types.hpp>
-#include <wdg/pass_events.hpp>
+#include "wdg/pad_proxy_style.hpp"
+#include "wdg/pad_proxy_slider.hpp"
+#include "wdg/pad_proxy_switch.hpp"
+#include "wdg/pad_proxies_column.hpp"
+#include "wdg/pad_proxies_group.hpp"
+#include "wdg/sliders_pad_data.hpp"
+#include "wdg/sliders_pad_header.hpp"
+#include "wdg/sliders_pad_footer.hpp"
+#include "wdg/sliders_pad_layout.hpp"
+#include "wdg/sliders_pad_style.hpp"
+#include "wdg/ds_switch.hpp"
+#include "wdg/ds_slider.hpp"
+#include "wdg/ds_widget_style_db.hpp"
+#include "wdg/color_methods.hpp"
+#include "wdg/event_types.hpp"
+#include "wdg/pass_events.hpp"
 
 #include <QPainter>
 #include <QEvent>
