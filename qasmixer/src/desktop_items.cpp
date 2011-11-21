@@ -21,8 +21,8 @@
 #include <wdg/ds_switch_painter_close.hpp>
 #include <wdg/ds_switch_painter_svg.hpp>
 #include <wdg/ds_widget_types.hpp>
-#include <mview/info_view.hpp>
-#include <mview/settings_view.hpp>
+#include <views/info_view.hpp>
+#include <views/settings_view.hpp>
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -86,18 +86,10 @@ _shutdown ( false )
 	}
 
 	{
-		::MView::Switcher_Setup & sws ( _dsetup.mixer_window.switcher );
-
-		sws.mv_simple.wdg_style_db = &_wdg_style_db;
-		sws.mv_ctl.wdg_style_db = &_wdg_style_db;
-		sws.mv_info.wdg_style_db = &_wdg_style_db;
-
-		sws.mv_simple.image_alloc = &_image_alloc;
-		sws.mv_ctl.image_alloc = &_image_alloc;
-		sws.mv_info.image_alloc = &_image_alloc;
+		_dsetup.mixer_window.mixer_simple.wdg_style_db = &_wdg_style_db;
+		_dsetup.mixer_window.mixer_simple.image_alloc = &_image_alloc;
 	}
 	_dsetup.tray_view.image_alloc = &_image_alloc;
-
 
 	_evt_mixer_closed = QEvent::registerEventType();
 }
@@ -231,7 +223,7 @@ Desktop_Items::parse_cmd_options (
 
 	if ( !ctl_address.isEmpty() ) {
 		_cmd_opts.start_ctl_address = ctl_address;
-		_dsetup.mixer_window.switcher.mixer_dev.ctl_addr = ctl_address;
+		_dsetup.mixer_window.mixer_dev.ctl_addr = ctl_address;
 	}
 
 	return 0;
@@ -264,7 +256,7 @@ Desktop_Items::parse_message (
 			}
 			if ( !ctl_str.isEmpty() ) {
 				if ( _main_mixer == 0 ) {
-					_dsetup.mixer_window.switcher.mixer_dev.ctl_addr = ctl_str;
+					_dsetup.mixer_window.mixer_dev.ctl_addr = ctl_str;
 					tray_mixer_reload_current_mdev();
 				} else {
 					_main_mixer->select_ctl ( ctl_str );
@@ -319,11 +311,11 @@ Desktop_Items::start (
 	_started = true;
 
 	// Translation
-	_dsetup.mixer_window.switcher.inputs.update_translation();
+	_dsetup.mixer_window.inputs.update_translation();
 
 	// Startup mixer device
 	{
-		QString & ctl_addr ( _dsetup.mixer_window.switcher.mixer_dev.ctl_addr );
+		QString & ctl_addr ( _dsetup.mixer_window.mixer_dev.ctl_addr );
 		bool use_default ( true );
 		switch ( _dsetup.start_device_mode ) {
 			case 1:
@@ -593,9 +585,9 @@ Desktop_Items::tray_mixer_create ( )
 
 	// Initialize setup tree values
 	_dsetup.tray_view.wheel_degrees =
-		_dsetup.mixer_window.switcher.inputs.wheel_degrees;
+		_dsetup.mixer_window.inputs.wheel_degrees;
 	_dsetup.tray_mdev.current_device =
-		_dsetup.mixer_window.switcher.mixer_dev.ctl_addr;
+		_dsetup.mixer_window.mixer_dev.ctl_addr;
 
 	// Install setup tree
 	_tray_mixer->set_mdev_setup ( &_dsetup.tray_mdev );
@@ -659,7 +651,7 @@ Desktop_Items::tray_mixer_reload_mdev ( )
 void
 Desktop_Items::tray_mixer_reload_current_mdev ( )
 {
-	const QString & ctl_main ( _dsetup.mixer_window.switcher.mixer_dev.ctl_addr );
+	const QString & ctl_main ( _dsetup.mixer_window.mixer_dev.ctl_addr );
 	if ( _dsetup.tray_mdev.current_device != ctl_main ) {
 		_dsetup.tray_mdev.current_device = ctl_main;
 
@@ -690,7 +682,8 @@ Desktop_Items::reload_inputs_setup ( )
 	}
 
 	// Tray mixer
-	_dsetup.tray_view.wheel_degrees = _dsetup.mixer_window.switcher.inputs.wheel_degrees;
+	_dsetup.tray_view.wheel_degrees =
+		_dsetup.mixer_window.inputs.wheel_degrees;
 	if ( _tray_mixer != 0 ) {
 		_tray_mixer->update_balloon_setup();
 	}
@@ -705,7 +698,7 @@ Desktop_Items::show_dialog_settings ( )
 	}
 
 	if ( _dialog_settings == 0 ) {
-		::MView::Settings_View * view ( new ::MView::Settings_View );
+		::Views::Settings_View * view ( new ::Views::Settings_View );
 		view->set_setup ( &_dsetup );
 
 		connect ( view, SIGNAL ( sig_change_mixer_view() ),
@@ -737,7 +730,7 @@ Desktop_Items::show_dialog_info ( )
 	}
 
 	if ( _dialog_info == 0 ) {
-		::MView::Info_View * view (	new ::MView::Info_View );
+		::Views::Info_View * view (	new ::Views::Info_View );
 		_dialog_info = create_dialog ( view );
 	}
 	_dialog_info->show();

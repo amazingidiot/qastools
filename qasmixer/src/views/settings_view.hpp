@@ -34,7 +34,7 @@ namespace Wdg {
 }
 
 
-namespace MView
+namespace Views
 {
 
 

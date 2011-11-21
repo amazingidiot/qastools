@@ -36,13 +36,13 @@
 #include <iostream>
 
 
-namespace MView
+namespace Views
 {
 
 
-MV_Mixer_Simple::MV_Mixer_Simple (
+Mixer_Simple::Mixer_Simple (
 	QWidget * parent_n ) :
-::MView::MV_Base ( parent_n ),
+::Views::View_Base ( parent_n ),
 _view_setup ( 0 ),
 _status_group_idx ( ~0 ),
 _status_column_idx ( ~0 ),
@@ -154,7 +154,7 @@ _qsnd_mixer ( 0 )
 }
 
 
-MV_Mixer_Simple::~MV_Mixer_Simple ( )
+Mixer_Simple::~Mixer_Simple ( )
 {
 	set_mdev_setup ( 0 );
 	set_view_setup ( 0 );
@@ -162,7 +162,7 @@ MV_Mixer_Simple::~MV_Mixer_Simple ( )
 
 
 void
-MV_Mixer_Simple::set_mdev_setup (
+Mixer_Simple::set_mdev_setup (
 	const ::MWdg::Mixer_Device_Setup * setup_n )
 {
 	if ( mdev_setup() != 0 ) {
@@ -170,7 +170,7 @@ MV_Mixer_Simple::set_mdev_setup (
 		_qsnd_mixer->close();
 	}
 
-	::MView::MV_Base::set_mdev_setup ( setup_n );
+	::Views::View_Base::set_mdev_setup ( setup_n );
 
 	if ( mdev_setup() != 0 ) {
 		_qsnd_mixer->open ( mdev_setup()->ctl_addr );
@@ -180,10 +180,10 @@ MV_Mixer_Simple::set_mdev_setup (
 
 
 void
-MV_Mixer_Simple::set_inputs_setup (
+Mixer_Simple::set_inputs_setup (
 	const ::MWdg::Inputs_Setup * setup_n )
 {
-	::MView::MV_Base::set_inputs_setup ( setup_n );
+	::Views::View_Base::set_inputs_setup ( setup_n );
 	_mixer_sliders->set_inputs_setup ( setup_n );
 	_mixer_switches->set_inputs_setup ( setup_n );
 
@@ -203,17 +203,17 @@ MV_Mixer_Simple::set_inputs_setup (
 
 
 void
-MV_Mixer_Simple::set_view_setup (
-	::MView::MV_Base_Setup * setup_n )
+Mixer_Simple::set_view_setup (
+	::Views::View_Base_Setup * setup_n )
 {
 	clear_view();
-	_view_setup = dynamic_cast < ::MView::MV_Mixer_Simple_Setup * > ( setup_n );
+	_view_setup = dynamic_cast < ::Views::Mixer_Simple_Setup * > ( setup_n );
 	setup_view();
 }
 
 
 void
-MV_Mixer_Simple::clear_view ( )
+Mixer_Simple::clear_view ( )
 {
 	if ( ( mdev_setup() == 0 ) || ( _view_setup == 0 ) ) {
 		return;
@@ -232,7 +232,7 @@ MV_Mixer_Simple::clear_view ( )
 
 
 void
-MV_Mixer_Simple::setup_view ( )
+Mixer_Simple::setup_view ( )
 {
 	if ( ( mdev_setup() == 0 ) || ( _view_setup == 0 ) ) {
 		return;
@@ -379,7 +379,7 @@ MV_Mixer_Simple::setup_view ( )
 
 
 void
-MV_Mixer_Simple::show_playback (
+Mixer_Simple::show_playback (
 	bool flag_n )
 {
 	if ( _view_setup == 0 ) {
@@ -402,7 +402,7 @@ MV_Mixer_Simple::show_playback (
 
 
 void
-MV_Mixer_Simple::show_capture (
+Mixer_Simple::show_capture (
 	bool flag_n )
 {
 	if ( _view_setup == 0 ) {
@@ -425,7 +425,7 @@ MV_Mixer_Simple::show_capture (
 
 
 void
-MV_Mixer_Simple::toggle_show_playback ( )
+Mixer_Simple::toggle_show_playback ( )
 {
 	if ( _view_setup != 0 ) {
 		show_playback ( !_view_setup->show_stream[0] );
@@ -434,7 +434,7 @@ MV_Mixer_Simple::toggle_show_playback ( )
 
 
 void
-MV_Mixer_Simple::toggle_show_capture ( )
+Mixer_Simple::toggle_show_capture ( )
 {
 	if ( _view_setup != 0 ) {
 		show_capture ( !_view_setup->show_stream[1] );
@@ -443,7 +443,7 @@ MV_Mixer_Simple::toggle_show_capture ( )
 
 
 void
-MV_Mixer_Simple::show_slider_value_widget ( )
+Mixer_Simple::show_slider_value_widget ( )
 {
 	if ( _status_wdg == 0 ) {
 		::MWdg::Mixer_Sliders_Status_Widget * swdg (
@@ -459,7 +459,7 @@ MV_Mixer_Simple::show_slider_value_widget ( )
 
 
 void
-MV_Mixer_Simple::footer_label_selected (
+Mixer_Simple::footer_label_selected (
 	unsigned int group_idx_n,
 	unsigned int column_idx_n )
 {
@@ -486,7 +486,7 @@ MV_Mixer_Simple::footer_label_selected (
 
 
 void
-MV_Mixer_Simple::keyPressEvent (
+Mixer_Simple::keyPressEvent (
 	QKeyEvent * event_n )
 {
 	bool handled ( false );
@@ -502,16 +502,16 @@ MV_Mixer_Simple::keyPressEvent (
 		}
 	}
 	if ( !handled ) {
-		::MView::MV_Base::keyPressEvent ( event_n );
+		::Views::View_Base::keyPressEvent ( event_n );
 	}
 }
 
 
 void
-MV_Mixer_Simple::showEvent (
+Mixer_Simple::showEvent (
 	QShowEvent * event_n )
 {
-	MV_Base::showEvent ( event_n );
+	View_Base::showEvent ( event_n );
 	if ( _status_wdg != 0 ) {
 		_status_wdg->show();
 	}
@@ -519,10 +519,10 @@ MV_Mixer_Simple::showEvent (
 
 
 void
-MV_Mixer_Simple::hideEvent (
+Mixer_Simple::hideEvent (
 	QHideEvent * event_n )
 {
-	MV_Base::hideEvent ( event_n );
+	View_Base::hideEvent ( event_n );
 	if ( _status_wdg != 0 ) {
 		_status_wdg->hide();
 	}

@@ -20,11 +20,8 @@
 #include <QVBoxLayout>
 #include <QCloseEvent>
 
-#include "mview/mv_mixer_simple.hpp"
-#include "mview/mv_mixer_ctl.hpp"
-#include "mview/mv_info.hpp"
-#include "mview/dev_select_view.hpp"
-#include "mview/switcher.hpp"
+#include "views/mixer_simple.hpp"
+#include "views/dev_select_view.hpp"
 
 #include <iostream>
 
@@ -34,7 +31,7 @@ Mixer_Window::Mixer_Window (
 	Qt::WindowFlags flags_n ) :
 QMainWindow ( parent_n, flags_n ),
 _mixer_setup ( 0 ),
-_switcher ( 0 ),
+_mixer_simple ( 0 ),
 _dev_select ( 0 ),
 _dev_select_dock ( 0 )
 {
@@ -46,26 +43,19 @@ _dev_select_dock ( 0 )
 	_icon_fscreen_enable = QIcon::fromTheme ( "view-fullscreen" );
 	_icon_fscreen_disable = QIcon::fromTheme ( "view-restore" );
 
-	_switcher = new ::MView::Switcher();
-
-    connect ( _switcher, SIGNAL ( sig_view_type_changed() ),
-		this, SLOT ( update_view_type_actions() ) );
+	_mixer_simple = new ::Views::Mixer_Simple();
 
 	// Init menus
 	init_menus();
 	init_docks();
 
-	setCentralWidget ( _switcher );
+	setCentralWidget ( _mixer_simple );
 	update_fullscreen_action();
 }
 
 
 Mixer_Window::~Mixer_Window ( )
 {
-	_switcher->set_mixer_setup ( 0 );
-	delete _switcher;
-	delete _dev_select;
-	delete _dev_select_dock;
 }
 
 
@@ -87,40 +77,15 @@ Mixer_Window::init_menus ( )
 	act_refresh->setShortcut ( QKeySequence ( QKeySequence::Refresh ) );
 	act_refresh->setIcon ( QIcon::fromTheme ( "view-refresh" ) );
 
-
 	// Action: Device selection
 	_act_show_dev_select = new QAction ( this );
 	_act_show_dev_select->setText ( tr ( "Show &device selection" ) );
 	_act_show_dev_select->setCheckable ( true );
 
-	// Action: View type selection
-	_act_show_vtype_select = new QAction ( this );
-	_act_show_vtype_select->setText ( tr ( "Show &view type selection" ) );
-	_act_show_vtype_select->setCheckable ( true );
-
-
-	_act_grp_menu_vtype = new QActionGroup ( this );
-	{
-		QAction * acts[_switcher->num_view_types()];
-		for ( unsigned int vii=0; vii < _switcher->num_view_types(); ++vii ) {
-			acts[vii] = new QAction ( _act_grp_menu_vtype );
-			acts[vii]->setText ( _switcher->view_type_name ( vii ) );
-			acts[vii]->setCheckable ( true );
-			acts[vii]->setData ( vii );
-			acts[vii]->setToolTip ( _switcher->view_type_name ( vii ) );
-		}
-
-		acts[0]->setShortcut ( QKeySequence ( "1" ) );
-		acts[1]->setShortcut ( QKeySequence ( "2" ) );
-		acts[2]->setShortcut ( QKeySequence ( "3" ) );
-	}
-
-
 	// Action: Fullscreen
 	_act_fullscreen = new QAction ( this );
 	_act_fullscreen->setShortcut ( QKeySequence ( Qt::Key_F11 ) );
 	_act_fullscreen->setCheckable ( true );
-
 
 	// Action: Info
 	QAction * act_info = new QAction ( tr ( "&Info" ), this );
@@ -138,10 +103,6 @@ Mixer_Window::init_menus ( )
 	{
 		QMenu * cmenu = menuBar()->addMenu ( tr ( "&View" ) );
 		cmenu->addAction ( _act_show_dev_select );
-		cmenu->addAction ( _act_show_vtype_select );
-		cmenu->addSeparator();
-		cmenu->addActions ( _act_grp_menu_vtype->actions() );
-		cmenu->addSeparator();
 		cmenu->addAction ( _act_fullscreen );
 		cmenu->addAction ( act_refresh );
 	}
@@ -161,17 +122,6 @@ Mixer_Window::init_menus ( )
 
 	connect ( _act_show_dev_select, SIGNAL ( toggled ( bool ) ),
 		this, SLOT ( show_device_selection ( bool ) ) );
-
-	connect ( _act_show_vtype_select, SIGNAL ( toggled ( bool ) ),
-		_switcher, SLOT ( show_vtype_select ( bool ) ) );
-
-	connect ( _switcher, SIGNAL ( sig_show_vtype_select ( bool ) ),
-		_act_show_vtype_select, SLOT ( setChecked ( bool ) ) );
-
-
-	connect ( _act_grp_menu_vtype, SIGNAL ( triggered ( QAction * ) ),
-		this, SLOT ( view_type_action_triggered ( QAction * ) ) );
-
 
     connect ( act_refresh, SIGNAL ( triggered() ),
 		this, SLOT ( reload_mixer_device() ) );
@@ -193,7 +143,7 @@ Mixer_Window::init_menus ( )
 void
 Mixer_Window::init_docks ( )
 {
-	_dev_select = new ::MView::Dev_Select_View;
+	_dev_select = new ::Views::Dev_Select_View;
 
 	// QueuedConnection to update the GUI before loading the mixer
 	connect ( _dev_select, SIGNAL ( sig_control_changed() ),
@@ -223,24 +173,20 @@ Mixer_Window::set_mixer_setup (
 	Mixer_Window_Setup * setup_n )
 {
 	if ( _mixer_setup != 0 ) {
-		_switcher->set_mixer_setup ( 0 );
+		_mixer_simple->set_view_setup ( 0 );
 		_dev_select->set_view_setup ( 0 );
 	}
 
 	_mixer_setup = setup_n;
 
 	if ( _mixer_setup != 0 ) {
-		_act_show_dev_select->setShortcut ( _mixer_setup->kseq_dev_select );
+		_act_show_dev_select->setShortcut ( _mixer_setup->dev_select.kseq_toggle_vis );
 		_act_show_dev_select->setChecked ( _mixer_setup->show_dev_select );
 
-		_act_show_vtype_select->setShortcut ( _mixer_setup->kseq_vtype_select );
-		_act_show_vtype_select->setChecked ( _mixer_setup->switcher.show_vtype_select );
-
 		// Pass setup tree to child classes
-		_switcher->set_mixer_setup ( &_mixer_setup->switcher );
+		_mixer_simple->set_view_setup ( &_mixer_setup->mixer_simple );
 		_dev_select->set_view_setup ( &_mixer_setup->dev_select );
-		_dev_select->silent_select_ctl (
-			_mixer_setup->switcher.mixer_dev.ctl_addr );
+		_dev_select->silent_select_ctl ( _mixer_setup->mixer_dev.ctl_addr );
 	}
 }
 
@@ -273,7 +219,7 @@ Mixer_Window::select_ctl (
 	const QString & ctl_n )
 {
 	_dev_select->silent_select_ctl ( ctl_n );
-	_switcher->select_snd_ctl ( ctl_n );
+	_mixer_simple->select_snd_ctl ( ctl_n );
 
 	emit sig_control_changed();
 }
@@ -282,7 +228,7 @@ Mixer_Window::select_ctl (
 void
 Mixer_Window::select_ctl_from_side_iface ( )
 {
-	_switcher->select_snd_ctl ( _dev_select->selected_ctl().addr_str() );
+	_mixer_simple->select_snd_ctl ( _dev_select->selected_ctl().addr_str() );
 
 	emit sig_control_changed();
 }
@@ -293,7 +239,7 @@ Mixer_Window::reload_mixer_device ( )
 {
 	//::std::cout << "Mixer_Window::reload_mixer_device" << "\n";
 	_dev_select->reload_database();
-	_switcher->reload_mdev_setup();
+	_mixer_simple->reload_mdev_setup();
 }
 
 
@@ -301,7 +247,7 @@ void
 Mixer_Window::reload_mixer_inputs ( )
 {
 	//::std::cout << "Mixer_Window::reload_mixer_inputs" << "\n";
-	_switcher->reload_inputs_setup();
+	_mixer_simple->reload_inputs_setup();
 }
 
 
@@ -309,7 +255,7 @@ void
 Mixer_Window::reload_mixer_view ( )
 {
 	//::std::cout << "Mixer_Window::reload_mixer_view" << "\n";
-	_switcher->reload_view_setup();
+	_mixer_simple->reload_view_setup();
 }
 
 
@@ -359,36 +305,6 @@ Mixer_Window::save_state ( )
 
 
 void
-Mixer_Window::view_type_action_triggered (
-	QAction * act_n )
-{
-	if ( act_n != 0 ) {
-		const QVariant & vdata ( act_n->data() );
-		if ( vdata.isValid() ) {
-			if ( vdata.canConvert ( QVariant::UInt ) ) {
-				_switcher->select_view_type ( vdata.toUInt() );
-			}
-		}
-	}
-}
-
-
-void
-Mixer_Window::update_view_type_actions ( )
-{
-	if ( _mixer_setup == 0 ) {
-		return;
-	}
-
-	const int vtype ( _mixer_setup->switcher.view_type );
-	QList < QAction * > acts ( _act_grp_menu_vtype->actions() );
-	if ( vtype < acts.size() ) {
-		acts[vtype]->setChecked ( true );
-	}
-}
-
-
-void
 Mixer_Window::changeEvent (
 	QEvent * event_n )
 {
@@ -406,10 +322,8 @@ Mixer_Window::keyPressEvent (
 	QMainWindow::keyPressEvent ( event_n );
 	if ( _mixer_setup != 0 ) {
 		const QKeySequence kseq ( event_n->key() );
-		if ( kseq == _mixer_setup->kseq_dev_select ) {
+		if ( kseq == _mixer_setup->dev_select.kseq_toggle_vis ) {
 			toggle_device_selection();
-		} else if ( kseq == _mixer_setup->kseq_vtype_select ) {
-			_switcher->toggle_vtype_select();
 		}
 	}
 }

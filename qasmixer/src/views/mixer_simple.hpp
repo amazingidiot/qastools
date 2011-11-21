@@ -18,7 +18,7 @@
 #include <QPointer>
 
 #include <mwdg/mixer_simple_setup.hpp>
-#include <mview/mv_base.hpp>
+#include <views/view_base.hpp>
 
 
 // Forward declaration
@@ -28,27 +28,27 @@ namespace MWdg {
 	class Mixer_Sliders_Status_Widget;
 	class Mixer_Switches;
 }
-namespace MView {
-	class MV_Mixer_Simple_Setup;
+namespace Views {
+	class Mixer_Simple_Setup;
 }
 
 
-namespace MView
+namespace Views
 {
 
 
-class MV_Mixer_Simple :
-	public ::MView::MV_Base
+class Mixer_Simple :
+	public ::Views::View_Base
 {
 	Q_OBJECT
 
 	// Public methods
 	public:
 
-	MV_Mixer_Simple (
+	Mixer_Simple (
 		QWidget * parent_n = 0 );
 
-	~MV_Mixer_Simple ( );
+	~Mixer_Simple ( );
 
 
 	// Mixer device and view setup
@@ -63,7 +63,7 @@ class MV_Mixer_Simple :
 
 	void
 	set_view_setup (
-		::MView::MV_Base_Setup * setup_n );
+		::Views::View_Base_Setup * setup_n );
 
 
 	// Public slots
@@ -126,7 +126,7 @@ class MV_Mixer_Simple :
 	// Private attributes
 	private:
 
-	::MView::MV_Mixer_Simple_Setup * _view_setup;
+	::Views::Mixer_Simple_Setup * _view_setup;
 	::MWdg::Mixer_Simple_Setup _smixer_setup;
 
 	// widgets

@@ -14,7 +14,7 @@
 #define __INC_mview_settings_view_setup_hpp__
 
 
-namespace MView
+namespace Views
 {
 
 

@@ -13,7 +13,7 @@
 #include "settings_view_setup.hpp"
 
 
-namespace MView
+namespace Views
 {
 
 

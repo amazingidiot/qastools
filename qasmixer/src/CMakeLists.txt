@@ -3,29 +3,24 @@ CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
 
 
 # Find modules
-
 SET ( QT_USE_QTCORE TRUE )
 SET ( QT_USE_QTGUI TRUE )
 SET ( QT_USE_QTSVG TRUE )
 SET ( QT_USE_QTNETWORK TRUE )
-
 FIND_PACKAGE ( Qt4 4.6 REQUIRED )
 FIND_PACKAGE ( ALSA REQUIRED )
+INCLUDE ( ${QT_USE_FILE} )
 
 
 # Configure files
-
 INCLUDE ( CheckIncludeFiles )
-
 CONFIGURE_FILE (
-	${SHARED_SOURCE_DIR}/config.hpp.cmake
+	${SHARED_SRC_DIR}/config.hpp.cmake
 	${CMAKE_CURRENT_BINARY_DIR}/config.hpp )
 
 
 # Compiler flags
-
 ADD_DEFINITIONS ( "-Wextra -Wunused -Wall" )
-
 SET ( CMAKE_CXX_FLAGS_DEBUG   "-O0 -g -DDEBUG -fno-inline" )
 SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -Wl,--as-needed" )
 
@@ -34,184 +29,138 @@ SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -Wl,--as-needed" )
 
 SET ( SRC_GUI
 
-	dpe/image.cpp
-	dpe/image_set_meta.cpp
-	dpe/image_set.cpp
-	dpe/image_set_group.cpp
-	dpe/image_set_state.cpp
-	dpe/image_request.cpp
-	dpe/image_allocator.cpp
-	dpe/is_buffer_handle.cpp
-	dpe/is_buffer.cpp
-	dpe/paint_job.cpp
-	dpe/painter.cpp
-	dpe/painter_simple.cpp
-	dpe/painter_thread.cpp
-	dpe/painter_thread_shared.cpp
+	${SHARED_SRC_DIR}/qsnd/alsa.cpp
+	${SHARED_SRC_DIR}/qsnd/event_types.cpp
+	${SHARED_SRC_DIR}/qsnd/ctl_def_arg.cpp
+	${SHARED_SRC_DIR}/qsnd/ctl_def.cpp
+	${SHARED_SRC_DIR}/qsnd/ctl_address_arg.cpp
+	${SHARED_SRC_DIR}/qsnd/ctl_address.cpp
+	${SHARED_SRC_DIR}/qsnd/controls_db.cpp
+	${SHARED_SRC_DIR}/qsnd/controls_model.cpp
+	${SHARED_SRC_DIR}/qsnd/cards_model.cpp
+	${SHARED_SRC_DIR}/qsnd/card_info.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_simple_elem.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_simple_filter.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_simple_filter_name.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_simple.cpp
 
-	wdg/covered_input.cpp
-	wdg/covered_spinbox.cpp
-	wdg/label_elide.cpp
-	wdg/label_width.cpp
-	wdg/text_browser.cpp
-	wdg/tree_view_kv.cpp
-	wdg/scroll_area_horizontal.cpp
-	wdg/scroll_area_vertical.cpp
-	wdg/balloon_widget.cpp
+	${SHARED_SRC_DIR}/dpe/image.cpp
+	${SHARED_SRC_DIR}/dpe/image_set_meta.cpp
+	${SHARED_SRC_DIR}/dpe/image_set.cpp
+	${SHARED_SRC_DIR}/dpe/image_set_group.cpp
+	${SHARED_SRC_DIR}/dpe/image_set_state.cpp
+	${SHARED_SRC_DIR}/dpe/image_request.cpp
+	${SHARED_SRC_DIR}/dpe/image_allocator.cpp
+	${SHARED_SRC_DIR}/dpe/is_buffer_handle.cpp
+	${SHARED_SRC_DIR}/dpe/is_buffer.cpp
+	${SHARED_SRC_DIR}/dpe/paint_job.cpp
+	${SHARED_SRC_DIR}/dpe/painter.cpp
+	${SHARED_SRC_DIR}/dpe/painter_simple.cpp
+	${SHARED_SRC_DIR}/dpe/painter_thread.cpp
+	${SHARED_SRC_DIR}/dpe/painter_thread_shared.cpp
 
-	wdg/color_methods.cpp
+	${SHARED_SRC_DIR}/wdg/label_elide.cpp
+	${SHARED_SRC_DIR}/wdg/label_width.cpp
+	${SHARED_SRC_DIR}/wdg/text_browser.cpp
+	${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
+	${SHARED_SRC_DIR}/wdg/scroll_area_horizontal.cpp
+	${SHARED_SRC_DIR}/wdg/scroll_area_vertical.cpp
+	${SHARED_SRC_DIR}/wdg/balloon_widget.cpp
+	${SHARED_SRC_DIR}/wdg/color_methods.cpp
+	${SHARED_SRC_DIR}/wdg/ds_widget_style_db.cpp
+	${SHARED_SRC_DIR}/wdg/ds_widget_painter.cpp
+	${SHARED_SRC_DIR}/wdg/ds_imaging.cpp
+	${SHARED_SRC_DIR}/wdg/ds_switch_painter_circle.cpp
+	${SHARED_SRC_DIR}/wdg/ds_switch_painter_close.cpp
+	${SHARED_SRC_DIR}/wdg/ds_switch_painter_svg.cpp
+	${SHARED_SRC_DIR}/wdg/ds_switch.cpp
 
-	wdg/ds_widget_style_db.cpp
-	wdg/ds_widget_painter.cpp
-	wdg/ds_imaging.cpp
-	wdg/ds_switch_painter_circle.cpp
-	wdg/ds_switch_painter_close.cpp
-	wdg/ds_switch_painter_svg.cpp
-	wdg/ds_switch.cpp
+	${SHARED_SRC_DIR}/wdg/uint_mapper.cpp
+	${SHARED_SRC_DIR}/wdg/cubic_curve.cpp
+	${SHARED_SRC_DIR}/wdg/ds_slider_meta_bg.cpp
+	${SHARED_SRC_DIR}/wdg/ds_slider_painter_bevelled.cpp
+	${SHARED_SRC_DIR}/wdg/ds_slider.cpp
 
-	wdg/uint_mapper.cpp
-	wdg/cubic_curve.cpp
-	wdg/ds_slider_meta_bg.cpp
-	wdg/ds_slider_painter_bevelled.cpp
-	wdg/ds_slider.cpp
+	${SHARED_SRC_DIR}/wdg/event_types.cpp
+	${SHARED_SRC_DIR}/wdg/pass_events.cpp
 
-	#slider_test.cpp
-	#slider_test_dialog.cpp
+	${SHARED_SRC_DIR}/wdg/pad_focus_info.cpp
+	${SHARED_SRC_DIR}/wdg/pad_proxy.cpp
+	${SHARED_SRC_DIR}/wdg/pad_proxy_style.cpp
+	${SHARED_SRC_DIR}/wdg/pad_proxy_slider.cpp
+	${SHARED_SRC_DIR}/wdg/pad_proxy_switch.cpp
+	${SHARED_SRC_DIR}/wdg/pad_proxy_enum.cpp
+	${SHARED_SRC_DIR}/wdg/pad_proxies_column.cpp
+	${SHARED_SRC_DIR}/wdg/pad_proxies_group.cpp
 
-	wdg/event_types.cpp
-	wdg/pad_focus_info.cpp
-	wdg/pass_events.cpp
+	${SHARED_SRC_DIR}/wdg/layout_weights.cpp
+	${SHARED_SRC_DIR}/wdg/equal_columns_layout_group.cpp
+	${SHARED_SRC_DIR}/wdg/equal_columns_layout.cpp
+	${SHARED_SRC_DIR}/wdg/fill_columns_layout.cpp
 
-	wdg/pad_proxy.cpp
-	wdg/pad_proxy_style.cpp
-	wdg/pad_proxy_slider.cpp
-	wdg/pad_proxy_switch.cpp
-	wdg/pad_proxy_enum.cpp
-	wdg/pad_proxies_column.cpp
-	wdg/pad_proxies_group.cpp
+	${SHARED_SRC_DIR}/wdg/sliders_pad_layout.cpp
+	${SHARED_SRC_DIR}/wdg/sliders_pad_style.cpp
+	${SHARED_SRC_DIR}/wdg/sliders_pad_data.cpp
+	${SHARED_SRC_DIR}/wdg/sliders_pad_header_data.cpp
+	${SHARED_SRC_DIR}/wdg/sliders_pad_header.cpp
+	${SHARED_SRC_DIR}/wdg/sliders_pad_footer.cpp
+	${SHARED_SRC_DIR}/wdg/sliders_pad.cpp
 
-	wdg/layout_weights.cpp
-	wdg/equal_columns_layout_group.cpp
-	wdg/equal_columns_layout.cpp
-	wdg/fill_columns_layout.cpp
+	${SHARED_SRC_DIR}/wdg/switches_pad_widgets.cpp
+	${SHARED_SRC_DIR}/wdg/switches_pad_widgets_group.cpp
+	${SHARED_SRC_DIR}/wdg/switches_pad.cpp
+	${SHARED_SRC_DIR}/wdg/switches_area.cpp
 
-	wdg/sliders_pad_layout.cpp
-	wdg/sliders_pad_style.cpp
-	wdg/sliders_pad_data.cpp
-	wdg/sliders_pad_header_data.cpp
-	wdg/sliders_pad_header.cpp
-	wdg/sliders_pad_footer.cpp
-	wdg/sliders_pad.cpp
+	${SHARED_SRC_DIR}/mwdg/event_types.cpp
+	${SHARED_SRC_DIR}/mwdg/ctl_arg_view.cpp
+	${SHARED_SRC_DIR}/mwdg/ctl_arg_view_string.cpp
+	${SHARED_SRC_DIR}/mwdg/ctl_arg_view_integer.cpp
+	${SHARED_SRC_DIR}/mwdg/ctl_arg_view_card.cpp
+	${SHARED_SRC_DIR}/mwdg/controls_delegate.cpp
+	${SHARED_SRC_DIR}/mwdg/controls_view.cpp
+	${SHARED_SRC_DIR}/mwdg/inputs_setup.cpp
+	${SHARED_SRC_DIR}/mwdg/mixer_device_setup.cpp
+	${SHARED_SRC_DIR}/mwdg/slider_status_widget.cpp
 
-	wdg/switches_pad_widgets.cpp
-	wdg/switches_pad_widgets_group.cpp
-	wdg/switches_pad.cpp
-	wdg/switches_area.cpp
+	${SHARED_SRC_DIR}/views/view_helper.cpp
+	${SHARED_SRC_DIR}/views/message_widget.cpp
+	${SHARED_SRC_DIR}/views/view_base_setup.cpp
+	${SHARED_SRC_DIR}/views/view_base.cpp
+	${SHARED_SRC_DIR}/views/dev_select_view_setup.cpp
+	${SHARED_SRC_DIR}/views/dev_select_view.cpp
+	${SHARED_SRC_DIR}/views/info_view.cpp
 
-	qsnd/alsa.cpp
-	qsnd/event_types.cpp
-	qsnd/ctl_info.cpp
-	qsnd/ctl_info_model.cpp
+	${SHARED_SRC_DIR}/unix_signal_handler.cpp
+	${SHARED_SRC_DIR}/single_application.cpp
 
-	qsnd/mixer_hctl_info_db.cpp
-	qsnd/mixer_hctl_elem.cpp
-	qsnd/mixer_hctl_elem_group.cpp
-	qsnd/mixer_hctl.cpp
-	qsnd/mixer_simple_elem.cpp
-	qsnd/mixer_simple_filter.cpp
-	qsnd/mixer_simple_filter_name.cpp
-	qsnd/mixer_simple.cpp
-
-	qsnd/ctl_def_arg.cpp
-	qsnd/ctl_def.cpp
-	qsnd/ctl_address_arg.cpp
-	qsnd/ctl_address.cpp
-	qsnd/controls_db.cpp
-	qsnd/controls_model.cpp
-	qsnd/cards_model.cpp
-	qsnd/card_info.cpp
-	qsnd/pcm_subdevice_info.cpp
-	qsnd/pcm_subdevices_info.cpp
-	qsnd/pcm_device_info.cpp
-
-	mwdg/event_types.cpp
-	mwdg/ctl_arg_view.cpp
-	mwdg/ctl_arg_view_string.cpp
-	mwdg/ctl_arg_view_integer.cpp
-	mwdg/ctl_arg_view_card.cpp
-	mwdg/controls_delegate.cpp
-	mwdg/controls_view.cpp
-
-	mwdg/inputs_setup.cpp
-	mwdg/mixer_device_setup.cpp
-	mwdg/mixer_simple_setup.cpp
 	mwdg/mixer_gui_state.cpp
+	mwdg/mixer_simple_setup.cpp
 	mwdg/mixer_separation_info.cpp
-
-	mwdg/slider_status_widget.cpp
-
-	mwdg/mixer_hctl_tree_model.cpp
-	mwdg/mixer_hctl_table_model.cpp
-	mwdg/mixer_hctl_proxy.cpp
-	mwdg/mixer_hctl_proxy_switch.cpp
-	mwdg/mixer_hctl_proxy_enum.cpp
-	mwdg/mixer_hctl_proxies_group.cpp
-	mwdg/mixer_hctl_int_proxies_group.cpp
-	mwdg/mixer_hctl_int_proxy_column.cpp
-	mwdg/mixer_hctl_int_proxy_slider.cpp
-	mwdg/mixer_hctl_slider_status_widget.cpp
-	mwdg/mixer_hctl_editor.cpp
-	mwdg/mixer_hctl_editor_data.cpp
-	mwdg/mixer_hctl_edit_bool.cpp
-	mwdg/mixer_hctl_edit_enum.cpp
-	mwdg/mixer_hctl_edit_int.cpp
-	mwdg/mixer_hctl_edit_unsupported.cpp
-	mwdg/mixer_hctl.cpp
-
 	mwdg/mixer_sliders_proxy_slider.cpp
 	mwdg/mixer_sliders_proxy_switch.cpp
 	mwdg/mixer_sliders_proxies_column.cpp
 	mwdg/mixer_sliders_proxies_group.cpp
 	mwdg/mixer_sliders_status_widget.cpp
 	mwdg/mixer_sliders.cpp
-
 	mwdg/mixer_switches_proxy_enum.cpp
 	mwdg/mixer_switches_proxy_switch.cpp
 	mwdg/mixer_switches_proxies_group.cpp
 	mwdg/mixer_switches.cpp
 
+	views/settings_view_setup.cpp
+	views/settings_view.cpp
+
 	tray_mixer_mdev_setup.cpp
 	tray_mixer_view_setup.cpp
-
-	mview/dev_select_view_setup.cpp
-	mview/dev_select_view.cpp
-	mview/info_view.cpp
-	mview/settings_view_setup.cpp
-	mview/settings_view.cpp
-
-	mview/message_widget.cpp
-	mview/mv_base.cpp
-	mview/mv_base_setup.cpp
-	mview/mv_mixer_simple.cpp
-	mview/mv_mixer_simple_setup.cpp
-	mview/mv_mixer_hctl.cpp
-	mview/mv_mixer_hctl_setup.cpp
-	mview/mv_info.cpp
-	mview/mv_info_setup.cpp
-	mview/switcher.cpp
-	mview/switcher_setup.cpp
-
 	tray_mixer_icon.cpp
 	tray_mixer_balloon.cpp
 	tray_mixer.cpp
+	cmd_options.cpp
 	mixer_window_setup.cpp
 	mixer_window.cpp
-	cmd_options.cpp
 	desktop_items_setup.cpp
 	desktop_items.cpp
 
-	unix_signal_handler.cpp
-	single_application.cpp
 	init_globals.cpp
 	info_texts.cpp
 	main.cpp
@@ -220,66 +169,49 @@ SET ( SRC_GUI
 
 SET ( SRC_GUI_HEADER_MOC
 
-	dpe/is_buffer.hpp
-	dpe/image_allocator.hpp
+	${SHARED_INC_DIR}/qsnd/controls_db.hpp
+	${SHARED_INC_DIR}/qsnd/controls_model.hpp
+	${SHARED_INC_DIR}/qsnd/cards_model.hpp
+	${SHARED_INC_DIR}/qsnd/mixer_simple_elem.hpp
+	${SHARED_INC_DIR}/qsnd/mixer_simple.hpp
 
-	wdg/covered_input.hpp
-	wdg/covered_spinbox.hpp
-	wdg/tree_view_kv.hpp
-	wdg/ds_slider.hpp
-	wdg/ds_switch.hpp
-	wdg/balloon_widget.hpp
+	${SHARED_INC_DIR}/dpe/is_buffer.hpp
+	${SHARED_INC_DIR}/dpe/image_allocator.hpp
 
-	#slider_test.hpp
-	#slider_test_dialog.hpp
+	${SHARED_INC_DIR}/wdg/tree_view_kv.hpp
+	${SHARED_INC_DIR}/wdg/ds_slider.hpp
+	${SHARED_INC_DIR}/wdg/ds_switch.hpp
+	${SHARED_INC_DIR}/wdg/balloon_widget.hpp
 
-	wdg/pad_proxy.hpp
-	wdg/pad_proxy_slider.hpp
-	wdg/pad_proxy_switch.hpp
-	wdg/pad_proxy_enum.hpp
-	wdg/pad_proxies_column.hpp
-	wdg/pad_proxies_group.hpp
+	${SHARED_INC_DIR}/wdg/pad_proxy.hpp
+	${SHARED_INC_DIR}/wdg/pad_proxy_slider.hpp
+	${SHARED_INC_DIR}/wdg/pad_proxy_switch.hpp
+	${SHARED_INC_DIR}/wdg/pad_proxy_enum.hpp
+	${SHARED_INC_DIR}/wdg/pad_proxies_column.hpp
+	${SHARED_INC_DIR}/wdg/pad_proxies_group.hpp
 
-	wdg/sliders_pad_data.hpp
-	wdg/sliders_pad_header.hpp
-	wdg/sliders_pad_footer.hpp
-	wdg/sliders_pad.hpp
-	wdg/switches_pad.hpp
+	${SHARED_INC_DIR}/wdg/sliders_pad_data.hpp
+	${SHARED_INC_DIR}/wdg/sliders_pad_header.hpp
+	${SHARED_INC_DIR}/wdg/sliders_pad_footer.hpp
+	${SHARED_INC_DIR}/wdg/sliders_pad.hpp
+	${SHARED_INC_DIR}/wdg/switches_pad.hpp
 
-	qsnd/controls_db.hpp
-	qsnd/controls_model.hpp
-	qsnd/cards_model.hpp
-	qsnd/ctl_info.hpp
-	qsnd/ctl_info_model.hpp
-	qsnd/mixer_hctl_elem.hpp
-	qsnd/mixer_hctl.hpp
-	qsnd/mixer_simple_elem.hpp
-	qsnd/mixer_simple.hpp
+	${SHARED_INC_DIR}/mwdg/controls_delegate.hpp
+	${SHARED_INC_DIR}/mwdg/controls_view.hpp
+	${SHARED_INC_DIR}/mwdg/ctl_arg_view.hpp
+	${SHARED_INC_DIR}/mwdg/ctl_arg_view_string.hpp
+	${SHARED_INC_DIR}/mwdg/ctl_arg_view_integer.hpp
+	${SHARED_INC_DIR}/mwdg/ctl_arg_view_card.hpp
+	${SHARED_INC_DIR}/mwdg/slider_status_widget.hpp
 
-	mwdg/controls_delegate.hpp
-	mwdg/controls_view.hpp
-	mwdg/ctl_arg_view.hpp
-	mwdg/ctl_arg_view_string.hpp
-	mwdg/ctl_arg_view_integer.hpp
-	mwdg/ctl_arg_view_card.hpp
-	mwdg/slider_status_widget.hpp
+	${SHARED_INC_DIR}/views/message_widget.hpp
+	${SHARED_INC_DIR}/views/view_base.hpp
+	${SHARED_INC_DIR}/views/dev_select_view_setup.hpp
+	${SHARED_INC_DIR}/views/dev_select_view.hpp
+	${SHARED_INC_DIR}/views/info_view.hpp
 
-	mwdg/mixer_hctl_tree_model.hpp
-	mwdg/mixer_hctl_table_model.hpp
-	mwdg/mixer_hctl_proxy.hpp
-	mwdg/mixer_hctl_proxy_switch.hpp
-	mwdg/mixer_hctl_proxy_enum.hpp
-	mwdg/mixer_hctl_proxies_group.hpp
-	mwdg/mixer_hctl_int_proxies_group.hpp
-	mwdg/mixer_hctl_int_proxy_column.hpp
-	mwdg/mixer_hctl_int_proxy_slider.hpp
-	mwdg/mixer_hctl_slider_status_widget.hpp
-	mwdg/mixer_hctl_editor.hpp
-	mwdg/mixer_hctl_edit_bool.hpp
-	mwdg/mixer_hctl_edit_enum.hpp
-	mwdg/mixer_hctl_edit_int.hpp
-	mwdg/mixer_hctl_edit_unsupported.hpp
-	mwdg/mixer_hctl.hpp
+	${SHARED_INC_DIR}/unix_signal_handler.hpp
+	${SHARED_INC_DIR}/single_application.hpp
 
 	mwdg/mixer_sliders_proxy_slider.hpp
 	mwdg/mixer_sliders_proxy_switch.hpp
@@ -287,48 +219,28 @@ SET ( SRC_GUI_HEADER_MOC
 	mwdg/mixer_sliders_proxies_group.hpp
 	mwdg/mixer_sliders_status_widget.hpp
 	mwdg/mixer_sliders.hpp
-
 	mwdg/mixer_switches_proxy_enum.hpp
 	mwdg/mixer_switches_proxy_switch.hpp
 	mwdg/mixer_switches_proxies_group.hpp
 	mwdg/mixer_switches.hpp
-
-	single_application.hpp
-
-	mview/dev_select_view.hpp
-	mview/info_view.hpp
-	mview/settings_view.hpp
-
-	mview/message_widget.hpp
-	mview/mv_base.hpp
-	mview/mv_mixer_simple.hpp
-	mview/mv_mixer_hctl.hpp
-	mview/mv_info.hpp
-	mview/switcher.hpp
 
 	tray_mixer_icon.hpp
 	tray_mixer_balloon.hpp
 	tray_mixer.hpp
 	mixer_window.hpp
 	desktop_items.hpp
-
-	unix_signal_handler.hpp
 )
 
 
 # Qt stuff
-
-INCLUDE ( ${QT_USE_FILE} )
-
 QT4_WRAP_CPP ( SRC_GUI_MOC ${SRC_GUI_HEADER_MOC} )
 QT4_WRAP_CPP ( SRC_EXTRA_MOC ${SRC_EXTRA_HEADER_MOC} )
 
 
 # Program
-
 INCLUDE_DIRECTORIES ( ${CMAKE_CURRENT_SOURCE_DIR} )
 INCLUDE_DIRECTORIES ( ${CMAKE_CURRENT_BINARY_DIR} )
-INCLUDE_DIRECTORIES ( ${SHARED_INCLUDE_DIR} )
+INCLUDE_DIRECTORIES ( ${SHARED_INC_DIR} )
 INCLUDE_DIRECTORIES ( ${ALSA_INCLUDE_DIRS} )
 
 ADD_EXECUTABLE (

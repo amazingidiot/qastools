@@ -14,9 +14,6 @@
 
 
 Mixer_Window_Setup::Mixer_Window_Setup ( ) :
-show_dev_select ( false ),
-kseq_dev_select ( Qt::Key_F6 ),
-kseq_vtype_select ( Qt::Key_F8 )
+show_dev_select ( false )
 {
-	dev_select.kseq_toggle_vis = kseq_dev_select;
 }

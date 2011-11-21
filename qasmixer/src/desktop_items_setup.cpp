@@ -30,7 +30,6 @@ void
 Desktop_Items_Setup::read_from_storage ( )
 {
 	Mixer_Window_Setup & mwin ( mixer_window );
-	::MView::Switcher_Setup & sws ( mixer_window.switcher );
 
 	QSettings settings;
 
@@ -49,17 +48,11 @@ Desktop_Items_Setup::read_from_storage ( )
 	start_user_device = settings.value ( "start_user_device",
 		start_user_device ).toString();
 
-	sws.mixer_dev.ctl_addr = settings.value ( "current_device",
-		sws.mixer_dev.ctl_addr ).toString();
+	mwin.mixer_dev.ctl_addr = settings.value ( "current_device",
+		mwin.mixer_dev.ctl_addr ).toString();
 
-	sws.view_type = settings.value ( "view_type",
-		sws.view_type ).toUInt();
-
-	sws.show_vtype_select = settings.value ( "show_vtype_selection",
-		sws.show_vtype_select ).toBool();
-
-	sws.inputs.wheel_degrees = settings.value ( "wheel_degrees",
-		sws.inputs.wheel_degrees ).toUInt();
+	mwin.inputs.wheel_degrees = settings.value ( "wheel_degrees",
+		mwin.inputs.wheel_degrees ).toUInt();
 
 
 	tray_on_close = settings.value ( "tray_on_close",
@@ -74,7 +67,7 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	// Device selection
 	{
-		::MView::Dev_Select_View_Setup & vsetup (
+		::Views::Dev_Select_View_Setup & vsetup (
 			mixer_window.dev_select );
 
 		settings.beginGroup ( "device_selection" );
@@ -88,8 +81,8 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	// Simple mixer
 	{
-		::MView::MV_Mixer_Simple_Setup & vsetup (
-			mixer_window.switcher.mv_simple );
+		::Views::Mixer_Simple_Setup & vsetup (
+			mixer_window.mixer_simple );
 
 		settings.beginGroup ( "simple_mixer" );
 
@@ -102,27 +95,6 @@ Desktop_Items_Setup::read_from_storage ( )
 		vsetup.show_slider_value_labels = settings.value (
 			"show_slider_value_labels",
 			vsetup.show_slider_value_labels ).toBool();
-
-		settings.endGroup();
-	}
-
-
-
-	// CTL mixer
-	{
-		::MView::MV_Mixer_CTL_Setup & vsetup (
-			mixer_window.switcher.mv_ctl );
-
-		settings.beginGroup ( "element_mixer" );
-
-		vsetup.iface_name = settings.value ( "iface_name",
-			vsetup.iface_name ).toString();
-
-		vsetup.elem_grp_name = settings.value ( "elem_grp_name",
-			vsetup.elem_grp_name ).toString();
-
-		vsetup.elem_grp_index = settings.value ( "elem_grp_index",
-			vsetup.elem_grp_index ).toUInt();
 
 		settings.endGroup();
 	}
@@ -168,14 +140,10 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	// Sanitize values
 
-	if ( sws.view_type > 2 ) {
-		sws.view_type = 0;
+	if ( mixer_window.inputs.wheel_degrees == 0 ) {
+		mixer_window.inputs.wheel_degrees = 720;
 	}
-
-	if ( sws.inputs.wheel_degrees == 0 ) {
-		sws.inputs.wheel_degrees = 720;
-	}
-	tray_view.wheel_degrees = sws.inputs.wheel_degrees;
+	tray_view.wheel_degrees = mixer_window.inputs.wheel_degrees;
 
 	if ( start_device_mode > ::Desktop_Items_Setup::MIXER_DEV_LAST ) {
 		start_device_mode = ::Desktop_Items_Setup::MIXER_DEV_DEFAULT;
@@ -186,7 +154,7 @@ Desktop_Items_Setup::read_from_storage ( )
 	}
 
 	{
-		::MView::MV_Mixer_Simple_Setup & vsetup ( sws.mv_simple );
+		::Views::Mixer_Simple_Setup & vsetup ( mixer_window.mixer_simple );
 		if ( !( vsetup.show_stream[0] || vsetup.show_stream[1] ) ) {
 			vsetup.show_stream[0] = true;
 		}
@@ -210,19 +178,13 @@ Desktop_Items_Setup::write_to_storage ( )
 		start_user_device );
 
 	settings.setValue ( "current_device",
-		mixer_window.switcher.mixer_dev.ctl_addr );
+		mixer_window.mixer_dev.ctl_addr );
 
 	settings.setValue ( "show_device_selection",
 		mixer_window.show_dev_select );
 
-	settings.setValue ( "view_type",
-		mixer_window.switcher.view_type );
-
-	settings.setValue ( "show_vtype_selection",
-		mixer_window.switcher.show_vtype_select );
-
 	settings.setValue ( "wheel_degrees",
-		mixer_window.switcher.inputs.wheel_degrees );
+		mixer_window.inputs.wheel_degrees );
 
 
 	settings.setValue ( "tray_on_close",
@@ -244,7 +206,7 @@ Desktop_Items_Setup::write_to_storage ( )
 
 	// Device selection
 	{
-		const ::MView::Dev_Select_View_Setup & vsetup (
+		const ::Views::Dev_Select_View_Setup & vsetup (
 			mixer_window.dev_select );
 		settings.beginGroup ( "device_selection" );
 
@@ -257,8 +219,8 @@ Desktop_Items_Setup::write_to_storage ( )
 
 	// Simple mixer
 	{
-		const ::MView::MV_Mixer_Simple_Setup & vsetup (
-			mixer_window.switcher.mv_simple );
+		const ::Views::Mixer_Simple_Setup & vsetup (
+			mixer_window.mixer_simple );
 
 		settings.beginGroup ( "simple_mixer" );
 
@@ -270,27 +232,6 @@ Desktop_Items_Setup::write_to_storage ( )
 
 		settings.setValue ( "show_slider_value_labels",
 			vsetup.show_slider_value_labels );
-
-		settings.endGroup();
-	}
-
-
-
-	// CTL mixer view
-	{
-		const ::MView::MV_Mixer_CTL_Setup & vsetup (
-			mixer_window.switcher.mv_ctl );
-
-		settings.beginGroup ( "element_mixer" );
-
-		settings.setValue ( "iface_name",
-			vsetup.iface_name );
-
-		settings.setValue ( "elem_grp_name",
-			vsetup.elem_grp_name );
-
-		settings.setValue ( "elem_grp_index",
-			vsetup.elem_grp_index );
 
 		settings.endGroup();
 	}

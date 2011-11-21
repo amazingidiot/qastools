@@ -13,8 +13,8 @@
 #ifndef __INC_desktop_items_setup_hpp__
 #define __INC_desktop_items_setup_hpp__
 
-#include <mview/dev_select_view.hpp>
-#include <mview/settings_view_setup.hpp>
+#include <views/dev_select_view.hpp>
+#include <views/settings_view_setup.hpp>
 #include "tray_mixer_mdev_setup.hpp"
 #include "tray_mixer_view_setup.hpp"
 #include "mixer_window_setup.hpp"
@@ -59,8 +59,8 @@ class Desktop_Items_Setup
 	::Tray_Mixer_MDev_Setup tray_mdev;
 	::Tray_Mixer_View_Setup tray_view;
 	::Mixer_Window_Setup mixer_window;
-	::MView::Dev_Select_View_Setup dev_select_view;
-	::MView::Settings_View_Setup settings_view;
+	::Views::Dev_Select_View_Setup dev_select_view;
+	::Views::Settings_View_Setup settings_view;
 
 	bool tray_on_close;
 	bool tray_show_icon;

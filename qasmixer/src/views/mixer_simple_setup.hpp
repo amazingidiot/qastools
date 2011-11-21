@@ -13,20 +13,20 @@
 #ifndef __INC_mv_mixer_simple_setup_hpp__
 #define __INC_mv_mixer_simple_setup_hpp__
 
-#include "mv_base_setup.hpp"
+#include "views/view_base_setup.hpp"
 
 
-namespace MView
+namespace Views
 {
 
 
-class MV_Mixer_Simple_Setup :
-	public MV_Base_Setup
+class Mixer_Simple_Setup :
+	public ::Views::View_Base_Setup
 {
 	// Public methods
 	public:
 
-	MV_Mixer_Simple_Setup ( );
+	Mixer_Simple_Setup ( );
 
 
 	// Public attributes

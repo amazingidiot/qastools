@@ -28,7 +28,7 @@
 #include <iostream>
 
 
-namespace MView
+namespace Views
 {
 
 
@@ -487,11 +487,11 @@ Settings_View::update_inputs_values ( )
 
 	// Appearance
 	_btn_show_sliders_labels->setChecked (
-		_dsetup->mixer_window.switcher.mv_simple.show_slider_value_labels );
+		_dsetup->mixer_window.mixer_simple.show_slider_value_labels );
 
 	// Input
 	{
-		const int value ( _dsetup->mixer_window.switcher.inputs.wheel_degrees );
+		const int value ( _dsetup->mixer_window.inputs.wheel_degrees );
 		_mwheel_turns_slider->setValue ( value / 36 );
 		_mwheel_turns_input->setValue ( value / 360.0 );
 	}
@@ -617,7 +617,7 @@ Settings_View::change_appearance ( )
 	bool changed ( false );
 	{
 		bool & sflag (
-			_dsetup->mixer_window.switcher.mv_simple.show_slider_value_labels );
+			_dsetup->mixer_window.mixer_simple.show_slider_value_labels );
 		if ( _btn_show_sliders_labels->isChecked() != sflag ) {
 			sflag = _btn_show_sliders_labels->isChecked();
 			changed = true;
@@ -641,8 +641,8 @@ Settings_View::change_input ( )
 
 	int value = _mwheel_turns_input->value() * 360.0;
 	if ( value >= 0 ) {
-		if ( _dsetup->mixer_window.switcher.inputs.wheel_degrees != (unsigned int)value ) {
-			_dsetup->mixer_window.switcher.inputs.wheel_degrees = (unsigned int)value;
+		if ( _dsetup->mixer_window.inputs.wheel_degrees != (unsigned int)value ) {
+			_dsetup->mixer_window.inputs.wheel_degrees = (unsigned int)value;
 			changed = true;
 		}
 	}

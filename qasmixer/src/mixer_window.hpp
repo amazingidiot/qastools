@@ -22,8 +22,10 @@
 #include <QDockWidget>
 
 // Forward declaration
-namespace MView { class Switcher; }
-namespace MView { class Dev_Select_View; }
+namespace Views {
+	class Mixer_Simple;
+	class Dev_Select_View;
+}
 
 
 class Mixer_Window :
@@ -113,17 +115,6 @@ class Mixer_Window :
 	save_state ( );
 
 
-	// Protected slots
-	protected slots:
-
-	void
-	view_type_action_triggered (
-		QAction * act_n );
-
-	void
-	update_view_type_actions ( );
-
-
 	// Protected methods
 	protected:
 
@@ -155,15 +146,13 @@ class Mixer_Window :
 	Mixer_Window_Setup * _mixer_setup;
 
 	// Base widgets
-	::MView::Switcher * _switcher;
-	::MView::Dev_Select_View * _dev_select;
+	::Views::Mixer_Simple * _mixer_simple;
+	::Views::Dev_Select_View * _dev_select;
 	QDockWidget * _dev_select_dock;
 
 	// Menubar
 	QMenu * _menu_mixer;
 	QAction * _act_show_dev_select;
-	QAction * _act_show_vtype_select;
-	QActionGroup * _act_grp_menu_vtype;
 	QAction * _act_fullscreen;
 
 	// Strings and icons
