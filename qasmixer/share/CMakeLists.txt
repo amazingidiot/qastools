@@ -1,0 +1,15 @@
+
+CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
+
+
+#
+# Desktop file
+#
+
+SET ( desktop_file_src ${CMAKE_CURRENT_SOURCE_DIR}/application.desktop.cmake )
+SET ( desktop_file     ${CMAKE_CURRENT_BINARY_DIR}/${PROGRAM_NAME}.desktop )
+
+CONFIGURE_FILE ( ${desktop_file_src} ${desktop_file} )
+
+INSTALL( FILES ${desktop_file}
+	DESTINATION ${INSTALL_DIR_DESKTOP} )

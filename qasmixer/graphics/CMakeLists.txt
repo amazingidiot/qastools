@@ -1,0 +1,50 @@
+
+CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
+
+
+# Install application icons
+
+INSTALL( FILES icons/app-icon-16x16.png
+	DESTINATION ${INSTALL_DIR_ICONS_PNG_16}
+	RENAME ${PROGRAM_NAME}.png )
+
+INSTALL( FILES icons/app-icon-32x32.png
+	DESTINATION ${INSTALL_DIR_ICONS_PNG_32}
+	RENAME ${PROGRAM_NAME}.png )
+
+INSTALL( FILES icons/app-icon-48x48.png
+	DESTINATION ${INSTALL_DIR_ICONS_PNG_48}
+	RENAME ${PROGRAM_NAME}.png )
+
+INSTALL( FILES icons/app-icon-64x64.png
+	DESTINATION ${INSTALL_DIR_ICONS_PNG_64}
+	RENAME ${PROGRAM_NAME}.png )
+
+INSTALL( FILES icons/app-icon.svg
+	DESTINATION ${INSTALL_DIR_ICONS_SVG}
+	RENAME ${PROGRAM_NAME}.svg )
+
+
+# Install simple mixer icons
+
+INSTALL ( FILES icons/show-playback.svg
+	DESTINATION ${INSTALL_DIR_APP_ICONS} )
+INSTALL ( FILES icons/show-capture.svg
+	DESTINATION ${INSTALL_DIR_APP_ICONS} )
+
+
+# Install widgets graphics
+
+FILE ( GLOB switch_icons "widgets/sw_joined_bg_*.svg" )
+FOREACH ( switch_icon ${switch_icons} )
+	INSTALL ( FILES ${switch_icon}
+		DESTINATION ${INSTALL_DIR_WIDGETS_GRAPHICS} )
+ENDFOREACH( switch_icon )
+
+
+FILE ( GLOB switch_icons "widgets/sw_joined_handle_*.svg" )
+FOREACH ( switch_icon ${switch_icons} )
+	INSTALL ( FILES ${switch_icon}
+		DESTINATION ${INSTALL_DIR_WIDGETS_GRAPHICS} )
+ENDFOREACH( switch_icon )
+
