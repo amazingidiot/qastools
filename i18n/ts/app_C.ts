@@ -1209,7 +1209,7 @@
     </message>
 </context>
 <context>
-    <name>Mixer_Window</name>
+    <name>Main_Window</name>
     <message>
         <location filename="../../src/mixer_window.cpp" line="44"/>
         <source>&amp;Fullscreen mode</source>
