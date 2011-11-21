@@ -206,7 +206,6 @@ SET ( SRC_GUI_HEADER_MOC
 
 	${SHARED_INC_DIR}/views/message_widget.hpp
 	${SHARED_INC_DIR}/views/view_base.hpp
-	${SHARED_INC_DIR}/views/dev_select_view_setup.hpp
 	${SHARED_INC_DIR}/views/dev_select_view.hpp
 	${SHARED_INC_DIR}/views/info_view.hpp
 

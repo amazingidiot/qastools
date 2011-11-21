@@ -141,47 +141,22 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/qsnd/cards_model.hpp
 	${SHARED_INC_DIR}/qsnd/controls_model.hpp
 
-	${SHARED_INC_DIR}/dpe/image_allocator.hpp
-	${SHARED_INC_DIR}/dpe/image.hpp
-	${SHARED_INC_DIR}/dpe/image_request.hpp
-	${SHARED_INC_DIR}/dpe/image_set.hpp
-	${SHARED_INC_DIR}/dpe/image_set_group.hpp
-	${SHARED_INC_DIR}/dpe/image_set_meta.hpp
-	${SHARED_INC_DIR}/dpe/image_set_state.hpp
 	${SHARED_INC_DIR}/dpe/is_buffer.hpp
-	${SHARED_INC_DIR}/dpe/is_buffer_handle.hpp
-	${SHARED_INC_DIR}/dpe/painter.hpp
-	${SHARED_INC_DIR}/dpe/painter_simple.hpp
-	${SHARED_INC_DIR}/dpe/painter_thread.hpp
-	${SHARED_INC_DIR}/dpe/painter_thread_shared.hpp
-	${SHARED_INC_DIR}/dpe/paint_job.hpp
+	${SHARED_INC_DIR}/dpe/image_allocator.hpp
 
-	${SHARED_INC_DIR}/wdg/label_width.hpp
-	${SHARED_INC_DIR}/wdg/label_elide.hpp
 	${SHARED_INC_DIR}/wdg/tree_view_kv.hpp
-	${SHARED_INC_DIR}/wdg/ds_widget_painter.hpp
-	${SHARED_INC_DIR}/wdg/ds_widget_style_db.hpp
-	${SHARED_INC_DIR}/wdg/ds_imaging.hpp
 	${SHARED_INC_DIR}/wdg/ds_switch.hpp
-	${SHARED_INC_DIR}/wdg/ds_switch_painter_circle.hpp
-	${SHARED_INC_DIR}/wdg/ds_switch_painter_svg.hpp
 	${SHARED_INC_DIR}/wdg/ds_slider.hpp
-	${SHARED_INC_DIR}/wdg/ds_slider_meta_bg.hpp
-	${SHARED_INC_DIR}/wdg/ds_slider_painter_bevelled.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxies_column.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxies_group.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxy.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxy_enum.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxy_slider.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy_style.hpp
 	${SHARED_INC_DIR}/wdg/pad_proxy_switch.hpp
 	${SHARED_INC_DIR}/wdg/sliders_pad.hpp
 	${SHARED_INC_DIR}/wdg/sliders_pad_data.hpp
 	${SHARED_INC_DIR}/wdg/sliders_pad_footer.hpp
 	${SHARED_INC_DIR}/wdg/sliders_pad_header.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_header_data.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_layout.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_style.hpp
 
 	${SHARED_INC_DIR}/mwdg/slider_status_widget.hpp
 	${SHARED_INC_DIR}/mwdg/controls_view.hpp
@@ -193,21 +168,17 @@ SET ( SRC_GUI_HEADER_MOC
 
 	${SHARED_INC_DIR}/views/message_widget.hpp
 	${SHARED_INC_DIR}/views/view_base.hpp
-	${SHARED_INC_DIR}/views/dev_select_view_setup.hpp
 	${SHARED_INC_DIR}/views/dev_select_view.hpp
 	${SHARED_INC_DIR}/views/info_view.hpp
 
 	qsnd/mixer_hctl.hpp
 	qsnd/mixer_hctl_elem.hpp
-	qsnd/mixer_hctl_elem_group.hpp
-	qsnd/mixer_hctl_info_db.hpp
 
 	mwdg/mixer_hctl.hpp
 	mwdg/mixer_hctl_edit_bool.hpp
 	mwdg/mixer_hctl_edit_enum.hpp
 	mwdg/mixer_hctl_edit_int.hpp
 	mwdg/mixer_hctl_editor.hpp
-	mwdg/mixer_hctl_editor_data.hpp
 	mwdg/mixer_hctl_edit_unsupported.hpp
 	mwdg/mixer_hctl_int_proxies_group.hpp
 	mwdg/mixer_hctl_int_proxy_column.hpp
