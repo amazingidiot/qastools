@@ -1500,7 +1500,7 @@
     </message>
 </context>
 <context>
-    <name>Alsa_Config_Model</name>
+    <name>QSnd::Alsa_Config_Model</name>
     <message>
         <location filename="../../src/alsa_config_model.cpp" line="248"/>
         <source>Key</source>
