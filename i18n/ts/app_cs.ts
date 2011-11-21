@@ -1566,7 +1566,7 @@
     </message>
 </context>
 <context>
-    <name>Alsa_Config_View</name>
+    <name>Views::Alsa_Config_View</name>
     <message>
         <location filename="../../src/alsa_config_view.cpp" line="35"/>
         <source>ALSA configuration</source>
