@@ -10,7 +10,7 @@
 //
 //
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "init_globals.hpp"
 #include "single_application.hpp"
 #include "desktop_items.hpp"

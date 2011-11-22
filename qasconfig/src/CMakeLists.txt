@@ -7,8 +7,8 @@ CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
 INCLUDE ( CheckIncludeFiles )
 
 CONFIGURE_FILE (
-	${SHARED_SRC_DIR}/config.hpp.cmake
-	${CMAKE_CURRENT_BINARY_DIR}/config.hpp )
+	${SHARED_SRC_DIR}/qastools_config.hpp.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/qastools_config.hpp )
 
 
 # Sources

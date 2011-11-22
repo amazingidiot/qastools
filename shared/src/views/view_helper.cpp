@@ -12,7 +12,7 @@
 
 #include "view_helper.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QTranslator>

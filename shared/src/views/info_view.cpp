@@ -12,7 +12,7 @@
 
 #include "info_view.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "wdg/text_browser.hpp"
 
 #include <QVBoxLayout>

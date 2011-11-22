@@ -12,7 +12,7 @@
 
 #include "desktop_items.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "info_texts.hpp"
 #include "tray_mixer.hpp"
 #include "main_window.hpp"

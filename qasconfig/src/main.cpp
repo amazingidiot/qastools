@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "main_window.hpp"
 #include "views/view_helper.hpp"
 

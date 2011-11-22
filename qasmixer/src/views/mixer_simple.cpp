@@ -12,7 +12,7 @@
 
 #include "mixer_simple.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "qsnd/mixer_simple.hpp"
 #include "mwdg/inputs_setup.hpp"
 #include "mwdg/mixer_sliders.hpp"

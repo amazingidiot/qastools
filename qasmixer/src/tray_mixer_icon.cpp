@@ -12,7 +12,7 @@
 
 #include "tray_mixer_icon.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include <QIcon>
 #include <QAction>
 #include <QEvent>

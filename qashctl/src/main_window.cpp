@@ -12,7 +12,7 @@
 
 #include "main_window.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "qsnd/alsa_config_watcher.hpp"
 #include "wdg/ds_switch_painter_circle.hpp"
 #include "wdg/ds_switch_painter_svg.hpp"

@@ -12,7 +12,7 @@
 
 #include "settings_view.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "desktop_items_setup.hpp"
 #include "wdg/scroll_area_vertical.hpp"
 #include "wdg/tree_view_kv.hpp"

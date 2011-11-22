@@ -12,7 +12,7 @@
 
 #include "mixer_hctl_editor_data.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 //#include "wdg/ds_switch_painter_svg.hpp"
 
 #include <iostream>

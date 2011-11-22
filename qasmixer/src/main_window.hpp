@@ -13,7 +13,7 @@
 #ifndef __INC_main_window_hpp__
 #define __INC_main_window_hpp__
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "main_window_setup.hpp"
 
 #include <QAction>

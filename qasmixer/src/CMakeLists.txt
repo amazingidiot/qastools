@@ -15,8 +15,8 @@ INCLUDE ( ${QT_USE_FILE} )
 # Configure files
 INCLUDE ( CheckIncludeFiles )
 CONFIGURE_FILE (
-	${SHARED_SRC_DIR}/config.hpp.cmake
-	${CMAKE_CURRENT_BINARY_DIR}/config.hpp )
+	${SHARED_SRC_DIR}/qastools_config.hpp.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/qastools_config.hpp )
 
 
 # Compiler flags

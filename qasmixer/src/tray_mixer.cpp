@@ -12,7 +12,7 @@
 
 #include "tray_mixer.hpp"
 
-#include "config.hpp"
+#include "qastools_config.hpp"
 #include "tray_mixer_mdev_setup.hpp"
 #include "tray_mixer_view_setup.hpp"
 #include "tray_mixer_icon.hpp"
