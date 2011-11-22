@@ -24,10 +24,6 @@ HEADERS = \
 	../qashctl/src/mwdg/mixer_hctl_slider_status_widget.hpp \
 	../qashctl/src/mwdg/mixer_hctl_table_model.hpp \
 	../qashctl/src/mwdg/mixer_hctl_tree_model.hpp \
-	../qashctl/src/qsnd/mixer_hctl.hpp \
-	../qashctl/src/qsnd/mixer_hctl_elem.hpp \
-	../qashctl/src/qsnd/mixer_hctl_elem_group.hpp \
-	../qashctl/src/qsnd/mixer_hctl_info_db.hpp \
 	../qashctl/src/views/mixer_hctl.hpp \
 	../qashctl/src/views/mixer_hctl_setup.hpp \
 	../qasmixer/src/cmd_options.hpp \
@@ -96,10 +92,10 @@ HEADERS = \
 	../shared/src/qsnd/ctl_def.hpp \
 	../shared/src/qsnd/ctl_def_arg.hpp \
 	../shared/src/qsnd/event_types.hpp \
-	../shared/src/qsnd/mixer_ctl.hpp \
-	../shared/src/qsnd/mixer_ctl_elem.hpp \
-	../shared/src/qsnd/mixer_ctl_elem_group.hpp \
-	../shared/src/qsnd/mixer_ctl_info_db.hpp \
+	../shared/src/qsnd/mixer_hctl.hpp \
+	../shared/src/qsnd/mixer_hctl_elem.hpp \
+	../shared/src/qsnd/mixer_hctl_elem_group.hpp \
+	../shared/src/qsnd/mixer_hctl_info_db.hpp \
 	../shared/src/qsnd/mixer_simple.hpp \
 	../shared/src/qsnd/mixer_simple_elem.hpp \
 	../shared/src/qsnd/mixer_simple_filter.hpp \
@@ -193,10 +189,6 @@ SOURCES = \
 	../qashctl/src/mwdg/mixer_hctl_slider_status_widget.cpp \
 	../qashctl/src/mwdg/mixer_hctl_table_model.cpp \
 	../qashctl/src/mwdg/mixer_hctl_tree_model.cpp \
-	../qashctl/src/qsnd/mixer_hctl.cpp \
-	../qashctl/src/qsnd/mixer_hctl_elem.cpp \
-	../qashctl/src/qsnd/mixer_hctl_elem_group.cpp \
-	../qashctl/src/qsnd/mixer_hctl_info_db.cpp \
 	../qashctl/src/views/mixer_hctl.cpp \
 	../qashctl/src/views/mixer_hctl_setup.cpp \
 	../qasmixer/src/cmd_options.cpp \
@@ -265,10 +257,10 @@ SOURCES = \
 	../shared/src/qsnd/ctl_def.cpp \
 	../shared/src/qsnd/ctl_def_arg.cpp \
 	../shared/src/qsnd/event_types.cpp \
-	../shared/src/qsnd/mixer_ctl.cpp \
-	../shared/src/qsnd/mixer_ctl_elem.cpp \
-	../shared/src/qsnd/mixer_ctl_elem_group.cpp \
-	../shared/src/qsnd/mixer_ctl_info_db.cpp \
+	../shared/src/qsnd/mixer_hctl.cpp \
+	../shared/src/qsnd/mixer_hctl_elem.cpp \
+	../shared/src/qsnd/mixer_hctl_elem_group.cpp \
+	../shared/src/qsnd/mixer_hctl_info_db.cpp \
 	../shared/src/qsnd/mixer_simple.cpp \
 	../shared/src/qsnd/mixer_simple_elem.cpp \
 	../shared/src/qsnd/mixer_simple_filter.cpp \

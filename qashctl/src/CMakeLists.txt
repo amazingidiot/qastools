@@ -31,6 +31,10 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/controls_db.cpp
 	${SHARED_SRC_DIR}/qsnd/cards_model.cpp
 	${SHARED_SRC_DIR}/qsnd/controls_model.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_hctl.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_hctl_elem.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_hctl_elem_group.cpp
+	${SHARED_SRC_DIR}/qsnd/mixer_hctl_info_db.cpp
 
 	${SHARED_SRC_DIR}/dpe/image_allocator.cpp
 	${SHARED_SRC_DIR}/dpe/image.cpp
@@ -105,11 +109,6 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/views/dev_select_view.cpp
 	${SHARED_SRC_DIR}/views/info_view.cpp
 
-	qsnd/mixer_hctl.cpp
-	qsnd/mixer_hctl_elem.cpp
-	qsnd/mixer_hctl_elem_group.cpp
-	qsnd/mixer_hctl_info_db.cpp
-
 	mwdg/mixer_hctl.cpp
 	mwdg/mixer_hctl_edit_bool.cpp
 	mwdg/mixer_hctl_edit_enum.cpp
@@ -141,6 +140,8 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/qsnd/controls_db.hpp
 	${SHARED_INC_DIR}/qsnd/cards_model.hpp
 	${SHARED_INC_DIR}/qsnd/controls_model.hpp
+	${SHARED_INC_DIR}/qsnd/mixer_hctl.hpp
+	${SHARED_INC_DIR}/qsnd/mixer_hctl_elem.hpp
 
 	${SHARED_INC_DIR}/dpe/is_buffer.hpp
 	${SHARED_INC_DIR}/dpe/image_allocator.hpp
@@ -171,9 +172,6 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/views/view_base.hpp
 	${SHARED_INC_DIR}/views/dev_select_view.hpp
 	${SHARED_INC_DIR}/views/info_view.hpp
-
-	qsnd/mixer_hctl.hpp
-	qsnd/mixer_hctl_elem.hpp
 
 	mwdg/mixer_hctl.hpp
 	mwdg/mixer_hctl_edit_bool.hpp
