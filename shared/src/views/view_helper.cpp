@@ -40,7 +40,7 @@ load_translators (
 		}
 		{
 			QString l10n_db ( L10N_PREFIX );
-			l10n_db.append ( "Default" );
+			l10n_db.append ( "default" );
 			trans_default->load ( l10n_db, INSTALL_DIR_L10N );
 		}
 		{
@@ -48,9 +48,9 @@ load_translators (
 			l10n_db.append ( QLocale::system().name() );
 			trans_local->load ( l10n_db, INSTALL_DIR_L10N );
 		}
-		app_n->installTranslator ( trans_local );
-		app_n->installTranslator ( trans_default );
 		app_n->installTranslator ( trans_qt );
+		app_n->installTranslator ( trans_default );
+		app_n->installTranslator ( trans_local );
 	}
 }
 
