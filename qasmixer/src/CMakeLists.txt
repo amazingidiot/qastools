@@ -118,9 +118,10 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/mwdg/ctl_arg_view_card.cpp
 	${SHARED_SRC_DIR}/mwdg/controls_delegate.cpp
 	${SHARED_SRC_DIR}/mwdg/controls_view.cpp
+	${SHARED_SRC_DIR}/mwdg/slider_status_widget.cpp
 	${SHARED_SRC_DIR}/mwdg/inputs_setup.cpp
 	${SHARED_SRC_DIR}/mwdg/mixer_device_setup.cpp
-	${SHARED_SRC_DIR}/mwdg/slider_status_widget.cpp
+	${SHARED_SRC_DIR}/mwdg/mixer_style.cpp
 
 	${SHARED_SRC_DIR}/views/view_helper.cpp
 	${SHARED_SRC_DIR}/views/message_widget.cpp

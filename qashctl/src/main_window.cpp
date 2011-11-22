@@ -17,6 +17,7 @@
 #include "wdg/ds_switch_painter_circle.hpp"
 #include "wdg/ds_switch_painter_svg.hpp"
 #include "wdg/ds_slider_painter_bevelled.hpp"
+#include "mwdg/mixer_style.hpp"
 #include "views/info_view.hpp"
 #include "views/mixer_hctl.hpp"
 #include "views/dev_select_view.hpp"
@@ -82,6 +83,20 @@ Main_Window::Main_Window ( )
 		} else {
 			delete pnt;
 		}
+	}
+
+	// Init widget style database
+	{
+		::MWdg::Mixer_Style mstyle;
+		::MWdg::Mixer_Style::Style_Type stype;
+
+		stype = ::MWdg::Mixer_Style::PLAYBACK ;
+		_wdg_style_db.palettes.insert (
+			stype, mstyle.style_palette ( stype ) );
+
+		stype = ::MWdg::Mixer_Style::CAPTURE;
+		_wdg_style_db.palettes.insert (
+			stype, mstyle.style_palette ( stype ) );
 	}
 
 	// Init setup

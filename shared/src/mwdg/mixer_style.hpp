@@ -25,11 +25,19 @@ class Mixer_Style
 	// Public typedefs
 	public:
 
-	enum STYLES {
-		CUSTOM = ::Wdg::DS_Widget_Style_Db::ST_USER,
+	enum Style_Type {
+		CUSTOM   = ::Wdg::DS_Widget_Style_Db::ST_USER,
 		PLAYBACK = CUSTOM,
-		CAPTURE = CUSTOM + 1
+		CAPTURE  = CUSTOM + 1
 	};
+
+
+	// Public methods
+	public:
+
+	QPalette
+	style_palette (
+		::MWdg::Mixer_Style::Style_Type style_n );
 };
 
 

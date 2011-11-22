@@ -44,46 +44,16 @@ _shutdown ( false )
 {
 	// Init widget style database
 	{
-		const QPalette::ColorGroup grp_act ( QPalette::Active );
-		const QPalette::ColorGroup grp_iact ( QPalette::Inactive );
-		QColor col;
+		::MWdg::Mixer_Style mstyle;
+		::MWdg::Mixer_Style::Style_Type stype;
 
-		QPalette pal_play;
-		QPalette pal_cap;
+		stype = ::MWdg::Mixer_Style::PLAYBACK ;
+		_wdg_style_db.palettes.insert (
+			stype, mstyle.style_palette ( stype ) );
 
-		// Playback palette
-		{
-			QPalette & pal ( pal_play );
-
-			col = QColor ( 15, 15, 242 );
-			pal.setColor ( grp_act, QPalette::Window, col );
-			pal.setColor ( grp_iact, QPalette::Window, col );
-
-			col = QColor ( 0, 0, 60 );
-			pal.setColor ( grp_act, QPalette::WindowText, col );
-			pal.setColor ( grp_iact, QPalette::WindowText, col );
-
-			col = QColor ( 255, 255, 180 );
-			pal.setColor ( grp_act, QPalette::Light, col );
-			pal.setColor ( grp_iact, QPalette::Light, col );
-		}
-
-		// Capture palette
-		{
-			pal_cap = pal_play;
-			QPalette & pal ( pal_cap );
-
-			col = QColor ( 225, 15, 15 );
-			pal.setColor ( grp_act, QPalette::Window, col );
-			pal.setColor ( grp_iact, QPalette::Window, col );
-
-			col = QColor ( 80, 0, 0 );
-			pal.setColor ( grp_act, QPalette::WindowText, col );
-			pal.setColor ( grp_iact, QPalette::WindowText, col );
-		}
-
-		_wdg_style_db.palettes.insert ( ::MWdg::Mixer_Style::PLAYBACK, pal_play );
-		_wdg_style_db.palettes.insert ( ::MWdg::Mixer_Style::CAPTURE, pal_cap );
+		stype = ::MWdg::Mixer_Style::CAPTURE;
+		_wdg_style_db.palettes.insert (
+			stype, mstyle.style_palette ( stype ) );
 	}
 
 	{
