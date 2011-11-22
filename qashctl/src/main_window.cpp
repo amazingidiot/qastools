@@ -274,6 +274,8 @@ Main_Window::restore_state ( )
 		_setup.inputs.wheel_degrees = 720;
 	}
 
+	_setup.inputs.update_translation();
+
 	// Setup widgets
 	show_device_selection ( _setup.show_dev_select );
 	_dev_select->set_view_setup ( &_setup.dev_select );
