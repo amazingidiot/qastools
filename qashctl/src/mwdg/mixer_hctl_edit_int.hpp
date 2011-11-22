@@ -42,7 +42,7 @@ class Mixer_HCTL_Edit_Int :
 	public:
 
 	Mixer_HCTL_Edit_Int (
-		Mixer_HCTL_Editor_Data * data_n,
+		::MWdg::Mixer_HCTL_Editor_Data * data_n,
 		QWidget * parent_n = 0 );
 
 	~Mixer_HCTL_Edit_Int ( );

@@ -42,7 +42,7 @@ namespace MWdg
 
 
 Mixer_HCTL_Edit_Int::Mixer_HCTL_Edit_Int (
-	Mixer_HCTL_Editor_Data * data_n,
+	::MWdg::Mixer_HCTL_Editor_Data * data_n,
 	QWidget * parent_n ) :
 Mixer_HCTL_Editor ( data_n, parent_n ),
 _scroll_area ( 0 ),
@@ -56,10 +56,8 @@ _act_level_channels ( this )
 	_str_dB_range = tr ( "Decibel range:" );
 
 	// Actions
-	//: "c" is an abbreviation for "channel"
 	_act_toggle_joined.setIcon ( QIcon::fromTheme ( "object-flip-horizontal" ) );
 
-	//: "l" is an abbreviation for "to level"
 	_act_level_channels.setIcon ( QIcon::fromTheme ( "object-flip-vertical" ) );
 
 	connect ( &_act_toggle_joined, SIGNAL ( triggered ( bool ) ),
