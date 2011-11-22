@@ -26,7 +26,7 @@ ADD_CUSTOM_COMMAND (
 	COMMENT "Building ${man_gz}" )
 
 ADD_CUSTOM_TARGET (
-	doc_manpage ALL
+	qasmixer_manpage ALL
 	DEPENDS ${man_gz} )
 
 

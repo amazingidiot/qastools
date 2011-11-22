@@ -1,9 +1,0 @@
-
-CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
-
-
-#
-# Manapges
-#
-
-ADD_SUBDIRECTORY ( man )
