@@ -21,6 +21,10 @@ namespace Views
 
 
 void
+load_translators (
+	QApplication * app_n );
+
+void
 resize_to_default (
 	QMainWindow * mwin_n );
 

@@ -10,23 +10,20 @@
 //
 //
 
+#include "config.hpp"
+#include "init_globals.hpp"
+#include "single_application.hpp"
+#include "desktop_items.hpp"
+#include "views/view_helper.hpp"
 
-#include <iostream>
-#include <memory>
-
-#include <QTranslator>
-#include <QLibraryInfo>
 #include <QDesktopWidget>
 #include <QString>
 #include <QFile>
 #include <QFileInfo>
+#include <QIcon>
 
-#include "single_application.hpp"
-#include "main_window.hpp"
-
-#include "init_globals.hpp"
-#include "desktop_items.hpp"
-
+#include <iostream>
+#include <memory>
 
 
 /// @brief The main function
@@ -96,25 +93,8 @@ main (
 		}
 	}
 
-	// Application translators setup
-	{
-		QTranslator * trans_qt ( new QTranslator ( &app ) );
-		QTranslator * trans_default ( new QTranslator ( &app ) );
-		QTranslator * trans_local ( new QTranslator ( &app ) );
-		{
-			trans_qt->load ( "qt_" + QLocale::system().name(),
-				QLibraryInfo::location ( QLibraryInfo::TranslationsPath ) );
-
-			trans_default->load ( "app_C",
-				INSTALL_DIR_L10N );
-			trans_local->load ( "app_" + QLocale::system().name(),
-				INSTALL_DIR_L10N );
-
-			app.installTranslator ( trans_qt );
-			app.installTranslator ( trans_default );
-			app.installTranslator ( trans_local );
-		}
-	}
+	// Translation loading
+	::Views::load_translators ( &app );
 
 	// Connect single instance signals with desktop item manager
 	{

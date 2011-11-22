@@ -68,24 +68,8 @@ main (
 		}
 	}
 
-	// Application translators setup
-	{
-		QTranslator * trans_qt ( new QTranslator ( &app ) );
-		QTranslator * trans_local ( new QTranslator ( &app ) );
-		{
-			QString l10n_db ( "qt_" );
-			l10n_db.append ( QLocale::system().name() );
-			trans_local->load ( l10n_db,
-				QLibraryInfo::location ( QLibraryInfo::TranslationsPath ) );
-		}
-		{
-			QString l10n_db ( L10N_PREFIX );
-			l10n_db.append ( QLocale::system().name() );
-			trans_local->load ( l10n_db, INSTALL_DIR_L10N );
-		}
-		app.installTranslator ( trans_qt );
-		app.installTranslator ( trans_local );
-	}
+	// Translation loading
+	::Views::load_translators ( &app );
 
 	Main_Window mwin;
 

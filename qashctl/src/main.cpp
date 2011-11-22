@@ -16,9 +16,6 @@
 #include "views/view_helper.hpp"
 #include "main_window.hpp"
 
-#include <QTranslator>
-#include <QLocale>
-#include <QLibraryInfo>
 #include <QDesktopWidget>
 #include <QString>
 #include <QFile>
@@ -68,26 +65,8 @@ main (
 		}
 	}
 
-	// Application translators setup
-	{
-		QTranslator * trans_qt ( new QTranslator ( &app ) );
-		{
-			QString l10n_db ( "qt_" );
-			l10n_db.append ( QLocale::system().name() );
-			trans_qt->load ( l10n_db,
-				QLibraryInfo::location ( QLibraryInfo::TranslationsPath ) );
-		}
-		app.installTranslator ( trans_qt );
-	}
-	{
-		QTranslator * trans_local ( new QTranslator ( &app ) );
-		{
-			QString l10n_db ( L10N_PREFIX );
-			l10n_db.append ( QLocale::system().name() );
-			trans_local->load ( l10n_db, INSTALL_DIR_L10N );
-		}
-		app.installTranslator ( trans_local );
-	}
+	// Translation loading
+	::Views::load_translators ( &app );
 
 	Main_Window mwin;
 	mwin.restore_state();

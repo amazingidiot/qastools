@@ -12,11 +12,47 @@
 
 #include "view_helper.hpp"
 
+#include "config.hpp"
 #include <QDesktopWidget>
 #include <QApplication>
+#include <QTranslator>
+#include <QLibraryInfo>
+#include <QLocale>
 
 namespace Views
 {
+
+
+void
+load_translators (
+	QApplication * app_n )
+{
+	// Application translators setup
+	{
+		QTranslator * trans_qt ( new QTranslator ( app_n ) );
+		QTranslator * trans_default ( new QTranslator ( app_n ) );
+		QTranslator * trans_local ( new QTranslator ( app_n ) );
+		{
+			QString l10n_db ( "qt_" );
+			l10n_db.append ( QLocale::system().name() );
+			trans_qt->load ( l10n_db,
+				QLibraryInfo::location ( QLibraryInfo::TranslationsPath ) );
+		}
+		{
+			QString l10n_db ( L10N_PREFIX );
+			l10n_db.append ( "Default" );
+			trans_default->load ( l10n_db, INSTALL_DIR_L10N );
+		}
+		{
+			QString l10n_db ( L10N_PREFIX );
+			l10n_db.append ( QLocale::system().name() );
+			trans_local->load ( l10n_db, INSTALL_DIR_L10N );
+		}
+		app_n->installTranslator ( trans_local );
+		app_n->installTranslator ( trans_default );
+		app_n->installTranslator ( trans_qt );
+	}
+}
 
 
 void
