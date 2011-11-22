@@ -252,6 +252,7 @@ SOURCES = \
 	../shared/src/mwdg/event_types.cpp \
 	../shared/src/mwdg/inputs_setup.cpp \
 	../shared/src/mwdg/mixer_device_setup.cpp \
+	../shared/src/mwdg/mixer_style.cpp \
 	../shared/src/mwdg/slider_status_widget.cpp \
 	../shared/src/qsnd/alsa.cpp \
 	../shared/src/qsnd/alsa_config_watcher.cpp \
