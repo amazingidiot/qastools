@@ -36,6 +36,7 @@ _dev_select_dock ( 0 )
 {
 	setWindowTitle ( PROGRAM_TITLE );
 	setObjectName ( PROGRAM_TITLE );
+	setContextMenuPolicy ( Qt::NoContextMenu );
 
 	_str_fscreen_enable = tr ( "&Fullscreen mode" );
 	_str_fscreen_disable = tr ( "Exit &fullscreen mode" );
@@ -103,6 +104,7 @@ Main_Window::init_menus ( )
 		QMenu * cmenu = menuBar()->addMenu ( tr ( "&View" ) );
 		cmenu->addAction ( _act_show_dev_select );
 		cmenu->addAction ( _act_fullscreen );
+		cmenu->addSeparator();
 		cmenu->addAction ( act_refresh );
 	}
 	{

@@ -27,6 +27,7 @@ Main_Window::Main_Window ( )
 {
 	setWindowTitle ( PROGRAM_TITLE );
 	setObjectName ( PROGRAM_TITLE );
+	setContextMenuPolicy ( Qt::NoContextMenu );
 
 	init_menu_bar();
 

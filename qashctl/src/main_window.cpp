@@ -37,6 +37,7 @@ Main_Window::Main_Window ( )
 {
 	setWindowTitle ( PROGRAM_TITLE );
 	setObjectName ( PROGRAM_TITLE );
+	setContextMenuPolicy ( Qt::NoContextMenu );
 
 	// Strings and icons
 	_str_fscreen_enable = tr ( "&Fullscreen mode" );
@@ -173,7 +174,6 @@ Main_Window::init_menu_bar ( )
 	// Menu: File
 	{
 		QMenu * cmenu ( menuBar()->addMenu ( tr ( "&File" ) ) );
-		cmenu->addAction ( act_refresh );
 		cmenu->addAction ( act_quit );
 	}
 
@@ -182,6 +182,8 @@ Main_Window::init_menu_bar ( )
 		QMenu * cmenu = menuBar()->addMenu ( tr ( "&View" ) );
 		cmenu->addAction ( _act_show_dev_select );
 		cmenu->addAction ( _act_fullscreen );
+		cmenu->addSeparator();
+		cmenu->addAction ( act_refresh );
 	}
 
 	// Menu: Help
