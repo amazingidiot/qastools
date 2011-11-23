@@ -108,6 +108,7 @@ class View_Base :
 	const ::MWdg::Mixer_Device_Setup * _mdev_setup;
 	const ::MWdg::Inputs_Setup * _inputs_setup;
 	::Views::Message_Widget * _message_wdg;
+	QStackedLayout * _lay_stack;
 };
 
 
@@ -131,7 +132,7 @@ inline
 QStackedLayout *
 View_Base::lay_stack ( ) const
 {
-	return static_cast < QStackedLayout * > ( layout() );
+	return _lay_stack;
 }
 
 

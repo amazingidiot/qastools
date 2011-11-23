@@ -14,7 +14,7 @@
 
 #include "mwdg/mixer_device_setup.hpp"
 #include "views/message_widget.hpp"
-
+#include <QVBoxLayout>
 #include <iostream>
 
 
@@ -31,8 +31,13 @@ _message_wdg ( 0 )
 {
 	_message_wdg = new ::Views::Message_Widget ( this );
 	_message_wdg->hide();
-	QStackedLayout * lay ( new QStackedLayout ( this ) );
-	lay->addWidget ( _message_wdg );
+
+	_lay_stack = new QStackedLayout;
+	_lay_stack->addWidget ( _message_wdg );
+
+	QVBoxLayout * lay_vbox ( new QVBoxLayout );
+	lay_vbox->addLayout ( _lay_stack );
+	setLayout ( lay_vbox );
 }
 
 

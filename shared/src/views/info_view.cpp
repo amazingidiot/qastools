@@ -47,8 +47,8 @@ _txt_license ( 0 )
 	// Title label
 	{
 		QString txt ( tr ( "%1 - %2" ) );
-		txt = txt.arg ( PROGRAM_TITLE );
-		txt = txt.arg ( VERSION );
+		txt = txt.arg ( PACKAGE_TITLE );
+		txt = txt.arg ( PACKAGE_VERSION );
 		_title.setText ( QString ( "<h2>%1</h2>" ).arg ( txt )  );
 	}
 
@@ -65,7 +65,7 @@ _txt_license ( 0 )
 
 		txt += "<p>";
 		{
-			QString val ( tr ( "%1 is a set of GUI applications for the linux sound system %2." ) );
+			QString val ( tr ( "%1 is a collection of desktop applications for the Linux sound system %2." ) );
 			val = val.arg ( PACKAGE_TITLE );
 			val = val.arg ( "<a href=\"http://www.alsa-project.org\" title=\"The ALSA project\">ALSA</a>" );
 			txt += val;
