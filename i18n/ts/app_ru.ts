@@ -953,10 +953,6 @@
         <translation>Отображать панель выбора &amp;устройства</translation>
     </message>
     <message>
-        <source>Show &amp;view type selection</source>
-        <translation type="obsolete">Отображать &amp;корешки</translation>
-    </message>
-    <message>
         <location filename="../../qasconfig/src/main_window.cpp" line="85"/>
         <location filename="../../qashctl/src/main_window.cpp" line="169"/>
         <location filename="../../qasmixer/src/main_window.cpp" line="90"/>
@@ -1000,105 +996,6 @@
         <location filename="../../qasconfig/src/qsnd/alsa_config_model.cpp" line="257"/>
         <source>Value</source>
         <translation>Значение</translation>
-    </message>
-</context>
-<context>
-    <name>QSnd::CTL_Info_Model</name>
-    <message>
-        <source>Index</source>
-        <translation type="obsolete">Номер</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation type="obsolete">Id</translation>
-    </message>
-    <message>
-        <source>Driver</source>
-        <translation type="obsolete">Драйвер</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Название</translation>
-    </message>
-    <message>
-        <source>Long name</source>
-        <translation type="obsolete">Полное название</translation>
-    </message>
-    <message>
-        <source>Mixer name</source>
-        <translation type="obsolete">Название микшера</translation>
-    </message>
-    <message>
-        <source>Components</source>
-        <translation type="obsolete">Компоненты</translation>
-    </message>
-    <message>
-        <source>Device index</source>
-        <translation type="obsolete">Номер устройства</translation>
-    </message>
-    <message>
-        <source>Device id</source>
-        <translation type="obsolete">Идентификатор устройства</translation>
-    </message>
-    <message>
-        <source>Id / Name</source>
-        <translation type="obsolete">Идентификатор / Название</translation>
-    </message>
-    <message>
-        <source>%1 / %2</source>
-        <translation type="obsolete">%1 / %2</translation>
-    </message>
-    <message>
-        <source>Device name</source>
-        <translation type="obsolete">Название устройства</translation>
-    </message>
-    <message>
-        <source>Subdevices</source>
-        <translation type="obsolete">Дочерние устройства</translation>
-    </message>
-    <message>
-        <source>Playback</source>
-        <translation type="obsolete">Воспроизведение</translation>
-    </message>
-    <message>
-        <source>Capture</source>
-        <translation type="obsolete">Захват</translation>
-    </message>
-    <message>
-        <source>%1 : %2 available</source>
-        <translation type="obsolete">%1 : %2</translation>
-    </message>
-    <message>
-        <source>Existing : Available</source>
-        <translation type="obsolete">Установлены : Доступны</translation>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation type="obsolete">Ключ</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Значение</translation>
-    </message>
-    <message>
-        <source>Control</source>
-        <translation type="obsolete">Control</translation>
-    </message>
-    <message>
-        <source>Control plugin</source>
-        <translation type="obsolete">Control plugin</translation>
-    </message>
-    <message>
-        <source>Card</source>
-        <translation type="obsolete">Card</translation>
-    </message>
-    <message>
-        <source>Devices</source>
-        <translation type="obsolete">Устройства</translation>
-    </message>
-    <message>
-        <source>Number of devices</source>
-        <translation type="obsolete">Количество устройств</translation>
     </message>
 </context>
 <context>
@@ -1208,95 +1105,69 @@
         <translation>%1 - %2</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="64"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="61"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <source>%1 is a mixer application for the linux sound system %2.</source>
-        <translation type="obsolete">%1 — это приложение-микшер для звуковой системы %2.</translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="73"/>
         <source>Internet</source>
         <translation>Интернет</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="79"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
         <source>Home page</source>
         <translation>Домашняя страница</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="84"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="85"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
         <source>Project page</source>
         <translation>Страница проекта</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="111"/>
         <source>Developers</source>
         <translation>Программирование</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="124"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="120"/>
         <source>Translators</source>
         <translation>Перевод</translation>
     </message>
     <message>
-        <source>German</source>
-        <translation type="obsolete">Немецкий</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="obsolete">Испанский</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="obsolete">Русский</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="obsolete">Чешский</translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="68"/>
-        <source>%1 is a set of GUI applications for the linux sound system %2.</source>
+        <location filename="../../shared/src/views/info_view.cpp" line="65"/>
+        <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="119"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
         <source>Contributors</source>
         <translation>Участники</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="161"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="157"/>
         <source>The license file %1 is not available.</source>
         <translation>Файл лицензии %1 не доступен.</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="183"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="179"/>
         <source>&amp;Information</source>
         <translation>&amp;Информация</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="184"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="180"/>
         <source>&amp;People</source>
         <translation>&amp;Авторы</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="186"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="182"/>
         <source>&amp;License</source>
         <translation>&amp;Лицезия</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="194"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="190"/>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
-    </message>
-    <message>
-        <source>%1 is an %2 configuration browser.</source>
-        <translation type="obsolete">%1 — это просмотрщик конфигурации звуковой системы %2.</translation>
     </message>
 </context>
 <context>
@@ -1482,25 +1353,6 @@
         <location filename="../../qasmixer/src/views/settings_view.cpp" line="393"/>
         <source>e.g. hw:0</source>
         <translation>Например: hw:0</translation>
-    </message>
-</context>
-<context>
-    <name>Views::Switcher</name>
-    <message>
-        <source>&amp;Simple mixer</source>
-        <translation type="obsolete">&amp;Простой микшер</translation>
-    </message>
-    <message>
-        <source>&amp;Element mixer</source>
-        <translation type="obsolete">По&amp;элементный микшер</translation>
-    </message>
-    <message>
-        <source>&amp;Control info</source>
-        <translation type="obsolete">&amp;Информация</translation>
-    </message>
-    <message>
-        <source>&amp;Close view type selection</source>
-        <translation type="obsolete">Скрыть &amp;корешки</translation>
     </message>
 </context>
 </TS>

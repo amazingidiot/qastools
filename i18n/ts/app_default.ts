@@ -1103,69 +1103,67 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="64"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="61"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="65"/>
+        <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../shared/src/views/info_view.cpp" line="73"/>
         <source>Internet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="79"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
         <source>Home page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="84"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="85"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
         <source>Project page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="111"/>
         <source>Developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="124"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="120"/>
         <source>Translators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="68"/>
-        <source>%1 is a set of GUI applications for the linux sound system %2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="119"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
         <source>Contributors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="161"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="157"/>
         <source>The license file %1 is not available.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="183"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="179"/>
         <source>&amp;Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="184"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="180"/>
         <source>&amp;People</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="186"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="182"/>
         <source>&amp;License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="194"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="190"/>
         <source>&amp;Close</source>
         <translation type="unfinished"></translation>
     </message>

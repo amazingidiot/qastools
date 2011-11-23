@@ -456,21 +456,6 @@
     </message>
 </context>
 <context>
-    <name>MWdg::Controls_Model</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation type="obsolete">Id</translation>
-    </message>
-    <message>
-        <source>Mixer name</source>
-        <translation type="obsolete">Mixername</translation>
-    </message>
-</context>
-<context>
     <name>MWdg::Inputs_Setup</name>
     <message>
         <location filename="../../shared/src/mwdg/inputs_setup.cpp" line="35"/>
@@ -972,10 +957,6 @@
         <translation>&amp;Geräteauswahl anzeigen</translation>
     </message>
     <message>
-        <source>Show &amp;view type selection</source>
-        <translation type="obsolete">&amp;Ansichtsauswahl anzeigen</translation>
-    </message>
-    <message>
         <location filename="../../qasconfig/src/main_window.cpp" line="85"/>
         <location filename="../../qashctl/src/main_window.cpp" line="169"/>
         <location filename="../../qasmixer/src/main_window.cpp" line="90"/>
@@ -1019,105 +1000,6 @@
         <location filename="../../qasconfig/src/qsnd/alsa_config_model.cpp" line="257"/>
         <source>Value</source>
         <translation>Wert</translation>
-    </message>
-</context>
-<context>
-    <name>QSnd::CTL_Info_Model</name>
-    <message>
-        <source>Index</source>
-        <translation type="obsolete">Index</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation type="obsolete">Id</translation>
-    </message>
-    <message>
-        <source>Driver</source>
-        <translation type="obsolete">Treiber</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>Long name</source>
-        <translation type="obsolete">Langer Name</translation>
-    </message>
-    <message>
-        <source>Mixer name</source>
-        <translation type="obsolete">Mixername</translation>
-    </message>
-    <message>
-        <source>Components</source>
-        <translation type="obsolete">Komponenten</translation>
-    </message>
-    <message>
-        <source>Device index</source>
-        <translation type="obsolete">Gerätindex</translation>
-    </message>
-    <message>
-        <source>Device id</source>
-        <translation type="obsolete">Gerät-Id</translation>
-    </message>
-    <message>
-        <source>Id / Name</source>
-        <translation type="obsolete">Id / Name</translation>
-    </message>
-    <message>
-        <source>%1 / %2</source>
-        <translation type="obsolete">%1 / %2</translation>
-    </message>
-    <message>
-        <source>Device name</source>
-        <translation type="obsolete">Gerätname</translation>
-    </message>
-    <message>
-        <source>Subdevices</source>
-        <translation type="obsolete">Untergeräte</translation>
-    </message>
-    <message>
-        <source>Playback</source>
-        <translation type="obsolete">Wiedergabe</translation>
-    </message>
-    <message>
-        <source>Capture</source>
-        <translation type="obsolete">Aufnahme</translation>
-    </message>
-    <message>
-        <source>%1 : %2 available</source>
-        <translation type="obsolete">%1 : %2 verfügbar</translation>
-    </message>
-    <message>
-        <source>Existing : Available</source>
-        <translation type="obsolete">Existent : Verfügbar</translation>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation type="obsolete">Schlüssel</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Wert</translation>
-    </message>
-    <message>
-        <source>Control</source>
-        <translation type="obsolete">Steuermodul</translation>
-    </message>
-    <message>
-        <source>Control plugin</source>
-        <translation type="obsolete">Steuermodul</translation>
-    </message>
-    <message>
-        <source>Card</source>
-        <translation type="obsolete">Karte</translation>
-    </message>
-    <message>
-        <source>Devices</source>
-        <translation type="obsolete">Geräte</translation>
-    </message>
-    <message>
-        <source>Number of devices</source>
-        <translation type="obsolete">Geräteanzahl</translation>
     </message>
 </context>
 <context>
@@ -1227,95 +1109,69 @@
         <translation>%1 - %2</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="64"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="61"/>
         <source>About</source>
-        <translation>Zusammenfassung</translation>
+        <translation>Über</translation>
     </message>
     <message>
-        <source>%1 is a mixer application for the linux sound system %2.</source>
-        <translation type="obsolete">%1 ist ein Lautstärkenregler-Programm für %2, die Klang-Architektur von Linux.</translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="73"/>
         <source>Internet</source>
         <translation>Im Internet</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="79"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
         <source>Home page</source>
         <translation>Hauptseite</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="84"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="85"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
         <source>Project page</source>
         <translation>Projektseite</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="111"/>
         <source>Developers</source>
         <translation>Entwickler</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="124"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="120"/>
         <source>Translators</source>
         <translation>Übersetzer</translation>
     </message>
     <message>
-        <source>German</source>
-        <translation type="obsolete">Deutsch</translation>
+        <location filename="../../shared/src/views/info_view.cpp" line="65"/>
+        <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
+        <translation>%1 ist eine Sammlung von Oberflächenanwendungen für die Linux-Klang-Architektur %2.</translation>
     </message>
     <message>
-        <source>Spanish</source>
-        <translation type="obsolete">Spanisch</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="obsolete">Russisch</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="obsolete">Tschechisch</translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="68"/>
-        <source>%1 is a set of GUI applications for the linux sound system %2.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="119"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
         <source>Contributors</source>
         <translation>Mitwirkende</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="161"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="157"/>
         <source>The license file %1 is not available.</source>
         <translation>Die Lizenzdatei %1 ist nicht verfügbar.</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="183"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="179"/>
         <source>&amp;Information</source>
         <translation>&amp;Information</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="184"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="180"/>
         <source>&amp;People</source>
         <translation>&amp;Leute</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="186"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="182"/>
         <source>&amp;License</source>
         <translation>Li&amp;zenz</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="194"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="190"/>
         <source>&amp;Close</source>
         <translation>&amp;Schließen</translation>
-    </message>
-    <message>
-        <source>%1 is an %2 configuration browser.</source>
-        <translation type="obsolete">%1 ist ein %2-Konfigurationsbetrachter.</translation>
     </message>
 </context>
 <context>
@@ -1329,10 +1185,6 @@
         <location filename="../../shared/src/views/message_widget.cpp" line="43"/>
         <source>No device selected</source>
         <translation>Kein Gerät ausgewählt</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation type="obsolete">Gerät</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/message_widget.cpp" line="83"/>
@@ -1505,25 +1357,6 @@
         <location filename="../../qasmixer/src/views/settings_view.cpp" line="393"/>
         <source>e.g. hw:0</source>
         <translation>z.B. hw:0</translation>
-    </message>
-</context>
-<context>
-    <name>Views::Switcher</name>
-    <message>
-        <source>&amp;Simple mixer</source>
-        <translation type="obsolete">&amp;Standardmixer</translation>
-    </message>
-    <message>
-        <source>&amp;Element mixer</source>
-        <translation type="obsolete">&amp;Elementmixer</translation>
-    </message>
-    <message>
-        <source>&amp;Control info</source>
-        <translation type="obsolete">&amp;Modulinformation</translation>
-    </message>
-    <message>
-        <source>&amp;Close view type selection</source>
-        <translation type="obsolete">Ansichtsauswahl &amp;schließen</translation>
     </message>
 </context>
 </TS>

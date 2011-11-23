@@ -53,13 +53,10 @@ _txt_license ( 0 )
 	}
 
 	const QString hmask ( "<h3>%1</h3>\n" );
-	const QString bmask ( "<b>%1</b>\n" );
-	const QString amask ( "<a href=\"%1\" title=\"%2\">%1</a>" );
-	const QString pemask ( "%1 &lt;<a href=\"mailto:%1\">%2</a>&gt;" );
-
 
 	// Description text
 	{
+		const QString amask ( "<a href=\"%1\" title=\"%2\">%1</a>" );
 		QString txt;
 		txt += hmask.arg ( tr ( "About" ) );
 
@@ -76,15 +73,9 @@ _txt_license ( 0 )
 		txt += hmask.arg ( tr ( "Internet" ) );
 
 		txt += "<p>";
-		txt += bmask.arg ( tr ( "Home page" ) );
-		txt += "</p>";
-		txt += "<p>";
 		txt += amask.arg ( "http://xwmw.org/qastools", tr ( "Home page" ) );
 		txt += "</p>";
 
-		txt += "<p>";
-		txt += bmask.arg ( tr ( "Project page" ) );
-		txt += "</p>";
 		txt += "<p>";
 		txt += amask.arg ( "http://sourceforge.net/projects/qastools/", tr ( "Project page" ) );
 		txt += "</p>";
@@ -102,12 +93,13 @@ _txt_license ( 0 )
 
 	// People text
 	{
+		const QString pemask ( "%1 &lt;<a href=\"mailto:%2\">%2</a>&gt;" );
 		QString trmask;
 		QString pdivmask;
 		{
 			const QString pdiv ( "<div style=\"margin-bottom: 4px;\">%1</div>" );
 			trmask.append ( pemask );
-			trmask.append ( " - %3" );
+			trmask.append ( " [%3]" );
 			trmask = pdiv.arg ( trmask );
 			pdivmask = pdiv.arg ( pemask );
 		}

@@ -456,44 +456,6 @@
     </message>
 </context>
 <context>
-    <name>MWdg::Alsa_Config_View</name>
-    <message>
-        <source>ALSA configuration</source>
-        <translation type="obsolete">Nastavení Alsa</translation>
-    </message>
-    <message>
-        <source>&amp;Expand</source>
-        <translation type="obsolete">&amp;Rozbalit</translation>
-    </message>
-    <message>
-        <source>Co&amp;llapse</source>
-        <translation type="obsolete">&amp;Složit</translation>
-    </message>
-    <message>
-        <source>&amp;Sort</source>
-        <translation type="obsolete">&amp;Třídit</translation>
-    </message>
-    <message>
-        <source>Depth:</source>
-        <translation type="obsolete">Hloubka:</translation>
-    </message>
-</context>
-<context>
-    <name>MWdg::Controls_Model</name>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Název</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation type="obsolete">ID</translation>
-    </message>
-    <message>
-        <source>Mixer name</source>
-        <translation type="obsolete">Název směšovače</translation>
-    </message>
-</context>
-<context>
     <name>MWdg::Inputs_Setup</name>
     <message>
         <location filename="../../shared/src/mwdg/inputs_setup.cpp" line="35"/>
@@ -990,18 +952,6 @@
         <translation>Ukázat výběr &amp;zařízení</translation>
     </message>
     <message>
-        <source>Show &amp;view type selection</source>
-        <translation type="obsolete">Ukázat výběr &amp;pohledu</translation>
-    </message>
-    <message>
-        <source>&amp;Alsa configuration</source>
-        <translation type="obsolete">Nastavení &amp;Alsa</translation>
-    </message>
-    <message>
-        <source>Ctrl+c</source>
-        <translation type="obsolete">Ctrl+C</translation>
-    </message>
-    <message>
         <location filename="../../qasconfig/src/main_window.cpp" line="85"/>
         <location filename="../../qashctl/src/main_window.cpp" line="169"/>
         <location filename="../../qasmixer/src/main_window.cpp" line="90"/>
@@ -1045,105 +995,6 @@
         <location filename="../../qasconfig/src/qsnd/alsa_config_model.cpp" line="257"/>
         <source>Value</source>
         <translation type="unfinished">Hodnota</translation>
-    </message>
-</context>
-<context>
-    <name>QSnd::CTL_Info_Model</name>
-    <message>
-        <source>Index</source>
-        <translation type="obsolete">Ukazatel</translation>
-    </message>
-    <message>
-        <source>Id</source>
-        <translation type="obsolete">ID</translation>
-    </message>
-    <message>
-        <source>Driver</source>
-        <translation type="obsolete">Ovladač</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Název</translation>
-    </message>
-    <message>
-        <source>Long name</source>
-        <translation type="obsolete">Dlouhý název</translation>
-    </message>
-    <message>
-        <source>Mixer name</source>
-        <translation type="obsolete">Název směšovače</translation>
-    </message>
-    <message>
-        <source>Components</source>
-        <translation type="obsolete">Součásti</translation>
-    </message>
-    <message>
-        <source>Device index</source>
-        <translation type="obsolete">Ukazatel zařízení</translation>
-    </message>
-    <message>
-        <source>Device id</source>
-        <translation type="obsolete">ID zařízení</translation>
-    </message>
-    <message>
-        <source>Id / Name</source>
-        <translation type="obsolete">ID / Název</translation>
-    </message>
-    <message>
-        <source>%1 / %2</source>
-        <translation type="obsolete">%1 / %2</translation>
-    </message>
-    <message>
-        <source>Device name</source>
-        <translation type="obsolete">Název zařízení</translation>
-    </message>
-    <message>
-        <source>Subdevices</source>
-        <translation type="obsolete">Podzařízení</translation>
-    </message>
-    <message>
-        <source>Playback</source>
-        <translation type="obsolete">Přehrávání</translation>
-    </message>
-    <message>
-        <source>Capture</source>
-        <translation type="obsolete">Zachytávání</translation>
-    </message>
-    <message>
-        <source>%1 : %2 available</source>
-        <translation type="obsolete">%1 : %2 dostupný</translation>
-    </message>
-    <message>
-        <source>Existing : Available</source>
-        <translation type="obsolete">Jsoucí : Dostupný</translation>
-    </message>
-    <message>
-        <source>Key</source>
-        <translation type="obsolete">Klíč</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Hodnota</translation>
-    </message>
-    <message>
-        <source>Control</source>
-        <translation type="obsolete">Ovládání</translation>
-    </message>
-    <message>
-        <source>Control plugin</source>
-        <translation type="obsolete">Přídavný modul ovládání</translation>
-    </message>
-    <message>
-        <source>Card</source>
-        <translation type="obsolete">Karta</translation>
-    </message>
-    <message>
-        <source>Devices</source>
-        <translation type="obsolete">Zařízení</translation>
-    </message>
-    <message>
-        <source>Number of devices</source>
-        <translation type="obsolete">Počet zařízení</translation>
     </message>
 </context>
 <context>
@@ -1207,14 +1058,6 @@
         <translation type="unfinished">Nastavení Alsa</translation>
     </message>
     <message>
-        <source>&amp;Reload</source>
-        <translation type="obsolete">Na&amp;hrát znovu</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Zavřít</translation>
-    </message>
-    <message>
         <location filename="../../qasconfig/src/views/alsa_config_view.cpp" line="41"/>
         <source>&amp;Expand</source>
         <translation>&amp;Rozbalit</translation>
@@ -1261,95 +1104,69 @@
         <translation>%1 - %2</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="64"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="61"/>
         <source>About</source>
         <translation>O programu</translation>
     </message>
     <message>
-        <source>%1 is a mixer application for the linux sound system %2.</source>
-        <translation type="obsolete">%1 je program pro ovládání reproduktorů pro linuxový zvukový systém %2.</translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="73"/>
         <source>Internet</source>
         <translation>Internet</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="79"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="76"/>
         <source>Home page</source>
         <translation>Domovská stránka</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="84"/>
-        <location filename="../../shared/src/views/info_view.cpp" line="85"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="80"/>
         <source>Project page</source>
         <translation>Projektová stránka</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="111"/>
         <source>Developers</source>
         <translation>Vývojáři</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="124"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="120"/>
         <source>Translators</source>
         <translation>Překladatelé</translation>
     </message>
     <message>
-        <source>German</source>
-        <translation type="obsolete">Němčina</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="obsolete">Španělština</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="obsolete">Ruština</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="obsolete">Čeština</translation>
-    </message>
-    <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="68"/>
-        <source>%1 is a set of GUI applications for the linux sound system %2.</source>
+        <location filename="../../shared/src/views/info_view.cpp" line="65"/>
+        <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="119"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="115"/>
         <source>Contributors</source>
         <translation>Přispěvatelé</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="161"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="157"/>
         <source>The license file %1 is not available.</source>
         <translation>Soubor s povolením %1 není dostupný.</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="183"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="179"/>
         <source>&amp;Information</source>
         <translation>&amp;Informace</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="184"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="180"/>
         <source>&amp;People</source>
         <translation>&amp;Lidé</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="186"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="182"/>
         <source>&amp;License</source>
         <translation>&amp;Povolení</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="194"/>
+        <location filename="../../shared/src/views/info_view.cpp" line="190"/>
         <source>&amp;Close</source>
         <translation>&amp;Zavřít</translation>
-    </message>
-    <message>
-        <source>%1 is an %2 configuration browser.</source>
-        <translation type="obsolete">%1 je prohlížeč nastavení %2.</translation>
     </message>
 </context>
 <context>
@@ -1363,10 +1180,6 @@
         <location filename="../../shared/src/views/message_widget.cpp" line="43"/>
         <source>No device selected</source>
         <translation>Nebylo vybráno žádné zařízení</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation type="obsolete">Zařízení</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/message_widget.cpp" line="83"/>
@@ -1539,25 +1352,6 @@
         <location filename="../../qasmixer/src/views/settings_view.cpp" line="393"/>
         <source>e.g. hw:0</source>
         <translation>Např. hw:0</translation>
-    </message>
-</context>
-<context>
-    <name>Views::Switcher</name>
-    <message>
-        <source>&amp;Simple mixer</source>
-        <translation type="obsolete">&amp;Jednoduchý směšovač</translation>
-    </message>
-    <message>
-        <source>&amp;Element mixer</source>
-        <translation type="obsolete">&amp;Základní směšovač</translation>
-    </message>
-    <message>
-        <source>&amp;Control info</source>
-        <translation type="obsolete">&amp;Informace o modulu</translation>
-    </message>
-    <message>
-        <source>&amp;Close view type selection</source>
-        <translation type="obsolete">&amp;Zavřít výběr pohledu</translation>
     </message>
 </context>
 </TS>
