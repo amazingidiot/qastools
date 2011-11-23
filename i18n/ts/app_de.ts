@@ -1141,7 +1141,7 @@
     <message>
         <location filename="../../shared/src/views/info_view.cpp" line="65"/>
         <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
-        <translation>%1 ist eine Sammlung von Oberflächenanwendungen für die Linux-Klang-Architektur %2.</translation>
+        <translation>%1 ist eine Sammlung von Schreibtischanwendungen für die Linux-Klang-Architektur %2.</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/info_view.cpp" line="115"/>
