@@ -53,7 +53,7 @@ _txt_license ( 0 )
 	}
 
 	const QString hmask ( "<h3>%1</h3>\n" );
-	const QString bmask ( "<b>%1</b><br>\n" );
+	const QString bmask ( "<b>%1</b>\n" );
 	const QString amask ( "<a href=\"%1\" title=\"%2\">%1</a>" );
 	const QString pemask ( "%1 &lt;<a href=\"mailto:%1\">%2</a>&gt;" );
 
@@ -77,11 +77,15 @@ _txt_license ( 0 )
 
 		txt += "<p>";
 		txt += bmask.arg ( tr ( "Home page" ) );
+		txt += "</p>";
+		txt += "<p>";
 		txt += amask.arg ( "http://xwmw.org/qastools", tr ( "Home page" ) );
 		txt += "</p>";
 
 		txt += "<p>";
 		txt += bmask.arg ( tr ( "Project page" ) );
+		txt += "</p>";
+		txt += "<p>";
 		txt += amask.arg ( "http://sourceforge.net/projects/qastools/", tr ( "Project page" ) );
 		txt += "</p>";
 
