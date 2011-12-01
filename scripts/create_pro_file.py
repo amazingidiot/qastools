@@ -5,7 +5,7 @@ import os
 
 script_dir = os.path.dirname(__file__)
 
-pro_file_name = 'qastools.pro'
+pro_file_name = 'app.pro'
 pro_file_dir = script_dir + '/../i18n'
 pro_file = pro_file_dir + '/' + pro_file_name
 
