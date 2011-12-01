@@ -4,7 +4,7 @@ ${PROGRAM_NAME} \- A graphical sound mixer application for ALSA
 .SH SYNOPSIS
 .B ${PROGRAM_NAME} [OPTION]...
 .SH DESCRIPTION
-.B ${PROGRAM_NAME}
+.B ${PROGRAM_TITLE}
 is a graphical mixer application for the Linux sound system ALSA using the Qt GUI libraries.
 .SH OPTIONS
 .TP
@@ -29,7 +29,7 @@ prints copying information.
 \fB\-v\fR, \fB\-\-version\fR
 prints the program version.
 .SH SEE ALSO
-.B alsamixer amixer
+.B qasconfig qashctl alsamixer amixer
 .SH AUTHOR
 .B ${PROGRAM_NAME}
 was written by Sebastian Holtermann <sebholt@xwmw.org>
