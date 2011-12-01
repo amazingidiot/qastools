@@ -89,9 +89,14 @@ Main_Window::init_menu_bar ( )
 
 	// Menu: File
 	{
-		QMenu * menu ( menuBar()->addMenu ( tr ( "&File" ) ) );
-		menu->addAction ( act_refresh );
-		menu->addAction ( act_quit );
+		QMenu * cmenu ( menuBar()->addMenu ( tr ( "&File" ) ) );
+		cmenu->addAction ( act_quit );
+	}
+
+	// Menu: View
+	{
+		QMenu * cmenu = menuBar()->addMenu ( tr ( "&View" ) );
+		cmenu->addAction ( act_refresh );
 	}
 
 	// Menu: Help
