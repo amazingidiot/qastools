@@ -261,20 +261,6 @@ Desktop_Items::new_instance_message ( ) const
 }
 
 
-bool
-Desktop_Items::multithreading_is_safe ( )
-{
-	bool res ( true );
-
-	// https://bugreports.qt.nokia.com/browse/QTBUG-14614
-	if ( QT_VERSION < QT_VERSION_CHECK(4, 7, 2) ) {
-		res = false;
-	}
-
-	return res;
-}
-
-
 void
 Desktop_Items::start (
 	bool restore_session_n )
@@ -344,10 +330,6 @@ Desktop_Items::start (
 			delete pnt;
 		}
 	}
-
-	// Try to enabled multithreaded painting
-	_image_alloc.set_multithread ( multithreading_is_safe() );
-
 
 	if ( restore_session_n ) {
 		// Restore minimized session

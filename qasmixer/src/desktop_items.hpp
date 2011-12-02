@@ -74,11 +74,6 @@ class Desktop_Items :
 	QString
 	new_instance_message ( ) const;
 
-
-	bool
-	multithreading_is_safe ( );
-
-
 	/// @brief Start the mixer window and/or tray icon
 	///
 	void
