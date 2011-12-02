@@ -62,7 +62,6 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg/label_elide.cpp
 	${SHARED_SRC_DIR}/wdg/label_width.cpp
 	${SHARED_SRC_DIR}/wdg/text_browser.cpp
-	${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
 	${SHARED_SRC_DIR}/wdg/scroll_area_horizontal.cpp
 	${SHARED_SRC_DIR}/wdg/scroll_area_vertical.cpp
 	${SHARED_SRC_DIR}/wdg/balloon_widget.cpp
@@ -181,7 +180,6 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/dpe/is_buffer.hpp
 	${SHARED_INC_DIR}/dpe/image_allocator.hpp
 
-	${SHARED_INC_DIR}/wdg/tree_view_kv.hpp
 	${SHARED_INC_DIR}/wdg/ds_slider.hpp
 	${SHARED_INC_DIR}/wdg/ds_switch.hpp
 	${SHARED_INC_DIR}/wdg/balloon_widget.hpp
