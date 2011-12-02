@@ -65,11 +65,6 @@ class Controls_View :
 	protected:
 
 	void
-	currentChanged (
-		const QModelIndex & current,
-		const QModelIndex & previous );
-
-	void
 	maximum_height_update ( );
 
 

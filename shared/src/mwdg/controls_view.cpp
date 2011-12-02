@@ -38,6 +38,7 @@ _maximum_update_requested ( false )
 		setSizePolicy ( policy );
 	}
 
+	setSelectionMode ( QAbstractItemView::SingleSelection );
 	setItemDelegate ( new ::MWdg::Controls_Delegate ( this ) );
 }
 
@@ -161,16 +162,6 @@ Controls_View::setModel (
 		connect ( model(), SIGNAL ( rowsRemoved ( const QModelIndex &, int , int )  ),
 			this, SLOT ( maximum_height_update_request() ) );
 	}
-}
-
-
-void
-Controls_View::currentChanged (
-	const QModelIndex & current,
-	const QModelIndex & previous )
-{
-	QListView::currentChanged ( current, previous );
-	emit activated ( current );
 }
 
 

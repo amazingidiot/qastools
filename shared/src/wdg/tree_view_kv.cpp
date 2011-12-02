@@ -15,6 +15,7 @@
 #include <QScrollBar>
 #include <QHeaderView>
 #include <QResizeEvent>
+#include <iostream>
 
 
 namespace Wdg

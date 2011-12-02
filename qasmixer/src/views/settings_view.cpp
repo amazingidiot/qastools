@@ -75,8 +75,6 @@ _updating_values ( false )
 		_tree_view->setModel ( pages_model );
 	}
 
-	_tree_view->expand_recursive ( QModelIndex(), 2 );
-
 	// QueuedConnection to paint update the tree view before heavy painting new widgets
 	connect ( _tree_view, SIGNAL ( activated ( const QModelIndex & ) ),
 		this, SLOT ( page_selected ( const QModelIndex & ) ), Qt::QueuedConnection );

@@ -1,3 +1,2 @@
-* Command line argument documentation in manpage
-* cmake option to skip files with l10n versions on install (.desktop)
+* Remove Tree_View_KV from settings view
 * USB plug in/out detection?

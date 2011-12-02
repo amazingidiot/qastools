@@ -102,6 +102,11 @@ class Dev_Select_View :
 
 	void
 	control_changed (
+		const QModelIndex & cur_idx_n,
+		const QModelIndex & prev_idx_n );
+
+	void
+	control_changed (
 		const QModelIndex & idx_n );
 
 	void
@@ -133,7 +138,7 @@ class Dev_Select_View :
 		const QString & ctl_name_n ) const;
 
 	void
-	sel_db_install (
+	sel_db_commit (
 		const ::QSnd::CTL_Address * ctl_addr_n );
 
 	/// @brief Removes non existing CTL addresses

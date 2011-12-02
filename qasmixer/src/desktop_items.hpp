@@ -72,7 +72,7 @@ class Desktop_Items :
 	///
 	/// @return The message
 	QString
-	new_instance_message ( ) const;
+	message_to_other_instance ( ) const;
 
 	/// @brief Start the mixer window and/or tray icon
 	///

@@ -240,7 +240,7 @@ Desktop_Items::parse_message (
 
 
 QString
-Desktop_Items::new_instance_message ( ) const
+Desktop_Items::message_to_other_instance ( ) const
 {
 	// The message that gets sent to the other instance
 	QString msg ( "new_instance\n" );
@@ -273,21 +273,25 @@ Desktop_Items::start (
 	// Startup mixer device
 	{
 		QString & ctl_addr ( _dsetup.main_window.mixer_dev.ctl_addr );
-		bool use_default ( true );
-		switch ( _dsetup.start_device_mode ) {
-			case 1:
-				// Device should've been set during configuration reading
-				use_default = ctl_addr.isEmpty();
-				break;
-			case 2:
-				ctl_addr = _dsetup.start_user_device;
-				use_default = false;
-				break;
-			default:
-				break;
-		}
-		if ( use_default ) {
-			ctl_addr = "default";
+		if ( _cmd_opts.start_ctl_address.isEmpty() ) {
+			bool use_default ( true );
+			switch ( _dsetup.start_device_mode ) {
+				case 1:
+					// Device should've been set during configuration reading
+					use_default = ctl_addr.isEmpty();
+					break;
+				case 2:
+					ctl_addr = _dsetup.start_user_device;
+					use_default = false;
+					break;
+				default:
+					break;
+			}
+			if ( use_default ) {
+				ctl_addr = "default";
+			}
+		} else {
+			ctl_addr = _cmd_opts.start_ctl_address;
 		}
 	}
 
@@ -381,7 +385,6 @@ Desktop_Items::main_mixer_create ( )
 		_dsetup.main_window.window_state );
 	size_restored = _main_mixer->restoreGeometry (
 		_dsetup.main_window.window_geometry );
-
 
 	// Adjust startup size
 	if ( !size_restored ) {

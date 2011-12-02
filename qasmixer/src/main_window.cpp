@@ -225,6 +225,8 @@ void
 Main_Window::select_ctl (
 	const QString & ctl_n )
 {
+	//::std::cout << "Main_Window::select_ctl " << ctl_n.toLocal8Bit().data() << "\n";
+
 	_dev_select->silent_select_ctl ( ctl_n );
 
 	if ( _mixer_setup != 0 ) {
@@ -245,8 +247,9 @@ Main_Window::select_ctl (
 void
 Main_Window::select_ctl_from_side_iface ( )
 {
-	select_ctl ( _dev_select->selected_ctl().addr_str() );
+	//::std::cout << "Main_Window::select_ctl_from_side_iface " << "\n";
 
+	select_ctl ( _dev_select->selected_ctl().addr_str() );
 	emit sig_control_changed();
 }
 

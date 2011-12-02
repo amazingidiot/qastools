@@ -30,7 +30,8 @@ CTL_Arg_View_Card::CTL_Arg_View_Card (
 	_ctl_view = new ::MWdg::Controls_View ( this );
 	_ctl_view->setModel ( _cards_model );
 
-	connect ( _ctl_view, SIGNAL ( activated ( const QModelIndex & ) ),
+	connect ( _ctl_view->selectionModel(),
+		SIGNAL ( currentChanged ( const QModelIndex &, const QModelIndex & ) ),
 		this, SIGNAL ( sig_arg_changed() ) );
 
 	lay_content()->addWidget ( _ctl_view );

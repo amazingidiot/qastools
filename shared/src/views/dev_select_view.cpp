@@ -46,7 +46,6 @@ _silent_ctl_change ( false )
 	_str_type_string = "string";
 	_str_type_integer = "integer";
 
-
 	// View close action
 	_act_close = new QAction ( this );
 	_act_close->setText ( tr ( "&Close device selection" ) );
@@ -64,8 +63,9 @@ _silent_ctl_change ( false )
 		_controls_view = new ::MWdg::Controls_View ( this );
 		_controls_view->setModel ( _controls_model );
 
-		connect ( _controls_view, SIGNAL ( activated ( const QModelIndex & ) ),
-			this, SLOT ( control_changed ( const QModelIndex & ) ) );
+		connect ( _controls_view->selectionModel(),
+			SIGNAL ( currentChanged ( const QModelIndex &, const QModelIndex & ) ),
+			this, SLOT ( control_changed ( const QModelIndex &, const QModelIndex & ) ) );
 	}
 
 	{
@@ -121,8 +121,10 @@ void
 Dev_Select_View::compile_ctl_addr (
 	::QSnd::CTL_Address & ctl_addr_n )
 {
-	const ::QSnd::CTL_Def * ctl_def =
-		_controls_model->ctl_def ( _controls_view->currentIndex() );
+	//::std::cout << "Dev_Select_View::compile_ctl_addr: " << ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
+
+	const QModelIndex & cidx ( _controls_view->currentIndex() );
+	const ::QSnd::CTL_Def * ctl_def ( _controls_model->ctl_def ( cidx ) );
 	if ( ctl_def != 0 ) {
 		ctl_addr_n.set_ctl_name ( ctl_def->ctl_name() );
 
@@ -146,25 +148,26 @@ Dev_Select_View::silent_select_ctl (
 		return;
 	}
 
-	//::std::cout << "Dev_Select_View::silent_select_ctl: " << ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
-
 	_silent_ctl_change = true;
 
-	// Clear
-	{
-		clear_arg_views();
-		_current_ctl_def = 0;
-		_selected_ctl.clear();
-		_controls_view->clearSelection();
-	}
+	// Clear previous selection
+	clear_arg_views();
+	_current_ctl_def = 0;
+	_selected_ctl.clear();
+	_controls_view->clearSelection();
 
+	// Find model index from name
 	const QModelIndex midx (
 		_controls_model->ctl_def_index ( ctl_addr_n.ctl_name() ) );
+
+	// It's safer to set a current index even if it is invalid.
+	// Otherwise Qt may pick the first index just to have one selected.
+	_controls_view->setCurrentIndex ( midx );
 	if ( midx.isValid() ) {
-		_controls_view->setCurrentIndex ( midx );
 		_current_ctl_def = _controls_model->ctl_def ( midx );
+
 		// The address in the datbase will be used by the arg view restore
-		sel_db_install ( new ::QSnd::CTL_Address ( ctl_addr_n ) );
+		sel_db_commit ( new ::QSnd::CTL_Address ( ctl_addr_n ) );
 
 		_silent_arg_change = true;
 		create_arg_views();
@@ -197,6 +200,15 @@ Dev_Select_View::reload_database ( )
 		// Restore selection
 		silent_select_ctl ( ctl_addr );
 	}
+}
+
+
+void
+Dev_Select_View::control_changed (
+	const QModelIndex & cur_idx_n,
+	const QModelIndex & )
+{
+	control_changed ( cur_idx_n );
 }
 
 
@@ -237,7 +249,7 @@ Dev_Select_View::control_arg_changed ( )
 	if ( !( _silent_ctl_change || _silent_arg_change ) ) {
 		if ( update_selected_ctl() ) {
 			// Remember _selected_ctl for a later visit
-			sel_db_install ( new ::QSnd::CTL_Address ( _selected_ctl ) );
+			sel_db_commit ( new ::QSnd::CTL_Address ( _selected_ctl ) );
 		}
 	}
 }
@@ -246,6 +258,8 @@ Dev_Select_View::control_arg_changed ( )
 bool
 Dev_Select_View::update_selected_ctl ( )
 {
+	//::std::cout << "Dev_Select_View::update_selected_ctl " << "\n";
+
 	::QSnd::CTL_Address ctl_addr;
 	compile_ctl_addr ( ctl_addr );
 	if ( !_selected_ctl.match ( ctl_addr ) ) {
@@ -277,7 +291,7 @@ Dev_Select_View::sel_db_find (
 
 
 void
-Dev_Select_View::sel_db_install (
+Dev_Select_View::sel_db_commit (
 	const ::QSnd::CTL_Address * ctl_addr_n )
 {
 	if ( ctl_addr_n == 0 ) {
@@ -288,8 +302,7 @@ Dev_Select_View::sel_db_install (
 	}
 
 	for ( int ii=0; ii < _view_setup->selection_db.size(); ++ii ) {
-		const ::QSnd::CTL_Address * addr (
-			_view_setup->selection_db[ii] );
+		const ::QSnd::CTL_Address * addr ( _view_setup->selection_db[ii] );
 		if ( addr->ctl_name() == ctl_addr_n->ctl_name() ) {
 			delete addr;
 			_view_setup->selection_db[ii] = ctl_addr_n;
@@ -307,6 +320,8 @@ Dev_Select_View::sel_db_clean ( )
 		return;
 	}
 
+	// Remove entries from selection db that don't exist in the
+	// available controls database
 	for ( int ii=0; ii < _view_setup->selection_db.size(); ) {
 		const ::QSnd::CTL_Address * addr (
 			_view_setup->selection_db[ii] );

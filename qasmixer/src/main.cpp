@@ -59,11 +59,22 @@ main (
 		app.set_unique_key ( SINGLE_APPLICATION_KEY );
 
 		if ( app.is_running() ) {
-			if ( app.send_message ( ditems.new_instance_message() ) ) {
+			if ( app.send_message ( ditems.message_to_other_instance() ) ) {
 				return 0;
 			}
 		}
+	}
 
+	// Connect single instance signals with desktop item manager
+	{
+		QObject::connect ( &app, SIGNAL ( sig_message_available ( QString ) ),
+			&ditems, SLOT ( parse_message ( QString ) ) );
+
+		QObject::connect ( &app, SIGNAL ( commitDataRequest ( QSessionManager & ) ),
+			&ditems, SLOT ( shutdown() ) );
+
+		QObject::connect ( &ditems, SIGNAL ( sig_quit() ),
+			&app, SLOT ( quit() ), Qt::QueuedConnection );
 	}
 
 	// Application icon setup
@@ -95,18 +106,6 @@ main (
 
 	// Translation loading
 	::Views::load_translators ( &app );
-
-	// Connect single instance signals with desktop item manager
-	{
-		QObject::connect ( &app, SIGNAL ( sig_message_available ( QString ) ),
-			&ditems, SLOT ( parse_message ( QString ) ) );
-
-		QObject::connect ( &app, SIGNAL ( commitDataRequest ( QSessionManager & ) ),
-			&ditems, SLOT ( shutdown() ) );
-
-		QObject::connect ( &ditems, SIGNAL ( sig_quit() ),
-			&app, SLOT ( quit() ), Qt::QueuedConnection );
-	}
 
 	// Start and restore session (on demand)
 	ditems.start ( app.isSessionRestored() );
