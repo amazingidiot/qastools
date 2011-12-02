@@ -15,7 +15,6 @@
 #include "qastools_config.hpp"
 #include "desktop_items_setup.hpp"
 #include "wdg/scroll_area_vertical.hpp"
-#include "wdg/tree_view_kv.hpp"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -45,9 +44,7 @@ _updating_values ( false )
 
 	_vspace = qMax ( 0, fontMetrics().height() * 2 / 3 );
 
-	_tree_view = new ::Wdg::Tree_View_KV;
-	_tree_view->setHeaderHidden ( true );
-	_tree_view->setRootIsDecorated ( false );
+	_page_selection = new QListView;
 
 	// Page selection model for the tree view
 	{
@@ -72,12 +69,14 @@ _updating_values ( false )
 			pages_model->appendRow ( _page_items[ii] );
 		}
 
-		_tree_view->setModel ( pages_model );
+		_page_selection->setModel ( pages_model );
 	}
 
 	// QueuedConnection to paint update the tree view before heavy painting new widgets
-	connect ( _tree_view, SIGNAL ( activated ( const QModelIndex & ) ),
-		this, SLOT ( page_selected ( const QModelIndex & ) ), Qt::QueuedConnection );
+	connect ( _page_selection->selectionModel(),
+		SIGNAL ( currentChanged ( const QModelIndex &, const QModelIndex & ) ),
+		this, SLOT ( page_changed ( const QModelIndex &, const QModelIndex & ) ),
+		Qt::QueuedConnection );
 
 
 	init_page_startup();
@@ -110,7 +109,7 @@ _updating_values ( false )
 	{
 		QVBoxLayout * lay_vbox ( new QVBoxLayout );
 		lay_vbox->setContentsMargins ( 0, 0, 0, 0 );
-		lay_vbox->addWidget ( _tree_view, 1 );
+		lay_vbox->addWidget ( _page_selection, 1 );
 		lay_vbox->addLayout ( lay_close, 0 );
 
 		navi_wdg->setLayout ( lay_vbox );
@@ -458,7 +457,7 @@ Settings_View::set_setup (
 		if ( _dsetup->settings_view.page >= num_pages ) {
 			_dsetup->settings_view.page = 0;
 		}
-		_tree_view->setCurrentIndex (
+		_page_selection->setCurrentIndex (
 			_page_items[_dsetup->settings_view.page]->index() );
 	}
 }
@@ -542,6 +541,15 @@ Settings_View::update_inputs_vis_state ( )
 
 	_tray_dev_user->setEnabled (
 		( _dsetup->tray_mdev.device_mode == ::Tray_Mixer_MDev_Setup::MIXER_DEV_USER ) );
+}
+
+
+void
+Settings_View::page_changed (
+	const QModelIndex & cur_n,
+	const QModelIndex & )
+{
+	page_selected ( cur_n );
 }
 
 

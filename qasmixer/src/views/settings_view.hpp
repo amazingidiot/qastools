@@ -23,16 +23,12 @@
 #include <QDoubleSpinBox>
 #include <QSlider>
 #include <QStackedLayout>
-#include <QStandardItem>
 #include <QModelIndex>
-
+#include <QListView>
+#include <QStandardItem>
 
 // Forward declaration
 class Desktop_Items_Setup;
-namespace Wdg {
-	class Tree_View_KV;
-}
-
 
 namespace Views
 {
@@ -84,6 +80,11 @@ class Settings_View :
 
 	// Protected slots
 	protected slots:
+
+	void
+	page_changed (
+		const QModelIndex & cur_n,
+		const QModelIndex & prev_n );
 
 	void
 	page_selected (
@@ -153,7 +154,7 @@ class Settings_View :
 	static const unsigned int num_pages = 4;
 
 	// Pages
-	::Wdg::Tree_View_KV * _tree_view;
+	QListView * _page_selection;
 	QStackedLayout * _lay_pages_stack;
 	QWidget * _page_startup;
 	QWidget * _page_appearance;
