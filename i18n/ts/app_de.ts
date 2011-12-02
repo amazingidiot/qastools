@@ -915,76 +915,77 @@
 <context>
     <name>Main_Window</name>
     <message>
-        <location filename="../../qashctl/src/main_window.cpp" line="42"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="40"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="43"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="41"/>
         <source>&amp;Fullscreen mode</source>
         <translation>Voll&amp;bildmodus</translation>
     </message>
     <message>
-        <location filename="../../qashctl/src/main_window.cpp" line="43"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="41"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="44"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="42"/>
         <source>Exit &amp;fullscreen mode</source>
         <translation>Voll&amp;bildmodus verlassen</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="75"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="148"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="65"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="76"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="149"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="66"/>
         <source>&amp;Quit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="70"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="71"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="71"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="72"/>
         <source>Ctrl+s</source>
         <translation>Ctrl+e</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="80"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="164"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="75"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="81"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="165"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="76"/>
         <source>&amp;Refresh</source>
         <translation>Auff&amp;rischen</translation>
     </message>
     <message>
-        <location filename="../../qashctl/src/main_window.cpp" line="154"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="81"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="155"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="82"/>
         <source>Show &amp;device selection</source>
         <translation>&amp;Geräteauswahl anzeigen</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="85"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="169"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="90"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="86"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="170"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="91"/>
         <source>&amp;Info</source>
         <translation>&amp;Über</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="91"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="175"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="97"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="92"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="176"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="98"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
+        <location filename="../../qasconfig/src/main_window.cpp" line="98"/>
         <location filename="../../qashctl/src/main_window.cpp" line="182"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="103"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="104"/>
         <source>&amp;View</source>
         <translation>&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="98"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="189"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="109"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="104"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="191"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="111"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="154"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="156"/>
         <source>Mixer device</source>
         <translation>Mixergerät</translation>
     </message>
