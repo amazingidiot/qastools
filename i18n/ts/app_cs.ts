@@ -910,76 +910,77 @@
 <context>
     <name>Main_Window</name>
     <message>
-        <location filename="../../qashctl/src/main_window.cpp" line="42"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="40"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="43"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="41"/>
         <source>&amp;Fullscreen mode</source>
         <translation>Režim na &amp;celou obrazovku</translation>
     </message>
     <message>
-        <location filename="../../qashctl/src/main_window.cpp" line="43"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="41"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="44"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="42"/>
         <source>Exit &amp;fullscreen mode</source>
         <translation>Ukončit režim na ce&amp;lou obrazovku</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="75"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="148"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="65"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="76"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="149"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="66"/>
         <source>&amp;Quit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="70"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="71"/>
         <source>&amp;Settings</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="71"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="72"/>
         <source>Ctrl+s</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="80"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="164"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="75"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="81"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="165"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="76"/>
         <source>&amp;Refresh</source>
         <translation>&amp;Obnovit</translation>
     </message>
     <message>
-        <location filename="../../qashctl/src/main_window.cpp" line="154"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="81"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="155"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="82"/>
         <source>Show &amp;device selection</source>
         <translation>Ukázat výběr &amp;zařízení</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="85"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="169"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="90"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="86"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="170"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="91"/>
         <source>&amp;Info</source>
         <translation>&amp;O programu</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="91"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="175"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="97"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="92"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="176"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="98"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
+        <location filename="../../qasconfig/src/main_window.cpp" line="98"/>
         <location filename="../../qashctl/src/main_window.cpp" line="182"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="103"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="104"/>
         <source>&amp;View</source>
         <translation>&amp;Pohled</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="98"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="189"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="109"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="104"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="191"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="111"/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="154"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="156"/>
         <source>Mixer device</source>
         <translation>Zařízení směšovače</translation>
     </message>
@@ -1081,7 +1082,7 @@
 <context>
     <name>Views::Dev_Select_View</name>
     <message>
-        <location filename="../../shared/src/views/dev_select_view.cpp" line="52"/>
+        <location filename="../../shared/src/views/dev_select_view.cpp" line="51"/>
         <source>&amp;Close device selection</source>
         <translation>&amp;Zavřít výběr zařízení</translation>
     </message>
@@ -1223,133 +1224,133 @@
 <context>
     <name>Views::Settings_View</name>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="44"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="142"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="43"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="139"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="57"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="54"/>
         <source>Startup</source>
         <translation>Spuštění</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="58"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="55"/>
         <source>Appearance</source>
         <translation>Vzhled</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="59"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="56"/>
         <source>Input</source>
         <translation>Vstup</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="60"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="57"/>
         <source>System tray</source>
         <translation>Oznamovací oblast panelu</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="95"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="92"/>
         <source>&amp;Close</source>
         <translation>&amp;Zavřít</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="172"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="169"/>
         <source>Startup mixer device</source>
         <translation>Zařízení spouštěcího směšovače</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="177"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="174"/>
         <source>From last session</source>
         <translation>Z posledního sezení</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="231"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="228"/>
         <source>Simple mixer view</source>
         <translation>Jednoduchý pohled na směšovač</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="234"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="231"/>
         <source>Show slider value labels</source>
         <translation>Ukázat štítky s hodnotami posuvníku</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="258"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="255"/>
         <source>Mouse wheel</source>
         <translation>Kolečko myši</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="261"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="258"/>
         <source>Number of turns for a slider change from 0% to 100%</source>
         <translation>Počet kroků pro změnu posuvníku z 0% na 100%</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="311"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="308"/>
         <source>Show tray icon</source>
         <translation>Ukázat ikonu v oznamovací oblasti</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="312"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="309"/>
         <source>Close to tray</source>
         <translation>Zavřít do oznamovací oblasti panelu</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="322"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="319"/>
         <source>System tray usage</source>
         <translation>Používání oznamovací oblasti panelu</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="332"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="329"/>
         <source>Notification balloon</source>
         <translation>Bublina s oznámením</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="335"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="332"/>
         <source>Show balloon on a volume change</source>
         <translation>Při změně hlasitosti ukázat bublinu</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="343"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="340"/>
         <source>Balloon lifetime</source>
         <translation>Délka života bubliny</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="346"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="343"/>
         <source>ms</source>
         <extracomment>ms - abbreviation for milliseconds</extracomment>
         <translation>ms</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="378"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="375"/>
         <source>Mini mixer device</source>
         <translation>Zařízení malého směšovače</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="176"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="380"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="173"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="377"/>
         <source>Default</source>
         <translation>Výchozí</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="381"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="378"/>
         <source>Current (same as in main mixer window)</source>
         <translation>Nynější (stejné jako v hlavním okně se směšovačem)</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="178"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="382"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="175"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="379"/>
         <source>User defined</source>
         <translation>Stanoveno uživatelem</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="188"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="392"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="185"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="389"/>
         <source>User device:</source>
         <translation>Uživatelské zařízení:</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="189"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="393"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="186"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="390"/>
         <source>e.g. hw:0</source>
         <translation>Např. hw:0</translation>
     </message>

@@ -1087,7 +1087,7 @@
 <context>
     <name>Views::Dev_Select_View</name>
     <message>
-        <location filename="../../shared/src/views/dev_select_view.cpp" line="52"/>
+        <location filename="../../shared/src/views/dev_select_view.cpp" line="51"/>
         <source>&amp;Close device selection</source>
         <translation>Geräteauswahl &amp;schließen</translation>
     </message>
@@ -1229,133 +1229,133 @@
 <context>
     <name>Views::Settings_View</name>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="44"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="142"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="43"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="139"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="57"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="54"/>
         <source>Startup</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="58"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="55"/>
         <source>Appearance</source>
         <translation>Erscheinungsbild</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="59"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="56"/>
         <source>Input</source>
         <translation>Eingabe</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="60"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="57"/>
         <source>System tray</source>
         <translation>Systemleiste</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="95"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="92"/>
         <source>&amp;Close</source>
         <translation>&amp;Schließen</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="172"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="169"/>
         <source>Startup mixer device</source>
         <translation>Mixergerät beim Start</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="177"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="174"/>
         <source>From last session</source>
         <translation>Von letzter Sitzung</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="231"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="228"/>
         <source>Simple mixer view</source>
         <translation>Standardmixeransicht</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="234"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="231"/>
         <source>Show slider value labels</source>
         <translation>Reglerwerte anzeigen</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="258"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="255"/>
         <source>Mouse wheel</source>
         <translation>Mausrad</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="261"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="258"/>
         <source>Number of turns for a slider change from 0% to 100%</source>
         <translation>Umdrehungen für eine Schieberänderung von 0% auf 100%</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="311"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="308"/>
         <source>Show tray icon</source>
         <translation>Symbol anzeigen</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="312"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="309"/>
         <source>Close to tray</source>
         <translation>In Systemleiste schließen</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="322"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="319"/>
         <source>System tray usage</source>
         <translation>Systemleistennutzung</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="332"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="329"/>
         <source>Notification balloon</source>
         <translation>Benachrichtigungsballon</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="335"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="332"/>
         <source>Show balloon on a volume change</source>
         <translation>Ballon bei einer Lautstärkenänderung anzeigen</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="343"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="340"/>
         <source>Balloon lifetime</source>
         <translation>Ballon-Lebensdauer</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="346"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="343"/>
         <source>ms</source>
         <extracomment>ms - abbreviation for milliseconds</extracomment>
         <translation>ms</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="378"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="375"/>
         <source>Mini mixer device</source>
         <translation>Minimixergerät</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="176"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="380"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="173"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="377"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="381"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="378"/>
         <source>Current (same as in main mixer window)</source>
         <translation>Aktuell (das Gleiche wie im Mixerfenster)</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="178"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="382"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="175"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="379"/>
         <source>User defined</source>
         <translation>Benutzerdefiniert</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="188"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="392"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="185"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="389"/>
         <source>User device:</source>
         <translation>Benutzergerät:</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="189"/>
-        <location filename="../../qasmixer/src/views/settings_view.cpp" line="393"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="186"/>
+        <location filename="../../qasmixer/src/views/settings_view.cpp" line="390"/>
         <source>e.g. hw:0</source>
         <translation>z.B. hw:0</translation>
     </message>
