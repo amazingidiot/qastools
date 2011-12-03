@@ -1,0 +1,9 @@
+2011-12-03      Sebastian Holtermann  <sebholt@xwmw.org>
+	* QasTools replaces separate QasConfig and QasMixer packages
+	* QasHctl: QasHctl forked out of QasMixer into separate application
+	* QasHctl: Wrong pixmap in switch widgets fixed
+	* QasMixer: Command line arguments -D and -c fixed
+	* QasMixer: Command line arguments descriptions added in manpage
+	* All: Info dialog adapted to QasTools
+	* First release of QasTools package
+	* Release version 0.16.0
