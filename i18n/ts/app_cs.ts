@@ -990,12 +990,12 @@
     <message>
         <location filename="../../qasconfig/src/qsnd/alsa_config_model.cpp" line="255"/>
         <source>Key</source>
-        <translation type="unfinished">Klíč</translation>
+        <translation>Klíč</translation>
     </message>
     <message>
         <location filename="../../qasconfig/src/qsnd/alsa_config_model.cpp" line="257"/>
         <source>Value</source>
-        <translation type="unfinished">Hodnota</translation>
+        <translation>Hodnota</translation>
     </message>
 </context>
 <context>
@@ -1056,7 +1056,7 @@
     <message>
         <location filename="../../qasconfig/src/views/alsa_config_view.cpp" line="37"/>
         <source>ALSA configuration</source>
-        <translation type="unfinished">Nastavení Alsa</translation>
+        <translation>Nastavení Alsa</translation>
     </message>
     <message>
         <location filename="../../qasconfig/src/views/alsa_config_view.cpp" line="41"/>
@@ -1137,7 +1137,7 @@
     <message>
         <location filename="../../shared/src/views/info_view.cpp" line="65"/>
         <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 je sbírka programů pro linuxový zvukový systém %2.</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/info_view.cpp" line="115"/>
