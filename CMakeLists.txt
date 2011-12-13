@@ -8,6 +8,10 @@ IF ( NOT CMAKE_BUILD_TYPE )
 	SET ( CMAKE_BUILD_TYPE Release )
 ENDIF ( NOT CMAKE_BUILD_TYPE )
 
+IF ( NOT BUILD_LIST )
+	SET ( BUILD_LIST "qascommon,qasconfig,qashctl,qasmixer" )
+ENDIF ( NOT BUILD_LIST )
+
 
 # program/package/version suffix
 
@@ -121,9 +125,19 @@ ENDIF ( NOT SKIP_LICENSE_INSTALL )
 
 # Process subdirectories
 
-ADD_SUBDIRECTORY ( i18n )
-ADD_SUBDIRECTORY ( shared )
+IF ( ${BUILD_LIST} MATCHES "qascommon" )
+	ADD_SUBDIRECTORY ( i18n )
+	ADD_SUBDIRECTORY ( shared )
+ENDIF ( ${BUILD_LIST} MATCHES "qascommon" )
 
-ADD_SUBDIRECTORY ( qasconfig )
-ADD_SUBDIRECTORY ( qashctl )
-ADD_SUBDIRECTORY ( qasmixer )
+IF ( ${BUILD_LIST} MATCHES "qasconfig" )
+	ADD_SUBDIRECTORY ( qasconfig )
+ENDIF ( ${BUILD_LIST} MATCHES "qasconfig" )
+
+IF ( ${BUILD_LIST} MATCHES "qashctl" )
+	ADD_SUBDIRECTORY ( qashctl )
+ENDIF ( ${BUILD_LIST} MATCHES "qashctl" )
+
+IF ( ${BUILD_LIST} MATCHES "qasmixer" )
+	ADD_SUBDIRECTORY ( qasmixer )
+ENDIF ( ${BUILD_LIST} MATCHES "qasmixer" )
