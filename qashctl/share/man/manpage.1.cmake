@@ -1,10 +1,17 @@
-.TH ${PROGRAM_NAME} 1 "December 01, 2011" ${PROGRAM_NAME} 1
+.TH ${PROGRAM_NAME_UCASE} "1" "2011-12-14" "Linux" "QasTools Manuals"
 .SH NAME
-${PROGRAM_NAME} \- ALSA High level Control Interface mixer
-.SH SYNOPSIS
-.B ${PROGRAM_NAME} [OPTION]...
+${PROGRAM_NAME} \- Desktop mixer application for
+ALSA's "High level Control Interface"
+
 .SH DESCRIPTION
 .B ${PROGRAM_TITLE}
-is a mixer for the ALSA High level Control Interface (HCTL) using the Qt GUI libraries.
+is a desktop mixer application for ALSA's
+"High level Control Interface" (HCTL).
+
+.SH NOTES
+\fB${PROGRAM_TITLE}\fP is part of the \fBQasTools\fP applications collection.
+
+It is written in C++ using the Qt GUI libraries.
+
 .SH SEE ALSO
 .B qasconfig(1), qasmixer(1)
