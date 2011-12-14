@@ -1,3 +1,6 @@
-* Preset safe/restore
-* Slider/Switches grouping
+* command line options for qasconfig
+* command line options for qashctl
+
+* volume/switch preset safe/restore
+* sliders/switches grouping
 * USB plug in/out detection
