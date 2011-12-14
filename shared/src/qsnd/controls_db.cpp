@@ -236,9 +236,8 @@ setup_ctl_def_args (
 {
 	snd_config_t * scfg_arg_com ( 0 );
 	{
-		int err;
-		const char * search_str ( ctl_arg_n->arg_name.toLatin1().constData() );
-		err = snd_config_search ( scfg_n, search_str, &scfg_arg_com );
+		int err = snd_config_search (
+			scfg_n, ctl_arg_n->arg_name.toLatin1().constData(), &scfg_arg_com );
 		if ( ( err != 0 ) || ( scfg_arg_com == 0 ) ) {
 			return;
 		}
