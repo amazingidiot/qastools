@@ -1,3 +1,8 @@
+2011-12-14      Sebastian Holtermann  <sebholt@xwmw.org>
+	* All: Manpages updated
+	* cmake: Support for single application builds
+	* Release version 0.16.1
+
 2011-12-03      Sebastian Holtermann  <sebholt@xwmw.org>
 	* QasTools replaces separate QasConfig and QasMixer packages
 	* QasHctl: QasHctl forked out of QasMixer into separate application
