@@ -205,7 +205,7 @@ create_ctl_def_args (
 			str_num.setNum ( ii );
 			snd_config_t * scfg_arg ( 0 );
 			snd_config_search (
-				scfg_args, str_num.toLatin1().data(), &scfg_arg );
+				scfg_args, str_num.toLatin1().constData(), &scfg_arg );
 			if ( scfg_arg != 0 ) {
 				if ( snd_config_get_type ( scfg_arg ) == SND_CONFIG_TYPE_STRING ) {
 					const char * char_ptr ( 0 );
