@@ -1138,7 +1138,7 @@
     <message>
         <location filename="../../shared/src/views/info_view.cpp" line="65"/>
         <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 — это набор приложений для работы со звуковой системой %2.</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/info_view.cpp" line="115"/>
