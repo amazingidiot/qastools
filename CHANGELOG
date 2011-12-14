@@ -1,5 +1,6 @@
-2011-12-14      Sebastian Holtermann  <sebholt@xwmw.org>
-	* All: Manpages updated
+2011-12-15      Sebastian Holtermann  <sebholt@xwmw.org>
+	* all: Manpages updated
+	* shared: freed memory access fix
 	* cmake: Support for single application builds
 	* Release version 0.16.1
 
