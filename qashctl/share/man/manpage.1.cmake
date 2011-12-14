@@ -3,6 +3,9 @@
 ${PROGRAM_NAME} \- Desktop mixer application for
 ALSA's "High level Control Interface"
 
+.SH SYNOPSIS
+.B ${PROGRAM_NAME}
+
 .SH DESCRIPTION
 .B ${PROGRAM_TITLE}
 is a desktop mixer application for ALSA's

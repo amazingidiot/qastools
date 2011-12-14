@@ -2,6 +2,9 @@
 .SH NAME
 ${PROGRAM_NAME} \- ALSA configuration tree browser
 
+.SH SYNOPSIS
+.B ${PROGRAM_NAME}
+
 .SH DESCRIPTION
 ALSA's configuration resides in a tree structure which gets built
 from the contents of the files
