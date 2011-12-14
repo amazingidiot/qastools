@@ -29,7 +29,4 @@ prints copying information.
 \fB\-v\fR, \fB\-\-version\fR
 prints the program version.
 .SH SEE ALSO
-.B qasconfig qashctl alsamixer amixer
-.SH AUTHOR
-.B ${PROGRAM_NAME}
-was written by Sebastian Holtermann <sebholt@xwmw.org>
+.B qasconfig(1), qashctl(1), alsamixer(1), amixer(1)

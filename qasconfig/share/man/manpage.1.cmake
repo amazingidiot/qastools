@@ -7,7 +7,4 @@ ${PROGRAM_NAME} \- ALSA configuration tree browser
 .B ${PROGRAM_TITLE}
 is a browser for the ALSA configuration tree using the Qt GUI libraries.
 .SH SEE ALSO
-.B qasconfig qasmixer
-.SH AUTHOR
-.B ${PROGRAM_NAME}
-was written by Sebastian Holtermann <sebholt@xwmw.org>
+.B qashctl(1), qasmixer(1)

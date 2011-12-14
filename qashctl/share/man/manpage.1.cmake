@@ -7,7 +7,4 @@ ${PROGRAM_NAME} \- ALSA High level Control Interface mixer
 .B ${PROGRAM_TITLE}
 is a mixer for the ALSA High level Control Interface (HCTL) using the Qt GUI libraries.
 .SH SEE ALSO
-.B qasconfig qasmixer
-.SH AUTHOR
-.B ${PROGRAM_NAME}
-was written by Sebastian Holtermann <sebholt@xwmw.org>
+.B qasconfig(1), qasmixer(1)
