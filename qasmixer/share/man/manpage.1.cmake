@@ -45,4 +45,4 @@ prints the program version.
 It is written in C++ using the Qt GUI libraries.
 
 .SH SEE ALSO
-.B qasconfig(1), qashctl(1), alsamixer(1), amixer(1)
+.B alsamixer(1), qasconfig(1), qashctl(1)
