@@ -19,7 +19,6 @@
 #include "wdg/ds_slider_painter_bevelled.hpp"
 #include "mwdg/mixer_style.hpp"
 #include "views/info_view.hpp"
-#include "views/mixer_hctl.hpp"
 #include "views/dev_select_view.hpp"
 #include "views/view_helper.hpp"
 
@@ -110,8 +109,9 @@ Main_Window::Main_Window ( )
 	init_docks();
 	init_menu_bar();
 
-	_mixer_wdg = new ::Views::Mixer_HCTL;
-	setCentralWidget ( _mixer_wdg );
+	_mixer_wdg = QSharedPointer < ::Views::Mixer_HCTL > (
+		new ::Views::Mixer_HCTL );
+	setCentralWidget ( _mixer_wdg.data() );
 
 	update_fullscreen_action();
 }

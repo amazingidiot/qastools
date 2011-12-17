@@ -15,12 +15,14 @@
 
 #include "dpe/image_allocator.hpp"
 #include "wdg/ds_widget_style_db.hpp"
+#include "views/mixer_hctl.hpp"
 #include "main_window_setup.hpp"
 
 #include <QMainWindow>
 #include <QDialog>
 #include <QFileSystemWatcher>
 #include <QPointer>
+#include <QSharedPointer>
 
 
 // Forward declaration
@@ -124,7 +126,7 @@ class Main_Window :
 	Main_Window_Setup _setup;
 
 	// Widgets
-	::Views::Mixer_HCTL * _mixer_wdg;
+	QSharedPointer < ::Views::Mixer_HCTL > _mixer_wdg;
 	::Views::Dev_Select_View * _dev_select;
 	QDockWidget * _dev_select_dock;
 	QPointer < QDialog > _info_dialog;
