@@ -20,6 +20,7 @@
 #include <QPointer>
 #include <QMenu>
 #include <QAction>
+#include <QScopedPointer>
 
 
 namespace MWdg
@@ -140,8 +141,8 @@ class Mixer_HCTL_Edit_Int :
 	QList < ::MWdg::Mixer_HCTL_Int_Proxy_Slider * > _proxies_slider;
 	QList < ::Wdg::Pad_Proxies_Group * > _proxies_groups;
 
-	::Wdg::Scroll_Area_Horizontal * _scroll_area;
-	::Wdg::Sliders_Pad * _sliders_pad;
+	QScopedPointer < ::Wdg::Sliders_Pad > _sliders_pad;
+	QScopedPointer < ::Wdg::Scroll_Area_Horizontal > _scroll_area;
 
 	// Slider status widget
 	QPointer < ::MWdg::Mixer_HCTL_Slider_Status_Widget > _status_wdg;

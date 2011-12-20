@@ -45,8 +45,6 @@ Mixer_HCTL_Edit_Int::Mixer_HCTL_Edit_Int (
 	::MWdg::Mixer_HCTL_Editor_Data * data_n,
 	QWidget * parent_n ) :
 Mixer_HCTL_Editor ( data_n, parent_n ),
-_scroll_area ( 0 ),
-_sliders_pad ( 0 ),
 _act_toggle_joined ( this ),
 _act_level_channels ( this )
 {
@@ -105,14 +103,8 @@ Mixer_HCTL_Edit_Int::set_inputs_setup (
 void
 Mixer_HCTL_Edit_Int::clear ( )
 {
-	if ( _sliders_pad != 0 ) {
-		delete _sliders_pad;
-		_sliders_pad = 0;
-	}
-	if ( _scroll_area != 0 ) {
-		delete _scroll_area;
-		_scroll_area = 0;
-	}
+	_sliders_pad.reset();
+	_scroll_area.reset();
 
 	for ( int pii=0; pii < _proxies_groups.size(); ++pii ) {
 		delete _proxies_groups[pii];
@@ -266,8 +258,8 @@ Mixer_HCTL_Edit_Int::setup_multi ( )
 void
 Mixer_HCTL_Edit_Int::setup_widgets ( )
 {
-	_sliders_pad = new ::Wdg::Sliders_Pad (
-		this, editor_data()->image_alloc );
+	_sliders_pad.reset ( new ::Wdg::Sliders_Pad (
+		this, editor_data()->image_alloc ) );
 	_sliders_pad->set_wdg_style_db ( editor_data()->wdg_style_db );
 	if ( inputs_setup() != 0 ) {
 		_sliders_pad->set_wheel_degrees ( inputs_setup()->wheel_degrees );
@@ -275,25 +267,25 @@ Mixer_HCTL_Edit_Int::setup_widgets ( )
 	_sliders_pad->set_proxies_groups ( _proxies_groups );
 	_sliders_pad->installEventFilter ( this );
 
-	connect ( _sliders_pad, SIGNAL ( sig_focus_changed() ),
+	connect ( _sliders_pad.data(),
+		SIGNAL ( sig_focus_changed() ),
 		this, SLOT ( update_focus_proxies() ) );
 
 	connect (
-		_sliders_pad,
+		_sliders_pad.data(),
 		SIGNAL ( sig_footer_label_selected ( unsigned int, unsigned int ) ),
 		this, SLOT ( footer_label_selected ( unsigned int, unsigned int ) ) );
 
 	// Scroll area
-	::Wdg::Scroll_Area_Horizontal * scroll_area (
-		new ::Wdg::Scroll_Area_Horizontal );
-	scroll_area->setFrameStyle ( QFrame::NoFrame );
-	scroll_area->setWidget ( _sliders_pad );
+	_scroll_area.reset ( new ::Wdg::Scroll_Area_Horizontal );
+	_scroll_area->setFrameStyle ( QFrame::NoFrame );
+	_scroll_area->setWidget ( _sliders_pad.data() );
 
 	// Editor pad layout
 	{
 		QVBoxLayout * lay_pad ( new QVBoxLayout );
 		lay_pad->setContentsMargins ( 0, 0, 0, 0 );
-		lay_pad->addWidget ( scroll_area, 1 );
+		lay_pad->addWidget ( _scroll_area.data(), 1 );
 		lay_pad->addLayout ( create_range_label() );
 		setLayout ( lay_pad );
 	}
@@ -522,7 +514,7 @@ Mixer_HCTL_Edit_Int::footer_label_selected (
 			::MWdg::Mixer_HCTL_Slider_Status_Widget * swdg (
 				new ::MWdg::Mixer_HCTL_Slider_Status_Widget ( this ) );
 			swdg->setAttribute ( Qt::WA_DeleteOnClose );
-			swdg->set_sliders_pad ( _sliders_pad );
+			swdg->set_sliders_pad ( _sliders_pad.data() );
 			swdg->slider_focus_changed();
 
 			_status_wdg = swdg;
@@ -569,7 +561,7 @@ Mixer_HCTL_Edit_Int::eventFilter (
 {
 	bool filtered ( false );
 
-	if ( watched_n == _sliders_pad ) {
+	if ( watched_n == _sliders_pad.data() ) {
 		if ( event_n->type() == QEvent::KeyPress ) {
 			QKeyEvent * ev_key (
 				static_cast < QKeyEvent * > ( event_n ) );
