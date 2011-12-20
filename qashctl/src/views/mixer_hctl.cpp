@@ -55,7 +55,7 @@ _view_setup ( 0 )
 	_mixer_hctl->set_ctl_info_db ( _snd_mixer->info_db() );
 
 	// Tree model
-	_tree_model = new ::MWdg::Mixer_HCTL_Tree_Model;
+	_tree_model = new ::MWdg::Mixer_HCTL_Tree_Model ( this );
 
 	// Tree view
 	_tree_view = new ::Wdg::Tree_View_KV;
@@ -75,7 +75,7 @@ _view_setup ( 0 )
 	}
 
 	// Table model
-	_table_model = new ::MWdg::Mixer_HCTL_Table_Model;
+	_table_model = new ::MWdg::Mixer_HCTL_Table_Model ( this );
 
 	// Table view
 	{
@@ -147,15 +147,6 @@ Mixer_HCTL::~Mixer_HCTL ( )
 	set_mdev_setup ( 0 );
 	set_inputs_setup ( 0 );
 	set_view_setup ( 0 );
-
-	delete _tree_view;
-	delete _tree_model;
-
-	delete _table_view;
-	delete _table_model;
-
-	delete _mixer_hctl;
-	delete _snd_mixer;
 }
 
 
