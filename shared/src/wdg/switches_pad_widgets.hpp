@@ -16,6 +16,7 @@
 
 #include <QObject>
 #include <QLabel>
+#include <QScopedPointer>
 
 
 namespace Wdg
@@ -62,8 +63,8 @@ class Switches_Pad_Widgets
 	// Private attributes
 	private:
 
-	QLabel * _label;
-	QWidget * _input;
+	QScopedPointer < QLabel > _label;
+	QScopedPointer < QWidget > _input;
 };
 
 
@@ -71,7 +72,7 @@ inline
 QWidget *
 Switches_Pad_Widgets::input_wdg ( )
 {
-	return _input;
+	return _input.data();
 }
 
 
@@ -79,7 +80,7 @@ inline
 QLabel *
 Switches_Pad_Widgets::label_wdg ( )
 {
-	return _label;
+	return _label.data();
 }
 
 
