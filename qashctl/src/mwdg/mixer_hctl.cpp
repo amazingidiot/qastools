@@ -45,20 +45,20 @@ _editor_pad ( 0 )
 	}
 
 	// Localized shared strings
-	editor_data()->str_joined = tr ( "Joined" );
-	editor_data()->ttip_grid_lbl_elem = tr ( "Element index" );
-	editor_data()->ttip_grid_lbl_channel = tr ( "Channel %1" );
+	_editor_data->str_joined = tr ( "Joined" );
+	_editor_data->ttip_grid_lbl_elem = tr ( "Element index" );
+	_editor_data->ttip_grid_lbl_channel = tr ( "Channel %1" );
 
-	editor_data()->str_list_channel = tr ( "Ch. %1" );
-	editor_data()->ttip_list_channel = tr ( "Channel %1" );
+	_editor_data->str_list_channel = tr ( "Ch. %1" );
+	_editor_data->ttip_list_channel = tr ( "Channel %1" );
 	{
 		const QString dmask ( "<div>%1</div>" );
 		QString txt[2];
 		txt[0] = tr ( "Index: %1" );
 		txt[1] = tr ( "Channel: %2" );
-		editor_data()->ttip_grid_widget += dmask.arg ( txt[0] );
-		editor_data()->ttip_grid_widget += "\n";
-		editor_data()->ttip_grid_widget += dmask.arg ( txt[1] );
+		_editor_data->ttip_grid_widget += dmask.arg ( txt[0] );
+		_editor_data->ttip_grid_widget += "\n";
+		_editor_data->ttip_grid_widget += dmask.arg ( txt[1] );
 	}
 
 	// Pad widget layout
@@ -178,21 +178,21 @@ Mixer_HCTL::~Mixer_HCTL ( )
 ::QSnd::Mixer_HCTL_Elem_Group *
 Mixer_HCTL::snd_elem_group ( ) const
 {
-	return editor_data()->snd_elem_group;
+	return _editor_data->snd_elem_group;
 }
 
 
 unsigned int
 Mixer_HCTL::elem_idx ( ) const
 {
-	return editor_data()->elem_idx;
+	return _editor_data->elem_idx;
 }
 
 
 const ::QSnd::Mixer_HCTL_Info_Db *
 Mixer_HCTL::ctl_info_db ( ) const
 {
-	return editor_data()->ctl_info_db;
+	return _editor_data->ctl_info_db;
 }
 
 
@@ -200,7 +200,7 @@ void
 Mixer_HCTL::set_ctl_info_db (
 	const ::QSnd::Mixer_HCTL_Info_Db * info_db_n )
 {
-	editor_data()->ctl_info_db = info_db_n;
+	_editor_data->ctl_info_db = info_db_n;
 }
 
 
@@ -225,7 +225,7 @@ Mixer_HCTL::set_inputs_setup (
 const ::Wdg::DS_Widget_Style_Db *
 Mixer_HCTL::wdg_style_db ( ) const
 {
-	return editor_data()->wdg_style_db;
+	return _editor_data->wdg_style_db;
 }
 
 
@@ -233,14 +233,14 @@ void
 Mixer_HCTL::set_wdg_style_db (
 	const ::Wdg::DS_Widget_Style_Db * style_db_n )
 {
-	editor_data()->wdg_style_db = style_db_n;
+	_editor_data->wdg_style_db = style_db_n;
 }
 
 
 ::dpe::Image_Allocator *
 Mixer_HCTL::image_alloc ( ) const
 {
-	return editor_data()->image_alloc;
+	return _editor_data->image_alloc;
 }
 
 
@@ -248,7 +248,7 @@ void
 Mixer_HCTL::set_image_alloc (
 	::dpe::Image_Allocator * alloc_n )
 {
-	editor_data()->image_alloc = alloc_n;
+	_editor_data->image_alloc = alloc_n;
 }
 
 
@@ -260,7 +260,7 @@ Mixer_HCTL::clear ( )
 		_editor_pad = 0;
 	}
 
-	editor_data()->snd_elem_group = 0;
+	_editor_data->snd_elem_group = 0;
 }
 
 
@@ -277,8 +277,8 @@ Mixer_HCTL::set_snd_elem_group (
 
 	clear();
 
-	editor_data()->snd_elem_group = elem_group_n;
-	editor_data()->elem_idx = index_n;
+	_editor_data->snd_elem_group = elem_group_n;
+	_editor_data->elem_idx = index_n;
 
 	if ( snd_elem_group() != 0 ) {
 		setup_widgets();
@@ -300,13 +300,13 @@ Mixer_HCTL::setup_widgets ( )
 
 	::QSnd::Mixer_HCTL_Elem * elem0 ( snd_elem_group()->elem ( 0 ) );
 	if ( elem0->is_boolean() ) {
-		_editor_pad = new Mixer_HCTL_Edit_Bool ( editor_data(), this );
+		_editor_pad = new Mixer_HCTL_Edit_Bool ( _editor_data, this );
 	} else if ( elem0->is_enumerated() ) {
-		_editor_pad = new Mixer_HCTL_Edit_Enum ( editor_data(), this );
+		_editor_pad = new Mixer_HCTL_Edit_Enum ( _editor_data, this );
 	} else if ( elem0->is_integer() ) {
-		_editor_pad = new Mixer_HCTL_Edit_Int ( editor_data(), this );
+		_editor_pad = new Mixer_HCTL_Edit_Int ( _editor_data, this );
 	} else {
-		_editor_pad = new Mixer_HCTL_Edit_Unsupported ( editor_data(), this );
+		_editor_pad = new Mixer_HCTL_Edit_Unsupported ( _editor_data, this );
 	}
 
 	if ( _editor_pad != 0 ) {

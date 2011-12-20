@@ -73,15 +73,6 @@ class Mixer_HCTL :
 	~Mixer_HCTL ( );
 
 
-	// Editor data
-
-	const ::MWdg::Mixer_HCTL_Editor_Data *
-	editor_data ( ) const;
-
-	::MWdg::Mixer_HCTL_Editor_Data *
-	editor_data ( );
-
-
 	// Shared data
 
 	void
@@ -172,22 +163,6 @@ class Mixer_HCTL :
 	QString _info_dev_mask;
 	QString _ttip_name_lbl_mask;
 };
-
-
-inline
-const ::MWdg::Mixer_HCTL_Editor_Data *
-Mixer_HCTL::editor_data ( ) const
-{
-	return _editor_data;
-}
-
-
-inline
-::MWdg::Mixer_HCTL_Editor_Data *
-Mixer_HCTL::editor_data ( )
-{
-	return _editor_data;
-}
 
 
 inline
