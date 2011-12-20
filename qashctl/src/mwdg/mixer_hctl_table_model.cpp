@@ -23,7 +23,9 @@ namespace MWdg
 {
 
 
-Mixer_HCTL_Table_Model::Mixer_HCTL_Table_Model ( ) :
+Mixer_HCTL_Table_Model::Mixer_HCTL_Table_Model (
+	QObject * parent_n ) :
+QAbstractTableModel ( parent_n ),
 _snd_mixer ( 0 ),
 _iface_type_idx ( 0 ),
 _num_columns ( 7 ),

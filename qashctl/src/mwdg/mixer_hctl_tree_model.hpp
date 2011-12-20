@@ -41,7 +41,8 @@ class Mixer_HCTL_Tree_Model :
 	// Public methods
 	public:
 
-	Mixer_HCTL_Tree_Model ( );
+	Mixer_HCTL_Tree_Model (
+		QObject * parent_n = 0 );
 
 	~Mixer_HCTL_Tree_Model ( );
 

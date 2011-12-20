@@ -40,7 +40,8 @@ class Mixer_HCTL_Table_Model :
 	// Public methods
 	public:
 
-	Mixer_HCTL_Table_Model ( );
+	Mixer_HCTL_Table_Model (
+		QObject * parent_n = 0 );
 
 	~Mixer_HCTL_Table_Model ( );
 

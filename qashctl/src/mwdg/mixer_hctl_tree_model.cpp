@@ -24,7 +24,9 @@ namespace MWdg
 {
 
 
-Mixer_HCTL_Tree_Model::Mixer_HCTL_Tree_Model ( ) :
+Mixer_HCTL_Tree_Model::Mixer_HCTL_Tree_Model (
+	QObject * parent_n ) :
+QStandardItemModel ( parent_n ),
 _snd_mixer ( 0 )
 {
 }
