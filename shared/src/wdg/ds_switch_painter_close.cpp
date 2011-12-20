@@ -23,6 +23,7 @@
 #include <QImage>
 #include <QPainter>
 #include <QRadialGradient>
+#include <QScopedPointer>
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -49,8 +50,8 @@ struct DS_Switch_Painter_Close::PData {
 	::dpe::Image_Set_Meta * meta;
 	QPalette pal;
 
-	QImage * qimg;
-	QPainter * qpnt;
+	QScopedPointer < QImage > qimg;
+	QScopedPointer < QPainter > qpnt;
 
 	int max_len;
 	int min_len;
@@ -135,19 +136,15 @@ DS_Switch_Painter_Close::paint_bg (
 
 	{
 		// Init painter
-		pd.qimg = new QImage (
+		pd.qimg.reset ( new QImage (
 			pd.img->data, pd.img->width, pd.img->height,
-			QImage::Format_ARGB32_Premultiplied );
-		pd.qpnt = new QPainter ( pd.qimg );
+			QImage::Format_ARGB32_Premultiplied ) );
+		pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
 		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 		// Painting
 		paint_bg_area ( pd );
 		paint_bg_border ( pd );
-
-		// Clean up
-		delete pd.qpnt;
-		delete pd.qimg;
 	}
 
 	return 0;
@@ -244,18 +241,14 @@ DS_Switch_Painter_Close::paint_handle (
 		} else {
 
 			// Init painter
-			pd.qimg = new QImage (
+			pd.qimg.reset ( new QImage (
 				pd.img->data, pd.img->width, pd.img->height,
-				QImage::Format_ARGB32_Premultiplied );
-			pd.qpnt = new QPainter ( pd.qimg );
+				QImage::Format_ARGB32_Premultiplied ) );
+			pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
 			pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 			// Paint
 			paint_handle_area ( pd );
-
-			// Clean up
-			delete pd.qpnt;
-			delete pd.qimg;
 		}
 	}
 
