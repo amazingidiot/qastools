@@ -18,6 +18,7 @@
 #include <QWidget>
 #include <QList>
 #include <QLayout>
+#include <QScopedPointer>
 
 #include "sliders_pad_data.hpp"
 #include "sliders_pad_header_data.hpp"
@@ -183,9 +184,9 @@ class Sliders_Pad_Layout :
 	// Private attributes;
 	private:
 
-	QLayoutItem * _header_item;
-	Equal_Columns_Layout * _lay_eqc;
-	QLayoutItem * _footer_item;
+	QScopedPointer < QLayoutItem > _header_item;
+	QScopedPointer < Equal_Columns_Layout > _lay_eqc;
+	QScopedPointer < QLayoutItem > _footer_item;
 
 	unsigned int _num_items;
 	QLayoutItem * _items[3];

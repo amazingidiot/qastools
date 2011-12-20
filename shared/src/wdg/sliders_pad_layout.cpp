@@ -29,30 +29,20 @@ Sliders_Pad_Layout::Sliders_Pad_Layout (
 	Sliders_Pad_Data * sp_data_n,
 	QWidget * parent_n ) :
 QLayout ( parent_n ),
-_header_item ( 0 ),
-_lay_eqc ( 0 ),
-_footer_item ( 0 ),
 _num_items ( 0 ),
 _header_data ( 0 ),
 _footer_data ( 0 ),
 _sp_data ( sp_data_n )
 {
-	_lay_eqc = new ::Wdg::Equal_Columns_Layout;
+	_lay_eqc.reset ( new ::Wdg::Equal_Columns_Layout );
 	_lay_eqc->setContentsMargins ( 0, 0, 0, 0 );
-	_items[0] = _lay_eqc;
+	_items[0] = _lay_eqc.data();
 	++_num_items;
 }
 
 
 Sliders_Pad_Layout::~Sliders_Pad_Layout ( )
 {
-	if ( _header_item != 0 ) {
-		delete _header_item;
-	}
-	if ( _footer_item != 0 ) {
-		delete _footer_item;
-	}
-	delete _lay_eqc;
 }
 
 
@@ -63,13 +53,12 @@ Sliders_Pad_Layout::set_header_item (
 	QLayoutItem * item_n )
 {
 	if ( _header_item != 0 ) {
-		QLayoutItem * item ( _header_item );
-		removeItem ( item );
-		delete item;
+		QScopedPointer < QLayoutItem > item ( _header_item.data() );
+		removeItem ( item.data() );
 		_header_data = 0;
 	}
 	if ( item_n != 0 ) {
-		_header_item = item_n;
+		_header_item.reset ( item_n );
 		_items[_num_items] = item_n;
 		++_num_items;
 		invalidate();
@@ -97,13 +86,12 @@ Sliders_Pad_Layout::set_footer_item (
 	QLayoutItem * item_n )
 {
 	if ( _footer_item != 0 ) {
-		QLayoutItem * item ( _footer_item );
-		removeItem ( item );
-		delete item;
+		QScopedPointer < QLayoutItem > item ( _footer_item.data() );
+		removeItem ( item.data() );
 		_footer_data = 0;
 	}
 	if ( item_n != 0 ) {
-		_footer_item = item_n;
+		_footer_item.reset ( item_n );
 		_items[_num_items] = item_n;
 		++_num_items;
 		invalidate();
@@ -173,12 +161,12 @@ Sliders_Pad_Layout::takeAt (
 			_items[idx] = _items[idx + 1];
 		}
 
-		if ( res == _header_item ) {
-			_header_item = 0;
-		} else if ( res == _lay_eqc ) {
-			_lay_eqc = 0;
-		} else if ( res == _footer_item ) {
-			_footer_item = 0;
+		if ( res == _header_item.data() ) {
+			_header_item.take();
+		} else if ( res == _lay_eqc.data() ) {
+			_lay_eqc.take();
+		} else if ( res == _footer_item.data() ) {
+			_footer_item.take();
 		}
 		invalidate();
 	}
@@ -544,9 +532,9 @@ Sliders_Pad_Layout::calc_columns_sizes (
 	//
 
 	const unsigned int h_header_hint (
-		header_height_hint ( _header_item, _header_data ) );
+		header_height_hint ( _header_item.data(), _header_data ) );
 	const unsigned int h_footer_hint (
-		header_height_hint ( _footer_item, _footer_data ) );
+		header_height_hint ( _footer_item.data(), _footer_data ) );
 	h_header = h_header_hint;
 	h_inputs = _lay_eqc->all_rows_height();
 	h_footer = h_footer_hint;
