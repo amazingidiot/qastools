@@ -82,7 +82,6 @@ _balloon ( 0 )
 Tray_Mixer::~Tray_Mixer ( )
 {
 	close_balloon();
-	delete _tray_icon;
 }
 
 
