@@ -183,8 +183,7 @@ DS_Switch::paintEvent (
 		}
 
 		::dpe::Image & img ( _dsi.images().img_sets[0]->image ( img_idx ) );
-		img.convert_to_pixmap();
-		pixmap_bg = img.pixmap;
+		pixmap_bg = img.convert_to_pixmap();
 	}
 
 	// Handle setup
@@ -208,8 +207,7 @@ DS_Switch::paintEvent (
 		}
 
 		::dpe::Image & img ( _dsi.images().img_sets[1]->image ( img_idx ) );
-		img.convert_to_pixmap();
-		pixmap_handle = img.pixmap;
+		pixmap_handle = img.convert_to_pixmap();
 	}
 
 

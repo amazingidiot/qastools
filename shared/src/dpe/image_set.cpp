@@ -19,14 +19,14 @@ namespace dpe
 
 Image_Set::Image_Set (
 	unsigned int num_images_n ) :
-_images ( num_images_n )
+_num_images ( num_images_n ),
+_images ( new ::dpe::Image[num_images_n] )
 {
 }
 
 
 Image_Set::~Image_Set ( )
 {
-	_images.clear();
 }
 
 

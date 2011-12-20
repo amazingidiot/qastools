@@ -923,14 +923,12 @@ DS_Slider::paintEvent (
 		{
 			// Top half of the background
 			::dpe::Image & img ( _dsi.images().img_sets[0]->image ( 0 ) );
-			img.convert_to_pixmap();
-			pixmap_bg_1 = img.pixmap;
+			pixmap_bg_1 = img.convert_to_pixmap();
 		}
 		{
 			// Bottom half of the background
 			::dpe::Image & img ( _dsi.images().img_sets[0]->image ( 1 ) );
-			img.convert_to_pixmap();
-			pixmap_bg_2 = img.pixmap;
+			pixmap_bg_2 = img.convert_to_pixmap();
 		}
 
 		// Value marker and snap line setup
@@ -938,15 +936,13 @@ DS_Slider::paintEvent (
 			draw_snap_line = true;
 
 			::dpe::Image & img ( _dsi.images().img_sets[1]->image ( 0 ) );
-			img.convert_to_pixmap();
-			pixmap_marker_1 = img.pixmap;
+			pixmap_marker_1 = img.convert_to_pixmap();
 		}
 
 		// Value hint marker setup
 		if ( _cursor_value_hinting ) {
 			::dpe::Image & img ( _dsi.images().img_sets[1]->image ( 1 ) );
-			img.convert_to_pixmap();
-			pixmap_marker_2 = img.pixmap;
+			pixmap_marker_2 = img.convert_to_pixmap();
 		}
 
 		// Frame setup
@@ -959,8 +955,7 @@ DS_Slider::paintEvent (
 			}
 			if ( idx >= 0 ) {
 				::dpe::Image & img ( _dsi.images().img_sets[2]->image ( idx ) );
-				img.convert_to_pixmap();
-				pixmap_frame = img.pixmap;
+				pixmap_frame = img.convert_to_pixmap();
 			}
 		}
 
@@ -976,8 +971,7 @@ DS_Slider::paintEvent (
 				}
 			}
 			::dpe::Image & img ( _dsi.images().img_sets[3]->image ( idx ) );
-			img.convert_to_pixmap();
-			pixmap_handle = img.pixmap;
+			pixmap_handle = img.convert_to_pixmap();
 		}
 	}
 

@@ -13,9 +13,8 @@
 #ifndef __INC_dpe_image_hpp__
 #define __INC_dpe_image_hpp__
 
-
-// Forward declaration
-class QPixmap;
+#include <QPixmap>
+#include <QScopedPointer>
 
 
 namespace dpe
@@ -45,20 +44,31 @@ class Image
 	unsigned int
 	byte_count ( ) const;
 
-	void
+	QPixmap *
 	convert_to_pixmap ( );
+
+	QPixmap *
+	pixmap ( ) const;
 
 
 	// Public attributes
 	public:
 
-	QPixmap * pixmap;
+	QScopedPointer < QPixmap > pixmap_sptr;
 
 	unsigned int width;
 	unsigned int height;
 	unsigned int stride;
 	unsigned char * data;
 };
+
+
+inline
+QPixmap *
+Image::pixmap ( ) const
+{
+	return pixmap_sptr.data();
+}
 
 
 } // End of namespace

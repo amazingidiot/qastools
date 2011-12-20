@@ -20,7 +20,6 @@ namespace dpe
 
 
 Image::Image ( ) :
-pixmap ( 0 ),
 width ( 0 ),
 height ( 0 ),
 stride ( 0 ),
@@ -38,10 +37,7 @@ Image::~Image ( )
 void
 Image::clear ( )
 {
-	if ( pixmap != 0 ) {
-		delete pixmap;
-		pixmap = 0;
-	}
+	pixmap_sptr.reset();
 	width = 0;
 	height = 0;
 	stride = 0;
@@ -66,17 +62,18 @@ Image::byte_count ( ) const
 }
 
 
-void
+QPixmap *
 Image::convert_to_pixmap ( )
 {
-	if ( ( pixmap == 0 ) || ( data != 0 ) ) {
-		pixmap = new QPixmap;
+	if ( ( pixmap() == 0 ) || ( data != 0 ) ) {
+		pixmap_sptr.reset ( new QPixmap );
 		{
 			QImage img ( data, width, height, stride, QImage::Format_ARGB32_Premultiplied );
-			*pixmap = QPixmap::fromImage ( img );
+			*pixmap_sptr = QPixmap::fromImage ( img );
 		}
 		clear_data();
 	}
+	return pixmap();
 }
 
 

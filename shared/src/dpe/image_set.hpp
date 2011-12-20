@@ -42,7 +42,7 @@ class Image_Set
 	void
 	convert_to_pixmap ( );
 
-	void
+	QPixmap *
 	convert_to_pixmap (
 		unsigned int idx_n );
 
@@ -72,7 +72,8 @@ class Image_Set
 	// Private attributes
 	private:
 
-	::std::vector < ::dpe::Image > _images;
+	unsigned int _num_images;
+	QScopedArrayPointer < ::dpe::Image > _images;
 };
 
 
@@ -80,7 +81,7 @@ inline
 unsigned int
 Image_Set::num_images ( ) const
 {
-	return _images.size();
+	return _num_images;
 }
 
 
@@ -107,18 +108,16 @@ QPixmap *
 Image_Set::pixmap (
 	unsigned int index_n )
 {
-	return _images[index_n].pixmap;
+	return image ( index_n ).pixmap();
 }
 
 
 inline
-void
+QPixmap *
 Image_Set::convert_to_pixmap (
 	unsigned int idx_n )
 {
-	if ( image ( idx_n ).pixmap == 0 ) {
-		image ( idx_n ).convert_to_pixmap();
-	}
+	return image ( idx_n ).convert_to_pixmap();
 }
 
 
