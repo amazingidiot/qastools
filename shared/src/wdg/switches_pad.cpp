@@ -144,11 +144,11 @@ Switches_Pad::create_widgets_groups ( )
 		sppg->set_pad ( this );
 		sppg->set_group_index ( ii );
 
-		::Wdg::Switches_Pad_Widgets_Group * spwg (
-			new Switches_Pad_Widgets_Group );
+		QScopedPointer < ::Wdg::Switches_Pad_Widgets_Group > spwg (
+			new ::Wdg::Switches_Pad_Widgets_Group );
 
 		if ( sppg->num_columns() > 1 ) {
-			QLabel * label ( new QLabel ( spwg ) );
+			QLabel * label ( new QLabel ( spwg.data() ) );
 			label->setText ( sppg->group_name() );
 			label->setToolTip ( sppg->tool_tip() );
 			label->setFocusPolicy ( Qt::ClickFocus );
@@ -160,7 +160,7 @@ Switches_Pad::create_widgets_groups ( )
 				label->setFont ( fnt );
 			}
 
-			label->installEventFilter ( spwg );
+			label->installEventFilter ( spwg.data() );
 
 			spwg->set_label ( label );
 			spwg->set_stem_pen ( _stem_pen );
@@ -177,7 +177,7 @@ Switches_Pad::create_widgets_groups ( )
 				::Wdg::Switches_Pad_Widgets * spw ( new Switches_Pad_Widgets );
 
 				{  // Label
-					QLabel * label ( new QLabel ( spwg ) );
+					QLabel * label ( new QLabel ( spwg.data() ) );
 					label->setText ( spp_enum->item_name() );
 					label->setToolTip ( spp_enum->tool_tip() );
 					spw->set_label_wdg ( label );
@@ -185,7 +185,7 @@ Switches_Pad::create_widgets_groups ( )
 
 				{ // Combo box
 					// Setup selectable items
-					QComboBox * cbox ( new QComboBox ( spwg ) );
+					QComboBox * cbox ( new QComboBox ( spwg.data() ) );
 					for ( int ee=0; ee < spp_enum->enum_num_items(); ++ee ) {
 						cbox->addItem ( spp_enum->enum_item_name ( ee ) );
 					}
@@ -215,7 +215,7 @@ Switches_Pad::create_widgets_groups ( )
 				::Wdg::Pad_Proxy_Switch * spp_switch ( sppc->switch_proxy() );
 				Switches_Pad_Widgets * spw ( new Switches_Pad_Widgets );
 
-				QCheckBox * switch_wdg ( new QCheckBox ( spwg ) );
+				QCheckBox * switch_wdg ( new QCheckBox ( spwg.data() ) );
 
 				if ( sppg->num_columns() > 1 ) {
 					switch_wdg->setText ( spp_switch->item_name() );
@@ -243,9 +243,7 @@ Switches_Pad::create_widgets_groups ( )
 
 		// Append widgets group to the list
 		if ( spwg->num_widgets() > 0 ) {
-			_widgets_groups.append ( spwg );
-		} else {
-			delete spwg;
+			_widgets_groups.append ( spwg.take() );
 		}
 	}
 
