@@ -20,58 +20,58 @@ namespace dpe
 
 
 Image::Image ( ) :
-width ( 0 ),
-height ( 0 ),
-stride ( 0 ),
-data ( 0 )
+_width ( 0 ),
+_height ( 0 ),
+_stride ( 0 )
 {
 }
 
 
 Image::~Image ( )
 {
-	clear();
 }
 
 
 void
 Image::clear ( )
 {
-	pixmap_sptr.reset();
-	width = 0;
-	height = 0;
-	stride = 0;
-	clear_data();
+	_pixmap.reset();
+	_data.reset();
+	_width = 0;
+	_height = 0;
+	_stride = 0;
 }
 
 
 void
-Image::clear_data ( )
+Image::set_size (
+	unsigned int width_n,
+	unsigned int height_n,
+	unsigned int stride_n )
 {
-	if ( data != 0 ) {
-		delete[] data;
-		data = 0;
+	clear();
+	_width = width_n;
+	_height = height_n;
+	_stride = stride_n;
+	const unsigned int bc ( byte_count() );
+	if ( bc > 0 ) {
+		_data.reset ( new unsigned char[bc] );
 	}
-}
-
-
-unsigned int
-Image::byte_count ( ) const
-{
-	return height*stride;
 }
 
 
 QPixmap *
 Image::convert_to_pixmap ( )
 {
-	if ( ( pixmap() == 0 ) || ( data != 0 ) ) {
-		pixmap_sptr.reset ( new QPixmap );
+	if ( ( pixmap() == 0 ) || ( data() != 0 ) ) {
+		_pixmap.reset ( new QPixmap );
 		{
-			QImage img ( data, width, height, stride, QImage::Format_ARGB32_Premultiplied );
-			*pixmap_sptr = QPixmap::fromImage ( img );
+			QImage img ( data(), width(), height(), stride(),
+				QImage::Format_ARGB32_Premultiplied );
+			*pixmap() = QPixmap::fromImage ( img );
 		}
-		clear_data();
+		// Clear data
+		_data.reset();
 	}
 	return pixmap();
 }

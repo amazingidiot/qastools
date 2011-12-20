@@ -113,9 +113,7 @@ DS_Slider_Painter_Bevelled::paint_image (
 		pd.rectf = QRectF ( 0.0, 0.0, pd.width(), pd.height() );
 
 		// Init painter
-		pd.qimg.reset ( new QImage (
-			pd.img->data, pd.img->width, pd.img->height,
-			QImage::Format_ARGB32_Premultiplied ) );
+		pd.qimg.reset ( new QImage ( pd.img->data_image() ) );
 		pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
 		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 

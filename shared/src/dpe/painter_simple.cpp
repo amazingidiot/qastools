@@ -42,14 +42,15 @@ Painter_Simple::paint_image (
 
 	::dpe::Image & img ( pjob_n->img_set->image ( pjob_n->img_idx ) );
 	::dpe::Image_Set_Meta * meta ( pjob_n->meta );
-	img.width = meta->size.width();
-	img.height = meta->size.height();
-	img.stride = img.width * 4;
-	img.data = new unsigned char[ img.height * img.stride ];
+
+	img.set_size (
+		meta->size.width(),
+		meta->size.height(),
+		meta->size.width() * 4 );
 
 	{
 		QImage qimg (
-			img.data, img.width, img.height, img.stride,
+			img.data(), img.width(), img.height(), img.stride(),
 			QImage::Format_ARGB32_Premultiplied );
 		QColor col;
 		{

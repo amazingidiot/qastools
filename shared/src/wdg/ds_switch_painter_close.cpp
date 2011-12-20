@@ -136,9 +136,7 @@ DS_Switch_Painter_Close::paint_bg (
 
 	{
 		// Init painter
-		pd.qimg.reset ( new QImage (
-			pd.img->data, pd.img->width, pd.img->height,
-			QImage::Format_ARGB32_Premultiplied ) );
+		pd.qimg.reset ( new QImage ( pd.img->data_image() ) );
 		pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
 		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
@@ -241,9 +239,7 @@ DS_Switch_Painter_Close::paint_handle (
 		} else {
 
 			// Init painter
-			pd.qimg.reset ( new QImage (
-				pd.img->data, pd.img->width, pd.img->height,
-				QImage::Format_ARGB32_Premultiplied ) );
+			pd.qimg.reset ( new QImage ( pd.img->data_image() ) );
 			pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
 			pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
