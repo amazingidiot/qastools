@@ -22,7 +22,7 @@
 #include <QDialog>
 #include <QFileSystemWatcher>
 #include <QPointer>
-#include <QSharedPointer>
+#include <QScopedPointer>
 
 
 // Forward declaration
@@ -126,7 +126,7 @@ class Main_Window :
 	Main_Window_Setup _setup;
 
 	// Widgets
-	QSharedPointer < ::Views::Mixer_HCTL > _mixer_wdg;
+	QScopedPointer < ::Views::Mixer_HCTL > _mixer_wdg;
 	::Views::Dev_Select_View * _dev_select;
 	QDockWidget * _dev_select_dock;
 	QPointer < QDialog > _info_dialog;

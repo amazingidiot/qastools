@@ -37,7 +37,7 @@ Mixer_HCTL::Mixer_HCTL (
 QWidget ( parent_n ),
 _editor_pad ( 0 )
 {
-	_editor_data = new ::MWdg::Mixer_HCTL_Editor_Data;
+	_editor_data.reset ( new ::MWdg::Mixer_HCTL_Editor_Data );
 
 	{
 		const QString dmask ( "<div>%1</div>\n<div>(%2)</div>" );
@@ -171,7 +171,6 @@ _editor_pad ( 0 )
 Mixer_HCTL::~Mixer_HCTL ( )
 {
 	clear();
-	delete _editor_data;
 }
 
 
@@ -255,11 +254,7 @@ Mixer_HCTL::set_image_alloc (
 void
 Mixer_HCTL::clear ( )
 {
-	if ( _editor_pad != 0 ) {
-		delete _editor_pad;
-		_editor_pad = 0;
-	}
-
+	_editor_pad.reset();
 	_editor_data->snd_elem_group = 0;
 }
 
@@ -300,17 +295,17 @@ Mixer_HCTL::setup_widgets ( )
 
 	::QSnd::Mixer_HCTL_Elem * elem0 ( snd_elem_group()->elem ( 0 ) );
 	if ( elem0->is_boolean() ) {
-		_editor_pad = new Mixer_HCTL_Edit_Bool ( _editor_data, this );
+		_editor_pad.reset ( new Mixer_HCTL_Edit_Bool ( _editor_data.data(), this ) );
 	} else if ( elem0->is_enumerated() ) {
-		_editor_pad = new Mixer_HCTL_Edit_Enum ( _editor_data, this );
+		_editor_pad.reset ( new Mixer_HCTL_Edit_Enum ( _editor_data.data(), this ) );
 	} else if ( elem0->is_integer() ) {
-		_editor_pad = new Mixer_HCTL_Edit_Int ( _editor_data, this );
+		_editor_pad.reset ( new Mixer_HCTL_Edit_Int ( _editor_data.data(), this ) );
 	} else {
-		_editor_pad = new Mixer_HCTL_Edit_Unsupported ( _editor_data, this );
+		_editor_pad.reset ( new Mixer_HCTL_Edit_Unsupported ( _editor_data.data(), this ) );
 	}
 
 	if ( _editor_pad != 0 ) {
-		_pad_wdg.layout()->addWidget ( _editor_pad );
+		_pad_wdg.layout()->addWidget ( _editor_pad.data() );
 		_editor_pad->set_inputs_setup ( inputs_setup() );
 	}
 }

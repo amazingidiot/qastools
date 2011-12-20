@@ -71,7 +71,7 @@ Main_Window::Main_Window ( )
 	}
 	// Switch painter SVG
 	{
-		::Wdg::Painter::DS_Switch_Painter_SVG * pnt (
+		QScopedPointer < ::Wdg::Painter::DS_Switch_Painter_SVG > pnt (
 			new ::Wdg::Painter::DS_Switch_Painter_SVG );
 		pnt->set_group_variant ( ::Wdg::DS_SVG_JOINED );
 		pnt->set_wdg_style_db ( &_wdg_style_db );
@@ -79,9 +79,7 @@ Main_Window::Main_Window ( )
 		pnt->set_file_prefix_bg ( "sw_joined_bg_" );
 		pnt->set_file_prefix_handle ( "sw_joined_handle_" );
 		if ( pnt->ready() ) {
-			_image_alloc.install_painter ( pnt );
-		} else {
-			delete pnt;
+			_image_alloc.install_painter ( pnt.take() );
 		}
 	}
 
@@ -109,8 +107,7 @@ Main_Window::Main_Window ( )
 	init_docks();
 	init_menu_bar();
 
-	_mixer_wdg = QSharedPointer < ::Views::Mixer_HCTL > (
-		new ::Views::Mixer_HCTL );
+	_mixer_wdg.reset ( new ::Views::Mixer_HCTL );
 	setCentralWidget ( _mixer_wdg.data() );
 
 	update_fullscreen_action();

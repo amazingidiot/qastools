@@ -19,6 +19,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QLabel>
+#include <QScopedPointer>
 
 
 // Forward declaration
@@ -144,14 +145,14 @@ class Mixer_HCTL :
 	// Private attributes
 	private:
 
-	::MWdg::Mixer_HCTL_Editor_Data * _editor_data;
+	QScopedPointer < ::MWdg::Mixer_HCTL_Editor_Data > _editor_data;
 	const ::MWdg::Inputs_Setup * _inputs_setup;
 
 	// Widgets
 	QFrame _info_wdg;
 	QWidget _pad_wdg;
 
-	::MWdg::Mixer_HCTL_Editor * _editor_pad;
+	QScopedPointer < ::MWdg::Mixer_HCTL_Editor > _editor_pad;
 
 	QLabel _info_lbl_name;
 	Label_Pair _info_lbl_index;
