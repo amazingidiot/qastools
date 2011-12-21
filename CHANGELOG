@@ -1,3 +1,8 @@
+2011-12-21      Sebastian Holtermann  <sebholt@xwmw.org>
+	* qashctl: wrong destructor call order on close fixed
+	* shared: several new/delete sequences replaced with QScopedPointer
+	* Release version 0.16.2
+
 2011-12-15      Sebastian Holtermann  <sebholt@xwmw.org>
 	* all: Manpages updated
 	* shared: freed memory access fix
