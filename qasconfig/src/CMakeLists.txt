@@ -20,15 +20,16 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
 	${SHARED_SRC_DIR}/views/view_helper.cpp
 	${SHARED_SRC_DIR}/views/info_view.cpp
+	${SHARED_SRC_DIR}/license_texts.cpp
 
 	qsnd/alsa_config_model.cpp
 	views/alsa_config_view.cpp
 
+	info_texts.cpp
 	static_tree.cpp
 	static_tree_model.cpp
-
-
 	main_window.cpp
+	desktop_items.cpp
 	main.cpp
 )
 

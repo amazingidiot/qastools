@@ -109,6 +109,8 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/views/dev_select_view.cpp
 	${SHARED_SRC_DIR}/views/info_view.cpp
 
+	${SHARED_SRC_DIR}/license_texts.cpp
+
 	mwdg/mixer_hctl.cpp
 	mwdg/mixer_hctl_edit_bool.cpp
 	mwdg/mixer_hctl_edit_enum.cpp

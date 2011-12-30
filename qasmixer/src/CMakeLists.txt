@@ -132,6 +132,7 @@ SET ( SRC_GUI
 
 	${SHARED_SRC_DIR}/unix_signal_handler.cpp
 	${SHARED_SRC_DIR}/single_application.cpp
+	${SHARED_SRC_DIR}/license_texts.cpp
 
 	mwdg/mixer_gui_state.cpp
 	mwdg/mixer_simple_setup.cpp

@@ -10,21 +10,13 @@
 //
 //
 
-#include <iostream>
-
 #include "qastools_config.hpp"
-#include "main_window.hpp"
+#include "desktop_items.hpp"
 #include "views/view_helper.hpp"
 
-#include <QTranslator>
-#include <QLocale>
-#include <QLibraryInfo>
-#include <QDesktopWidget>
 #include <QString>
-#include <QFile>
-#include <QFileInfo>
-#include <QIcon>
 #include <QApplication>
+#include <iostream>
 
 
 /// @brief The main function
@@ -34,30 +26,25 @@ main (
 	int argc,
 	char * argv[] )
 {
-
 	// QT Application
 	QApplication app ( argc, argv );
 	app.setOrganizationName ( QString ( PROGRAM_NAME ).toLower() );
 	app.setApplicationName ( PROGRAM_NAME );
 	app.setAttribute ( Qt::AA_DontShowIconsInMenus, false );
 
+	Desktop_Items ditems;
+	{
+		int res ( ditems.init_settings ( argc, argv ) );
+		if ( res < ditems.init_settings ( argc, argv ) ) {
+			return res;
+		}
+	}
+
 	// Load application icon, translators
 	::Views::load_application_icon ( &app, "multimedia-volume-control" );
 	::Views::load_translators ( &app );
 
-	Main_Window mwin;
-
-	// Restore mixer window state
-	bool size_restored = false;
-	//size_restored =  mwin->restoreGeometry (
-	//	_dsetup.main_window.window_geometry );
-
-	// Adjust startup size
-	if ( !size_restored ) {
-		::Views::resize_to_default ( &mwin );
-	}
-
-	mwin.show();
+	ditems.start();
 
 	return app.exec();
 }

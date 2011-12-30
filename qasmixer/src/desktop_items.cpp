@@ -160,7 +160,9 @@ Desktop_Items::parse_cmd_options (
 	}
 
 	if ( flag_print_help ) {
-		::std::cout << "Usage: " << PROGRAM_NAME << " [options]\n";
+		::std::cout << "Usage:\n";
+		::std::cout << "  " << PROGRAM_NAME << " [OPTION]...\n";
+		::std::cout << "\n";
 		::std::cout << info_text_options;
 		::std::cout << "\n";
 		::std::cout.flush();
@@ -174,8 +176,10 @@ Desktop_Items::parse_cmd_options (
 	}
 
 	if ( flag_print_copy_info ) {
+		::std::cout << PROGRAM_TITLE;
+		::std::cout << " - desktop mixer application for the Linux sound system ALSA.\n";
 		::std::cout << "\n";
-		::std::cout << info_text_copying;
+		::std::cout << license_text_short;
 		::std::cout << "\n";
 		::std::cout.flush();
 		return -1;
