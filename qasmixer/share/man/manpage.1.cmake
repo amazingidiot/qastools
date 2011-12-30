@@ -1,6 +1,6 @@
 .TH ${PROGRAM_NAME_UCASE} "1" "2011-12-14" "Linux" "QasTools Manuals"
 .SH NAME
-${PROGRAM_NAME} \- Desktop sound mixer application for ALSA
+${PROGRAM_NAME} \- Desktop sound mixer for ALSA
 
 .SH SYNOPSIS
 .B ${PROGRAM_NAME} [OPTION]...
