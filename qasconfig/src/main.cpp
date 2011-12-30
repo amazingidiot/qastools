@@ -44,7 +44,7 @@ main (
 	::Views::load_application_icon ( &app, "multimedia-volume-control" );
 	::Views::load_translators ( &app );
 
-	ditems.start();
+	ditems.start ( app.isSessionRestored() );
 
 	return app.exec();
 }

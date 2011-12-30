@@ -14,13 +14,9 @@
 
 #include "qastools_config.hpp"
 #include "views/view_helper.hpp"
-#include "main_window.hpp"
+#include "desktop_items.hpp"
 
-#include <QDesktopWidget>
 #include <QString>
-#include <QFile>
-#include <QFileInfo>
-#include <QIcon>
 #include <QApplication>
 
 
@@ -37,13 +33,19 @@ main (
 	app.setApplicationName ( QString ( PROGRAM_NAME ).toLower() );
 	app.setAttribute ( Qt::AA_DontShowIconsInMenus, false );
 
+	Desktop_Items ditems;
+	{
+		int res ( ditems.init_settings ( argc, argv ) );
+		if ( res < ditems.init_settings ( argc, argv ) ) {
+			return res;
+		}
+	}
+
 	// Load application icon, translators
 	::Views::load_application_icon ( &app, "multimedia-volume-control" );
 	::Views::load_translators ( &app );
 
-	Main_Window mwin;
-	mwin.restore_state();
-	mwin.show();
+	ditems.start ( app.isSessionRestored() );
 
 	return app.exec();
 }

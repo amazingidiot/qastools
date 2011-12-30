@@ -132,8 +132,10 @@ SET ( SRC_GUI
 	views/mixer_hctl_setup.cpp
 	views/mixer_hctl.cpp
 
+	info_texts.cpp
 	main_window_setup.cpp
 	main_window.cpp
+	desktop_items.cpp
 	main.cpp
 )
 
