@@ -17,6 +17,7 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QLibraryInfo>
+#include <QFileInfo>
 #include <QLocale>
 
 namespace Views
@@ -51,6 +52,36 @@ load_translators (
 		app_n->installTranslator ( trans_qt );
 		app_n->installTranslator ( trans_default );
 		app_n->installTranslator ( trans_local );
+	}
+}
+
+
+void
+load_application_icon (
+	QApplication * app_n,
+	const QString & fallback_n )
+{
+	QIcon icon;
+	{
+		// Try application icon
+		QString icon_path ( INSTALL_DIR_ICONS_SVG );
+		icon_path += "/";
+		icon_path += PROGRAM_NAME;
+		icon_path += ".svg";
+
+		QFileInfo finfo ( icon_path );
+		if ( finfo.exists() && finfo.isReadable() ) {
+			icon = QIcon ( icon_path );
+		}
+	}
+	if ( icon.isNull() ) {
+		// Try system theme icon
+		if ( QIcon::hasThemeIcon ( fallback_n  ) ) {
+			icon = QIcon::fromTheme ( fallback_n  );
+		}
+	}
+	if ( !icon.isNull() ) {
+		app_n->setWindowIcon ( icon );
 	}
 }
 

@@ -25,6 +25,11 @@ load_translators (
 	QApplication * app_n );
 
 void
+load_application_icon (
+	QApplication * app_n,
+	const QString & fallback_n );
+
+void
 resize_to_default (
 	QMainWindow * mwin_n );
 
