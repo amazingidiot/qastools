@@ -114,13 +114,13 @@ _txt_license ( 0 )
 		// Contributors
 		txt += hmask.arg ( tr ( "Contributors" ) );
 		txt += pdivmask.arg ( "Jose Lencioni", "elcorreodelcoco@gmail.com" );
-		txt += pdivmask.arg ( "Ivan Sorokin", "sorokin@rain.ifmo.ru" );
+		txt += pdivmask.arg ( "Ivan Sorokin", "vanyacpp@gmail.com" );
 
 		// Translators
 		txt += hmask.arg ( tr ( "Translators" ) );
 		txt += trmask.arg ( "Sebastian Holtermann", "sebholt@xwmw.org", "de" );
 		txt += trmask.arg ( "Jose Lencioni", "elcorreodelcoco@gmail.com", "es" );
-		txt += trmask.arg ( "Ivan Sorokin", "sorokin@rain.ifmo.ru", "ru" );
+		txt += trmask.arg ( "Ivan Sorokin", "vanyacpp@gmail.com", "ru" );
 		txt += trmask.arg ( "Pavel Fric", "pavelfric@seznam.cz", "cs" );
 
 		_txt_people = new ::Wdg::Text_Browser;
