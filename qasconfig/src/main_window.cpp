@@ -67,7 +67,7 @@ Main_Window::restore_state ( )
 		}
 	}
 	_alsa_cfg_view.set_sorting_enabled (
-		settings.value ( "sorting_enabled", false).toBool() );
+		settings.value ( "sorting_enabled", true ).toBool() );
 }
 
 
