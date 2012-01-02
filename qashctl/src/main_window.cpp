@@ -20,7 +20,7 @@
 #include "mwdg/mixer_style.hpp"
 #include "views/info_view.hpp"
 #include "views/dev_select_view.hpp"
-#include "views/view_helper.hpp"
+#include "views/view_utility.hpp"
 
 #include <QSettings>
 #include <QDockWidget>

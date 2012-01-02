@@ -101,7 +101,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/mwdg/mixer_device_setup.cpp
 	${SHARED_SRC_DIR}/mwdg/mixer_style.cpp
 
-	${SHARED_SRC_DIR}/views/view_helper.cpp
+	${SHARED_SRC_DIR}/views/view_utility.cpp
 	${SHARED_SRC_DIR}/views/message_widget.cpp
 	${SHARED_SRC_DIR}/views/view_base_setup.cpp
 	${SHARED_SRC_DIR}/views/view_base.cpp

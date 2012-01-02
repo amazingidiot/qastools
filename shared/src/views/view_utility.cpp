@@ -10,7 +10,7 @@
 //
 //
 
-#include "view_helper.hpp"
+#include "view_utility.hpp"
 
 #include "qastools_config.hpp"
 #include <QDesktopWidget>
@@ -19,6 +19,8 @@
 #include <QLibraryInfo>
 #include <QFileInfo>
 #include <QLocale>
+#include <QLabel>
+
 
 namespace Views
 {
@@ -124,6 +126,34 @@ resize_to_default (
 			mwin_n->resize ( default_size );
 		}
 	}
+}
+
+
+QWidget *
+dialog_title_widget (
+	const QString & txt_n )
+{
+	QLabel * lbl ( new QLabel ( txt_n ) );
+
+	{
+		QMargins marg ( lbl->contentsMargins() );
+		marg.setTop ( lbl->fontMetrics().height() * 1 / 4 );
+		marg.setBottom ( lbl->fontMetrics().height() * 3 / 4 );
+		lbl->setContentsMargins ( marg );
+	}
+	{
+		QFont fnt ( lbl->font() );
+		fnt.setBold ( true );
+		double scale ( 1.8 );
+		if ( fnt.pixelSize() > 0 ) {
+			fnt.setPixelSize ( fnt.pixelSize() * scale );
+		} else {
+			fnt.setPointSizeF ( fnt.pointSizeF() * scale );
+		}
+		lbl->setFont ( fnt );
+	}
+
+	return lbl;
 }
 
 

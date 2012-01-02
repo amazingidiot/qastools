@@ -21,7 +21,7 @@
 #include "wdg/ds_switch_painter_close.hpp"
 #include "wdg/ds_switch_painter_svg.hpp"
 #include "wdg/ds_widget_types.hpp"
-#include "views/view_helper.hpp"
+#include "views/view_utility.hpp"
 #include "views/info_view.hpp"
 #include "views/settings_view.hpp"
 

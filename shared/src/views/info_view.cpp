@@ -14,6 +14,7 @@
 
 #include "qastools_config.hpp"
 #include "wdg/text_browser.hpp"
+#include "views/view_utility.hpp"
 
 #include <QVBoxLayout>
 #include <QLocale>
@@ -30,7 +31,6 @@ namespace Views
 Info_View::Info_View (
 	QWidget * parent_n ) :
 QWidget ( parent_n ),
-_title ( this ),
 _tabs ( this ),
 _txt_info ( 0 ),
 _txt_people ( 0 ),
@@ -44,12 +44,13 @@ _txt_license ( 0 )
 		setWindowTitle ( txt );
 	}
 
+	QWidget * title_wdg;
 	// Title label
 	{
 		QString txt ( tr ( "%1 - %2" ) );
 		txt = txt.arg ( PACKAGE_TITLE );
 		txt = txt.arg ( PACKAGE_VERSION );
-		_title.setText ( QString ( "<h2>%1</h2>" ).arg ( txt )  );
+		title_wdg = dialog_title_widget ( txt );
 	}
 
 	const QString hmask ( "<h3>%1</h3>\n" );
@@ -204,7 +205,7 @@ _txt_license ( 0 )
 
 	{
 		QVBoxLayout * lay_vbox ( new QVBoxLayout );
-		lay_vbox->addWidget ( &_title );
+		lay_vbox->addWidget ( title_wdg );
 		lay_vbox->addWidget ( &_tabs );
 		lay_vbox->addLayout ( lay_bottom );
 		setLayout ( lay_vbox );

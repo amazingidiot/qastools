@@ -10,10 +10,11 @@
 //
 //
 
-#ifndef __INC_views_view_helper_hpp__
-#define __INC_views_view_helper_hpp__
+#ifndef __INC_views_view_utility_hpp__
+#define __INC_views_view_utility_hpp__
 
 #include <QMainWindow>
+#include <QWidget>
 
 
 namespace Views
@@ -32,6 +33,11 @@ load_application_icon (
 void
 resize_to_default (
 	QMainWindow * mwin_n );
+
+
+QWidget *
+dialog_title_widget (
+	const QString & txt_n );
 
 
 } // End of namespace

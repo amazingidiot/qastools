@@ -18,7 +18,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/alsa_config_watcher.cpp
 	${SHARED_SRC_DIR}/wdg/text_browser.cpp
 	${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
-	${SHARED_SRC_DIR}/views/view_helper.cpp
+	${SHARED_SRC_DIR}/views/view_utility.cpp
 	${SHARED_SRC_DIR}/views/info_view.cpp
 	${SHARED_SRC_DIR}/license_texts.cpp
 

@@ -59,7 +59,6 @@ class Info_View :
 	// Private attributes
 	private:
 
-	QLabel _title;
 	QTabWidget _tabs;
 	::Wdg::Text_Browser * _txt_info;
 	::Wdg::Text_Browser * _txt_people;

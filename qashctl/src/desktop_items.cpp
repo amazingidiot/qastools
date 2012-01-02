@@ -14,7 +14,7 @@
 
 #include "qastools_config.hpp"
 #include "info_texts.hpp"
-#include "views/view_helper.hpp"
+#include "views/view_utility.hpp"
 
 #include <iostream>
 #include <getopt.h>

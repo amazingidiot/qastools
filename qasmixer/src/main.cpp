@@ -14,7 +14,7 @@
 #include "init_globals.hpp"
 #include "single_application.hpp"
 #include "desktop_items.hpp"
-#include "views/view_helper.hpp"
+#include "views/view_utility.hpp"
 
 #include <QDesktopWidget>
 #include <QString>

@@ -15,6 +15,7 @@
 #include "qastools_config.hpp"
 #include "desktop_items_setup.hpp"
 #include "wdg/scroll_area_vertical.hpp"
+#include "views/view_utility.hpp"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -135,8 +136,7 @@ _updating_values ( false )
 
 	// Main splitter and layout
 	{
-		QLabel * lbl_title ( new QLabel );
-		lbl_title->setText ( QString ( "<h2>%1</h2>" ).arg ( tr ( "Settings" ) ) );
+		QWidget * wdg_title ( dialog_title_widget ( tr ( "Settings" ) ) );
 
 		QSplitter * hsplit ( new QSplitter );
 		hsplit->setChildrenCollapsible ( false );
@@ -146,7 +146,7 @@ _updating_values ( false )
 		hsplit->setStretchFactor ( 1, 5 );
 
 		QVBoxLayout * lay_vbox ( new QVBoxLayout );
-		lay_vbox->addWidget ( lbl_title, 0 );
+		lay_vbox->addWidget ( wdg_title, 0 );
 		lay_vbox->addWidget ( hsplit, 1 );
 		setLayout ( lay_vbox );
 	}

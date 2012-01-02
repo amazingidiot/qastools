@@ -13,7 +13,7 @@
 #include <iostream>
 
 #include "qastools_config.hpp"
-#include "views/view_helper.hpp"
+#include "views/view_utility.hpp"
 #include "desktop_items.hpp"
 
 #include <QString>

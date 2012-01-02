@@ -15,7 +15,7 @@
 #include "qastools_config.hpp"
 #include "qsnd/alsa_config_watcher.hpp"
 #include "views/info_view.hpp"
-#include "views/view_helper.hpp"
+#include "views/view_utility.hpp"
 
 #include <QVBoxLayout>
 #include <QAction>

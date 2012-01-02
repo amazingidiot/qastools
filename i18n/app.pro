@@ -112,7 +112,7 @@ HEADERS = \
 	../shared/src/views/message_widget.hpp \
 	../shared/src/views/view_base.hpp \
 	../shared/src/views/view_base_setup.hpp \
-	../shared/src/views/view_helper.hpp \
+	../shared/src/views/view_utility.hpp \
 	../shared/src/wdg/balloon_widget.hpp \
 	../shared/src/wdg/color_methods.hpp \
 	../shared/src/wdg/cubic_curve.hpp \
@@ -276,7 +276,7 @@ SOURCES = \
 	../shared/src/views/message_widget.cpp \
 	../shared/src/views/view_base.cpp \
 	../shared/src/views/view_base_setup.cpp \
-	../shared/src/views/view_helper.cpp \
+	../shared/src/views/view_utility.cpp \
 	../shared/src/wdg/balloon_widget.cpp \
 	../shared/src/wdg/color_methods.cpp \
 	../shared/src/wdg/cubic_curve.cpp \
