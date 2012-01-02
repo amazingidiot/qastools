@@ -128,19 +128,9 @@ Desktop_Items::parse_cmd_options (
 
 void
 Desktop_Items::start (
-	bool restore_session_n )
+	bool )
 {
 	_mwin.reset ( new Main_Window );
-
-	// Restore mixer window state
-	bool size_restored = false;
-	//size_restored =  _mwin->restoreGeometry (
-	//	_dsetup.main_window.window_geometry );
-
-	// Adjust startup size
-	if ( !size_restored ) {
-		::Views::resize_to_default ( _mwin.data() );
-	}
 
 	_mwin->restore_state();
 	_mwin->show();

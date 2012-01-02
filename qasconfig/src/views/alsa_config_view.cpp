@@ -54,7 +54,7 @@ _alsa_cfg ( 0 )
 		this, SLOT ( expand_to_level() ) );
 
 	connect ( &_btn_sort, SIGNAL ( toggled ( bool ) ),
-		this, SLOT ( enable_sorting ( bool ) ) );
+		this, SLOT ( set_sorting_enabled ( bool ) ) );
 
 
 	_tree_view = new ::Wdg::Tree_View_KV ( this );
@@ -80,14 +80,11 @@ _alsa_cfg ( 0 )
 	lay_btn->addWidget ( &_btn_sort );
 
 	QVBoxLayout * lay_vbox ( new QVBoxLayout );
-	//lay_vbox->setContentsMargins ( 0, 0, 0, 0 );
 	lay_vbox->addWidget ( title_label );
 	lay_vbox->addWidget ( _tree_view );
 	lay_vbox->addLayout ( lay_btn );
 
 	setLayout ( lay_vbox );
-
-	enable_sorting ( true );
 }
 
 
@@ -105,21 +102,23 @@ Alsa_Config_View::set_model (
 }
 
 
+bool
+Alsa_Config_View::sorting_enabled ( ) const
+{
+	return _sort_model->dynamicSortFilter();
+}
+
+
 void
-Alsa_Config_View::enable_sorting (
+Alsa_Config_View::set_sorting_enabled (
 	bool flag_n )
 {
-	if ( flag_n != _sort_model->dynamicSortFilter() ) {
+	if ( flag_n != sorting_enabled() ) {
 		QStringList lst;
 		collect_expanded ( lst );
 
-		if ( flag_n ) {
-			_sort_model->setDynamicSortFilter ( true );
-			_sort_model->sort ( 0 );
-		} else {
-			_sort_model->setDynamicSortFilter ( false );
-			_sort_model->revert();
-		}
+		_sort_model->setDynamicSortFilter ( flag_n );
+		_sort_model->sort ( flag_n ? 0 : -1 );
 
 		set_expanded ( lst );
 
@@ -143,7 +142,6 @@ Alsa_Config_View::reload_config ( )
 		}
 	}
 }
-
 
 
 void

@@ -49,14 +49,15 @@ class Main_Window :
 		QEvent * event_n );
 
 
-	// Public slots
-	public slots:
-
 	void
 	restore_state ( );
 
 	void
 	save_state ( );
+
+
+	// Public slots
+	public slots:
 
 	void
 	select_snd_ctl (

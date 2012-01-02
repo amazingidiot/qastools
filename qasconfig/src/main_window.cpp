@@ -15,11 +15,13 @@
 #include "qastools_config.hpp"
 #include "qsnd/alsa_config_watcher.hpp"
 #include "views/info_view.hpp"
+#include "views/view_helper.hpp"
 
 #include <QVBoxLayout>
 #include <QAction>
 #include <QMenu>
 #include <QMenuBar>
+#include <QSettings>
 #include <iostream>
 
 
@@ -43,6 +45,40 @@ Main_Window::Main_Window ( )
 	_alsa_cfg_view.set_model ( &_alsa_cfg_model );
 
 	setCentralWidget ( &_alsa_cfg_view );
+}
+
+
+
+void
+Main_Window::restore_state ( )
+{
+	QSettings settings;
+
+	{
+		const QByteArray & ba = settings.value (
+			"main_window_state", QByteArray() ).toByteArray();
+		restoreState ( ba );
+	}
+	{
+		const QByteArray & ba = settings.value (
+			"main_window_geometry", QByteArray() ).toByteArray();
+		if ( !restoreGeometry ( ba ) ) {
+			::Views::resize_to_default ( this );
+		}
+	}
+	_alsa_cfg_view.set_sorting_enabled (
+		settings.value ( "sorting_enabled", false).toBool() );
+}
+
+
+void
+Main_Window::save_state ( )
+{
+	QSettings settings;
+
+	settings.setValue ( "main_window_state", saveState() );
+	settings.setValue ( "main_window_geometry", saveGeometry() );
+	settings.setValue ( "sorting_enabled", _alsa_cfg_view.sorting_enabled() );
 }
 
 
@@ -124,4 +160,13 @@ Main_Window::refresh ( )
 {
 	//::std::cout << "Refresh" << "\n";
 	_alsa_cfg_view.reload_config();
+}
+
+
+void
+Main_Window::closeEvent (
+	QCloseEvent * event_n )
+{
+	save_state();
+	QMainWindow::closeEvent ( event_n );
 }

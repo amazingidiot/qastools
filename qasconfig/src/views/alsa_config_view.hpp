@@ -56,6 +56,8 @@ class Alsa_Config_View :
 	set_model (
 		::QSnd::Alsa_Config_Model * model_n );
 
+	bool
+	sorting_enabled ( ) const;
 
 
 	// Public slots
@@ -75,7 +77,7 @@ class Alsa_Config_View :
 	collapse_to_level ( );
 
 	void
-	enable_sorting (
+	set_sorting_enabled (
 		bool flag_n );
 
 

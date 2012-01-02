@@ -34,11 +34,26 @@ class Main_Window :
 	Main_Window ( );
 
 
+	void
+	restore_state ( );
+
+	void
+	save_state ( );
+
+
 	// Public slots
 	private slots:
 
 	void
 	refresh ( );
+
+
+	// Protected methods
+	protected:
+
+	void
+	closeEvent (
+		QCloseEvent * event_n );
 
 
 	// Private slots
