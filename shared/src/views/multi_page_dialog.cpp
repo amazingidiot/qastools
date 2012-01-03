@@ -104,6 +104,10 @@ Multi_Page_Dialog::add_page (
 	const QString & name_n,
 	QWidget * wdg_n )
 {
+	if ( wdg_n == 0 ) {
+		return;
+	}
+
 	// Add widget
 	{
 		::Wdg::Scroll_Area_Vertical * vscroll (

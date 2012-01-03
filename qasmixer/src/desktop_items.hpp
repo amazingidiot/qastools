@@ -212,15 +212,6 @@ class Desktop_Items :
 		char * argv[] );
 
 
-	// Utility
-
-	QDialog *
-	create_dialog (
-		QWidget * view_n,
-		unsigned int numerator_n = 0,
-		unsigned int denominator_n = 0 );
-
-
 	// Private attributes
 	private:
 

@@ -114,7 +114,7 @@ HEADERS = \
 	../shared/src/views/basic_dialog.hpp \
 	../shared/src/views/dev_select_view.hpp \
 	../shared/src/views/dev_select_view_setup.hpp \
-	../shared/src/views/info_view.hpp \
+	../shared/src/views/info_dialog.hpp \
 	../shared/src/views/message_widget.hpp \
 	../shared/src/views/multi_page_dialog.hpp \
 	../shared/src/views/view_base.hpp \
@@ -285,7 +285,7 @@ SOURCES = \
 	../shared/src/views/basic_dialog.cpp \
 	../shared/src/views/dev_select_view.cpp \
 	../shared/src/views/dev_select_view_setup.cpp \
-	../shared/src/views/info_view.cpp \
+	../shared/src/views/info_dialog.cpp \
 	../shared/src/views/message_widget.cpp \
 	../shared/src/views/multi_page_dialog.cpp \
 	../shared/src/views/view_base.cpp \

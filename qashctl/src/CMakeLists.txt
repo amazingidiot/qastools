@@ -56,6 +56,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
 	${SHARED_SRC_DIR}/wdg/text_browser.cpp
 	${SHARED_SRC_DIR}/wdg/scroll_area_horizontal.cpp
+	${SHARED_SRC_DIR}/wdg/scroll_area_vertical.cpp
 	${SHARED_SRC_DIR}/wdg/color_methods.cpp
 	${SHARED_SRC_DIR}/wdg/cubic_curve.cpp
 	${SHARED_SRC_DIR}/wdg/uint_mapper.cpp
@@ -107,7 +108,9 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/views/view_base.cpp
 	${SHARED_SRC_DIR}/views/dev_select_view_setup.cpp
 	${SHARED_SRC_DIR}/views/dev_select_view.cpp
-	${SHARED_SRC_DIR}/views/info_view.cpp
+	${SHARED_SRC_DIR}/views/basic_dialog.cpp
+	${SHARED_SRC_DIR}/views/multi_page_dialog.cpp
+	${SHARED_SRC_DIR}/views/info_dialog.cpp
 
 	${SHARED_SRC_DIR}/license_texts.cpp
 
@@ -175,7 +178,9 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/views/message_widget.hpp
 	${SHARED_INC_DIR}/views/view_base.hpp
 	${SHARED_INC_DIR}/views/dev_select_view.hpp
-	${SHARED_INC_DIR}/views/info_view.hpp
+	${SHARED_INC_DIR}/views/basic_dialog.hpp
+	${SHARED_INC_DIR}/views/multi_page_dialog.hpp
+	${SHARED_INC_DIR}/views/info_dialog.hpp
 
 	mwdg/mixer_hctl.hpp
 	mwdg/mixer_hctl_edit_bool.hpp

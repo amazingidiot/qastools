@@ -10,41 +10,31 @@
 //
 //
 
-#ifndef __INC_views_info_view_hpp__
-#define __INC_views_info_view_hpp__
+#ifndef __INC_views_info_dialog_hpp__
+#define __INC_views_info_dialog_hpp__
 
-#include <QWidget>
-#include <QLabel>
-#include <QTabWidget>
-
+#include "views/multi_page_dialog.hpp"
 
 // Forward declaration
 namespace Wdg { class Text_Browser; }
-
 
 namespace Views
 {
 
 
-/// @brief Info_View
+/// @brief Info_Dialog
 ///
-class Info_View :
-	public QWidget
+class Info_Dialog :
+	public ::Views::Multi_Page_Dialog
 {
 	Q_OBJECT
 
 	// Public methods
 	public:
 
-	Info_View (
-		QWidget * parent_n = 0 );
-
-
-	// Signals
-	signals:
-
-	void
-	sig_close ( );
+	Info_Dialog (
+		QWidget * parent_n = 0,
+		Qt::WindowFlags flags_n = 0 );
 
 
 	// Protected methods
@@ -59,7 +49,6 @@ class Info_View :
 	// Private attributes
 	private:
 
-	QTabWidget _tabs;
 	::Wdg::Text_Browser * _txt_info;
 	::Wdg::Text_Browser * _txt_people;
 	::Wdg::Text_Browser * _txt_license;

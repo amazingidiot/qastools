@@ -128,9 +128,9 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/views/view_base.cpp
 	${SHARED_SRC_DIR}/views/dev_select_view_setup.cpp
 	${SHARED_SRC_DIR}/views/dev_select_view.cpp
-	${SHARED_SRC_DIR}/views/info_view.cpp
 	${SHARED_SRC_DIR}/views/basic_dialog.cpp
 	${SHARED_SRC_DIR}/views/multi_page_dialog.cpp
+	${SHARED_SRC_DIR}/views/info_dialog.cpp
 
 	${SHARED_SRC_DIR}/unix_signal_handler.cpp
 	${SHARED_SRC_DIR}/single_application.cpp
@@ -209,9 +209,9 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/views/message_widget.hpp
 	${SHARED_INC_DIR}/views/view_base.hpp
 	${SHARED_INC_DIR}/views/dev_select_view.hpp
-	${SHARED_INC_DIR}/views/info_view.hpp
-	${SHARED_SRC_DIR}/views/basic_dialog.hpp
-	${SHARED_SRC_DIR}/views/multi_page_dialog.hpp
+	${SHARED_INC_DIR}/views/basic_dialog.hpp
+	${SHARED_INC_DIR}/views/multi_page_dialog.hpp
+	${SHARED_INC_DIR}/views/info_dialog.hpp
 
 	${SHARED_INC_DIR}/unix_signal_handler.hpp
 	${SHARED_INC_DIR}/single_application.hpp

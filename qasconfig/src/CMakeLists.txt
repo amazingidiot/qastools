@@ -16,10 +16,13 @@ CONFIGURE_FILE (
 SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/alsa.cpp
 	${SHARED_SRC_DIR}/qsnd/alsa_config_watcher.cpp
+	${SHARED_SRC_DIR}/wdg/scroll_area_vertical.cpp
 	${SHARED_SRC_DIR}/wdg/text_browser.cpp
 	${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
 	${SHARED_SRC_DIR}/views/view_utility.cpp
-	${SHARED_SRC_DIR}/views/info_view.cpp
+	${SHARED_SRC_DIR}/views/basic_dialog.cpp
+	${SHARED_SRC_DIR}/views/multi_page_dialog.cpp
+	${SHARED_SRC_DIR}/views/info_dialog.cpp
 	${SHARED_SRC_DIR}/license_texts.cpp
 
 	qsnd/alsa_config_model.cpp
@@ -36,7 +39,9 @@ SET ( SRC_GUI
 SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/qsnd/alsa_config_watcher.hpp
 	${SHARED_INC_DIR}/wdg/tree_view_kv.hpp
-	${SHARED_INC_DIR}/views/info_view.hpp
+	${SHARED_INC_DIR}/views/basic_dialog.hpp
+	${SHARED_INC_DIR}/views/multi_page_dialog.hpp
+	${SHARED_INC_DIR}/views/info_dialog.hpp
 
 	qsnd/alsa_config_model.hpp
 	views/alsa_config_view.hpp

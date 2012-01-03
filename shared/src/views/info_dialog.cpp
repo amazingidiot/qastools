@@ -10,7 +10,7 @@
 //
 //
 
-#include "info_view.hpp"
+#include "info_dialog.hpp"
 
 #include "qastools_config.hpp"
 #include "wdg/text_browser.hpp"
@@ -28,10 +28,10 @@ namespace Views
 {
 
 
-Info_View::Info_View (
-	QWidget * parent_n ) :
-QWidget ( parent_n ),
-_tabs ( this ),
+Info_Dialog::Info_Dialog (
+	QWidget * parent_n,
+	Qt::WindowFlags flags_n ) :
+::Views::Multi_Page_Dialog ( parent_n, flags_n ),
 _txt_info ( 0 ),
 _txt_people ( 0 ),
 _txt_license ( 0 )
@@ -44,13 +44,12 @@ _txt_license ( 0 )
 		setWindowTitle ( txt );
 	}
 
-	QWidget * title_wdg;
 	// Title label
 	{
-		QString txt ( tr ( "%1 - %2" ) );
+		QString txt ( "%1 - %2" );
 		txt = txt.arg ( PACKAGE_TITLE );
 		txt = txt.arg ( PACKAGE_VERSION );
-		title_wdg = dialog_title_widget ( txt );
+		set_title_str ( txt );
 	}
 
 	const QString hmask ( "<h3>%1</h3>\n" );
@@ -176,45 +175,14 @@ _txt_license ( 0 )
 		}
 	}
 
-
-	_tabs.addTab ( _txt_info, tr ( "&Information" ) );
-	_tabs.addTab ( _txt_people, tr ( "&People" ) );
-	if ( _txt_license != 0 ) {
-		_tabs.addTab ( _txt_license, tr ( "&License" ) );
-	}
-
-
-	QHBoxLayout * lay_bottom ( new QHBoxLayout );
-	lay_bottom->setContentsMargins ( 0, 0, 0, 0 );
-
-	{
-		QPushButton * btn_close ( new QPushButton ( tr ( "&Close" ) ) );
-		btn_close->setDefault ( true );
-
-		if ( QIcon::hasThemeIcon ( "window-close" ) ) {
-			btn_close->setIcon ( QIcon::fromTheme ( "window-close" ) );
-		}
-
-		connect ( btn_close, SIGNAL ( clicked() ),
-			this, SIGNAL ( sig_close() ) );
-
-		lay_bottom->addStretch ( 1 );
-		lay_bottom->addWidget ( btn_close );
-		lay_bottom->addStretch ( 1 );
-	}
-
-	{
-		QVBoxLayout * lay_vbox ( new QVBoxLayout );
-		lay_vbox->addWidget ( title_wdg );
-		lay_vbox->addWidget ( &_tabs );
-		lay_vbox->addLayout ( lay_bottom );
-		setLayout ( lay_vbox );
-	}
+	add_page ( tr ( "&Information" ), _txt_info );
+	add_page ( tr ( "&People" ), _txt_people );
+	add_page ( tr ( "&License" ), _txt_license );
 }
 
 
 bool
-Info_View::read_utf8_file (
+Info_Dialog::read_utf8_file (
 	const QString & filename_n,
 	QString & txt_n ) const
 {

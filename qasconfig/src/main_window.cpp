@@ -14,7 +14,7 @@
 
 #include "qastools_config.hpp"
 #include "qsnd/alsa_config_watcher.hpp"
-#include "views/info_view.hpp"
+#include "views/info_dialog.hpp"
 #include "views/view_utility.hpp"
 
 #include <QVBoxLayout>
@@ -86,18 +86,9 @@ void
 Main_Window::show_info_dialog ( )
 {
 	if ( _info_dialog == 0 ) {
-		QDialog * dlg ( new QDialog ( this ) );
+		::Views::Info_Dialog * dlg ( new ::Views::Info_Dialog ( this ) );
 		dlg->setAttribute ( Qt::WA_DeleteOnClose );
-		{
-			::Views::Info_View * view ( new ( ::Views::Info_View ) );
-			connect ( view, SIGNAL ( sig_close() ),
-				dlg, SLOT ( close() ) );
 
-			QVBoxLayout * lay ( new QVBoxLayout );
-			lay->setContentsMargins ( 0, 0, 0, 0 );
-			lay->addWidget ( view );
-			dlg->setLayout ( lay );
-		}
 		_info_dialog = dlg;
 	}
 

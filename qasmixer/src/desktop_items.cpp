@@ -22,7 +22,7 @@
 #include "wdg/ds_switch_painter_svg.hpp"
 #include "wdg/ds_widget_types.hpp"
 #include "views/view_utility.hpp"
-#include "views/info_view.hpp"
+#include "views/info_dialog.hpp"
 #include "views/settings_dialog.hpp"
 
 #include <QEvent>
@@ -661,51 +661,13 @@ Desktop_Items::show_dialog_info ( )
 	}
 
 	if ( _dialog_info == 0 ) {
-		::Views::Info_View * view (	new ::Views::Info_View );
-		_dialog_info = create_dialog ( view );
+		::Views::Info_Dialog * dlg (
+			new ::Views::Info_Dialog ( _main_mixer ) );
+		dlg->setAttribute ( Qt::WA_DeleteOnClose );
+
+		_dialog_info = dlg;
 	}
 	_dialog_info->show();
-}
-
-
-QDialog *
-Desktop_Items::create_dialog (
-	QWidget * view_n,
-	unsigned int numerator_n,
-	unsigned int denominator_n )
-{
-	QDialog * dialog ( new QDialog ( _main_mixer ) );
-	dialog->setAttribute ( Qt::WA_DeleteOnClose );
-	dialog->setWindowTitle ( view_n->windowTitle() );
-	{
-		QHBoxLayout * lay_hbox ( new QHBoxLayout );
-		lay_hbox->setContentsMargins ( 0, 0, 0, 0 );
-		lay_hbox->addWidget ( view_n );
-		dialog->setLayout ( lay_hbox );
-	}
-	connect ( view_n, SIGNAL ( sig_close() ), dialog, SLOT ( close() ) );
-
-	if ( ( _main_mixer != 0 ) &&
-		( numerator_n > 0 ) && ( denominator_n > 0 ) )
-	{
-		// Adjust the dialog size relative to the main window size
-		const QSize mmsize ( _main_mixer->size() );
-		const QSize dshint ( dialog->sizeHint() );
-
-		QSize snew (
-			mmsize.width() * numerator_n / denominator_n,
-			mmsize.height() * numerator_n / denominator_n );
-		if ( snew.width() < dshint.width() ) {
-			snew.setWidth ( dshint.width() );
-		}
-		if ( snew.height() < dshint.height() ) {
-			snew.setHeight ( dshint.height() );
-		}
-		dialog->resize ( snew );
-
-	}
-
-	return dialog;
 }
 
 
