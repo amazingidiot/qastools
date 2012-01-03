@@ -36,6 +36,7 @@ _storage_limit ( 4*1024*1024 )
 IS_Buffer::~IS_Buffer ( )
 {
 	clear();
+	_remove_poll_timer.stop();
 }
 
 

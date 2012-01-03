@@ -56,6 +56,12 @@ _remains_on_hover ( false )
 }
 
 
+Balloon_Widget::~Balloon_Widget ( )
+{
+	_close_timer.stop();
+}
+
+
 void
 Balloon_Widget::add_widget (
 	QWidget * wdg_n )
