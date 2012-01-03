@@ -51,8 +51,8 @@ Multi_Page_Dialog::Multi_Page_Dialog (
 		QPushButton * btn_close ( create_close_button() );
 
 		lay_close->setContentsMargins ( 0, 0, 0, 0 );
-		//lay_close->addStretch ( 1 );
-		lay_close->addWidget ( btn_close );
+		lay_close->addStretch ( 1 );
+		lay_close->addWidget ( btn_close, 0 );
 		lay_close->addStretch ( 1 );
 	}
 
