@@ -10,8 +10,8 @@
 //
 //
 
-#ifndef __INC_mview_settings_view_hpp__
-#define __INC_mview_settings_view_hpp__
+#ifndef __INC_views_settings_dialog_hpp__
+#define __INC_views_settings_dialog_hpp__
 
 #include <QLabel>
 #include <QCheckBox>
@@ -27,6 +27,8 @@
 #include <QListView>
 #include <QStandardItem>
 
+#include "views/multi_page_dialog.hpp"
+
 // Forward declaration
 class Desktop_Items_Setup;
 
@@ -34,20 +36,21 @@ namespace Views
 {
 
 
-/// @brief Settings_View
+/// @brief Settings_Dialog
 ///
-class Settings_View :
-	public QWidget
+class Settings_Dialog :
+	public ::Views::Multi_Page_Dialog
 {
 	Q_OBJECT
 
 	// Public methods
 	public:
 
-	Settings_View (
-		QWidget * parent = 0 );
+	Settings_Dialog (
+		QWidget * parent_n = 0,
+		Qt::WindowFlags flags_n = 0 );
 
-	~Settings_View ( );
+	~Settings_Dialog ( );
 
 
 	void
@@ -80,16 +83,6 @@ class Settings_View :
 
 	// Protected slots
 	protected slots:
-
-	void
-	page_changed (
-		const QModelIndex & cur_n,
-		const QModelIndex & prev_n );
-
-	void
-	page_selected (
-		const QModelIndex & index_n );
-
 
 	void
 	change_startup ( );
@@ -134,10 +127,6 @@ class Settings_View :
 	void
 	init_page_sys_tray ( );
 
-	QWidget *
-	create_page_container (
-		QLayout * lay_n );
-
 
 	void
 	update_inputs_values ( );
@@ -151,32 +140,27 @@ class Settings_View :
 
 	::Desktop_Items_Setup * _dsetup;
 
-	static const unsigned int num_pages = 4;
-
 	// Pages
-	QListView * _page_selection;
-	QStackedLayout * _lay_pages_stack;
 	QWidget * _page_startup;
 	QWidget * _page_appearance;
 	QWidget * _page_input;
 	QWidget * _page_sys_tray;
-	QStandardItem * _page_items[num_pages];
 
-	// Startup
+	// Page: Startup
 	QButtonGroup * _start_btn_grp_device;
 	QRadioButton * _start_btn_device[3];
 	QWidget * _start_dev_user;
 	QLineEdit * _start_dev_user_edit;
 
-	// Appearance
+	// Page: Appearance
 	QCheckBox * _btn_show_sliders_labels;
 
-	// Input
+	// Page: Input
 	QString _mwheel_degrees_mask;
 	QDoubleSpinBox * _mwheel_turns_input;
 	QSlider * _mwheel_turns_slider;
 
-	// System tray usage
+	// Page: System tray usage
 	QWidget * _tray_minimize;
 	QCheckBox * _tray_btn_on_close;
 	QCheckBox * _tray_btn_show_icon;
@@ -192,7 +176,6 @@ class Settings_View :
 
 	QWidget * _tray_dev_user;
 	QLineEdit * _tray_dev_user_edit;
-
 
 	// Layout & Styling
 	QLocale loc;

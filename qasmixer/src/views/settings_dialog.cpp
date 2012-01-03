@@ -10,7 +10,7 @@
 //
 //
 
-#include "settings_view.hpp"
+#include "settings_dialog.hpp"
 
 #include "qastools_config.hpp"
 #include "desktop_items_setup.hpp"
@@ -27,143 +27,46 @@
 
 #include <iostream>
 
-
 namespace Views
 {
 
 
-Settings_View::Settings_View (
-	QWidget * parent ) :
-QWidget ( parent ),
+Settings_Dialog::Settings_Dialog (
+	QWidget * parent_n,
+	Qt::WindowFlags flags_n ) :
+::Views::Multi_Page_Dialog ( parent_n, flags_n ),
 _dsetup ( 0 ),
 _updating_values ( false )
 {
-	setWindowTitle (
-		QString ( "%1 - %2" )
-		.arg ( PROGRAM_TITLE )
-		.arg ( tr ( "Settings" ) ) );
-
-	_vspace = qMax ( 0, fontMetrics().height() * 2 / 3 );
-
-	_page_selection = new QListView;
-
-	// Page selection model for the tree view
 	{
-		QStandardItemModel * pages_model ( new QStandardItemModel ( this ) );
-
-		QString pnames[num_pages];
-		pnames[0] = tr ( "Startup" );
-		pnames[1] = tr ( "Appearance" );
-		pnames[2] = tr ( "Input" );
-		pnames[3] = tr ( "System tray" );
-
-		for ( unsigned int ii=0; ii < num_pages; ++ii ) {
-			QStandardItem * sitem ( new QStandardItem );
-			sitem->setText ( pnames[ii] );
-			sitem->setToolTip ( pnames[ii] );
-			sitem->setSelectable ( true );
-			sitem->setEditable ( false );
-			_page_items[ii] = sitem;
-		}
-
-		for ( unsigned int ii=0; ii < num_pages; ++ii ) {
-			pages_model->appendRow ( _page_items[ii] );
-		}
-
-		_page_selection->setModel ( pages_model );
+		QString title_str ( tr ( "Settings" ) );
+		setWindowTitle (
+			QString ( "%1 - %2" )
+			.arg ( PROGRAM_TITLE )
+			.arg ( title_str ) );
+		set_title_str ( title_str );
 	}
 
-	// QueuedConnection to paint update the tree view before heavy painting new widgets
-	connect ( _page_selection->selectionModel(),
-		SIGNAL ( currentChanged ( const QModelIndex &, const QModelIndex & ) ),
-		this, SLOT ( page_changed ( const QModelIndex &, const QModelIndex & ) ),
-		Qt::QueuedConnection );
-
+	_vspace = qMax ( 0, fontMetrics().height() * 2 / 3 );
 
 	init_page_startup();
 	init_page_appearance();
 	init_page_input();
 	init_page_sys_tray();
 
-
-	// Close button layout
-	QHBoxLayout * lay_close ( new QHBoxLayout );
-	lay_close->setContentsMargins ( 0, 0, 0, 0 );
-	{
-		QPushButton * btn_close ( new QPushButton ( tr ( "&Close" ) ) );
-
-		if ( QIcon::hasThemeIcon ( "window-close" ) ) {
-			btn_close->setIcon ( QIcon::fromTheme ( "window-close" ) );
-		}
-
-		connect ( btn_close, SIGNAL ( clicked() ),
-			this, SIGNAL ( sig_close() ) );
-
-		//lay_close->addStretch ( 1 );
-		lay_close->addWidget ( btn_close );
-		lay_close->addStretch ( 1 );
-	}
-
-
-	// Page navigation widget
-	QWidget * navi_wdg ( new QWidget );
-	{
-		QVBoxLayout * lay_vbox ( new QVBoxLayout );
-		lay_vbox->setContentsMargins ( 0, 0, 0, 0 );
-		lay_vbox->addWidget ( _page_selection, 1 );
-		lay_vbox->addLayout ( lay_close, 0 );
-
-		navi_wdg->setLayout ( lay_vbox );
-	}
-
-	// Setup pages
-	QWidget * pages_wdg ( new QWidget );
-	{
-		QHBoxLayout * lay_pages ( new QHBoxLayout );
-		lay_pages->setContentsMargins ( 0, 0, 0, 0 );
-		pages_wdg->setLayout ( lay_pages );
-
-		_lay_pages_stack = new QStackedLayout;
-		lay_pages->addSpacing ( fontMetrics().averageCharWidth() * 3 / 2 );
-		lay_pages->addLayout ( _lay_pages_stack );
-
-		_lay_pages_stack->setContentsMargins ( 0, 0, 0, 0 );
-		_lay_pages_stack->addWidget ( _page_startup );
-		_lay_pages_stack->addWidget ( _page_appearance );
-		_lay_pages_stack->addWidget ( _page_input );
-		_lay_pages_stack->addWidget ( _page_sys_tray );
-	}
-
-	// Main splitter and layout
-	{
-		QWidget * wdg_title ( dialog_title_widget ( tr ( "Settings" ) ) );
-
-		QSplitter * hsplit ( new QSplitter );
-		hsplit->setChildrenCollapsible ( false );
-		hsplit->addWidget ( navi_wdg );
-		hsplit->addWidget ( pages_wdg );
-		hsplit->setStretchFactor ( 0, 2 );
-		hsplit->setStretchFactor ( 1, 5 );
-
-		QVBoxLayout * lay_vbox ( new QVBoxLayout );
-		lay_vbox->addWidget ( wdg_title, 0 );
-		lay_vbox->addWidget ( hsplit, 1 );
-		setLayout ( lay_vbox );
-	}
-
 	// Update states
 	update_inputs_vis_state();
 }
 
 
-Settings_View::~Settings_View ( )
+Settings_Dialog::~Settings_Dialog ( )
 {
-	//::std::cout << "~Settings_View\n";
+	set_setup ( 0 );
 }
 
 
 void
-Settings_View::init_page_startup ( )
+Settings_Dialog::init_page_startup ( )
 {
 	QGroupBox * box_device ( new QGroupBox );
 	box_device->setTitle ( tr ( "Startup mixer device" ) );
@@ -208,21 +111,23 @@ Settings_View::init_page_startup ( )
 		box_device->setLayout ( lay_dev_sel );
 	}
 
+	// Container widget
+	QWidget * wdg_all ( new QWidget );
+	{
+		QVBoxLayout * lay_wdg ( new QVBoxLayout );
+		lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
+		lay_wdg->addWidget ( box_device );
+		lay_wdg->addStretch ( 1 );
+		wdg_all->setLayout ( lay_wdg );
+	}
 
-
-
-	// Layout
-	QVBoxLayout * lay_wdg ( new QVBoxLayout );
-	lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
-	lay_wdg->addWidget ( box_device );
-	lay_wdg->addStretch ( 1 );
-
-	_page_startup = create_page_container ( lay_wdg );
+	_page_startup = wdg_all;
+	add_page ( tr ( "Startup" ), _page_startup );
 }
 
 
 void
-Settings_View::init_page_appearance ( )
+Settings_Dialog::init_page_appearance ( )
 {
 	QGroupBox * box_smixer ( new QGroupBox );
 	box_smixer->setTitle ( tr ( "Simple mixer view" ) );
@@ -238,18 +143,23 @@ Settings_View::init_page_appearance ( )
 		box_smixer->setLayout ( lay_smixer );
 	}
 
-	// Layout
-	QVBoxLayout * lay_wdg ( new QVBoxLayout );
-	lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
-	lay_wdg->addWidget ( box_smixer );
-	lay_wdg->addStretch ( 1 );
+	// Container widget
+	QWidget * wdg_all ( new QWidget );
+	{
+		QVBoxLayout * lay_wdg ( new QVBoxLayout );
+		lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
+		lay_wdg->addWidget ( box_smixer );
+		lay_wdg->addStretch ( 1 );
+		wdg_all->setLayout ( lay_wdg );
+	}
 
-	_page_appearance = create_page_container ( lay_wdg );
+	_page_appearance = wdg_all;
+	add_page ( tr ( "Appearance" ), _page_appearance );
 }
 
 
 void
-Settings_View::init_page_input ( )
+Settings_Dialog::init_page_input ( )
 {
 	QGroupBox * box_mwheel ( new QGroupBox );
 	box_mwheel->setTitle ( tr ( "Mouse wheel" ) );
@@ -292,18 +202,23 @@ Settings_View::init_page_input ( )
 		box_mwheel->setLayout ( lay_mwheel );
 	}
 
-	// Layout
-	QVBoxLayout * lay_wdg ( new QVBoxLayout );
-	lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
-	lay_wdg->addWidget ( box_mwheel );
-	lay_wdg->addStretch ( 1 );
+	// Container widget
+	QWidget * wdg_all ( new QWidget );
+	{
+		QVBoxLayout * lay_wdg ( new QVBoxLayout );
+		lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
+		lay_wdg->addWidget ( box_mwheel );
+		lay_wdg->addStretch ( 1 );
+		wdg_all->setLayout ( lay_wdg );
+	}
 
-	_page_input = create_page_container ( lay_wdg );
+	_page_input = wdg_all;
+	add_page ( tr ( "Input" ), _page_input );
 }
 
 
 void
-Settings_View::init_page_sys_tray ( )
+Settings_Dialog::init_page_sys_tray ( )
 {
 	_tray_btn_show_icon = new QCheckBox ( tr ( "Show tray icon" ) );
 	_tray_btn_on_close = new QCheckBox ( tr ( "Close to tray" ) );
@@ -417,54 +332,49 @@ Settings_View::init_page_sys_tray ( )
 	_tray_wdg_grp_ballon = box_balloon;
 	_tray_wdg_grp_device = box_device;
 
-	// Layout
-	QVBoxLayout * lay_wdg ( new QVBoxLayout );
-	lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
-	lay_wdg->addWidget ( box_icon );
-	lay_wdg->addSpacing ( _vspace );
-	lay_wdg->addWidget ( box_balloon );
-	lay_wdg->addSpacing ( _vspace );
-	lay_wdg->addWidget ( box_device );
-	lay_wdg->addStretch ( 1 );
+	// Container widget
+	QWidget * wdg_all ( new QWidget );
+	{
+		QVBoxLayout * lay_wdg ( new QVBoxLayout );
+		lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
+		lay_wdg->addWidget ( box_icon );
+		lay_wdg->addSpacing ( _vspace );
+		lay_wdg->addWidget ( box_balloon );
+		lay_wdg->addSpacing ( _vspace );
+		lay_wdg->addWidget ( box_device );
+		lay_wdg->addStretch ( 1 );
+		wdg_all->setLayout ( lay_wdg );
+	}
 
-	_page_sys_tray = create_page_container ( lay_wdg );
-}
-
-
-QWidget *
-Settings_View::create_page_container (
-	QLayout * lay_n )
-{
-	QWidget * wdg ( new QWidget );
-	wdg->setLayout ( lay_n );
-
-	::Wdg::Scroll_Area_Vertical * vscroll (
-		new ::Wdg::Scroll_Area_Vertical );
-	vscroll->setFrameStyle ( QFrame::NoFrame );
-	vscroll->set_widget ( wdg );
-	return vscroll;
+	_page_sys_tray = wdg_all;
+	add_page ( tr ( "System tray" ), _page_sys_tray );
 }
 
 
 void
-Settings_View::set_setup (
+Settings_Dialog::set_setup (
 	::Desktop_Items_Setup * setup_n )
 {
+	if ( _dsetup != 0 ) {
+		_dsetup->settings_dialog.page = current_page_idx();
+	}
+
 	_dsetup = setup_n;
+
 	if ( _dsetup != 0 ) {
 		update_inputs_values();
 
-		if ( _dsetup->settings_view.page >= num_pages ) {
-			_dsetup->settings_view.page = 0;
+		if ( _dsetup->settings_dialog.page >= num_pages() ) {
+			_dsetup->settings_dialog.page = 0;
 		}
-		_page_selection->setCurrentIndex (
-			_page_items[_dsetup->settings_view.page]->index() );
+		::std::cout << "set_current_page_idx "  << _dsetup->settings_dialog.page << "\n";
+		set_current_page_idx ( _dsetup->settings_dialog.page );
 	}
 }
 
 
 void
-Settings_View::update_inputs_values ( )
+Settings_Dialog::update_inputs_values ( )
 {
 	if ( _dsetup == 0 ) {
 		return;
@@ -516,7 +426,7 @@ Settings_View::update_inputs_values ( )
 
 
 void
-Settings_View::update_inputs_vis_state ( )
+Settings_Dialog::update_inputs_vis_state ( )
 {
 	const bool has_setup ( _dsetup != 0 );
 	_page_appearance->setEnabled ( has_setup );
@@ -545,33 +455,7 @@ Settings_View::update_inputs_vis_state ( )
 
 
 void
-Settings_View::page_changed (
-	const QModelIndex & cur_n,
-	const QModelIndex & )
-{
-	page_selected ( cur_n );
-}
-
-
-void
-Settings_View::page_selected (
-	const QModelIndex & index_n )
-{
-	for ( unsigned int ii=0; ii < num_pages; ++ii ) {
-		if ( _page_items[ii]->index() == index_n ) {
-			_lay_pages_stack->setCurrentIndex ( ii );
-			break;
-		}
-	}
-
-	if ( _dsetup != 0 ) {
-		_dsetup->settings_view.page = _lay_pages_stack->currentIndex();
-	}
-}
-
-
-void
-Settings_View::wheel_turns_changed (
+Settings_Dialog::wheel_turns_changed (
 	int value_n )
 {
 	_mwheel_turns_input->setValue ( value_n / 10.0 );
@@ -579,7 +463,7 @@ Settings_View::wheel_turns_changed (
 
 
 void
-Settings_View::wheel_turns_changed (
+Settings_Dialog::wheel_turns_changed (
 	double value_n )
 {
 	_mwheel_turns_slider->setValue ( value_n * 10.0 );
@@ -587,7 +471,7 @@ Settings_View::wheel_turns_changed (
 
 
 void
-Settings_View::change_startup ( )
+Settings_Dialog::change_startup ( )
 {
 	if ( ( _dsetup == 0 ) || _updating_values ) {
 		return;
@@ -614,7 +498,7 @@ Settings_View::change_startup ( )
 
 
 void
-Settings_View::change_appearance ( )
+Settings_Dialog::change_appearance ( )
 {
 	if ( ( _dsetup == 0 ) || _updating_values ) {
 		return;
@@ -637,7 +521,7 @@ Settings_View::change_appearance ( )
 
 
 void
-Settings_View::change_input ( )
+Settings_Dialog::change_input ( )
 {
 	if ( ( _dsetup == 0 ) || _updating_values ) {
 		return;
@@ -661,7 +545,7 @@ Settings_View::change_input ( )
 
 
 void
-Settings_View::change_tray_view  ( )
+Settings_Dialog::change_tray_view  ( )
 {
 	if ( ( _dsetup == 0 ) || _updating_values ) {
 		return;
@@ -688,7 +572,7 @@ Settings_View::change_tray_view  ( )
 
 
 void
-Settings_View::change_tray_balloon  ( )
+Settings_Dialog::change_tray_balloon  ( )
 {
 	if ( ( _dsetup == 0 ) || _updating_values ) {
 		return;
@@ -718,7 +602,7 @@ Settings_View::change_tray_balloon  ( )
 
 
 void
-Settings_View::change_tray_mdev ( )
+Settings_Dialog::change_tray_mdev ( )
 {
 	if ( ( _dsetup == 0 ) || _updating_values ) {
 		return;

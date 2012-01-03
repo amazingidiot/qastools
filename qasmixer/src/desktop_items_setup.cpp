@@ -129,10 +129,10 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	// Settings view
 	{
-		settings.beginGroup ( "settings_view" );
+		settings.beginGroup ( "settings_dialog" );
 
-		settings_view.page = settings.value ( "page",
-			settings_view.page ).toUInt();
+		settings_dialog.page = settings.value ( "page",
+			settings_dialog.page ).toUInt();
 
 		settings.endGroup();
 	}
@@ -267,10 +267,10 @@ Desktop_Items_Setup::write_to_storage ( )
 
 	// Settings view
 	{
-		settings.beginGroup ( "settings_view" );
+		settings.beginGroup ( "settings_dialog" );
 
 		settings.setValue ( "page",
-			settings_view.page );
+			settings_dialog.page );
 
 		settings.endGroup();
 	}

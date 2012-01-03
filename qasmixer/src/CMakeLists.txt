@@ -129,6 +129,8 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/views/dev_select_view_setup.cpp
 	${SHARED_SRC_DIR}/views/dev_select_view.cpp
 	${SHARED_SRC_DIR}/views/info_view.cpp
+	${SHARED_SRC_DIR}/views/basic_dialog.cpp
+	${SHARED_SRC_DIR}/views/multi_page_dialog.cpp
 
 	${SHARED_SRC_DIR}/unix_signal_handler.cpp
 	${SHARED_SRC_DIR}/single_application.cpp
@@ -150,8 +152,8 @@ SET ( SRC_GUI
 
 	views/mixer_simple_setup.cpp
 	views/mixer_simple.cpp
-	views/settings_view_setup.cpp
-	views/settings_view.cpp
+	views/settings_dialog_setup.cpp
+	views/settings_dialog.cpp
 
 	tray_mixer_mdev_setup.cpp
 	tray_mixer_view_setup.cpp
@@ -208,6 +210,8 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/views/view_base.hpp
 	${SHARED_INC_DIR}/views/dev_select_view.hpp
 	${SHARED_INC_DIR}/views/info_view.hpp
+	${SHARED_SRC_DIR}/views/basic_dialog.hpp
+	${SHARED_SRC_DIR}/views/multi_page_dialog.hpp
 
 	${SHARED_INC_DIR}/unix_signal_handler.hpp
 	${SHARED_INC_DIR}/single_application.hpp
@@ -224,7 +228,7 @@ SET ( SRC_GUI_HEADER_MOC
 	mwdg/mixer_switches.hpp
 
 	views/mixer_simple.hpp
-	views/settings_view.hpp
+	views/settings_dialog.hpp
 
 	tray_mixer_icon.hpp
 	tray_mixer_balloon.hpp

@@ -53,8 +53,8 @@ HEADERS = \
 	../qasmixer/src/tray_mixer_view_setup.hpp \
 	../qasmixer/src/views/mixer_simple.hpp \
 	../qasmixer/src/views/mixer_simple_setup.hpp \
-	../qasmixer/src/views/settings_view.hpp \
-	../qasmixer/src/views/settings_view_setup.hpp \
+	../qasmixer/src/views/settings_dialog.hpp \
+	../qasmixer/src/views/settings_dialog_setup.hpp \
 	../shared/src/dpe/image.hpp \
 	../shared/src/dpe/image_allocator.hpp \
 	../shared/src/dpe/image_request.hpp \
@@ -219,8 +219,8 @@ SOURCES = \
 	../qasmixer/src/tray_mixer_view_setup.cpp \
 	../qasmixer/src/views/mixer_simple.cpp \
 	../qasmixer/src/views/mixer_simple_setup.cpp \
-	../qasmixer/src/views/settings_view.cpp \
-	../qasmixer/src/views/settings_view_setup.cpp \
+	../qasmixer/src/views/settings_dialog.cpp \
+	../qasmixer/src/views/settings_dialog_setup.cpp \
 	../shared/src/dpe/image.cpp \
 	../shared/src/dpe/image_allocator.cpp \
 	../shared/src/dpe/image_request.cpp \

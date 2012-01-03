@@ -10,14 +10,14 @@
 //
 //
 
-#include "settings_view_setup.hpp"
+#include "settings_dialog_setup.hpp"
 
 
 namespace Views
 {
 
 
-Settings_View_Setup::Settings_View_Setup ( ) :
+Settings_Dialog_Setup::Settings_Dialog_Setup ( ) :
 page ( 0 )
 {
 }

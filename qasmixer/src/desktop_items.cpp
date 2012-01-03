@@ -23,7 +23,7 @@
 #include "wdg/ds_widget_types.hpp"
 #include "views/view_utility.hpp"
 #include "views/info_view.hpp"
-#include "views/settings_view.hpp"
+#include "views/settings_dialog.hpp"
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -627,25 +627,27 @@ Desktop_Items::show_dialog_settings ( )
 	}
 
 	if ( _dialog_settings == 0 ) {
-		::Views::Settings_View * view ( new ::Views::Settings_View );
-		view->set_setup ( &_dsetup );
+		::Views::Settings_Dialog * dlg (
+			new ::Views::Settings_Dialog ( _main_mixer ) );
+		dlg->setAttribute ( Qt::WA_DeleteOnClose );
+		dlg->set_setup ( &_dsetup );
 
-		connect ( view, SIGNAL ( sig_change_mixer_view() ),
+		connect ( dlg, SIGNAL ( sig_change_mixer_view() ),
 			this, SLOT ( main_mixer_reload_view() ) );
 
-		connect ( view, SIGNAL ( sig_change_input() ),
+		connect ( dlg, SIGNAL ( sig_change_input() ),
 			this, SLOT ( reload_inputs_setup() ) );
 
-		connect ( view, SIGNAL ( sig_change_tray_view() ),
+		connect ( dlg, SIGNAL ( sig_change_tray_view() ),
 			this, SLOT ( tray_mixer_update_visibility() ) );
 
-		connect ( view, SIGNAL ( sig_change_tray_mdev() ),
+		connect ( dlg, SIGNAL ( sig_change_tray_mdev() ),
 			this, SLOT ( tray_mixer_reload_mdev() ) );
 
-		connect ( view, SIGNAL ( sig_change_tray_balloon() ),
+		connect ( dlg, SIGNAL ( sig_change_tray_balloon() ),
 			this, SLOT ( tray_mixer_update_balloon_setup() ) );
 
-		_dialog_settings = create_dialog ( view );
+		_dialog_settings = dlg;
 	}
 	_dialog_settings->show();
 }

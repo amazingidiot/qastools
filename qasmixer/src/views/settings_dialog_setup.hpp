@@ -10,22 +10,22 @@
 //
 //
 
-#ifndef __INC_mview_settings_view_setup_hpp__
-#define __INC_mview_settings_view_setup_hpp__
+#ifndef __INC_views_settings_dialog_setup_hpp__
+#define __INC_views_settings_dialog_setup_hpp__
 
 
 namespace Views
 {
 
 
-/// @brief Settings_View_Setup
+/// @brief Settings_Dialog_Setup
 ///
-class Settings_View_Setup
+class Settings_Dialog_Setup
 {
 	// Public methods
 	public:
 
-	Settings_View_Setup ( );
+	Settings_Dialog_Setup ( );
 
 
 	// Public attributes
