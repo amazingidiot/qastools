@@ -60,7 +60,7 @@ Text_Browser::update_size_hint ( )
 	QTextFrame * rf ( document()->rootFrame() );
 	{
 		QTextFrameFormat fformat ( rf->frameFormat() );
-		fformat.setPadding ( fontMetrics().averageCharWidth() );
+		fformat.setPadding ( fontMetrics().averageCharWidth() * 4 / 3 );
 		rf->setFrameFormat ( fformat );
 	}
 
