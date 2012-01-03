@@ -41,12 +41,6 @@ _separation_request ( false )
 }
 
 
-Mixer_Sliders_Proxies_Group::~Mixer_Sliders_Proxies_Group ( )
-{
-	_separation_timer.stop();
-}
-
-
 void
 Mixer_Sliders_Proxies_Group::set_mixer_simple_elem (
 	::QSnd::Mixer_Simple_Elem * selem_n )
@@ -156,7 +150,9 @@ Mixer_Sliders_Proxies_Group::update_mixer_values ( )
 			_separation_timer.start();
 		}
 	} else {
-		_separation_timer.stop();
+		if ( _separation_timer.isActive() ) {
+			_separation_timer.stop();
+		}
 	}
 
 	// Notify parent on demand

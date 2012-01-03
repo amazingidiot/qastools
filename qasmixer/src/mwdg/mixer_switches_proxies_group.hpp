@@ -42,8 +42,6 @@ class Mixer_Switches_Proxies_Group :
 	Mixer_Switches_Proxies_Group (
 		QObject * parent_n = 0 );
 
-	~Mixer_Switches_Proxies_Group ( );
-
 
 	// Mixer_Simple_Elem
 
@@ -134,11 +132,13 @@ class Mixer_Switches_Proxies_Group :
 	private:
 
 	::QSnd::Mixer_Simple_Elem * _mixer_simple_elem;
+
 	unsigned char _snd_dir;
 	bool _is_joined;
 	bool _is_visible;
 	bool _notify_value_change;
 	bool _separation_request;
+
 	QTimer _separation_timer;
 };
 

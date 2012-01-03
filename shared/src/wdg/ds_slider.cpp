@@ -96,7 +96,6 @@ DS_Slider::~DS_Slider ( )
 {
 	_dsi.set_image_alloc ( 0 );
 	clear_index_mappers();
-	_anim_timer.stop();
 }
 
 

@@ -37,8 +37,6 @@ class Mixer_Sliders_Proxies_Group :
 	Mixer_Sliders_Proxies_Group (
 		QObject * parent_n = 0 );
 
-	~Mixer_Sliders_Proxies_Group ( );
-
 
 	// Mixer_Simple_Elem
 

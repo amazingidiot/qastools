@@ -46,7 +46,6 @@ Image_Allocator::~Image_Allocator ( )
 {
 	stop_threads();
 	delete _shared;
-	_stop_timer.stop();
 }
 
 

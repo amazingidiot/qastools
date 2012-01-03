@@ -34,8 +34,6 @@ class Balloon_Widget :
 	Balloon_Widget (
 		QWidget * parent_n = 0 );
 
-	~Balloon_Widget ( );
-
 
 	// Duration
 
