@@ -44,9 +44,9 @@ Text_Browser::setHtml (
 
 
 QSize
-Text_Browser::sizeHint () const
+Text_Browser::sizeHint ( ) const
 {
-	QSize shint ( _hint_width, _hint_height );
+	const QSize shint ( _hint_width, _hint_height );
 	return shint;
 }
 
@@ -70,7 +70,10 @@ Text_Browser::update_size_hint ( )
 	_hint_width += verticalScrollBar()->sizeHint().width();
 	_hint_width += 2*frameWidth();
 
-	_hint_width = qMin ( _hint_width, max_width );
+	if ( _hint_width > max_width ) {
+		_hint_width = max_width;
+	}
+
 	_hint_height = ( _hint_width * 2 ) / 3;
 
 	updateGeometry();

@@ -42,7 +42,7 @@ class Text_Browser :
 		const QString & txt_n );
 
 	QSize
-	sizeHint () const;
+	sizeHint ( ) const;
 
 
 	// Protected methods
