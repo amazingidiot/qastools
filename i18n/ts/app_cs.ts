@@ -1101,7 +1101,7 @@
     </message>
 </context>
 <context>
-    <name>Views::Info_View</name>
+    <name>Views::Info_Dialog</name>
     <message>
         <location filename="../../shared/src/views/info_view.cpp" line="43"/>
         <source>Info</source>
