@@ -1222,7 +1222,7 @@
     </message>
 </context>
 <context>
-    <name>Views::Settings_View</name>
+    <name>Views::Settings_Dialog</name>
     <message>
         <location filename="../../qasmixer/src/views/settings_view.cpp" line="43"/>
         <location filename="../../qasmixer/src/views/settings_view.cpp" line="139"/>
