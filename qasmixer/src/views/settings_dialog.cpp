@@ -367,7 +367,6 @@ Settings_Dialog::set_setup (
 		if ( _dsetup->settings_dialog.page >= num_pages() ) {
 			_dsetup->settings_dialog.page = 0;
 		}
-		::std::cout << "set_current_page_idx "  << _dsetup->settings_dialog.page << "\n";
 		set_current_page_idx ( _dsetup->settings_dialog.page );
 	}
 }
