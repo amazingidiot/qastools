@@ -1,10 +1,14 @@
 
 HEADERS = \
+	../qasconfig/src/desktop_items.hpp \
+	../qasconfig/src/info_texts.hpp \
 	../qasconfig/src/main_window.hpp \
 	../qasconfig/src/qsnd/alsa_config_model.hpp \
 	../qasconfig/src/static_tree.hpp \
 	../qasconfig/src/static_tree_model.hpp \
 	../qasconfig/src/views/alsa_config_view.hpp \
+	../qashctl/src/desktop_items.hpp \
+	../qashctl/src/info_texts.hpp \
 	../qashctl/src/main_window.hpp \
 	../qashctl/src/main_window_setup.hpp \
 	../qashctl/src/mwdg/mixer_hctl.hpp \
@@ -69,6 +73,7 @@ HEADERS = \
 	../shared/src/dpe/painter_simple.hpp \
 	../shared/src/dpe/painter_thread.hpp \
 	../shared/src/dpe/painter_thread_shared.hpp \
+	../shared/src/license_texts.hpp \
 	../shared/src/mwdg/controls_delegate.hpp \
 	../shared/src/mwdg/controls_view.hpp \
 	../shared/src/mwdg/ctl_arg_view.hpp \
@@ -106,10 +111,12 @@ HEADERS = \
 	../shared/src/qsnd/pcm_subdevices_info.hpp \
 	../shared/src/single_application.hpp \
 	../shared/src/unix_signal_handler.hpp \
+	../shared/src/views/basic_dialog.hpp \
 	../shared/src/views/dev_select_view.hpp \
 	../shared/src/views/dev_select_view_setup.hpp \
 	../shared/src/views/info_view.hpp \
 	../shared/src/views/message_widget.hpp \
+	../shared/src/views/multi_page_dialog.hpp \
 	../shared/src/views/view_base.hpp \
 	../shared/src/views/view_base_setup.hpp \
 	../shared/src/views/view_utility.hpp \
@@ -163,12 +170,16 @@ HEADERS = \
 	../shared/src/wdg/uint_mapper.hpp
 
 SOURCES = \
+	../qasconfig/src/desktop_items.cpp \
+	../qasconfig/src/info_texts.cpp \
 	../qasconfig/src/main.cpp \
 	../qasconfig/src/main_window.cpp \
 	../qasconfig/src/qsnd/alsa_config_model.cpp \
 	../qasconfig/src/static_tree.cpp \
 	../qasconfig/src/static_tree_model.cpp \
 	../qasconfig/src/views/alsa_config_view.cpp \
+	../qashctl/src/desktop_items.cpp \
+	../qashctl/src/info_texts.cpp \
 	../qashctl/src/main.cpp \
 	../qashctl/src/main_window.cpp \
 	../qashctl/src/main_window_setup.cpp \
@@ -235,6 +246,7 @@ SOURCES = \
 	../shared/src/dpe/painter_simple.cpp \
 	../shared/src/dpe/painter_thread.cpp \
 	../shared/src/dpe/painter_thread_shared.cpp \
+	../shared/src/license_texts.cpp \
 	../shared/src/mwdg/controls_delegate.cpp \
 	../shared/src/mwdg/controls_view.cpp \
 	../shared/src/mwdg/ctl_arg_view.cpp \
@@ -270,10 +282,12 @@ SOURCES = \
 	../shared/src/qsnd/pcm_subdevices_info.cpp \
 	../shared/src/single_application.cpp \
 	../shared/src/unix_signal_handler.cpp \
+	../shared/src/views/basic_dialog.cpp \
 	../shared/src/views/dev_select_view.cpp \
 	../shared/src/views/dev_select_view_setup.cpp \
 	../shared/src/views/info_view.cpp \
 	../shared/src/views/message_widget.cpp \
+	../shared/src/views/multi_page_dialog.cpp \
 	../shared/src/views/view_base.cpp \
 	../shared/src/views/view_base_setup.cpp \
 	../shared/src/views/view_utility.cpp \
