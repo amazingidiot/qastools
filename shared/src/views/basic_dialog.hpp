@@ -47,7 +47,6 @@ class Basic_Dialog :
 	set_central_widget (
 		QWidget * wdg_n );
 
-	static
 	QLabel *
 	create_title_widget (
 		const QString & txt_n );
@@ -66,6 +65,5 @@ class Basic_Dialog :
 
 
 } // End of namespace
-
 
 #endif

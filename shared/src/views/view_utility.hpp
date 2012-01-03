@@ -16,7 +16,6 @@
 #include <QMainWindow>
 #include <QWidget>
 
-
 namespace Views
 {
 
@@ -33,11 +32,6 @@ load_application_icon (
 void
 resize_to_default (
 	QMainWindow * mwin_n );
-
-
-QWidget *
-dialog_title_widget (
-	const QString & txt_n );
 
 
 } // End of namespace

@@ -60,6 +60,6 @@ class Text_Browser :
 };
 
 
-}
+} // Enf of namespace
 
 #endif

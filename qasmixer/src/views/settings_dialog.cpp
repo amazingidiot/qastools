@@ -15,7 +15,6 @@
 #include "qastools_config.hpp"
 #include "desktop_items_setup.hpp"
 #include "wdg/scroll_area_vertical.hpp"
-#include "views/view_utility.hpp"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -122,7 +121,7 @@ Settings_Dialog::init_page_startup ( )
 	}
 
 	_page_startup = wdg_all;
-	add_page ( tr ( "Startup" ), _page_startup );
+	add_page_vscroll ( tr ( "Startup" ), _page_startup );
 }
 
 
@@ -154,7 +153,7 @@ Settings_Dialog::init_page_appearance ( )
 	}
 
 	_page_appearance = wdg_all;
-	add_page ( tr ( "Appearance" ), _page_appearance );
+	add_page_vscroll ( tr ( "Appearance" ), _page_appearance );
 }
 
 
@@ -213,7 +212,7 @@ Settings_Dialog::init_page_input ( )
 	}
 
 	_page_input = wdg_all;
-	add_page ( tr ( "Input" ), _page_input );
+	add_page_vscroll ( tr ( "Input" ), _page_input );
 }
 
 
@@ -347,7 +346,7 @@ Settings_Dialog::init_page_sys_tray ( )
 	}
 
 	_page_sys_tray = wdg_all;
-	add_page ( tr ( "System tray" ), _page_sys_tray );
+	add_page_vscroll ( tr ( "System tray" ), _page_sys_tray );
 }
 
 

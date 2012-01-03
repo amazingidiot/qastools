@@ -12,6 +12,7 @@
 
 #include "text_browser.hpp"
 
+#include <iostream>
 
 namespace Wdg
 {
@@ -45,8 +46,8 @@ Text_Browser::setHtml (
 QSize
 Text_Browser::sizeHint () const
 {
-	QSize hint ( _hint_width, _hint_height );
-	return hint;
+	QSize shint ( _hint_width, _hint_height );
+	return shint;
 }
 
 
@@ -57,13 +58,15 @@ Text_Browser::update_size_hint ( )
 
 	// Adjust main root frame padding
 	QTextFrame * rf ( document()->rootFrame() );
-	QTextFrameFormat fformat ( rf->frameFormat() );
-	fformat.setPadding ( 8 );
-	rf->setFrameFormat ( fformat );
+	{
+		QTextFrameFormat fformat ( rf->frameFormat() );
+		fformat.setPadding ( fontMetrics().averageCharWidth() );
+		rf->setFrameFormat ( fformat );
+	}
 
 	document()->adjustSize();
 
-	_hint_width  = document()->size().width() + 0.5f;
+	_hint_width  = document()->size().width() + 0.5;
 	_hint_width += verticalScrollBar()->sizeHint().width();
 	_hint_width += 2*frameWidth();
 

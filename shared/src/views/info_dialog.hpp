@@ -15,9 +15,6 @@
 
 #include "views/multi_page_dialog.hpp"
 
-// Forward declaration
-namespace Wdg { class Text_Browser; }
-
 namespace Views
 {
 
@@ -48,10 +45,6 @@ class Info_Dialog :
 
 	// Private attributes
 	private:
-
-	::Wdg::Text_Browser * _txt_info;
-	::Wdg::Text_Browser * _txt_people;
-	::Wdg::Text_Browser * _txt_license;
 };
 
 

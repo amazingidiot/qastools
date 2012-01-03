@@ -43,6 +43,11 @@ class Multi_Page_Dialog :
 	~Multi_Page_Dialog ( );
 
 	void
+	add_page_vscroll (
+		const QString & name_n,
+		QWidget * wdg_n );
+
+	void
 	add_page (
 		const QString & name_n,
 		QWidget * wdg_n );

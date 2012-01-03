@@ -100,7 +100,7 @@ Multi_Page_Dialog::~Multi_Page_Dialog ( )
 
 
 void
-Multi_Page_Dialog::add_page (
+Multi_Page_Dialog::add_page_vscroll (
 	const QString & name_n,
 	QWidget * wdg_n )
 {
@@ -114,8 +114,23 @@ Multi_Page_Dialog::add_page (
 			new ::Wdg::Scroll_Area_Vertical );
 		vscroll->setFrameStyle ( QFrame::NoFrame );
 		vscroll->set_widget ( wdg_n );
-		_lay_pages_stack->addWidget ( vscroll );
+
+		add_page ( name_n, vscroll );
 	}
+}
+
+
+void
+Multi_Page_Dialog::add_page (
+	const QString & name_n,
+	QWidget * wdg_n )
+{
+	if ( wdg_n == 0 ) {
+		return;
+	}
+
+	// Add widget
+	_lay_pages_stack->addWidget ( wdg_n );
 
 	// Add selection entry
 	{

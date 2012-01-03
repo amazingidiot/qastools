@@ -14,7 +14,6 @@
 
 #include "qastools_config.hpp"
 #include "wdg/text_browser.hpp"
-#include "views/view_utility.hpp"
 
 #include <QVBoxLayout>
 #include <QLocale>
@@ -23,7 +22,6 @@
 #include <QDir>
 #include <QPushButton>
 
-
 namespace Views
 {
 
@@ -31,10 +29,7 @@ namespace Views
 Info_Dialog::Info_Dialog (
 	QWidget * parent_n,
 	Qt::WindowFlags flags_n ) :
-::Views::Multi_Page_Dialog ( parent_n, flags_n ),
-_txt_info ( 0 ),
-_txt_people ( 0 ),
-_txt_license ( 0 )
+::Views::Multi_Page_Dialog ( parent_n, flags_n )
 {
 	// Window title
 	{
@@ -51,6 +46,10 @@ _txt_license ( 0 )
 		txt = txt.arg ( PACKAGE_VERSION );
 		set_title_str ( txt );
 	}
+
+	::Wdg::Text_Browser * _txt_info ( 0 );
+	::Wdg::Text_Browser * _txt_people ( 0 );
+	::Wdg::Text_Browser * _txt_license ( 0 );
 
 	const QString hmask ( "<h3>%1</h3>\n" );
 
@@ -82,7 +81,6 @@ _txt_license ( 0 )
 
 
 		_txt_info = new ::Wdg::Text_Browser;
-		_txt_info->setFrameStyle ( QFrame::NoFrame );
 		_txt_info->setAlignment ( Qt::AlignLeft | Qt::AlignTop );
 		_txt_info->setWordWrapMode ( QTextOption::NoWrap );
 		_txt_info->setOpenLinks ( true );
@@ -124,7 +122,6 @@ _txt_license ( 0 )
 		txt += trmask.arg ( "Pavel Fric", "pavelfric@seznam.cz", "cs" );
 
 		_txt_people = new ::Wdg::Text_Browser;
-		_txt_people->setFrameStyle ( QFrame::NoFrame );
 		_txt_people->setAlignment ( Qt::AlignLeft | Qt::AlignTop );
 		_txt_people->setWordWrapMode ( QTextOption::NoWrap );
 		_txt_people->setOpenLinks ( true );
@@ -160,7 +157,7 @@ _txt_license ( 0 )
 		}
 
 		if ( _txt_license != 0 ) {
-			_txt_license->setFrameStyle ( QFrame::NoFrame );
+			//_txt_license->setFrameStyle ( QFrame::NoFrame );
 			_txt_license->setAlignment ( Qt::AlignLeft | Qt::AlignTop );
 			_txt_license->setWordWrapMode ( QTextOption::NoWrap );
 			_txt_license->setOpenLinks ( true );
@@ -175,9 +172,11 @@ _txt_license ( 0 )
 		}
 	}
 
-	add_page ( tr ( "&Information" ), _txt_info );
-	add_page ( tr ( "&People" ), _txt_people );
-	add_page ( tr ( "&License" ), _txt_license );
+	add_page ( tr ( "Information" ), _txt_info );
+	add_page ( tr ( "People" ), _txt_people );
+	add_page ( tr ( "License" ), _txt_license );
+
+	set_current_page_idx ( 0 );
 }
 
 
