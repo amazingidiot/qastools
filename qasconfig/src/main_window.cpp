@@ -62,20 +62,33 @@ Main_Window::restore_state ( )
 {
 	QSettings settings;
 
+	QByteArray mwin_state;
+	QByteArray mwin_geom;
+	bool cfg_sorted;
+
+	// Main window state
 	{
-		const QByteArray & ba = settings.value (
-			"main_window_state", QByteArray() ).toByteArray();
-		restoreState ( ba );
+		settings.beginGroup ( "main_window" );
+		mwin_state = settings.value ( "window_state",
+			QByteArray() ).toByteArray();
+		mwin_geom = settings.value ( "window_geometry",
+			QByteArray() ).toByteArray();
+		settings.endGroup();
 	}
+
+	// Configuration view
 	{
-		const QByteArray & ba = settings.value (
-			"main_window_geometry", QByteArray() ).toByteArray();
-		if ( !restoreGeometry ( ba ) ) {
-			::Views::resize_to_default ( this );
-		}
+		settings.beginGroup ( "alsa_config" );
+		cfg_sorted = settings.value ( "sorting_enabled", true ).toBool();
+		settings.endGroup();
 	}
-	_alsa_cfg_view.set_sorting_enabled (
-		settings.value ( "sorting_enabled", true ).toBool() );
+
+	// Apply settings
+	restoreState ( mwin_state );
+	if ( !restoreGeometry ( mwin_geom ) ) {
+		::Views::resize_to_default ( this );
+	}
+	_alsa_cfg_view.set_sorting_enabled ( cfg_sorted );
 }
 
 
@@ -84,9 +97,14 @@ Main_Window::save_state ( )
 {
 	QSettings settings;
 
-	settings.setValue ( "main_window_state", saveState() );
-	settings.setValue ( "main_window_geometry", saveGeometry() );
+	settings.beginGroup ( "main_window" );
+	settings.setValue ( "window_state", saveState() );
+	settings.setValue ( "window_geometry", saveGeometry() );
+	settings.endGroup();
+
+	settings.beginGroup ( "alsa_config" );
 	settings.setValue ( "sorting_enabled", _alsa_cfg_view.sorting_enabled() );
+	settings.endGroup();
 }
 
 
