@@ -117,13 +117,17 @@ Controls_Delegate::paint (
 		painter_n->drawRect ( opt.rect );
 
 		// Paint frame
-		if ( ( opt.state & QStyle::State_Selected ) && ( opt.state & QStyle::State_Active ) ) {
+		if ( ( opt.state & QStyle::State_Selected ) ) {
 			painter_n->setBrush ( Qt::NoBrush );
 			{
 				QPen pen;
 				{
 					QColor pcol ( col_fg );
-					pcol.setAlpha ( 128 );
+					if ( ( opt.state & QStyle::State_Active ) ) {
+						pcol.setAlpha ( 110 );
+					} else {
+						pcol.setAlpha ( 0 );
+					}
 					pen.setColor ( pcol );
 				}
 				pen.setWidth ( 1 );
