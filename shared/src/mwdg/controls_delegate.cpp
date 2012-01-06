@@ -81,6 +81,7 @@ Controls_Delegate::paint (
 
 	QFont fnt ( opt.font );
 	QColor col_fg;
+	double rrad ( qMin ( _hmargin, _vmargin ) );
 
 	{
 		// Color group from state
@@ -107,36 +108,46 @@ Controls_Delegate::paint (
 
 	// Save and setup painter
 	painter_n->save();
-	painter_n->setRenderHint ( QPainter::TextAntialiasing );
+	painter_n->setRenderHints ( QPainter::TextAntialiasing | QPainter::Antialiasing );
 
 	// Paint background
 	{
 		// Paint solid area
-		painter_n->setBrush ( opt.backgroundBrush );
-		painter_n->setPen ( Qt::NoPen );
-		painter_n->drawRect ( opt.rect );
+		{
+			painter_n->setBrush ( opt.backgroundBrush );
+			painter_n->setPen ( Qt::NoPen );
+			painter_n->drawRoundedRect ( opt.rect, rrad, rrad );
+		}
 
 		// Paint frame
 		if ( ( opt.state & QStyle::State_Selected ) ) {
 			painter_n->setBrush ( Qt::NoBrush );
 			{
 				QPen pen;
+				pen.setWidth ( 1 );
 				{
 					QColor pcol ( col_fg );
 					if ( ( opt.state & QStyle::State_Active ) ) {
-						pcol.setAlpha ( 110 );
+						pcol.setAlpha ( 128 );
 					} else {
-						pcol.setAlpha ( 0 );
+						pcol.setAlpha ( 32 );
 					}
 					pen.setColor ( pcol );
 				}
-				pen.setWidth ( 1 );
-				pen.setStyle ( Qt::DotLine );
+				{
+					Qt::PenStyle pstyle;
+					if ( ( opt.state & QStyle::State_Active ) ) {
+						pstyle = Qt::DotLine;
+					} else {
+						pstyle = Qt::SolidLine;
+					}
+					pen.setStyle ( pstyle );
+				}
 				painter_n->setPen ( pen );
 			}
-			QRect re_frame ( opt.rect );
-			re_frame.adjust ( 0, 0, -1, -1 );
-			painter_n->drawRect ( re_frame );
+			QRectF re_frame ( opt.rect );
+			re_frame.adjust ( 0.5, 0.5, -0.5, -0.5 );
+			painter_n->drawRoundedRect ( re_frame, rrad, rrad );
 		}
 	}
 
