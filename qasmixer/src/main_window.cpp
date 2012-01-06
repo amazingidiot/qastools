@@ -178,15 +178,7 @@ QSize
 Main_Window::sizeHint ( ) const
 {
 	QSize res ( QMainWindow::sizeHint() );
-	QRect rhint;
-	if ( ::Views::win_default_geometry ( rhint ) ) {
-		if ( res.width() < rhint.width() ) {
-			res.setWidth ( rhint.width() );
-		}
-		if ( res.height() < rhint.height() ) {
-			res.setHeight ( rhint.height() );
-		}
-	}
+	::Views::win_default_size ( res );
 	return res;
 }
 

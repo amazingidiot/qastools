@@ -131,6 +131,24 @@ win_default_geometry (
 }
 
 
+bool
+win_default_size (
+	QSize & size_n )
+{
+	QRect rhint;
+	if ( ::Views::win_default_geometry ( rhint ) ) {
+		if ( size_n.width() < rhint.width() ) {
+			size_n.setWidth ( rhint.width() );
+		}
+		if ( size_n.height() < rhint.height() ) {
+			size_n.setHeight ( rhint.height() );
+		}
+		return true;
+	}
+	return false;
+}
+
+
 void
 resize_to_default (
 	QMainWindow * mwin_n )

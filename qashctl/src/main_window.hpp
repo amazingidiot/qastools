@@ -42,11 +42,8 @@ class Main_Window :
 
 	Main_Window ( );
 
-
-	bool
-	eventFilter (
-		QObject * obj_n,
-		QEvent * event_n );
+	QSize
+	sizeHint ( ) const;
 
 
 	void
@@ -55,6 +52,11 @@ class Main_Window :
 	void
 	save_state ( );
 
+
+	bool
+	eventFilter (
+		QObject * obj_n,
+		QEvent * event_n );
 
 	// Public slots
 	public slots:

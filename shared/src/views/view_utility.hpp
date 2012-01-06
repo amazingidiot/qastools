@@ -34,6 +34,11 @@ bool
 win_default_geometry (
 	QRect & rect_n );
 
+/// @return true on successful size determination
+bool
+win_default_size (
+	QSize & size_n );
+
 void
 resize_to_default (
 	QMainWindow * mwin_n );

@@ -33,6 +33,9 @@ class Main_Window :
 
 	Main_Window ( );
 
+	QSize
+	sizeHint ( ) const;
+
 
 	void
 	restore_state ( );

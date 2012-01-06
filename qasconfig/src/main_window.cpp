@@ -48,6 +48,14 @@ Main_Window::Main_Window ( )
 }
 
 
+QSize
+Main_Window::sizeHint ( ) const
+{
+	QSize res ( QMainWindow::sizeHint() );
+	::Views::win_default_size ( res );
+	return res;
+}
+
 
 void
 Main_Window::restore_state ( )
