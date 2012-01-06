@@ -174,6 +174,23 @@ Main_Window::init_widgets ( )
 }
 
 
+QSize
+Main_Window::sizeHint ( ) const
+{
+	QSize res ( QMainWindow::sizeHint() );
+	QRect rhint;
+	if ( ::Views::win_default_geometry ( rhint ) ) {
+		if ( res.width() < rhint.width() ) {
+			res.setWidth ( rhint.width() );
+		}
+		if ( res.height() < rhint.height() ) {
+			res.setHeight ( rhint.height() );
+		}
+	}
+	return res;
+}
+
+
 void
 Main_Window::set_window_setup (
 	Main_Window_Setup * setup_n )

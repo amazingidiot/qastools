@@ -88,19 +88,17 @@ load_application_icon (
 }
 
 
-void
-resize_to_default (
-	QMainWindow * mwin_n )
+bool
+win_default_geometry (
+	QRect & rect_n )
 {
-
-	// Adjust startup size
-	{
-		const QSize default_size ( 800, 450 );
-		const QRect ravail ( QApplication::desktop()->availableGeometry() );
-
-		if ( ravail.isValid() ) {
-
-			const unsigned int aspect[2] = { 16, 9 };
+	const unsigned int aspect[2] = { 16, 9 };
+	const QRect ravail ( QApplication::desktop()->availableGeometry() );
+	const bool res ( ravail.isValid() );
+	if ( res ) {
+		QSize rsize;
+		{
+			// Calculate window size from available screen area
 			unsigned int rel_width[2];
 			if ( ravail.width() > 1024 ) {
 				// Larger screens
@@ -112,19 +110,37 @@ resize_to_default (
 				rel_width[1] = 4;
 			}
 
-			QRect wrect;
-			wrect.setWidth ( ( ravail.width() * rel_width[0] ) / rel_width[1] );
-			wrect.setHeight ( ( wrect.width() * aspect[1] ) / aspect[0] );
-			if ( wrect.height() > ravail.height() ) {
-				wrect.setHeight ( ravail.height() );
+			rsize.setWidth ( ( ravail.width() * rel_width[0] ) / rel_width[1] );
+			rsize.setHeight ( ( rsize.width() * aspect[1] ) / aspect[0] );
+			if ( rsize.width() > ravail.width() ) {
+				rsize.setWidth ( ravail.width() );
 			}
-			wrect.moveTop ( ( ravail.height() - wrect.height() ) / 2 );
-			wrect.moveLeft ( ( ravail.width() - wrect.width() ) / 2 );
-			mwin_n->resize ( wrect.size() );
-			mwin_n->move ( wrect.topLeft() );
-		} else {
-			mwin_n->resize ( default_size );
+			if ( rsize.height() > ravail.height() ) {
+				rsize.setHeight ( ravail.height() );
+			}
 		}
+
+		rect_n.setSize ( rsize );
+		rect_n.moveTop ( ( ravail.height() - rect_n.height() ) / 2 );
+		rect_n.moveLeft ( ( ravail.width() - rect_n.width() ) / 2 );
+	} else {
+		const QSize default_size ( 800, 450 );
+		rect_n.setSize ( default_size );
+	}
+	return res;
+}
+
+
+void
+resize_to_default (
+	QMainWindow * mwin_n )
+{
+	QRect wrect;
+	if ( win_default_geometry ( wrect ) ) {
+		mwin_n->resize ( wrect.size() );
+		mwin_n->move ( wrect.topLeft() );
+	} else {
+		mwin_n->resize ( wrect.size() );
 	}
 }
 

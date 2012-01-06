@@ -42,6 +42,8 @@ class Main_Window :
 
 	~Main_Window ( );
 
+	QSize
+	sizeHint ( ) const;
 
 	void
 	set_window_setup (

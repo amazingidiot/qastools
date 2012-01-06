@@ -29,6 +29,11 @@ load_application_icon (
 	QApplication * app_n,
 	const QString & fallback_n );
 
+/// @return true on successful size determination
+bool
+win_default_geometry (
+	QRect & rect_n );
+
 void
 resize_to_default (
 	QMainWindow * mwin_n );
