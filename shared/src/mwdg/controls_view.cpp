@@ -194,6 +194,15 @@ Controls_View::event (
 
 
 void
+Controls_View::changeEvent (
+	QEvent * event_n )
+{
+	maximum_height_update_request();
+	QListView::changeEvent ( event_n );
+}
+
+
+void
 Controls_View::maximum_height_update ( )
 {
 	unsigned int hsum ( 16000 );
@@ -219,8 +228,9 @@ Controls_View::maximum_height_update ( )
 	}
 	//::std::cout << "Controls_View::maximum_height_update " << hsum << "\n";
 
-	setMaximumHeight ( hsum );
-	updateGeometry();
+	if ( maximumHeight() != (int)hsum ) {
+		setMaximumHeight ( hsum );
+	}
 }
 
 

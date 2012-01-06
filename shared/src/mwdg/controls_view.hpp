@@ -65,6 +65,10 @@ class Controls_View :
 	protected:
 
 	void
+	changeEvent (
+		QEvent * event_n );
+
+	void
 	maximum_height_update ( );
 
 
