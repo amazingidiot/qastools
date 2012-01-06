@@ -20,6 +20,7 @@
 
 #include <QMainWindow>
 #include <QDialog>
+#include <QSplitter>
 #include <QFileSystemWatcher>
 #include <QPointer>
 #include <QScopedPointer>
@@ -52,11 +53,6 @@ class Main_Window :
 	void
 	save_state ( );
 
-
-	bool
-	eventFilter (
-		QObject * obj_n,
-		QEvent * event_n );
 
 	// Public slots
 	public slots:
@@ -109,7 +105,7 @@ class Main_Window :
 	private:
 
 	void
-	init_docks ( );
+	init_widgets ( );
 
 	void
 	init_menu_bar ( );
@@ -129,9 +125,10 @@ class Main_Window :
 	Main_Window_Setup _setup;
 
 	// Widgets
-	QScopedPointer < ::Views::Mixer_HCTL > _mixer_wdg;
+	QScopedPointer < QSplitter > _splitter;
+	::Views::Mixer_HCTL * _mixer_hctl;
 	::Views::Dev_Select_View * _dev_select;
-	QDockWidget * _dev_select_dock;
+
 	QPointer < QDialog > _info_dialog;
 
 	// Menubar

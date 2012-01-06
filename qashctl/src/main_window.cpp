@@ -104,38 +104,45 @@ Main_Window::Main_Window ( )
 	}
 
 	// Widgets and docks
-	init_docks();
+	init_widgets();
 	init_menu_bar();
-
-	_mixer_wdg.reset ( new ::Views::Mixer_HCTL );
-	setCentralWidget ( _mixer_wdg.data() );
 
 	update_fullscreen_action();
 }
 
 
 void
-Main_Window::init_docks ( )
+Main_Window::init_widgets ( )
 {
-	_dev_select_dock = new QDockWidget ( this );
-	_dev_select_dock->hide(); // Start hidden
-	_dev_select_dock->setTitleBarWidget ( new QWidget ( _dev_select_dock ) );
-	_dev_select_dock->setFeatures ( QDockWidget::DockWidgetMovable );
-	_dev_select_dock->setObjectName ( "device_dock" );
-	_dev_select_dock->setAllowedAreas (
-		Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea );
-	_dev_select_dock->installEventFilter ( this );
+	// Device selection
+	{
+		// QueuedConnection to update the GUI before loading the mixer
+		_dev_select = new ::Views::Dev_Select_View;
+		_dev_select->hide();
 
-	// QueuedConnection to update the GUI before loading the mixer
-	_dev_select = new ::Views::Dev_Select_View;
-	connect ( _dev_select, SIGNAL ( sig_control_changed() ),
-		this, SLOT ( select_ctl_from_side_iface() ), Qt::QueuedConnection );
+		connect ( _dev_select, SIGNAL ( sig_control_changed() ),
+			this, SLOT ( select_ctl_from_side_iface() ), Qt::QueuedConnection );
 
-	connect ( _dev_select, SIGNAL ( sig_close() ),
-		this, SLOT ( toggle_device_selection() ) );
+		connect ( _dev_select, SIGNAL ( sig_close() ),
+			this, SLOT ( toggle_device_selection() ) );
+	}
 
-	_dev_select_dock->setWidget ( _dev_select );
-	addDockWidget ( Qt::RightDockWidgetArea, _dev_select_dock );
+	// Central mixer
+	{
+		_mixer_hctl = new ::Views::Mixer_HCTL;
+	}
+
+	// Central splitter
+	{
+		_splitter.reset ( new QSplitter );
+		_splitter->addWidget ( _mixer_hctl );
+		_splitter->addWidget ( _dev_select );
+		_splitter->setStretchFactor ( 0, 1 );
+		_splitter->setStretchFactor ( 1, 0 );
+		_splitter->setCollapsible ( 0, false );
+		_splitter->setCollapsible ( 1, false );
+		setCentralWidget ( _splitter.data() );
+	}
 }
 
 
@@ -223,28 +230,37 @@ Main_Window::restore_state ( )
 {
 	QSettings settings;
 
+	QByteArray mwin_state;
+	QByteArray mwin_geom;
+	QByteArray mwin_splitter;
+
+	// Main window state
 	{
-		const QByteArray & ba = settings.value (
-			"main_window_state", QByteArray() ).toByteArray();
-		restoreState ( ba );
-	}
-	{
-		const QByteArray & ba = settings.value (
-			"main_window_geometry", QByteArray() ).toByteArray();
-		if ( !restoreGeometry ( ba ) ) {
-			::Views::resize_to_default ( this );
+		settings.beginGroup ( "main_window" );
+		{
+			mwin_state = settings.value ( "window_state",
+				QByteArray() ).toByteArray();
+
+			mwin_geom = settings.value ( "window_geometry",
+				QByteArray() ).toByteArray();
+
+			mwin_splitter = settings.value ( "splitter_state",
+				QByteArray() ).toByteArray();
 		}
-		update_fullscreen_action();
+
+		_setup.show_dev_select = settings.value ( "show_device_selection",
+			_setup.show_dev_select ).toBool();
+		settings.endGroup();
 	}
 
-	_setup.show_dev_select = settings.value ( "show_device_selection",
-		_setup.show_dev_select ).toBool();
+	// General
+	{
+		_setup.mixer_dev.ctl_addr = settings.value ( "current_device",
+			_setup.mixer_dev.ctl_addr ).toString();
 
-	_setup.mixer_dev.ctl_addr = settings.value ( "current_device",
-		_setup.mixer_dev.ctl_addr ).toString();
-
-	_setup.inputs.wheel_degrees = settings.value ( "wheel_degrees",
-		_setup.inputs.wheel_degrees ).toUInt();
+		_setup.inputs.wheel_degrees = settings.value ( "wheel_degrees",
+			_setup.inputs.wheel_degrees ).toUInt();
+	}
 
 	// CTL mixer
 	{
@@ -284,13 +300,19 @@ Main_Window::restore_state ( )
 
 	_setup.inputs.update_translation();
 
-	// Setup widgets
+	// Apply values
+	restoreState ( mwin_state );
+	if ( !restoreGeometry ( mwin_geom ) ) {
+		::Views::resize_to_default ( this );
+	}
+	_splitter->restoreState ( mwin_splitter );
+	update_fullscreen_action();
 	show_device_selection ( _setup.show_dev_select );
 	_dev_select->set_view_setup ( &_setup.dev_select );
 	_dev_select->silent_select_ctl ( _setup.mixer_dev.ctl_addr );
-	_mixer_wdg->set_inputs_setup ( &_setup.inputs );
-	_mixer_wdg->set_mdev_setup ( &_setup.mixer_dev );
-	_mixer_wdg->set_view_setup ( &_setup.hctl );
+	_mixer_hctl->set_inputs_setup ( &_setup.inputs );
+	_mixer_hctl->set_mdev_setup ( &_setup.mixer_dev );
+	_mixer_hctl->set_view_setup ( &_setup.hctl );
 }
 
 
@@ -299,10 +321,16 @@ Main_Window::save_state ( )
 {
 	QSettings settings;
 
-	settings.setValue ( "main_window_state", saveState() );
-	settings.setValue ( "main_window_geometry", saveGeometry() );
+	// Main window state
+	{
+		settings.beginGroup ( "main_window" );
+		settings.setValue ( "window_state", saveState() );
+		settings.setValue ( "window_geometry", saveGeometry() );
+		settings.setValue ( "splitter_state", _splitter->saveState() );
+		settings.setValue ( "show_device_selection", _setup.show_dev_select );
+		settings.endGroup();
+	}
 
-	settings.setValue ( "show_device_selection", _setup.show_dev_select );
 	settings.setValue ( "current_device", _setup.mixer_dev.ctl_addr );
 	settings.setValue ( "wheel_degrees", _setup.inputs.wheel_degrees );
 
@@ -328,8 +356,8 @@ void
 Main_Window::refresh ( )
 {
 	//::std::cout << "Refresh" << "\n";
-	_mixer_wdg->set_mdev_setup ( 0 );
-	_mixer_wdg->set_mdev_setup ( &_setup.mixer_dev );
+	_mixer_hctl->set_mdev_setup ( 0 );
+	_mixer_hctl->set_mdev_setup ( &_setup.mixer_dev );
 }
 
 
@@ -339,9 +367,9 @@ Main_Window::select_snd_ctl (
 	const QString & ctl_n )
 {
 	if ( ctl_n != _setup.mixer_dev.ctl_addr ) {
-		_mixer_wdg->set_mdev_setup ( 0 );
+		_mixer_hctl->set_mdev_setup ( 0 );
 		_setup.mixer_dev.ctl_addr = ctl_n;
-		_mixer_wdg->set_mdev_setup ( &_setup.mixer_dev );
+		_mixer_hctl->set_mdev_setup ( &_setup.mixer_dev );
 	}
 }
 
@@ -376,7 +404,7 @@ Main_Window::show_device_selection (
 		_setup.show_dev_select = flag_n;
 	}
 	_act_show_dev_select->setChecked ( flag_n );
-	_dev_select_dock->setVisible ( flag_n );
+	_dev_select->setVisible ( flag_n );
 }
 
 
@@ -441,20 +469,5 @@ Main_Window::closeEvent (
 {
 	save_state();
 	QMainWindow::closeEvent ( event_n );
-}
-
-
-bool
-Main_Window::eventFilter (
-	QObject * obj_n,
-	QEvent * event_n )
-{
-	bool filtered ( false );
-	if ( obj_n == _dev_select_dock ) {
-		if ( event_n->type() == QEvent::Close ) {
-			_act_show_dev_select->setChecked ( false );
-		}
-	}
-	return filtered;
 }
 

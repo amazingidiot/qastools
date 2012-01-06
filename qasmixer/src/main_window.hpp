@@ -20,6 +20,7 @@
 #include <QActionGroup>
 #include <QMainWindow>
 #include <QSplitter>
+#include <QScopedPointer>
 
 // Forward declaration
 namespace Views {
@@ -143,9 +144,9 @@ class Main_Window :
 	Main_Window_Setup * _win_setup;
 
 	// Base widgets
+	QScopedPointer < QSplitter > _splitter;
 	::Views::Mixer_Simple * _mixer_simple;
 	::Views::Dev_Select_View * _dev_select;
-	QSplitter * _splitter;
 
 	// Menubar
 	QMenu * _menu_mixer;

@@ -32,8 +32,7 @@ Main_Window::Main_Window (
 QMainWindow ( parent_n, flags_n ),
 _win_setup ( 0 ),
 _mixer_simple ( 0 ),
-_dev_select ( 0 ),
-_splitter ( 0 )
+_dev_select ( 0 )
 {
 	setWindowTitle ( PROGRAM_TITLE );
 	setObjectName ( PROGRAM_TITLE );
@@ -157,19 +156,19 @@ Main_Window::init_widgets ( )
 
 	// Central mixer
 	{
-		_mixer_simple = new ::Views::Mixer_Simple();
+		_mixer_simple = new ::Views::Mixer_Simple;
 	}
 
 	// Central splitter
 	{
-		_splitter = new QSplitter();
+		_splitter.reset ( new QSplitter );
 		_splitter->addWidget ( _mixer_simple );
 		_splitter->addWidget ( _dev_select );
 		_splitter->setStretchFactor ( 0, 1 );
 		_splitter->setStretchFactor ( 1, 0 );
 		_splitter->setCollapsible ( 0, false );
 		_splitter->setCollapsible ( 1, false );
-		setCentralWidget ( _splitter );
+		setCentralWidget ( _splitter.data() );
 	}
 }
 
