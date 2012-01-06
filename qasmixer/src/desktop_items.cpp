@@ -21,7 +21,6 @@
 #include "wdg/ds_switch_painter_close.hpp"
 #include "wdg/ds_switch_painter_svg.hpp"
 #include "wdg/ds_widget_types.hpp"
-#include "views/view_utility.hpp"
 #include "views/info_dialog.hpp"
 #include "views/settings_dialog.hpp"
 
@@ -380,20 +379,7 @@ Desktop_Items::main_mixer_create ( )
 	connect ( _main_mixer, SIGNAL ( sig_show_info() ),
 		this, SLOT ( show_dialog_info() ) );
 
-
-	// Restore mixer window state
-	bool size_restored;
-	_main_mixer->restoreState (
-		_dsetup.main_window.window_state );
-	size_restored = _main_mixer->restoreGeometry (
-		_dsetup.main_window.window_geometry );
-
-	// Adjust startup size
-	if ( !size_restored ) {
-		::Views::resize_to_default ( _main_mixer );
-	}
-
-	_main_mixer->set_mixer_setup ( &_dsetup.main_window );
+	_main_mixer->set_window_setup ( &_dsetup.main_window );
 	_main_mixer->show();
 }
 

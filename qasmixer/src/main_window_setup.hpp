@@ -37,6 +37,7 @@ class Main_Window_Setup
 	bool show_dev_select;
 	QByteArray window_state;
 	QByteArray window_geometry;
+	QByteArray splitter_state;
 
 	::MWdg::Mixer_Device_Setup mixer_dev;
 	::MWdg::Inputs_Setup inputs;

@@ -19,7 +19,7 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QMainWindow>
-#include <QDockWidget>
+#include <QSplitter>
 
 // Forward declaration
 namespace Views {
@@ -44,17 +44,12 @@ class Main_Window :
 
 
 	void
-	set_mixer_setup (
+	set_window_setup (
 		Main_Window_Setup * setup_n );
 
 	void
 	select_ctl (
 		const QString & ctl_n );
-
-	bool
-	eventFilter (
-		QObject * obj_n,
-		QEvent * event_n );
 
 
 	// Signals
@@ -137,18 +132,18 @@ class Main_Window :
 	init_menus ( );
 
 	void
-	init_docks ( );
+	init_widgets ( );
 
 
 	// Private attributes
 	private:
 
-	Main_Window_Setup * _mixer_setup;
+	Main_Window_Setup * _win_setup;
 
 	// Base widgets
 	::Views::Mixer_Simple * _mixer_simple;
 	::Views::Dev_Select_View * _dev_select;
-	QDockWidget * _dev_select_dock;
+	QSplitter * _splitter;
 
 	// Menubar
 	QMenu * _menu_mixer;

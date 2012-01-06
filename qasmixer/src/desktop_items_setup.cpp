@@ -33,15 +33,6 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	QSettings settings;
 
-	mwin.window_state = settings.value ( "main_window_state",
-		mwin.window_state ).toByteArray();
-
-	mwin.window_geometry = settings.value ( "main_window_geometry",
-		mwin.window_geometry ).toByteArray();
-
-	mwin.show_dev_select = settings.value ( "show_device_selection",
-		mwin.show_dev_select ).toBool();
-
 	start_device_mode = settings.value ( "start_device_mode",
 		start_device_mode ).toUInt();
 
@@ -63,6 +54,26 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	tray_is_minimized = settings.value ( "tray_is_minimized",
 		tray_is_minimized ).toBool();
+
+
+	// Main window state
+	{
+		settings.beginGroup ( "main_window" );
+
+		mwin.window_state = settings.value ( "window_state",
+			mwin.window_state ).toByteArray();
+
+		mwin.window_geometry = settings.value ( "window_geometry",
+			mwin.window_geometry ).toByteArray();
+
+		mwin.splitter_state = settings.value ( "splitter_state",
+			mwin.splitter_state ).toByteArray();
+
+		mwin.show_dev_select = settings.value ( "show_device_selection",
+			mwin.show_dev_select ).toBool();
+
+		settings.endGroup();
+	}
 
 
 	// Device selection
@@ -180,9 +191,6 @@ Desktop_Items_Setup::write_to_storage ( )
 	settings.setValue ( "current_device",
 		main_window.mixer_dev.ctl_addr );
 
-	settings.setValue ( "show_device_selection",
-		main_window.show_dev_select );
-
 	settings.setValue ( "wheel_degrees",
 		main_window.inputs.wheel_degrees );
 
@@ -197,11 +205,24 @@ Desktop_Items_Setup::write_to_storage ( )
 		tray_is_minimized );
 
 
-	settings.setValue ( "main_window_state",
-		main_window.window_state );
+	// Main window state
+	{
+		settings.beginGroup ( "main_window" );
 
-	settings.setValue ( "main_window_geometry",
-		main_window.window_geometry );
+		settings.setValue ( "window_state",
+			main_window.window_state );
+
+		settings.setValue ( "window_geometry",
+			main_window.window_geometry );
+
+		settings.setValue ( "splitter_state",
+			main_window.splitter_state );
+
+		settings.setValue ( "show_device_selection",
+			main_window.show_dev_select );
+
+		settings.endGroup();
+	}
 
 
 	// Device selection

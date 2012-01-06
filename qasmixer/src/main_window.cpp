@@ -14,6 +14,7 @@
 
 #include "views/mixer_simple.hpp"
 #include "views/dev_select_view.hpp"
+#include "views/view_utility.hpp"
 
 #include <QMenuBar>
 #include <QSplitter>
@@ -29,10 +30,10 @@ Main_Window::Main_Window (
 	QWidget * parent_n,
 	Qt::WindowFlags flags_n ) :
 QMainWindow ( parent_n, flags_n ),
-_mixer_setup ( 0 ),
+_win_setup ( 0 ),
 _mixer_simple ( 0 ),
 _dev_select ( 0 ),
-_dev_select_dock ( 0 )
+_splitter ( 0 )
 {
 	setWindowTitle ( PROGRAM_TITLE );
 	setObjectName ( PROGRAM_TITLE );
@@ -45,11 +46,8 @@ _dev_select_dock ( 0 )
 
 	// Init menus
 	init_menus();
-	init_docks();
+	init_widgets();
 
-	_mixer_simple = new ::Views::Mixer_Simple();
-
-	setCentralWidget ( _mixer_simple );
 	update_fullscreen_action();
 }
 
@@ -142,58 +140,68 @@ Main_Window::init_menus ( )
 
 
 void
-Main_Window::init_docks ( )
+Main_Window::init_widgets ( )
 {
-	_dev_select = new ::Views::Dev_Select_View;
+	// Device selection
+	{
+		_dev_select = new ::Views::Dev_Select_View;
+		_dev_select->hide();
 
-	// QueuedConnection to update the GUI before loading the mixer
-	connect ( _dev_select, SIGNAL ( sig_control_changed() ),
-		this, SLOT ( select_ctl_from_side_iface() ), Qt::QueuedConnection );
+		// QueuedConnection to update the GUI before loading the mixer
+		connect ( _dev_select, SIGNAL ( sig_control_changed() ),
+			this, SLOT ( select_ctl_from_side_iface() ), Qt::QueuedConnection );
 
-	connect ( _dev_select, SIGNAL ( sig_close() ),
-		this, SLOT ( toggle_device_selection() ) );
+		connect ( _dev_select, SIGNAL ( sig_close() ),
+			this, SLOT ( toggle_device_selection() ) );
+	}
 
-	QString dock_title ( tr ( "Mixer device" ) );
-	_dev_select_dock = new QDockWidget ( this );
-	_dev_select_dock->hide(); // Start hidden
-	//_dev_select_dock->setWindowTitle ( dock_title );
-	_dev_select_dock->setTitleBarWidget ( new QWidget ( _dev_select_dock ) );
-	_dev_select_dock->setFeatures ( QDockWidget::DockWidgetMovable );
-	_dev_select_dock->setObjectName ( "device_dock" );
-	_dev_select_dock->setWidget ( _dev_select );
-	_dev_select_dock->setAllowedAreas (
-		Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea );
-	_dev_select_dock->installEventFilter ( this );
+	// Central mixer
+	{
+		_mixer_simple = new ::Views::Mixer_Simple();
+	}
 
-	addDockWidget ( Qt::RightDockWidgetArea, _dev_select_dock );
+	_splitter = new QSplitter();
+	_splitter->addWidget ( _mixer_simple );
+	_splitter->addWidget ( _dev_select );
+	_splitter->setStretchFactor ( 0, 1 );
+	_splitter->setStretchFactor ( 1, 0 );
+	setCentralWidget ( _splitter );
 }
 
 
 void
-Main_Window::set_mixer_setup (
+Main_Window::set_window_setup (
 	Main_Window_Setup * setup_n )
 {
-	if ( _mixer_setup != 0 ) {
+	if ( _win_setup != 0 ) {
 		_mixer_simple->set_mdev_setup ( 0 );
 		_mixer_simple->set_inputs_setup ( 0 );
 		_mixer_simple->set_view_setup ( 0 );
 		_dev_select->set_view_setup ( 0 );
 	}
 
-	_mixer_setup = setup_n;
+	_win_setup = setup_n;
 
-	if ( _mixer_setup != 0 ) {
+	if ( _win_setup != 0 ) {
+		// Restore mixer window state
+		restoreState ( _win_setup->window_state );
+		if ( !restoreGeometry ( _win_setup->window_geometry ) ) {
+			::Views::resize_to_default ( this );
+		}
+
+		_splitter->restoreState ( _win_setup->splitter_state );
+
 		// Actions
-		_act_show_dev_select->setShortcut ( _mixer_setup->dev_select.kseq_toggle_vis );
-		_act_show_dev_select->setChecked ( _mixer_setup->show_dev_select );
+		_act_show_dev_select->setShortcut ( _win_setup->dev_select.kseq_toggle_vis );
+		_act_show_dev_select->setChecked ( _win_setup->show_dev_select );
 
 		// Pass setup tree to child classes
-		_dev_select->set_view_setup ( &_mixer_setup->dev_select );
-		_dev_select->silent_select_ctl ( _mixer_setup->mixer_dev.ctl_addr );
+		_dev_select->set_view_setup ( &_win_setup->dev_select );
+		_dev_select->silent_select_ctl ( _win_setup->mixer_dev.ctl_addr );
 
-		_mixer_simple->set_view_setup ( &_mixer_setup->mixer_simple );
-		_mixer_simple->set_inputs_setup ( &_mixer_setup->inputs );
-		_mixer_simple->set_mdev_setup ( &_mixer_setup->mixer_dev );
+		_mixer_simple->set_view_setup ( &_win_setup->mixer_simple );
+		_mixer_simple->set_inputs_setup ( &_win_setup->inputs );
+		_mixer_simple->set_mdev_setup ( &_win_setup->mixer_dev );
 	}
 }
 
@@ -229,14 +237,14 @@ Main_Window::select_ctl (
 
 	_dev_select->silent_select_ctl ( ctl_n );
 
-	if ( _mixer_setup != 0 ) {
-		if ( ctl_n != _mixer_setup->mixer_dev.ctl_addr ) {
+	if ( _win_setup != 0 ) {
+		if ( ctl_n != _win_setup->mixer_dev.ctl_addr ) {
 			// Remove
 			_mixer_simple->set_mdev_setup ( 0 );
 			// Change
-			_mixer_setup->mixer_dev.ctl_addr = ctl_n;
+			_win_setup->mixer_dev.ctl_addr = ctl_n;
 			// Reinstall
-			_mixer_simple->set_mdev_setup ( &_mixer_setup->mixer_dev );
+			_mixer_simple->set_mdev_setup ( &_win_setup->mixer_dev );
 		}
 	}
 
@@ -261,7 +269,7 @@ Main_Window::reload_mixer_device ( )
 	_dev_select->reload_database();
 
 	_mixer_simple->set_mdev_setup ( 0 );
-	_mixer_simple->set_mdev_setup ( &_mixer_setup->mixer_dev );
+	_mixer_simple->set_mdev_setup ( &_win_setup->mixer_dev );
 }
 
 
@@ -270,7 +278,7 @@ Main_Window::reload_mixer_inputs ( )
 {
 	//::std::cout << "Main_Window::reload_mixer_inputs" << "\n";
 	_mixer_simple->set_inputs_setup ( 0 );
-	_mixer_simple->set_inputs_setup ( &_mixer_setup->inputs );
+	_mixer_simple->set_inputs_setup ( &_win_setup->inputs );
 }
 
 
@@ -279,7 +287,7 @@ Main_Window::reload_mixer_view ( )
 {
 	//::std::cout << "Main_Window::reload_mixer_view" << "\n";
 	_mixer_simple->set_view_setup ( 0 );
-	_mixer_simple->set_view_setup ( &_mixer_setup->mixer_simple );
+	_mixer_simple->set_view_setup ( &_win_setup->mixer_simple );
 }
 
 
@@ -302,12 +310,12 @@ void
 Main_Window::show_device_selection (
 	bool flag_n )
 {
-	if ( _mixer_setup != 0 ) {
-		if ( _mixer_setup->show_dev_select != flag_n ) {
-			_mixer_setup->show_dev_select = flag_n;
+	if ( _win_setup != 0 ) {
+		if ( _win_setup->show_dev_select != flag_n ) {
+			_win_setup->show_dev_select = flag_n;
 		}
 	}
-	_dev_select_dock->setVisible ( flag_n );
+	_dev_select->setVisible ( flag_n );
 }
 
 
@@ -321,9 +329,10 @@ Main_Window::toggle_device_selection ( )
 void
 Main_Window::save_state ( )
 {
-	if ( _mixer_setup != 0 ) {
-		_mixer_setup->window_state = saveState();
-		_mixer_setup->window_geometry = saveGeometry();
+	if ( _win_setup != 0 ) {
+		_win_setup->window_state = saveState();
+		_win_setup->window_geometry = saveGeometry();
+		_win_setup->splitter_state = _splitter->saveState();
 	}
 }
 
@@ -344,26 +353,11 @@ Main_Window::keyPressEvent (
 	QKeyEvent * event_n )
 {
 	QMainWindow::keyPressEvent ( event_n );
-	if ( _mixer_setup != 0 ) {
+	if ( _win_setup != 0 ) {
 		const QKeySequence kseq ( event_n->key() );
-		if ( kseq == _mixer_setup->dev_select.kseq_toggle_vis ) {
+		if ( kseq == _win_setup->dev_select.kseq_toggle_vis ) {
 			toggle_device_selection();
 		}
 	}
-}
-
-
-bool
-Main_Window::eventFilter (
-	QObject * obj_n,
-	QEvent * event_n )
-{
-	bool filtered ( false );
-	if ( obj_n == _dev_select_dock ) {
-		if ( event_n->type() == QEvent::Close ) {
-			_act_show_dev_select->setChecked ( false );
-		}
-	}
-	return filtered;
 }
 
