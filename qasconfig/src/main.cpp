@@ -26,10 +26,10 @@ main (
 	int argc,
 	char * argv[] )
 {
-	// QT Application
+	// Qt Application
 	QApplication app ( argc, argv );
-	app.setOrganizationName ( QString ( PROGRAM_NAME ).toLower() );
-	app.setApplicationName ( PROGRAM_NAME );
+	app.setOrganizationName ( QString ( PACKAGE_NAME ).toLower() );
+	app.setApplicationName ( QString ( PROGRAM_NAME ).toLower() );
 	app.setAttribute ( Qt::AA_DontShowIconsInMenus, false );
 
 	Desktop_Items ditems;

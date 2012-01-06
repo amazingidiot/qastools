@@ -35,12 +35,10 @@ main (
 {
 	init_globals();
 
-
 	// Qt Application
-
 	Single_Application app ( argc, argv );
 	app.setOrganizationName ( QString ( PACKAGE_NAME ).toLower() );
-	app.setApplicationName ( PROGRAM_NAME );
+	app.setApplicationName ( QString ( PROGRAM_NAME ).toLower() );
 	app.setQuitOnLastWindowClosed ( false );
 	app.setAttribute ( Qt::AA_DontShowIconsInMenus, false );
 
