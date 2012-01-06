@@ -105,6 +105,15 @@ Controls_Delegate::paint (
 		col_fg = opt.palette.color ( col_grp, col_role );
 	}
 
+	// Save and setup painter
+	painter_n->save();
+	painter_n->setRenderHint ( QPainter::TextAntialiasing );
+
+	// Paint background
+	painter_n->setBrush ( opt.backgroundBrush );
+	painter_n->setPen ( Qt::NoPen );
+	painter_n->drawRect ( opt.rect );
+
 	if ( index_n.data ( ::QSnd::MKEY_CARD_INDEX ).isValid() ) {
 		// Is card
 
@@ -128,15 +137,6 @@ Controls_Delegate::paint (
 			re_t2.moveLeft ( re_t1.left() );
 			re_t2.moveTop ( re_t1.top() + re_t1.height() + _vspace );
 		}
-
-		// Start painting
-		painter_n->save();
-		painter_n->setRenderHint ( QPainter::TextAntialiasing );
-
-		// Paint background
-		painter_n->setBrush ( opt.backgroundBrush );
-		painter_n->setPen ( Qt::NoPen );
-		painter_n->drawRect ( opt.rect );
 
 		// Paint foreground
 		painter_n->setPen ( QPen ( col_fg ) );
@@ -165,8 +165,6 @@ Controls_Delegate::paint (
 		txt = fmet.elidedText ( txt, opt.textElideMode, re_t2.width() );
 		painter_n->drawText ( re_t2, Qt::AlignLeft | Qt::AlignVCenter, txt );
 
-		painter_n->restore();
-
 	} else {
 		// Is control
 
@@ -177,15 +175,6 @@ Controls_Delegate::paint (
 			re_t0.moveLeft ( opt.rect.left() + _hmargin );
 			re_t0.moveTop ( opt.rect.top() + _vmargin );
 		}
-
-		// Start painting
-		painter_n->save();
-		painter_n->setRenderHint ( QPainter::TextAntialiasing );
-
-		// Paint background
-		painter_n->setPen ( Qt::NoPen );
-		painter_n->setBrush ( opt.backgroundBrush );
-		painter_n->drawRect ( opt.rect );
 
 		// Paint text
 		painter_n->setPen ( QPen ( col_fg ) );
@@ -217,9 +206,10 @@ Controls_Delegate::paint (
 			}
 		}
 
-		painter_n->restore();
 	}
 
+	// Restore painter
+	painter_n->restore();
 }
 
 
