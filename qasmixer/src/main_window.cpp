@@ -160,14 +160,17 @@ Main_Window::init_widgets ( )
 		_mixer_simple = new ::Views::Mixer_Simple();
 	}
 
-	_splitter = new QSplitter();
-	_splitter->addWidget ( _mixer_simple );
-	_splitter->addWidget ( _dev_select );
-	_splitter->setStretchFactor ( 0, 1 );
-	_splitter->setStretchFactor ( 1, 0 );
-	_splitter->setCollapsible ( 0, false );
-	_splitter->setCollapsible ( 1, false );
-	setCentralWidget ( _splitter );
+	// Central splitter
+	{
+		_splitter = new QSplitter();
+		_splitter->addWidget ( _mixer_simple );
+		_splitter->addWidget ( _dev_select );
+		_splitter->setStretchFactor ( 0, 1 );
+		_splitter->setStretchFactor ( 1, 0 );
+		_splitter->setCollapsible ( 0, false );
+		_splitter->setCollapsible ( 1, false );
+		setCentralWidget ( _splitter );
+	}
 }
 
 
