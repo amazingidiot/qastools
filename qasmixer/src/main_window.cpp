@@ -165,6 +165,8 @@ Main_Window::init_widgets ( )
 	_splitter->addWidget ( _dev_select );
 	_splitter->setStretchFactor ( 0, 1 );
 	_splitter->setStretchFactor ( 1, 0 );
+	_splitter->setCollapsible ( 0, false );
+	_splitter->setCollapsible ( 1, false );
 	setCentralWidget ( _splitter );
 }
 
