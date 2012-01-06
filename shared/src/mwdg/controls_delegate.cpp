@@ -27,7 +27,7 @@ Controls_Delegate::Controls_Delegate (
 QStyledItemDelegate ( parent_n )
 {
 	_hmargin = 4;
-	_vmargin = 2;
+	_vmargin = 3;
 	_vspace = 1;
 }
 
@@ -110,9 +110,31 @@ Controls_Delegate::paint (
 	painter_n->setRenderHint ( QPainter::TextAntialiasing );
 
 	// Paint background
-	painter_n->setBrush ( opt.backgroundBrush );
-	painter_n->setPen ( Qt::NoPen );
-	painter_n->drawRect ( opt.rect );
+	{
+		// Paint solid area
+		painter_n->setBrush ( opt.backgroundBrush );
+		painter_n->setPen ( Qt::NoPen );
+		painter_n->drawRect ( opt.rect );
+
+		// Paint frame
+		if ( ( opt.state & QStyle::State_Selected ) && ( opt.state & QStyle::State_Active ) ) {
+			painter_n->setBrush ( Qt::NoBrush );
+			{
+				QPen pen;
+				{
+					QColor pcol ( col_fg );
+					pcol.setAlpha ( 128 );
+					pen.setColor ( pcol );
+				}
+				pen.setWidth ( 1 );
+				pen.setStyle ( Qt::DotLine );
+				painter_n->setPen ( pen );
+			}
+			QRect re_frame ( opt.rect );
+			re_frame.adjust ( 0, 0, -1, -1 );
+			painter_n->drawRect ( re_frame );
+		}
+	}
 
 	if ( index_n.data ( ::QSnd::MKEY_CARD_INDEX ).isValid() ) {
 		// Is card
