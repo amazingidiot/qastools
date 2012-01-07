@@ -1095,9 +1095,14 @@
         <translation>Geräteauswahl &amp;schließen</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/dev_select_view.cpp" line="78"/>
-        <source>Plugin</source>
-        <translation>Plugin</translation>
+        <location filename="../../shared/src/views/dev_select_view.cpp" line="79"/>
+        <source>Mixer device</source>
+        <translation>Mixergerät</translation>
+    </message>
+    <message>
+        <location filename="../../shared/src/views/dev_select_view.cpp" line="80"/>
+        <source>CTL plugin selection</source>
+        <translation>CTL-Plugin-Auswahl</translation>
     </message>
 </context>
 <context>

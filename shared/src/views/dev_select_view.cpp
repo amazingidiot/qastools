@@ -77,7 +77,7 @@ _silent_ctl_change ( false )
 
 	QLabel * controls_label = new QLabel;
 	controls_label->setText ( tr ( "Mixer device" ) );
-	controls_label->setToolTip ( tr ( "ALSA CTL plugin" ) );
+	controls_label->setToolTip ( tr ( "CTL plugin selection" ) );
 	{
 		QFont fnt ( controls_label->font() );
 		fnt.setBold ( true );
