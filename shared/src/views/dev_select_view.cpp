@@ -75,7 +75,9 @@ _silent_ctl_change ( false )
 		setSizePolicy ( policy );
 	}
 
-	QLabel * controls_label = new QLabel ( tr ( "Plugin" ) );
+	QLabel * controls_label = new QLabel;
+	controls_label->setText ( tr ( "Mixer device" ) );
+	controls_label->setToolTip ( tr ( "ALSA CTL plugin" ) );
 	{
 		QFont fnt ( controls_label->font() );
 		fnt.setBold ( true );
