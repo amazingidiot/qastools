@@ -923,67 +923,66 @@
         <translation>Выйти из п&amp;олноэкранного режима</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="112"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="146"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="66"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="129"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="153"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="63"/>
         <source>&amp;Quit</source>
         <translation>&amp;Выход</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="71"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="68"/>
         <source>&amp;Settings</source>
         <translation>&amp;Настройки</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="72"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="69"/>
         <source>Ctrl+s</source>
         <translation>Ctrl+s</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="117"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="162"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="76"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="134"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="169"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="73"/>
         <source>&amp;Refresh</source>
         <translation>&amp;Обновить</translation>
     </message>
     <message>
-        <location filename="../../qashctl/src/main_window.cpp" line="152"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="82"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="159"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="79"/>
         <source>Show &amp;device selection</source>
         <translation>Отображать панель выбора &amp;устройства</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="122"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="167"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="91"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="139"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="174"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="88"/>
         <source>&amp;Info</source>
         <translation>&amp;Информация</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="128"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="173"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="98"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="145"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="180"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="95"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="134"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="179"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="104"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="151"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="186"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="101"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="../../qasconfig/src/main_window.cpp" line="140"/>
-        <location filename="../../qashctl/src/main_window.cpp" line="188"/>
-        <location filename="../../qasmixer/src/main_window.cpp" line="111"/>
+        <location filename="../../qasconfig/src/main_window.cpp" line="157"/>
+        <location filename="../../qashctl/src/main_window.cpp" line="195"/>
+        <location filename="../../qasmixer/src/main_window.cpp" line="108"/>
         <source>&amp;Help</source>
         <translation>&amp;Помощь</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/main_window.cpp" line="156"/>
         <source>Mixer device</source>
-        <translation>Устройство</translation>
+        <translation type="obsolete">Устройство</translation>
     </message>
 </context>
 <context>
@@ -1104,79 +1103,89 @@
 <context>
     <name>Views::Info_Dialog</name>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="43"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="38"/>
         <source>Info</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="50"/>
         <source>%1 - %2</source>
-        <translation>%1 - %2</translation>
+        <translation type="obsolete">%1 - %2</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="62"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="60"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="74"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="72"/>
         <source>Internet</source>
         <translation>Интернет</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="77"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="75"/>
         <source>Home page</source>
         <translation>Домашняя страница</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="81"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="79"/>
         <source>Project page</source>
         <translation>Страница проекта</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="112"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="109"/>
         <source>Developers</source>
         <translation>Программирование</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="121"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="118"/>
         <source>Translators</source>
         <translation>Перевод</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="66"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="175"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="176"/>
+        <source>People</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="177"/>
+        <source>License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="64"/>
         <source>%1 is a collection of desktop applications for the Linux sound system %2.</source>
         <translation>%1 — это набор приложений для работы со звуковой системой %2.</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="116"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="113"/>
         <source>Contributors</source>
         <translation>Участники</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="158"/>
+        <location filename="../../shared/src/views/info_dialog.cpp" line="154"/>
         <source>The license file %1 is not available.</source>
         <translation>Файл лицензии %1 не доступен.</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="180"/>
         <source>&amp;Information</source>
-        <translation>&amp;Информация</translation>
+        <translation type="obsolete">&amp;Информация</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="181"/>
         <source>&amp;People</source>
-        <translation>&amp;Авторы</translation>
+        <translation type="obsolete">&amp;Авторы</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="183"/>
         <source>&amp;License</source>
-        <translation>&amp;Лицезия</translation>
+        <translation type="obsolete">&amp;Лицезия</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/info_view.cpp" line="191"/>
         <source>&amp;Close</source>
-        <translation>&amp;Закрыть</translation>
+        <translation type="obsolete">&amp;Закрыть</translation>
     </message>
 </context>
 <context>
@@ -1233,27 +1242,32 @@
 <context>
     <name>Views::Settings_Dialog</name>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="42"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="41"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="125"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="124"/>
         <source>Startup</source>
         <translation>Запуск</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="157"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="132"/>
+        <source>Sliders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="156"/>
         <source>Appearance</source>
         <translation>Внешний вид</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="216"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="215"/>
         <source>Input</source>
         <translation>Управление</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="350"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="349"/>
         <source>System tray</source>
         <translation>Трей</translation>
     </message>
@@ -1262,102 +1276,101 @@
         <translation type="obsolete">&amp;Закрыть</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="72"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="71"/>
         <source>Startup mixer device</source>
         <translation>Устройство используемое после запуска</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="77"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="76"/>
         <source>From last session</source>
         <translation>Из предыдущей сессии</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="133"/>
         <source>Simple mixer view</source>
-        <translation>Режим простого микшера</translation>
+        <translation type="obsolete">Режим простого микшера</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="136"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="135"/>
         <source>Show slider value labels</source>
         <translation>Отображать текущее значение громкости числом</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="165"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="164"/>
         <source>Mouse wheel</source>
         <translation>Колесико мыши</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="168"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="167"/>
         <source>Number of turns for a slider change from 0% to 100%</source>
         <translation>Количество оборотов колесика мыши, чтобы изменить громкость от 0% до 100%</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="223"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="222"/>
         <source>Show tray icon</source>
         <translation>Отображать значок в трее</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="224"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="223"/>
         <source>Close to tray</source>
         <translation>Закрываться в трей</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="234"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="233"/>
         <source>System tray usage</source>
         <translation>Использование системного трея</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="244"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="243"/>
         <source>Notification balloon</source>
         <translation>Всплывающая подсказка</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="247"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="246"/>
         <source>Show balloon on a volume change</source>
         <translation>Отображать всплывающую подсказку при изменении громкости</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="255"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="254"/>
         <source>Balloon lifetime</source>
         <translation>Длительность всплывающей подсказки</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="258"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="257"/>
         <source>ms</source>
         <extracomment>ms - abbreviation for milliseconds</extracomment>
         <translation>мс</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="290"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="289"/>
         <source>Mini mixer device</source>
         <translation>Устройство для минимикшера</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="76"/>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="292"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="75"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="291"/>
         <source>Default</source>
         <translation>Устройство по умолчанию</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="293"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="292"/>
         <source>Current (same as in main mixer window)</source>
         <translation>Текущее (то же устройство, что и в главном окне)</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="78"/>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="294"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="77"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="293"/>
         <source>User defined</source>
         <translation>Другое</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="88"/>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="304"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="87"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="303"/>
         <source>User device:</source>
         <translation>Устройство:</translation>
     </message>
     <message>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="89"/>
-        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="305"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="88"/>
+        <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="304"/>
         <source>e.g. hw:0</source>
         <translation>Например: hw:0</translation>
     </message>
