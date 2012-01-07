@@ -129,7 +129,7 @@ void
 Settings_Dialog::init_page_appearance ( )
 {
 	QGroupBox * box_smixer ( new QGroupBox );
-	box_smixer->setTitle ( tr ( "Simple mixer view" ) );
+	box_smixer->setTitle ( tr ( "Sliders" ) );
 	{
 		_btn_show_sliders_labels =
 			new QCheckBox ( tr ( "Show slider value labels" ) );
