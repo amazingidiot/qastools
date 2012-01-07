@@ -14,7 +14,7 @@
 
 
 const char license_text_short[] = "\
-Copyright (C) 2011  Sebastian Holtermann <sebholt@xwmw.org>\n\
+Copyright (C) 2012  Sebastian Holtermann <sebholt@xwmw.org>\n\
 \n\
 This program is free software: you can redistribute it and/or modify\n\
 it under the terms of the GNU General Public License as published by\n\
