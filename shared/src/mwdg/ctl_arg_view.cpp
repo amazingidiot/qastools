@@ -29,7 +29,6 @@ _ctl_db ( 0 )
 	{
 		QFont fnt ( _wdg_title->font() );
 		fnt.setBold ( true );
-		fnt.setItalic ( true );
 		_wdg_title->setFont ( fnt );
 	}
 
@@ -90,11 +89,17 @@ void
 CTL_Arg_View::ctl_arg_changed ( )
 {
 	if ( _ctl_arg != 0 ) {
+		// Text
 		{
-			QString name_l10n = QCoreApplication::translate (
-				"ALSA::CTL_Arg_Name", _ctl_arg->arg_name.toLatin1().constData() );
-			_wdg_title->setText ( name_l10n );
+			const QString name_l10n ( QCoreApplication::translate (
+				"ALSA::CTL_Arg_Name",
+				_ctl_arg->arg_name.toLatin1().constData() ) );
+			QString txt;
+			//txt.append ( QChar ( 0x2192 ) );
+			txt.append ( name_l10n );
+			_wdg_title->setText ( txt );
 		}
+		// Tooltip
 		{
 			QString ttip ( _ctl_arg->arg_name );
 			ttip.append ( " (" );
