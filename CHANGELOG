@@ -1,3 +1,19 @@
+2012-01-09      Sebastian Holtermann  <sebholt@xwmw.org>
+	* all: setting names for state save/restore changed/regrouped
+	* all: smart main window sizeHint() to get a useable window size after leaving fullscreen
+	* all: new dialog base classes
+	* all: new common info dialog - uses QListView page selection intead of tabs
+	* shared: device selection style tweaks: selected item now emphasized by a thin frame
+	* shared: device selection style tweaks: Rounded selection area
+	* shared: use QSplitter instead of QDockwidget for device selection view.
+	  It couldn't be detached anyway and size restoring works more reliable.
+	* shared: more functionality sharing among applications (window size calculation, etc.)
+	* qasconfig: new basic command line options (--version, --help, etc.)
+	* qashctl: new basic command line options (--version, --help, etc.)
+	* qasmixer: settings dialog based on common dialog class
+	* qasmixer: settings dialog label tweaks
+	* Release version 0.17.0
+
 2011-12-21      Sebastian Holtermann  <sebholt@xwmw.org>
 	* qashctl: wrong destructor call order on close fixed
 	* shared: several new/delete sequences replaced with QScopedPointer
