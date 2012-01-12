@@ -13,6 +13,7 @@
 	* qashctl: new basic command line options (--version, --help, etc.)
 	* qasmixer: settings dialog based on common dialog class
 	* qasmixer: settings dialog label tweaks
+	* qasmixer: new application icon
 	* Release version 0.17.0
 
 2011-12-21      Sebastian Holtermann  <sebholt@xwmw.org>
