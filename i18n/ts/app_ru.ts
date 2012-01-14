@@ -980,10 +980,6 @@
         <source>&amp;Help</source>
         <translation>&amp;Помощь</translation>
     </message>
-    <message>
-        <source>Mixer device</source>
-        <translation type="obsolete">Устройство</translation>
-    </message>
 </context>
 <context>
     <name>QSnd::Alsa_Config_Model</name>
@@ -1084,7 +1080,7 @@
     <message>
         <location filename="../../shared/src/views/basic_dialog.cpp" line="93"/>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Закрыть</translation>
+        <translation>&amp;Закрыть</translation>
     </message>
 </context>
 <context>
@@ -1095,9 +1091,14 @@
         <translation>Закрыть панель выбора у&amp;стройства</translation>
     </message>
     <message>
-        <location filename="../../shared/src/views/dev_select_view.cpp" line="78"/>
-        <source>Plugin</source>
+        <location filename="../../shared/src/views/dev_select_view.cpp" line="79"/>
+        <source>Mixer device</source>
         <translation>Устройство</translation>
+    </message>
+    <message>
+        <location filename="../../shared/src/views/dev_select_view.cpp" line="80"/>
+        <source>CTL plugin selection</source>
+        <translation>Выбор CTL плагина</translation>
     </message>
 </context>
 <context>
@@ -1106,10 +1107,6 @@
         <location filename="../../shared/src/views/info_dialog.cpp" line="38"/>
         <source>Info</source>
         <translation>Информация</translation>
-    </message>
-    <message>
-        <source>%1 - %2</source>
-        <translation type="obsolete">%1 - %2</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/info_dialog.cpp" line="60"/>
@@ -1144,17 +1141,17 @@
     <message>
         <location filename="../../shared/src/views/info_dialog.cpp" line="175"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/info_dialog.cpp" line="176"/>
         <source>People</source>
-        <translation type="unfinished"></translation>
+        <translation>Авторы</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/info_dialog.cpp" line="177"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>Лицензия</translation>
     </message>
     <message>
         <location filename="../../shared/src/views/info_dialog.cpp" line="64"/>
@@ -1170,22 +1167,6 @@
         <location filename="../../shared/src/views/info_dialog.cpp" line="154"/>
         <source>The license file %1 is not available.</source>
         <translation>Файл лицензии %1 не доступен.</translation>
-    </message>
-    <message>
-        <source>&amp;Information</source>
-        <translation type="obsolete">&amp;Информация</translation>
-    </message>
-    <message>
-        <source>&amp;People</source>
-        <translation type="obsolete">&amp;Авторы</translation>
-    </message>
-    <message>
-        <source>&amp;License</source>
-        <translation type="obsolete">&amp;Лицезия</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Закрыть</translation>
     </message>
 </context>
 <context>
@@ -1254,7 +1235,7 @@
     <message>
         <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="132"/>
         <source>Sliders</source>
-        <translation type="unfinished"></translation>
+        <translation>Регуляторы громкости</translation>
     </message>
     <message>
         <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="156"/>
@@ -1272,10 +1253,6 @@
         <translation>Трей</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Закрыть</translation>
-    </message>
-    <message>
         <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="71"/>
         <source>Startup mixer device</source>
         <translation>Устройство используемое после запуска</translation>
@@ -1284,10 +1261,6 @@
         <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="76"/>
         <source>From last session</source>
         <translation>Из предыдущей сессии</translation>
-    </message>
-    <message>
-        <source>Simple mixer view</source>
-        <translation type="obsolete">Режим простого микшера</translation>
     </message>
     <message>
         <location filename="../../qasmixer/src/views/settings_dialog.cpp" line="135"/>
