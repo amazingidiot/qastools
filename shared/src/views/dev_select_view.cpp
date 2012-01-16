@@ -1,13 +1,9 @@
 //
-// C++ Implementation:
+// QasTools: Dektop toolset for the Linux sound system ALSA
 //
-// Description:
+// License: See COPYING file that comes with this source distribution
 //
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2011
-//
-// Copyright: See COPYING file that comes with this distribution
-//
+// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
 #include "dev_select_view.hpp"
