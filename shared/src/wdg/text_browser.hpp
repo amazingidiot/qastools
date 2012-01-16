@@ -1,5 +1,5 @@
 //
-// C++ Implementation:
+// C++ Interface:
 //
 // Description:
 //
