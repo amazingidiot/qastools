@@ -1095,11 +1095,6 @@
         <source>Mixer device</source>
         <translation>Устройство</translation>
     </message>
-    <message>
-        <location filename="../../shared/src/views/dev_select_view.cpp" line="80"/>
-        <source>CTL plugin selection</source>
-        <translation>Выбор CTL плагина</translation>
-    </message>
 </context>
 <context>
     <name>Views::Info_Dialog</name>
