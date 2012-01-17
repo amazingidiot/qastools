@@ -102,20 +102,45 @@ Info_Dialog::Info_Dialog (
 		QString txt;
 
 		// Developers
-		txt += hmask.arg ( tr ( "Developers" ) );
-		txt += pdivmask.arg ( "Sebastian Holtermann", "sebholt@xwmw.org" );
+		{
+			txt += hmask.arg ( tr ( "Developers" ) );
+			const char * names[] = {
+				"Sebastian Holtermann", "sebholt@xwmw.org",
+				0, 0
+			};
+			for ( const char ** ptr ( &names[0] ); *ptr != 0; ptr += 2 ) {
+				txt += pdivmask.arg ( ptr[0], ptr[1] );
+			}
+		}
 
 		// Contributors
-		txt += hmask.arg ( tr ( "Contributors" ) );
-		txt += pdivmask.arg ( "Jose Lencioni", "elcorreodelcoco@gmail.com" );
-		txt += pdivmask.arg ( "Ivan Sorokin", "vanyacpp@gmail.com" );
+		{
+			txt += hmask.arg ( tr ( "Contributors" ) );
+			const char * names[] = {
+				"Jose Lencioni",  "elcorreodelcoco@gmail.com",
+				"Ivan Sorokin",   "vanyacpp@gmail.com",
+				"Fernando Auil ", "auil@usp.br",
+				0, 0
+			};
+			for ( const char ** ptr ( &names[0] ); *ptr != 0; ptr += 2 ) {
+				txt += pdivmask.arg ( ptr[0], ptr[1] );
+			}
+		}
 
 		// Translators
-		txt += hmask.arg ( tr ( "Translators" ) );
-		txt += trmask.arg ( "Sebastian Holtermann", "sebholt@xwmw.org", "de" );
-		txt += trmask.arg ( "Jose Lencioni", "elcorreodelcoco@gmail.com", "es" );
-		txt += trmask.arg ( "Ivan Sorokin", "vanyacpp@gmail.com", "ru" );
-		txt += trmask.arg ( "Pavel Fric", "pavelfric@seznam.cz", "cs" );
+		{
+			txt += hmask.arg ( tr ( "Translators" ) );
+			const char * names[] = {
+				"Pavel Fric",           "pavelfric@seznam.cz",       "cs",
+				"Sebastian Holtermann", "sebholt@xwmw.org",          "de",
+				"Jose Lencioni",        "elcorreodelcoco@gmail.com", "es",
+				"Ivan Sorokin",         "vanyacpp@gmail.com",        "ru",
+				0, 0, 0
+			};
+			for ( const char ** ptr ( &names[0] ); *ptr != 0; ptr += 3 ) {
+				txt += trmask.arg ( ptr[0], ptr[1], ptr[2] );
+			}
+		}
 
 		_txt_people = new ::Wdg::Text_Browser;
 		_txt_people->setAlignment ( Qt::AlignLeft | Qt::AlignTop );
