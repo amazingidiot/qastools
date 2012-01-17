@@ -1,4 +1,4 @@
-2012-01-09      Sebastian Holtermann  <sebholt@xwmw.org>
+2012-01-17      Sebastian Holtermann  <sebholt@xwmw.org>
 	* all: setting names for state save/restore changed/regrouped
 	* all: smart main window sizeHint() to get a useable window size after leaving fullscreen
 	* all: new dialog base classes
