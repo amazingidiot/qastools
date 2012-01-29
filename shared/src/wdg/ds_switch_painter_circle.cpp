@@ -45,8 +45,7 @@ struct DS_Switch_Painter_Circle::PData {
 
 	::dpe::Image_Set_Meta * meta;
 	QPalette pal;
-
-	QScopedPointer < QPainter > qpnt;
+	QPainter qpnt;
 
 	int max_len;
 	int min_len;
@@ -151,8 +150,8 @@ DS_Switch_Painter_Circle::paint_bg (
 
 	{
 		// Init painter
-		pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
-		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
+		pd.qpnt.begin ( &pd.img->qimage() );
+		pd.qpnt.setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 		// Painting
 		paint_bg_area ( pd );
@@ -189,11 +188,11 @@ DS_Switch_Painter_Circle::paint_bg_area (
 			rgrad.setColorAt ( 0.0, col_win );
 			rgrad.setColorAt ( 1.0, col_mix );
 
-			pd.qpnt->setPen ( Qt::NoPen );
-			pd.qpnt->setBrush ( rgrad );
+			pd.qpnt.setPen ( Qt::NoPen );
+			pd.qpnt.setBrush ( rgrad );
 		}
 
-		pd.qpnt->drawEllipse (
+		pd.qpnt.drawEllipse (
 			QPointF ( pd.center_x, pd.center_y ),
 			rad, rad );
 	}
@@ -224,11 +223,11 @@ DS_Switch_Painter_Circle::paint_bg_border (
 			pen.setWidthF ( pd.border_width );
 			pen.setColor ( pd.col_border );
 
-			pd.qpnt->setBrush ( Qt::NoBrush );
-			pd.qpnt->setPen ( pen );
+			pd.qpnt.setBrush ( Qt::NoBrush );
+			pd.qpnt.setPen ( pen );
 		}
 
-		pd.qpnt->drawEllipse (
+		pd.qpnt.drawEllipse (
 			QPointF ( pd.center_x, pd.center_y ), rad, rad );
 	}
 
@@ -264,8 +263,8 @@ DS_Switch_Painter_Circle::paint_handle (
 			pd.img->clear();
 		} else {
 			// Init painter
-			pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
-			pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
+			pd.qpnt.begin ( &pd.img->qimage() );
+			pd.qpnt.setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 			// Painting
 			paint_handle_area ( pd );
@@ -297,15 +296,15 @@ DS_Switch_Painter_Circle::paint_handle_area (
 		rgrad.setColorAt ( fade_offset, col_full );
 		rgrad.setColorAt ( 1.0, col_trans );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( rgrad );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( rgrad );
 	} else {
 		// Full color circle
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_full );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_full );
 	}
 
-	pd.qpnt->drawEllipse (
+	pd.qpnt.drawEllipse (
 		QPointF ( pd.center_x, pd.center_y ), rad, rad );
 }
 
@@ -350,11 +349,11 @@ DS_Switch_Painter_Circle::paint_highlight (
 		rgrad.setColorAt ( w2, cf );
 		rgrad.setColorAt ( w3, cf );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( rgrad );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( rgrad );
 	}
 
-	pd.qpnt->drawEllipse (
+	pd.qpnt.drawEllipse (
 		QPointF ( pd.center_x, pd.center_y ), rad, rad );
 }
 
@@ -400,10 +399,10 @@ DS_Switch_Painter_Circle::paint_focus_path (
 		}
 	}
 
-	pd.qpnt->setPen ( Qt::NoPen );
-	pd.qpnt->setBrush ( pd.col_focus );
+	pd.qpnt.setPen ( Qt::NoPen );
+	pd.qpnt.setBrush ( pd.col_focus );
 	for ( unsigned int ii=0; ii < 4; ++ii ) {
-		pd.qpnt->drawPath ( ppath[ii] );
+		pd.qpnt.drawPath ( ppath[ii] );
 	}
 }
 

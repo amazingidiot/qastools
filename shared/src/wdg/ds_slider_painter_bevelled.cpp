@@ -48,8 +48,7 @@ struct DS_Slider_Painter_Bevelled::PData {
 	::dpe::Image_Set_Meta * meta;
 
 	QPalette pal;
-
-	QScopedPointer < QPainter > qpnt;
+	QPainter qpnt;
 
 	int ew; // Edge width
 	int bw; // Border width x,y
@@ -108,8 +107,8 @@ DS_Slider_Painter_Bevelled::paint_image (
 		pd.rectf = QRectF ( 0.0, 0.0, pd.width(), pd.height() );
 
 		// Init painter
-		pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
-		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
+		pd.qpnt.begin ( &pd.img->qimage() );
+		pd.qpnt.setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 		// Paint type
 		switch ( pd.meta->type_id ) {
@@ -212,10 +211,10 @@ DS_Slider_Painter_Bevelled::paint_bg_area (
 
 	// Base color
 	{
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_mid );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_mid );
 	}
-	pd.qpnt->drawPath ( area_path );
+	pd.qpnt.drawPath ( area_path );
 
 	// Fake 3D gradient
 	{
@@ -226,10 +225,10 @@ DS_Slider_Painter_Bevelled::paint_bg_area (
 		lgrad.setColorAt ( x_mid / ( x_end - x_start ), col_mid );
 		lgrad.setColorAt ( 1.0, col_dk );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( lgrad );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( lgrad );
 	}
-	pd.qpnt->drawPath ( area_path );
+	pd.qpnt.drawPath ( area_path );
 
 	// Sound color overlay
 	{
@@ -244,10 +243,10 @@ DS_Slider_Painter_Bevelled::paint_bg_area (
 		lgrad.setColorAt ( 0.0, c0 );
 		lgrad.setColorAt ( 1.0, c1 );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( lgrad );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( lgrad );
 	}
-	pd.qpnt->drawPath ( area_path );
+	pd.qpnt.drawPath ( area_path );
 
 }
 
@@ -378,12 +377,12 @@ DS_Slider_Painter_Bevelled::paint_bg_area_deco (
 			QPen pen;
 			pen.setColor ( col_pen );
 			pen.setWidth ( 1.0 );
-			pd.qpnt->setPen ( pen );
+			pd.qpnt.setPen ( pen );
 		}
-		pd.qpnt->setBrush ( col_fill );
+		pd.qpnt.setBrush ( col_fill );
 	}
 
-	pd.qpnt->drawPath ( ppath );
+	pd.qpnt.drawPath ( ppath );
 }
 
 
@@ -463,8 +462,8 @@ DS_Slider_Painter_Bevelled::paint_bg_tick (
 	// Glow below solid line
 	{
 		col.setAlpha ( 32 );
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col );
 
 		const unsigned int num_pts ( 9 );
 		double xl ( tick_start - 0.5 );
@@ -481,16 +480,16 @@ DS_Slider_Painter_Bevelled::paint_bg_tick (
 			QPointF ( xl, tick_pos_n - 1 )
 		};
 
-		pd.qpnt->drawPolygon ( points, num_pts );
+		pd.qpnt.drawPolygon ( points, num_pts );
 	}
 
 	// Solid line
 	{
 		col.setAlpha ( 200 );
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col );
 
-		pd.qpnt->drawRect (
+		pd.qpnt.drawRect (
 			tick_start, tick_pos_n,
 			tick_width_n, 1.0 );
 	}
@@ -560,10 +559,10 @@ DS_Slider_Painter_Bevelled::paint_marker_current (
 		{
 			QColor col ( pd.pal.color ( QPalette::WindowText ) );
 			col.setAlpha ( 64 );
-			pd.qpnt->setPen ( Qt::NoPen );
-			pd.qpnt->setBrush ( col );
+			pd.qpnt.setPen ( Qt::NoPen );
+			pd.qpnt.setBrush ( col );
 		}
-		pd.qpnt->drawPolygon ( points, num_pts );
+		pd.qpnt.drawPolygon ( points, num_pts );
 	}
 
 
@@ -600,10 +599,10 @@ DS_Slider_Painter_Bevelled::paint_marker_current (
 
 		{
 			const QColor & col ( pd.pal.color ( QPalette::WindowText ) );
-			pd.qpnt->setPen ( Qt::NoPen );
-			pd.qpnt->setBrush ( col );
+			pd.qpnt.setPen ( Qt::NoPen );
+			pd.qpnt.setBrush ( col );
 		}
-		pd.qpnt->drawPolygon ( points, num_pts );
+		pd.qpnt.drawPolygon ( points, num_pts );
 	}
 }
 
@@ -643,10 +642,10 @@ DS_Slider_Painter_Bevelled::paint_marker_hint (
 		{
 			QColor col ( pd.pal.color ( QPalette::WindowText ) );
 			col.setAlpha ( 100 );
-			pd.qpnt->setPen ( Qt::NoPen );
-			pd.qpnt->setBrush ( col );
+			pd.qpnt.setPen ( Qt::NoPen );
+			pd.qpnt.setBrush ( col );
 		}
-		pd.qpnt->drawPolygon ( points, num_pts );
+		pd.qpnt.drawPolygon ( points, num_pts );
 	}
 }
 
@@ -705,9 +704,9 @@ DS_Slider_Painter_Bevelled::paint_frame_deco (
 		}
 
 		// Fill
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col );
-		pd.qpnt->drawPath (
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col );
+		pd.qpnt.drawPath (
 			path_bevel_frame ( pd.rectf, pd.bevel, frw, shrink ) );
 	}
 }
@@ -780,10 +779,10 @@ DS_Slider_Painter_Bevelled::paint_handle_area (
 		lgrad.setColorAt ( 1.0 - grwn, col_center );
 		lgrad.setColorAt ( 1.0, col_edge );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( lgrad );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( lgrad );
 	}
-	pd.qpnt->drawPath ( area_path );
+	pd.qpnt.drawPath ( area_path );
 
 
 	// Highlight
@@ -816,10 +815,10 @@ DS_Slider_Painter_Bevelled::paint_handle_area (
 		lgrad.setColorAt ( 1.0, col_trans );
 		lgrad.setSpread ( QGradient::ReflectSpread );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( lgrad );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( lgrad );
 	}
-	pd.qpnt->drawPath ( area_path );
+	pd.qpnt.drawPath ( area_path );
 }
 
 
@@ -890,7 +889,7 @@ DS_Slider_Painter_Bevelled::paint_handle_items (
 	{
 		QPainterPath area_path;
 		papp_bevel_area ( area_path, pd.rectf, pd.bevel, pd.bw );
-		pd.qpnt->setClipPath ( area_path );
+		pd.qpnt.setClipPath ( area_path );
 	}
 
 
@@ -932,13 +931,13 @@ DS_Slider_Painter_Bevelled::paint_handle_items (
 			QPen pen;
 			pen.setWidthF ( line_width_long );
 			pen.setColor ( col_light );
-			pd.qpnt->setPen ( pen );
+			pd.qpnt.setPen ( pen );
 		}
-		pd.qpnt->setBrush ( col_dark );
+		pd.qpnt.setBrush ( col_dark );
 
-		pd.qpnt->drawPath ( ppath );
+		pd.qpnt.drawPath ( ppath );
 		ppath = trans_hmirror.map ( ppath );
-		pd.qpnt->drawPath ( ppath );
+		pd.qpnt.drawPath ( ppath );
 	}
 
 
@@ -967,35 +966,35 @@ DS_Slider_Painter_Bevelled::paint_handle_items (
 			QPen pen;
 			pen.setWidthF ( line_width_small );
 			pen.setColor ( col_light );
-			pd.qpnt->setPen ( pen );
+			pd.qpnt.setPen ( pen );
 		}
-		pd.qpnt->setBrush ( col_dark );
+		pd.qpnt.setBrush ( col_dark );
 
-		pd.qpnt->drawPath ( ppath );
+		pd.qpnt.drawPath ( ppath );
 		ppath = trans_hmirror.map ( ppath );
-		pd.qpnt->drawPath ( ppath );
+		pd.qpnt.drawPath ( ppath );
 	}
 
 	{	// Center line
 		const double xoff ( pd.bw + tri_width );
 
 		// Bright background
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_light );
-		pd.qpnt->drawRect (
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_light );
+		pd.qpnt.drawRect (
 			xoff, center_v - 0.5 - line_width_fine,
 			pd.width() - 2*xoff, 1.0 + line_width_fine*2 );
 
 		// Dark foreground
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_dark );
-		pd.qpnt->drawRect (
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_dark );
+		pd.qpnt.drawRect (
 			pd.bw, center_v - 0.5f,
 			pd.width() - 2*pd.bw, 1.0 );
 	}
 
 	// Remove clipping region
-	pd.qpnt->setClipping ( false );
+	pd.qpnt.setClipping ( false );
 }
 
 
@@ -1056,9 +1055,9 @@ DS_Slider_Painter_Bevelled::paint_bevel_raised_frame (
 		papp_bevel_frame_corner ( pp, area_n, 2, bevel_n, edge_width_n, shrink_in );
 		papp_bevel_frame_edge ( pp, area_n, 2, bevel_n, edge_width_n, shrink_in );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_br );
-		pd.qpnt->drawPath ( pp );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_br );
+		pd.qpnt.drawPath ( pp );
 	}
 
 	// Mid area
@@ -1069,9 +1068,9 @@ DS_Slider_Painter_Bevelled::paint_bevel_raised_frame (
 		papp_bevel_frame_corner ( pp, area_n, 3, bevel_n, edge_width_n, shrink_out );
 		papp_bevel_frame_corner ( pp, area_n, 3, bevel_n, edge_width_n, shrink_in );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_mid );
-		pd.qpnt->drawPath ( pp );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_mid );
+		pd.qpnt.drawPath ( pp );
 	}
 
 	// Dark area
@@ -1085,17 +1084,17 @@ DS_Slider_Painter_Bevelled::paint_bevel_raised_frame (
 		papp_bevel_frame_corner ( pp, area_n, 2, bevel_n, edge_width_n, shrink_out );
 		papp_bevel_frame_edge ( pp, area_n, 2, bevel_n, edge_width_n, shrink_out );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_dk );
-		pd.qpnt->drawPath ( pp );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_dk );
+		pd.qpnt.drawPath ( pp );
 	}
 
 	// Frame center line area
 	const double mid_width ( frame_width_n - 2.0*edge_width_n );
 	if ( mid_width > 0.0 ) {
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_mid );
-		pd.qpnt->drawPath (
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_mid );
+		pd.qpnt.drawPath (
 			path_bevel_frame ( area_n, bevel_n, mid_width, edge_width_n ) );
 	}
 }

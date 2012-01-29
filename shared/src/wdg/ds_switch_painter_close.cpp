@@ -45,8 +45,7 @@ struct DS_Switch_Painter_Close::PData {
 
 	::dpe::Image_Set_Meta * meta;
 	QPalette pal;
-
-	QScopedPointer < QPainter > qpnt;
+	QPainter qpnt;
 
 	int max_len;
 	int min_len;
@@ -131,8 +130,8 @@ DS_Switch_Painter_Close::paint_bg (
 
 	{
 		// Init painter
-		pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
-		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
+		pd.qpnt.begin ( &pd.img->qimage() );
+		pd.qpnt.setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 		// Painting
 		paint_bg_area ( pd );
@@ -159,16 +158,16 @@ DS_Switch_Painter_Close::paint_bg_area (
 			rgrad.setColorAt ( 0.75, col1 );
 			rgrad.setColorAt ( 1.0, col1 );
 
-			pd.qpnt->setPen ( Qt::NoPen );
-			pd.qpnt->setBrush ( rgrad );
+			pd.qpnt.setPen ( Qt::NoPen );
+			pd.qpnt.setBrush ( rgrad );
 		} else {
 			QColor col ( pd.pal.color ( QPalette::Button ) );
 
-			pd.qpnt->setPen ( Qt::NoPen );
-			pd.qpnt->setBrush ( col );
+			pd.qpnt.setPen ( Qt::NoPen );
+			pd.qpnt.setBrush ( col );
 		}
 
-		pd.qpnt->drawEllipse (
+		pd.qpnt.drawEllipse (
 			QPointF ( pd.center_x, pd.center_y ),
 			rad, rad );
 	}
@@ -192,11 +191,11 @@ DS_Switch_Painter_Close::paint_bg_border (
 				pen.setColor ( ::Wdg::col_mix ( col_bg, col_fg, 1, 2 ) );
 			}
 
-			pd.qpnt->setBrush ( Qt::NoBrush );
-			pd.qpnt->setPen ( pen );
+			pd.qpnt.setBrush ( Qt::NoBrush );
+			pd.qpnt.setPen ( pen );
 		}
 
-		pd.qpnt->drawEllipse (
+		pd.qpnt.drawEllipse (
 			QPointF ( pd.center_x, pd.center_y ), rad, rad );
 	}
 
@@ -233,8 +232,8 @@ DS_Switch_Painter_Close::paint_handle (
 		} else {
 
 			// Init painter
-			pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
-			pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
+			pd.qpnt.begin ( &pd.img->qimage() );
+			pd.qpnt.setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 			// Paint
 			paint_handle_area ( pd );
@@ -270,11 +269,11 @@ DS_Switch_Painter_Close::paint_handle_area (
 		rgrad.setColorAt ( 0.0, col_full );
 		rgrad.setColorAt ( 1.0, col_trans );
 
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( rgrad );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( rgrad );
 	} else {
-		pd.qpnt->setPen ( Qt::NoPen );
-		pd.qpnt->setBrush ( col_full );
+		pd.qpnt.setPen ( Qt::NoPen );
+		pd.qpnt.setBrush ( col_full );
 	}
 
 	double rwidth ( pd.min_len - pd.border_width - gap_width );
@@ -284,15 +283,15 @@ DS_Switch_Painter_Close::paint_handle_area (
 	}
 
 	// Paths
-	pd.qpnt->translate ( pd.center_x, pd.center_y );
-	pd.qpnt->rotate ( 45 );
-	pd.qpnt->drawRect ( QRectF (
+	pd.qpnt.translate ( pd.center_x, pd.center_y );
+	pd.qpnt.rotate ( 45 );
+	pd.qpnt.drawRect ( QRectF (
 		-rwidth / 2.0, -rheight / 2.0,
 		rwidth, rheight ) );
-	pd.qpnt->drawRect ( QRectF (
+	pd.qpnt.drawRect ( QRectF (
 		-rheight / 2.0, -rwidth / 2.0,
 		rheight, rwidth ) );
-	pd.qpnt->resetTransform();
+	pd.qpnt.resetTransform();
 }
 
 
@@ -337,14 +336,14 @@ DS_Switch_Painter_Close::paint_focus_path (
 		}
 	}
 
-	pd.qpnt->setPen ( Qt::NoPen );
+	pd.qpnt.setPen ( Qt::NoPen );
 	{
 		const QColor col_bg ( pd.pal.color ( QPalette::Button ) );
 		const QColor col_fg ( pd.pal.color ( QPalette::ButtonText ) );
-		pd.qpnt->setBrush ( ::Wdg::col_mix ( col_bg, col_fg, 1, 3 ) );
+		pd.qpnt.setBrush ( ::Wdg::col_mix ( col_bg, col_fg, 1, 3 ) );
 	}
 	for ( unsigned int ii=0; ii < 4; ++ii ) {
-		pd.qpnt->drawPath ( ppath[ii] );
+		pd.qpnt.drawPath ( ppath[ii] );
 	}
 }
 
