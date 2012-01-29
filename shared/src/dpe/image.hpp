@@ -59,22 +59,15 @@ class Image
 	QPixmap *
 	pixmap ( ) const;
 
-
-	unsigned char *
-	data ( );
-
-	const unsigned char *
-	data ( ) const;
-
-	QImage
-	data_image ( );
+	QImage &
+	qimage ( );
 
 
 	// Private attributes
 	private:
 
 	QScopedPointer < QPixmap > _pixmap;
-	QScopedArrayPointer < unsigned char > _data;
+	QImage _qimage;
 
 	unsigned int _width;
 	unsigned int _height;
@@ -119,27 +112,10 @@ Image::pixmap ( ) const
 
 
 inline
-unsigned char *
-Image::data ( )
+QImage &
+Image::qimage ( )
 {
-	return _data.data();
-}
-
-
-inline
-const unsigned char *
-Image::data ( ) const
-{
-	return _data.data();
-}
-
-
-inline
-QImage
-Image::data_image ( )
-{
-	return QImage ( data(), width(), height(), stride(),
-		QImage::Format_ARGB32_Premultiplied );
+	return _qimage;
 }
 
 

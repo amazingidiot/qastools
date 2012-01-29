@@ -45,9 +45,6 @@ Painter_Simple::paint_image (
 		meta->size.width() * 4 );
 
 	{
-		QImage qimg (
-			img.data(), img.width(), img.height(), img.stride(),
-			QImage::Format_ARGB32_Premultiplied );
 		QColor col;
 		{
 			unsigned int seed ( pjob_n->img_set->num_images() + pjob_n->img_idx * 10 );
@@ -55,7 +52,7 @@ Painter_Simple::paint_image (
 			qsrand ( seed );
 			col.setRgb ( qrand() % 256, qrand() % 256, qrand() % 256, 128 );
 		}
-		qimg.fill ( col.rgba() );
+		img.qimage().fill ( col.rgba() );
 	}
 
 	return res;

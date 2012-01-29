@@ -32,7 +32,6 @@ void
 Image::clear ( )
 {
 	_pixmap.reset();
-	_data.reset();
 	_width = 0;
 	_height = 0;
 	_stride = 0;
@@ -49,25 +48,15 @@ Image::set_size (
 	_width = width_n;
 	_height = height_n;
 	_stride = stride_n;
-	const unsigned int bc ( byte_count() );
-	if ( bc > 0 ) {
-		_data.reset ( new unsigned char[bc] );
-	}
+	_qimage = QImage ( _width, _height, QImage::Format_ARGB32_Premultiplied );
 }
 
 
 QPixmap *
 Image::convert_to_pixmap ( )
 {
-	if ( ( pixmap() == 0 ) || ( data() != 0 ) ) {
-		_pixmap.reset ( new QPixmap );
-		{
-			QImage img ( data(), width(), height(), stride(),
-				QImage::Format_ARGB32_Premultiplied );
-			*pixmap() = QPixmap::fromImage ( img );
-		}
-		// Clear data
-		_data.reset();
+	if ( ( pixmap() == 0 ) || ( !qimage().isNull() ) ) {
+		_pixmap.reset ( new QPixmap ( QPixmap::fromImage ( qimage() ) ) );
 	}
 	return pixmap();
 }

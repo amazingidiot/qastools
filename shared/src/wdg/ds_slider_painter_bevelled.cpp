@@ -49,7 +49,6 @@ struct DS_Slider_Painter_Bevelled::PData {
 
 	QPalette pal;
 
-	QScopedPointer < QImage > qimg;
 	QScopedPointer < QPainter > qpnt;
 
 	int ew; // Edge width
@@ -109,8 +108,7 @@ DS_Slider_Painter_Bevelled::paint_image (
 		pd.rectf = QRectF ( 0.0, 0.0, pd.width(), pd.height() );
 
 		// Init painter
-		pd.qimg.reset ( new QImage ( pd.img->data_image() ) );
-		pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
+		pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
 		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 		// Paint type

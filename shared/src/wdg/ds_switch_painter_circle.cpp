@@ -46,7 +46,6 @@ struct DS_Switch_Painter_Circle::PData {
 	::dpe::Image_Set_Meta * meta;
 	QPalette pal;
 
-	QScopedPointer < QImage > qimg;
 	QScopedPointer < QPainter > qpnt;
 
 	int max_len;
@@ -152,8 +151,7 @@ DS_Switch_Painter_Circle::paint_bg (
 
 	{
 		// Init painter
-		pd.qimg.reset ( new QImage ( pd.img->data_image() ) );
-		pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
+		pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
 		pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 		// Painting
@@ -266,8 +264,7 @@ DS_Switch_Painter_Circle::paint_handle (
 			pd.img->clear();
 		} else {
 			// Init painter
-			pd.qimg.reset ( new QImage ( pd.img->data_image() ) );
-			pd.qpnt.reset ( new QPainter ( pd.qimg.data() ) );
+			pd.qpnt.reset ( new QPainter ( &pd.img->qimage() ) );
 			pd.qpnt->setRenderHints ( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
 
 			// Painting

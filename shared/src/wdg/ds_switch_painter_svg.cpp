@@ -189,12 +189,7 @@ DS_Switch_Painter_SVG::render_svg (
 	{
 		QSvgRenderer svg_render;
 		if ( svg_render.load ( svg_file_n ) ) {
-			QImage qimg (
-				img_n.data(), img_n.width(), img_n.height(), img_n.stride(),
-				QImage::Format_ARGB32_Premultiplied );
-			qimg.fill ( 0 );
-
-			QPainter pnt ( &qimg );
+			QPainter pnt ( &img_n.qimage() );
 			pnt.setRenderHints (
 				QPainter::Antialiasing |
 				QPainter::SmoothPixmapTransform );

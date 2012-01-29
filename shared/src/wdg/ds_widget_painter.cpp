@@ -49,7 +49,7 @@ DS_Widget_Painter::create_image_data (
 		meta_n->size.width(),
 		meta_n->size.height(),
 		meta_n->size.width() * 4 );
-	memset ( img_n->data(), 0, img_n->byte_count() ); // Clear
+	img_n->qimage().fill ( 0 );
 
 	return 0;
 }
