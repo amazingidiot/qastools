@@ -56,7 +56,8 @@ QPixmap *
 Image::convert_to_pixmap ( )
 {
 	if ( ( pixmap() == 0 ) || ( !qimage().isNull() ) ) {
-		_pixmap.reset ( new QPixmap ( QPixmap::fromImage ( qimage() ) ) );
+		_pixmap.reset ( new QPixmap ( QPixmap::fromImage ( _qimage ) ) );
+		_qimage = QImage();
 	}
 	return pixmap();
 }
