@@ -1,3 +1,7 @@
+2012-01-30      Sebastian Holtermann  <sebholt@xwmw.org>
+	* shared: Painting fixed for Qt 4.8
+	* Release version 0.17.1
+
 2012-01-17      Sebastian Holtermann  <sebholt@xwmw.org>
 	* all: setting names for state save/restore changed/regrouped
 	* all: smart main window sizeHint() to get a useable window size after leaving fullscreen
