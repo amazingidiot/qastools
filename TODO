@@ -1,5 +1,6 @@
 * ctl element selection for the minimixer (master,line, etc.)
-* volume/switch preset safe/restore
+* volume/switch preset safe/restore (on startup)
+* Some kind of desktop autostart option (another .desktop file for autostart?)
 * sliders/switches grouping
 * volume meters
 * K system styled sliders/meters
