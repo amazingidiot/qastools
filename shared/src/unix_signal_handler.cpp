@@ -10,6 +10,7 @@
 
 #include <sys/socket.h>
 #include <signal.h>
+#include <unistd.h>
 #include <QSocketNotifier>
 #include <iostream>
 

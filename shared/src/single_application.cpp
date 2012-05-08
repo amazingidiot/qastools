@@ -17,6 +17,7 @@
 
 #include <stdlib.h>
 #include <pwd.h>
+#include <unistd.h>
 #include "unix_signal_handler.hpp"
 
 
