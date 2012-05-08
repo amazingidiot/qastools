@@ -22,23 +22,22 @@ col_mix (
 {
 	const int wsum ( w_1 + w_2 );
 
-	unsigned int com1[4] = {
-		col_1.alpha(),
-		col_1.red(),
-		col_1.green(),
-		col_1.blue()
-	};
+	unsigned int com1[4];
+	com1[0] = col_1.alpha();
+	com1[1] = col_1.red();
+	com1[2] = col_1.green();
+	com1[3] = col_1.blue();
+
 	for ( int ii=0; ii<4; ++ii ) {
 		com1[ii] *= w_1;
 	}
 
 	{
-		unsigned int com2[4] = {
-			col_2.alpha(),
-			col_2.red(),
-			col_2.green(),
-			col_2.blue()
-		};
+		unsigned int com2[4];
+		com2[0] = col_2.alpha();
+		com2[1] = col_2.red();
+		com2[2] = col_2.green();
+		com2[3] = col_2.blue();
 
 		for ( int ii=0; ii<4; ++ii ) {
 			com2[ii] *= w_2;
