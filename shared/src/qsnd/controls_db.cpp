@@ -108,8 +108,6 @@ Controls_DB::clear_data ( )
 void
 Controls_DB::load_plugins ( )
 {
-	QStringList ctl_names;
-
 	// Load ALSA configuration tree and read ctl entries
 	{
 		snd_config_t * snd_cfg = 0;
