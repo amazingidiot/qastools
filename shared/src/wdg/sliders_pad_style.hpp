@@ -36,6 +36,7 @@ class Sliders_Pad_Style
 	Sliders_Pad_Style (
 		Sliders_Pad_Data * data_n );
 
+	virtual
 	~Sliders_Pad_Style ( );
 
 
