@@ -573,7 +573,7 @@ DS_Slider_Painter_Bevelled::paint_marker_current (
 		if ( delta < 1.0 ) {
 			delta = 1.0;
 		}
-		double delta_sq = delta * ( ::std::sqrt ( 2.0 ) - 1.0 );
+		double delta_sq ( delta * ( ::std::sqrt ( 2.0 ) - 1.0 ) );
 
 		const double x0 ( delta );
 		const double x1 ( bevel + delta_sq );
