@@ -312,6 +312,10 @@
 		<Unit filename="shared/src/qsnd/pcm_subdevice_info.hpp" />
 		<Unit filename="shared/src/qsnd/pcm_subdevices_info.cpp" />
 		<Unit filename="shared/src/qsnd/pcm_subdevices_info.hpp" />
+		<Unit filename="shared/src/single_application.cpp" />
+		<Unit filename="shared/src/single_application.hpp" />
+		<Unit filename="shared/src/unix_signal_handler.cpp" />
+		<Unit filename="shared/src/unix_signal_handler.hpp" />
 		<Unit filename="shared/src/views/basic_dialog.cpp" />
 		<Unit filename="shared/src/views/basic_dialog.hpp" />
 		<Unit filename="shared/src/views/dev_select_view.cpp" />
