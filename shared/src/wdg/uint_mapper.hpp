@@ -45,6 +45,9 @@ class UInt_Mapper
 	public:
 
 	virtual
+	~UInt_Mapper ( );
+
+	virtual
 	unsigned long
 	map (
 		unsigned long val_n ) const = 0;

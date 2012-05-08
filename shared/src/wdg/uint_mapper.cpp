@@ -90,6 +90,10 @@ permille (
 }
 
 
+UInt_Mapper::~UInt_Mapper ( )
+{
+}
+
 
 //
 // UInt_Mapper_Down
