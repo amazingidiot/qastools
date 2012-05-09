@@ -1,3 +1,7 @@
+2012-05-09      Sebastian Holtermann  <sebholt@xwmw.org>
+	* all: Compiler error and warning fixes for gcc-4.7
+	* Release version 0.17.2
+
 2012-01-30      Sebastian Holtermann  <sebholt@xwmw.org>
 	* shared: Painting fixed for Qt 4.8
 	* Release version 0.17.1
