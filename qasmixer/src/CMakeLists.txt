@@ -45,6 +45,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/mixer_simple.cpp
 
 	${SHARED_SRC_DIR}/qsnd2/proxies.cpp
+	${SHARED_SRC_DIR}/qsnd2/mixer.cpp
 
 	${SHARED_SRC_DIR}/dpe/image.cpp
 	${SHARED_SRC_DIR}/dpe/image_set_meta.cpp

@@ -235,15 +235,15 @@ List_Proxies_Group::proxy (
 
 /// @brief Group level 1 - holds a proxies list for every type
 ///
-class Group1
+class Mixer_Group1
 {
 	// Public methods
 	public:
 
-	Group1 ( );
+	Mixer_Group1 ( );
 
 	virtual
-	~Group1 ( );
+	~Mixer_Group1 ( );
 
 
 	::QSnd2::Slider_Proxies_Group *
@@ -280,21 +280,21 @@ class Group1
 
 inline
 ::QSnd2::Slider_Proxies_Group *
-Group1::sliders ( ) const
+Mixer_Group1::sliders ( ) const
 {
 	return _sliders.data();
 }
 
 inline
 ::QSnd2::Switch_Proxies_Group *
-Group1::switches ( ) const
+Mixer_Group1::switches ( ) const
 {
 	return _switches.data();
 }
 
 inline
 ::QSnd2::List_Proxies_Group *
-Group1::lists ( ) const
+Mixer_Group1::lists ( ) const
 {
 	return _lists.data();
 }
@@ -302,21 +302,21 @@ Group1::lists ( ) const
 
 /// @brief Group level 2 - holds groups of level 1
 ///
-class Group2
+class Mixer_Group2
 {
 	// Public methods
 	public:
 
-	Group2 ( );
+	Mixer_Group2 ( );
 
 	virtual
-	~Group2 ( );
+	~Mixer_Group2 ( );
 
 
 	unsigned int
 	num_groups ( ) const;
 
-	::QSnd2::Group1 *
+	::QSnd2::Mixer_Group1 *
 	group (
 		unsigned int idx_n );
 
@@ -324,19 +324,19 @@ class Group2
 	// Private attributes
 	private:
 
-	QList < ::QSnd2::Group1 * > _groups;
+	QList < ::QSnd2::Mixer_Group1 * > _groups;
 };
 
 inline
 unsigned int
-Group2::num_groups ( ) const
+Mixer_Group2::num_groups ( ) const
 {
 	return _groups.size();
 }
 
 inline
-::QSnd2::Group1 *
-Group2::group (
+::QSnd2::Mixer_Group1 *
+Mixer_Group2::group (
 	unsigned int idx_n )
 {
 	return _groups[idx_n];

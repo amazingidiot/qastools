@@ -103,44 +103,44 @@ List_Proxies_Group::~List_Proxies_Group ( )
 }
 
 
-Group1::Group1 ( ) :
+Mixer_Group1::Mixer_Group1 ( ) :
 _sliders ( 0 ),
 _switches ( 0 ),
 _lists ( 0 )
 {
 }
 
-Group1::~Group1 ( )
+Mixer_Group1::~Mixer_Group1 ( )
 {
 }
 
 void
-Group1::set_sliders (
+Mixer_Group1::set_sliders (
 	::QSnd2::Slider_Proxies_Group * grp_n )
 {
 	_sliders.reset ( grp_n );
 }
 
 void
-Group1::set_switches (
+Mixer_Group1::set_switches (
 	::QSnd2::Switch_Proxies_Group * grp_n )
 {
 	_switches.reset ( grp_n );
 }
 
 void
-Group1::set_lists (
+Mixer_Group1::set_lists (
 	::QSnd2::List_Proxies_Group * grp_n )
 {
 	_lists.reset ( grp_n );
 }
 
 
-Group2::Group2 ( )
+Mixer_Group2::Mixer_Group2 ( )
 {
 }
 
-Group2::~Group2 ( )
+Mixer_Group2::~Mixer_Group2 ( )
 {
 }
 
