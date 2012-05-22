@@ -13,7 +13,7 @@ namespace QSnd2
 
 
 Proxy::Proxy (
-	::QSnd2::Proxies_Group * group_n ) :
+	::QSnd2::Proxies_Group0 * group_n ) :
 _group ( group_n )
 {
 }
@@ -24,23 +24,23 @@ Proxy::~Proxy ( )
 
 void
 Proxy::set_group (
-	::QSnd2::Proxies_Group * group_n )
+	::QSnd2::Proxies_Group0 * group_n )
 {
 	_group = group_n;
 }
 
 
-Proxies_Group::Proxies_Group ( )
+Proxies_Group0::Proxies_Group0 ( )
 {
 }
 
-Proxies_Group::~Proxies_Group ( )
+Proxies_Group0::~Proxies_Group0 ( )
 {
 	clear();
 }
 
 void
-Proxies_Group::clear ( )
+Proxies_Group0::clear ( )
 {
 	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
 		delete _proxies[ii];
@@ -85,63 +85,84 @@ Switch_Proxies_Group::~Switch_Proxies_Group ( )
 }
 
 
-List_Proxy::List_Proxy ( )
+Enum_Proxy::Enum_Proxy ( )
 {
 }
 
-List_Proxy::~List_Proxy ( )
-{
-}
-
-
-List_Proxies_Group::List_Proxies_Group ( )
-{
-}
-
-List_Proxies_Group::~List_Proxies_Group ( )
+Enum_Proxy::~Enum_Proxy ( )
 {
 }
 
 
-Mixer_Group1::Mixer_Group1 ( ) :
+Enum_Proxies_Group::Enum_Proxies_Group ( )
+{
+}
+
+Enum_Proxies_Group::~Enum_Proxies_Group ( )
+{
+}
+
+
+Proxies_Group1::Proxies_Group1 ( ) :
 _sliders ( 0 ),
 _switches ( 0 ),
-_lists ( 0 )
+_enums ( 0 )
 {
 }
 
-Mixer_Group1::~Mixer_Group1 ( )
+Proxies_Group1::~Proxies_Group1 ( )
 {
 }
 
 void
-Mixer_Group1::set_sliders (
+Proxies_Group1::clear_groups ( )
+{
+	_sliders.reset();
+	_switches.reset();
+	_enums.reset();
+}
+
+void
+Proxies_Group1::set_sliders (
 	::QSnd2::Slider_Proxies_Group * grp_n )
 {
 	_sliders.reset ( grp_n );
 }
 
 void
-Mixer_Group1::set_switches (
+Proxies_Group1::set_switches (
 	::QSnd2::Switch_Proxies_Group * grp_n )
 {
 	_switches.reset ( grp_n );
 }
 
 void
-Mixer_Group1::set_lists (
-	::QSnd2::List_Proxies_Group * grp_n )
+Proxies_Group1::set_enums (
+	::QSnd2::Enum_Proxies_Group * grp_n )
 {
-	_lists.reset ( grp_n );
+	_enums.reset ( grp_n );
 }
 
 
-Mixer_Group2::Mixer_Group2 ( )
+Proxies_Group2::Proxies_Group2 ( )
 {
 }
 
-Mixer_Group2::~Mixer_Group2 ( )
+Proxies_Group2::~Proxies_Group2 ( )
 {
+}
+
+void
+Proxies_Group2::clear_groups ( )
+{
+	_groups.clear();
+}
+
+void
+Proxies_Group2::append_group (
+	::QSnd2::Proxies_Group1 * grp_n )
+{
+	_groups.append ( grp_n );
 }
 
 

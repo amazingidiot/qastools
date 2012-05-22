@@ -45,7 +45,9 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/mixer_simple.cpp
 
 	${SHARED_SRC_DIR}/qsnd2/proxies.cpp
-	${SHARED_SRC_DIR}/qsnd2/mixer.cpp
+	${SHARED_SRC_DIR}/qsnd2/controls.cpp
+	${SHARED_SRC_DIR}/qsnd2/controls_watcher.cpp
+	${SHARED_SRC_DIR}/qsnd2/alsa_smi.cpp
 
 	${SHARED_SRC_DIR}/dpe/image.cpp
 	${SHARED_SRC_DIR}/dpe/image_set_meta.cpp
@@ -182,6 +184,8 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/qsnd/cards_model.hpp
 	${SHARED_INC_DIR}/qsnd/mixer_simple_elem.hpp
 	${SHARED_INC_DIR}/qsnd/mixer_simple.hpp
+
+	${SHARED_INC_DIR}/qsnd2/controls_watcher.hpp
 
 	${SHARED_INC_DIR}/dpe/is_buffer.hpp
 	${SHARED_INC_DIR}/dpe/image_allocator.hpp
