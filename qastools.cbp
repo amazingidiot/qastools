@@ -312,6 +312,8 @@
 		<Unit filename="shared/src/qsnd/pcm_subdevice_info.hpp" />
 		<Unit filename="shared/src/qsnd/pcm_subdevices_info.cpp" />
 		<Unit filename="shared/src/qsnd/pcm_subdevices_info.hpp" />
+		<Unit filename="shared/src/qsnd2/proxies.cpp" />
+		<Unit filename="shared/src/qsnd2/proxies.hpp" />
 		<Unit filename="shared/src/single_application.cpp" />
 		<Unit filename="shared/src/single_application.hpp" />
 		<Unit filename="shared/src/unix_signal_handler.cpp" />
