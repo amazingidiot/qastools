@@ -33,7 +33,7 @@ class Controls
 	unsigned int
 	num_groups ( ) const;
 
-	::QSnd2::Proxies_Group3 *
+	::QSnd2::Proxies_Group4 *
 	group (
 		unsigned int idx_n ) const;
 
@@ -58,7 +58,7 @@ class Controls
 
 	void
 	append_group (
-		::QSnd2::Proxies_Group3 * grp_n );
+		::QSnd2::Proxies_Group4 * grp_n );
 
 	void
 	clear_pollfds ( );
@@ -71,7 +71,7 @@ class Controls
 	// Private attributes
 	private:
 
-	QList < ::QSnd2::Proxies_Group3 * > _groups;
+	QList < ::QSnd2::Proxies_Group4 * > _groups;
 	unsigned int _num_pollfds;
 	QScopedArrayPointer < pollfd > _pollfds;
 };
@@ -84,7 +84,7 @@ Controls::num_groups ( ) const
 }
 
 inline
-::QSnd2::Proxies_Group3 *
+::QSnd2::Proxies_Group4 *
 Controls::group (
 	unsigned int idx_n ) const
 {

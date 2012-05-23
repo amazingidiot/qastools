@@ -13,18 +13,18 @@ namespace QSnd2
 {
 
 
-Alsa_SMI_Controls::Alsa_SMI_Controls ( ) :
+ASMI_Controls::ASMI_Controls ( ) :
 _is_open ( false )
 {
 }
 
-Alsa_SMI_Controls::~Alsa_SMI_Controls ( )
+ASMI_Controls::~ASMI_Controls ( )
 {
 	close();
 }
 
 void
-Alsa_SMI_Controls::close ( )
+ASMI_Controls::close ( )
 {
 	clear_pollfds();
 	clear_groups();
@@ -49,10 +49,10 @@ Alsa_SMI_Controls::close ( )
 }
 
 bool
-Alsa_SMI_Controls::open (
+ASMI_Controls::open (
 	const QString & device_n )
 {
-	//::std::cout << "Alsa_SMI_Controls::open " << device_n.toLocal8Bit().constData() << "\n";
+	//::std::cout << "ASMI_Controls::open " << device_n.toLocal8Bit().constData() << "\n";
 
 	close();
 
@@ -122,7 +122,7 @@ Alsa_SMI_Controls::open (
 	if ( err == 0 ) {
 		::snd_mixer_set_callback_private ( _snd_mixer, this );
 		::snd_mixer_set_callback ( _snd_mixer,
-			&::QSnd2::Alsa_SMI_Controls::alsa_callback );
+			&::QSnd2::ASMI_Controls::alsa_callback );
 
 		// Create mixer elements
 		err = create_control_groups();
@@ -143,7 +143,7 @@ Alsa_SMI_Controls::open (
 }
 
 void
-Alsa_SMI_Controls::destroy_control_groups ( )
+ASMI_Controls::destroy_control_groups ( )
 {
 	if ( _cp_groups.size() > 0 ) {
 		for ( int ii=0; ii < _cp_groups.size(); ++ii ) {
@@ -154,7 +154,7 @@ Alsa_SMI_Controls::destroy_control_groups ( )
 }
 
 int
-Alsa_SMI_Controls::create_control_groups ( )
+ASMI_Controls::create_control_groups ( )
 {
 	int res ( 0 );
 
@@ -171,19 +171,19 @@ Alsa_SMI_Controls::create_control_groups ( )
 	return res;
 }
 
-::QSnd2::Alsa_SMI_PGroup2 *
-Alsa_SMI_Controls::create_control_group (
+::QSnd2::ASMI_Proxies_Group2 *
+ASMI_Controls::create_control_group (
 	::snd_mixer_elem_t * snd_elem_n )
 {
-	::QSnd2::Alsa_SMI_PGroup2 * grp ( new ::QSnd2::Alsa_SMI_PGroup2 );
+	::QSnd2::ASMI_Proxies_Group2 * grp ( new ::QSnd2::ASMI_Proxies_Group2 );
 
 	return grp;
 }
 
 int
-Alsa_SMI_Controls::load_pollfds ( )
+ASMI_Controls::load_pollfds ( )
 {
-	//::std::cout << "Alsa_SMI_Controls::load_pollfds" << "\n";
+	//::std::cout << "ASMI_Controls::load_pollfds" << "\n";
 
 	int res ( 0 );
 
@@ -217,7 +217,7 @@ Alsa_SMI_Controls::load_pollfds ( )
 // Socket callbacks
 
 void
-Alsa_SMI_Controls::socket_data (
+ASMI_Controls::socket_data (
 	int socket_id_n )
 {
 	(void) socket_id_n;
@@ -233,15 +233,15 @@ Alsa_SMI_Controls::socket_data (
 }
 
 int
-Alsa_SMI_Controls::alsa_callback (
+ASMI_Controls::alsa_callback (
 	snd_mixer_t * snd_mixer_n,
 	unsigned int mask_n,
 	snd_mixer_elem_t * )
 {
 	int res ( 0 );
 
-	::QSnd2::Alsa_SMI_Controls * alsa_controls =
-		reinterpret_cast < ::QSnd2::Alsa_SMI_Controls * > (
+	::QSnd2::ASMI_Controls * alsa_controls =
+		reinterpret_cast < ::QSnd2::ASMI_Controls * > (
 		::snd_mixer_get_callback_private ( snd_mixer_n ) );
 
 	if ( alsa_controls != 0 ) {
@@ -257,7 +257,7 @@ Alsa_SMI_Controls::alsa_callback (
 			// TODO:
 			//qsnd_mixer->request_reload();
 		} else {
-			::std::cerr << "Alsa_SMI_Controls::alsa_callback_mixer: ";
+			::std::cerr << "ASMI_Controls::alsa_callback_mixer: ";
 			::std::cerr << "Unknown mask ( " << mask_n << " )\n";
 			res = -1;
 		}

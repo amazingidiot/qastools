@@ -11,10 +11,10 @@
 
 #include <QList>
 #include <QString>
-#include <QScopedPointer>
 
 namespace QSnd2
 {
+
 
 // Forward declaration
 class Proxies_Group1;
@@ -24,6 +24,31 @@ class Proxies_Group1_Enum;
 class Proxies_Group2;
 class Proxies_Group3;
 class Proxies_Group4;
+
+enum Control_Elem_Type {
+	ETYPE_NONE,
+	ETYPE_SWITCH,
+	ETYPE_SLIDER,
+	ETYPE_ENUM
+};
+
+
+/// @brief Deletes all entries in a pointer list and clears it afterwards
+///
+template < class T >
+void
+destroy_list_entries (
+	T & list_n )
+{
+	if ( list_n.size() > 0 ) {
+		typename T::iterator it_end ( list_n.end() );
+		typename T::iterator it ( list_n.begin() );
+		while ( it != it_end ) {
+			delete *it;
+		}
+		list_n.clear();
+	}
+}
 
 
 /// @brief Simple two integer struct
@@ -124,10 +149,13 @@ class Proxy :
 	public:
 
 	Proxy (
+		unsigned int control_type_n,
 		::QSnd2::Proxies_Group1 * group_n = 0 );
 
 	~Proxy ( );
 
+	unsigned int
+	control_type ( ) const;
 
 	::QSnd2::Proxies_Group1 *
 	pgroup ( ) const;
@@ -140,8 +168,16 @@ class Proxy :
 	// Private attributes
 	private:
 
+	const unsigned int _control_type;
 	::QSnd2::Proxies_Group1 * _pgroup;
 };
+
+inline
+unsigned int
+Proxy::control_type ( ) const
+{
+	return _control_type;
+}
 
 
 
@@ -156,9 +192,13 @@ class Proxies_Group1 :
 	// Public methods
 	public:
 
-	Proxies_Group1 ( );
+	Proxies_Group1 (
+		unsigned int control_type_n );
 
 	~Proxies_Group1 ( );
+
+	unsigned int
+	control_type ( ) const;
 
 	void
 	clear_children ( );
@@ -174,6 +214,7 @@ class Proxies_Group1 :
 	// Private attributes
 	private:
 
+	const unsigned int _control_type;
 	QList < ::QSnd2::Proxy * > _proxies;
 };
 
@@ -182,6 +223,13 @@ inline
 Proxy::pgroup ( ) const
 {
 	return _pgroup;
+}
+
+inline
+unsigned int
+Proxies_Group1::control_type ( ) const
+{
+	return _control_type;
 }
 
 inline
@@ -448,58 +496,31 @@ class Proxies_Group2 :
 	void
 	clear_children ( );
 
+	void
+	append_group (
+		::QSnd2::Proxies_Group1 * grp_n );
+
+
+	::QSnd2::Proxies_Group1 *
+	find_group_type (
+		unsigned int elem_type_n ) const;
+
 	::QSnd2::Proxies_Group1_Slider *
 	sliders ( ) const;
-
-	void
-	set_sliders (
-		::QSnd2::Proxies_Group1_Slider * grp_n );
-
 
 	::QSnd2::Proxies_Group1_Switch *
 	switches ( ) const;
 
-	void
-	set_switches (
-		::QSnd2::Proxies_Group1_Switch * grp_n );
-
-
 	::QSnd2::Proxies_Group1_Enum *
 	enums ( ) const;
-
-	void
-	set_enums (
-		::QSnd2::Proxies_Group1_Enum * grp_n );
 
 
 	// Private attributes
 	private:
 
-	QScopedPointer < ::QSnd2::Proxies_Group1_Slider > _sliders;
-	QScopedPointer < ::QSnd2::Proxies_Group1_Switch > _switches;
-	QScopedPointer < ::QSnd2::Proxies_Group1_Enum > _enums;
+	QList < ::QSnd2::Proxies_Group1 * > _groups;
 };
 
-inline
-::QSnd2::Proxies_Group1_Slider *
-Proxies_Group2::sliders ( ) const
-{
-	return _sliders.data();
-}
-
-inline
-::QSnd2::Proxies_Group1_Switch *
-Proxies_Group2::switches ( ) const
-{
-	return _switches.data();
-}
-
-inline
-::QSnd2::Proxies_Group1_Enum *
-Proxies_Group2::enums ( ) const
-{
-	return _enums.data();
-}
 
 
 /// @brief Proxies_Group3

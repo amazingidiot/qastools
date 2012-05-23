@@ -24,12 +24,12 @@ Controls::~Controls ( )
 void
 Controls::clear_groups ( )
 {
-	_groups.clear();
+	::QSnd2::destroy_list_entries ( _groups );
 }
 
 void
 Controls::append_group (
-	::QSnd2::Proxies_Group3 * grp_n )
+	::QSnd2::Proxies_Group4 * grp_n )
 {
 	_groups.append ( grp_n );
 }

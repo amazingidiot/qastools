@@ -11,20 +11,6 @@
 namespace QSnd2
 {
 
-template < class T >
-void
-destroy_list_entries (
-	T & list_n )
-{
-	if ( list_n.size() > 0 ) {
-		typename T::iterator it_end ( list_n.end() );
-		typename T::iterator it ( list_n.begin() );
-		while ( it != it_end ) {
-			delete *it;
-		}
-		list_n.clear();
-	}
-}
 
 
 Proxy_Object::Proxy_Object (
@@ -40,8 +26,10 @@ Proxy_Object::~Proxy_Object ( )
 
 
 Proxy::Proxy (
+	unsigned int control_type_n,
 	::QSnd2::Proxies_Group1 * group_n ) :
 ::QSnd2::Proxy_Object ( 0 ),
+_control_type ( control_type_n ),
 _pgroup ( group_n )
 {
 }
@@ -59,8 +47,10 @@ Proxy::set_pgroup (
 
 
 
-Proxies_Group1::Proxies_Group1 ( ) :
-::QSnd2::Proxy_Object ( 1 )
+Proxies_Group1::Proxies_Group1 (
+	unsigned int control_type_n ) :
+::QSnd2::Proxy_Object ( 1 ),
+_control_type ( control_type_n )
 {
 }
 
@@ -72,12 +62,13 @@ Proxies_Group1::~Proxies_Group1 ( )
 void
 Proxies_Group1::clear_children ( )
 {
-	destroy_list_entries ( _proxies );
+	::QSnd2::destroy_list_entries ( _proxies );
 }
 
 
 
-Slider_Proxy::Slider_Proxy ( )
+Slider_Proxy::Slider_Proxy ( ) :
+::QSnd2::Proxy ( ::QSnd2::ETYPE_SLIDER )
 {
 }
 
@@ -87,7 +78,8 @@ Slider_Proxy::~Slider_Proxy ( )
 
 
 
-Proxies_Group1_Slider::Proxies_Group1_Slider ( )
+Proxies_Group1_Slider::Proxies_Group1_Slider ( ) :
+::QSnd2::Proxies_Group1 ( ::QSnd2::ETYPE_SLIDER )
 {
 }
 
@@ -97,7 +89,8 @@ Proxies_Group1_Slider::~Proxies_Group1_Slider ( )
 
 
 
-Switch_Proxy::Switch_Proxy ( )
+Switch_Proxy::Switch_Proxy ( ) :
+::QSnd2::Proxy ( ::QSnd2::ETYPE_SWITCH )
 {
 }
 
@@ -107,7 +100,8 @@ Switch_Proxy::~Switch_Proxy ( )
 
 
 
-Proxies_Group1_Switch::Proxies_Group1_Switch ( )
+Proxies_Group1_Switch::Proxies_Group1_Switch ( ) :
+::QSnd2::Proxies_Group1 ( ::QSnd2::ETYPE_SWITCH )
 {
 }
 
@@ -117,7 +111,8 @@ Proxies_Group1_Switch::~Proxies_Group1_Switch ( )
 
 
 
-Enum_Proxy::Enum_Proxy ( )
+Enum_Proxy::Enum_Proxy ( ) :
+::QSnd2::Proxy ( ::QSnd2::ETYPE_ENUM )
 {
 }
 
@@ -127,7 +122,8 @@ Enum_Proxy::~Enum_Proxy ( )
 
 
 
-Proxies_Group1_Enum::Proxies_Group1_Enum ( )
+Proxies_Group1_Enum::Proxies_Group1_Enum ( ) :
+::QSnd2::Proxies_Group1 ( ::QSnd2::ETYPE_ENUM )
 {
 }
 
@@ -138,10 +134,7 @@ Proxies_Group1_Enum::~Proxies_Group1_Enum ( )
 
 
 Proxies_Group2::Proxies_Group2 ( ) :
-::QSnd2::Proxy_Object ( 2 ),
-_sliders ( 0 ),
-_switches ( 0 ),
-_enums ( 0 )
+::QSnd2::Proxy_Object ( 2 )
 {
 }
 
@@ -153,30 +146,62 @@ Proxies_Group2::~Proxies_Group2 ( )
 void
 Proxies_Group2::clear_children ( )
 {
-	_sliders.reset();
-	_switches.reset();
-	_enums.reset();
+	::QSnd2::destroy_list_entries ( _groups );
 }
 
 void
-Proxies_Group2::set_sliders (
-	::QSnd2::Proxies_Group1_Slider * grp_n )
+Proxies_Group2::append_group (
+	::QSnd2::Proxies_Group1 * grp_n )
 {
-	_sliders.reset ( grp_n );
+	_groups.append ( grp_n );
 }
 
-void
-Proxies_Group2::set_switches (
-	::QSnd2::Proxies_Group1_Switch * grp_n )
+::QSnd2::Proxies_Group1_Slider *
+Proxies_Group2::sliders ( ) const
 {
-	_switches.reset ( grp_n );
+	::QSnd2::Proxies_Group1_Slider * res ( 0 );
+	::QSnd2::Proxies_Group1 * item ( find_group_type ( ::QSnd2::ETYPE_SLIDER ) );
+	if ( item != 0 ) {
+		res = static_cast < ::QSnd2::Proxies_Group1_Slider * > ( item );
+	}
+	return res;
 }
 
-void
-Proxies_Group2::set_enums (
-	::QSnd2::Proxies_Group1_Enum * grp_n )
+::QSnd2::Proxies_Group1_Switch *
+Proxies_Group2::switches ( ) const
 {
-	_enums.reset ( grp_n );
+	::QSnd2::Proxies_Group1_Switch * res ( 0 );
+	::QSnd2::Proxies_Group1 * item ( find_group_type ( ::QSnd2::ETYPE_SWITCH ) );
+	if ( item != 0 ) {
+		res = static_cast < ::QSnd2::Proxies_Group1_Switch * > ( item );
+	}
+	return res;
+}
+
+::QSnd2::Proxies_Group1_Enum *
+Proxies_Group2::enums ( ) const
+{
+	::QSnd2::Proxies_Group1_Enum * res ( 0 );
+	::QSnd2::Proxies_Group1 * item ( find_group_type ( ::QSnd2::ETYPE_ENUM ) );
+	if ( item != 0 ) {
+		res = static_cast < ::QSnd2::Proxies_Group1_Enum * > ( item );
+	}
+	return res;
+}
+
+::QSnd2::Proxies_Group1 *
+Proxies_Group2::find_group_type (
+	unsigned int elem_type_n ) const
+{
+	::QSnd2::Proxies_Group1 * res ( 0 );
+	for ( int ii=0; ii < _groups.size(); ++ii ) {
+		::QSnd2::Proxies_Group1 * item ( _groups[ii] );
+		if ( item->control_type() == elem_type_n ) {
+			res = item;
+			break;
+		}
+	}
+	return res;
 }
 
 
@@ -194,7 +219,7 @@ Proxies_Group3::~Proxies_Group3 ( )
 void
 Proxies_Group3::clear_children ( )
 {
-	destroy_list_entries ( _groups );
+	::QSnd2::destroy_list_entries ( _groups );
 }
 
 void
@@ -219,7 +244,7 @@ Proxies_Group4::~Proxies_Group4 ( )
 void
 Proxies_Group4::clear_children ( )
 {
-	destroy_list_entries ( _groups );
+	::QSnd2::destroy_list_entries ( _groups );
 }
 
 void

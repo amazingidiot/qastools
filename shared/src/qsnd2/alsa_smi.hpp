@@ -17,15 +17,15 @@ namespace QSnd2
 {
 
 
-class Alsa_SMI_PGroup2 :
-	public ::QSnd2::Proxies_Group3
+class ASMI_Proxies_Group1_Slider :
+	public ::QSnd2::Proxies_Group1_Slider
 {
 	// Public methods
 	public:
 
 };
 
-class Alsa_SMI_PGroup1 :
+class ASMI_Proxies_Group2 :
 	public ::QSnd2::Proxies_Group2
 {
 	// Public methods
@@ -36,15 +36,15 @@ class Alsa_SMI_PGroup1 :
 
 /// @brief ALSA simple mixer interface mixer controls
 ///
-class Alsa_SMI_Controls :
+class ASMI_Controls :
 	public ::QSnd2::Controls
 {
 	// Public methods
 	public:
 
-	Alsa_SMI_Controls ( );
+	ASMI_Controls ( );
 
-	~Alsa_SMI_Controls ( );
+	~ASMI_Controls ( );
 
 	bool
 	open (
@@ -100,7 +100,7 @@ class Alsa_SMI_Controls :
 	int
 	create_control_groups ( );
 
-	::QSnd2::Alsa_SMI_PGroup2 *
+	::QSnd2::ASMI_Proxies_Group2 *
 	create_control_group (
 		::snd_mixer_elem_t * snd_elem_n );
 
@@ -114,7 +114,7 @@ class Alsa_SMI_Controls :
 	::snd_hctl_t * _snd_hctl;
 	::snd_mixer_t * _snd_mixer;
 
-	QList < ::QSnd2::Alsa_SMI_PGroup2 * > _cp_groups;
+	QList < ::QSnd2::ASMI_Proxies_Group2 * > _cp_groups;
 
 	QString _err_func;
 	QString _err_message;
@@ -124,35 +124,35 @@ class Alsa_SMI_Controls :
 
 inline
 bool
-Alsa_SMI_Controls::is_open ( ) const
+ASMI_Controls::is_open ( ) const
 {
 	return _is_open;
 }
 
 inline
 const QString &
-Alsa_SMI_Controls::err_func ( ) const
+ASMI_Controls::err_func ( ) const
 {
 	return _err_func;
 }
 
 inline
 const QString &
-Alsa_SMI_Controls::err_message ( ) const
+ASMI_Controls::err_message ( ) const
 {
 	return _err_message;
 }
 
 inline
 snd_hctl_t *
-Alsa_SMI_Controls::snd_hctl ( )
+ASMI_Controls::snd_hctl ( )
 {
 	return _snd_hctl;
 }
 
 inline
 snd_mixer_t *
-Alsa_SMI_Controls::snd_mixer ( )
+ASMI_Controls::snd_mixer ( )
 {
 	return _snd_mixer;
 }
