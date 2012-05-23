@@ -18,7 +18,7 @@ namespace QSnd2
 
 
 class Alsa_SMI_PGroup2 :
-	public ::QSnd2::Proxies_Group2
+	public ::QSnd2::Proxies_Group3
 {
 	// Public methods
 	public:
@@ -26,7 +26,7 @@ class Alsa_SMI_PGroup2 :
 };
 
 class Alsa_SMI_PGroup1 :
-	public ::QSnd2::Proxies_Group1
+	public ::QSnd2::Proxies_Group2
 {
 	// Public methods
 	public:

@@ -17,9 +17,9 @@ namespace QSnd2
 {
 
 // Forward declaration
-class Proxies_Group0;
 class Proxies_Group1;
 class Proxies_Group2;
+class Proxies_Group3;
 class Slider_Proxies_Group;
 class Switch_Proxies_Group;
 class Enum_Proxies_Group;
@@ -82,45 +82,76 @@ Integer_Pair::operator[] (
 }
 
 
-/// @brief Base class for control proxies
+/// @brief Holds Proxies or other groups
 ///
-class Proxy
+class Proxy_Object
 {
 	// Public methods
 	public:
 
-	Proxy (
-		::QSnd2::Proxies_Group0 * group_n = 0 );
+	Proxy_Object (
+		unsigned int level_n );
 
 	virtual
-	~Proxy ( );
+	~Proxy_Object ( );
 
-
-	::QSnd2::Proxies_Group0 *
-	pgroup ( ) const;
-
-	void
-	set_pgroup (
-		::QSnd2::Proxies_Group0 * group_n );
+	unsigned int
+	group_level ( ) const;
 
 
 	// Private attributes
 	private:
 
-	::QSnd2::Proxies_Group0 * _pgroup;
+	const unsigned int _group_level;
 };
 
-/// @brief Parent of Proxy instances - holds information shared by all child proxies
+inline
+unsigned int
+Proxy_Object::group_level ( ) const
+{
+	return _group_level;
+}
+
+
+/// @brief Base class for control proxies
 ///
-class Proxies_Group0
+class Proxy :
+	public ::QSnd2::Proxy_Object
 {
 	// Public methods
 	public:
 
-	Proxies_Group0 ( );
+	Proxy (
+		::QSnd2::Proxies_Group1 * group_n = 0 );
 
-	virtual
-	~Proxies_Group0 ( );
+	~Proxy ( );
+
+
+	::QSnd2::Proxies_Group1 *
+	pgroup ( ) const;
+
+	void
+	set_pgroup (
+		::QSnd2::Proxies_Group1 * group_n );
+
+
+	// Private attributes
+	private:
+
+	::QSnd2::Proxies_Group1 * _pgroup;
+};
+
+/// @brief Parent of Proxy instances - holds information shared by all child proxies
+///
+class Proxies_Group1 :
+	public ::QSnd2::Proxy_Object
+{
+	// Public methods
+	public:
+
+	Proxies_Group1 ( );
+
+	~Proxies_Group1 ( );
 
 	void
 	clear ( );
@@ -140,7 +171,7 @@ class Proxies_Group0
 };
 
 inline
-::QSnd2::Proxies_Group0 *
+::QSnd2::Proxies_Group1 *
 Proxy::pgroup ( ) const
 {
 	return _pgroup;
@@ -148,14 +179,14 @@ Proxy::pgroup ( ) const
 
 inline
 unsigned int
-Proxies_Group0::num_proxies ( ) const
+Proxies_Group1::num_proxies ( ) const
 {
 	return _proxies.size();
 }
 
 inline
 ::QSnd2::Proxy *
-Proxies_Group0::proxy (
+Proxies_Group1::proxy (
 	unsigned int idx_n ) const
 {
 	return _proxies[idx_n];
@@ -191,7 +222,7 @@ class Slider_Proxy :
 /// @brief Slider_Proxies_Group
 ///
 class Slider_Proxies_Group :
-	public ::QSnd2::Proxies_Group0
+	public ::QSnd2::Proxies_Group1
 {
 	// Public methods
 	public:
@@ -240,7 +271,7 @@ Slider_Proxies_Group::slider_proxy (
 	unsigned int idx_n ) const
 {
 	return static_cast < ::QSnd2::Slider_Proxy * >  (
-		::QSnd2::Proxies_Group0::proxy ( idx_n ) );
+		::QSnd2::Proxies_Group1::proxy ( idx_n ) );
 }
 
 
@@ -264,7 +295,7 @@ class Switch_Proxy :
 /// @brief Switch_Proxies_Group
 ///
 class Switch_Proxies_Group :
-	public ::QSnd2::Proxies_Group0
+	public ::QSnd2::Proxies_Group1
 {
 	// Public methods
 	public:
@@ -292,7 +323,7 @@ Switch_Proxies_Group::switch_proxy (
 	unsigned int idx_n ) const
 {
 	return static_cast < ::QSnd2::Switch_Proxy * >  (
-		::QSnd2::Proxies_Group0::proxy ( idx_n ) );
+		::QSnd2::Proxies_Group1::proxy ( idx_n ) );
 }
 
 
@@ -324,7 +355,7 @@ class Enum_Proxy :
 /// @brief Enum_Proxies_Group
 ///
 class Enum_Proxies_Group :
-	public ::QSnd2::Proxies_Group0
+	public ::QSnd2::Proxies_Group1
 {
 	// Public methods
 	public:
@@ -366,7 +397,7 @@ Enum_Proxies_Group::enum_proxy (
 	unsigned int idx_n ) const
 {
 	return static_cast < ::QSnd2::Enum_Proxy * >  (
-		::QSnd2::Proxies_Group0::proxy ( idx_n ) );
+		::QSnd2::Proxies_Group1::proxy ( idx_n ) );
 }
 
 inline
@@ -387,15 +418,16 @@ Enum_Proxies_Group::item (
 
 /// @brief Group level 1 - holds a proxies group0 for every type
 ///
-class Proxies_Group1
+class Proxies_Group2 :
+	public ::QSnd2::Proxy_Object
 {
 	// Public methods
 	public:
 
-	Proxies_Group1 ( );
+	Proxies_Group2 ( );
 
 	virtual
-	~Proxies_Group1 ( );
+	~Proxies_Group2 ( );
 
 	void
 	clear_groups ( );
@@ -434,21 +466,21 @@ class Proxies_Group1
 
 inline
 ::QSnd2::Slider_Proxies_Group *
-Proxies_Group1::sliders ( ) const
+Proxies_Group2::sliders ( ) const
 {
 	return _sliders.data();
 }
 
 inline
 ::QSnd2::Switch_Proxies_Group *
-Proxies_Group1::switches ( ) const
+Proxies_Group2::switches ( ) const
 {
 	return _switches.data();
 }
 
 inline
 ::QSnd2::Enum_Proxies_Group *
-Proxies_Group1::enums ( ) const
+Proxies_Group2::enums ( ) const
 {
 	return _enums.data();
 }
@@ -456,57 +488,8 @@ Proxies_Group1::enums ( ) const
 
 /// @brief Group level 2 - holds groups of level 1
 ///
-class Proxies_Group2
-{
-	// Public methods
-	public:
-
-	Proxies_Group2 ( );
-
-	virtual
-	~Proxies_Group2 ( );
-
-
-	unsigned int
-	num_groups ( ) const;
-
-	::QSnd2::Proxies_Group1 *
-	group (
-		unsigned int idx_n );
-
-	void
-	clear_groups ( );
-
-	void
-	append_group (
-		::QSnd2::Proxies_Group1 * grp_n );
-
-
-	// Private attributes
-	private:
-
-	QList < ::QSnd2::Proxies_Group1 * > _groups;
-};
-
-inline
-unsigned int
-Proxies_Group2::num_groups ( ) const
-{
-	return _groups.size();
-}
-
-inline
-::QSnd2::Proxies_Group1 *
-Proxies_Group2::group (
-	unsigned int idx_n )
-{
-	return _groups[idx_n];
-}
-
-
-/// @brief Group level 3 - holds groups of level 2
-///
-class Proxies_Group3
+class Proxies_Group3 :
+	public ::QSnd2::Proxy_Object
 {
 	// Public methods
 	public:
@@ -520,7 +503,7 @@ class Proxies_Group3
 	unsigned int
 	num_groups ( ) const;
 
-	::QSnd2::Proxies_Group1 *
+	::QSnd2::Proxies_Group2 *
 	group (
 		unsigned int idx_n );
 
@@ -529,7 +512,7 @@ class Proxies_Group3
 
 	void
 	append_group (
-		::QSnd2::Proxies_Group1 * grp_n );
+		::QSnd2::Proxies_Group2 * grp_n );
 
 
 	// Private attributes
@@ -546,8 +529,59 @@ Proxies_Group3::num_groups ( ) const
 }
 
 inline
-::QSnd2::Proxies_Group1 *
+::QSnd2::Proxies_Group2 *
 Proxies_Group3::group (
+	unsigned int idx_n )
+{
+	return _groups[idx_n];
+}
+
+
+/// @brief Group level 3 - holds groups of level 2
+///
+class Proxies_Group4 :
+	public ::QSnd2::Proxy_Object
+{
+	// Public methods
+	public:
+
+	Proxies_Group4 ( );
+
+	virtual
+	~Proxies_Group4 ( );
+
+
+	unsigned int
+	num_groups ( ) const;
+
+	::QSnd2::Proxies_Group3 *
+	group (
+		unsigned int idx_n );
+
+	void
+	clear_groups ( );
+
+	void
+	append_group (
+		::QSnd2::Proxies_Group3 * grp_n );
+
+
+	// Private attributes
+	private:
+
+	QList < ::QSnd2::Proxies_Group3 * > _groups;
+};
+
+inline
+unsigned int
+Proxies_Group4::num_groups ( ) const
+{
+	return _groups.size();
+}
+
+inline
+::QSnd2::Proxies_Group3 *
+Proxies_Group4::group (
 	unsigned int idx_n )
 {
 	return _groups[idx_n];

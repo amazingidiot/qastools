@@ -29,7 +29,7 @@ Controls::clear_groups ( )
 
 void
 Controls::append_group (
-	::QSnd2::Proxies_Group2 * grp_n )
+	::QSnd2::Proxies_Group3 * grp_n )
 {
 	_groups.append ( grp_n );
 }

@@ -13,7 +13,7 @@
    height="297mm"
    id="svg3087"
    version="1.1"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="Sliders_Pad.svg">
   <defs
      id="defs3089">
@@ -60,16 +60,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
+     inkscape:zoom="1.979899"
      inkscape:cx="372.04724"
      inkscape:cy="759.81138"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1402"
-     inkscape:window-height="894"
-     inkscape:window-x="306"
-     inkscape:window-y="51"
+     inkscape:window-width="1814"
+     inkscape:window-height="972"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -82,8 +82,8 @@
        spacingy="10px"
        color="#ffb800"
        opacity="0.42352941"
-       empcolor="#f58300"
-       empopacity="0.75294118" />
+       empcolor="#ff9215"
+       empopacity="0.52156863" />
   </sodipodi:namedview>
   <metadata
      id="metadata3092">
@@ -93,7 +93,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
