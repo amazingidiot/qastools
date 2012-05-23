@@ -17,7 +17,24 @@ namespace QSnd2
 {
 
 
-/// @brief ALSA simple mixer interface mixer
+class Alsa_SMI_PGroup2 :
+	public ::QSnd2::Proxies_Group2
+{
+	// Public methods
+	public:
+
+};
+
+class Alsa_SMI_PGroup1 :
+	public ::QSnd2::Proxies_Group1
+{
+	// Public methods
+	public:
+
+};
+
+
+/// @brief ALSA simple mixer interface mixer controls
 ///
 class Alsa_SMI_Controls :
 	public ::QSnd2::Controls
@@ -77,6 +94,16 @@ class Alsa_SMI_Controls :
 	// Private methods
 	private:
 
+	void
+	destroy_control_groups ( );
+
+	int
+	create_control_groups ( );
+
+	::QSnd2::Alsa_SMI_PGroup2 *
+	create_control_group (
+		::snd_mixer_elem_t * snd_elem_n );
+
 	int
 	load_pollfds ( );
 
@@ -84,10 +111,10 @@ class Alsa_SMI_Controls :
 	// Private attributes
 	private:
 
-	snd_hctl_t * _snd_hctl;
-	snd_mixer_t * _snd_mixer;
+	::snd_hctl_t * _snd_hctl;
+	::snd_mixer_t * _snd_mixer;
 
-	//QList < ::QSnd::Mixer_Simple_Elem * > _mixer_elems;
+	QList < ::QSnd2::Alsa_SMI_PGroup2 * > _cp_groups;
 
 	QString _err_func;
 	QString _err_message;

@@ -28,9 +28,7 @@ Alsa_SMI_Controls::close ( )
 {
 	clear_pollfds();
 	clear_groups();
-
-	// TODO:
-	//clear_mixer_elems();
+	destroy_control_groups();
 
 	if ( _snd_mixer != 0 ) {
 		::snd_mixer_set_callback ( _snd_mixer, 0 );
@@ -61,81 +59,125 @@ Alsa_SMI_Controls::open (
 	_err_func.clear();
 	_err_message.clear();
 
+	int err ( 0 );
+
 	if ( device_n.isEmpty() ) {
 		_err_func = "open";
 		// TODO:
 		//_err_message = tr ( "Empty device name" );
-		return -1;
+		err = -1;
 	}
 
-	int err;
-	err = ::snd_mixer_open ( &_snd_mixer, 0 );
-	if ( err < 0 ) {
-		_err_func = "snd_mixer_open";
-		_err_message = ::QSnd::snd_error_qstring ( err );
-		return err;
+	if ( err == 0 ) {
+		err = ::snd_mixer_open ( &_snd_mixer, 0 );
+		if ( err < 0 ) {
+			_err_func = "snd_mixer_open";
+			_err_message = ::QSnd::snd_error_qstring ( err );
+		}
 	}
 
-	err = ::snd_mixer_selem_register ( _snd_mixer, NULL, NULL );
-	if ( err < 0 ) {
-		_err_func = "snd_mixer_selem_register";
-		_err_message = ::QSnd::snd_error_qstring ( err );
-		close();
-		return err;
+	if ( err == 0 ) {
+		err = ::snd_mixer_selem_register ( _snd_mixer, NULL, NULL );
+		if ( err < 0 ) {
+			_err_func = "snd_mixer_selem_register";
+			_err_message = ::QSnd::snd_error_qstring ( err );
+			close();
+		}
 	}
 
 	// Open control handle
-	err = ::snd_hctl_open (
-		&_snd_hctl,
-		device_n.toLocal8Bit().constData(),
-		SND_CTL_NONBLOCK );
-
-	if ( err < 0 ) {
-		_err_func = "snd_hctl_open";
-		_err_message = ::QSnd::snd_error_qstring ( err );
-		close();
-		return err;
+	if ( err == 0 ) {
+		err = ::snd_hctl_open (
+			&_snd_hctl,
+			device_n.toLocal8Bit().constData(),
+			SND_CTL_NONBLOCK );
+		if ( err < 0 ) {
+			_err_func = "snd_hctl_open";
+			_err_message = ::QSnd::snd_error_qstring ( err );
+			close();
+		}
 	}
 
 	// Attach hctl handle to mixer
-	err = ::snd_mixer_attach_hctl ( _snd_mixer, _snd_hctl );
-	if ( err < 0 ) {
-		_snd_hctl = 0;
-		_err_func = "snd_mixer_attach_hctl";
-		_err_message = ::QSnd::snd_error_qstring ( err );
-		close();
-		return err;
+	if ( err == 0 ) {
+		err = ::snd_mixer_attach_hctl ( _snd_mixer, _snd_hctl );
+		if ( err < 0 ) {
+			_err_func = "snd_mixer_attach_hctl";
+			_err_message = ::QSnd::snd_error_qstring ( err );
+			close();
+		}
 	}
 
 	// Load mixer
-	err = ::snd_mixer_load ( _snd_mixer );
-	if ( err < 0 ) {
-		_err_func = "snd_mixer_load";
-		_err_message = ::QSnd::snd_error_qstring ( err );
-		close();
-		return err;
+	if ( err == 0 ) {
+		err = ::snd_mixer_load ( _snd_mixer );
+		if ( err < 0 ) {
+			_err_func = "snd_mixer_load";
+			_err_message = ::QSnd::snd_error_qstring ( err );
+			close();
+		}
 	}
 
 	// Install alsa callback
-	::snd_mixer_set_callback_private ( _snd_mixer, this );
-	::snd_mixer_set_callback ( _snd_mixer,
-		&::QSnd2::Alsa_SMI_Controls::alsa_callback );
+	if ( err == 0 ) {
+		::snd_mixer_set_callback_private ( _snd_mixer, this );
+		::snd_mixer_set_callback ( _snd_mixer,
+			&::QSnd2::Alsa_SMI_Controls::alsa_callback );
 
-	// Create mixer elements
-	//err = create_mixer_elems();
-	//if ( err < 0 ) {
-	//	close();
-	//	return err;
-	//}
-
-	// Create socket notifiers
-	err = load_pollfds();
-	if ( err < 0 ) {
-		close();
-		return err;
+		// Create mixer elements
+		err = create_control_groups();
+		if ( err < 0 ) {
+			close();
+		}
 	}
 
-	return 0;
+	// Create socket notifiers
+	if ( err == 0 ) {
+		err = load_pollfds();
+		if ( err < 0 ) {
+			close();
+		}
+	}
+
+	return ( err != 0 );
+}
+
+void
+Alsa_SMI_Controls::destroy_control_groups ( )
+{
+	if ( _cp_groups.size() > 0 ) {
+		for ( int ii=0; ii < _cp_groups.size(); ++ii ) {
+			delete _cp_groups[ii];
+		}
+		_cp_groups.clear();
+	}
+}
+
+int
+Alsa_SMI_Controls::create_control_groups ( )
+{
+	int res ( 0 );
+
+	// Create and Mixer_Simple_Elem objects
+	{
+		::snd_mixer_elem_t * snd_elem;
+		snd_elem = ::snd_mixer_first_elem ( _snd_mixer );
+		while ( snd_elem != 0 )	{
+			_cp_groups.append ( create_control_group ( snd_elem ) );
+			snd_elem = ::snd_mixer_elem_next ( snd_elem );
+		}
+	}
+
+	return res;
+}
+
+::QSnd2::Alsa_SMI_PGroup2 *
+Alsa_SMI_Controls::create_control_group (
+	::snd_mixer_elem_t * snd_elem_n )
+{
+	::QSnd2::Alsa_SMI_PGroup2 * grp ( new ::QSnd2::Alsa_SMI_PGroup2 );
+
+	return grp;
 }
 
 int

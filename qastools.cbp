@@ -312,8 +312,6 @@
 		<Unit filename="shared/src/qsnd2/controls.hpp" />
 		<Unit filename="shared/src/qsnd2/controls_watcher.cpp" />
 		<Unit filename="shared/src/qsnd2/controls_watcher.hpp" />
-		<Unit filename="shared/src/qsnd2/mixer.cpp" />
-		<Unit filename="shared/src/qsnd2/mixer_alsa_smi.cpp" />
 		<Unit filename="shared/src/qsnd2/proxies.cpp" />
 		<Unit filename="shared/src/qsnd2/proxies.hpp" />
 		<Unit filename="shared/src/single_application.cpp" />

@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "proxies.hpp"
+#include "control_proxies.hpp"
 
 namespace QSnd2
 {
@@ -14,7 +14,7 @@ namespace QSnd2
 
 Proxy::Proxy (
 	::QSnd2::Proxies_Group0 * group_n ) :
-_group ( group_n )
+_pgroup ( group_n )
 {
 }
 
@@ -23,10 +23,10 @@ Proxy::~Proxy ( )
 }
 
 void
-Proxy::set_group (
+Proxy::set_pgroup (
 	::QSnd2::Proxies_Group0 * group_n )
 {
-	_group = group_n;
+	_pgroup = group_n;
 }
 
 
@@ -57,7 +57,6 @@ Slider_Proxy::~Slider_Proxy ( )
 {
 }
 
-
 Slider_Proxies_Group::Slider_Proxies_Group ( )
 {
 }
@@ -65,6 +64,7 @@ Slider_Proxies_Group::Slider_Proxies_Group ( )
 Slider_Proxies_Group::~Slider_Proxies_Group ( )
 {
 }
+
 
 
 Switch_Proxy::Switch_Proxy ( )
