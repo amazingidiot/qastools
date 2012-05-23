@@ -388,8 +388,24 @@ class Proxy_Switch :
 
 	~Proxy_Switch ( );
 
+
 	::QSnd2::Proxies_Group1_Switch *
-	group ( ) const;
+	switch_pgroup ( ) const;
+
+	// Generic interface
+
+	virtual
+	bool
+	switch_state ( ) const = 0;
+
+	virtual
+	void
+	set_switch_state (
+		bool state_n ) = 0;
+
+	virtual
+	void
+	toggle_switch_state ( );
 };
 
 
@@ -406,6 +422,15 @@ class Proxies_Group1_Switch :
 
 	~Proxies_Group1_Switch ( );
 
+	virtual
+	void
+	set_all_switches (
+		bool state_n );
+
+	virtual
+	void
+	toggle_all_switches ( );
+
 	::QSnd2::Proxy_Switch *
 	switch_proxy (
 		unsigned int idx_n ) const;
@@ -413,7 +438,7 @@ class Proxies_Group1_Switch :
 
 inline
 ::QSnd2::Proxies_Group1_Switch *
-Proxy_Switch::group ( ) const
+Proxy_Switch::switch_pgroup ( ) const
 {
 	return static_cast < ::QSnd2::Proxies_Group1_Switch * > (
 		::QSnd2::Proxy::pgroup() );

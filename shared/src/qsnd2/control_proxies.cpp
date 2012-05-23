@@ -106,6 +106,12 @@ Proxy_Switch::~Proxy_Switch ( )
 {
 }
 
+void
+Proxy_Switch::toggle_switch_state ( )
+{
+	this->set_switch_state ( !this->switch_state() );
+}
+
 
 
 Proxies_Group1_Switch::Proxies_Group1_Switch ( ) :
@@ -117,6 +123,22 @@ Proxies_Group1_Switch::~Proxies_Group1_Switch ( )
 {
 }
 
+void
+Proxies_Group1_Switch::set_all_switches (
+	bool state_n )
+{
+	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
+		switch_proxy ( ii )->set_switch_state ( state_n );
+	}
+}
+
+void
+Proxies_Group1_Switch::toggle_all_switches ( )
+{
+	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
+		switch_proxy ( ii )->toggle_switch_state();
+	}
+}
 
 
 Proxy_Enum::Proxy_Enum ( ) :

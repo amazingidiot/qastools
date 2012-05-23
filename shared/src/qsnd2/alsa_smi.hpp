@@ -32,9 +32,6 @@ class ASMI_Proxy_Slider :
 	ASMI_Proxy_Slider (
 		::snd_mixer_selem_channel_id_t channel_id_n );
 
-	::snd_mixer_selem_channel_id_t
-	snd_channel_id ( ) const;
-
 	long
 	int_value ( ) const;
 
@@ -101,17 +98,10 @@ class ASMI_Proxies_Group1_Slider :
 };
 
 inline
-::snd_mixer_selem_channel_id_t
-ASMI_Proxy_Slider::snd_channel_id ( ) const
-{
-	return _snd_channel_id;
-}
-
-inline
 ::QSnd2::ASMI_Proxies_Group1_Slider *
 ASMI_Proxy_Slider::asmi_pgroup ( ) const
 {
-	return static_cast < ASMI_Proxies_Group1_Slider * > ( pgroup() );
+	return static_cast < ::QSnd2::ASMI_Proxies_Group1_Slider * > ( pgroup() );
 }
 
 
@@ -124,12 +114,62 @@ class ASMI_Proxy_Switch :
 	ASMI_Proxy_Switch (
 		::snd_mixer_selem_channel_id_t channel_id_n );
 
+	::QSnd2::ASMI_Proxies_Group1_Switch *
+	asmi_pgroup ( ) const;
+
+
+	// Generic interface
+
+	bool
+	switch_state ( ) const;
+
+	void
+	set_switch_state (
+		bool state_n );
+
 
 	// Private attributes
 	private:
 
 	const ::snd_mixer_selem_channel_id_t _snd_channel_id;
 };
+
+
+class ASMI_Proxies_Group1_Switch :
+	public ::QSnd2::Proxies_Group1_Switch
+{
+	// Public methods
+	public:
+
+	ASMI_Proxies_Group1_Switch (
+		::snd_mixer_elem_t * elem_n );
+
+
+	// Specific interface
+
+	bool
+	switch_state (
+		::snd_mixer_selem_channel_id_t channel_id_n ) const;
+
+	void
+	set_switch_state (
+		::snd_mixer_selem_channel_id_t channel_id_n,
+		bool state_n );
+
+
+	// Private attributes
+	private:
+
+	::snd_mixer_elem_t * _snd_mixer_elem;
+};
+
+inline
+::QSnd2::ASMI_Proxies_Group1_Switch *
+ASMI_Proxy_Switch::asmi_pgroup ( ) const
+{
+	return static_cast < ::QSnd2::ASMI_Proxies_Group1_Switch * > ( pgroup() );
+}
+
 
 
 class ASMI_Proxies_Group2 :
