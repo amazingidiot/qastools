@@ -32,6 +32,12 @@ enum Control_Elem_Type {
 	ETYPE_ENUM
 };
 
+enum Control_Feature_Flag {
+	FFLAG_PLAYBACK = ( 1 << 0 ),
+	FFLAG_CAPTURE  = ( 1 << 1 ),
+	FFLAG_DECIBEL  = ( 1 << 2 )
+};
+
 
 /// @brief Deletes all entries in a pointer list and clears it afterwards
 ///
@@ -201,6 +207,16 @@ class Proxies_Group1 :
 	control_type ( ) const;
 
 	void
+	set_feature (
+		unsigned int feat_id_n,
+		bool on_n = true );
+
+	bool
+	has_feature (
+		unsigned int feat_id_n ) const;
+
+
+	void
 	clear_children ( );
 
 	unsigned int
@@ -210,11 +226,16 @@ class Proxies_Group1 :
 	proxy (
 		unsigned int idx_n ) const;
 
+	void
+	append_proxy (
+		::QSnd2::Proxy * proxy_n );
+
 
 	// Private attributes
 	private:
 
 	const unsigned int _control_type;
+	unsigned int _feature_flags;
 	QList < ::QSnd2::Proxy * > _proxies;
 };
 
@@ -230,6 +251,27 @@ unsigned int
 Proxies_Group1::control_type ( ) const
 {
 	return _control_type;
+}
+
+inline
+void
+Proxies_Group1::set_feature (
+	unsigned int feat_id_n,
+	bool on_n )
+{
+	if ( on_n ) {
+		_feature_flags |= feat_id_n;
+	} else {
+		_feature_flags &= ~feat_id_n;
+	}
+}
+
+inline
+bool
+Proxies_Group1::has_feature (
+	unsigned int feat_id_n ) const
+{
+	return ( _feature_flags & feat_id_n );
 }
 
 inline
@@ -249,17 +291,17 @@ Proxies_Group1::proxy (
 
 
 
-/// @brief Slider_Proxy
+/// @brief Proxy_Slider
 ///
-class Slider_Proxy :
+class Proxy_Slider :
 	public ::QSnd2::Proxy
 {
 	// Public methods
 	public:
 
-	Slider_Proxy ( );
+	Proxy_Slider ( );
 
-	~Slider_Proxy ( );
+	~Proxy_Slider ( );
 
 	::QSnd2::Proxies_Group1_Slider *
 	slider_pgroup ( ) const;
@@ -288,7 +330,7 @@ class Proxies_Group1_Slider :
 
 	~Proxies_Group1_Slider ( );
 
-	::QSnd2::Slider_Proxy *
+	::QSnd2::Proxy_Slider *
 	slider_proxy (
 		unsigned int idx_n ) const;
 
@@ -311,39 +353,40 @@ class Proxies_Group1_Slider :
 	virtual
 	long
 	int_from_db (
-		long intval_n ) const = 0;
+		long dbval_n,
+		int dir_n ) const = 0;
 };
 
 inline
 ::QSnd2::Proxies_Group1_Slider *
-Slider_Proxy::slider_pgroup ( ) const
+Proxy_Slider::slider_pgroup ( ) const
 {
 	return static_cast < ::QSnd2::Proxies_Group1_Slider * > (
 		::QSnd2::Proxy::pgroup() );
 }
 
 inline
-::QSnd2::Slider_Proxy *
+::QSnd2::Proxy_Slider *
 Proxies_Group1_Slider::slider_proxy (
 	unsigned int idx_n ) const
 {
-	return static_cast < ::QSnd2::Slider_Proxy * >  (
+	return static_cast < ::QSnd2::Proxy_Slider * >  (
 		::QSnd2::Proxies_Group1::proxy ( idx_n ) );
 }
 
 
 
-/// @brief Switch_Proxy
+/// @brief Proxy_Switch
 ///
-class Switch_Proxy :
+class Proxy_Switch :
 	public ::QSnd2::Proxy
 {
 	// Public methods
 	public:
 
-	Switch_Proxy ( );
+	Proxy_Switch ( );
 
-	~Switch_Proxy ( );
+	~Proxy_Switch ( );
 
 	::QSnd2::Proxies_Group1_Switch *
 	group ( ) const;
@@ -363,25 +406,25 @@ class Proxies_Group1_Switch :
 
 	~Proxies_Group1_Switch ( );
 
-	::QSnd2::Switch_Proxy *
+	::QSnd2::Proxy_Switch *
 	switch_proxy (
 		unsigned int idx_n ) const;
 };
 
 inline
 ::QSnd2::Proxies_Group1_Switch *
-Switch_Proxy::group ( ) const
+Proxy_Switch::group ( ) const
 {
 	return static_cast < ::QSnd2::Proxies_Group1_Switch * > (
 		::QSnd2::Proxy::pgroup() );
 }
 
 inline
-::QSnd2::Switch_Proxy *
+::QSnd2::Proxy_Switch *
 Proxies_Group1_Switch::switch_proxy (
 	unsigned int idx_n ) const
 {
-	return static_cast < ::QSnd2::Switch_Proxy * >  (
+	return static_cast < ::QSnd2::Proxy_Switch * >  (
 		::QSnd2::Proxies_Group1::proxy ( idx_n ) );
 }
 
@@ -397,17 +440,17 @@ class Enum_Proxy_Item
 
 
 
-/// @brief Enum_Proxy
+/// @brief Proxy_Enum
 ///
-class Enum_Proxy :
+class Proxy_Enum :
 	public ::QSnd2::Proxy
 {
 	// Public methods
 	public:
 
-	Enum_Proxy ( );
+	Proxy_Enum ( );
 
-	~Enum_Proxy ( );
+	~Proxy_Enum ( );
 
 	::QSnd2::Proxies_Group1_Enum *
 	group ( ) const;
@@ -427,7 +470,7 @@ class Proxies_Group1_Enum :
 
 	~Proxies_Group1_Enum ( );
 
-	::QSnd2::Enum_Proxy *
+	::QSnd2::Proxy_Enum *
 	enum_proxy (
 		unsigned int idx_n ) const;
 
@@ -448,18 +491,18 @@ class Proxies_Group1_Enum :
 
 inline
 ::QSnd2::Proxies_Group1_Enum *
-Enum_Proxy::group ( ) const
+Proxy_Enum::group ( ) const
 {
 	return static_cast < ::QSnd2::Proxies_Group1_Enum * > (
 		::QSnd2::Proxy::pgroup() );
 }
 
 inline
-::QSnd2::Enum_Proxy *
+::QSnd2::Proxy_Enum *
 Proxies_Group1_Enum::enum_proxy (
 	unsigned int idx_n ) const
 {
-	return static_cast < ::QSnd2::Enum_Proxy * >  (
+	return static_cast < ::QSnd2::Proxy_Enum * >  (
 		::QSnd2::Proxies_Group1::proxy ( idx_n ) );
 }
 

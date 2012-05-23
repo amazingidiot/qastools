@@ -50,7 +50,8 @@ Proxy::set_pgroup (
 Proxies_Group1::Proxies_Group1 (
 	unsigned int control_type_n ) :
 ::QSnd2::Proxy_Object ( 1 ),
-_control_type ( control_type_n )
+_control_type ( control_type_n ),
+_feature_flags ( 0 )
 {
 }
 
@@ -65,14 +66,21 @@ Proxies_Group1::clear_children ( )
 	::QSnd2::destroy_list_entries ( _proxies );
 }
 
+void
+Proxies_Group1::append_proxy (
+	::QSnd2::Proxy * proxy_n )
+{
+	proxy_n->set_pgroup ( this );
+	_proxies.append ( proxy_n );
+}
 
 
-Slider_Proxy::Slider_Proxy ( ) :
+Proxy_Slider::Proxy_Slider ( ) :
 ::QSnd2::Proxy ( ::QSnd2::ETYPE_SLIDER )
 {
 }
 
-Slider_Proxy::~Slider_Proxy ( )
+Proxy_Slider::~Proxy_Slider ( )
 {
 }
 
@@ -89,12 +97,12 @@ Proxies_Group1_Slider::~Proxies_Group1_Slider ( )
 
 
 
-Switch_Proxy::Switch_Proxy ( ) :
+Proxy_Switch::Proxy_Switch ( ) :
 ::QSnd2::Proxy ( ::QSnd2::ETYPE_SWITCH )
 {
 }
 
-Switch_Proxy::~Switch_Proxy ( )
+Proxy_Switch::~Proxy_Switch ( )
 {
 }
 
@@ -111,12 +119,12 @@ Proxies_Group1_Switch::~Proxies_Group1_Switch ( )
 
 
 
-Enum_Proxy::Enum_Proxy ( ) :
+Proxy_Enum::Proxy_Enum ( ) :
 ::QSnd2::Proxy ( ::QSnd2::ETYPE_ENUM )
 {
 }
 
-Enum_Proxy::~Enum_Proxy ( )
+Proxy_Enum::~Proxy_Enum ( )
 {
 }
 

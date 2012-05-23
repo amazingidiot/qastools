@@ -17,13 +17,120 @@ namespace QSnd2
 {
 
 
+// Forward declaration
+class ASMI_Proxies_Group1_Slider;
+class ASMI_Proxies_Group1_Switch;
+class ASMI_Proxies_Group1_Enum;
+
+
+class ASMI_Proxy_Slider :
+	public ::QSnd2::Proxy_Slider
+{
+	// Public methods
+	public:
+
+	ASMI_Proxy_Slider (
+		::snd_mixer_selem_channel_id_t channel_id_n );
+
+	::snd_mixer_selem_channel_id_t
+	snd_channel_id ( ) const;
+
+	long
+	int_value ( ) const;
+
+	void
+	set_int_value (
+		long val_n );
+
+	::QSnd2::ASMI_Proxies_Group1_Slider *
+	asmi_pgroup ( ) const;
+
+
+	// Private attributes
+	private:
+
+	const ::snd_mixer_selem_channel_id_t _snd_channel_id;
+};
+
 class ASMI_Proxies_Group1_Slider :
 	public ::QSnd2::Proxies_Group1_Slider
 {
 	// Public methods
 	public:
 
+	ASMI_Proxies_Group1_Slider (
+		::snd_mixer_elem_t * elem_n );
+
+
+	// Generic interface
+
+	void
+	int_range (
+		::QSnd2::Integer_Pair & range_n ) const;
+
+	void
+	db_range (
+		::QSnd2::Integer_Pair & range_n ) const;
+
+	long
+	db_from_int (
+		long intval_n ) const;
+
+	long
+	int_from_db (
+		long dbval_n,
+		int dir_n ) const;
+
+
+	// Specific interface
+
+	long
+	int_value (
+		::snd_mixer_selem_channel_id_t channel_id_n ) const;
+
+	void
+	set_int_value (
+		::snd_mixer_selem_channel_id_t channel_id_n,
+		long val_n );
+
+
+	// Private attributes
+	private:
+
+	::snd_mixer_elem_t * _snd_mixer_elem;
 };
+
+inline
+::snd_mixer_selem_channel_id_t
+ASMI_Proxy_Slider::snd_channel_id ( ) const
+{
+	return _snd_channel_id;
+}
+
+inline
+::QSnd2::ASMI_Proxies_Group1_Slider *
+ASMI_Proxy_Slider::asmi_pgroup ( ) const
+{
+	return static_cast < ASMI_Proxies_Group1_Slider * > ( pgroup() );
+}
+
+
+class ASMI_Proxy_Switch :
+	public ::QSnd2::Proxy_Switch
+{
+	// Public methods
+	public:
+
+	ASMI_Proxy_Switch (
+		::snd_mixer_selem_channel_id_t channel_id_n );
+
+
+	// Private attributes
+	private:
+
+	const ::snd_mixer_selem_channel_id_t _snd_channel_id;
+};
+
 
 class ASMI_Proxies_Group2 :
 	public ::QSnd2::Proxies_Group2
@@ -31,6 +138,25 @@ class ASMI_Proxies_Group2 :
 	// Public methods
 	public:
 
+	ASMI_Proxies_Group2 (
+		::snd_mixer_elem_t * elem_n );
+
+	~ASMI_Proxies_Group2 ( );
+
+
+	// Alsa callbacks
+
+	static
+	int
+	alsa_callback_mixer_elem (
+		::snd_mixer_elem_t * elem_n,
+		unsigned int mask_n );
+
+
+	// Private attributes
+	private:
+
+	::snd_mixer_elem_t * _snd_mixer_elem;
 };
 
 
@@ -86,9 +212,9 @@ class ASMI_Controls :
 	static
 	int
 	alsa_callback (
-		snd_mixer_t * snd_mixer_n,
+		::snd_mixer_t * snd_mixer_n,
 		unsigned int mask_n,
-		snd_mixer_elem_t * );
+		::snd_mixer_elem_t * );
 
 
 	// Private methods
