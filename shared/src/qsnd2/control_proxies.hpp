@@ -18,11 +18,13 @@ namespace QSnd2
 
 // Forward declaration
 class Proxies_Group1;
+class Proxies_Group1_Slider;
+class Proxies_Group1_Switch;
+class Proxies_Group1_Enum;
 class Proxies_Group2;
 class Proxies_Group3;
-class Slider_Proxies_Group;
-class Switch_Proxies_Group;
-class Enum_Proxies_Group;
+class Proxies_Group4;
+
 
 /// @brief Simple two integer struct
 ///
@@ -82,7 +84,7 @@ Integer_Pair::operator[] (
 }
 
 
-/// @brief Holds Proxies or other groups
+/// @brief Base class for the proxy tree
 ///
 class Proxy_Object
 {
@@ -141,7 +143,12 @@ class Proxy :
 	::QSnd2::Proxies_Group1 * _pgroup;
 };
 
-/// @brief Parent of Proxy instances - holds information shared by all child proxies
+
+
+/// @brief Proxies_Group1
+///
+/// Specialized versions of this class hold
+/// information common to all child proxy objects
 ///
 class Proxies_Group1 :
 	public ::QSnd2::Proxy_Object
@@ -154,7 +161,7 @@ class Proxies_Group1 :
 	~Proxies_Group1 ( );
 
 	void
-	clear ( );
+	clear_children ( );
 
 	unsigned int
 	num_proxies ( ) const;
@@ -206,7 +213,7 @@ class Slider_Proxy :
 
 	~Slider_Proxy ( );
 
-	::QSnd2::Slider_Proxies_Group *
+	::QSnd2::Proxies_Group1_Slider *
 	slider_pgroup ( ) const;
 
 	virtual
@@ -219,17 +226,19 @@ class Slider_Proxy :
 		long value_n ) = 0;
 };
 
-/// @brief Slider_Proxies_Group
+
+
+/// @brief Proxies_Group1_Slider
 ///
-class Slider_Proxies_Group :
+class Proxies_Group1_Slider :
 	public ::QSnd2::Proxies_Group1
 {
 	// Public methods
 	public:
 
-	Slider_Proxies_Group ( );
+	Proxies_Group1_Slider ( );
 
-	~Slider_Proxies_Group ( );
+	~Proxies_Group1_Slider ( );
 
 	::QSnd2::Slider_Proxy *
 	slider_proxy (
@@ -258,16 +267,16 @@ class Slider_Proxies_Group :
 };
 
 inline
-::QSnd2::Slider_Proxies_Group *
+::QSnd2::Proxies_Group1_Slider *
 Slider_Proxy::slider_pgroup ( ) const
 {
-	return static_cast < ::QSnd2::Slider_Proxies_Group * > (
+	return static_cast < ::QSnd2::Proxies_Group1_Slider * > (
 		::QSnd2::Proxy::pgroup() );
 }
 
 inline
 ::QSnd2::Slider_Proxy *
-Slider_Proxies_Group::slider_proxy (
+Proxies_Group1_Slider::slider_proxy (
 	unsigned int idx_n ) const
 {
 	return static_cast < ::QSnd2::Slider_Proxy * >  (
@@ -288,21 +297,23 @@ class Switch_Proxy :
 
 	~Switch_Proxy ( );
 
-	::QSnd2::Switch_Proxies_Group *
+	::QSnd2::Proxies_Group1_Switch *
 	group ( ) const;
 };
 
-/// @brief Switch_Proxies_Group
+
+
+/// @brief Proxies_Group1_Switch
 ///
-class Switch_Proxies_Group :
+class Proxies_Group1_Switch :
 	public ::QSnd2::Proxies_Group1
 {
 	// Public methods
 	public:
 
-	Switch_Proxies_Group ( );
+	Proxies_Group1_Switch ( );
 
-	~Switch_Proxies_Group ( );
+	~Proxies_Group1_Switch ( );
 
 	::QSnd2::Switch_Proxy *
 	switch_proxy (
@@ -310,16 +321,16 @@ class Switch_Proxies_Group :
 };
 
 inline
-::QSnd2::Switch_Proxies_Group *
+::QSnd2::Proxies_Group1_Switch *
 Switch_Proxy::group ( ) const
 {
-	return static_cast < ::QSnd2::Switch_Proxies_Group * > (
+	return static_cast < ::QSnd2::Proxies_Group1_Switch * > (
 		::QSnd2::Proxy::pgroup() );
 }
 
 inline
 ::QSnd2::Switch_Proxy *
-Switch_Proxies_Group::switch_proxy (
+Proxies_Group1_Switch::switch_proxy (
 	unsigned int idx_n ) const
 {
 	return static_cast < ::QSnd2::Switch_Proxy * >  (
@@ -336,6 +347,8 @@ class Enum_Proxy_Item
 	QString name_l10n;
 };
 
+
+
 /// @brief Enum_Proxy
 ///
 class Enum_Proxy :
@@ -348,21 +361,23 @@ class Enum_Proxy :
 
 	~Enum_Proxy ( );
 
-	::QSnd2::Enum_Proxies_Group *
+	::QSnd2::Proxies_Group1_Enum *
 	group ( ) const;
 };
 
-/// @brief Enum_Proxies_Group
+
+
+/// @brief Proxies_Group1_Enum
 ///
-class Enum_Proxies_Group :
+class Proxies_Group1_Enum :
 	public ::QSnd2::Proxies_Group1
 {
 	// Public methods
 	public:
 
-	Enum_Proxies_Group ( );
+	Proxies_Group1_Enum ( );
 
-	~Enum_Proxies_Group ( );
+	~Proxies_Group1_Enum ( );
 
 	::QSnd2::Enum_Proxy *
 	enum_proxy (
@@ -384,16 +399,16 @@ class Enum_Proxies_Group :
 };
 
 inline
-::QSnd2::Enum_Proxies_Group *
+::QSnd2::Proxies_Group1_Enum *
 Enum_Proxy::group ( ) const
 {
-	return static_cast < ::QSnd2::Enum_Proxies_Group * > (
+	return static_cast < ::QSnd2::Proxies_Group1_Enum * > (
 		::QSnd2::Proxy::pgroup() );
 }
 
 inline
 ::QSnd2::Enum_Proxy *
-Enum_Proxies_Group::enum_proxy (
+Proxies_Group1_Enum::enum_proxy (
 	unsigned int idx_n ) const
 {
 	return static_cast < ::QSnd2::Enum_Proxy * >  (
@@ -402,21 +417,22 @@ Enum_Proxies_Group::enum_proxy (
 
 inline
 unsigned int
-Enum_Proxies_Group::num_items ( ) const
+Proxies_Group1_Enum::num_items ( ) const
 {
 	return _items.size();
 }
 
 inline
 const ::QSnd2::Enum_Proxy_Item &
-Enum_Proxies_Group::item (
+Proxies_Group1_Enum::item (
 	unsigned int idx_n )
 {
 	return _items[idx_n];
 }
 
 
-/// @brief Group level 1 - holds a proxies group0 for every type
+
+/// @brief Proxies_Group2
 ///
 class Proxies_Group2 :
 	public ::QSnd2::Proxy_Object
@@ -430,63 +446,63 @@ class Proxies_Group2 :
 	~Proxies_Group2 ( );
 
 	void
-	clear_groups ( );
+	clear_children ( );
 
-	::QSnd2::Slider_Proxies_Group *
+	::QSnd2::Proxies_Group1_Slider *
 	sliders ( ) const;
 
 	void
 	set_sliders (
-		::QSnd2::Slider_Proxies_Group * grp_n );
+		::QSnd2::Proxies_Group1_Slider * grp_n );
 
 
-	::QSnd2::Switch_Proxies_Group *
+	::QSnd2::Proxies_Group1_Switch *
 	switches ( ) const;
 
 	void
 	set_switches (
-		::QSnd2::Switch_Proxies_Group * grp_n );
+		::QSnd2::Proxies_Group1_Switch * grp_n );
 
 
-	::QSnd2::Enum_Proxies_Group *
+	::QSnd2::Proxies_Group1_Enum *
 	enums ( ) const;
 
 	void
 	set_enums (
-		::QSnd2::Enum_Proxies_Group * grp_n );
+		::QSnd2::Proxies_Group1_Enum * grp_n );
 
 
 	// Private attributes
 	private:
 
-	QScopedPointer < ::QSnd2::Slider_Proxies_Group > _sliders;
-	QScopedPointer < ::QSnd2::Switch_Proxies_Group > _switches;
-	QScopedPointer < ::QSnd2::Enum_Proxies_Group > _enums;
+	QScopedPointer < ::QSnd2::Proxies_Group1_Slider > _sliders;
+	QScopedPointer < ::QSnd2::Proxies_Group1_Switch > _switches;
+	QScopedPointer < ::QSnd2::Proxies_Group1_Enum > _enums;
 };
 
 inline
-::QSnd2::Slider_Proxies_Group *
+::QSnd2::Proxies_Group1_Slider *
 Proxies_Group2::sliders ( ) const
 {
 	return _sliders.data();
 }
 
 inline
-::QSnd2::Switch_Proxies_Group *
+::QSnd2::Proxies_Group1_Switch *
 Proxies_Group2::switches ( ) const
 {
 	return _switches.data();
 }
 
 inline
-::QSnd2::Enum_Proxies_Group *
+::QSnd2::Proxies_Group1_Enum *
 Proxies_Group2::enums ( ) const
 {
 	return _enums.data();
 }
 
 
-/// @brief Group level 2 - holds groups of level 1
+/// @brief Proxies_Group3
 ///
 class Proxies_Group3 :
 	public ::QSnd2::Proxy_Object
@@ -499,6 +515,8 @@ class Proxies_Group3 :
 	virtual
 	~Proxies_Group3 ( );
 
+	void
+	clear_children ( );
 
 	unsigned int
 	num_groups ( ) const;
@@ -506,9 +524,6 @@ class Proxies_Group3 :
 	::QSnd2::Proxies_Group2 *
 	group (
 		unsigned int idx_n );
-
-	void
-	clear_groups ( );
 
 	void
 	append_group (
@@ -537,7 +552,7 @@ Proxies_Group3::group (
 }
 
 
-/// @brief Group level 3 - holds groups of level 2
+/// @brief Proxies_Group4
 ///
 class Proxies_Group4 :
 	public ::QSnd2::Proxy_Object
@@ -550,6 +565,8 @@ class Proxies_Group4 :
 	virtual
 	~Proxies_Group4 ( );
 
+	void
+	clear_children ( );
 
 	unsigned int
 	num_groups ( ) const;
@@ -557,9 +574,6 @@ class Proxies_Group4 :
 	::QSnd2::Proxies_Group3 *
 	group (
 		unsigned int idx_n );
-
-	void
-	clear_groups ( );
 
 	void
 	append_group (

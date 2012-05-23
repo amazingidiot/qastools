@@ -61,9 +61,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="221.62882"
-     inkscape:cy="740.02886"
+     inkscape:zoom="1.4"
+     inkscape:cx="411.21452"
+     inkscape:cy="854.31457"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -118,7 +118,7 @@
     <rect
        style="fill:#ec6568;fill-opacity:1;stroke:#3d3d3d;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3000-1-3-0-3-8"
-       width="420"
+       width="590"
        height="280"
        x="80"
        y="42.362183"
@@ -363,5 +363,13 @@
          id="tspan3968-4-9-9-9"
          x="243.08122"
          y="496.25052">Proxies_Group4</tspan></text>
+    <rect
+       style="fill:#65ec6c;fill-opacity:1;stroke:#3d3d3d;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3000-1-3-0-3-3"
+       width="150"
+       height="240"
+       x="500"
+       y="62.362183"
+       ry="0" />
   </g>
 </svg>
