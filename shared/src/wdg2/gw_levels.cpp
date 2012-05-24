@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_sliders.hpp"
+#include "gw_levels.hpp"
 #include <iostream>
 
 
@@ -14,7 +14,7 @@ namespace Wdg2
 {
 
 
-GW_Sliders::GW_Sliders (
+GW_Levels::GW_Levels (
 	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
@@ -22,7 +22,7 @@ _snd_proxies ( snd_proxies_n )
 {
 }
 
-GW_Sliders::~GW_Sliders ( )
+GW_Levels::~GW_Levels ( )
 {
 }
 

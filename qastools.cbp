@@ -431,8 +431,8 @@
 		<Unit filename="shared/src/wdg/tree_view_kv.hpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.cpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
-		<Unit filename="shared/src/wdg2/gw_sliders.cpp" />
-		<Unit filename="shared/src/wdg2/gw_sliders.hpp" />
+		<Unit filename="shared/src/wdg2/gw_levels.cpp" />
+		<Unit filename="shared/src/wdg2/gw_levels.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switches.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switches.hpp" />
 		<Unit filename="shared/src/wdg2/sliders_pad.cpp" />

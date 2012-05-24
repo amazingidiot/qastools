@@ -50,7 +50,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd2/alsa_smi.cpp
 
 	${SHARED_SRC_DIR}/wdg2/sliders_pad.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_sliders.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_levels.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_switches.cpp
 
 	${SHARED_SRC_DIR}/dpe/image.cpp

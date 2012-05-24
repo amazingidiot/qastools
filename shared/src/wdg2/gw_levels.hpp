@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_gw_slider_hpp__
-#define __INC_wdg2_gw_slider_hpp__
+#ifndef __INC_wdg2_gw_levels_hpp__
+#define __INC_wdg2_gw_levels_hpp__
 
 #include <QGraphicsItem>
 #include "qsnd2/control_proxies.hpp"
@@ -17,19 +17,19 @@ namespace Wdg2
 {
 
 
-/// @brief GW_Sliders
+/// @brief GW_Levels
 ///
-class GW_Sliders :
+class GW_Levels :
 	public QGraphicsItem
 {
 	// Public methods
 	public:
 
-	GW_Sliders (
+	GW_Levels (
 		::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 		QGraphicsItem * parent_n = 0 );
 
-	~GW_Sliders ( );
+	~GW_Levels ( );
 
 
 	// Private methods
