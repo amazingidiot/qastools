@@ -16,6 +16,9 @@
 #include "mwdg/mixer_simple_setup.hpp"
 #include "views/view_base.hpp"
 
+#include "qsnd2/alsa_smi.hpp"
+#include "wdg2/sliders_pad.hpp"
+
 
 // Forward declaration
 namespace QSnd { class Mixer_Simple; }
@@ -140,6 +143,7 @@ class Mixer_Simple :
 
 	/// @brief Mixer object
 	::QSnd::Mixer_Simple * _qsnd_mixer;
+	::QSnd2::ASMI_Controls * _snd_controls;
 
 	// Strings and Icons
 	QString _act_stream_text[2];
@@ -149,6 +153,5 @@ class Mixer_Simple :
 
 
 } // End of namespace
-
 
 #endif

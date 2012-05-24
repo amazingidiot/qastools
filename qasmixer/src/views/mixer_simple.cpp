@@ -86,6 +86,11 @@ _qsnd_mixer ( 0 )
 			this, SIGNAL ( sig_mdev_reload_request() ) );
 	}
 
+	// Mixer object
+	{
+		_snd_controls = new ::QSnd2::ASMI_Controls;
+	}
+
 	// Mixer sliders
 	{
 		_mixer_sliders = new ::MWdg::Mixer_Sliders;
