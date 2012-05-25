@@ -172,16 +172,16 @@ ASMI_Proxy_Switch::asmi_pgroup ( ) const
 
 
 
-class ASMI_Proxies_Group2 :
-	public ::QSnd2::Proxies_Group2
+class ASMI_Proxies_Group3 :
+	public ::QSnd2::Proxies_Group3
 {
 	// Public methods
 	public:
 
-	ASMI_Proxies_Group2 (
+	ASMI_Proxies_Group3 (
 		::snd_mixer_elem_t * elem_n );
 
-	~ASMI_Proxies_Group2 ( );
+	~ASMI_Proxies_Group3 ( );
 
 
 	// Alsa callbacks
@@ -191,6 +191,16 @@ class ASMI_Proxies_Group2 :
 	alsa_callback_mixer_elem (
 		::snd_mixer_elem_t * elem_n,
 		unsigned int mask_n );
+
+
+	// Private methods
+	private:
+
+	void
+	create_playback_group ( );
+
+	void
+	create_capture_group ( );
 
 
 	// Private attributes
@@ -260,15 +270,8 @@ class ASMI_Controls :
 	// Private methods
 	private:
 
-	void
-	destroy_control_groups ( );
-
 	int
 	create_control_groups ( );
-
-	::QSnd2::ASMI_Proxies_Group2 *
-	create_control_group (
-		::snd_mixer_elem_t * snd_elem_n );
 
 	int
 	load_pollfds ( );
@@ -279,8 +282,6 @@ class ASMI_Controls :
 
 	::snd_hctl_t * _snd_hctl;
 	::snd_mixer_t * _snd_mixer;
-
-	QList < ::QSnd2::ASMI_Proxies_Group2 * > _cp_groups;
 
 	QString _err_func;
 	QString _err_message;

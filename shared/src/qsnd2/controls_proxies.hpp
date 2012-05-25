@@ -564,6 +564,13 @@ class Proxies_Group2 :
 	void
 	clear_children ( );
 
+	unsigned int
+	num_groups ( ) const;
+
+	::QSnd2::Proxies_Group1 *
+	group (
+		unsigned int idx_n );
+
 	void
 	append_group (
 		::QSnd2::Proxies_Group1 * grp_n );
@@ -589,6 +596,20 @@ class Proxies_Group2 :
 	QList < ::QSnd2::Proxies_Group1 * > _groups;
 };
 
+inline
+unsigned int
+Proxies_Group2::num_groups ( ) const
+{
+	return _groups.size();
+}
+
+inline
+::QSnd2::Proxies_Group1 *
+Proxies_Group2::group (
+	unsigned int idx_n )
+{
+	return _groups[idx_n];
+}
 
 
 /// @brief Proxies_Group3

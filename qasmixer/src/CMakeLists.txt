@@ -44,7 +44,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/mixer_simple_filter_name.cpp
 	${SHARED_SRC_DIR}/qsnd/mixer_simple.cpp
 
-	${SHARED_SRC_DIR}/qsnd2/control_proxies.cpp
+	${SHARED_SRC_DIR}/qsnd2/controls_proxies.cpp
 	${SHARED_SRC_DIR}/qsnd2/controls.cpp
 	${SHARED_SRC_DIR}/qsnd2/controls_watcher.cpp
 	${SHARED_SRC_DIR}/qsnd2/alsa_smi.cpp

@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "control_proxies.hpp"
+#include "controls_proxies.hpp"
 
 namespace QSnd2
 {

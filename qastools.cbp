@@ -308,10 +308,10 @@
 		<Unit filename="shared/src/qsnd/pcm_subdevices_info.hpp" />
 		<Unit filename="shared/src/qsnd2/alsa_smi.cpp" />
 		<Unit filename="shared/src/qsnd2/alsa_smi.hpp" />
-		<Unit filename="shared/src/qsnd2/control_proxies.cpp" />
-		<Unit filename="shared/src/qsnd2/control_proxies.hpp" />
 		<Unit filename="shared/src/qsnd2/controls.cpp" />
 		<Unit filename="shared/src/qsnd2/controls.hpp" />
+		<Unit filename="shared/src/qsnd2/controls_proxies.cpp" />
+		<Unit filename="shared/src/qsnd2/controls_proxies.hpp" />
 		<Unit filename="shared/src/qsnd2/controls_watcher.cpp" />
 		<Unit filename="shared/src/qsnd2/controls_watcher.hpp" />
 		<Unit filename="shared/src/single_application.cpp" />

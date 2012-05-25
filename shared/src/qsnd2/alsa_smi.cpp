@@ -210,144 +210,186 @@ ASMI_Proxies_Group1_Switch::set_switch_state (
 }
 
 
-ASMI_Proxies_Group2::ASMI_Proxies_Group2 (
+ASMI_Proxies_Group3::ASMI_Proxies_Group3 (
 	::snd_mixer_elem_t * elem_n ) :
 _snd_mixer_elem ( elem_n )
 {
-	// Playback sliders
-	QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Slider > grp_play_slider (
-		new ::QSnd2::ASMI_Proxies_Group1_Slider ( elem_n ) );
-	grp_play_slider->set_feature ( ::QSnd2::FFLAG_PLAYBACK );
-	if ( ::snd_mixer_selem_has_playback_volume ( _snd_mixer_elem ) > 0 ) {
-		// Detect available channels
-		if ( ::snd_mixer_selem_has_playback_volume_joined ( _snd_mixer_elem ) > 0 ) {
-			::QSnd2::ASMI_Proxy_Slider * slider_proxy (
-				new ::QSnd2::ASMI_Proxy_Slider ( SND_MIXER_SCHN_MONO ) );
-			grp_play_slider->append_proxy ( slider_proxy );
-		} else {
-			for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
-				::snd_mixer_selem_channel_id_t channel_id (
-					static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
-				if ( ::snd_mixer_selem_has_playback_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
-					::QSnd2::ASMI_Proxy_Slider * slider_proxy (
-						new ::QSnd2::ASMI_Proxy_Slider ( channel_id ) );
-					grp_play_slider->append_proxy ( slider_proxy );
-				}
-			}
-		}
-
-		// Detect decibel availability
-		{
-			::QSnd2::Integer_Pair vals ( 0, 0 );
-			int err ( ::snd_mixer_selem_get_playback_dB_range (
-				_snd_mixer_elem, &vals[0], &vals[1] ) );
-			if ( ( err >= 0 ) && ( vals[0] != vals[1] ) ) {
-				grp_play_slider->set_feature ( ::QSnd2::FFLAG_DECIBEL );
-			}
-		}
-	}
-
-	// Capture sliders
-	QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Slider > grp_cap_slider (
-		new ::QSnd2::ASMI_Proxies_Group1_Slider ( elem_n ) );
-	grp_cap_slider->set_feature ( ::QSnd2::FFLAG_CAPTURE );
-	if ( ::snd_mixer_selem_has_capture_volume ( _snd_mixer_elem ) > 0 ) {
-		// Detect available channels
-		if ( ::snd_mixer_selem_has_capture_volume_joined ( _snd_mixer_elem ) > 0 ) {
-			::QSnd2::ASMI_Proxy_Slider * slider_proxy (
-				new ::QSnd2::ASMI_Proxy_Slider ( SND_MIXER_SCHN_MONO ) );
-			grp_cap_slider->append_proxy ( slider_proxy );
-		} else {
-			for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
-				::snd_mixer_selem_channel_id_t channel_id (
-					static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
-				if ( ::snd_mixer_selem_has_capture_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
-					::QSnd2::ASMI_Proxy_Slider * slider_proxy (
-						new ::QSnd2::ASMI_Proxy_Slider ( channel_id ) );
-					grp_cap_slider->append_proxy ( slider_proxy );
-				}
-			}
-		}
-
-		// Detect decibel availability
-		{
-			::QSnd2::Integer_Pair vals ( 0, 0 );
-			int err ( ::snd_mixer_selem_get_capture_dB_range (
-				_snd_mixer_elem, &vals[0], &vals[1] ) );
-			if ( ( err >= 0 ) && ( vals[0] != vals[1] ) ) {
-				grp_cap_slider->set_feature ( ::QSnd2::FFLAG_DECIBEL );
-			}
-		}
-	}
-
-	// Playback switches
-	QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Switch > grp_play_switch (
-		new ::QSnd2::ASMI_Proxies_Group1_Switch ( elem_n ) );
-	grp_play_switch->set_feature ( ::QSnd2::FFLAG_PLAYBACK );
-	if ( snd_mixer_selem_has_playback_switch ( _snd_mixer_elem ) > 0 ) {
-		// Detect available channels
-		if ( snd_mixer_selem_has_playback_switch_joined ( _snd_mixer_elem ) > 0 ) {
-			// Single joined switch for all channels
-			::QSnd2::ASMI_Proxy_Switch * switch_proxy (
-				new ::QSnd2::ASMI_Proxy_Switch ( SND_MIXER_SCHN_MONO ) );
-			grp_play_switch->append_proxy ( switch_proxy );
-		} else {
-			for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
-				::snd_mixer_selem_channel_id_t channel_id (
-					static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
-				if ( ::snd_mixer_selem_has_playback_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
-					::QSnd2::ASMI_Proxy_Switch * switch_proxy (
-						new ::QSnd2::ASMI_Proxy_Switch ( channel_id ) );
-					grp_play_switch->append_proxy ( switch_proxy );
-				}
-			}
-		}
-	}
-
-	// Capture switches
-	QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Switch > grp_cap_switch (
-		new ::QSnd2::ASMI_Proxies_Group1_Switch ( elem_n ) );
-	grp_cap_switch->set_feature ( ::QSnd2::FFLAG_CAPTURE );
-	if ( snd_mixer_selem_has_capture_switch ( _snd_mixer_elem ) > 0 ) {
-		// Detect available channels
-		if ( snd_mixer_selem_has_capture_switch_joined ( _snd_mixer_elem ) > 0 ) {
-			// Single joined switch for all channels
-			::QSnd2::ASMI_Proxy_Switch * switch_proxy (
-				new ::QSnd2::ASMI_Proxy_Switch ( SND_MIXER_SCHN_MONO ) );
-			grp_cap_switch->append_proxy ( switch_proxy );
-		} else {
-			for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
-				::snd_mixer_selem_channel_id_t channel_id (
-					static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
-				if ( ::snd_mixer_selem_has_capture_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
-					::QSnd2::ASMI_Proxy_Switch * switch_proxy (
-						new ::QSnd2::ASMI_Proxy_Switch ( channel_id ) );
-					grp_cap_switch->append_proxy ( switch_proxy );
-				}
-			}
-		}
-	}
-
+	create_playback_group();
+	create_capture_group();
 
 	// Install Alsa callbacks
 	snd_mixer_elem_set_callback_private ( _snd_mixer_elem, this );
 	snd_mixer_elem_set_callback ( _snd_mixer_elem,
-		&::QSnd2::ASMI_Proxies_Group2::alsa_callback_mixer_elem );
+		&::QSnd2::ASMI_Proxies_Group3::alsa_callback_mixer_elem );
 }
 
-ASMI_Proxies_Group2::~ASMI_Proxies_Group2 ( )
+ASMI_Proxies_Group3::~ASMI_Proxies_Group3 ( )
 {
 }
 
+void
+ASMI_Proxies_Group3::create_playback_group ( )
+{
+	QScopedPointer < ::QSnd2::Proxies_Group2 > grp2 ( new ::QSnd2::Proxies_Group2 );
+
+	// Playback sliders
+	{
+		QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Slider > grp_slider (
+			new ::QSnd2::ASMI_Proxies_Group1_Slider ( _snd_mixer_elem ) );
+		grp_slider->set_feature ( ::QSnd2::FFLAG_PLAYBACK );
+		if ( ::snd_mixer_selem_has_playback_volume ( _snd_mixer_elem ) > 0 ) {
+			// Detect available channels
+			if ( ::snd_mixer_selem_has_playback_volume_joined ( _snd_mixer_elem ) > 0 ) {
+				::QSnd2::ASMI_Proxy_Slider * slider_proxy (
+					new ::QSnd2::ASMI_Proxy_Slider ( SND_MIXER_SCHN_MONO ) );
+				grp_slider->append_proxy ( slider_proxy );
+			} else {
+				for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
+					::snd_mixer_selem_channel_id_t channel_id (
+						static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
+					if ( ::snd_mixer_selem_has_playback_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
+						::QSnd2::ASMI_Proxy_Slider * slider_proxy (
+							new ::QSnd2::ASMI_Proxy_Slider ( channel_id ) );
+						grp_slider->append_proxy ( slider_proxy );
+					}
+				}
+			}
+
+			// Detect decibel availability
+			{
+				::QSnd2::Integer_Pair vals ( 0, 0 );
+				int err ( ::snd_mixer_selem_get_playback_dB_range (
+					_snd_mixer_elem, &vals[0], &vals[1] ) );
+				if ( ( err >= 0 ) && ( vals[0] != vals[1] ) ) {
+					grp_slider->set_feature ( ::QSnd2::FFLAG_DECIBEL );
+				}
+			}
+		}
+		if ( grp_slider->num_proxies() != 0 ) {
+			grp2->append_group ( grp_slider.take() );
+		}
+	}
+
+	{
+		// Playback switches
+		QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Switch > grp_switch (
+			new ::QSnd2::ASMI_Proxies_Group1_Switch ( _snd_mixer_elem ) );
+		grp_switch->set_feature ( ::QSnd2::FFLAG_PLAYBACK );
+		if ( ::snd_mixer_selem_has_playback_switch ( _snd_mixer_elem ) > 0 ) {
+			// Detect available channels
+			if ( ::snd_mixer_selem_has_playback_switch_joined ( _snd_mixer_elem ) > 0 ) {
+				// Single joined switch for all channels
+				::QSnd2::ASMI_Proxy_Switch * switch_proxy (
+					new ::QSnd2::ASMI_Proxy_Switch ( SND_MIXER_SCHN_MONO ) );
+				grp_switch->append_proxy ( switch_proxy );
+			} else {
+				for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
+					::snd_mixer_selem_channel_id_t channel_id (
+						static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
+					if ( ::snd_mixer_selem_has_playback_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
+						::QSnd2::ASMI_Proxy_Switch * switch_proxy (
+							new ::QSnd2::ASMI_Proxy_Switch ( channel_id ) );
+						grp_switch->append_proxy ( switch_proxy );
+					}
+				}
+			}
+		}
+		if ( grp_switch->num_proxies() != 0 ) {
+			grp2->append_group ( grp_switch.take() );
+		}
+	}
+
+	if ( grp2->num_groups() != 0 ) {
+		append_group ( grp2.take() );
+	}
+}
+
+void
+ASMI_Proxies_Group3::create_capture_group ( )
+{
+	QScopedPointer < ::QSnd2::Proxies_Group2 > grp2 ( new ::QSnd2::Proxies_Group2 );
+
+	// Capture sliders
+	{
+		QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Slider > grp_slider (
+			new ::QSnd2::ASMI_Proxies_Group1_Slider ( _snd_mixer_elem ) );
+		grp_slider->set_feature ( ::QSnd2::FFLAG_CAPTURE );
+		if ( ::snd_mixer_selem_has_capture_volume ( _snd_mixer_elem ) > 0 ) {
+			// Detect available channels
+			if ( ::snd_mixer_selem_has_capture_volume_joined ( _snd_mixer_elem ) > 0 ) {
+				::QSnd2::ASMI_Proxy_Slider * slider_proxy (
+					new ::QSnd2::ASMI_Proxy_Slider ( SND_MIXER_SCHN_MONO ) );
+				grp_slider->append_proxy ( slider_proxy );
+			} else {
+				for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
+					::snd_mixer_selem_channel_id_t channel_id (
+						static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
+					if ( ::snd_mixer_selem_has_capture_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
+						::QSnd2::ASMI_Proxy_Slider * slider_proxy (
+							new ::QSnd2::ASMI_Proxy_Slider ( channel_id ) );
+						grp_slider->append_proxy ( slider_proxy );
+					}
+				}
+			}
+
+			// Detect decibel availability
+			{
+				::QSnd2::Integer_Pair vals ( 0, 0 );
+				int err ( ::snd_mixer_selem_get_capture_dB_range (
+					_snd_mixer_elem, &vals[0], &vals[1] ) );
+				if ( ( err >= 0 ) && ( vals[0] != vals[1] ) ) {
+					grp_slider->set_feature ( ::QSnd2::FFLAG_DECIBEL );
+				}
+			}
+		}
+		if ( grp_slider->num_proxies() != 0 ) {
+			grp2->append_group ( grp_slider.take() );
+		}
+	}
+
+	// Capture switches
+	{
+		QScopedPointer < ::QSnd2::ASMI_Proxies_Group1_Switch > grp_switch (
+			new ::QSnd2::ASMI_Proxies_Group1_Switch ( _snd_mixer_elem ) );
+		grp_switch->set_feature ( ::QSnd2::FFLAG_CAPTURE );
+		if ( ::snd_mixer_selem_has_capture_switch ( _snd_mixer_elem ) > 0 ) {
+			// Detect available channels
+			if ( ::snd_mixer_selem_has_capture_switch_joined ( _snd_mixer_elem ) > 0 ) {
+				// Single joined switch for all channels
+				::QSnd2::ASMI_Proxy_Switch * switch_proxy (
+					new ::QSnd2::ASMI_Proxy_Switch ( SND_MIXER_SCHN_MONO ) );
+				grp_switch->append_proxy ( switch_proxy );
+			} else {
+				for ( int ii=0; ii <= SND_MIXER_SCHN_LAST; ++ii ) {
+					::snd_mixer_selem_channel_id_t channel_id (
+						static_cast < ::snd_mixer_selem_channel_id_t > ( ii ) );
+					if ( ::snd_mixer_selem_has_capture_channel ( _snd_mixer_elem, channel_id ) > 0 ) {
+						::QSnd2::ASMI_Proxy_Switch * switch_proxy (
+							new ::QSnd2::ASMI_Proxy_Switch ( channel_id ) );
+						grp_switch->append_proxy ( switch_proxy );
+					}
+				}
+			}
+		}
+		if ( grp_switch->num_proxies() != 0 ) {
+			grp2->append_group ( grp_switch.take() );
+		}
+	}
+
+	if ( grp2->num_groups() != 0 ) {
+		append_group ( grp2.take() );
+	}
+}
+
 int
-ASMI_Proxies_Group2::alsa_callback_mixer_elem (
+ASMI_Proxies_Group3::alsa_callback_mixer_elem (
 	::snd_mixer_elem_t * elem_n,
 	unsigned int mask_n )
 {
 	int res ( 0 );
 
-	::QSnd2::ASMI_Proxies_Group2 * pgrp (
-		reinterpret_cast < ::QSnd2::ASMI_Proxies_Group2 * > (
+	::QSnd2::ASMI_Proxies_Group3 * pgrp (
+		reinterpret_cast < ::QSnd2::ASMI_Proxies_Group3 * > (
 		snd_mixer_elem_get_callback_private ( elem_n ) ) );
 
 	{
@@ -391,7 +433,6 @@ ASMI_Controls::close ( )
 {
 	clear_pollfds();
 	clear_groups();
-	destroy_control_groups();
 
 	if ( _snd_mixer != 0 ) {
 		::snd_mixer_set_callback ( _snd_mixer, 0 );
@@ -505,43 +546,39 @@ ASMI_Controls::open (
 	return ( err != 0 );
 }
 
-void
-ASMI_Controls::destroy_control_groups ( )
-{
-	if ( _cp_groups.size() > 0 ) {
-		for ( int ii=0; ii < _cp_groups.size(); ++ii ) {
-			delete _cp_groups[ii];
-		}
-		_cp_groups.clear();
-	}
-}
-
 int
 ASMI_Controls::create_control_groups ( )
 {
 	int res ( 0 );
+
+	QScopedPointer < ::QSnd2::Proxies_Group4 > grp4 (
+		new ::QSnd2::Proxies_Group4 );
 
 	// Create and Mixer_Simple_Elem objects
 	{
 		::snd_mixer_elem_t * snd_elem;
 		snd_elem = ::snd_mixer_first_elem ( _snd_mixer );
 		while ( snd_elem != 0 )	{
-			_cp_groups.append ( create_control_group ( snd_elem ) );
+			QScopedPointer < ::QSnd2::ASMI_Proxies_Group3 > grp3 (
+				new ::QSnd2::ASMI_Proxies_Group3 ( snd_elem ) );
+			if ( grp3->num_groups() != 0 ) {
+				grp4->append_group ( grp3.take() );
+			}
 			snd_elem = ::snd_mixer_elem_next ( snd_elem );
 		}
 	}
 
+	if ( grp4->num_groups() != 0 ) {
+		append_group ( grp4.take() );
+	} else {
+		grp4.reset();
+		_err_func = "create_control_groups";
+		// TODO:
+		//_err_message = tr ( "Mixer device has no controls" );
+		res = -1;
+	}
+
 	return res;
-}
-
-::QSnd2::ASMI_Proxies_Group2 *
-ASMI_Controls::create_control_group (
-	::snd_mixer_elem_t * snd_elem_n )
-{
-	::QSnd2::ASMI_Proxies_Group2 * grp (
-		new ::QSnd2::ASMI_Proxies_Group2 ( snd_elem_n ) );
-
-	return grp;
 }
 
 int

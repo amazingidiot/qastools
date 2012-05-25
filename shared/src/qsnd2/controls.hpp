@@ -9,7 +9,7 @@
 #ifndef __INC_qsnd_controls_hpp__
 #define __INC_qsnd_controls_hpp__
 
-#include "control_proxies.hpp"
+#include "controls_proxies.hpp"
 #include <poll.h>
 #include <QScopedArrayPointer>
 

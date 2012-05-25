@@ -10,7 +10,7 @@
 #define __INC_wdg2_gw_switches_hpp__
 
 #include <QGraphicsItem>
-#include "qsnd2/control_proxies.hpp"
+#include "qsnd2/controls_proxies.hpp"
 
 
 namespace Wdg2
