@@ -1,3 +1,5 @@
+* Use $TMPDIR for single application socket creation
+* Use checksum based filename for single application socket
 * ctl element selection for the minimixer (master,line, etc.)
 * volume/switch preset safe/restore (on startup)
 * Option to enable/disable slider animations

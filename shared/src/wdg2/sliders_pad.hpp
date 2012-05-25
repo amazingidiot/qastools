@@ -14,7 +14,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
-#include "qsnd2/controls.hpp"
+// Forward declaration
+namespace Wdg2 { class GW_Group4; }
+namespace QSnd2 { class Controls; }
 
 
 namespace Wdg2
@@ -51,12 +53,19 @@ class Sliders_Pad :
 	// Protected methods
 	protected:
 
+	void
+	resizeEvent (
+		QResizeEvent * event_n );
+
 
 	// Protected slots
 	protected slots:
 
 	// Private methods
 	private:
+
+	void
+	update_geometries ( );
 
 	void
 	destroy_scene_items ( );
@@ -69,6 +78,7 @@ class Sliders_Pad :
 	private:
 
 	::QSnd2::Controls * _snd_controls;
+	::Wdg2::GW_Group4 * _group4;
 	QGraphicsScene _scene;
 };
 

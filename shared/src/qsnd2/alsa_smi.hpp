@@ -285,15 +285,13 @@ class ASMI_Controls :
 
 	QString _err_func;
 	QString _err_message;
-
-	bool _is_open;
 };
 
 inline
 bool
 ASMI_Controls::is_open ( ) const
 {
-	return _is_open;
+	return ( _snd_mixer != 0 );
 }
 
 inline

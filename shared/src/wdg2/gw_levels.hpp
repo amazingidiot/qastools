@@ -17,6 +17,29 @@ namespace Wdg2
 {
 
 
+// Forward declaration
+class GW_Slider_Rail;
+class GW_Slider_Handle;
+
+
+struct GW_Levels_Sizes
+{
+	GW_Levels_Sizes ( );
+
+	unsigned int area_height;
+	unsigned int slider_width;
+	unsigned int channels_hgap;
+};
+
+inline
+GW_Levels_Sizes::GW_Levels_Sizes ( ) :
+area_height ( 0 ),
+slider_width ( 0 ),
+channels_hgap ( 0 )
+{
+}
+
+
 /// @brief GW_Levels
 ///
 class GW_Levels :
@@ -31,16 +54,156 @@ class GW_Levels :
 
 	~GW_Levels ( );
 
+	::QSnd2::Proxies_Group1_Slider &
+	snd_proxies ( );
+
+	const ::QSnd2::Proxies_Group1_Slider &
+	snd_proxies ( ) const;
+
+
+	QRectF
+	boundingRect ( ) const;
+
+	void
+	paint (
+		QPainter * painter_n,
+		const QStyleOptionGraphicsItem * option_n,
+		QWidget * widget_n = 0 );
+
+
+	const ::Wdg2::GW_Levels_Sizes &
+	sizes ( ) const;
+
+	void
+	set_sizes (
+		const ::Wdg2::GW_Levels_Sizes & sizes_n );
+
+	unsigned int
+	int_width ( ) const;
+
 
 	// Private methods
 	private:
+
+	void
+	update_geometries ( );
+
 
 	// Private attributes
 	private:
 
 	::QSnd2::Proxies_Group1_Slider & _snd_proxies;
+	::Wdg2::GW_Levels_Sizes _sizes;
+
+	QList < ::Wdg2::GW_Slider_Rail * > _slider_rails;
+	QList < ::Wdg2::GW_Slider_Handle * > _slider_handles;
+	::Wdg2::GW_Slider_Handle * _slider_handle;
 };
 
+
+inline
+::QSnd2::Proxies_Group1_Slider &
+GW_Levels::snd_proxies ( )
+{
+	return _snd_proxies;
+}
+
+inline
+const ::QSnd2::Proxies_Group1_Slider &
+GW_Levels::snd_proxies ( ) const
+{
+	return _snd_proxies;
+}
+
+inline
+const ::Wdg2::GW_Levels_Sizes &
+GW_Levels::sizes ( ) const
+{
+	return _sizes;
+}
+
+
+/// @brief GW_Slider_Rail
+///
+class GW_Slider_Rail :
+	public QGraphicsItem
+{
+	// Public methods
+	public:
+
+	GW_Slider_Rail (
+		QGraphicsItem * parent_n = 0 );
+
+	QRectF
+	boundingRect ( ) const;
+
+	void
+	paint (
+		QPainter * painter_n,
+		const QStyleOptionGraphicsItem * option_n,
+		QWidget * widget_n = 0 );
+
+	const QSize &
+	rail_size ( ) const;
+
+	void
+	set_rail_size (
+		const QSize & size_n );
+
+
+	// Private attributes
+	private:
+
+	QSize _rail_size;
+};
+
+inline
+const QSize &
+GW_Slider_Rail::rail_size ( ) const
+{
+	return _rail_size;
+}
+
+
+/// @brief GW_Slider_Handle
+///
+class GW_Slider_Handle :
+	public QGraphicsItem
+{
+	// Public methods
+	public:
+
+	GW_Slider_Handle (
+		QGraphicsItem * parent_n = 0 );
+
+	QRectF
+	boundingRect ( ) const;
+
+	void
+	paint (
+		QPainter * painter_n,
+		const QStyleOptionGraphicsItem * option_n,
+		QWidget * widget_n = 0 );
+
+	const QSize &
+	handle_size ( ) const;
+
+	void
+	set_handle_size (
+		const QSize & size_n );
+
+	// Private attributes
+	private:
+
+	QSize _handle_size;
+};
+
+inline
+const QSize &
+GW_Slider_Handle::handle_size ( ) const
+{
+	return _handle_size;
+}
 
 } // End of namespace
 

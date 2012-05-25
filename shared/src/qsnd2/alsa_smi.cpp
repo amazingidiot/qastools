@@ -419,7 +419,8 @@ ASMI_Proxies_Group3::alsa_callback_mixer_elem (
 
 
 ASMI_Controls::ASMI_Controls ( ) :
-_is_open ( false )
+_snd_hctl ( 0 ),
+_snd_mixer ( 0 )
 {
 }
 

@@ -49,7 +49,7 @@ destroy_list_entries (
 	if ( list_n.size() > 0 ) {
 		typename T::iterator it_end ( list_n.end() );
 		typename T::iterator it ( list_n.begin() );
-		while ( it != it_end ) {
+		for ( ; it != it_end;  ++it ) {
 			delete *it;
 		}
 		list_n.clear();

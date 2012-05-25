@@ -91,6 +91,11 @@ _qsnd_mixer ( 0 )
 		_snd_controls = new ::QSnd2::ASMI_Controls;
 	}
 
+	// Sliders pad 2
+	{
+		_sliders_pad2 = new ::Wdg2::Sliders_Pad;
+	}
+
 	// Mixer sliders
 	{
 		_mixer_sliders = new ::MWdg::Mixer_Sliders;
@@ -129,6 +134,7 @@ _qsnd_mixer ( 0 )
 	// Vertical splitter
 	{
 		_mixer_split.setOrientation ( Qt::Vertical );
+		_mixer_split.addWidget ( _sliders_pad2 );
 		_mixer_split.addWidget ( _mixer_sliders );
 		_mixer_split.addWidget ( _switches_area );
 
@@ -169,12 +175,17 @@ Mixer_Simple::set_mdev_setup (
 	if ( mdev_setup() != 0 ) {
 		clear_view();
 		_qsnd_mixer->close();
+
+		_sliders_pad2->set_snd_controls ( 0 );
+		_snd_controls->close();
 	}
 
 	::Views::View_Base::set_mdev_setup ( setup_n );
 
 	if ( mdev_setup() != 0 ) {
 		_qsnd_mixer->open ( mdev_setup()->ctl_addr );
+		_snd_controls->open ( mdev_setup()->ctl_addr );
+		_sliders_pad2->set_snd_controls ( _snd_controls );
 		setup_view();
 	}
 }

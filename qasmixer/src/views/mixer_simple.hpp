@@ -132,6 +132,7 @@ class Mixer_Simple :
 	QWidget _wdg_areas;
 	QSplitter _mixer_split;
 	::MWdg::Mixer_Sliders * _mixer_sliders;
+	::Wdg2::Sliders_Pad * _sliders_pad2;
 
 	QWidget * _switches_area;
 	QPushButton * _btn_stream[2];
