@@ -28,7 +28,7 @@ _group4 ( 0 )
 	setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
 	setAlignment ( Qt::AlignLeft | Qt::AlignTop );
 	//setFrameStyle ( QFrame::NoFrame );
-	setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
+	//setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
 	setRenderHints ( QPainter::Antialiasing );
 	setScene ( &_scene );
 }
@@ -91,22 +91,25 @@ Sliders_Pad::resizeEvent (
 
 	{
 		QRectF srect ( _scene.itemsBoundingRect() );
-		QRectF vrect ( viewport()->rect() );
-		QRectF crect ( viewport()->contentsRect() );
+
+		// TODO: clean
+		/*
+		QRectF vprect ( viewport()->rect() );
+		QRectF vpcrect ( viewport()->contentsRect() );
 		QRectF prect ( rect() );
 		QRectF pcrect ( contentsRect() );
 
 		::std::cout << "scene rect  " << srect.width() << "x" << srect.height() << " @ " << srect.x() << ":" << srect.y() << "\n";
-		::std::cout << "vport prect " << vrect.width() << "x" << vrect.height() << " @ " << vrect.x() << ":" << vrect.y() << "\n";
-		::std::cout << "vport crect " << crect.width() << "x" << crect.height() << " @ " << crect.x() << ":" << crect.y() << "\n";
+		::std::cout << "vport prect " << vprect.width() << "x" << vprect.height() << " @ " << vprect.x() << ":" << vprect.y() << "\n";
+		::std::cout << "vport crect " << vpcrect.width() << "x" << vpcrect.height() << " @ " << vpcrect.x() << ":" << vpcrect.y() << "\n";
 		::std::cout << "prect  " << prect.width() << "x" << prect.height() << " @ " << prect.x() << ":" << prect.y() << "\n";
 		::std::cout << "pcrect " << pcrect.width() << "x" << pcrect.height() << " @ " << pcrect.x() << ":" << pcrect.y() << "\n";
+		*/
 
 		if ( !srect.isValid() ){
 			srect.setRect ( 0.0, 0.0, 1.0, 1.0 );
 		}
 		_scene.setSceneRect ( srect );
-		//fitInView ( vrect );
 	}
 }
 

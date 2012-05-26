@@ -40,7 +40,7 @@ GW_Group2::~GW_Group2 ( )
 QRectF
 GW_Group2::boundingRect ( ) const
 {
-	return QRectF();
+	return QRectF ( 0, 0, 0, 0 );
 }
 
 void
@@ -90,7 +90,8 @@ GW_Group2::update_geometries ( )
 			lsizes.channels_hgap = _sizes.channels_hgap;
 			_gw_switches->set_sizes ( lsizes );
 		}
-		_gw_switches->setPos ( 0.0, _levels_height + _switches_vgap );
+		_gw_switches->setPos (
+			QPointF ( 0.0, _levels_height + _switches_vgap ) );
 	}
 }
 
@@ -131,7 +132,7 @@ GW_Group3::~GW_Group3 ( )
 QRectF
 GW_Group3::boundingRect ( ) const
 {
-	return QRectF();
+	return QRectF ( 0, 0, 0, 0 );
 }
 
 void
@@ -218,7 +219,7 @@ GW_Group4::~GW_Group4 ( )
 QRectF
 GW_Group4::boundingRect ( ) const
 {
-	return QRectF();
+	return QRectF ( 0, 0, 0, 0 );
 }
 
 void

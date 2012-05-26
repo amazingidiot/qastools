@@ -35,7 +35,7 @@ GW_Switches::~GW_Switches ( )
 QRectF
 GW_Switches::boundingRect ( ) const
 {
-	return QRectF();
+	return QRectF ( 0.0, 0.0, 0.0, 0.0 );
 }
 
 void
@@ -91,7 +91,8 @@ GW_Switches::int_width ( ) const
 
 GW_Switch::GW_Switch (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n )
+QGraphicsItem ( parent_n ),
+_switch_size ( 0.0, 0.0 )
 {
 }
 
