@@ -439,6 +439,8 @@
 		<Unit filename="shared/src/wdg2/gw_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switches.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switches.hpp" />
+		<Unit filename="shared/src/wdg2/int_math.cpp" />
+		<Unit filename="shared/src/wdg2/int_math.hpp" />
 		<Unit filename="shared/src/wdg2/slider_value_map.cpp" />
 		<Unit filename="shared/src/wdg2/slider_value_map.hpp" />
 		<Unit filename="shared/src/wdg2/sliders_pad.cpp" />
