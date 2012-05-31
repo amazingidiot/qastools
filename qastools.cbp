@@ -435,8 +435,12 @@
 		<Unit filename="shared/src/wdg2/gw_groups.hpp" />
 		<Unit filename="shared/src/wdg2/gw_levels.cpp" />
 		<Unit filename="shared/src/wdg2/gw_levels.hpp" />
+		<Unit filename="shared/src/wdg2/gw_slider.cpp" />
+		<Unit filename="shared/src/wdg2/gw_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switches.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switches.hpp" />
+		<Unit filename="shared/src/wdg2/slider_value_map.cpp" />
+		<Unit filename="shared/src/wdg2/slider_value_map.hpp" />
 		<Unit filename="shared/src/wdg2/sliders_pad.cpp" />
 		<Unit filename="shared/src/wdg2/sliders_pad.hpp" />
 		<Extensions>

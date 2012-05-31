@@ -49,7 +49,9 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd2/controls_watcher.cpp
 	${SHARED_SRC_DIR}/qsnd2/alsa_smi.cpp
 
+	${SHARED_SRC_DIR}/wdg2/int_math.cpp
 	${SHARED_SRC_DIR}/wdg2/sliders_pad.cpp
+	${SHARED_SRC_DIR}/wdg2/slider_value_map.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_levels.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_switches.cpp
