@@ -17,7 +17,8 @@ namespace Wdg2
 
 Slider_Value_Map::Slider_Value_Map (
 	::QSnd2::Proxies_Group1_Slider & proxies_grp_n ) :
-_proxies_grp ( proxies_grp_n )
+_proxies_grp ( proxies_grp_n ),
+_px_span ( 0 )
 {
 	update_mapping();
 }

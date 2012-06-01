@@ -364,8 +364,8 @@ Mixer_Simple::setup_view ( )
 			_mixer_split.setStretchFactor ( 0, 1 );
 			_mixer_split.setStretchFactor ( 1, 0 );
 
-			_mixer_sliders->show();
-			_switches_area->show();
+			//_mixer_sliders->show();
+			//_switches_area->show();
 			{
 				// Shrink switches area to minimum size
 				QList < int > sizes;
@@ -380,8 +380,8 @@ Mixer_Simple::setup_view ( )
 			} else {
 				_wdg_areas.layout()->addWidget ( _switches_area );
 			}
-			_mixer_sliders->setVisible ( num_vis_sliders > 0 );
-			_switches_area->setVisible ( vis_switches_area );
+			//_mixer_sliders->setVisible ( num_vis_sliders > 0 );
+			//_switches_area->setVisible ( vis_switches_area );
 		}
 
 	}

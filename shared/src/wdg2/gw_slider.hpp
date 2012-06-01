@@ -16,6 +16,7 @@
 namespace Wdg2
 {
 
+class GW_Multi_Slider;
 
 /// @brief GW_Slider_Rail
 ///
@@ -100,6 +101,21 @@ GW_Slider_Handle::handle_size ( ) const
 }
 
 
+struct GW_Slider_Sizes
+{
+	GW_Slider_Sizes ( );
+
+	QSize size;
+	QSize handle_size;
+};
+
+inline
+GW_Slider_Sizes::GW_Slider_Sizes ( ) :
+size ( 0, 0 ),
+handle_size ( 0, 0 )
+{
+}
+
 
 /// @brief GW_Slider
 ///
@@ -113,6 +129,7 @@ class GW_Slider :
 		::QSnd2::Proxy_Slider & slider_proxy_n,
 		QGraphicsItem * parent_n = 0 );
 
+
 	QRectF
 	boundingRect ( ) const;
 
@@ -123,28 +140,33 @@ class GW_Slider :
 		QWidget * widget_n = 0 );
 
 
-	const QSize &
-	size ( ) const;
+	::Wdg2::GW_Multi_Slider *
+	levels ( ) const;
+
+
+	const ::Wdg2::GW_Slider_Sizes &
+	sizes ( ) const;
 
 	void
-	set_size (
-		const QSize & size_n );
+	set_sizes (
+		const ::Wdg2::GW_Slider_Sizes & sizes_n );
+
 
 	// Private attributes
 	private:
 
 	::QSnd2::Proxy_Slider & _slider_proxy;
-	QSize _size;
+	::Wdg2::GW_Slider_Sizes _sizes;
 
 	::Wdg2::GW_Slider_Rail _rail;
 	::Wdg2::GW_Slider_Handle _handle;
 };
 
 inline
-const QSize &
-GW_Slider::size ( ) const
+const ::Wdg2::GW_Slider_Sizes &
+GW_Slider::sizes ( ) const
 {
-	return _size;
+	return _sizes;
 }
 
 

@@ -6,7 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_levels.hpp"
+#include "gw_slider.hpp"
+#include "gw_multi_slider.hpp"
 #include <iostream>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -139,18 +140,19 @@ GW_Slider::paint (
 	(void) widget_n;
 }
 
-void
-GW_Slider::set_size (
-	const QSize & size_n )
+::Wdg2::GW_Multi_Slider *
+GW_Slider::levels ( ) const
 {
-	_size = size_n;
-	_rail.set_rail_size ( _size );
+	return static_cast < ::Wdg2::GW_Multi_Slider * > ( parentItem() );
+}
 
-	{
-		QSize hsize ( _size );
-		hsize.rheight() /= 10;
-		_handle.set_handle_size ( hsize );
-	}
+void
+GW_Slider::set_sizes (
+	const ::Wdg2::GW_Slider_Sizes & sizes_n )
+{
+	_sizes = sizes_n;
+	_rail.set_rail_size ( _sizes.size );
+	_handle.set_handle_size ( _sizes.handle_size );
 }
 
 

@@ -69,6 +69,10 @@ Sliders_Pad::update_geometries ( )
 void
 Sliders_Pad::destroy_scene_items ( )
 {
+	if ( _group4 != 0 ) {
+		delete _group4;
+		_group4 = 0;
+	}
 	_scene.clear();
 }
 

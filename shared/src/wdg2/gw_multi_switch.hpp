@@ -6,53 +6,55 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_gw_levels_hpp__
-#define __INC_wdg2_gw_levels_hpp__
+#ifndef __INC_wdg2_gw_multi_switch_hpp__
+#define __INC_wdg2_gw_multi_switch_hpp__
 
-#include <QGraphicsItem>
+#include "gw_switch.hpp"
 #include "qsnd2/controls_proxies.hpp"
-#include "wdg2/gw_slider.hpp"
+#include <QGraphicsItem>
+
 
 namespace Wdg2
 {
 
 
-struct GW_Levels_Sizes
+struct GW_Multi_Switch_Sizes
 {
-	GW_Levels_Sizes ( );
+	GW_Multi_Switch_Sizes ( );
 
 	unsigned int area_height;
-	unsigned int slider_width;
+	unsigned int switch_width;
 	unsigned int channels_hgap;
 };
 
 inline
-GW_Levels_Sizes::GW_Levels_Sizes ( ) :
+GW_Multi_Switch_Sizes::GW_Multi_Switch_Sizes ( ) :
 area_height ( 0 ),
-slider_width ( 0 ),
+switch_width ( 0 ),
 channels_hgap ( 0 )
 {
 }
 
 
-/// @brief GW_Levels
+/// @brief GW_Multi_Switch
 ///
-class GW_Levels :
+class GW_Multi_Switch :
 	public QGraphicsItem
 {
 	// Public methods
 	public:
 
-	GW_Levels (
-		::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
+	GW_Multi_Switch (
+		::QSnd2::Proxies_Group1_Switch & snd_proxies_n,
 		QGraphicsItem * parent_n = 0 );
 
-	~GW_Levels ( );
+	~GW_Multi_Switch ( );
 
-	::QSnd2::Proxies_Group1_Slider &
+
+	::QSnd2::Proxies_Group1_Switch &
 	snd_proxies ( );
 
-	const ::QSnd2::Proxies_Group1_Slider &
+	const ::QSnd2::Proxies_Group1_Switch &
 	snd_proxies ( ) const;
 
 
@@ -66,12 +68,12 @@ class GW_Levels :
 		QWidget * widget_n = 0 );
 
 
-	const ::Wdg2::GW_Levels_Sizes &
+	const ::Wdg2::GW_Multi_Switch_Sizes &
 	sizes ( ) const;
 
 	void
 	set_sizes (
-		const ::Wdg2::GW_Levels_Sizes & sizes_n );
+		const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n );
 
 	unsigned int
 	int_width ( ) const;
@@ -87,35 +89,32 @@ class GW_Levels :
 	// Private attributes
 	private:
 
-	::QSnd2::Proxies_Group1_Slider & _snd_proxies;
-	::Wdg2::GW_Levels_Sizes _sizes;
+	::QSnd2::Proxies_Group1_Switch & _snd_proxies;
+	::Wdg2::GW_Multi_Switch_Sizes _sizes;
 
-	QList < ::Wdg2::GW_Slider * > _sliders;
-	::Wdg2::GW_Slider_Handle * _slider_handle;
+	QList < ::Wdg2::GW_Switch * > _switches;
 };
 
-
 inline
-::QSnd2::Proxies_Group1_Slider &
-GW_Levels::snd_proxies ( )
+::QSnd2::Proxies_Group1_Switch &
+GW_Multi_Switch::snd_proxies ( )
 {
 	return _snd_proxies;
 }
 
 inline
-const ::QSnd2::Proxies_Group1_Slider &
-GW_Levels::snd_proxies ( ) const
+const ::QSnd2::Proxies_Group1_Switch &
+GW_Multi_Switch::snd_proxies ( ) const
 {
 	return _snd_proxies;
 }
 
 inline
-const ::Wdg2::GW_Levels_Sizes &
-GW_Levels::sizes ( ) const
+const ::Wdg2::GW_Multi_Switch_Sizes &
+GW_Multi_Switch::sizes ( ) const
 {
 	return _sizes;
 }
-
 
 
 } // End of namespace

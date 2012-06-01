@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_levels.hpp"
+#include "gw_multi_slider.hpp"
 #include <iostream>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -16,32 +16,33 @@ namespace Wdg2
 {
 
 
-GW_Levels::GW_Levels (
+GW_Multi_Slider::GW_Multi_Slider (
 	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_snd_proxies ( snd_proxies_n )
+_value_map ( snd_proxies_n )
 {
-	for ( unsigned int ii=0; ii < _snd_proxies.num_proxies(); ++ii ) {
-		_sliders.append (
-			new ::Wdg2::GW_Slider ( *_snd_proxies.slider_proxy ( ii ), this ) );
+	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
+		::Wdg2::GW_Slider * slider (
+			new ::Wdg2::GW_Slider ( *proxies_grp().slider_proxy ( ii ), this ) );
+		_sliders.append ( slider );
 	}
 	_slider_handle = new ::Wdg2::GW_Slider_Handle ( this );
 	_slider_handle->setVisible ( false );
 }
 
-GW_Levels::~GW_Levels ( )
+GW_Multi_Slider::~GW_Multi_Slider ( )
 {
 }
 
 QRectF
-GW_Levels::boundingRect ( ) const
+GW_Multi_Slider::boundingRect ( ) const
 {
 	return QRectF ( 0, 0, 0, 0 );
 }
 
 void
-GW_Levels::paint (
+GW_Multi_Slider::paint (
 	QPainter * painter_n,
 	const QStyleOptionGraphicsItem * option_n,
 	QWidget * widget_n )
@@ -52,21 +53,26 @@ GW_Levels::paint (
 }
 
 void
-GW_Levels::set_sizes (
-	const ::Wdg2::GW_Levels_Sizes & sizes_n )
+GW_Multi_Slider::set_sizes (
+	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
 	{
-		QSize rsize ( _sizes.slider_width, _sizes.area_height );
+		::Wdg2::GW_Slider_Sizes lsizes;
+		lsizes.size.setWidth ( _sizes.slider_width );
+		lsizes.size.setHeight ( _sizes.area_height );
+		lsizes.handle_size.setWidth ( _sizes.slider_width );
+		lsizes.handle_size.setHeight ( _sizes.area_height / 10 );
+		_value_map.set_px_span ( lsizes.size.height() - lsizes.handle_size.height() );
 		for ( int ii=0; ii < _sliders.size(); ++ii ) {
-			_sliders[ii]->set_size ( rsize );
+			_sliders[ii]->set_sizes ( lsizes );
 		}
 	}
 	update_geometries();
 }
 
 void
-GW_Levels::update_geometries ( )
+GW_Multi_Slider::update_geometries ( )
 {
 	const double delta_x ( _sizes.slider_width + _sizes.channels_hgap );
 	{
@@ -80,12 +86,12 @@ GW_Levels::update_geometries ( )
 }
 
 unsigned int
-GW_Levels::int_width ( ) const
+GW_Multi_Slider::int_width ( ) const
 {
 	unsigned int rwidth ( 0 );
-	if ( _snd_proxies.num_proxies() > 0 ) {
-		rwidth += _sizes.slider_width * _snd_proxies.num_proxies();
-		rwidth += _sizes.channels_hgap * ( _snd_proxies.num_proxies() - 1 );
+	if ( proxies_grp().num_proxies() > 0 ) {
+		rwidth += _sizes.slider_width * proxies_grp().num_proxies();
+		rwidth += _sizes.channels_hgap * ( proxies_grp().num_proxies() - 1 );
 	}
 	return rwidth;
 }

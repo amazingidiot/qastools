@@ -53,8 +53,9 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/sliders_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/slider_value_map.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_slider.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_levels.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_switches.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_multi_slider.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_switch.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_multi_switch.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_groups.cpp
 
 	${SHARED_SRC_DIR}/dpe/image.cpp

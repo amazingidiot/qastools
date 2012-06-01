@@ -26,10 +26,10 @@ _gw_switches ( 0 )
 	::QSnd2::Proxies_Group1_Switch * switches ( _proxies_group.switches() );
 
 	if ( sliders != 0 ) {
-		_gw_levels = new ::Wdg2::GW_Levels ( *sliders, this );
+		_gw_levels = new ::Wdg2::GW_Multi_Slider ( *sliders, this );
 	}
 	if ( switches != 0 ) {
-		_gw_switches = new ::Wdg2::GW_Switches ( *switches, this );
+		_gw_switches = new ::Wdg2::GW_Multi_Switch ( *switches, this );
 	}
 }
 
@@ -74,7 +74,7 @@ GW_Group2::update_geometries ( )
 
 	if ( _gw_levels != 0 ) {
 		{
-			::Wdg2::GW_Levels_Sizes lsizes;
+			::Wdg2::GW_Multi_Slider_Sizes lsizes;
 			lsizes.area_height = _levels_height;
 			lsizes.slider_width = _sizes.slider_width;
 			lsizes.channels_hgap = _sizes.channels_hgap;
@@ -84,7 +84,7 @@ GW_Group2::update_geometries ( )
 	}
 	if ( _gw_switches != 0 ) {
 		{
-			::Wdg2::GW_Switches_Sizes lsizes;
+			::Wdg2::GW_Multi_Switch_Sizes lsizes;
 			lsizes.area_height = _switches_height;
 			lsizes.switch_width = _sizes.slider_width;
 			lsizes.channels_hgap = _sizes.channels_hgap;
@@ -120,8 +120,9 @@ QGraphicsItem ( parent_n ),
 _proxies_group ( proxies_group_n )
 {
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
-		_gw_groups.append (
+		::Wdg2::GW_Group2 * grp2 (
 			new ::Wdg2::GW_Group2 ( *_proxies_group.group ( ii ), this ) );
+		_gw_groups.append ( grp2 );
 	}
 }
 
@@ -207,8 +208,9 @@ QGraphicsItem ( parent_n ),
 _proxies_group ( proxies_group_n )
 {
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
-		_gw_groups.append (
+		::Wdg2::GW_Group3 * grp3 (
 			new ::Wdg2::GW_Group3 ( *_proxies_group.group ( ii ), this ) );
+		_gw_groups.append ( grp3 );
 	}
 }
 

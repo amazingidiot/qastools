@@ -10,8 +10,8 @@
 #define __INC_wdg2_gw_groups_hpp__
 
 #include <QGraphicsItem>
-#include "gw_levels.hpp"
-#include "gw_switches.hpp"
+#include "gw_multi_slider.hpp"
+#include "gw_multi_switch.hpp"
 #include "qsnd2/controls_proxies.hpp"
 
 
@@ -87,8 +87,8 @@ class GW_Group2 :
 	private:
 
 	::QSnd2::Proxies_Group2 & _proxies_group;
-	::Wdg2::GW_Levels * _gw_levels;
-	::Wdg2::GW_Switches * _gw_switches;
+	::Wdg2::GW_Multi_Slider * _gw_levels;
+	::Wdg2::GW_Multi_Switch * _gw_switches;
 
 	::Wdg2::GW_Group2_Sizes _sizes;
 	unsigned int _levels_height;

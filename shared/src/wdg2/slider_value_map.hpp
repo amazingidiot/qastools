@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_gw_levels_hpp__
-#define __INC_wdg2_gw_levels_hpp__
+#ifndef __INC_wdg2_slider_value_map_hpp__
+#define __INC_wdg2_slider_value_map_hpp__
 
 #include "qsnd2/controls_proxies.hpp"
 #include <map>
@@ -30,6 +30,13 @@ class Slider_Value_Map
 		::QSnd2::Proxies_Group1_Slider & proxies_grp_n );
 
 	~Slider_Value_Map ( );
+
+	::QSnd2::Proxies_Group1_Slider &
+	proxies_grp ( );
+
+	const ::QSnd2::Proxies_Group1_Slider &
+	proxies_grp ( ) const;
+
 
 	unsigned int
 	px_span ( ) const;
@@ -71,6 +78,20 @@ unsigned int
 Slider_Value_Map::px_span ( ) const
 {
 	return _px_span;
+}
+
+inline
+::QSnd2::Proxies_Group1_Slider &
+Slider_Value_Map::proxies_grp ( )
+{
+	return _proxies_grp;
+}
+
+inline
+const ::QSnd2::Proxies_Group1_Slider &
+Slider_Value_Map::proxies_grp ( ) const
+{
+	return _proxies_grp;
 }
 
 
