@@ -87,7 +87,7 @@ GW_Slider_Handle::paint (
 	(void) option_n;
 	(void) widget_n;
 
-	double pen_width ( 1.0 );
+	double pen_width ( 2.0 );
 	double pwhalf ( pen_width / 2.0 );
 	QRectF prect ( QPointF ( 0.0, 0.0 ), _handle_size );
 	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
@@ -141,7 +141,7 @@ GW_Slider::paint (
 }
 
 ::Wdg2::GW_Multi_Slider *
-GW_Slider::levels ( ) const
+GW_Slider::multi_slider ( ) const
 {
 	return static_cast < ::Wdg2::GW_Multi_Slider * > ( parentItem() );
 }
@@ -153,6 +153,15 @@ GW_Slider::set_sizes (
 	_sizes = sizes_n;
 	_rail.set_rail_size ( _sizes.size );
 	_handle.set_handle_size ( _sizes.handle_size );
+	update_slider_position();
+}
+
+void
+GW_Slider::update_slider_position ( )
+{
+	unsigned int pos ( _sizes.size.height() - _sizes.handle_size.height() );
+	pos -= multi_slider()->value_map().px_from_value ( _slider_proxy.int_value() );
+	_handle.setPos ( QPointF ( 0.0, double ( pos ) ) );
 }
 
 

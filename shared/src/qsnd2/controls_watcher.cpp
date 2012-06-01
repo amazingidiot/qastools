@@ -7,6 +7,7 @@
 //
 
 #include "controls_watcher.hpp"
+#include <iostream>
 
 namespace QSnd2
 {
@@ -77,6 +78,7 @@ void
 Controls_Watcher::socket_data (
 	int socket_id_n )
 {
+	::std::cout << "Controls_Watcher::socket_data " << socket_id_n << "\n";
 	_controls->socket_data ( socket_id_n );
 }
 

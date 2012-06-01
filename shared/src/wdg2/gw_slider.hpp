@@ -141,7 +141,7 @@ class GW_Slider :
 
 
 	::Wdg2::GW_Multi_Slider *
-	levels ( ) const;
+	multi_slider ( ) const;
 
 
 	const ::Wdg2::GW_Slider_Sizes &
@@ -150,6 +150,9 @@ class GW_Slider :
 	void
 	set_sizes (
 		const ::Wdg2::GW_Slider_Sizes & sizes_n );
+
+	void
+	update_slider_position ( );
 
 
 	// Private attributes

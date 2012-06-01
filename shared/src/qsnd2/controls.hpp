@@ -47,7 +47,7 @@ class Controls
 	virtual
 	void
 	socket_data (
-		unsigned int socket_id_n );
+		int socket_id_n );
 
 
 	// Protected methods

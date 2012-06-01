@@ -225,6 +225,9 @@ _snd_mixer_elem ( elem_n )
 
 ASMI_Proxies_Group3::~ASMI_Proxies_Group3 ( )
 {
+	// Remove Alsa callbacks
+	snd_mixer_elem_set_callback ( _snd_mixer_elem, 0 );
+	snd_mixer_elem_set_callback_private ( _snd_mixer_elem, 0 );
 }
 
 void
@@ -404,6 +407,7 @@ ASMI_Proxies_Group3::alsa_callback_mixer_elem (
 			// TODO:
 			//pgrp->signalize_element_changed();
 		} else if ( ( mask_n & SND_CTL_EVENT_MASK_VALUE ) != 0 ) {
+			::std::cerr << "Alsa SMI: value changed\n";
 			//pgrp->update_values_mark();
 		} else {
 			// Unusual mask
@@ -624,6 +628,7 @@ ASMI_Controls::socket_data (
 {
 	(void) socket_id_n;
 
+	::std::cout << "ASMI_Controls::socket_data " << socket_id_n << "\n";
 	if ( _snd_mixer != 0 ) {
 		const int num_ev ( ::snd_mixer_handle_events ( _snd_mixer ) );
 		if ( num_ev < 0 ) {

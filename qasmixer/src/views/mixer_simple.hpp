@@ -16,6 +16,7 @@
 #include "mwdg/mixer_simple_setup.hpp"
 #include "views/view_base.hpp"
 
+#include "qsnd2/controls_watcher.hpp"
 #include "qsnd2/alsa_smi.hpp"
 #include "wdg2/sliders_pad.hpp"
 
@@ -145,6 +146,7 @@ class Mixer_Simple :
 	/// @brief Mixer object
 	::QSnd::Mixer_Simple * _qsnd_mixer;
 	::QSnd2::ASMI_Controls * _snd_controls;
+	::QSnd2::Controls_Watcher _snd_ctl_watcher;
 
 	// Strings and Icons
 	QString _act_stream_text[2];

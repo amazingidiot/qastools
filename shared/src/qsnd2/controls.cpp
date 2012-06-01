@@ -7,6 +7,7 @@
 //
 
 #include "controls.hpp"
+#include <iostream>
 
 namespace QSnd2
 {
@@ -56,10 +57,11 @@ Controls::set_num_pollfds (
 
 void
 Controls::socket_data (
-	unsigned int socket_id_n )
+	int socket_id_n )
 {
 	(void) socket_id_n;
 	// Default implementation
+	::std::cout << "Controls::socket_data " << socket_id_n << "\n";
 }
 
 

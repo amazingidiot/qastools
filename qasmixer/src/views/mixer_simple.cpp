@@ -176,6 +176,7 @@ Mixer_Simple::set_mdev_setup (
 		clear_view();
 		_qsnd_mixer->close();
 
+		_snd_ctl_watcher.set_controls ( 0 );
 		_sliders_pad2->set_snd_controls ( 0 );
 		_snd_controls->close();
 	}
@@ -185,6 +186,7 @@ Mixer_Simple::set_mdev_setup (
 	if ( mdev_setup() != 0 ) {
 		_qsnd_mixer->open ( mdev_setup()->ctl_addr );
 		_snd_controls->open ( mdev_setup()->ctl_addr );
+		_snd_ctl_watcher.set_controls ( _snd_controls );
 		_sliders_pad2->set_snd_controls ( _snd_controls );
 		setup_view();
 	}
