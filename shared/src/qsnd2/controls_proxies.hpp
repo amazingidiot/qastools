@@ -115,6 +115,40 @@ Integer_Pair::operator[] (
 }
 
 
+/// @brief Context plus function callback reference class
+///
+struct Context_Callback
+{
+	typedef void (*Func)( void * context_n );
+
+	Context_Callback (
+		void * context_n = 0,
+		Func func_n = 0 );
+
+	void
+	call ( );
+
+	void * context;
+	Func function;
+};
+
+inline
+Context_Callback::Context_Callback (
+	void * context_n,
+	Func func_n ) :
+context ( context_n ),
+function ( func_n )
+{
+}
+
+inline
+void
+Context_Callback::call ( )
+{
+	function ( context );
+}
+
+
 /// @brief Base class for the proxy tree
 ///
 class Proxy_Object
