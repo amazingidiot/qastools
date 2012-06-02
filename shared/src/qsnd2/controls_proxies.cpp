@@ -45,6 +45,58 @@ Proxy::set_pgroup (
 	_pgroup = group_n;
 }
 
+void
+Proxy::set_val_change_callback (
+	const ::QSnd2::Context_Callback & callback_n )
+{
+	_val_change_callback = callback_n;
+}
+
+void
+Proxy::notify_value_changed ( ) const
+{
+	val_change_callback().call_if_valid();
+}
+
+
+
+Proxy_Slider::Proxy_Slider ( ) :
+::QSnd2::Proxy ( ::QSnd2::ETYPE_SLIDER )
+{
+}
+
+Proxy_Slider::~Proxy_Slider ( )
+{
+}
+
+
+
+Proxy_Switch::Proxy_Switch ( ) :
+::QSnd2::Proxy ( ::QSnd2::ETYPE_SWITCH )
+{
+}
+
+Proxy_Switch::~Proxy_Switch ( )
+{
+}
+
+void
+Proxy_Switch::toggle_switch_state ( )
+{
+	this->set_switch_state ( !this->switch_state() );
+}
+
+
+
+Proxy_Enum::Proxy_Enum ( ) :
+::QSnd2::Proxy ( ::QSnd2::ETYPE_ENUM )
+{
+}
+
+Proxy_Enum::~Proxy_Enum ( )
+{
+}
+
 
 
 Proxies_Group1::Proxies_Group1 (
@@ -74,14 +126,12 @@ Proxies_Group1::append_proxy (
 	_proxies.append ( proxy_n );
 }
 
-
-Proxy_Slider::Proxy_Slider ( ) :
-::QSnd2::Proxy ( ::QSnd2::ETYPE_SLIDER )
+void
+Proxies_Group1::notify_proxies_value_changed ( )
 {
-}
-
-Proxy_Slider::~Proxy_Slider ( )
-{
+	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
+		proxy ( ii )->notify_value_changed();
+	}
 }
 
 
@@ -93,23 +143,6 @@ Proxies_Group1_Slider::Proxies_Group1_Slider ( ) :
 
 Proxies_Group1_Slider::~Proxies_Group1_Slider ( )
 {
-}
-
-
-
-Proxy_Switch::Proxy_Switch ( ) :
-::QSnd2::Proxy ( ::QSnd2::ETYPE_SWITCH )
-{
-}
-
-Proxy_Switch::~Proxy_Switch ( )
-{
-}
-
-void
-Proxy_Switch::toggle_switch_state ( )
-{
-	this->set_switch_state ( !this->switch_state() );
 }
 
 
@@ -138,16 +171,6 @@ Proxies_Group1_Switch::toggle_all_switches ( )
 	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
 		switch_proxy ( ii )->toggle_switch_state();
 	}
-}
-
-
-Proxy_Enum::Proxy_Enum ( ) :
-::QSnd2::Proxy ( ::QSnd2::ETYPE_ENUM )
-{
-}
-
-Proxy_Enum::~Proxy_Enum ( )
-{
 }
 
 
@@ -186,6 +209,21 @@ Proxies_Group2::append_group (
 	_groups.append ( grp_n );
 }
 
+::QSnd2::Proxies_Group1 *
+Proxies_Group2::find_group_type (
+	unsigned int elem_type_n ) const
+{
+	::QSnd2::Proxies_Group1 * res ( 0 );
+	for ( int ii=0; ii < _groups.size(); ++ii ) {
+		::QSnd2::Proxies_Group1 * item ( _groups[ii] );
+		if ( item->control_type() == elem_type_n ) {
+			res = item;
+			break;
+		}
+	}
+	return res;
+}
+
 ::QSnd2::Proxies_Group1_Slider *
 Proxies_Group2::sliders ( ) const
 {
@@ -219,21 +257,13 @@ Proxies_Group2::enums ( ) const
 	return res;
 }
 
-::QSnd2::Proxies_Group1 *
-Proxies_Group2::find_group_type (
-	unsigned int elem_type_n ) const
+void
+Proxies_Group2::notify_proxies_value_changed ( )
 {
-	::QSnd2::Proxies_Group1 * res ( 0 );
 	for ( int ii=0; ii < _groups.size(); ++ii ) {
-		::QSnd2::Proxies_Group1 * item ( _groups[ii] );
-		if ( item->control_type() == elem_type_n ) {
-			res = item;
-			break;
-		}
+		_groups[ii]->notify_proxies_value_changed();
 	}
-	return res;
 }
-
 
 
 Proxies_Group3::Proxies_Group3 ( ) :
@@ -257,6 +287,14 @@ Proxies_Group3::append_group (
 	::QSnd2::Proxies_Group2 * grp_n )
 {
 	_groups.append ( grp_n );
+}
+
+void
+Proxies_Group3::notify_proxies_value_changed ( )
+{
+	for ( int ii=0; ii < _groups.size(); ++ii ) {
+		_groups[ii]->notify_proxies_value_changed();
+	}
 }
 
 

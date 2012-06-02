@@ -125,11 +125,17 @@ struct Context_Callback
 		void * context_n = 0,
 		Func func_n = 0 );
 
+	bool
+	valid ( ) const;
+
 	void
-	call ( );
+	call ( ) const;
+
+	void
+	call_if_valid ( ) const;
 
 	void * context;
-	Func function;
+	Func func;
 };
 
 inline
@@ -137,15 +143,31 @@ Context_Callback::Context_Callback (
 	void * context_n,
 	Func func_n ) :
 context ( context_n ),
-function ( func_n )
+func ( func_n )
 {
 }
 
 inline
-void
-Context_Callback::call ( )
+bool
+Context_Callback::valid ( ) const
 {
-	function ( context );
+	return ( ( context != 0 ) && ( func != 0 ) );
+}
+
+inline
+void
+Context_Callback::call ( ) const
+{
+	func ( context );
+}
+
+inline
+void
+Context_Callback::call_if_valid ( ) const
+{
+	if ( valid() ) {
+		call();
+	}
 }
 
 
@@ -197,6 +219,9 @@ class Proxy :
 	unsigned int
 	control_type ( ) const;
 
+
+	// Parent proxies group
+
 	::QSnd2::Proxies_Group1 *
 	pgroup ( ) const;
 
@@ -205,10 +230,27 @@ class Proxy :
 		::QSnd2::Proxies_Group1 * group_n );
 
 
+	/// @brief Value change callback
+	///
+	/// This one will be called if the value of
+	/// the proxy object changed (e.g. slider volume changed)
+	const ::QSnd2::Context_Callback &
+	val_change_callback ( ) const;
+
+	void
+	set_val_change_callback (
+		const ::QSnd2::Context_Callback & callback_n );
+
+	///@brief calls the val_change_callback
+	void
+	notify_value_changed ( ) const;
+
+
 	// Private attributes
 	private:
 
 	const unsigned int _control_type;
+	::QSnd2::Context_Callback _val_change_callback;
 	::QSnd2::Proxies_Group1 * _pgroup;
 };
 
@@ -219,12 +261,99 @@ Proxy::control_type ( ) const
 	return _control_type;
 }
 
+inline
+const ::QSnd2::Context_Callback &
+Proxy::val_change_callback ( ) const
+{
+	return _val_change_callback;
+}
+
+
+
+/// @brief Slider proxy
+///
+class Proxy_Slider :
+	public ::QSnd2::Proxy
+{
+	// Public methods
+	public:
+
+	Proxy_Slider ( );
+
+	~Proxy_Slider ( );
+
+	::QSnd2::Proxies_Group1_Slider *
+	slider_pgroup ( ) const;
+
+	virtual
+	long
+	int_value ( ) const = 0;
+
+	virtual
+	void
+	set_int_value (
+		long value_n ) = 0;
+};
+
+
+
+/// @brief Switch proxy
+///
+class Proxy_Switch :
+	public ::QSnd2::Proxy
+{
+	// Public methods
+	public:
+
+	Proxy_Switch ( );
+
+	~Proxy_Switch ( );
+
+
+	::QSnd2::Proxies_Group1_Switch *
+	switch_pgroup ( ) const;
+
+	// Generic interface
+
+	virtual
+	bool
+	switch_state ( ) const = 0;
+
+	virtual
+	void
+	set_switch_state (
+		bool state_n ) = 0;
+
+	virtual
+	void
+	toggle_switch_state ( );
+};
+
+
+
+/// @brief Proxy_Enum
+///
+class Proxy_Enum :
+	public ::QSnd2::Proxy
+{
+	// Public methods
+	public:
+
+	Proxy_Enum ( );
+
+	~Proxy_Enum ( );
+
+	::QSnd2::Proxies_Group1_Enum *
+	group ( ) const;
+};
+
 
 
 /// @brief Proxies_Group1
 ///
 /// Specialized versions of this class hold
 /// information common to all child proxy objects
+/// (e.g. switches, sliders, enums )
 ///
 class Proxies_Group1 :
 	public ::QSnd2::Proxy_Object
@@ -263,6 +392,10 @@ class Proxies_Group1 :
 	void
 	append_proxy (
 		::QSnd2::Proxy * proxy_n );
+
+
+	void
+	notify_proxies_value_changed ( );
 
 
 	// Private attributes
@@ -324,34 +457,6 @@ Proxies_Group1::proxy (
 }
 
 
-
-/// @brief Proxy_Slider
-///
-class Proxy_Slider :
-	public ::QSnd2::Proxy
-{
-	// Public methods
-	public:
-
-	Proxy_Slider ( );
-
-	~Proxy_Slider ( );
-
-	::QSnd2::Proxies_Group1_Slider *
-	slider_pgroup ( ) const;
-
-	virtual
-	long
-	int_value ( ) const = 0;
-
-	virtual
-	void
-	set_int_value (
-		long value_n ) = 0;
-};
-
-
-
 /// @brief Proxies_Group1_Slider
 ///
 class Proxies_Group1_Slider :
@@ -410,40 +515,6 @@ Proxies_Group1_Slider::slider_proxy (
 
 
 
-/// @brief Proxy_Switch
-///
-class Proxy_Switch :
-	public ::QSnd2::Proxy
-{
-	// Public methods
-	public:
-
-	Proxy_Switch ( );
-
-	~Proxy_Switch ( );
-
-
-	::QSnd2::Proxies_Group1_Switch *
-	switch_pgroup ( ) const;
-
-	// Generic interface
-
-	virtual
-	bool
-	switch_state ( ) const = 0;
-
-	virtual
-	void
-	set_switch_state (
-		bool state_n ) = 0;
-
-	virtual
-	void
-	toggle_switch_state ( );
-};
-
-
-
 /// @brief Proxies_Group1_Switch
 ///
 class Proxies_Group1_Switch :
@@ -496,26 +567,6 @@ class Enum_Proxy_Item
 	QString name;
 	QString name_l10n;
 };
-
-
-
-/// @brief Proxy_Enum
-///
-class Proxy_Enum :
-	public ::QSnd2::Proxy
-{
-	// Public methods
-	public:
-
-	Proxy_Enum ( );
-
-	~Proxy_Enum ( );
-
-	::QSnd2::Proxies_Group1_Enum *
-	group ( ) const;
-};
-
-
 
 /// @brief Proxies_Group1_Enum
 ///
@@ -624,6 +675,10 @@ class Proxies_Group2 :
 	enums ( ) const;
 
 
+	void
+	notify_proxies_value_changed ( );
+
+
 	// Private attributes
 	private:
 
@@ -672,6 +727,10 @@ class Proxies_Group3 :
 	void
 	append_group (
 		::QSnd2::Proxies_Group2 * grp_n );
+
+
+	void
+	notify_proxies_value_changed ( );
 
 
 	// Private attributes

@@ -129,6 +129,8 @@ class GW_Slider :
 		::QSnd2::Proxy_Slider & slider_proxy_n,
 		QGraphicsItem * parent_n = 0 );
 
+	~GW_Slider ( );
+
 
 	QRectF
 	boundingRect ( ) const;
@@ -153,6 +155,12 @@ class GW_Slider :
 
 	void
 	update_slider_position ( );
+
+	/// @brief Callback version
+	static
+	void
+	update_slider_position_cb (
+		void * context_n );
 
 
 	// Private attributes

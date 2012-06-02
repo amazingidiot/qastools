@@ -44,8 +44,13 @@ void
 ASMI_Proxies_Group1_Slider::ASMI_Proxies_Group1_Slider::int_range (
 	::QSnd2::Integer_Pair & range_n ) const
 {
-	::snd_mixer_selem_get_playback_volume_range (
-		_snd_mixer_elem, &range_n[0], &range_n[1] );
+	if ( has_feature ( ::QSnd2::FFLAG_CAPTURE ) ) {
+		::snd_mixer_selem_get_capture_volume_range (
+			_snd_mixer_elem, &range_n[0], &range_n[1] );
+	} else if ( has_feature ( ::QSnd2::FFLAG_PLAYBACK ) ) {
+		::snd_mixer_selem_get_playback_volume_range (
+			_snd_mixer_elem, &range_n[0], &range_n[1] );
+	}
 }
 
 long
@@ -408,7 +413,7 @@ ASMI_Proxies_Group3::alsa_callback_mixer_elem (
 			//pgrp->signalize_element_changed();
 		} else if ( ( mask_n & SND_CTL_EVENT_MASK_VALUE ) != 0 ) {
 			::std::cerr << "Alsa SMI: value changed\n";
-			//pgrp->update_values_mark();
+			pgrp->notify_proxies_value_changed();
 		} else {
 			// Unusual mask
 			::std::cerr << "Mixer_Simple_Elem::alsa_callback_mixer_elem: ";

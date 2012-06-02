@@ -112,7 +112,6 @@ GW_Group2::int_width ( ) const
 }
 
 
-
 GW_Group3::GW_Group3 (
 	::QSnd2::Proxies_Group3 & proxies_group_n,
 	QGraphicsItem * parent_n ) :
@@ -198,7 +197,6 @@ GW_Group3::int_width ( ) const
 	}
 	return iwidth;
 }
-
 
 
 GW_Group4::GW_Group4 (

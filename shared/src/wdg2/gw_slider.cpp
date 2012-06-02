@@ -121,6 +121,13 @@ _handle ( this )
 {
 	_rail.setPos ( QPointF ( 0.0, 0.0 ) );
 	_handle.setPos ( QPointF ( 0.0, 0.0 ) );
+	_slider_proxy.set_val_change_callback (
+		::QSnd2::Context_Callback ( this, ::Wdg2::GW_Slider::update_slider_position_cb ) );
+}
+
+GW_Slider::~GW_Slider ( )
+{
+	_slider_proxy.set_val_change_callback ( ::QSnd2::Context_Callback() );
 }
 
 QRectF
@@ -162,6 +169,15 @@ GW_Slider::update_slider_position ( )
 	unsigned int pos ( _sizes.size.height() - _sizes.handle_size.height() );
 	pos -= multi_slider()->value_map().px_from_value ( _slider_proxy.int_value() );
 	_handle.setPos ( QPointF ( 0.0, double ( pos ) ) );
+}
+
+void
+GW_Slider::update_slider_position_cb (
+	void * context_n )
+{
+	::Wdg2::GW_Slider * slider (
+		reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
+	slider->update_slider_position();
 }
 
 
