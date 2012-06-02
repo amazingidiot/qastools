@@ -27,9 +27,13 @@ _group4 ( 0 )
 {
 	setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
 	setAlignment ( Qt::AlignLeft | Qt::AlignTop );
+	setFocusPolicy ( Qt::WheelFocus );
 	//setFrameStyle ( QFrame::NoFrame );
 	//setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
 	setRenderHints ( QPainter::Antialiasing );
+
+	setInteractive ( true );
+
 	setScene ( &_scene );
 }
 

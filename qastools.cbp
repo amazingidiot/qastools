@@ -431,6 +431,8 @@
 		<Unit filename="shared/src/wdg/tree_view_kv.hpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.cpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
+		<Unit filename="shared/src/wdg2/flags.hpp" />
+		<Unit filename="shared/src/wdg2/graphical_widget.hpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.cpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.hpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_slider.cpp" />

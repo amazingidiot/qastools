@@ -11,6 +11,7 @@
 #include <iostream>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
+#include <QEvent>
 
 
 namespace Wdg2
@@ -41,6 +42,9 @@ GW_Slider_Rail::paint (
 	(void) widget_n;
 
 	double pen_width ( 1.0 );
+	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		pen_width = 2;
+	}
 	double pwhalf ( pen_width / 2.0 );
 	QRectF prect ( QPointF ( 0.0, 0.0 ), _rail_size );
 	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
@@ -123,6 +127,8 @@ _handle ( this )
 	_handle.setPos ( QPointF ( 0.0, 0.0 ) );
 	_slider_proxy.set_val_change_callback (
 		::QSnd2::Context_Callback ( this, ::Wdg2::GW_Slider::update_slider_position_cb ) );
+
+	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 }
 
 GW_Slider::~GW_Slider ( )
@@ -133,7 +139,7 @@ GW_Slider::~GW_Slider ( )
 QRectF
 GW_Slider::boundingRect ( ) const
 {
-	return QRectF ( 0, 0, 0, 0 );
+	return QRectF ( QPointF ( 0.0, 0.0 ), QSizeF ( _sizes.size ) );
 }
 
 void
@@ -178,6 +184,28 @@ GW_Slider::update_slider_position_cb (
 	::Wdg2::GW_Slider * slider (
 		reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
 	slider->update_slider_position();
+}
+
+void
+GW_Slider::focusInEvent (
+	QFocusEvent * event_n )
+{
+	::std::cout << "GW_Slider::focusInEvent"  << "\n";
+	_rail.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
+	_handle.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
+	_rail.update();
+	_handle.update();
+}
+
+void
+GW_Slider::focusOutEvent (
+	QFocusEvent * event_n )
+{
+	::std::cout << "GW_Slider::focusOutEvent"  << "\n";
+	_rail.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
+	_handle.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
+	_rail.update();
+	_handle.update();
 }
 
 

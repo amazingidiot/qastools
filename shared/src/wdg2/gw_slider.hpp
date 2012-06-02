@@ -9,8 +9,10 @@
 #ifndef __INC_wdg2_gw_slider_hpp__
 #define __INC_wdg2_gw_slider_hpp__
 
-#include <QGraphicsItem>
+#include "flags.hpp"
+#include "graphical_widget.hpp"
 #include "qsnd2/controls_proxies.hpp"
+#include <QGraphicsItem>
 
 
 namespace Wdg2
@@ -29,6 +31,7 @@ class GW_Slider_Rail :
 	GW_Slider_Rail (
 		QGraphicsItem * parent_n = 0 );
 
+
 	QRectF
 	boundingRect ( ) const;
 
@@ -38,6 +41,7 @@ class GW_Slider_Rail :
 		const QStyleOptionGraphicsItem * option_n,
 		QWidget * widget_n = 0 );
 
+
 	const QSize &
 	rail_size ( ) const;
 
@@ -46,10 +50,18 @@ class GW_Slider_Rail :
 		const QSize & size_n );
 
 
+	const ::Wdg2::Flags &
+	state_flags ( ) const;
+
+	::Wdg2::Flags &
+	state_flags ( );
+
+
 	// Private attributes
 	private:
 
 	QSize _rail_size;
+	::Wdg2::Flags _state_flags;
 };
 
 inline
@@ -57,6 +69,20 @@ const QSize &
 GW_Slider_Rail::rail_size ( ) const
 {
 	return _rail_size;
+}
+
+inline
+const ::Wdg2::Flags &
+GW_Slider_Rail::state_flags ( ) const
+{
+	return _state_flags;
+}
+
+inline
+::Wdg2::Flags &
+GW_Slider_Rail::state_flags ( )
+{
+	return _state_flags;
 }
 
 
@@ -71,6 +97,7 @@ class GW_Slider_Handle :
 	GW_Slider_Handle (
 		QGraphicsItem * parent_n = 0 );
 
+
 	QRectF
 	boundingRect ( ) const;
 
@@ -80,6 +107,7 @@ class GW_Slider_Handle :
 		const QStyleOptionGraphicsItem * option_n,
 		QWidget * widget_n = 0 );
 
+
 	const QSize &
 	handle_size ( ) const;
 
@@ -87,10 +115,19 @@ class GW_Slider_Handle :
 	set_handle_size (
 		const QSize & size_n );
 
+
+	const ::Wdg2::Flags &
+	state_flags ( ) const;
+
+	::Wdg2::Flags &
+	state_flags ( );
+
+
 	// Private attributes
 	private:
 
 	QSize _handle_size;
+	::Wdg2::Flags _state_flags;
 };
 
 inline
@@ -99,6 +136,21 @@ GW_Slider_Handle::handle_size ( ) const
 {
 	return _handle_size;
 }
+
+inline
+const ::Wdg2::Flags &
+GW_Slider_Handle::state_flags ( ) const
+{
+	return _state_flags;
+}
+
+inline
+::Wdg2::Flags &
+GW_Slider_Handle::state_flags ( )
+{
+	return _state_flags;
+}
+
 
 
 struct GW_Slider_Sizes
@@ -161,6 +213,18 @@ class GW_Slider :
 	void
 	update_slider_position_cb (
 		void * context_n );
+
+
+	// Protected methods
+	protected:
+
+	void
+	focusInEvent (
+		QFocusEvent * event_n );
+
+	void
+	focusOutEvent (
+		QFocusEvent * event_n );
 
 
 	// Private attributes
