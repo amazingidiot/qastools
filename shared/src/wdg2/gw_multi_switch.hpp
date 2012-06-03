@@ -52,10 +52,10 @@ class GW_Multi_Switch :
 
 
 	::QSnd2::Proxies_Group1_Switch &
-	snd_proxies ( );
+	proxies_grp ( );
 
 	const ::QSnd2::Proxies_Group1_Switch &
-	snd_proxies ( ) const;
+	proxies_grp ( ) const;
 
 
 	QRectF
@@ -97,14 +97,14 @@ class GW_Multi_Switch :
 
 inline
 ::QSnd2::Proxies_Group1_Switch &
-GW_Multi_Switch::snd_proxies ( )
+GW_Multi_Switch::proxies_grp ( )
 {
 	return _snd_proxies;
 }
 
 inline
 const ::QSnd2::Proxies_Group1_Switch &
-GW_Multi_Switch::snd_proxies ( ) const
+GW_Multi_Switch::proxies_grp ( ) const
 {
 	return _snd_proxies;
 }

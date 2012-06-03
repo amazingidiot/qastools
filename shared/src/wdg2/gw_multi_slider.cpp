@@ -23,9 +23,9 @@ QGraphicsItem ( parent_n ),
 _value_map ( snd_proxies_n )
 {
 	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
-		::Wdg2::GW_Slider * slider (
+		::Wdg2::GW_Slider * gw_slider (
 			new ::Wdg2::GW_Slider ( *proxies_grp().slider_proxy ( ii ), this ) );
-		_sliders.append ( slider );
+		_sliders.append ( gw_slider );
 	}
 	_slider_handle = new ::Wdg2::GW_Slider_Handle ( this );
 	_slider_handle->setVisible ( false );

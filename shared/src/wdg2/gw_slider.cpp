@@ -49,6 +49,7 @@ GW_Slider_Rail::paint (
 	double pwhalf ( pen_width / 2.0 );
 	QRectF prect ( QPointF ( 0.0, 0.0 ), _rail_size );
 	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
+	prect.adjust ( 3, 3, -3, -3 );
 
 	{
 		QPen ppen ( option_n->palette.color ( QPalette::ButtonText ) );
@@ -188,9 +189,9 @@ void
 GW_Slider::read_proxy_value_cb (
 	void * context_n )
 {
-	::Wdg2::GW_Slider & slider (
+	::Wdg2::GW_Slider & gw_slider (
 		*reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
-	slider.read_proxy_value();
+	gw_slider.read_proxy_value();
 }
 
 inline
@@ -262,7 +263,7 @@ void
 GW_Slider::focusInEvent (
 	QFocusEvent * event_n )
 {
-	::std::cout << "GW_Slider::focusInEvent"  << "\n";
+	//::std::cout << "GW_Slider::focusInEvent"  << "\n";
 	_rail.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
 	_handle.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
 	_rail.update();
@@ -273,7 +274,7 @@ void
 GW_Slider::focusOutEvent (
 	QFocusEvent * event_n )
 {
-	::std::cout << "GW_Slider::focusOutEvent"  << "\n";
+	//::std::cout << "GW_Slider::focusOutEvent"  << "\n";
 	_rail.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
 	_handle.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
 	_rail.update();
@@ -284,9 +285,8 @@ void
 GW_Slider::mousePressEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
-	::std::cout << "GW_Slider::mousePressEvent"  << "\n";
+	//::std::cout << "GW_Slider::mousePressEvent"  << "\n";
 	if ( point_in_handle ( event_n->pos() ) ) {
-		::std::cout << "GW_Slider::mousePressEvent in handle"  << "\n";
 		_handle.state_flags().set ( ::Wdg2::GW_IS_GRABBED );
 		_handle.update();
 	}
@@ -296,7 +296,7 @@ void
 GW_Slider::mouseReleaseEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
-	::std::cout << "GW_Slider::mouseReleaseEvent"  << "\n";
+	//::std::cout << "GW_Slider::mouseReleaseEvent"  << "\n";
 	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		_handle.state_flags().unset ( ::Wdg2::GW_IS_GRABBED );
 		read_proxy_value();

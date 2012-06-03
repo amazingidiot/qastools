@@ -245,6 +245,7 @@ class GW_Slider :
 	point_in_handle (
 		const QPointF & point_n ) const;
 
+
 	void
 	focusInEvent (
 		QFocusEvent * event_n );

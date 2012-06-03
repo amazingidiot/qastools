@@ -22,8 +22,10 @@ GW_Multi_Switch::GW_Multi_Switch (
 QGraphicsItem ( parent_n ),
 _snd_proxies ( snd_proxies_n )
 {
-	for ( unsigned int ii=0; ii < _snd_proxies.num_proxies(); ++ii ) {
-		_switches.append ( new ::Wdg2::GW_Switch ( this ) );
+	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
+		::Wdg2::GW_Switch * gw_switch (
+			new ::Wdg2::GW_Switch ( *proxies_grp().switch_proxy ( ii ), this ) );
+		_switches.append ( gw_switch );
 	}
 }
 
