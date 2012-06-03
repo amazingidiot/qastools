@@ -78,7 +78,6 @@ void
 Controls_Watcher::socket_data (
 	int socket_id_n )
 {
-	::std::cout << "Controls_Watcher::socket_data " << socket_id_n << "\n";
 	_controls->socket_data ( socket_id_n );
 }
 

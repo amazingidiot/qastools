@@ -322,6 +322,7 @@ ASMI_Controls::snd_mixer ( )
 	return _snd_mixer;
 }
 
+
 } // End of namespace
 
 #endif

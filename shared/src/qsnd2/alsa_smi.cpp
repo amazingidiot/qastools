@@ -47,7 +47,7 @@ ASMI_Proxies_Group1_Slider::ASMI_Proxies_Group1_Slider::int_range (
 	if ( has_feature ( ::QSnd2::FFLAG_CAPTURE ) ) {
 		::snd_mixer_selem_get_capture_volume_range (
 			_snd_mixer_elem, &range_n[0], &range_n[1] );
-	} else if ( has_feature ( ::QSnd2::FFLAG_PLAYBACK ) ) {
+	} else {
 		::snd_mixer_selem_get_playback_volume_range (
 			_snd_mixer_elem, &range_n[0], &range_n[1] );
 	}
@@ -75,8 +75,13 @@ ASMI_Proxies_Group1_Slider::ASMI_Proxies_Group1_Slider::db_range (
 {
 	int err ( -1 );
 	if ( has_feature ( ::QSnd2::FFLAG_DECIBEL ) ) {
-		err = snd_mixer_selem_get_playback_dB_range (
-			_snd_mixer_elem, &range_n[0], &range_n[1] );
+		if ( has_feature ( ::QSnd2::FFLAG_CAPTURE ) ) {
+			err = snd_mixer_selem_get_capture_dB_range (
+				_snd_mixer_elem, &range_n[0], &range_n[1] );
+		} else {
+			err = snd_mixer_selem_get_playback_dB_range (
+				_snd_mixer_elem, &range_n[0], &range_n[1] );
+		}
 	}
 	if ( err < 0 ) {
 		range_n[0] = 0;
@@ -633,7 +638,6 @@ ASMI_Controls::socket_data (
 {
 	(void) socket_id_n;
 
-	::std::cout << "ASMI_Controls::socket_data " << socket_id_n << "\n";
 	if ( _snd_mixer != 0 ) {
 		const int num_ev ( ::snd_mixer_handle_events ( _snd_mixer ) );
 		if ( num_ev < 0 ) {

@@ -110,27 +110,26 @@ Slider_Value_Map::value_from_px (
 	unsigned int px_n ) const
 {
 	long res;
-	Map_Px::const_iterator it_le ( _px_map.lower_bound ( px_n ) );
-	Map_Px::const_iterator it_end ( _px_map.end() );
-	if ( it_le == it_end ) {
+	Map_Px::const_iterator it_geq ( _px_map.lower_bound ( px_n ) );
+	if ( it_geq == _px_map.end() ) {
 		// highest known value
 		::QSnd2::Integer_Pair vrange;
 		_proxies_grp.int_range ( vrange );
 		res = vrange[1];
 	} else {
-		Map_Px::const_iterator it_gr ( it_le );
-		++it_gr;
-		if ( it_gr == it_end ) {
-			// highest value
-			res = it_le->second;
+		if ( it_geq == _px_map.begin() ) {
+			// lowest value
+			res = it_geq->second;
 		} else {
 			// nearest value
-			const unsigned int px_delta_l ( px_n - it_le->first );
-			const unsigned int px_delta_g ( it_gr->first - px_n );
+			Map_Px::const_iterator it_les ( it_geq );
+			--it_les;
+			const unsigned int px_delta_l ( px_n - it_les->first );
+			const unsigned int px_delta_g ( it_geq->first - px_n );
 			if ( px_delta_l <= px_delta_g ) {
-				res = it_le->second;
+				res = it_les->second;
 			} else {
-				res = it_gr->second;
+				res = it_geq->second;
 			}
 		}
 	}
@@ -142,25 +141,24 @@ Slider_Value_Map::px_from_value (
 	long value_n ) const
 {
 	long res;
-	Map_Value::const_iterator it_le ( _value_map.lower_bound ( value_n ) );
-	Map_Value::const_iterator it_end ( _value_map.end() );
-	if ( it_le == it_end ) {
+	Map_Value::const_iterator it_geq ( _value_map.lower_bound ( value_n ) );
+	if ( it_geq == _value_map.end() ) {
 		// highest possible px value
 		res = _px_span;
 	} else {
-		Map_Value::const_iterator it_gr ( it_le );
-		++it_gr;
-		if ( it_gr == it_end ) {
+		if ( it_geq == _value_map.begin() ) {
 			// highest value
-			res = it_le->second;
+			res = it_geq->second;
 		} else {
 			// nearest value
-			const unsigned int px_delta_l ( value_n - it_le->first );
-			const unsigned int px_delta_g ( it_gr->first - value_n );
+			Map_Value::const_iterator it_les ( it_geq );
+			--it_les;
+			const unsigned int px_delta_l ( value_n - it_les->first );
+			const unsigned int px_delta_g ( it_geq->first - value_n );
 			if ( px_delta_l <= px_delta_g ) {
-				res = it_le->second;
+				res = it_les->second;
 			} else {
-				res = it_gr->second;
+				res = it_geq->second;
 			}
 		}
 	}

@@ -11,6 +11,7 @@
 
 #include "flags.hpp"
 #include "graphical_widget.hpp"
+#include "slider_value_map.hpp"
 #include "qsnd2/controls_proxies.hpp"
 #include <QGraphicsItem>
 
@@ -194,8 +195,8 @@ class GW_Slider :
 		QWidget * widget_n = 0 );
 
 
-	::Wdg2::GW_Multi_Slider *
-	multi_slider ( ) const;
+	const ::Wdg2::Slider_Value_Map &
+	value_map ( ) const;
 
 
 	const ::Wdg2::GW_Slider_Sizes &
@@ -206,17 +207,43 @@ class GW_Slider :
 		const ::Wdg2::GW_Slider_Sizes & sizes_n );
 
 	void
-	update_slider_position ( );
+	read_proxy_value ( );
 
 	/// @brief Callback version
 	static
 	void
-	update_slider_position_cb (
+	read_proxy_value_cb (
 		void * context_n );
 
 
 	// Protected methods
 	protected:
+
+	/// @brief measured in pixels from the top (upper end) of the slider
+	///
+	unsigned int
+	handle_pos ( );
+
+	/// @brief measured in pixels from the bottom (lower end) of the slider
+	///
+	unsigned int
+	handle_px_pos ( );
+
+	void
+	set_handle_px_pos (
+		int px_pos_n );
+
+	unsigned int
+	px_pos_from_handle_pos (
+		int slider_pos_n ) const;
+
+	unsigned int
+	handle_pos_from_px_pos (
+		int px_pos_n ) const;
+
+	bool
+	point_in_handle (
+		const QPointF & point_n ) const;
 
 	void
 	focusInEvent (
@@ -226,12 +253,26 @@ class GW_Slider :
 	focusOutEvent (
 		QFocusEvent * event_n );
 
+	void
+	mousePressEvent (
+		QGraphicsSceneMouseEvent * event_n );
+
+	void
+	mouseReleaseEvent (
+		QGraphicsSceneMouseEvent * event_n );
+
+	void
+	mouseMoveEvent (
+		QGraphicsSceneMouseEvent * event_n );
+
 
 	// Private attributes
 	private:
 
 	::QSnd2::Proxy_Slider & _slider_proxy;
 	::Wdg2::GW_Slider_Sizes _sizes;
+	/// @brief handle_px_pos() must be <= this
+	unsigned int _px_span;
 
 	::Wdg2::GW_Slider_Rail _rail;
 	::Wdg2::GW_Slider_Handle _handle;

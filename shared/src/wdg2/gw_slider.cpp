@@ -9,10 +9,11 @@
 #include "gw_slider.hpp"
 #include "gw_multi_slider.hpp"
 #include <iostream>
+#include <cmath>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QEvent>
-
+#include <QGraphicsSceneMouseEvent>
 
 namespace Wdg2
 {
@@ -120,13 +121,14 @@ GW_Slider::GW_Slider (
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
 _slider_proxy ( slider_proxy_n ),
+_px_span ( 0 ),
 _rail ( this ),
 _handle ( this )
 {
 	_rail.setPos ( QPointF ( 0.0, 0.0 ) );
 	_handle.setPos ( QPointF ( 0.0, 0.0 ) );
 	_slider_proxy.set_val_change_callback (
-		::QSnd2::Context_Callback ( this, ::Wdg2::GW_Slider::update_slider_position_cb ) );
+		::QSnd2::Context_Callback ( this, ::Wdg2::GW_Slider::read_proxy_value_cb ) );
 
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 }
@@ -153,10 +155,12 @@ GW_Slider::paint (
 	(void) widget_n;
 }
 
-::Wdg2::GW_Multi_Slider *
-GW_Slider::multi_slider ( ) const
+const ::Wdg2::Slider_Value_Map &
+GW_Slider::value_map ( ) const
 {
-	return static_cast < ::Wdg2::GW_Multi_Slider * > ( parentItem() );
+	const ::Wdg2::GW_Multi_Slider & sgrp (
+		*static_cast < ::Wdg2::GW_Multi_Slider * > ( parentItem() ) );
+	return sgrp.value_map();
 }
 
 void
@@ -164,26 +168,94 @@ GW_Slider::set_sizes (
 	const ::Wdg2::GW_Slider_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
+	_px_span = ( _sizes.size.height() - _sizes.handle_size.height() );
+
 	_rail.set_rail_size ( _sizes.size );
 	_handle.set_handle_size ( _sizes.handle_size );
-	update_slider_position();
+	read_proxy_value();
 }
 
 void
-GW_Slider::update_slider_position ( )
+GW_Slider::read_proxy_value ( )
 {
-	unsigned int pos ( _sizes.size.height() - _sizes.handle_size.height() );
-	pos -= multi_slider()->value_map().px_from_value ( _slider_proxy.int_value() );
-	_handle.setPos ( QPointF ( 0.0, double ( pos ) ) );
+	if ( !_handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+		set_handle_px_pos (
+			value_map().px_from_value ( _slider_proxy.int_value() ) );
+	}
 }
 
 void
-GW_Slider::update_slider_position_cb (
+GW_Slider::read_proxy_value_cb (
 	void * context_n )
 {
-	::Wdg2::GW_Slider * slider (
-		reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
-	slider->update_slider_position();
+	::Wdg2::GW_Slider & slider (
+		*reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
+	slider.read_proxy_value();
+}
+
+inline
+unsigned int
+GW_Slider::handle_pos ( )
+{
+	return _handle.pos().y();
+}
+
+unsigned int
+GW_Slider::handle_px_pos ( )
+{
+	return px_pos_from_handle_pos ( handle_pos() );
+}
+
+void
+GW_Slider::set_handle_px_pos (
+	int px_pos_n )
+{
+	double hpos ( handle_pos_from_px_pos ( px_pos_n ) );
+	QPointF pos ( 0.0, hpos );
+	_handle.setPos ( pos );
+}
+
+unsigned int
+GW_Slider::px_pos_from_handle_pos (
+	int slider_pos_n ) const
+{
+	if ( slider_pos_n < 0 ) {
+		slider_pos_n = 0;
+	}
+	if ( slider_pos_n > (int)_px_span ) {
+		slider_pos_n = _px_span;
+	}
+	unsigned int px_pos ( _px_span );
+	px_pos -= slider_pos_n;
+	return px_pos;
+}
+
+unsigned int
+GW_Slider::handle_pos_from_px_pos (
+	int px_pos_n ) const
+{
+	if ( px_pos_n < 0 ) {
+		px_pos_n = 0;
+	}
+	if ( px_pos_n > (int)_px_span ) {
+		px_pos_n = _px_span;
+	}
+	unsigned int hpos ( _px_span );
+	hpos -= px_pos_n;
+	return hpos;
+}
+
+bool
+GW_Slider::point_in_handle (
+	const QPointF & point_n ) const
+{
+	const QPointF hpos ( _handle.pos() );
+	if ( point_n.y() > hpos.y() ) {
+		if ( point_n.y() < ( hpos.y() + _sizes.handle_size.height() ) ) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void
@@ -206,6 +278,50 @@ GW_Slider::focusOutEvent (
 	_handle.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
 	_rail.update();
 	_handle.update();
+}
+
+void
+GW_Slider::mousePressEvent (
+	QGraphicsSceneMouseEvent * event_n )
+{
+	::std::cout << "GW_Slider::mousePressEvent"  << "\n";
+	if ( point_in_handle ( event_n->pos() ) ) {
+		::std::cout << "GW_Slider::mousePressEvent in handle"  << "\n";
+		_handle.state_flags().set ( ::Wdg2::GW_IS_GRABBED );
+		_handle.update();
+	}
+}
+
+void
+GW_Slider::mouseReleaseEvent (
+	QGraphicsSceneMouseEvent * event_n )
+{
+	::std::cout << "GW_Slider::mouseReleaseEvent"  << "\n";
+	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+		_handle.state_flags().unset ( ::Wdg2::GW_IS_GRABBED );
+		read_proxy_value();
+		_handle.update();
+	}
+}
+
+void
+GW_Slider::mouseMoveEvent (
+	QGraphicsSceneMouseEvent * event_n )
+{
+	//::std::cout << "GW_Slider::mouseMoveEvent" << "\n";
+	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+		int delta;
+		{
+			float deltaf ( event_n->pos().y() - event_n->lastPos().y() );
+			deltaf = ::std::floor ( deltaf + 0.5f );
+			delta = deltaf;
+		}
+		if ( delta != 0 ) {
+			set_handle_px_pos ( handle_px_pos() - delta );
+			long value = value_map().value_from_px ( handle_px_pos() );
+			_slider_proxy.set_int_value ( value );
+		}
+	}
 }
 
 
