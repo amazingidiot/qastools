@@ -23,6 +23,7 @@ class ASMI_Proxies_Group1_Switch;
 class ASMI_Proxies_Group1_Enum;
 
 
+
 class ASMI_Proxy_Slider :
 	public ::QSnd2::Proxy_Slider
 {
@@ -48,6 +49,8 @@ class ASMI_Proxy_Slider :
 
 	const ::snd_mixer_selem_channel_id_t _snd_channel_id;
 };
+
+
 
 class ASMI_Proxies_Group1_Slider :
 	public ::QSnd2::Proxies_Group1_Slider
@@ -105,6 +108,7 @@ ASMI_Proxy_Slider::asmi_pgroup ( ) const
 }
 
 
+
 class ASMI_Proxy_Switch :
 	public ::QSnd2::Proxy_Switch
 {
@@ -133,6 +137,7 @@ class ASMI_Proxy_Switch :
 
 	const ::snd_mixer_selem_channel_id_t _snd_channel_id;
 };
+
 
 
 class ASMI_Proxies_Group1_Switch :
@@ -170,6 +175,30 @@ ASMI_Proxy_Switch::asmi_pgroup ( ) const
 	return static_cast < ::QSnd2::ASMI_Proxies_Group1_Switch * > ( pgroup() );
 }
 
+
+
+class ASMI_Proxies_Group2 :
+	public ::QSnd2::Proxies_Group2
+{
+	// Public methods
+	public:
+
+	ASMI_Proxies_Group2 (
+		::snd_mixer_elem_t * elem_n );
+
+	bool
+	string_val (
+		QString & str_n,
+		unsigned int key_n ) const;
+
+
+	// Private attributes
+	private:
+
+	::snd_mixer_elem_t * _snd_mixer_elem;
+	QString _str_name;
+	QString _str_name_l10n;
+};
 
 
 class ASMI_Proxies_Group3 :
@@ -210,6 +239,7 @@ class ASMI_Proxies_Group3 :
 };
 
 
+
 /// @brief ALSA simple mixer interface mixer controls
 ///
 class ASMI_Controls :
@@ -239,16 +269,6 @@ class ASMI_Controls :
 
 	const QString &
 	err_message ( ) const;
-
-	// Alsa structs
-
-	// TODO: remove
-	snd_hctl_t *
-	snd_hctl ( );
-
-	// TODO: remove
-	snd_mixer_t *
-	snd_mixer ( );
 
 
 	// Socket reading
@@ -306,20 +326,6 @@ const QString &
 ASMI_Controls::err_message ( ) const
 {
 	return _err_message;
-}
-
-inline
-snd_hctl_t *
-ASMI_Controls::snd_hctl ( )
-{
-	return _snd_hctl;
-}
-
-inline
-snd_mixer_t *
-ASMI_Controls::snd_mixer ( )
-{
-	return _snd_mixer;
 }
 
 

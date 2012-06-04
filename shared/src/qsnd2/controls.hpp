@@ -38,6 +38,8 @@ class Controls
 		unsigned int idx_n ) const;
 
 
+	// Socket
+
 	unsigned int
 	num_pollfds ( ) const;
 

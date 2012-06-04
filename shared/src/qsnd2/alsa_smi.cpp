@@ -220,6 +220,38 @@ ASMI_Proxies_Group1_Switch::set_switch_state (
 }
 
 
+
+ASMI_Proxies_Group2::ASMI_Proxies_Group2 (
+	::snd_mixer_elem_t * elem_n ) :
+_snd_mixer_elem ( elem_n )
+{
+	_str_name = QString ( snd_mixer_selem_get_name ( _snd_mixer_elem ) );
+	// TODO:
+	_str_name_l10n = _str_name;
+}
+
+bool
+ASMI_Proxies_Group2::string_val (
+	QString & str_n,
+	unsigned int key_n ) const
+{
+	bool res ( true );
+	switch ( key_n ) {
+		case ::QSnd2::SK_NAME:
+			str_n = _str_name;
+			break;
+		case ::QSnd2::SK_NAME_L10N:
+			str_n = _str_name_l10n;
+			break;
+		default:
+			res = false;
+	}
+
+	return res;
+}
+
+
+
 ASMI_Proxies_Group3::ASMI_Proxies_Group3 (
 	::snd_mixer_elem_t * elem_n ) :
 _snd_mixer_elem ( elem_n )
@@ -243,7 +275,8 @@ ASMI_Proxies_Group3::~ASMI_Proxies_Group3 ( )
 void
 ASMI_Proxies_Group3::create_playback_group ( )
 {
-	QScopedPointer < ::QSnd2::Proxies_Group2 > grp2 ( new ::QSnd2::Proxies_Group2 );
+	QScopedPointer < ::QSnd2::ASMI_Proxies_Group2 > grp2 (
+		new ::QSnd2::ASMI_Proxies_Group2 ( _snd_mixer_elem ) );
 
 	// Playback sliders
 	{
@@ -320,7 +353,8 @@ ASMI_Proxies_Group3::create_playback_group ( )
 void
 ASMI_Proxies_Group3::create_capture_group ( )
 {
-	QScopedPointer < ::QSnd2::Proxies_Group2 > grp2 ( new ::QSnd2::Proxies_Group2 );
+	QScopedPointer < ::QSnd2::ASMI_Proxies_Group2 > grp2 (
+		new ::QSnd2::ASMI_Proxies_Group2 ( _snd_mixer_elem ) );
 
 	// Capture sliders
 	{

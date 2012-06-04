@@ -30,7 +30,7 @@ _group4 ( 0 )
 	setFocusPolicy ( Qt::WheelFocus );
 	//setFrameStyle ( QFrame::NoFrame );
 	//setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
-	setRenderHints ( QPainter::Antialiasing );
+	setRenderHints ( QPainter::Antialiasing | QPainter::TextAntialiasing );
 
 	setInteractive ( true );
 

@@ -8,6 +8,7 @@
 
 #include "gw_groups.hpp"
 #include <iostream>
+#include <cmath>
 
 
 namespace Wdg2
@@ -20,17 +21,35 @@ GW_Group2::GW_Group2 (
 QGraphicsItem ( parent_n ),
 _proxies_group ( proxies_group_n ),
 _gw_levels ( 0 ),
-_gw_switches ( 0 )
+_gw_switches ( 0 ),
+_label_item ( 0 )
 {
-	::QSnd2::Proxies_Group1_Slider * sliders ( _proxies_group.sliders() );
-	::QSnd2::Proxies_Group1_Switch * switches ( _proxies_group.switches() );
+	setFlags ( QGraphicsItem::ItemHasNoContents );
 
-	if ( sliders != 0 ) {
-		_gw_levels = new ::Wdg2::GW_Multi_Slider ( *sliders, this );
+	// Sliders
+	{
+		::QSnd2::Proxies_Group1_Slider * sliders ( _proxies_group.sliders() );
+		if ( sliders != 0 ) {
+			_gw_levels = new ::Wdg2::GW_Multi_Slider ( *sliders, this );
+		}
 	}
-	if ( switches != 0 ) {
-		_gw_switches = new ::Wdg2::GW_Multi_Switch ( *switches, this );
+
+	// Switches
+	{
+		::QSnd2::Proxies_Group1_Switch * switches ( _proxies_group.switches() );
+		if ( switches != 0 ) {
+			_gw_switches = new ::Wdg2::GW_Multi_Switch ( *switches, this );
+		}
 	}
+
+	// Label string
+	_proxies_group.string_val ( _str_label, ::QSnd2::SK_NAME_L10N );
+
+	if ( !_str_label.isEmpty() ) {
+		_label_item = new QGraphicsSimpleTextItem ( _str_label, this );
+	}
+
+	update_geometries();
 }
 
 GW_Group2::~GW_Group2 ( )
@@ -40,7 +59,7 @@ GW_Group2::~GW_Group2 ( )
 QRectF
 GW_Group2::boundingRect ( ) const
 {
-	return QRectF ( 0, 0, 0, 0 );
+	return _brect;
 }
 
 void
@@ -72,6 +91,18 @@ GW_Group2::update_geometries ( )
 	_levels_height -= _switches_height;
 	_levels_height -= _switches_vgap;
 
+	double lvl_pos_x ( 0.0 );
+	if ( _label_item != 0 ) {
+		lvl_pos_x += _sizes.label_fnt_height;
+		lvl_pos_x += _sizes.label_hpadi;
+		lvl_pos_x += _sizes.label_hpado;
+
+		QRectF brect ( _label_item->boundingRect() );
+		_label_item->setPos ( QPointF ( _sizes.label_hpado, ::std::ceil ( brect.width() ) ) );
+		_label_item->setRotation ( -90.0 );
+	}
+
+	// Levels
 	if ( _gw_levels != 0 ) {
 		{
 			::Wdg2::GW_Multi_Slider_Sizes lsizes;
@@ -80,8 +111,10 @@ GW_Group2::update_geometries ( )
 			lsizes.channels_hgap = _sizes.channels_hgap;
 			_gw_levels->set_sizes ( lsizes );
 		}
-		_gw_levels->setPos ( QPointF ( 0.0, 0.0 ) );
+		_gw_levels->setPos ( QPointF ( lvl_pos_x, 0.0 ) );
 	}
+
+	// Switches
 	if ( _gw_switches != 0 ) {
 		{
 			::Wdg2::GW_Multi_Switch_Sizes lsizes;
@@ -91,8 +124,13 @@ GW_Group2::update_geometries ( )
 			_gw_switches->set_sizes ( lsizes );
 		}
 		_gw_switches->setPos (
-			QPointF ( 0.0, _levels_height + _switches_vgap ) );
+			QPointF ( lvl_pos_x, _levels_height + _switches_vgap ) );
 	}
+
+	// Bounding rect
+	_brect.moveTopLeft ( QPointF ( 0.0, 0.0 ) );
+	_brect.setHeight ( _sizes.height );
+	_brect.setWidth ( int_width() );
 }
 
 unsigned int
@@ -108,8 +146,16 @@ GW_Group2::int_width ( ) const
 			iwidth = giwidth;
 		}
 	}
+	if ( iwidth > 0 ) {
+		if ( _label_item != 0 ) {
+			iwidth += _sizes.label_fnt_height;
+			iwidth += _sizes.label_hpadi;
+			iwidth += _sizes.label_hpado;
+		}
+	}
 	return iwidth;
 }
+
 
 
 GW_Group3::GW_Group3 (
@@ -197,6 +243,7 @@ GW_Group3::int_width ( ) const
 	}
 	return iwidth;
 }
+
 
 
 GW_Group4::GW_Group4 (

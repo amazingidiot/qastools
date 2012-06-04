@@ -10,13 +10,14 @@
 #define __INC_wdg2_gw_groups_hpp__
 
 #include <QGraphicsItem>
+#include <QGraphicsSimpleTextItem>
 #include "gw_multi_slider.hpp"
 #include "gw_multi_switch.hpp"
 #include "qsnd2/controls_proxies.hpp"
 
-
 namespace Wdg2
 {
+
 
 
 /// @brief GW_Group2_Sizes
@@ -28,15 +29,22 @@ struct GW_Group2_Sizes
 	unsigned int height;
 	unsigned int slider_width;
 	unsigned int channels_hgap;
+	unsigned int label_fnt_height; // label font height
+	unsigned int label_hpadi; // horizontal padding towards sliders
+	unsigned int label_hpado; // horizontal padding towards outside
 };
 
 inline
 GW_Group2_Sizes::GW_Group2_Sizes ( ) :
 height ( 0 ),
 slider_width ( 0 ),
-channels_hgap ( 0 )
+channels_hgap ( 0 ),
+label_fnt_height ( 16 ),
+label_hpadi ( 2 ),
+label_hpado ( 2 )
 {
 }
+
 
 
 /// @brief GW_Group2
@@ -89,6 +97,10 @@ class GW_Group2 :
 	::QSnd2::Proxies_Group2 & _proxies_group;
 	::Wdg2::GW_Multi_Slider * _gw_levels;
 	::Wdg2::GW_Multi_Switch * _gw_switches;
+	QGraphicsSimpleTextItem * _label_item;
+
+	QString _str_label;
+	QRectF _brect;
 
 	::Wdg2::GW_Group2_Sizes _sizes;
 	unsigned int _levels_height;

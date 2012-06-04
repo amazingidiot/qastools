@@ -436,7 +436,6 @@ inline
 const char *
 Mixer_Simple_Elem::elem_name ( ) const
 {
-
 	return snd_mixer_selem_get_name ( snd_mixer_elem() );
 }
 

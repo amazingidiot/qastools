@@ -12,23 +12,9 @@ namespace QSnd2
 {
 
 
-
-Proxy_Object::Proxy_Object (
-	unsigned int level_n ) :
-_group_level ( level_n )
-{
-}
-
-Proxy_Object::~Proxy_Object ( )
-{
-}
-
-
-
 Proxy::Proxy (
 	unsigned int control_type_n,
 	::QSnd2::Proxies_Group1 * group_n ) :
-::QSnd2::Proxy_Object ( 0 ),
 _control_type ( control_type_n ),
 _pgroup ( group_n )
 {
@@ -36,6 +22,15 @@ _pgroup ( group_n )
 
 Proxy::~Proxy ( )
 {
+}
+
+bool
+Proxy::string_val (
+	QString & str_n,
+	unsigned int key_n ) const
+{
+	// Default implementation
+	return false;
 }
 
 void
@@ -99,9 +94,30 @@ Proxy_Enum::~Proxy_Enum ( )
 
 
 
+Proxies_Group::Proxies_Group (
+	unsigned int level_n ) :
+_group_level ( level_n )
+{
+}
+
+Proxies_Group::~Proxies_Group ( )
+{
+}
+
+bool
+Proxies_Group::string_val (
+	QString & str_n,
+	unsigned int key_n ) const
+{
+	// Default implementation
+	return false;
+}
+
+
+
 Proxies_Group1::Proxies_Group1 (
 	unsigned int control_type_n ) :
-::QSnd2::Proxy_Object ( 1 ),
+::QSnd2::Proxies_Group ( 1 ),
 _control_type ( control_type_n ),
 _feature_flags ( 0 )
 {
@@ -187,7 +203,7 @@ Proxies_Group1_Enum::~Proxies_Group1_Enum ( )
 
 
 Proxies_Group2::Proxies_Group2 ( ) :
-::QSnd2::Proxy_Object ( 2 )
+::QSnd2::Proxies_Group ( 2 )
 {
 }
 
@@ -267,7 +283,7 @@ Proxies_Group2::notify_proxies_value_changed ( )
 
 
 Proxies_Group3::Proxies_Group3 ( ) :
-::QSnd2::Proxy_Object ( 3 )
+::QSnd2::Proxies_Group ( 3 )
 {
 }
 
@@ -300,7 +316,7 @@ Proxies_Group3::notify_proxies_value_changed ( )
 
 
 Proxies_Group4::Proxies_Group4 ( ) :
-::QSnd2::Proxy_Object ( 4 )
+::QSnd2::Proxies_Group ( 4 )
 {
 }
 

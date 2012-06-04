@@ -38,6 +38,14 @@ enum Control_Feature_Flag {
 	FFLAG_DECIBEL  = ( 1 << 2 )
 };
 
+enum String_Key {
+	SK_NAME,
+	SK_NAME_L10N,
+	SK_DISPLAY_NAME,
+	SK_DISPLAY_NAME_L10N
+};
+
+
 
 /// @brief Deletes all entries in a pointer list and clears it afterwards
 ///
@@ -171,41 +179,9 @@ Context_Callback::call_if_valid ( ) const
 }
 
 
-/// @brief Base class for the proxy tree
-///
-class Proxy_Object
-{
-	// Public methods
-	public:
-
-	Proxy_Object (
-		unsigned int level_n );
-
-	virtual
-	~Proxy_Object ( );
-
-	unsigned int
-	group_level ( ) const;
-
-
-	// Private attributes
-	private:
-
-	const unsigned int _group_level;
-};
-
-inline
-unsigned int
-Proxy_Object::group_level ( ) const
-{
-	return _group_level;
-}
-
-
 /// @brief Base class for control proxies
 ///
-class Proxy :
-	public ::QSnd2::Proxy_Object
+class Proxy
 {
 	// Public methods
 	public:
@@ -214,14 +190,27 @@ class Proxy :
 		unsigned int control_type_n,
 		::QSnd2::Proxies_Group1 * group_n = 0 );
 
+	virtual
 	~Proxy ( );
 
+
+	/// @brief Control type (slider, switch, etc. )
+	///
 	unsigned int
 	control_type ( ) const;
 
+	/// @brief Access function for string values
+	/// @arg str_n return string value
+	/// @arg key_n string key (string selector)
+	/// @return true if a string for the give key was available
+	virtual
+	bool
+	string_val (
+		QString & str_n,
+		unsigned int key_n ) const;
 
-	// Parent proxies group
-
+	/// @brief Parent proxies group
+	///
 	::QSnd2::Proxies_Group1 *
 	pgroup ( ) const;
 
@@ -241,7 +230,9 @@ class Proxy :
 	set_val_change_callback (
 		const ::QSnd2::Context_Callback & callback_n );
 
+
 	///@brief calls the val_change_callback
+	///
 	void
 	notify_value_changed ( ) const;
 
@@ -349,6 +340,49 @@ class Proxy_Enum :
 
 
 
+/// @brief Base class for the proxy tree
+///
+class Proxies_Group
+{
+	// Public methods
+	public:
+
+	Proxies_Group (
+		unsigned int level_n );
+
+	virtual
+	~Proxies_Group ( );
+
+	/// @brief Group tree depth 0 is at the broad end
+	///
+	unsigned int
+	group_level ( ) const;
+
+	/// @brief Access function for string values
+	/// @arg str_n return string value
+	/// @arg key_n string key (string selector)
+	/// @return true if a string for the give key was available
+	virtual
+	bool
+	string_val (
+		QString & str_n,
+		unsigned int key_n ) const;
+
+	// Private attributes
+	private:
+
+	const unsigned int _group_level;
+};
+
+inline
+unsigned int
+Proxies_Group::group_level ( ) const
+{
+	return _group_level;
+}
+
+
+
 /// @brief Proxies_Group1
 ///
 /// Specialized versions of this class hold
@@ -356,7 +390,7 @@ class Proxy_Enum :
 /// (e.g. switches, sliders, enums )
 ///
 class Proxies_Group1 :
-	public ::QSnd2::Proxy_Object
+	public ::QSnd2::Proxies_Group
 {
 	// Public methods
 	public:
@@ -636,7 +670,7 @@ Proxies_Group1_Enum::item (
 /// @brief Proxies_Group2
 ///
 class Proxies_Group2 :
-	public ::QSnd2::Proxy_Object
+	public ::QSnd2::Proxies_Group
 {
 	// Public methods
 	public:
@@ -704,7 +738,7 @@ Proxies_Group2::group (
 /// @brief Proxies_Group3
 ///
 class Proxies_Group3 :
-	public ::QSnd2::Proxy_Object
+	public ::QSnd2::Proxies_Group
 {
 	// Public methods
 	public:
@@ -758,7 +792,7 @@ Proxies_Group3::group (
 /// @brief Proxies_Group4
 ///
 class Proxies_Group4 :
-	public ::QSnd2::Proxy_Object
+	public ::QSnd2::Proxies_Group
 {
 	// Public methods
 	public:
