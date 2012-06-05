@@ -78,6 +78,12 @@ class GW_Multi_Switch :
 	unsigned int
 	int_width ( ) const;
 
+	/// @brief Used to probe a sizes set
+	///
+	unsigned int
+	int_width_probe (
+		const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n ) const;
+
 
 	// Private methods
 	private:

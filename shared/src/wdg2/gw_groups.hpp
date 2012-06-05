@@ -27,18 +27,24 @@ struct GW_Group2_Sizes
 	GW_Group2_Sizes ( );
 
 	unsigned int height;
-	unsigned int slider_width;
 	unsigned int channels_hgap;
-	unsigned int label_fnt_height; // label font height
-	unsigned int label_hpadi; // horizontal padding towards sliders
-	unsigned int label_hpado; // horizontal padding towards outside
+	unsigned int slider_width;
+	unsigned int levels_height;
+	unsigned int switches_vgap;
+	unsigned int switches_height;
+	unsigned int label_fnt_height; /// @brief label font height
+	unsigned int label_hpadi; /// @brief horizontal padding towards sliders
+	unsigned int label_hpado; /// @brief horizontal padding towards outside
 };
 
 inline
 GW_Group2_Sizes::GW_Group2_Sizes ( ) :
 height ( 0 ),
-slider_width ( 0 ),
 channels_hgap ( 0 ),
+slider_width ( 0 ),
+levels_height ( 0 ),
+switches_vgap ( 0 ),
+switches_height ( 0 ),
 label_fnt_height ( 16 ),
 label_hpadi ( 2 ),
 label_hpado ( 2 )
@@ -83,9 +89,23 @@ class GW_Group2 :
 	unsigned int
 	int_width ( ) const;
 
+	/// @brief Used to probe a sizes set
+	///
+	unsigned int
+	int_width_probe (
+		const ::Wdg2::GW_Group2_Sizes & sizes_n ) const;
+
 
 	// Private methods
 	private:
+
+	::Wdg2::GW_Multi_Slider_Sizes
+	gw_levels_sizes (
+		const ::Wdg2::GW_Group2_Sizes & sizes_n ) const;
+
+	::Wdg2::GW_Multi_Switch_Sizes
+	gw_switches_sizes (
+		const ::Wdg2::GW_Group2_Sizes & sizes_n ) const;
 
 	void
 	update_geometries ( );
@@ -103,9 +123,6 @@ class GW_Group2 :
 	QRectF _brect;
 
 	::Wdg2::GW_Group2_Sizes _sizes;
-	unsigned int _levels_height;
-	unsigned int _switches_vgap;
-	unsigned int _switches_height;
 };
 
 inline
@@ -172,9 +189,19 @@ class GW_Group3 :
 	unsigned int
 	int_width ( ) const;
 
+	/// @brief Used to probe a sizes set
+	///
+	unsigned int
+	int_width_probe (
+		const ::Wdg2::GW_Group3_Sizes & sizes_n ) const;
+
 
 	// Private methods
 	private:
+
+	::Wdg2::GW_Group2_Sizes
+	gw_group2_sizes (
+		const ::Wdg2::GW_Group3_Sizes & sizes_n ) const;
 
 	void
 	update_geometries ( );
@@ -257,9 +284,19 @@ class GW_Group4 :
 	unsigned int
 	int_width ( ) const;
 
+	/// @brief Used to probe a sizes set
+	///
+	unsigned int
+	int_width_probe (
+		const ::Wdg2::GW_Group4_Sizes & sizes_n ) const;
+
 
 	// Private methods
 	private:
+
+	::Wdg2::GW_Group3_Sizes
+	gw_group3_sizes (
+		const ::Wdg2::GW_Group4_Sizes & sizes_n ) const;
 
 	void
 	update_geometries ( );

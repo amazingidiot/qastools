@@ -77,6 +77,12 @@ class GW_Multi_Slider :
 	unsigned int
 	int_width ( ) const;
 
+	/// @brief Used to probe a sizes set
+	///
+	unsigned int
+	int_width_probe (
+		const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const;
+
 	const ::Wdg2::Slider_Value_Map &
 	value_map ( ) const;
 

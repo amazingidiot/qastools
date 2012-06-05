@@ -439,8 +439,12 @@
 		<Unit filename="shared/src/wdg2/gw_multi_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_switch.cpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_switch.hpp" />
+		<Unit filename="shared/src/wdg2/gw_scrollbar.cpp" />
+		<Unit filename="shared/src/wdg2/gw_scrollbar.hpp" />
 		<Unit filename="shared/src/wdg2/gw_slider.cpp" />
 		<Unit filename="shared/src/wdg2/gw_slider.hpp" />
+		<Unit filename="shared/src/wdg2/gw_sliders_pad.cpp" />
+		<Unit filename="shared/src/wdg2/gw_sliders_pad.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.hpp" />
 		<Unit filename="shared/src/wdg2/int_math.cpp" />

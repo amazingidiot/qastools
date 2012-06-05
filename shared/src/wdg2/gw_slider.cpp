@@ -64,8 +64,10 @@ void
 GW_Slider_Rail::set_rail_size (
 	const QSize & size_n )
 {
-	prepareGeometryChange();
-	_rail_size = size_n;
+	if ( size_n != _rail_size ) {
+		prepareGeometryChange();
+		_rail_size = size_n;
+	}
 }
 
 
@@ -111,8 +113,10 @@ void
 GW_Slider_Handle::set_handle_size (
 	const QSize & size_n )
 {
-	prepareGeometryChange();
-	_handle_size = size_n;
+	if ( size_n != _handle_size ) {
+		prepareGeometryChange();
+		_handle_size = size_n;
+	}
 }
 
 
@@ -322,6 +326,13 @@ GW_Slider::mouseMoveEvent (
 			_slider_proxy.set_int_value ( value );
 		}
 	}
+}
+
+void
+GW_Slider::wheelEvent (
+	QGraphicsSceneWheelEvent * event_n )
+{
+	::std::cout << "GW_Slider::wheelEvent" << "\n";
 }
 
 

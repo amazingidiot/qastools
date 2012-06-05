@@ -266,6 +266,10 @@ class GW_Slider :
 	mouseMoveEvent (
 		QGraphicsSceneMouseEvent * event_n );
 
+	void
+	wheelEvent (
+		QGraphicsSceneWheelEvent * event_n );
+
 
 	// Private attributes
 	private:

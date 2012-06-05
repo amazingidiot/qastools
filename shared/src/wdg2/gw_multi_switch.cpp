@@ -80,10 +80,18 @@ GW_Multi_Switch::update_geometries ( )
 unsigned int
 GW_Multi_Switch::int_width ( ) const
 {
+	return int_width_probe ( _sizes );
+}
+
+
+unsigned int
+GW_Multi_Switch::int_width_probe (
+	const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n ) const
+{
 	unsigned int rwidth ( 0 );
 	if ( _snd_proxies.num_proxies() > 0 ) {
-		rwidth += _sizes.switch_width * _snd_proxies.num_proxies();
-		rwidth += _sizes.channels_hgap * ( _snd_proxies.num_proxies() - 1 );
+		rwidth += sizes_n.switch_width * _snd_proxies.num_proxies();
+		rwidth += sizes_n.channels_hgap * ( _snd_proxies.num_proxies() - 1 );
 	}
 	return rwidth;
 }

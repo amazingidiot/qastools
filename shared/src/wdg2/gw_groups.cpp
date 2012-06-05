@@ -78,24 +78,49 @@ GW_Group2::set_sizes (
 	const ::Wdg2::GW_Group2_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
+
+	_sizes.switches_height = _sizes.slider_width;
+	_sizes.switches_vgap = _sizes.channels_hgap;
+
+	_sizes.levels_height = _sizes.height;
+	_sizes.levels_height -= _sizes.switches_height;
+	_sizes.levels_height -= _sizes.switches_vgap;
+
 	update_geometries();
+}
+
+inline
+::Wdg2::GW_Multi_Slider_Sizes
+GW_Group2::gw_levels_sizes (
+	const ::Wdg2::GW_Group2_Sizes & sizes_n ) const
+{
+	::Wdg2::GW_Multi_Slider_Sizes lsizes;
+	lsizes.area_height = sizes_n.levels_height;
+	lsizes.slider_width = sizes_n.slider_width;
+	lsizes.channels_hgap = sizes_n.channels_hgap;
+	return lsizes;
+}
+
+inline
+::Wdg2::GW_Multi_Switch_Sizes
+GW_Group2::gw_switches_sizes (
+	const ::Wdg2::GW_Group2_Sizes & sizes_n ) const
+{
+	::Wdg2::GW_Multi_Switch_Sizes lsizes;
+	lsizes.area_height = sizes_n.switches_height;
+	lsizes.switch_width = sizes_n.slider_width;
+	lsizes.channels_hgap = sizes_n.channels_hgap;
+	return lsizes;
 }
 
 void
 GW_Group2::update_geometries ( )
 {
-	_switches_height = _sizes.slider_width;
-	_switches_vgap = _sizes.channels_hgap;
-
-	_levels_height = _sizes.height;
-	_levels_height -= _switches_height;
-	_levels_height -= _switches_vgap;
-
-	double lvl_pos_x ( 0.0 );
+	double pos_x ( 0.0 );
 	if ( _label_item != 0 ) {
-		lvl_pos_x += _sizes.label_fnt_height;
-		lvl_pos_x += _sizes.label_hpadi;
-		lvl_pos_x += _sizes.label_hpado;
+		pos_x += _sizes.label_fnt_height;
+		pos_x += _sizes.label_hpadi;
+		pos_x += _sizes.label_hpado;
 
 		QRectF brect ( _label_item->boundingRect() );
 		_label_item->setPos ( QPointF ( _sizes.label_hpado, ::std::ceil ( brect.width() ) ) );
@@ -104,27 +129,15 @@ GW_Group2::update_geometries ( )
 
 	// Levels
 	if ( _gw_levels != 0 ) {
-		{
-			::Wdg2::GW_Multi_Slider_Sizes lsizes;
-			lsizes.area_height = _levels_height;
-			lsizes.slider_width = _sizes.slider_width;
-			lsizes.channels_hgap = _sizes.channels_hgap;
-			_gw_levels->set_sizes ( lsizes );
-		}
-		_gw_levels->setPos ( QPointF ( lvl_pos_x, 0.0 ) );
+		_gw_levels->set_sizes ( gw_levels_sizes ( _sizes) );
+		_gw_levels->setPos ( QPointF ( pos_x, 0.0 ) );
 	}
 
 	// Switches
 	if ( _gw_switches != 0 ) {
-		{
-			::Wdg2::GW_Multi_Switch_Sizes lsizes;
-			lsizes.area_height = _switches_height;
-			lsizes.switch_width = _sizes.slider_width;
-			lsizes.channels_hgap = _sizes.channels_hgap;
-			_gw_switches->set_sizes ( lsizes );
-		}
-		_gw_switches->setPos (
-			QPointF ( lvl_pos_x, _levels_height + _switches_vgap ) );
+		_gw_switches->set_sizes ( gw_switches_sizes ( _sizes ) );
+		QPointF spos ( pos_x, _sizes.levels_height + _sizes.switches_vgap );
+		_gw_switches->setPos ( spos );
 	}
 
 	// Bounding rect
@@ -136,21 +149,31 @@ GW_Group2::update_geometries ( )
 unsigned int
 GW_Group2::int_width ( ) const
 {
+	return int_width_probe ( _sizes );
+}
+
+unsigned int
+GW_Group2::int_width_probe (
+	const ::Wdg2::GW_Group2_Sizes & sizes_n ) const
+{
 	unsigned int iwidth ( 0 );
 	if ( _gw_levels != 0 ) {
-		iwidth = _gw_levels->int_width();
+		iwidth = _gw_levels->int_width_probe (
+			gw_levels_sizes ( sizes_n ) );
 	}
 	if ( _gw_switches != 0 ) {
-		const unsigned int giwidth ( _gw_switches->int_width() );
+		const unsigned int giwidth (
+			_gw_switches->int_width_probe (
+				gw_switches_sizes ( sizes_n ) ) );
 		if ( giwidth > iwidth ) {
 			iwidth = giwidth;
 		}
 	}
 	if ( iwidth > 0 ) {
 		if ( _label_item != 0 ) {
-			iwidth += _sizes.label_fnt_height;
-			iwidth += _sizes.label_hpadi;
-			iwidth += _sizes.label_hpado;
+			iwidth += sizes_n.label_fnt_height;
+			iwidth += sizes_n.label_hpadi;
+			iwidth += sizes_n.label_hpado;
 		}
 	}
 	return iwidth;
@@ -200,6 +223,18 @@ GW_Group3::set_sizes (
 	update_geometries();
 }
 
+inline
+::Wdg2::GW_Group2_Sizes
+GW_Group3::gw_group2_sizes (
+	const ::Wdg2::GW_Group3_Sizes & sizes_n ) const
+{
+	::Wdg2::GW_Group2_Sizes lsizes;
+	lsizes.height = sizes_n.height;
+	lsizes.slider_width = sizes_n.slider_width;
+	lsizes.channels_hgap = sizes_n.channels_hgap;
+	return lsizes;
+}
+
 void
 GW_Group3::update_geometries ( )
 {
@@ -208,16 +243,10 @@ GW_Group3::update_geometries ( )
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
 		unsigned int grp_width;
 		{
-			::Wdg2::GW_Group2 * grp ( _gw_groups[ii] );
-			{
-				::Wdg2::GW_Group2_Sizes lsizes;
-				lsizes.height = _sizes.height;
-				lsizes.slider_width = _sizes.slider_width;
-				lsizes.channels_hgap = _sizes.channels_hgap;
-				grp->set_sizes ( lsizes );
-			}
-			grp->setPos ( xpos, 0.0 );
-			grp_width = grp->int_width();
+			::Wdg2::GW_Group2 * grp2 ( _gw_groups[ii] );
+			grp2->set_sizes ( gw_group2_sizes ( _sizes ) );
+			grp2->setPos ( xpos, 0.0 );
+			grp_width = grp2->int_width();
 		}
 
 		if ( grp_width > 0 ) {
@@ -230,10 +259,19 @@ GW_Group3::update_geometries ( )
 unsigned int
 GW_Group3::int_width ( ) const
 {
+	return int_width_probe ( _sizes );
+}
+
+unsigned int
+GW_Group3::int_width_probe (
+	const ::Wdg2::GW_Group3_Sizes & sizes_n ) const
+{
 	unsigned int iwidth ( 0 );
-	const unsigned int group2_hgap ( _sizes.group2_hgap );
+	const unsigned int group2_hgap ( sizes_n.group2_hgap );
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
-		const unsigned int grp_width ( _gw_groups[ii]->int_width() );
+		::Wdg2::GW_Group2 * grp2 ( _gw_groups[ii] );
+		const unsigned int grp_width (
+			grp2->int_width_probe ( gw_group2_sizes ( sizes_n ) ) );
 		if ( grp_width > 0 ) {
 			if ( iwidth > 0 ) {
 				iwidth += group2_hgap;
@@ -288,6 +326,19 @@ GW_Group4::set_sizes (
 	update_geometries();
 }
 
+inline
+::Wdg2::GW_Group3_Sizes
+GW_Group4::gw_group3_sizes (
+	const ::Wdg2::GW_Group4_Sizes & sizes_n ) const
+{
+	::Wdg2::GW_Group3_Sizes lsizes;
+	lsizes.height = sizes_n.height;
+	lsizes.slider_width = sizes_n.slider_width;
+	lsizes.channels_hgap = sizes_n.channels_hgap;
+	lsizes.group2_hgap = sizes_n.group2_hgap;
+	return lsizes;
+}
+
 void
 GW_Group4::update_geometries ( )
 {
@@ -296,17 +347,10 @@ GW_Group4::update_geometries ( )
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
 		unsigned int grp_width;
 		{
-			::Wdg2::GW_Group3 * grp ( _gw_groups[ii] );
-			{
-				::Wdg2::GW_Group3_Sizes lsizes;
-				lsizes.height = _sizes.height;
-				lsizes.slider_width = _sizes.slider_width;
-				lsizes.channels_hgap = _sizes.channels_hgap;
-				lsizes.group2_hgap = _sizes.group2_hgap;
-				grp->set_sizes ( lsizes );
-			}
-			grp->setPos ( xpos, 0.0 );
-			grp_width = grp->int_width();
+			::Wdg2::GW_Group3 * grp3 ( _gw_groups[ii] );
+			grp3->set_sizes ( gw_group3_sizes ( _sizes ) );
+			grp3->setPos ( xpos, 0.0 );
+			grp_width = grp3->int_width();
 		}
 
 		if ( grp_width > 0 ) {
@@ -319,10 +363,19 @@ GW_Group4::update_geometries ( )
 unsigned int
 GW_Group4::int_width ( ) const
 {
+	return int_width_probe ( _sizes );
+}
+
+unsigned int
+GW_Group4::int_width_probe (
+	const ::Wdg2::GW_Group4_Sizes & sizes_n ) const
+{
 	unsigned int iwidth ( 0 );
 	const unsigned int group3_hgap ( _sizes.group3_hgap );
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
-		const unsigned int grp_width ( _gw_groups[ii]->int_width() );
+		::Wdg2::GW_Group3 * grp3 (  _gw_groups[ii] );
+		const unsigned int grp_width (
+			grp3->int_width_probe ( gw_group3_sizes ( sizes_n ) ) );
 		if ( grp_width > 0 ) {
 			if ( iwidth > 0 ) {
 				iwidth += group3_hgap;

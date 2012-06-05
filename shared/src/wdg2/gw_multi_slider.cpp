@@ -88,14 +88,20 @@ GW_Multi_Slider::update_geometries ( )
 unsigned int
 GW_Multi_Slider::int_width ( ) const
 {
+	return int_width_probe ( _sizes );
+}
+
+unsigned int
+GW_Multi_Slider::int_width_probe (
+	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const
+{
 	unsigned int rwidth ( 0 );
 	if ( proxies_grp().num_proxies() > 0 ) {
-		rwidth += _sizes.slider_width * proxies_grp().num_proxies();
-		rwidth += _sizes.channels_hgap * ( proxies_grp().num_proxies() - 1 );
+		rwidth += sizes_n.slider_width * proxies_grp().num_proxies();
+		rwidth += sizes_n.channels_hgap * ( proxies_grp().num_proxies() - 1 );
 	}
 	return rwidth;
 }
-
 
 
 } // End of namespace

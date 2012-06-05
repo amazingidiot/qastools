@@ -76,9 +76,11 @@ void
 GW_Switch::set_switch_size (
 	const QSize & size_n )
 {
-	prepareGeometryChange();
-	_switch_size = size_n;
-	read_proxy_value();
+	if ( size_n != _switch_size ) {
+		prepareGeometryChange();
+		_switch_size = size_n;
+		read_proxy_value();
+	}
 }
 
 void

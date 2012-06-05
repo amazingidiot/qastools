@@ -9,15 +9,9 @@
 #ifndef __INC_wdg2_sliders_pad_hpp__
 #define __INC_wdg2_sliders_pad_hpp__
 
-#include <QWidget>
-#include <QList>
+#include "gw_sliders_pad.hpp"
 #include <QGraphicsScene>
 #include <QGraphicsView>
-
-// Forward declaration
-namespace Wdg2 { class GW_Group4; }
-namespace QSnd2 { class Controls; }
-
 
 namespace Wdg2
 {
@@ -50,6 +44,7 @@ class Sliders_Pad :
 	// Public slots
 	public slots:
 
+
 	// Protected methods
 	protected:
 
@@ -58,27 +53,18 @@ class Sliders_Pad :
 		QResizeEvent * event_n );
 
 
-	// Protected slots
-	protected slots:
-
 	// Private methods
 	private:
 
 	void
 	update_geometries ( );
 
-	void
-	destroy_scene_items ( );
-
-	void
-	build_scene_items ( );
-
 
 	// Private attributes
 	private:
 
-	::QSnd2::Controls * _snd_controls;
-	::Wdg2::GW_Group4 * _group4;
+	::Wdg2::GW_Sliders_Pad _gw_sliders_pad;
+
 	QGraphicsScene _scene;
 };
 
@@ -87,7 +73,7 @@ inline
 ::QSnd2::Controls *
 Sliders_Pad::snd_controls ( ) const
 {
-	return _snd_controls;
+	return _gw_sliders_pad.snd_controls();
 }
 
 
