@@ -115,11 +115,16 @@ GW_Sliders_Pad::update_geometries ( )
 				lsizes.height -= sbar_hgap;
 				lsizes.height -= sbar_height;
 
-				_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( this ) );
-				_scrollbar->set_size ( QSize ( _pad_size.width(), sbar_height ) );
+				if ( _scrollbar == 0 ) {
+					_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( this ) );
+				}
 				_scrollbar->setPos ( QPointF ( 0.0, lsizes.height + sbar_hgap ) );
+				_scrollbar->set_size ( QSize ( _pad_size.width(), sbar_height ) );
+				_scrollbar->set_int_span ( iwidth - _pad_size.width() );
 			} else {
-				_scrollbar.reset();
+				if ( _scrollbar != 0 ) {
+					_scrollbar.reset();
+				}
 			}
 		}
 
