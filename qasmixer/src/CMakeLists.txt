@@ -155,17 +155,6 @@ SET ( SRC_GUI
 
 	mwdg/mixer_gui_state.cpp
 	mwdg/mixer_simple_setup.cpp
-	mwdg/mixer_separation_info.cpp
-	mwdg/mixer_sliders_proxy_slider.cpp
-	mwdg/mixer_sliders_proxy_switch.cpp
-	mwdg/mixer_sliders_proxies_column.cpp
-	mwdg/mixer_sliders_proxies_group.cpp
-	mwdg/mixer_sliders_status_widget.cpp
-	mwdg/mixer_sliders.cpp
-	mwdg/mixer_switches_proxy_enum.cpp
-	mwdg/mixer_switches_proxy_switch.cpp
-	mwdg/mixer_switches_proxies_group.cpp
-	mwdg/mixer_switches.cpp
 
 	views/mixer_simple_setup.cpp
 	views/mixer_simple.cpp
@@ -235,17 +224,6 @@ SET ( SRC_GUI_HEADER_MOC
 
 	${SHARED_INC_DIR}/unix_signal_handler.hpp
 	${SHARED_INC_DIR}/single_application.hpp
-
-	mwdg/mixer_sliders_proxy_slider.hpp
-	mwdg/mixer_sliders_proxy_switch.hpp
-	mwdg/mixer_sliders_proxies_column.hpp
-	mwdg/mixer_sliders_proxies_group.hpp
-	mwdg/mixer_sliders_status_widget.hpp
-	mwdg/mixer_sliders.hpp
-	mwdg/mixer_switches_proxy_enum.hpp
-	mwdg/mixer_switches_proxy_switch.hpp
-	mwdg/mixer_switches_proxies_group.hpp
-	mwdg/mixer_switches.hpp
 
 	views/mixer_simple.hpp
 	views/settings_dialog.hpp

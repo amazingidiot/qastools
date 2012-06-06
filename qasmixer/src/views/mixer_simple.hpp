@@ -22,12 +22,6 @@
 
 
 // Forward declaration
-namespace QSnd { class Mixer_Simple; }
-namespace MWdg {
-	class Mixer_Sliders;
-	class Mixer_Sliders_Status_Widget;
-	class Mixer_Switches;
-}
 namespace Views {
 	class Mixer_Simple_Setup;
 }
@@ -84,33 +78,12 @@ class Mixer_Simple :
 	toggle_show_capture ( );
 
 
-	void
-	show_slider_value_widget ( );
-
-
-	// Protected slots
-	protected slots:
-
-	void
-	footer_label_selected (
-		unsigned int group_idx_n,
-		unsigned int column_idx_n );
-
-
 	// Protected methods
 	protected:
 
 	void
 	keyPressEvent (
 		QKeyEvent * event_n );
-
-	void
-	showEvent (
-		QShowEvent * event_n );
-
-	void
-	hideEvent (
-		QHideEvent * event_n );
 
 
 	// Private methods
@@ -132,19 +105,11 @@ class Mixer_Simple :
 	// widgets
 	QWidget _wdg_areas;
 	QSplitter _mixer_split;
-	::MWdg::Mixer_Sliders * _mixer_sliders;
 	::Wdg2::Sliders_Pad * _sliders_pad2;
 
-	QWidget * _switches_area;
-	QPushButton * _btn_stream[2];
-	::MWdg::Mixer_Switches * _mixer_switches;
-
-	QPointer < ::MWdg::Mixer_Sliders_Status_Widget > _status_wdg;
 	unsigned int _status_group_idx;
 	unsigned int _status_column_idx;
 
-	/// @brief Mixer object
-	::QSnd::Mixer_Simple * _qsnd_mixer;
 	::QSnd2::ASMI_Controls * _snd_controls;
 	::QSnd2::Controls_Watcher _snd_ctl_watcher;
 
