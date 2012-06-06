@@ -41,6 +41,14 @@ class Sliders_Pad :
 		::QSnd2::Controls * controls_n );
 
 
+	bool
+	opengl_enabled ( ) const;
+
+	void
+	enable_opengl (
+		bool flag_n );
+
+
 	// Public slots
 	public slots:
 
@@ -64,8 +72,9 @@ class Sliders_Pad :
 	private:
 
 	::Wdg2::GW_Sliders_Pad _gw_sliders_pad;
-
 	QGraphicsScene _scene;
+
+	bool _opengl_enabled;
 };
 
 

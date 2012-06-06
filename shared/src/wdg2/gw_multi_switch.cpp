@@ -88,12 +88,12 @@ unsigned int
 GW_Multi_Switch::int_width_probe (
 	const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n ) const
 {
-	unsigned int rwidth ( 0 );
+	unsigned int iwidth ( 0 );
 	if ( _snd_proxies.num_proxies() > 0 ) {
-		rwidth += sizes_n.switch_width * _snd_proxies.num_proxies();
-		rwidth += sizes_n.channels_hgap * ( _snd_proxies.num_proxies() - 1 );
+		iwidth += sizes_n.switch_width * _snd_proxies.num_proxies();
+		iwidth += sizes_n.channels_hgap * ( _snd_proxies.num_proxies() - 1 );
 	}
-	return rwidth;
+	return iwidth;
 }
 
 

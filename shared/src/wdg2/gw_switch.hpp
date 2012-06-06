@@ -93,8 +93,8 @@ class GW_Switch :
 	::QSnd2::Proxy_Switch & _switch_proxy;
 	QSize _switch_size;
 
-	::Wdg2::Flags _widget_flags;
-	::Wdg2::Flags _state_flags;
+	::Flags _widget_flags;
+	::Flags _state_flags;
 };
 
 

@@ -176,6 +176,7 @@ GW_Group2::int_width_probe (
 			iwidth += sizes_n.label_hpado;
 		}
 	}
+
 	return iwidth;
 }
 
@@ -279,6 +280,7 @@ GW_Group3::int_width_probe (
 			iwidth += grp_width;
 		}
 	}
+
 	return iwidth;
 }
 
@@ -371,7 +373,7 @@ GW_Group4::int_width_probe (
 	const ::Wdg2::GW_Group4_Sizes & sizes_n ) const
 {
 	unsigned int iwidth ( 0 );
-	const unsigned int group3_hgap ( _sizes.group3_hgap );
+	const unsigned int group3_hgap ( sizes_n.group3_hgap );
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
 		::Wdg2::GW_Group3 * grp3 (  _gw_groups[ii] );
 		const unsigned int grp_width (

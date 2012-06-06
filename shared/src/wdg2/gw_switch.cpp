@@ -23,7 +23,7 @@ _switch_proxy ( switch_proxy_n ),
 _switch_size ( 0.0, 0.0 )
 {
 	_switch_proxy.set_val_change_callback (
-		::QSnd2::Context_Callback ( this, ::Wdg2::GW_Switch::read_proxy_value_cb ) );
+		::Context_Callback ( this, ::Wdg2::GW_Switch::read_proxy_value_cb ) );
 	setFlags ( QGraphicsItem::ItemIsFocusable );
 }
 

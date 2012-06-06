@@ -42,7 +42,7 @@ Proxy::set_pgroup (
 
 void
 Proxy::set_val_change_callback (
-	const ::QSnd2::Context_Callback & callback_n )
+	const ::Context_Callback & callback_n )
 {
 	_val_change_callback = callback_n;
 }

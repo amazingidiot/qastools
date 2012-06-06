@@ -4,11 +4,8 @@
 // License: See LICENSE-libdjp.txt file that comes with this source
 //
 
-#ifndef __INC_wdg2_flags_hpp__
-#define __INC_wdg2_flags_hpp__
-
-namespace Wdg2
-{
+#ifndef __INC_flags_hpp__
+#define __INC_flags_hpp__
 
 
 /// @brief A set of binary flags with set/unset/test interface
@@ -157,7 +154,5 @@ Flags::operator!= (
 	return ( _flags != val_n );
 }
 
-
-} // End of namespace
 
 #endif

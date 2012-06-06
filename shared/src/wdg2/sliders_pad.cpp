@@ -13,6 +13,7 @@
 #include <QKeyEvent>
 #include <QFocusEvent>
 #include <QScrollBar>
+#include <QGLWidget>
 #include <iostream>
 
 
@@ -22,7 +23,8 @@ namespace Wdg2
 
 Sliders_Pad::Sliders_Pad (
 	QWidget * parent_n ) :
-QGraphicsView ( parent_n )
+QGraphicsView ( parent_n ),
+_opengl_enabled ( false )
 {
 	setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
 	setAlignment ( Qt::AlignLeft | Qt::AlignTop );
@@ -55,6 +57,26 @@ Sliders_Pad::set_snd_controls (
 	if ( snd_controls() != 0 ) {
 		_scene.addItem ( &_gw_sliders_pad );
 		update_geometries();
+	}
+}
+
+bool
+Sliders_Pad::opengl_enabled ( ) const
+{
+	return _opengl_enabled;
+}
+
+void
+Sliders_Pad::enable_opengl (
+	bool flag_n )
+{
+	if ( flag_n != _opengl_enabled ) {
+		_opengl_enabled = flag_n;
+		if ( _opengl_enabled ) {
+			setViewport ( new QGLWidget() );
+		} else {
+			setViewport ( new QWidget() );
+		}
 	}
 }
 

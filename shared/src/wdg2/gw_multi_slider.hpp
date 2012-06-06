@@ -97,6 +97,7 @@ class GW_Multi_Slider :
 	// Private attributes
 	private:
 
+	::QSnd2::Proxies_Group1_Slider & _proxies_grp;
 	::Wdg2::GW_Multi_Slider_Sizes _sizes;
 
 	::Wdg2::Slider_Value_Map _value_map;
@@ -109,14 +110,14 @@ inline
 ::QSnd2::Proxies_Group1_Slider &
 GW_Multi_Slider::proxies_grp ( )
 {
-	return _value_map.proxies_grp();
+	return _proxies_grp;
 }
 
 inline
 const ::QSnd2::Proxies_Group1_Slider &
 GW_Multi_Slider::proxies_grp ( ) const
 {
-	return _value_map.proxies_grp();
+	return _proxies_grp;
 }
 
 inline

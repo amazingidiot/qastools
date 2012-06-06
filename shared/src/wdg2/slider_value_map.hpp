@@ -9,7 +9,6 @@
 #ifndef __INC_wdg2_slider_value_map_hpp__
 #define __INC_wdg2_slider_value_map_hpp__
 
-#include "qsnd2/controls_proxies.hpp"
 #include <map>
 
 namespace Wdg2
@@ -27,15 +26,20 @@ class Slider_Value_Map
 	public:
 
 	Slider_Value_Map (
-		::QSnd2::Proxies_Group1_Slider & proxies_grp_n );
+		long val_min_n = 0,
+		long val_max_n = 0 );
 
-	~Slider_Value_Map ( );
 
-	::QSnd2::Proxies_Group1_Slider &
-	proxies_grp ( );
+	long
+	value_min ( ) const;
 
-	const ::QSnd2::Proxies_Group1_Slider &
-	proxies_grp ( ) const;
+	long
+	value_max ( ) const;
+
+	void
+	set_value_range (
+		long val_min_n,
+		long val_max_n );
 
 
 	unsigned int
@@ -44,6 +48,7 @@ class Slider_Value_Map
 	void
 	set_px_span (
 		unsigned int num_px_n );
+
 
 	long
 	value_from_px (
@@ -69,7 +74,8 @@ class Slider_Value_Map
 	Map_Px _px_map;
 	Map_Value _value_map;
 
-	::QSnd2::Proxies_Group1_Slider & _proxies_grp;
+	long _val_min;
+	long _val_max;
 	unsigned int _px_span;
 };
 
@@ -81,17 +87,17 @@ Slider_Value_Map::px_span ( ) const
 }
 
 inline
-::QSnd2::Proxies_Group1_Slider &
-Slider_Value_Map::proxies_grp ( )
+long
+Slider_Value_Map::value_min ( ) const
 {
-	return _proxies_grp;
+	return _val_min;
 }
 
 inline
-const ::QSnd2::Proxies_Group1_Slider &
-Slider_Value_Map::proxies_grp ( ) const
+long
+Slider_Value_Map::value_max ( ) const
 {
-	return _proxies_grp;
+	return _val_max;
 }
 
 

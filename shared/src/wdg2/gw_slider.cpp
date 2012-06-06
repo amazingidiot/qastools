@@ -133,14 +133,14 @@ _handle ( this )
 	_rail.setPos ( QPointF ( 0.0, 0.0 ) );
 	_handle.setPos ( QPointF ( 0.0, 0.0 ) );
 	_slider_proxy.set_val_change_callback (
-		::QSnd2::Context_Callback ( this, ::Wdg2::GW_Slider::read_proxy_value_cb ) );
+		::Context_Callback ( this, ::Wdg2::GW_Slider::read_proxy_value_cb ) );
 
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 }
 
 GW_Slider::~GW_Slider ( )
 {
-	_slider_proxy.set_val_change_callback ( ::QSnd2::Context_Callback() );
+	_slider_proxy.set_val_change_callback ( ::Context_Callback() );
 }
 
 QRectF

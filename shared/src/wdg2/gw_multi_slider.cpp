@@ -20,8 +20,13 @@ GW_Multi_Slider::GW_Multi_Slider (
 	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_value_map ( snd_proxies_n )
+_proxies_grp ( snd_proxies_n )
 {
+	{
+		::QSnd2::Integer_Pair vrange;
+		_proxies_grp.int_range ( vrange );
+		_value_map.set_value_range ( vrange[0], vrange[1] );
+	}
 	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
 		::Wdg2::GW_Slider * gw_slider (
 			new ::Wdg2::GW_Slider ( *proxies_grp().slider_proxy ( ii ), this ) );
@@ -95,12 +100,12 @@ unsigned int
 GW_Multi_Slider::int_width_probe (
 	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const
 {
-	unsigned int rwidth ( 0 );
+	unsigned int iwidth ( 0 );
 	if ( proxies_grp().num_proxies() > 0 ) {
-		rwidth += sizes_n.slider_width * proxies_grp().num_proxies();
-		rwidth += sizes_n.channels_hgap * ( proxies_grp().num_proxies() - 1 );
+		iwidth += sizes_n.slider_width * proxies_grp().num_proxies();
+		iwidth += sizes_n.channels_hgap * ( proxies_grp().num_proxies() - 1 );
 	}
-	return rwidth;
+	return iwidth;
 }
 
 

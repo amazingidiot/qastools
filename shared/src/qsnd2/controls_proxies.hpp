@@ -9,6 +9,7 @@
 #ifndef __INC_qsnd_control_proxies_hpp__
 #define __INC_qsnd_control_proxies_hpp__
 
+#include "callbacks.hpp"
 #include <QList>
 #include <QString>
 
@@ -223,12 +224,12 @@ class Proxy
 	///
 	/// This one will be called if the value of
 	/// the proxy object changed (e.g. slider volume changed)
-	const ::QSnd2::Context_Callback &
+	const ::Context_Callback &
 	val_change_callback ( ) const;
 
 	void
 	set_val_change_callback (
-		const ::QSnd2::Context_Callback & callback_n );
+		const ::Context_Callback & callback_n );
 
 
 	///@brief calls the val_change_callback
@@ -241,7 +242,7 @@ class Proxy
 	private:
 
 	const unsigned int _control_type;
-	::QSnd2::Context_Callback _val_change_callback;
+	::Context_Callback _val_change_callback;
 	::QSnd2::Proxies_Group1 * _pgroup;
 };
 
@@ -253,7 +254,7 @@ Proxy::control_type ( ) const
 }
 
 inline
-const ::QSnd2::Context_Callback &
+const ::Context_Callback &
 Proxy::val_change_callback ( ) const
 {
 	return _val_change_callback;

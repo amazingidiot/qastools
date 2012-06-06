@@ -16,14 +16,11 @@ namespace Wdg2
 
 
 Slider_Value_Map::Slider_Value_Map (
-	::QSnd2::Proxies_Group1_Slider & proxies_grp_n ) :
-_proxies_grp ( proxies_grp_n ),
+	long val_min_n,
+	long val_max_n ) :
+_val_min ( val_min_n ),
+_val_max ( val_max_n ),
 _px_span ( 0 )
-{
-	update_mapping();
-}
-
-Slider_Value_Map::~Slider_Value_Map ( )
 {
 }
 
@@ -38,26 +35,36 @@ Slider_Value_Map::set_px_span (
 }
 
 void
+Slider_Value_Map::set_value_range (
+	long val_min_n,
+	long val_max_n )
+{
+	if ( ( _val_min != val_min_n ) || ( _val_max != val_max_n ) ) {
+		_val_min = val_min_n;
+		_val_max = val_max_n;
+		update_mapping();
+	}
+}
+
+void
 Slider_Value_Map::update_mapping ( )
 {
 	_px_map.clear();
 	_value_map.clear();
 
-	::QSnd2::Integer_Pair vrange;
-	_proxies_grp.int_range ( vrange );
 	const unsigned long px_span ( _px_span );
-	const unsigned long val_span ( ::Wdg2::integer_distance ( vrange[0], vrange[1] ) );
+	const unsigned long val_span ( ::Wdg2::integer_distance ( value_min(), value_max() ) );
 	if ( ( px_span != 0 ) && ( val_span != 0 ) ) {
 
 		// Pixel to value mapping
-		_px_map.insert ( Map_Px::value_type ( 0, vrange[0] ) );
+		_px_map.insert ( Map_Px::value_type ( 0, value_min() ) );
 		if ( px_span >= val_span ) {
 			// Average free pixel space between two values
 			const unsigned int px_delta_av ( ( px_span - val_span ) / ( val_span ) );
 			const unsigned int px_delta_mod ( ( px_span - val_span ) % ( val_span ) );
 			unsigned int px_error ( 0 );
 			unsigned int px_pos ( 0 );
-			long int_value ( vrange[0] );
+			long int_value ( value_min() );
 			for ( unsigned long ii=0; ii < (val_span-1); ++ii ) {
 				{
 					unsigned int px_delta ( px_delta_av );
@@ -77,7 +84,7 @@ Slider_Value_Map::update_mapping ( )
 			const unsigned long val_delta_mod ( ( val_span - px_span ) % ( px_span ) );
 			unsigned long val_error ( 0 );
 			unsigned int px_pos ( 0 );
-			long int_value ( vrange[0] );
+			long int_value ( value_min() );
 			for ( unsigned long ii=0; ii < (px_span-1); ++ii ) {
 				{
 					unsigned long val_delta ( val_delta_av );
@@ -94,7 +101,7 @@ Slider_Value_Map::update_mapping ( )
 			}
 			// TODO
 		}
-		_px_map.insert ( Map_Px::value_type ( px_span, vrange[1] ) );
+		_px_map.insert ( Map_Px::value_type ( px_span, value_max() ) );
 
 		// Value to pixel mapping
 		Map_Px::const_iterator it_end ( _px_map.end() );
@@ -113,9 +120,7 @@ Slider_Value_Map::value_from_px (
 	Map_Px::const_iterator it_geq ( _px_map.lower_bound ( px_n ) );
 	if ( it_geq == _px_map.end() ) {
 		// highest known value
-		::QSnd2::Integer_Pair vrange;
-		_proxies_grp.int_range ( vrange );
-		res = vrange[1];
+		res = value_max();
 	} else {
 		if ( it_geq == _px_map.begin() ) {
 			// lowest value

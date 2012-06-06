@@ -51,10 +51,10 @@ class GW_Slider_Rail :
 		const QSize & size_n );
 
 
-	const ::Wdg2::Flags &
+	const ::Flags &
 	state_flags ( ) const;
 
-	::Wdg2::Flags &
+	::Flags &
 	state_flags ( );
 
 
@@ -62,7 +62,7 @@ class GW_Slider_Rail :
 	private:
 
 	QSize _rail_size;
-	::Wdg2::Flags _state_flags;
+	::Flags _state_flags;
 };
 
 inline
@@ -73,14 +73,14 @@ GW_Slider_Rail::rail_size ( ) const
 }
 
 inline
-const ::Wdg2::Flags &
+const ::Flags &
 GW_Slider_Rail::state_flags ( ) const
 {
 	return _state_flags;
 }
 
 inline
-::Wdg2::Flags &
+::Flags &
 GW_Slider_Rail::state_flags ( )
 {
 	return _state_flags;
@@ -117,10 +117,10 @@ class GW_Slider_Handle :
 		const QSize & size_n );
 
 
-	const ::Wdg2::Flags &
+	const ::Flags &
 	state_flags ( ) const;
 
-	::Wdg2::Flags &
+	::Flags &
 	state_flags ( );
 
 
@@ -128,7 +128,7 @@ class GW_Slider_Handle :
 	private:
 
 	QSize _handle_size;
-	::Wdg2::Flags _state_flags;
+	::Flags _state_flags;
 };
 
 inline
@@ -139,14 +139,14 @@ GW_Slider_Handle::handle_size ( ) const
 }
 
 inline
-const ::Wdg2::Flags &
+const ::Flags &
 GW_Slider_Handle::state_flags ( ) const
 {
 	return _state_flags;
 }
 
 inline
-::Wdg2::Flags &
+::Flags &
 GW_Slider_Handle::state_flags ( )
 {
 	return _state_flags;

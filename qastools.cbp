@@ -207,6 +207,7 @@
 		<Unit filename="scripts/render_png.sh" />
 		<Unit filename="shared/CMakeLists.txt" />
 		<Unit filename="shared/graphics/CMakeLists.txt" />
+		<Unit filename="shared/src/callbacks.hpp" />
 		<Unit filename="shared/src/dpe/image.cpp" />
 		<Unit filename="shared/src/dpe/image.hpp" />
 		<Unit filename="shared/src/dpe/image_allocator.cpp" />
@@ -235,6 +236,7 @@
 		<Unit filename="shared/src/dpe/painter_thread.hpp" />
 		<Unit filename="shared/src/dpe/painter_thread_shared.cpp" />
 		<Unit filename="shared/src/dpe/painter_thread_shared.hpp" />
+		<Unit filename="shared/src/flags.hpp" />
 		<Unit filename="shared/src/license_texts.cpp" />
 		<Unit filename="shared/src/license_texts.hpp" />
 		<Unit filename="shared/src/mwdg/controls_delegate.cpp" />
@@ -431,7 +433,6 @@
 		<Unit filename="shared/src/wdg/tree_view_kv.hpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.cpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
-		<Unit filename="shared/src/wdg2/flags.hpp" />
 		<Unit filename="shared/src/wdg2/graphical_widget.hpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.cpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.hpp" />

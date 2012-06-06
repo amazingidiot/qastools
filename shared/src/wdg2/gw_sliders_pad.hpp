@@ -60,6 +60,22 @@ class GW_Sliders_Pad :
 		::QSnd2::Controls * controls_n );
 
 
+	int
+	panels_shift ( );
+
+	void
+	set_panels_shift (
+		long amount_n );
+
+	void
+	read_panels_shift ( );
+
+	static
+	void
+	read_panels_shift_cb (
+		void * context_n );
+
+
 	// Private methods
 	private:
 
@@ -72,12 +88,17 @@ class GW_Sliders_Pad :
 	void
 	update_geometries ( );
 
+	void
+	update_panels_position ( );
+
 
 	// Private attributes
 	private:
 
 	::QSnd2::Controls * _snd_controls;
 	QSize _pad_size;
+	int _panels_shift;
+	int _panels_shift_max;
 
 	QScopedPointer < ::Wdg2::GW_Group4 > _group4;
 	QScopedPointer < ::Wdg2::GW_Scrollbar > _scrollbar;
@@ -96,6 +117,13 @@ inline
 GW_Sliders_Pad::snd_controls ( ) const
 {
 	return _snd_controls;
+}
+
+inline
+int
+GW_Sliders_Pad::panels_shift ( )
+{
+	return _panels_shift;
 }
 
 
