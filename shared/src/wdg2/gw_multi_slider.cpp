@@ -72,9 +72,8 @@ GW_Multi_Slider::set_sizes (
 		::Wdg2::GW_Slider_Sizes lsizes;
 		lsizes.size.setWidth ( _sizes.slider_width );
 		lsizes.size.setHeight ( _sizes.area_height );
-		lsizes.handle_size.setWidth ( _sizes.slider_width );
-		lsizes.handle_size.setHeight ( _sizes.area_height / 10 );
-		_value_map.set_px_span ( lsizes.size.height() - lsizes.handle_size.height() );
+		lsizes.handle_length = _sizes.area_height / 10;
+		_value_map.set_px_span ( lsizes.size.height() - lsizes.handle_length );
 		for ( int ii=0; ii < _sliders.size(); ++ii ) {
 			_sliders[ii]->set_sizes ( lsizes );
 		}

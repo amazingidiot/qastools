@@ -156,20 +156,23 @@ GW_Slider_Handle::state_flags ( )
 
 
 
+/// @brief GW_Slider_Sizes
+///
 struct GW_Slider_Sizes
 {
 	GW_Slider_Sizes ( );
 
 	QSize size;
-	QSize handle_size;
+	unsigned int handle_length;
 };
 
 inline
 GW_Slider_Sizes::GW_Slider_Sizes ( ) :
 size ( 0, 0 ),
-handle_size ( 0, 0 )
+handle_length ( 0 )
 {
 }
+
 
 
 /// @brief GW_Slider
@@ -208,44 +211,45 @@ class GW_Slider :
 	set_sizes (
 		const ::Wdg2::GW_Slider_Sizes & sizes_n );
 
+
+	Qt::Orientation
+	orientation ( ) const;
+
 	void
-	read_proxy_value ( );
+	set_orientation (
+		Qt::Orientation orientation_n );
+
+
+	void
+	update_handle_pos_from_value ( );
 
 	/// @brief Callback version
 	static
 	void
-	read_proxy_value_cb (
+	update_handle_pos_from_value_cb (
 		void * context_n );
 
 
 	// Protected methods
 	protected:
 
-	/// @brief measured in pixels from the top (upper end) of the slider
-	///
-	unsigned int
-	handle_pos ( );
-
-	/// @brief measured in pixels from the bottom (lower end) of the slider
-	///
-	unsigned int
-	handle_px_pos ( );
+	void
+	update_geometries ( );
 
 	void
-	set_handle_px_pos (
-		int px_pos_n );
+	set_handle_pos (
+		unsigned int pos_n );
 
-	unsigned int
-	px_pos_from_handle_pos (
-		int slider_pos_n ) const;
-
-	unsigned int
-	handle_pos_from_px_pos (
-		int px_pos_n ) const;
+	void
+	update_proxy_value_from_handle_pos ( );
 
 	bool
 	point_in_handle (
 		const QPointF & point_n ) const;
+
+	void
+	move_handle (
+		int amount_n );
 
 
 	void
@@ -279,8 +283,11 @@ class GW_Slider :
 	::QSnd2::Proxy_Slider & _slider_proxy;
 	::Wdg2::GW_Slider_Sizes _sizes;
 	QRectF _brect;
-	/// @brief handle_px_pos() must be <= this
-	unsigned int _px_span;
+
+	Qt::Orientation _orientation;
+	unsigned int _rail_span;
+	unsigned int _handle_pos;
+	unsigned int _handle_pos_span;
 
 	::Wdg2::GW_Slider_Rail _rail;
 	::Wdg2::GW_Slider_Handle _handle;
@@ -291,6 +298,13 @@ const ::Wdg2::GW_Slider_Sizes &
 GW_Slider::sizes ( ) const
 {
 	return _sizes;
+}
+
+inline
+Qt::Orientation
+GW_Slider::orientation ( ) const
+{
+	return _orientation;
 }
 
 

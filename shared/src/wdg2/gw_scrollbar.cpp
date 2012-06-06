@@ -215,7 +215,7 @@ _orientation ( Qt::Horizontal ),
 _int_span ( 0 ),
 _int_value ( 0 ),
 _rail_start ( 0 ),
-_rail_len ( 0 ),
+_rail_span ( 0 ),
 _handle_pos ( 0 ),
 _handle_pos_span ( 0 ),
 _handle_len ( 0 ),
@@ -373,9 +373,9 @@ GW_Scrollbar::update_geometries ( )
 		}
 
 		_rail_start = len_btn;
-		_rail_len = len_rail;
-		_handle_pos = 0;
+		_rail_span = len_rail - 1;
 		_handle_pos_span = len_rail - len_handle;
+		_handle_pos = ( _handle_pos_span + 1 ); // Invalid value to enforce update;
 		_handle_len = len_handle;
 		_value_map.set_px_span ( _handle_pos_span );
 	}
@@ -412,18 +412,19 @@ void
 GW_Scrollbar::set_handle_pos (
 	unsigned int pos_n )
 {
-	if ( pos_n <= _handle_pos_span ) {
-		if ( pos_n != _handle_pos ) {
-			_handle_pos = pos_n;
-			const double hlpos ( _rail_start + _handle_pos );
-			QPointF hpos;
-			if ( _orientation == Qt::Horizontal ) {
-				hpos = QPointF ( hlpos, 0.0 );
-			} else {
-				hpos = QPointF ( 0.0, hlpos );
-			}
-			_handle.setPos ( hpos );
+	if ( pos_n > _handle_pos_span ) {
+		pos_n = _handle_pos_span;
+	}
+	if ( _handle_pos != pos_n ) {
+		_handle_pos = pos_n;
+		const double hlpos ( _rail_start + _handle_pos );
+		QPointF hpos;
+		if ( _orientation == Qt::Horizontal ) {
+			hpos = QPointF ( hlpos, 0.0 );
+		} else {
+			hpos = QPointF ( 0.0, hlpos );
 		}
+		_handle.setPos ( hpos );
 	}
 }
 
@@ -433,12 +434,15 @@ GW_Scrollbar::point_in_handle (
 {
 	int plen;
 	int pwidth;
+	int hwidth;
 	if ( orientation() == Qt::Horizontal ) {
-		 plen = point_n.x();
+		 plen   = point_n.x();
 		 pwidth = point_n.y();
+		 hwidth = _size.height();
 	} else {
-		 plen = _size.height() - point_n.y();
+		 plen   = _size.height() - 1 - point_n.y();
 		 pwidth = point_n.y();
+		 hwidth = _size.width();
 	}
 	plen -= (int)_rail_start;
 	plen -= (int)_handle_pos;
@@ -447,7 +451,7 @@ GW_Scrollbar::point_in_handle (
 		( plen >= 0 ) &&
 		( pwidth >= 0 ) &&
 		( plen < (int)_handle_len ) &&
-		( pwidth < (int)_size.height() ) );
+		( pwidth < (int)hwidth ) );
 	return res;
 }
 
@@ -502,7 +506,7 @@ GW_Scrollbar::mouseMoveEvent (
 				lfrom = event_n->lastPos().x();
 				lto   = event_n->pos().x();
 			} else {
-				const double lheight ( _size.height() );
+				const double lheight ( _size.height() - 1 );
 				lfrom = lheight - event_n->lastPos().y();
 				lto   = lheight - event_n->pos().y();
 			}
@@ -511,21 +515,23 @@ GW_Scrollbar::mouseMoveEvent (
 
 			// Dead zones at and beyond the rail ends
 			// for a movement direction towards the rail center
-			if ( lto > lfrom ) {
+			{
 				int lim ( _handle_len / 2 );
-				if ( lfrom < lim ) {
-					lfrom = lim;
-				}
-				if ( lto < lim ) {
-					lto = lim;
-				}
-			} else {
-				int lim ( _rail_len -  _handle_len / 2 );
-				if ( lfrom > lim ) {
-					lfrom = lim;
-				}
-				if ( lto > lim ) {
-					lto = lim;
+				if ( lto > lfrom ) {
+					if ( lfrom < lim ) {
+						lfrom = lim;
+					}
+					if ( lto < lim ) {
+						lto = lim;
+					}
+				} else {
+					lim = ( _rail_span - lim );
+					if ( lfrom > lim ) {
+						lfrom = lim;
+					}
+					if ( lto > lim ) {
+						lto = lim;
+					}
 				}
 			}
 			delta = ( lto - lfrom );
