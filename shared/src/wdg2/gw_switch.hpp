@@ -92,6 +92,7 @@ class GW_Switch :
 
 	::QSnd2::Proxy_Switch & _switch_proxy;
 	QSize _switch_size;
+	QRectF _brect;
 
 	::Flags _widget_flags;
 	::Flags _state_flags;

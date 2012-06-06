@@ -20,8 +20,11 @@ GW_Multi_Switch::GW_Multi_Switch (
 	::QSnd2::Proxies_Group1_Switch & snd_proxies_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_snd_proxies ( snd_proxies_n )
+_snd_proxies ( snd_proxies_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
+	setFlags ( QGraphicsItem::ItemHasNoContents );
+
 	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
 		::Wdg2::GW_Switch * gw_switch (
 			new ::Wdg2::GW_Switch ( *proxies_grp().switch_proxy ( ii ), this ) );
@@ -36,7 +39,7 @@ GW_Multi_Switch::~GW_Multi_Switch ( )
 QRectF
 GW_Multi_Switch::boundingRect ( ) const
 {
-	return QRectF ( 0.0, 0.0, 0.0, 0.0 );
+	return _brect;
 }
 
 void
@@ -54,7 +57,9 @@ void
 GW_Multi_Switch::set_sizes (
 	const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n )
 {
+	prepareGeometryChange();
 	_sizes = sizes_n;
+	_brect.setSize ( QSizeF ( int_width(), _sizes.area_height ) );
 
 	{
 		QSize ssize ( _sizes.switch_width, _sizes.area_height );

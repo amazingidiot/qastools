@@ -20,8 +20,11 @@ GW_Multi_Slider::GW_Multi_Slider (
 	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_proxies_grp ( snd_proxies_n )
+_proxies_grp ( snd_proxies_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
+	setFlags ( QGraphicsItem::ItemHasNoContents );
+
 	{
 		::QSnd2::Integer_Pair vrange;
 		_proxies_grp.int_range ( vrange );
@@ -43,7 +46,7 @@ GW_Multi_Slider::~GW_Multi_Slider ( )
 QRectF
 GW_Multi_Slider::boundingRect ( ) const
 {
-	return QRectF ( 0, 0, 0, 0 );
+	return _brect;
 }
 
 void
@@ -61,7 +64,10 @@ void
 GW_Multi_Slider::set_sizes (
 	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n )
 {
+	prepareGeometryChange();
 	_sizes = sizes_n;
+	_brect.setSize ( QSizeF ( int_width(), _sizes.area_height ) );
+
 	{
 		::Wdg2::GW_Slider_Sizes lsizes;
 		lsizes.size.setWidth ( _sizes.slider_width );

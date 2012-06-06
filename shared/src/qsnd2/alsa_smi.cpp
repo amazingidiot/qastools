@@ -451,7 +451,6 @@ ASMI_Proxies_Group3::alsa_callback_mixer_elem (
 			// TODO:
 			//pgrp->signalize_element_changed();
 		} else if ( ( mask_n & SND_CTL_EVENT_MASK_VALUE ) != 0 ) {
-			::std::cerr << "Alsa SMI: value changed\n";
 			pgrp->notify_proxies_value_changed();
 		} else {
 			// Unusual mask

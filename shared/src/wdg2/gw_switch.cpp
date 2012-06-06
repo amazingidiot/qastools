@@ -20,7 +20,8 @@ GW_Switch::GW_Switch (
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
 _switch_proxy ( switch_proxy_n ),
-_switch_size ( 0.0, 0.0 )
+_switch_size ( 0.0, 0.0 ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 	_switch_proxy.set_val_change_callback (
 		::Context_Callback ( this, ::Wdg2::GW_Switch::read_proxy_value_cb ) );
@@ -34,7 +35,7 @@ GW_Switch::~GW_Switch ( )
 QRectF
 GW_Switch::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), QSizeF ( _switch_size ) );
+	return _brect;
 }
 
 void
@@ -79,6 +80,7 @@ GW_Switch::set_switch_size (
 	if ( size_n != _switch_size ) {
 		prepareGeometryChange();
 		_switch_size = size_n;
+		_brect.setSize ( QSizeF ( _switch_size ) );
 		read_proxy_value();
 	}
 }

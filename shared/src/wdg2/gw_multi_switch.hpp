@@ -97,6 +97,7 @@ class GW_Multi_Switch :
 
 	::QSnd2::Proxies_Group1_Switch & _snd_proxies;
 	::Wdg2::GW_Multi_Switch_Sizes _sizes;
+	QRectF _brect;
 
 	QList < ::Wdg2::GW_Switch * > _switches;
 };

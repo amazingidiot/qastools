@@ -22,7 +22,8 @@ QGraphicsItem ( parent_n ),
 _proxies_group ( proxies_group_n ),
 _gw_levels ( 0 ),
 _gw_switches ( 0 ),
-_label_item ( 0 )
+_label_item ( 0 ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
@@ -77,7 +78,9 @@ void
 GW_Group2::set_sizes (
 	const ::Wdg2::GW_Group2_Sizes & sizes_n )
 {
+	prepareGeometryChange();
 	_sizes = sizes_n;
+	_brect.setSize ( QSizeF ( int_width(), _sizes.height ) );
 
 	_sizes.switches_height = _sizes.slider_width;
 	_sizes.switches_vgap = _sizes.channels_hgap;
@@ -186,8 +189,11 @@ GW_Group3::GW_Group3 (
 	::QSnd2::Proxies_Group3 & proxies_group_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_proxies_group ( proxies_group_n )
+_proxies_group ( proxies_group_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
+	setFlags ( QGraphicsItem::ItemHasNoContents );
+
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
 		::Wdg2::GW_Group2 * grp2 (
 			new ::Wdg2::GW_Group2 ( *_proxies_group.group ( ii ), this ) );
@@ -202,7 +208,7 @@ GW_Group3::~GW_Group3 ( )
 QRectF
 GW_Group3::boundingRect ( ) const
 {
-	return QRectF ( 0, 0, 0, 0 );
+	return _brect;
 }
 
 void
@@ -220,7 +226,9 @@ void
 GW_Group3::set_sizes (
 	const ::Wdg2::GW_Group3_Sizes & sizes_n )
 {
+	prepareGeometryChange();
 	_sizes = sizes_n;
+	_brect.setSize ( QSizeF ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -290,8 +298,11 @@ GW_Group4::GW_Group4 (
 	::QSnd2::Proxies_Group4 & proxies_group_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_proxies_group ( proxies_group_n )
+_proxies_group ( proxies_group_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
+	setFlags ( QGraphicsItem::ItemHasNoContents );
+
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
 		::Wdg2::GW_Group3 * grp3 (
 			new ::Wdg2::GW_Group3 ( *_proxies_group.group ( ii ), this ) );
@@ -306,7 +317,7 @@ GW_Group4::~GW_Group4 ( )
 QRectF
 GW_Group4::boundingRect ( ) const
 {
-	return QRectF ( 0, 0, 0, 0 );
+	return _brect;
 }
 
 void
@@ -324,7 +335,9 @@ void
 GW_Group4::set_sizes (
 	const ::Wdg2::GW_Group4_Sizes & sizes_n )
 {
+	prepareGeometryChange();
 	_sizes = sizes_n;
+	_brect.setSize ( QSizeF ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 

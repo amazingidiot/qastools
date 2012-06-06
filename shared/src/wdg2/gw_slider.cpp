@@ -22,14 +22,15 @@ namespace Wdg2
 GW_Slider_Rail::GW_Slider_Rail (
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_rail_size ( 0.0, 0.0 )
+_rail_size ( 0.0, 0.0 ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 }
 
 QRectF
 GW_Slider_Rail::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), QSizeF ( _rail_size ) );
+	return _brect;
 }
 
 void
@@ -67,6 +68,7 @@ GW_Slider_Rail::set_rail_size (
 	if ( size_n != _rail_size ) {
 		prepareGeometryChange();
 		_rail_size = size_n;
+		_brect.setSize ( QSizeF ( _rail_size ) );
 	}
 }
 
@@ -75,14 +77,15 @@ GW_Slider_Rail::set_rail_size (
 GW_Slider_Handle::GW_Slider_Handle (
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_handle_size ( 0.0, 0.0 )
+_handle_size ( 0.0, 0.0 ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 }
 
 QRectF
 GW_Slider_Handle::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), QSizeF ( _handle_size ) );
+	return _brect;
 }
 
 void
@@ -116,6 +119,7 @@ GW_Slider_Handle::set_handle_size (
 	if ( size_n != _handle_size ) {
 		prepareGeometryChange();
 		_handle_size = size_n;
+		_brect.setSize ( QSizeF ( _handle_size ) );
 	}
 }
 
@@ -126,6 +130,7 @@ GW_Slider::GW_Slider (
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
 _slider_proxy ( slider_proxy_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 ),
 _px_span ( 0 ),
 _rail ( this ),
 _handle ( this )
@@ -146,7 +151,7 @@ GW_Slider::~GW_Slider ( )
 QRectF
 GW_Slider::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), QSizeF ( _sizes.size ) );
+	return _brect;
 }
 
 void
@@ -172,7 +177,9 @@ void
 GW_Slider::set_sizes (
 	const ::Wdg2::GW_Slider_Sizes & sizes_n )
 {
+	prepareGeometryChange();
 	_sizes = sizes_n;
+	_brect.setSize ( QSizeF ( _sizes.size ) );
 	_px_span = ( _sizes.size.height() - _sizes.handle_size.height() );
 
 	_rail.set_rail_size ( _sizes.size );

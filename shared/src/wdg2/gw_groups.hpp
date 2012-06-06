@@ -120,9 +120,9 @@ class GW_Group2 :
 	QGraphicsSimpleTextItem * _label_item;
 
 	QString _str_label;
-	QRectF _brect;
 
 	::Wdg2::GW_Group2_Sizes _sizes;
+	QRectF _brect;
 };
 
 inline
@@ -214,6 +214,7 @@ class GW_Group3 :
 	QList < ::Wdg2::GW_Group2 * > _gw_groups;
 
 	::Wdg2::GW_Group3_Sizes _sizes;
+	QRectF _brect;
 };
 
 inline
@@ -222,7 +223,6 @@ GW_Group3::sizes ( ) const
 {
 	return _sizes;
 }
-
 
 
 
@@ -309,6 +309,7 @@ class GW_Group4 :
 	QList < ::Wdg2::GW_Group3 * > _gw_groups;
 
 	GW_Group4_Sizes _sizes;
+	QRectF _brect;
 };
 
 

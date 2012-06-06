@@ -43,7 +43,7 @@ class GW_Scrollbar_Button :
 
 	void
 	set_size (
-		const QSizeF & size_n );
+		const QSize & size_n );
 
 	Qt::Orientation
 	orientation ( ) const;
@@ -52,7 +52,8 @@ class GW_Scrollbar_Button :
 	// Private attributes
 	private:
 
-	QSizeF _size;
+	QSize _size;
+	QRectF _brect;
 };
 
 
@@ -80,7 +81,7 @@ class GW_Scrollbar_Rail :
 
 	void
 	set_size (
-		const QSizeF & size_n );
+		const QSize & size_n );
 
 	Qt::Orientation
 	orientation ( ) const;
@@ -89,7 +90,8 @@ class GW_Scrollbar_Rail :
 	// Private attributes
 	private:
 
-	QSizeF _size;
+	QSize _size;
+	QRectF _brect;
 };
 
 
@@ -116,7 +118,7 @@ class GW_Scrollbar_Handle :
 
 	void
 	set_size (
-		const QSizeF & size_n );
+		const QSize & size_n );
 
 	Qt::Orientation
 	orientation ( ) const;
@@ -131,7 +133,8 @@ class GW_Scrollbar_Handle :
 	// Private attributes
 	private:
 
-	QSizeF _size;
+	QSize _size;
+	QRectF _brect;
 	::Flags _state_flags;
 };
 
@@ -174,12 +177,12 @@ class GW_Scrollbar :
 		QWidget * widget_n = 0 );
 
 
-	const QSizeF &
+	const QSize &
 	size ( ) const;
 
 	void
 	set_size (
-		const QSizeF & size_n );
+		const QSize & size_n );
 
 
 	Qt::Orientation
@@ -262,7 +265,8 @@ class GW_Scrollbar :
 	// Private attributes
 	private:
 
-	QSizeF _size;
+	QSize _size;
+	QRectF _brect;
 	Qt::Orientation _orientation;
 
 	::Wdg2::Slider_Value_Map _value_map;
@@ -290,7 +294,7 @@ GW_Scrollbar::orientation ( ) const
 }
 
 inline
-const QSizeF &
+const QSize &
 GW_Scrollbar::size ( ) const
 {
 	return _size;

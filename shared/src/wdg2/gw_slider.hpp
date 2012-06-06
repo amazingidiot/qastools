@@ -62,6 +62,7 @@ class GW_Slider_Rail :
 	private:
 
 	QSize _rail_size;
+	QRectF _brect;
 	::Flags _state_flags;
 };
 
@@ -128,6 +129,7 @@ class GW_Slider_Handle :
 	private:
 
 	QSize _handle_size;
+	QRectF _brect;
 	::Flags _state_flags;
 };
 
@@ -276,6 +278,7 @@ class GW_Slider :
 
 	::QSnd2::Proxy_Slider & _slider_proxy;
 	::Wdg2::GW_Slider_Sizes _sizes;
+	QRectF _brect;
 	/// @brief handle_px_pos() must be <= this
 	unsigned int _px_span;
 

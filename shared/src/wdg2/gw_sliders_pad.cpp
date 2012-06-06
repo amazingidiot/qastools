@@ -167,7 +167,7 @@ GW_Sliders_Pad::update_geometries ( )
 		if ( _scrollbar != 0 ) {
 			_panels_shift_max = _group4->int_width() - _pad_size.width();
 			_scrollbar->setPos ( QPointF ( 0.0, lsizes.height + sbar_hgap ) );
-			_scrollbar->set_size ( QSizeF ( _pad_size.width(), sbar_height ) );
+			_scrollbar->set_size ( QSize ( _pad_size.width(), sbar_height ) );
 			_scrollbar->set_int_span ( _panels_shift_max );
 			_panels_shift = _scrollbar->int_value();
 		} else {

@@ -99,6 +99,7 @@ class GW_Multi_Slider :
 
 	::QSnd2::Proxies_Group1_Slider & _proxies_grp;
 	::Wdg2::GW_Multi_Slider_Sizes _sizes;
+	QRectF _brect;
 
 	::Wdg2::Slider_Value_Map _value_map;
 	QList < ::Wdg2::GW_Slider * > _sliders;

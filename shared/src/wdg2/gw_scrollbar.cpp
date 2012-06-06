@@ -22,14 +22,15 @@ namespace Wdg2
 
 GW_Scrollbar_Button::GW_Scrollbar_Button (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n )
+QGraphicsItem ( parent_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 }
 
 QRectF
 GW_Scrollbar_Button::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), QSizeF ( _size ) );
+	return _brect;
 }
 
 void
@@ -57,11 +58,12 @@ GW_Scrollbar_Button::paint (
 
 void
 GW_Scrollbar_Button::set_size (
-	const QSizeF & size_n )
+	const QSize & size_n )
 {
 	if ( _size != size_n ) {
 		prepareGeometryChange();
 		_size = size_n;
+		_brect.setSize ( QSizeF ( _size ) );
 	}
 }
 
@@ -77,14 +79,15 @@ GW_Scrollbar_Button::orientation ( ) const
 
 GW_Scrollbar_Rail::GW_Scrollbar_Rail (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n )
+QGraphicsItem ( parent_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 }
 
 QRectF
 GW_Scrollbar_Rail::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), _size );
+	return _brect;
 }
 
 void
@@ -123,11 +126,12 @@ GW_Scrollbar_Rail::paint (
 
 void
 GW_Scrollbar_Rail::set_size (
-	const QSizeF & size_n )
+	const QSize & size_n )
 {
 	if ( _size != size_n ) {
 		prepareGeometryChange();
 		_size = size_n;
+		_brect.setSize ( QSizeF ( _size ) );
 	}
 }
 
@@ -144,14 +148,15 @@ GW_Scrollbar_Rail::orientation ( ) const
 
 GW_Scrollbar_Handle::GW_Scrollbar_Handle (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n )
+QGraphicsItem ( parent_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 }
 
 QRectF
 GW_Scrollbar_Handle::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), _size );
+	return _brect;
 }
 
 void
@@ -182,11 +187,12 @@ GW_Scrollbar_Handle::paint (
 
 void
 GW_Scrollbar_Handle::set_size (
-	const QSizeF & size_n )
+	const QSize & size_n )
 {
 	if ( _size != size_n ) {
 		prepareGeometryChange();
 		_size = size_n;
+		_brect.setSize ( QSizeF ( _size ) );
 	}
 }
 
@@ -204,6 +210,7 @@ GW_Scrollbar::GW_Scrollbar (
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
 _size ( 0.0, 0.0 ),
+_brect ( 0.0, 0.0, 0.0, 0.0 ),
 _orientation ( Qt::Horizontal ),
 _int_span ( 0 ),
 _int_value ( 0 ),
@@ -226,7 +233,7 @@ GW_Scrollbar::~GW_Scrollbar ( )
 QRectF
 GW_Scrollbar::boundingRect ( ) const
 {
-	return QRectF ( QPointF ( 0.0, 0.0 ), _size );
+	return _brect;
 }
 
 void
@@ -254,11 +261,12 @@ GW_Scrollbar::paint (
 
 void
 GW_Scrollbar::set_size (
-	const QSizeF & size_n )
+	const QSize & size_n )
 {
 	if ( _size != size_n ) {
 		prepareGeometryChange();
 		_size = size_n;
+		_brect.setSize ( QSizeF ( _size ) );
 		update_geometries();
 	}
 }
@@ -316,9 +324,9 @@ GW_Scrollbar::update_geometries ( )
 	QPointF btn_pos_low;
 	QPointF btn_pos_high;
 	QPointF rail_pos;
-	QSizeF btn_size;
-	QSizeF rail_size;
-	QSizeF handle_size;
+	QSize btn_size;
+	QSize rail_size;
+	QSize handle_size;
 
 	{
 		unsigned int len_total;
@@ -335,14 +343,7 @@ GW_Scrollbar::update_geometries ( )
 			width_total = _size.width();
 		}
 
-		len_btn = ::std::floor ( len_total / 20 );
-		unsigned int len_btn_max ( 5*width_total/2 );
-		if ( len_btn > len_btn_max ) {
-			len_btn = len_btn_max;
-		}
-		if ( len_btn < width_total ) {
-			len_btn = width_total;
-		}
+		len_btn = ( 5*width_total ) / 3;
 
 		len_rail = len_total - 2*len_btn;
 		len_handle = len_btn;
