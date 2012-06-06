@@ -274,6 +274,7 @@ class GW_Scrollbar :
 	unsigned int _int_value;
 
 	unsigned int _rail_start;
+	unsigned int _rail_len;
 	unsigned int _handle_pos;
 	unsigned int _handle_pos_span;
 	unsigned int _handle_len;

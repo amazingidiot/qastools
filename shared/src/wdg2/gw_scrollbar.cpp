@@ -171,7 +171,7 @@ GW_Scrollbar_Handle::paint (
 
 	double pen_width ( 1.0 );
 	if ( state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
-		pen_width = 1.5;
+		pen_width = 1.75;
 	}
 	double pwhalf ( pen_width / 2.0 );
 	QRectF prect ( QPointF ( 0.0, 0.0 ), _size );
@@ -215,6 +215,7 @@ _orientation ( Qt::Horizontal ),
 _int_span ( 0 ),
 _int_value ( 0 ),
 _rail_start ( 0 ),
+_rail_len ( 0 ),
 _handle_pos ( 0 ),
 _handle_pos_span ( 0 ),
 _handle_len ( 0 ),
@@ -372,6 +373,7 @@ GW_Scrollbar::update_geometries ( )
 		}
 
 		_rail_start = len_btn;
+		_rail_len = len_rail;
 		_handle_pos = 0;
 		_handle_pos_span = len_rail - len_handle;
 		_handle_len = len_handle;
@@ -494,13 +496,39 @@ GW_Scrollbar::mouseMoveEvent (
 	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		int delta;
 		{
-			double deltaf;
+			int lfrom;
+			int lto;
 			if ( orientation() == Qt::Horizontal ) {
-				deltaf =  event_n->pos().x() - event_n->lastPos().x();
+				lfrom = event_n->lastPos().x();
+				lto   = event_n->pos().x();
 			} else {
-				deltaf = event_n->lastPos().y() - event_n->pos().y();
+				const double lheight ( _size.height() );
+				lfrom = lheight - event_n->lastPos().y();
+				lto   = lheight - event_n->pos().y();
 			}
-			delta = ::std::floor ( deltaf + 0.5 );
+			lfrom -= _rail_start;
+			lto   -= _rail_start;
+
+			// Dead zones at and beyond the rail ends
+			// for a movement direction towards the rail center
+			if ( lto > lfrom ) {
+				int lim ( _handle_len / 2 );
+				if ( lfrom < lim ) {
+					lfrom = lim;
+				}
+				if ( lto < lim ) {
+					lto = lim;
+				}
+			} else {
+				int lim ( _rail_len -  _handle_len / 2 );
+				if ( lfrom > lim ) {
+					lfrom = lim;
+				}
+				if ( lto > lim ) {
+					lto = lim;
+				}
+			}
+			delta = ( lto - lfrom );
 		}
 		move_handle ( delta );
 	}
