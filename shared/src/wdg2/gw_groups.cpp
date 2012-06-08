@@ -69,6 +69,13 @@ GW_Group2::set_sizes (
 	_sizes.levels_height -= _sizes.switches_height;
 	_sizes.levels_height -= _sizes.switches_vgap;
 
+	// Bounding rect
+	{
+		QRectF brect ( QPointF ( 0.0, 0.0 ),
+			QSizeF ( int_width(), _sizes.height ) );
+		set_bounding_rect ( brect );
+	}
+
 	update_geometries();
 }
 
@@ -123,13 +130,6 @@ GW_Group2::update_geometries ( )
 		_gw_switches->set_sizes ( gw_switches_sizes ( _sizes ) );
 		QPointF spos ( pos_x, _sizes.levels_height + _sizes.switches_vgap );
 		_gw_switches->setPos ( spos );
-	}
-
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
 	}
 }
 
@@ -193,6 +193,12 @@ GW_Group3::set_sizes (
 	const ::Wdg2::GW_Group3_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
+	// Bounding rect
+	{
+		QRectF brect ( QPointF ( 0.0, 0.0 ),
+			QSizeF ( int_width(), _sizes.height ) );
+		set_bounding_rect ( brect );
+	}
 	update_geometries();
 }
 
@@ -226,13 +232,6 @@ GW_Group3::update_geometries ( )
 			xpos += grp_width;
 			xpos += group2_hgap;
 		}
-	}
-
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
 	}
 }
 
@@ -288,8 +287,13 @@ void
 GW_Group4::set_sizes (
 	const ::Wdg2::GW_Group4_Sizes & sizes_n )
 {
-	prepareGeometryChange();
 	_sizes = sizes_n;
+	// Bounding rect
+	{
+		QRectF brect ( QPointF ( 0.0, 0.0 ),
+			QSizeF ( int_width(), _sizes.height ) );
+		set_bounding_rect ( brect );
+	}
 	update_geometries();
 }
 
@@ -324,13 +328,6 @@ GW_Group4::update_geometries ( )
 			xpos += grp_width;
 			xpos += group3_hgap;
 		}
-	}
-
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
 	}
 }
 

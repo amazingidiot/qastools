@@ -22,7 +22,7 @@ namespace Wdg2
 /// @brief GW_Switch
 ///
 class GW_Switch :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -33,9 +33,6 @@ class GW_Switch :
 
 	~GW_Switch ( );
 
-
-	QRectF
-	boundingRect ( ) const;
 
 	void
 	paint (
@@ -92,7 +89,6 @@ class GW_Switch :
 
 	::QSnd2::Proxy_Switch & _switch_proxy;
 	QSize _switch_size;
-	QRectF _brect;
 
 	::Flags _widget_flags;
 	::Flags _state_flags;
