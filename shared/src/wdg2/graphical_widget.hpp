@@ -17,8 +17,9 @@ namespace Wdg2
 
 enum GW_State_Flags
 {
-	GW_HAS_FOCUS = ( 1 << 0 ),
-	GW_IS_GRABBED = ( 1 << 1 )
+	GW_VALUE_READ = ( 1 << 0 ),
+	GW_HAS_FOCUS  = ( 1 << 1 ),
+	GW_IS_GRABBED = ( 1 << 2 )
 };
 
 
@@ -33,6 +34,9 @@ class GW_Widget :
 
 	GW_Widget (
 		QGraphicsItem * parent_n = 0 );
+
+	virtual
+	~GW_Widget ( );
 
 
 	QRectF

@@ -11,7 +11,7 @@
 
 #include <QGraphicsItem>
 #include "qsnd2/controls_proxies.hpp"
-#include "wdg2/gw_slider.hpp"
+#include "wdg2/gw_volume_slider.hpp"
 #include "wdg2/slider_value_map.hpp"
 
 namespace Wdg2
@@ -102,7 +102,7 @@ class GW_Multi_Slider :
 	QRectF _brect;
 
 	::Wdg2::Slider_Value_Map _value_map;
-	QList < ::Wdg2::GW_Slider * > _sliders;
+	QList < ::Wdg2::GW_Volume_Slider * > _sliders;
 	::Wdg2::GW_Slider_Handle * _slider_handle;
 };
 

@@ -31,8 +31,9 @@ _brect ( 0.0, 0.0, 0.0, 0.0 )
 		_value_map.set_value_range ( vrange[0], vrange[1] );
 	}
 	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
-		::Wdg2::GW_Slider * gw_slider (
-			new ::Wdg2::GW_Slider ( *proxies_grp().slider_proxy ( ii ), this ) );
+		::Wdg2::GW_Volume_Slider * gw_slider (
+			new ::Wdg2::GW_Volume_Slider ( *proxies_grp().slider_proxy ( ii ), this ) );
+		gw_slider->set_value_map ( &_value_map );
 		_sliders.append ( gw_slider );
 	}
 	_slider_handle = new ::Wdg2::GW_Slider_Handle ( this );

@@ -12,14 +12,11 @@
 #include "flags.hpp"
 #include "graphical_widget.hpp"
 #include "slider_value_map.hpp"
-#include "qsnd2/controls_proxies.hpp"
 #include <QGraphicsItem>
-
 
 namespace Wdg2
 {
 
-class GW_Multi_Slider;
 
 /// @brief GW_Slider_Rail
 ///
@@ -176,14 +173,26 @@ class GW_Slider :
 	public:
 
 	GW_Slider (
-		::QSnd2::Proxy_Slider & slider_proxy_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Slider ( );
 
 
-	const ::Wdg2::Slider_Value_Map &
+	::Wdg2::Slider_Value_Map *
 	value_map ( ) const;
+
+	void
+	set_value_map (
+		::Wdg2::Slider_Value_Map * map_n );
+
+	virtual
+	long
+	client_read_value ( ) const = 0;
+
+	virtual
+	void
+	client_set_value (
+		long value_n ) = 0;
 
 
 	const ::Wdg2::GW_Slider_Sizes &
@@ -202,18 +211,25 @@ class GW_Slider :
 		Qt::Orientation orientation_n );
 
 
-	void
-	update_handle_pos_from_value ( );
-
 	/// @brief Callback version
 	static
 	void
-	update_handle_pos_from_value_cb (
+	read_client_value_cb (
 		void * context_n );
 
 
 	// Protected methods
 	protected:
+
+	void
+	read_client_value ( );
+
+	void
+	write_client_value ( );
+
+	void
+	update_handle_pos_from_value ( );
+
 
 	void
 	update_geometries ( );
@@ -262,16 +278,19 @@ class GW_Slider :
 	// Private attributes
 	private:
 
-	::QSnd2::Proxy_Slider & _slider_proxy;
 	::Wdg2::GW_Slider_Sizes _sizes;
 
 	Qt::Orientation _orientation;
 	unsigned int _rail_span;
 	unsigned int _handle_pos;
 	unsigned int _handle_pos_span;
+	::Flags _state_flags;
 
-	::Wdg2::GW_Slider_Rail _rail;
-	::Wdg2::GW_Slider_Handle _handle;
+	long _int_value;
+	::Wdg2::Slider_Value_Map * _value_map;
+
+	::Wdg2::GW_Slider_Rail _rail_wdg;
+	::Wdg2::GW_Slider_Handle _handle_wdg;
 };
 
 inline
@@ -286,6 +305,13 @@ Qt::Orientation
 GW_Slider::orientation ( ) const
 {
 	return _orientation;
+}
+
+inline
+::Wdg2::Slider_Value_Map *
+GW_Slider::value_map ( ) const
+{
+	return _value_map;
 }
 
 

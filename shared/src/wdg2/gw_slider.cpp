@@ -120,36 +120,22 @@ GW_Slider_Handle::set_handle_size (
 
 
 GW_Slider::GW_Slider (
-	::QSnd2::Proxy_Slider & slider_proxy_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( parent_n ),
-_slider_proxy ( slider_proxy_n ),
 _orientation ( Qt::Vertical ),
 _rail_span ( 0 ),
 _handle_pos ( 0 ),
 _handle_pos_span ( 0 ),
-_rail ( this ),
-_handle ( this )
+_int_value ( 0 ),
+_value_map ( 0 ),
+_rail_wdg ( this ),
+_handle_wdg ( this )
 {
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
-	_rail.setPos ( QPointF ( 0.0, 0.0 ) );
-	_handle.setPos ( QPointF ( 0.0, 0.0 ) );
-
-	_slider_proxy.set_val_change_callback (
-		::Context_Callback ( this, ::Wdg2::GW_Slider::update_handle_pos_from_value_cb ) );
 }
 
 GW_Slider::~GW_Slider ( )
 {
-	_slider_proxy.set_val_change_callback ( ::Context_Callback() );
-}
-
-const ::Wdg2::Slider_Value_Map &
-GW_Slider::value_map ( ) const
-{
-	const ::Wdg2::GW_Multi_Slider & sgrp (
-		*static_cast < ::Wdg2::GW_Multi_Slider * > ( parentItem() ) );
-	return sgrp.value_map();
 }
 
 void
@@ -178,53 +164,98 @@ GW_Slider::set_orientation (
 }
 
 void
+GW_Slider::set_value_map (
+	::Wdg2::Slider_Value_Map * map_n )
+{
+	_value_map = map_n;
+}
+
+void
 GW_Slider::update_geometries ( )
 {
 	QSize rail_size ( _sizes.size );
-	QSize handle_size;
+	QSize handle_size ( 0, 0 );
 
 	unsigned int rail_length;
+	unsigned int handle_length ( _sizes.handle_length );
+
 	if ( orientation() == Qt::Horizontal ) {
-		handle_size = QSize ( _sizes.handle_length, _sizes.size.height() );
 		rail_length = _sizes.size.width();
+		if ( handle_length > rail_length ) {
+			handle_length = rail_length / 2;
+		}
+		handle_size = QSize ( handle_length, _sizes.size.height() );
 	} else {
-		handle_size = QSize ( _sizes.size.width(), _sizes.handle_length );
 		rail_length = _sizes.size.height();
+		if ( handle_length > rail_length ) {
+			handle_length = rail_length / 2;
+		}
+		handle_size = QSize ( _sizes.size.width(), handle_length );
 	}
 
-	_rail_span = rail_length - 1;
-	_handle.set_handle_size ( handle_size );
-	_handle_pos_span = ( rail_length - _sizes.handle_length );
-	_handle_pos = ( _handle_pos_span + 1 ); // Invalid value to enforce update
-	_rail.set_rail_size ( _sizes.size );
+	// update ranges
+	_rail_span = 0;
+	if ( rail_length > 0 ) {
+		_rail_span = rail_length - 1;
+	}
+	_handle_pos_span = ( rail_length - handle_length );
+	value_map()->set_px_span ( _handle_pos_span );
 
-	update_handle_pos_from_value();
+	// resize widgets
+	_rail_wdg.set_rail_size ( rail_size );
+	_handle_wdg.set_handle_size ( handle_size );
+
+	// update handle position
+	_handle_pos = ( _handle_pos_span + 1 ); // Invalid value to enforce update
+	if ( !_state_flags.has_any ( ::Wdg2::GW_VALUE_READ ) ) {
+		_state_flags.set ( ::Wdg2::GW_VALUE_READ );
+		read_client_value();
+	} else {
+		update_handle_pos_from_value();
+	}
+}
+
+void
+GW_Slider::read_client_value ( )
+{
+	long cval ( this->client_read_value() );
+	if ( cval != _int_value ) {
+		_int_value = cval;
+		update_handle_pos_from_value();
+	}
+}
+
+void
+GW_Slider::write_client_value ( )
+{
+	this->client_set_value ( _int_value );
+}
+
+void
+GW_Slider::read_client_value_cb (
+	void * context_n )
+{
+	::Wdg2::GW_Slider & gw_slider (
+		*reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
+	gw_slider.read_client_value();
 }
 
 void
 GW_Slider::update_handle_pos_from_value ( )
 {
-	if ( !_handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
-		const unsigned int pos (
-			value_map().px_from_value ( _slider_proxy.int_value() ) );
-		set_handle_pos ( pos );
+	if ( !_handle_wdg.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+		set_handle_pos ( value_map()->px_from_value ( _int_value ) );
 	}
-}
-
-void
-GW_Slider::update_handle_pos_from_value_cb (
-	void * context_n )
-{
-	::Wdg2::GW_Slider & gw_slider (
-		*reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
-	gw_slider.update_handle_pos_from_value();
 }
 
 void
 GW_Slider::update_value_from_handle_pos ( )
 {
-	_slider_proxy.set_int_value (
-		value_map().value_from_px ( _handle_pos ) );
+	const long cval ( value_map()->value_from_px ( _handle_pos ) );
+	if ( _int_value != cval ) {
+		_int_value = cval;
+		write_client_value();
+	}
 }
 
 void
@@ -237,15 +268,13 @@ GW_Slider::set_handle_pos (
 	if ( _handle_pos != pos_n ) {
 		_handle_pos = pos_n;
 		{
-			QPointF pos;
+			QPointF pos ( 0.0, 0.0 );
 			if ( orientation() == Qt::Horizontal ) {
 				pos.setX ( _handle_pos );
-				pos.setY ( 0.0 );
 			} else {
-				pos.setX ( 0.0 );
-				pos.setY ( _sizes.size.height() - _sizes.handle_length - _handle_pos );
+				pos.setY ( _handle_pos_span - _handle_pos );
 			}
-			_handle.setPos ( pos );
+			_handle_wdg.setPos ( pos );
 		}
 	}
 }
@@ -262,7 +291,7 @@ GW_Slider::point_in_handle (
 		pwidth = point_n.y();
 		hwidth = _sizes.size.height();
 	} else {
-		plen   = _sizes.size.height() - 1 - (int)point_n.y();
+		plen   = (int)_rail_span - (int)point_n.y();
 		pwidth = point_n.x();
 		hwidth = _sizes.size.width();
 	}
@@ -300,10 +329,10 @@ GW_Slider::focusInEvent (
 	QFocusEvent * event_n )
 {
 	//::std::cout << "GW_Slider::focusInEvent"  << "\n";
-	_rail.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
-	_handle.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
-	_rail.update();
-	_handle.update();
+	_rail_wdg.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
+	_handle_wdg.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
+	_rail_wdg.update();
+	_handle_wdg.update();
 }
 
 void
@@ -311,10 +340,10 @@ GW_Slider::focusOutEvent (
 	QFocusEvent * event_n )
 {
 	//::std::cout << "GW_Slider::focusOutEvent"  << "\n";
-	_rail.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
-	_handle.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
-	_rail.update();
-	_handle.update();
+	_rail_wdg.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
+	_handle_wdg.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
+	_rail_wdg.update();
+	_handle_wdg.update();
 }
 
 void
@@ -323,8 +352,8 @@ GW_Slider::mousePressEvent (
 {
 	//::std::cout << "GW_Slider::mousePressEvent"  << "\n";
 	if ( point_in_handle ( event_n->pos() ) ) {
-		_handle.state_flags().set ( ::Wdg2::GW_IS_GRABBED );
-		_handle.update();
+		_handle_wdg.state_flags().set ( ::Wdg2::GW_IS_GRABBED );
+		_handle_wdg.update();
 	}
 }
 
@@ -333,10 +362,10 @@ GW_Slider::mouseReleaseEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	//::std::cout << "GW_Slider::mouseReleaseEvent"  << "\n";
-	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
-		_handle.state_flags().unset ( ::Wdg2::GW_IS_GRABBED );
+	if ( _handle_wdg.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+		_handle_wdg.state_flags().unset ( ::Wdg2::GW_IS_GRABBED );
 		update_handle_pos_from_value();
-		_handle.update();
+		_handle_wdg.update();
 	}
 }
 
@@ -345,7 +374,7 @@ GW_Slider::mouseMoveEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	//::std::cout << "GW_Slider::mouseMoveEvent" << "\n";
-	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+	if ( _handle_wdg.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		int delta;
 		{
 			int lfrom;
@@ -354,7 +383,7 @@ GW_Slider::mouseMoveEvent (
 				lfrom = event_n->lastPos().x();
 				lto   = event_n->pos().x();
 			} else {
-				const double lheight ( _sizes.size.height() - 1 );
+				const double lheight ( _rail_span );
 				lfrom = lheight - event_n->lastPos().y();
 				lto   = lheight - event_n->pos().y();
 			}

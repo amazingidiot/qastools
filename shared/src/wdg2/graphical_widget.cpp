@@ -19,6 +19,10 @@ _brect ( 0.0, 0.0, 0.0, 0.0 )
 {
 }
 
+GW_Widget::~GW_Widget ( )
+{
+}
+
 QRectF
 GW_Widget::boundingRect ( ) const
 {
