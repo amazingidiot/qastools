@@ -413,8 +413,6 @@
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
 		<Unit filename="shared/src/wdg2/graphical_widget.cpp" />
 		<Unit filename="shared/src/wdg2/graphical_widget.hpp" />
-		<Unit filename="shared/src/wdg2/gw_basic_slider.cpp" />
-		<Unit filename="shared/src/wdg2/gw_basic_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.cpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.hpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_slider.cpp" />
@@ -429,6 +427,8 @@
 		<Unit filename="shared/src/wdg2/gw_sliders_pad.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.hpp" />
+		<Unit filename="shared/src/wdg2/gw_volume_slider.cpp" />
+		<Unit filename="shared/src/wdg2/gw_volume_slider.hpp" />
 		<Unit filename="shared/src/wdg2/int_math.cpp" />
 		<Unit filename="shared/src/wdg2/int_math.hpp" />
 		<Unit filename="shared/src/wdg2/slider_value_map.cpp" />
