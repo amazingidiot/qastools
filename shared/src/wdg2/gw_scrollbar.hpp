@@ -10,8 +10,8 @@
 #define __INC_wdg2_gw_scrollbar_hpp__
 
 #include "flags.hpp"
-#include "callbacks.hpp"
 #include "graphical_widget.hpp"
+#include "callbacks.hpp"
 #include "slider_value_map.hpp"
 #include <QGraphicsItem>
 
@@ -22,7 +22,7 @@ namespace Wdg2
 /// @brief Button for the GW_Scrollbar
 ///
 class GW_Scrollbar_Button :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -31,9 +31,6 @@ class GW_Scrollbar_Button :
 		QGraphicsItem * parent_n = 0 );
 
 
-	QRectF
-	boundingRect ( ) const;
-
 	void
 	paint (
 		QPainter * painter_n,
@@ -53,7 +50,6 @@ class GW_Scrollbar_Button :
 	private:
 
 	QSize _size;
-	QRectF _brect;
 };
 
 
@@ -61,7 +57,7 @@ class GW_Scrollbar_Button :
 /// @brief Rail for the GW_Scrollbar
 ///
 class GW_Scrollbar_Rail :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -70,9 +66,6 @@ class GW_Scrollbar_Rail :
 		QGraphicsItem * parent_n = 0 );
 
 
-	QRectF
-	boundingRect ( ) const;
-
 	void
 	paint (
 		QPainter * painter_n,
@@ -91,7 +84,6 @@ class GW_Scrollbar_Rail :
 	private:
 
 	QSize _size;
-	QRectF _brect;
 };
 
 
@@ -99,7 +91,7 @@ class GW_Scrollbar_Rail :
 /// @brief Handle for the GW_Scrollbar
 ///
 class GW_Scrollbar_Handle :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -107,8 +99,6 @@ class GW_Scrollbar_Handle :
 	GW_Scrollbar_Handle (
 		QGraphicsItem * parent_n = 0 );
 
-	QRectF
-	boundingRect ( ) const;
 
 	void
 	paint (
@@ -134,7 +124,6 @@ class GW_Scrollbar_Handle :
 	private:
 
 	QSize _size;
-	QRectF _brect;
 	::Flags _state_flags;
 };
 
@@ -156,7 +145,7 @@ GW_Scrollbar_Handle::state_flags ( ) const
 /// @brief GW_Scrollbar
 ///
 class GW_Scrollbar :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -165,16 +154,6 @@ class GW_Scrollbar :
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Scrollbar ( );
-
-
-	QRectF
-	boundingRect ( ) const;
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
 
 
 	const QSize &
@@ -266,7 +245,6 @@ class GW_Scrollbar :
 	private:
 
 	QSize _size;
-	QRectF _brect;
 	Qt::Orientation _orientation;
 
 	::Wdg2::Slider_Value_Map _value_map;

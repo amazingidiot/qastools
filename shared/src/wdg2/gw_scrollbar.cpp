@@ -22,15 +22,8 @@ namespace Wdg2
 
 GW_Scrollbar_Button::GW_Scrollbar_Button (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+::Wdg2::GW_Widget ( parent_n )
 {
-}
-
-QRectF
-GW_Scrollbar_Button::boundingRect ( ) const
-{
-	return _brect;
 }
 
 void
@@ -61,9 +54,13 @@ GW_Scrollbar_Button::set_size (
 	const QSize & size_n )
 {
 	if ( _size != size_n ) {
-		prepareGeometryChange();
 		_size = size_n;
-		_brect.setSize ( QSizeF ( _size ) );
+
+		// Bounding rect
+		{
+			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _size ) );
+			set_bounding_rect ( brect );
+		}
 	}
 }
 
@@ -79,15 +76,8 @@ GW_Scrollbar_Button::orientation ( ) const
 
 GW_Scrollbar_Rail::GW_Scrollbar_Rail (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+::Wdg2::GW_Widget ( parent_n )
 {
-}
-
-QRectF
-GW_Scrollbar_Rail::boundingRect ( ) const
-{
-	return _brect;
 }
 
 void
@@ -129,9 +119,13 @@ GW_Scrollbar_Rail::set_size (
 	const QSize & size_n )
 {
 	if ( _size != size_n ) {
-		prepareGeometryChange();
 		_size = size_n;
-		_brect.setSize ( QSizeF ( _size ) );
+
+		// Bounding rect
+		{
+			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _size ) );
+			set_bounding_rect ( brect );
+		}
 	}
 }
 
@@ -148,15 +142,8 @@ GW_Scrollbar_Rail::orientation ( ) const
 
 GW_Scrollbar_Handle::GW_Scrollbar_Handle (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+::Wdg2::GW_Widget ( parent_n )
 {
-}
-
-QRectF
-GW_Scrollbar_Handle::boundingRect ( ) const
-{
-	return _brect;
 }
 
 void
@@ -190,9 +177,13 @@ GW_Scrollbar_Handle::set_size (
 	const QSize & size_n )
 {
 	if ( _size != size_n ) {
-		prepareGeometryChange();
 		_size = size_n;
-		_brect.setSize ( QSizeF ( _size ) );
+
+		// Bounding rect
+		{
+			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _size ) );
+			set_bounding_rect ( brect );
+		}
 	}
 }
 
@@ -208,9 +199,8 @@ GW_Scrollbar_Handle::orientation ( ) const
 
 GW_Scrollbar::GW_Scrollbar (
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
+::Wdg2::GW_Widget ( parent_n ),
 _size ( 0.0, 0.0 ),
-_brect ( 0.0, 0.0, 0.0, 0.0 ),
 _orientation ( Qt::Horizontal ),
 _int_span ( 0 ),
 _int_value ( 0 ),
@@ -231,35 +221,6 @@ GW_Scrollbar::~GW_Scrollbar ( )
 {
 }
 
-QRectF
-GW_Scrollbar::boundingRect ( ) const
-{
-	return _brect;
-}
-
-void
-GW_Scrollbar::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-
-	double pen_width ( 1.0 );
-	double pwhalf ( pen_width / 2.0 );
-	QRectF prect ( QPointF ( 0.0, 0.0 ), _size );
-	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
-	{
-		QPen ppen ( option_n->palette.color ( QPalette::ButtonText ) );
-		ppen.setWidth ( pen_width );
-		painter_n->setPen ( ppen );
-	}
-	painter_n->setBrush ( option_n->palette.color ( QPalette::Button ) );
-	painter_n->drawRoundedRect ( prect, 2.0, 2.0 );
-}
-
 void
 GW_Scrollbar::set_size (
 	const QSize & size_n )
@@ -267,7 +228,13 @@ GW_Scrollbar::set_size (
 	if ( _size != size_n ) {
 		prepareGeometryChange();
 		_size = size_n;
-		_brect.setSize ( QSizeF ( _size ) );
+
+		// Bounding rect
+		{
+			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _size ) );
+			set_bounding_rect ( brect );
+		}
+
 		update_geometries();
 	}
 }

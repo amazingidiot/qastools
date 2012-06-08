@@ -9,11 +9,12 @@
 #ifndef __INC_wdg2_gw_groups_hpp__
 #define __INC_wdg2_gw_groups_hpp__
 
-#include <QGraphicsItem>
-#include <QGraphicsSimpleTextItem>
+#include "graphical_widget.hpp"
 #include "gw_multi_slider.hpp"
 #include "gw_multi_switch.hpp"
 #include "qsnd2/controls_proxies.hpp"
+#include <QGraphicsItem>
+#include <QGraphicsSimpleTextItem>
 
 namespace Wdg2
 {
@@ -56,7 +57,7 @@ label_hpado ( 2 )
 /// @brief GW_Group2
 ///
 class GW_Group2 :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -66,16 +67,6 @@ class GW_Group2 :
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Group2 ( );
-
-
-	QRectF
-	boundingRect ( ) const;
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
 
 
 	const ::Wdg2::GW_Group2_Sizes &
@@ -122,7 +113,6 @@ class GW_Group2 :
 	QString _str_label;
 
 	::Wdg2::GW_Group2_Sizes _sizes;
-	QRectF _brect;
 };
 
 inline
@@ -158,7 +148,7 @@ group2_hgap ( 0 )
 /// @brief GW_Group3
 ///
 class GW_Group3 :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -168,15 +158,6 @@ class GW_Group3 :
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Group3 ( );
-
-	QRectF
-	boundingRect ( ) const;
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
 
 
 	const ::Wdg2::GW_Group3_Sizes &
@@ -214,7 +195,6 @@ class GW_Group3 :
 	QList < ::Wdg2::GW_Group2 * > _gw_groups;
 
 	::Wdg2::GW_Group3_Sizes _sizes;
-	QRectF _brect;
 };
 
 inline
@@ -253,7 +233,7 @@ group3_hgap ( 0 )
 /// @brief GW_Group4
 ///
 class GW_Group4 :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
@@ -263,15 +243,6 @@ class GW_Group4 :
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Group4 ( );
-
-	QRectF
-	boundingRect ( ) const;
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
 
 
 	const ::Wdg2::GW_Group4_Sizes &
@@ -309,7 +280,6 @@ class GW_Group4 :
 	QList < ::Wdg2::GW_Group3 * > _gw_groups;
 
 	GW_Group4_Sizes _sizes;
-	QRectF _brect;
 };
 
 

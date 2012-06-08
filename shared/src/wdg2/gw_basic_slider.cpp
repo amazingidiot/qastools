@@ -59,13 +59,9 @@ GW_Slider_Rail::set_rail_size (
 	const QSize & size_n )
 {
 	if ( size_n != _rail_size ) {
+		prepareGeometryChange();
 		_rail_size = size_n;
-
-		// Bounding rect
-		{
-			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _rail_size ) );
-			set_bounding_rect ( brect );
-		}
+		_brect.setSize ( QSizeF ( _rail_size ) );
 	}
 }
 
@@ -107,13 +103,9 @@ GW_Slider_Handle::set_handle_size (
 	const QSize & size_n )
 {
 	if ( size_n != _handle_size ) {
+		prepareGeometryChange();
 		_handle_size = size_n;
-
-		// Bounding rect
-		{
-			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _handle_size ) );
-			set_bounding_rect ( brect );
-		}
+		_brect.setSize ( QSizeF ( _handle_size ) );
 	}
 }
 
@@ -122,8 +114,9 @@ GW_Slider_Handle::set_handle_size (
 GW_Slider::GW_Slider (
 	::QSnd2::Proxy_Slider & slider_proxy_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n ),
+QGraphicsItem ( parent_n ),
 _slider_proxy ( slider_proxy_n ),
+_brect ( 0.0, 0.0, 0.0, 0.0 ),
 _orientation ( Qt::Vertical ),
 _rail_span ( 0 ),
 _handle_pos ( 0 ),
@@ -134,14 +127,32 @@ _handle ( this )
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 	_rail.setPos ( QPointF ( 0.0, 0.0 ) );
 	_handle.setPos ( QPointF ( 0.0, 0.0 ) );
-
 	_slider_proxy.set_val_change_callback (
 		::Context_Callback ( this, ::Wdg2::GW_Slider::update_handle_pos_from_value_cb ) );
+
+	update_handle_pos_from_value();
 }
 
 GW_Slider::~GW_Slider ( )
 {
 	_slider_proxy.set_val_change_callback ( ::Context_Callback() );
+}
+
+QRectF
+GW_Slider::boundingRect ( ) const
+{
+	return _brect;
+}
+
+void
+GW_Slider::paint (
+	QPainter * painter_n,
+	const QStyleOptionGraphicsItem * option_n,
+	QWidget * widget_n )
+{
+	(void) painter_n;
+	(void) option_n;
+	(void) widget_n;
 }
 
 const ::Wdg2::Slider_Value_Map &
@@ -156,13 +167,9 @@ void
 GW_Slider::set_sizes (
 	const ::Wdg2::GW_Slider_Sizes & sizes_n )
 {
+	prepareGeometryChange();
 	_sizes = sizes_n;
-
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _sizes.size ) );
-		set_bounding_rect ( brect );
-	}
+	_brect.setSize ( QSizeF ( _sizes.size ) );
 
 	update_geometries();
 }
@@ -221,7 +228,7 @@ GW_Slider::update_handle_pos_from_value_cb (
 }
 
 void
-GW_Slider::update_value_from_handle_pos ( )
+GW_Slider::update_proxy_value_from_handle_pos ( )
 {
 	_slider_proxy.set_int_value (
 		value_map().value_from_px ( _handle_pos ) );
@@ -291,7 +298,7 @@ GW_Slider::move_handle (
 			amount_n = amount_max;
 		}
 		set_handle_pos ( _handle_pos + amount_n );
-		update_value_from_handle_pos();
+		update_proxy_value_from_handle_pos();
 	}
 }
 

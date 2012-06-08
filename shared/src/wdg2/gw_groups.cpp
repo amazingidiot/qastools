@@ -18,12 +18,11 @@ namespace Wdg2
 GW_Group2::GW_Group2 (
 	::QSnd2::Proxies_Group2 & proxies_group_n,
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
+GW_Widget ( parent_n ),
 _proxies_group ( proxies_group_n ),
 _gw_levels ( 0 ),
 _gw_switches ( 0 ),
-_label_item ( 0 ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+_label_item ( 0 )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
@@ -57,30 +56,11 @@ GW_Group2::~GW_Group2 ( )
 {
 }
 
-QRectF
-GW_Group2::boundingRect ( ) const
-{
-	return _brect;
-}
-
-void
-GW_Group2::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-}
-
 void
 GW_Group2::set_sizes (
 	const ::Wdg2::GW_Group2_Sizes & sizes_n )
 {
-	prepareGeometryChange();
 	_sizes = sizes_n;
-	_brect.setSize ( QSizeF ( int_width(), _sizes.height ) );
 
 	_sizes.switches_height = _sizes.slider_width;
 	_sizes.switches_vgap = _sizes.channels_hgap;
@@ -120,19 +100,21 @@ void
 GW_Group2::update_geometries ( )
 {
 	double pos_x ( 0.0 );
+	// Label
 	if ( _label_item != 0 ) {
 		pos_x += _sizes.label_fnt_height;
 		pos_x += _sizes.label_hpadi;
 		pos_x += _sizes.label_hpado;
 
 		QRectF brect ( _label_item->boundingRect() );
-		_label_item->setPos ( QPointF ( _sizes.label_hpado, ::std::ceil ( brect.width() ) ) );
+		_label_item->setPos (
+			QPointF ( _sizes.label_hpado, ::std::ceil ( brect.width() ) ) );
 		_label_item->setRotation ( -90.0 );
 	}
 
 	// Levels
 	if ( _gw_levels != 0 ) {
-		_gw_levels->set_sizes ( gw_levels_sizes ( _sizes) );
+		_gw_levels->set_sizes ( gw_levels_sizes ( _sizes ) );
 		_gw_levels->setPos ( QPointF ( pos_x, 0.0 ) );
 	}
 
@@ -144,9 +126,11 @@ GW_Group2::update_geometries ( )
 	}
 
 	// Bounding rect
-	_brect.moveTopLeft ( QPointF ( 0.0, 0.0 ) );
-	_brect.setHeight ( _sizes.height );
-	_brect.setWidth ( int_width() );
+	{
+		QRectF brect ( QPointF ( 0.0, 0.0 ),
+			QSizeF ( int_width(), _sizes.height ) );
+		set_bounding_rect ( brect );
+	}
 }
 
 unsigned int
@@ -188,9 +172,8 @@ GW_Group2::int_width_probe (
 GW_Group3::GW_Group3 (
 	::QSnd2::Proxies_Group3 & proxies_group_n,
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
-_proxies_group ( proxies_group_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+GW_Widget ( parent_n ),
+_proxies_group ( proxies_group_n )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
@@ -205,30 +188,11 @@ GW_Group3::~GW_Group3 ( )
 {
 }
 
-QRectF
-GW_Group3::boundingRect ( ) const
-{
-	return _brect;
-}
-
-void
-GW_Group3::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-}
-
 void
 GW_Group3::set_sizes (
 	const ::Wdg2::GW_Group3_Sizes & sizes_n )
 {
-	prepareGeometryChange();
 	_sizes = sizes_n;
-	_brect.setSize ( QSizeF ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -262,6 +226,13 @@ GW_Group3::update_geometries ( )
 			xpos += grp_width;
 			xpos += group2_hgap;
 		}
+	}
+
+	// Bounding rect
+	{
+		QRectF brect ( QPointF ( 0.0, 0.0 ),
+			QSizeF ( int_width(), _sizes.height ) );
+		set_bounding_rect ( brect );
 	}
 }
 
@@ -297,9 +268,8 @@ GW_Group3::int_width_probe (
 GW_Group4::GW_Group4 (
 	::QSnd2::Proxies_Group4 & proxies_group_n,
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
-_proxies_group ( proxies_group_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+::Wdg2::GW_Widget ( parent_n ),
+_proxies_group ( proxies_group_n )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
@@ -314,30 +284,12 @@ GW_Group4::~GW_Group4 ( )
 {
 }
 
-QRectF
-GW_Group4::boundingRect ( ) const
-{
-	return _brect;
-}
-
-void
-GW_Group4::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-}
-
 void
 GW_Group4::set_sizes (
 	const ::Wdg2::GW_Group4_Sizes & sizes_n )
 {
 	prepareGeometryChange();
 	_sizes = sizes_n;
-	_brect.setSize ( QSizeF ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -372,6 +324,13 @@ GW_Group4::update_geometries ( )
 			xpos += grp_width;
 			xpos += group3_hgap;
 		}
+	}
+
+	// Bounding rect
+	{
+		QRectF brect ( QPointF ( 0.0, 0.0 ),
+			QSizeF ( int_width(), _sizes.height ) );
+		set_bounding_rect ( brect );
 	}
 }
 
