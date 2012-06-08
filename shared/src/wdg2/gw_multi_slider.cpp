@@ -34,6 +34,7 @@ _brect ( 0.0, 0.0, 0.0, 0.0 )
 		::Wdg2::GW_Volume_Slider * gw_slider (
 			new ::Wdg2::GW_Volume_Slider ( *proxies_grp().slider_proxy ( ii ), this ) );
 		gw_slider->set_value_map ( &_value_map );
+		gw_slider->read_value_from_proxy();
 		_sliders.append ( gw_slider );
 	}
 	_slider_handle = new ::Wdg2::GW_Slider_Handle ( this );

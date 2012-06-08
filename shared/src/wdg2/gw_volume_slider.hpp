@@ -31,15 +31,22 @@ class GW_Volume_Slider :
 	~GW_Volume_Slider ( );
 
 
-	const ::Wdg2::Slider_Value_Map &
-	value_map ( ) const;
-
-	long
-	client_read_value ( ) const;
+	void
+	read_value_from_proxy ( );
 
 	void
-	client_set_value (
-		long value_n );
+	write_value_to_proxy ( ) const;
+
+
+	static
+	void
+	read_value_from_proxy_cb (
+		void * context_n );
+
+	static
+	void
+	write_value_to_proxy_cb (
+		void * context_n );
 
 
 	// Private attributes

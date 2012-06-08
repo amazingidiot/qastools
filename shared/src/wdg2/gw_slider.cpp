@@ -143,13 +143,11 @@ GW_Slider::set_sizes (
 	const ::Wdg2::GW_Slider_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
-
 	// Bounding rect
 	{
 		QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _sizes.size ) );
 		set_bounding_rect ( brect );
 	}
-
 	update_geometries();
 }
 
@@ -168,6 +166,14 @@ GW_Slider::set_value_map (
 	::Wdg2::Slider_Value_Map * map_n )
 {
 	_value_map = map_n;
+	update_handle_pos_from_value();
+}
+
+void
+GW_Slider::set_val_change_callback (
+	const ::Context_Callback & cb_n )
+{
+	_val_change_cb = cb_n;
 }
 
 void
@@ -207,37 +213,23 @@ GW_Slider::update_geometries ( )
 
 	// update handle position
 	_handle_pos = ( _handle_pos_span + 1 ); // Invalid value to enforce update
-	if ( !_state_flags.has_any ( ::Wdg2::GW_VALUE_READ ) ) {
-		_state_flags.set ( ::Wdg2::GW_VALUE_READ );
-		read_client_value();
-	} else {
+	update_handle_pos_from_value();
+}
+
+void
+GW_Slider::set_int_value (
+	long value_n )
+{
+	if ( value_n < value_map()->value_min() ) {
+		value_n = value_map()->value_min();
+	}
+	if ( value_n > value_map()->value_max() ) {
+		value_n = value_map()->value_max();
+	}
+	if ( value_n != _int_value ) {
+		_int_value = value_n;
 		update_handle_pos_from_value();
 	}
-}
-
-void
-GW_Slider::read_client_value ( )
-{
-	long cval ( this->client_read_value() );
-	if ( cval != _int_value ) {
-		_int_value = cval;
-		update_handle_pos_from_value();
-	}
-}
-
-void
-GW_Slider::write_client_value ( )
-{
-	this->client_set_value ( _int_value );
-}
-
-void
-GW_Slider::read_client_value_cb (
-	void * context_n )
-{
-	::Wdg2::GW_Slider & gw_slider (
-		*reinterpret_cast < ::Wdg2::GW_Slider * > ( context_n ) );
-	gw_slider.read_client_value();
 }
 
 void
@@ -254,7 +246,7 @@ GW_Slider::update_value_from_handle_pos ( )
 	const long cval ( value_map()->value_from_px ( _handle_pos ) );
 	if ( _int_value != cval ) {
 		_int_value = cval;
-		write_client_value();
+		_val_change_cb.call_if_valid();
 	}
 }
 

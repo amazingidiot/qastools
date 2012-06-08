@@ -10,6 +10,7 @@
 #define __INC_wdg2_gw_slider_hpp__
 
 #include "flags.hpp"
+#include "callbacks.hpp"
 #include "graphical_widget.hpp"
 #include "slider_value_map.hpp"
 #include <QGraphicsItem>
@@ -178,6 +179,8 @@ class GW_Slider :
 	~GW_Slider ( );
 
 
+	/// @brief Determines the range of int_value()
+	///
 	::Wdg2::Slider_Value_Map *
 	value_map ( ) const;
 
@@ -185,14 +188,29 @@ class GW_Slider :
 	set_value_map (
 		::Wdg2::Slider_Value_Map * map_n );
 
-	virtual
-	long
-	client_read_value ( ) const = 0;
 
-	virtual
+	/// @brief The current integer value
+	///
+	long
+	int_value ( ) const;
+
+	/// @brief Sets the int value -> slider position
+	///
+	/// The val_change_callback() won't be called by this,
+	/// even if the value changed.
 	void
-	client_set_value (
-		long value_n ) = 0;
+	set_int_value (
+		long value_n );
+
+
+	/// @brief Gets called when the value changed
+	///
+	const ::Context_Callback &
+	val_change_callback ( ) const;
+
+	void
+	set_val_change_callback (
+		const ::Context_Callback & cb_n );
 
 
 	const ::Wdg2::GW_Slider_Sizes &
@@ -203,6 +221,8 @@ class GW_Slider :
 		const ::Wdg2::GW_Slider_Sizes & sizes_n );
 
 
+	/// @brief The slider orientation
+	///
 	Qt::Orientation
 	orientation ( ) const;
 
@@ -211,21 +231,8 @@ class GW_Slider :
 		Qt::Orientation orientation_n );
 
 
-	/// @brief Callback version
-	static
-	void
-	read_client_value_cb (
-		void * context_n );
-
-
 	// Protected methods
 	protected:
-
-	void
-	read_client_value ( );
-
-	void
-	write_client_value ( );
 
 	void
 	update_handle_pos_from_value ( );
@@ -249,6 +256,8 @@ class GW_Slider :
 	move_handle (
 		int amount_n );
 
+
+	// Scene events
 
 	void
 	focusInEvent (
@@ -284,10 +293,11 @@ class GW_Slider :
 	unsigned int _rail_span;
 	unsigned int _handle_pos;
 	unsigned int _handle_pos_span;
-	::Flags _state_flags;
 
 	long _int_value;
 	::Wdg2::Slider_Value_Map * _value_map;
+
+	::Context_Callback _val_change_cb;
 
 	::Wdg2::GW_Slider_Rail _rail_wdg;
 	::Wdg2::GW_Slider_Handle _handle_wdg;
@@ -312,6 +322,13 @@ inline
 GW_Slider::value_map ( ) const
 {
 	return _value_map;
+}
+
+inline
+long
+GW_Slider::int_value ( ) const
+{
+	return _int_value;
 }
 
 

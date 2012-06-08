@@ -20,8 +20,10 @@ GW_Volume_Slider::GW_Volume_Slider (
 ::Wdg2::GW_Slider ( parent_n ),
 _slider_proxy ( slider_proxy_n )
 {
+	set_val_change_callback (
+		::Context_Callback ( this, ::Wdg2::GW_Volume_Slider::write_value_to_proxy_cb ) );
 	_slider_proxy.set_val_change_callback (
-		::Context_Callback ( this, ::Wdg2::GW_Slider::read_client_value_cb ) );
+		::Context_Callback ( this, ::Wdg2::GW_Volume_Slider::read_value_from_proxy_cb ) );
 }
 
 GW_Volume_Slider::~GW_Volume_Slider ( )
@@ -29,25 +31,34 @@ GW_Volume_Slider::~GW_Volume_Slider ( )
 	_slider_proxy.set_val_change_callback ( ::Context_Callback() );
 }
 
-const ::Wdg2::Slider_Value_Map &
-GW_Volume_Slider::value_map ( ) const
+void
+GW_Volume_Slider::read_value_from_proxy ( )
 {
-	const ::Wdg2::GW_Multi_Slider & sgrp (
-		*static_cast < ::Wdg2::GW_Multi_Slider * > ( parentItem() ) );
-	return sgrp.value_map();
-}
-
-long
-GW_Volume_Slider::client_read_value ( ) const
-{
-	return _slider_proxy.int_value();
+	set_int_value ( _slider_proxy.int_value() );
 }
 
 void
-GW_Volume_Slider::client_set_value (
-	long value_n )
+GW_Volume_Slider::read_value_from_proxy_cb (
+	void * context_n )
 {
-	_slider_proxy.set_int_value ( value_n );
+	::Wdg2::GW_Volume_Slider * slider (
+		reinterpret_cast < ::Wdg2::GW_Volume_Slider * > ( context_n ) );
+	slider->read_value_from_proxy();
+}
+
+void
+GW_Volume_Slider::write_value_to_proxy ( ) const
+{
+	_slider_proxy.set_int_value ( int_value() );
+}
+
+void
+GW_Volume_Slider::write_value_to_proxy_cb (
+	void * context_n )
+{
+	::Wdg2::GW_Volume_Slider * slider (
+		reinterpret_cast < ::Wdg2::GW_Volume_Slider * > ( context_n ) );
+	slider->write_value_to_proxy();
 }
 
 

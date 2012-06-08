@@ -10,9 +10,10 @@
 #define __INC_wdg2_gw_scrollbar_hpp__
 
 #include "flags.hpp"
-#include "graphical_widget.hpp"
 #include "callbacks.hpp"
+#include "graphical_widget.hpp"
 #include "slider_value_map.hpp"
+#include "gw_slider.hpp"
 #include <QGraphicsItem>
 
 namespace Wdg2
@@ -54,94 +55,6 @@ class GW_Scrollbar_Button :
 
 
 
-/// @brief Rail for the GW_Scrollbar
-///
-class GW_Scrollbar_Rail :
-	public ::Wdg2::GW_Widget
-{
-	// Public methods
-	public:
-
-	GW_Scrollbar_Rail (
-		QGraphicsItem * parent_n = 0 );
-
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
-
-	void
-	set_size (
-		const QSize & size_n );
-
-	Qt::Orientation
-	orientation ( ) const;
-
-
-	// Private attributes
-	private:
-
-	QSize _size;
-};
-
-
-
-/// @brief Handle for the GW_Scrollbar
-///
-class GW_Scrollbar_Handle :
-	public ::Wdg2::GW_Widget
-{
-	// Public methods
-	public:
-
-	GW_Scrollbar_Handle (
-		QGraphicsItem * parent_n = 0 );
-
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
-
-	void
-	set_size (
-		const QSize & size_n );
-
-	Qt::Orientation
-	orientation ( ) const;
-
-	::Flags &
-	state_flags ( );
-
-	const ::Flags &
-	state_flags ( ) const;
-
-
-	// Private attributes
-	private:
-
-	QSize _size;
-	::Flags _state_flags;
-};
-
-inline
-::Flags &
-GW_Scrollbar_Handle::state_flags ( )
-{
-	return _state_flags;
-}
-
-inline
-const ::Flags &
-GW_Scrollbar_Handle::state_flags ( ) const
-{
-	return _state_flags;
-}
-
-
 /// @brief GW_Scrollbar
 ///
 class GW_Scrollbar :
@@ -180,6 +93,8 @@ class GW_Scrollbar :
 		unsigned int span_n );
 
 
+	/// @brief The current integer value
+	///
 	unsigned int
 	int_value ( ) const;
 
@@ -188,6 +103,8 @@ class GW_Scrollbar :
 		unsigned int value_n );
 
 
+	/// @brief Gets called when the value changed
+	///
 	const ::Context_Callback &
 	val_change_callback ( ) const;
 
@@ -196,24 +113,13 @@ class GW_Scrollbar :
 		const ::Context_Callback & cb_n );
 
 
-	// Protected methods
-	protected:
-
 	void
-	mousePressEvent (
-		QGraphicsSceneMouseEvent * event_n );
+	read_slider_value ( );
 
+	static
 	void
-	mouseReleaseEvent (
-		QGraphicsSceneMouseEvent * event_n );
-
-	void
-	mouseMoveEvent (
-		QGraphicsSceneMouseEvent * event_n );
-
-	void
-	wheelEvent (
-		QGraphicsSceneWheelEvent * event_n );
+	read_slider_value_cb (
+		void * context_n );
 
 
 	// Private methods
@@ -221,24 +127,6 @@ class GW_Scrollbar :
 
 	void
 	update_geometries ( );
-
-	void
-	set_handle_pos (
-		unsigned int pos_n );
-
-	void
-	update_handle_pos_from_value ( );
-
-	void
-	update_value_from_handle_pos ( );
-
-	bool
-	point_in_handle (
-		const QPointF & point_n ) const;
-
-	void
-	move_handle (
-		int amount_n );
 
 
 	// Private attributes
@@ -250,19 +138,11 @@ class GW_Scrollbar :
 	::Wdg2::Slider_Value_Map _value_map;
 	unsigned int _int_span;
 	unsigned int _int_value;
-
-	unsigned int _rail_start;
-	unsigned int _rail_span;
-	unsigned int _handle_pos;
-	unsigned int _handle_pos_span;
-	unsigned int _handle_len;
-
 	::Context_Callback _val_change_cb;
 
 	::Wdg2::GW_Scrollbar_Button _btn_low;
 	::Wdg2::GW_Scrollbar_Button _btn_high;
-	::Wdg2::GW_Scrollbar_Rail _rail;
-	::Wdg2::GW_Scrollbar_Handle _handle;
+	::Wdg2::GW_Slider _slider;
 };
 
 inline
