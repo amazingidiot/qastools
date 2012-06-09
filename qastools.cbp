@@ -431,6 +431,8 @@
 		<Unit filename="shared/src/wdg2/gw_volume_slider.hpp" />
 		<Unit filename="shared/src/wdg2/int_math.cpp" />
 		<Unit filename="shared/src/wdg2/int_math.hpp" />
+		<Unit filename="shared/src/wdg2/scene_database.cpp" />
+		<Unit filename="shared/src/wdg2/scene_database.hpp" />
 		<Unit filename="shared/src/wdg2/slider_value_map.cpp" />
 		<Unit filename="shared/src/wdg2/slider_value_map.hpp" />
 		<Unit filename="shared/src/wdg2/sliders_pad.cpp" />
