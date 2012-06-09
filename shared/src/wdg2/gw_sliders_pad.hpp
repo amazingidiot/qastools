@@ -9,6 +9,7 @@
 #ifndef __INC_wdg2_gw_sliders_pad_hpp__
 #define __INC_wdg2_gw_sliders_pad_hpp__
 
+#include "graphical_widget.hpp"
 #include "gw_scrollbar.hpp"
 #include <QGraphicsItem>
 #include <QScopedPointer>
@@ -24,12 +25,13 @@ namespace Wdg2
 /// @brief GW_Sliders_Pad
 ///
 class GW_Sliders_Pad :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
 
 	GW_Sliders_Pad (
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Sliders_Pad ( );

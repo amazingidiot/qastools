@@ -24,6 +24,7 @@ namespace Wdg2
 Sliders_Pad::Sliders_Pad (
 	QWidget * parent_n ) :
 QGraphicsView ( parent_n ),
+_gw_sliders_pad ( &_scene_db ),
 _opengl_enabled ( false )
 {
 	setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );

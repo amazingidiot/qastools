@@ -18,8 +18,9 @@ namespace Wdg2
 
 GW_Multi_Slider::GW_Multi_Slider (
 	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _proxies_grp ( snd_proxies_n ),
 _brect ( 0.0, 0.0, 0.0, 0.0 )
 {
@@ -32,12 +33,12 @@ _brect ( 0.0, 0.0, 0.0, 0.0 )
 	}
 	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
 		::Wdg2::GW_Volume_Slider * gw_slider (
-			new ::Wdg2::GW_Volume_Slider ( *proxies_grp().slider_proxy ( ii ), this ) );
+			new ::Wdg2::GW_Volume_Slider ( *proxies_grp().slider_proxy ( ii ), scene_db(), this ) );
 		gw_slider->set_value_map ( &_value_map );
 		gw_slider->read_value_from_proxy();
 		_sliders.append ( gw_slider );
 	}
-	_slider_handle = new ::Wdg2::GW_Slider_Handle ( this );
+	_slider_handle = new ::Wdg2::GW_Slider_Handle ( scene_db(), this );
 	_slider_handle->setVisible ( false );
 }
 

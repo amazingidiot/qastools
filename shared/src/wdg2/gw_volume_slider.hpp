@@ -26,6 +26,7 @@ class GW_Volume_Slider :
 
 	GW_Volume_Slider (
 		::QSnd2::Proxy_Slider & slider_proxy_n,
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Volume_Slider ( );

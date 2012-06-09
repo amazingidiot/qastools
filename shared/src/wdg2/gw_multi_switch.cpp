@@ -18,8 +18,9 @@ namespace Wdg2
 
 GW_Multi_Switch::GW_Multi_Switch (
 	::QSnd2::Proxies_Group1_Switch & snd_proxies_n,
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _snd_proxies ( snd_proxies_n ),
 _brect ( 0.0, 0.0, 0.0, 0.0 )
 {
@@ -27,7 +28,7 @@ _brect ( 0.0, 0.0, 0.0, 0.0 )
 
 	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
 		::Wdg2::GW_Switch * gw_switch (
-			new ::Wdg2::GW_Switch ( *proxies_grp().switch_proxy ( ii ), this ) );
+			new ::Wdg2::GW_Switch ( *proxies_grp().switch_proxy ( ii ), scene_db(), this ) );
 		_switches.append ( gw_switch );
 	}
 }

@@ -62,6 +62,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_sliders_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_scrollbar.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_volume_slider.cpp
+	${SHARED_SRC_DIR}/wdg2/scene_database.cpp
 
 
 	${SHARED_SRC_DIR}/dpe/image.cpp

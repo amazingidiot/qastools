@@ -28,6 +28,7 @@ class GW_Slider_Rail :
 	public:
 
 	GW_Slider_Rail (
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 
@@ -91,6 +92,7 @@ class GW_Slider_Handle :
 	public:
 
 	GW_Slider_Handle (
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 
@@ -174,6 +176,7 @@ class GW_Slider :
 	public:
 
 	GW_Slider (
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Slider ( );

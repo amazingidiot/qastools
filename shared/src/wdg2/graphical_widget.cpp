@@ -13,9 +13,11 @@ namespace Wdg2
 
 
 GW_Widget::GW_Widget (
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+_brect ( 0.0, 0.0, 0.0, 0.0 ),
+_scene_db ( scene_db_n )
 {
 }
 

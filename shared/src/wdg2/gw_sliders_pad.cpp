@@ -21,8 +21,9 @@ namespace Wdg2
 
 
 GW_Sliders_Pad::GW_Sliders_Pad (
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-QGraphicsItem ( parent_n ),
+::Wdg2::GW_Widget ( scene_db(), parent_n ),
 _snd_controls ( 0 ),
 _pad_size ( 0, 0 ),
 _panels_shift ( 0 ),
@@ -129,7 +130,7 @@ GW_Sliders_Pad::build_scene_items ( )
 {
 	if ( _snd_controls->num_groups() > 0 ) {
 		_group4.reset (
-			new ::Wdg2::GW_Group4 ( *_snd_controls->group ( 0 ), this ) );
+			new ::Wdg2::GW_Group4 ( *_snd_controls->group ( 0 ), scene_db(), this ) );
 	}
 }
 
@@ -152,7 +153,7 @@ GW_Sliders_Pad::update_geometries ( )
 				lsizes.height = _pad_size.height();
 				lsizes.height -= sbar_hgap + sbar_height;
 				if ( _scrollbar == 0 ) {
-					_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( this ) );
+					_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( scene_db(), this ) );
 					_scrollbar->set_val_change_callback (
 						::Context_Callback ( this, ::Wdg2::GW_Sliders_Pad::read_panels_shift_cb ) );
 				}

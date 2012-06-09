@@ -16,8 +16,9 @@ namespace Wdg2
 
 GW_Volume_Slider::GW_Volume_Slider (
 	::QSnd2::Proxy_Slider & slider_proxy_n,
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Slider ( parent_n ),
+::Wdg2::GW_Slider ( scene_db_n, parent_n ),
 _slider_proxy ( slider_proxy_n )
 {
 	set_val_change_callback (

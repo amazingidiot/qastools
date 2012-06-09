@@ -9,7 +9,9 @@
 #ifndef __INC_wdg2_graphical_widget_hpp__
 #define __INC_wdg2_graphical_widget_hpp__
 
+#include "scene_database.hpp"
 #include <QGraphicsItem>
+
 
 namespace Wdg2
 {
@@ -33,11 +35,18 @@ class GW_Widget :
 	public:
 
 	GW_Widget (
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	virtual
 	~GW_Widget ( );
 
+
+	::Wdg2::Scene_Database *
+	scene_db ( ) const;
+
+
+	// bounding rect
 
 	QRectF
 	boundingRect ( ) const;
@@ -58,7 +67,16 @@ class GW_Widget :
 	private:
 
 	QRectF _brect;
+	::Wdg2::Scene_Database * _scene_db;
 };
+
+
+inline
+::Wdg2::Scene_Database *
+GW_Widget::scene_db ( ) const
+{
+	return _scene_db;
+}
 
 
 } // End of namespace

@@ -29,6 +29,7 @@ class GW_Switch :
 
 	GW_Switch (
 		::QSnd2::Proxy_Switch & switch_proxy_n,
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Switch ( );

@@ -64,6 +64,7 @@ class GW_Group2 :
 
 	GW_Group2 (
 		::QSnd2::Proxies_Group2 & proxies_group_n,
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Group2 ( );
@@ -155,6 +156,7 @@ class GW_Group3 :
 
 	GW_Group3 (
 		::QSnd2::Proxies_Group3 & proxies_group_n,
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Group3 ( );
@@ -240,6 +242,7 @@ class GW_Group4 :
 
 	GW_Group4 (
 		::QSnd2::Proxies_Group4 & proxies_group_n,
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Group4 ( );

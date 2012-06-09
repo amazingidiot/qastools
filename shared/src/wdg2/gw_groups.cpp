@@ -17,8 +17,9 @@ namespace Wdg2
 
 GW_Group2::GW_Group2 (
 	::QSnd2::Proxies_Group2 & proxies_group_n,
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-GW_Widget ( parent_n ),
+GW_Widget ( scene_db_n, parent_n ),
 _proxies_group ( proxies_group_n ),
 _gw_levels ( 0 ),
 _gw_switches ( 0 ),
@@ -30,7 +31,7 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Slider * sliders ( _proxies_group.sliders() );
 		if ( sliders != 0 ) {
-			_gw_levels = new ::Wdg2::GW_Multi_Slider ( *sliders, this );
+			_gw_levels = new ::Wdg2::GW_Multi_Slider ( *sliders, scene_db(), this );
 		}
 	}
 
@@ -38,7 +39,7 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Switch * switches ( _proxies_group.switches() );
 		if ( switches != 0 ) {
-			_gw_switches = new ::Wdg2::GW_Multi_Switch ( *switches, this );
+			_gw_switches = new ::Wdg2::GW_Multi_Switch ( *switches, scene_db(), this );
 		}
 	}
 
@@ -171,15 +172,16 @@ GW_Group2::int_width_probe (
 
 GW_Group3::GW_Group3 (
 	::QSnd2::Proxies_Group3 & proxies_group_n,
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-GW_Widget ( parent_n ),
+GW_Widget ( scene_db_n, parent_n ),
 _proxies_group ( proxies_group_n )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
 		::Wdg2::GW_Group2 * grp2 (
-			new ::Wdg2::GW_Group2 ( *_proxies_group.group ( ii ), this ) );
+			new ::Wdg2::GW_Group2 ( *_proxies_group.group ( ii ), scene_db(), this ) );
 		_gw_groups.append ( grp2 );
 	}
 }
@@ -266,15 +268,16 @@ GW_Group3::int_width_probe (
 
 GW_Group4::GW_Group4 (
 	::QSnd2::Proxies_Group4 & proxies_group_n,
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _proxies_group ( proxies_group_n )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
 		::Wdg2::GW_Group3 * grp3 (
-			new ::Wdg2::GW_Group3 ( *_proxies_group.group ( ii ), this ) );
+			new ::Wdg2::GW_Group3 ( *_proxies_group.group ( ii ), scene_db(), this ) );
 		_gw_groups.append ( grp3 );
 	}
 }

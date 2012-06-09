@@ -20,8 +20,9 @@ namespace Wdg2
 
 
 GW_Slider_Rail::GW_Slider_Rail (
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _rail_size ( 0.0, 0.0 )
 {
 }
@@ -72,8 +73,9 @@ GW_Slider_Rail::set_rail_size (
 
 
 GW_Slider_Handle::GW_Slider_Handle (
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _handle_size ( 0.0, 0.0 )
 {
 }
@@ -120,16 +122,17 @@ GW_Slider_Handle::set_handle_size (
 
 
 GW_Slider::GW_Slider (
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _orientation ( Qt::Vertical ),
 _rail_span ( 0 ),
 _handle_pos ( 0 ),
 _handle_pos_span ( 0 ),
 _int_value ( 0 ),
 _value_map ( 0 ),
-_rail_wdg ( this ),
-_handle_wdg ( this )
+_rail_wdg ( scene_db(), this ),
+_handle_wdg ( scene_db(), this )
 {
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 }

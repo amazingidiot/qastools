@@ -21,8 +21,9 @@ namespace Wdg2
 
 
 GW_Scrollbar_Button::GW_Scrollbar_Button (
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n )
+::Wdg2::GW_Widget ( scene_db_n, parent_n )
 {
 }
 
@@ -74,15 +75,16 @@ GW_Scrollbar_Button::orientation ( ) const
 
 
 GW_Scrollbar::GW_Scrollbar (
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _size ( 0.0, 0.0 ),
 _orientation ( Qt::Horizontal ),
 _int_span ( 0 ),
 _int_value ( 0 ),
-_btn_low ( this ),
-_btn_high ( this ),
-_slider ( this )
+_btn_low ( scene_db(), this ),
+_btn_high ( scene_db(), this ),
+_slider ( scene_db(), this )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 	_slider.set_value_map ( &_value_map );

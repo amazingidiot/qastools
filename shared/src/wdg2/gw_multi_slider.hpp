@@ -39,13 +39,14 @@ channels_hgap ( 0 )
 /// @brief GW_Multi_Slider
 ///
 class GW_Multi_Slider :
-	public QGraphicsItem
+	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
 
 	GW_Multi_Slider (
 		::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Multi_Slider ( );

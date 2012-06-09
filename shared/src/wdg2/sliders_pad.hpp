@@ -9,6 +9,7 @@
 #ifndef __INC_wdg2_sliders_pad_hpp__
 #define __INC_wdg2_sliders_pad_hpp__
 
+#include "scene_database.hpp"
 #include "gw_sliders_pad.hpp"
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -71,6 +72,7 @@ class Sliders_Pad :
 	// Private attributes
 	private:
 
+	::Wdg2::Scene_Database _scene_db;
 	::Wdg2::GW_Sliders_Pad _gw_sliders_pad;
 	QGraphicsScene _scene;
 

@@ -17,8 +17,9 @@ namespace Wdg2
 
 GW_Switch::GW_Switch (
 	::QSnd2::Proxy_Switch & switch_proxy_n,
+	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _switch_proxy ( switch_proxy_n ),
 _switch_size ( 0.0, 0.0 )
 {

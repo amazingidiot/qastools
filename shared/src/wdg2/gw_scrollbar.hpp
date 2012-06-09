@@ -29,6 +29,7 @@ class GW_Scrollbar_Button :
 	public:
 
 	GW_Scrollbar_Button (
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 
@@ -64,6 +65,7 @@ class GW_Scrollbar :
 	public:
 
 	GW_Scrollbar (
+		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Scrollbar ( );
