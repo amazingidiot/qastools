@@ -318,6 +318,9 @@ class Values_Set
 	void
 	clear ( );
 
+	bool
+	is_clear ( ) const;
+
 	unsigned int
 	num_entries ( ) const;
 
@@ -410,6 +413,12 @@ class Values_Set
 	::std::vector < ::dpe2::Values_Set::Entry > _entries;
 };
 
+inline
+bool
+Values_Set::is_clear ( ) const
+{
+	return ( num_entries() == 0 );
+}
 
 inline
 unsigned int

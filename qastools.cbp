@@ -226,6 +226,8 @@
 		<Unit filename="shared/src/dpe2/pixmap_request.hpp" />
 		<Unit filename="shared/src/dpe2/pixmap_server.cpp" />
 		<Unit filename="shared/src/dpe2/pixmap_server.hpp" />
+		<Unit filename="shared/src/dpe2/pixmap_server_shared.cpp" />
+		<Unit filename="shared/src/dpe2/pixmap_server_shared.hpp" />
 		<Unit filename="shared/src/dpe2/values_set.cpp" />
 		<Unit filename="shared/src/dpe2/values_set.hpp" />
 		<Unit filename="shared/src/flags.hpp" />

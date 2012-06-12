@@ -14,12 +14,13 @@
 
 // Forward declaration
 namespace dpe2 {
+	class Values_Set;
 	class Pixmap;
 	class Pixmap_Request;
 	class Pixmap_Handle;
-	class Painter;
-	class Paint_Thread_Shared;
+	class Pixmap_Server_Shared;
 	class Paint_Thread;
+	class Painter;
 }
 
 
@@ -79,6 +80,10 @@ class Pixmap_Server
 	void
 	stop_threads ( );
 
+	::dpe2::Pixmap_Handle *
+	find_handle (
+		::dpe2::Values_Set & vals_n );
+
 	void
 	process_handle (
 		::dpe2::Pixmap_Handle * handle_n );
@@ -96,7 +101,7 @@ class Pixmap_Server
 	private:
 
 	QList < ::dpe2::Pixmap_Handle * > _pixmap_handles;
-	QScopedPointer < ::dpe2::Paint_Thread_Shared > _shared;
+	QScopedPointer < ::dpe2::Pixmap_Server_Shared > _shared;
 	QList < ::dpe2::Paint_Thread * > _threads;
 	bool _multithread;
 };

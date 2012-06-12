@@ -54,6 +54,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/dpe2/values_set.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_request.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_server.cpp
+	${SHARED_SRC_DIR}/dpe2/pixmap_server_shared.cpp
 	${SHARED_SRC_DIR}/dpe2/paint_thread.cpp
 	${SHARED_SRC_DIR}/dpe2/painter.cpp
 

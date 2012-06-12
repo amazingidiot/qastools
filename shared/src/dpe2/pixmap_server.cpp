@@ -7,6 +7,7 @@
 //
 
 #include "pixmap_server.hpp"
+#include "pixmap_server_shared.hpp"
 #include "pixmap_request.hpp"
 #include "pixmap_handle.hpp"
 #include "painter.hpp"
@@ -23,7 +24,7 @@ namespace dpe2
 
 Pixmap_Server::Pixmap_Server ( )
 {
-	_shared.reset ( new ::dpe2::Paint_Thread_Shared );
+	_shared.reset ( new ::dpe2::Pixmap_Server_Shared );
 	_multithread = multithreading_is_safe();
 
 	/* TODO:
@@ -50,7 +51,7 @@ bool
 Pixmap_Server::multithreading_is_safe ( ) const
 {
 	bool res ( true );
-	// https://bugreports.qt.nokia.com/browse/QTBUG-14614
+	/// @see https://bugreports.qt.nokia.com/browse/QTBUG-14614
 	if ( QT_VERSION < QT_VERSION_CHECK(4, 7, 2) ) {
 		res = false;
 	}
@@ -74,25 +75,22 @@ Pixmap_Server::set_multithread (
 void
 Pixmap_Server::start_threads ( )
 {
-	/* TODO
 	int num_threads ( QThread::idealThreadCount() );
 	if ( num_threads <= 0 ) {
 		num_threads = 1;
 	}
 
 	for ( int ii = 0; ii < num_threads; ++ii ) {
-		_threads.append ( new Painter_Thread ( *_shared ) );
+		_threads.append ( new ::dpe2::Paint_Thread ( *_shared ) );
 	}
 	for ( int ii = 0; ii < num_threads; ++ii ) {
 		_threads[ii]->start();
 	}
-	*/
 }
 
 void
 Pixmap_Server::stop_threads ( )
 {
-	/* TODO
 	if ( _threads.size() > 0 ) {
 		// Send abort signal
 		_shared->abort_threads ( _threads.size() );
@@ -102,7 +100,6 @@ Pixmap_Server::stop_threads ( )
 		}
 		_threads.clear();
 	}
-	*/
 }
 
 /* TODO
@@ -117,6 +114,21 @@ Pixmap_Server::stop_timeout ( )
 	}
 }
 */
+
+::dpe2::Pixmap_Handle *
+Pixmap_Server::find_handle (
+	::dpe2::Values_Set & vals_n )
+{
+	::dpe2::Pixmap_Handle * res ( 0 );
+	for ( int ii=0; ii < _pixmap_handles.size(); ++ii ) {
+		::dpe2::Pixmap_Handle * phandle ( _pixmap_handles[ii] );
+		if ( vals_n == phandle->id_values ) {
+			res = phandle;
+			break;
+		}
+	}
+	return res;
+}
 
 void
 Pixmap_Server::send_request (
