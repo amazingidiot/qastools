@@ -98,6 +98,9 @@ User_Value_String::str ( ) const
 ///
 class Value_Item
 {
+	// Public typedefs
+	public:
+
 	enum Types {
 		TYPE_INVALID = 0,
 		TYPE_INT,
@@ -346,6 +349,27 @@ class Values_Set
 
 	const ::dpe2::Value_Item *
 	value_for_key (
+		unsigned int key_n ) const;
+
+
+	bool
+	value_int (
+		int & val_n,
+		unsigned int key_n ) const;
+
+	bool
+	value_uint (
+		unsigned int & val_n,
+		unsigned int key_n ) const;
+
+	bool
+	value_double (
+		double & val_n,
+		unsigned int key_n ) const;
+
+	bool
+	value_user (
+		::dpe2::User_Value * * val_n,
 		unsigned int key_n ) const;
 
 

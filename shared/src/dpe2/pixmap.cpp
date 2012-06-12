@@ -6,19 +6,15 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "image.hpp"
+#include "pixmap.hpp"
 
-#include <QPixmap>
-
-
-namespace dpe
+namespace dpe2
 {
 
 
 Pixmap::Pixmap ( ) :
 _width ( 0 ),
-_height ( 0 ),
-_stride ( 0 )
+_height ( 0 )
 {
 }
 
@@ -32,19 +28,16 @@ Pixmap::clear ( )
 	_pixmap.reset();
 	_width = 0;
 	_height = 0;
-	_stride = 0;
 }
 
 void
 Pixmap::set_size (
 	unsigned int width_n,
-	unsigned int height_n,
-	unsigned int stride_n )
+	unsigned int height_n )
 {
 	clear();
 	_width = width_n;
 	_height = height_n;
-	_stride = stride_n;
 	_qimage = QImage ( _width, _height, QImage::Format_ARGB32_Premultiplied );
 }
 

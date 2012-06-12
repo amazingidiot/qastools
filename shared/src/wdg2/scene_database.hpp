@@ -9,6 +9,7 @@
 #ifndef __INC_wdg2_scene_database_hpp__
 #define __INC_wdg2_scene_database_hpp__
 
+#include "dpe2/pixmap_server.hpp"
 #include <QGraphicsItem>
 
 namespace Wdg2
@@ -27,9 +28,23 @@ class Scene_Database
 	~Scene_Database ( );
 
 
+	::dpe2::Pixmap_Server *
+	pxm_server ( ) const;
+
+
 	// Private attributes
 	private:
+
+	::dpe2::Pixmap_Server * _pxm_server;
 };
+
+
+inline
+::dpe2::Pixmap_Server *
+Scene_Database::pxm_server ( ) const
+{
+	return _pxm_server;
+}
 
 
 } // End of namespace

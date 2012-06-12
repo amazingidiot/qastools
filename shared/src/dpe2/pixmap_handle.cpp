@@ -6,10 +6,25 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "pixmap_request.hpp"
+#include "pixmap_handle.hpp"
+#include "pixmap.hpp"
+#include <iostream>
+#include <cassert>
+
 
 namespace dpe2
 {
+
+
+Pixmap_Handle::Pixmap_Handle ( ) :
+pixmap ( 0 ),
+num_users ( 0 )
+{
+}
+
+Pixmap_Handle::~Pixmap_Handle ( )
+{
+}
 
 
 } // End of namespace

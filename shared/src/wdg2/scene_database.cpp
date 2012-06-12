@@ -14,10 +14,13 @@ namespace Wdg2
 
 Scene_Database::Scene_Database ( )
 {
+	// TODO: ScopedPointer?
+	_pxm_server = new ::dpe2::Pixmap_Server;
 }
 
 Scene_Database::~Scene_Database ( )
 {
+	delete _pxm_server;
 }
 
 

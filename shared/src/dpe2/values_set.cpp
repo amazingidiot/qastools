@@ -257,6 +257,66 @@ Values_Set::value_for_key (
 	return 0;
 }
 
+bool
+Values_Set::value_int (
+	int & val_n,
+	unsigned int key_n ) const
+{
+	const ::dpe2::Value_Item * val (
+		value_for_key ( key_n ) );
+	if ( val != 0 ) {
+		if ( val->type() == ::dpe2::Value_Item::TYPE_INT ) {
+			val_n = val->as_int();
+		}
+	}
+	return false;
+}
+
+bool
+Values_Set::value_uint (
+	unsigned int & val_n,
+	unsigned int key_n ) const
+{
+	const ::dpe2::Value_Item * val (
+		value_for_key ( key_n ) );
+	if ( val != 0 ) {
+		if ( val->type() == ::dpe2::Value_Item::TYPE_UINT ) {
+			val_n = val->as_uint();
+		}
+	}
+	return false;
+}
+
+bool
+Values_Set::value_double (
+	double & val_n,
+	unsigned int key_n ) const
+{
+	const ::dpe2::Value_Item * val (
+		value_for_key ( key_n ) );
+	if ( val != 0 ) {
+		if ( val->type() == ::dpe2::Value_Item::TYPE_DOUBLE ) {
+			val_n = val->as_double();
+		}
+	}
+	return false;
+}
+
+bool
+Values_Set::value_user (
+	::dpe2::User_Value * * val_n,
+	unsigned int key_n ) const
+{
+	const ::dpe2::Value_Item * val (
+		value_for_key ( key_n ) );
+	if ( val != 0 ) {
+		if ( val->type() == ::dpe2::Value_Item::TYPE_USER ) {
+			*val_n = val->as_user();
+		}
+	}
+	return false;
+}
+
 void
 Values_Set::assign (
 	const ::dpe2::Values_Set & vset_n )
