@@ -53,7 +53,7 @@ class Pixmap
 	convert_to_pixmap ( );
 
 	QPixmap *
-	pixmap ( ) const;
+	qpixmap ( ) const;
 
 	QImage &
 	qimage ( );
@@ -62,7 +62,7 @@ class Pixmap
 	// Private attributes
 	private:
 
-	QScopedPointer < QPixmap > _pixmap;
+	QScopedPointer < QPixmap > _qpixmap;
 	QImage _qimage;
 
 	unsigned int _width;
@@ -86,9 +86,9 @@ Pixmap::height ( ) const
 
 inline
 QPixmap *
-Pixmap::pixmap ( ) const
+Pixmap::qpixmap ( ) const
 {
-	return _pixmap.data();
+	return _qpixmap.data();
 }
 
 inline

@@ -10,6 +10,9 @@
 #define __INC_dpe2_painter_hpp__
 
 #include "pixmap_handle.hpp"
+#include "pixmap_request.hpp"
+#include <QPainter>
+#include <QMutex>
 
 namespace dpe2
 {
@@ -27,21 +30,51 @@ class Painter
 	virtual
 	~Painter ( );
 
+	bool
+	process_request (
+		::dpe2::Pixmap_Request & request_n );
 
-	void
-	paint_handle (
-		::dpe2::Pixmap_Handle * handle_n );
+	bool
+	return_request (
+		::dpe2::Pixmap_Request & request_n );
 
+	/// @brief Must be implemented in a thread safe fashion
+	///
 	virtual
 	void
 	paint (
 		QPainter & painter_n,
-		const ::dpe2::Values_Set & vals_n ) = 0;
+		const ::dpe2::Key_Values & vals_n ) = 0;
 
 
 	// Protected methods
 	protected:
 
+	/// @brief Must be implemented in a thread safe fashion
+	///
+	virtual
+	bool
+	is_responsible (
+		const ::dpe2::Key_Values & vset_n ) = 0;
+
+	/// @brief Used in find_match. Can be reimplemented.
+	///
+	virtual
+	bool
+	key_values_match (
+		const ::dpe2::Key_Values & vset1_n,
+		const ::dpe2::Key_Values & vset2_n ) const;
+
+	::dpe2::Pixmap_Ref1 *
+	find_match (
+		const ::dpe2::Key_Values & vset1_n ) const;
+
+
+	// Private attributes
+	private:
+
+	QList < ::dpe2::Pixmap_Ref1 * > _refs1;
+	QMutex _mutex;
 };
 
 
@@ -56,7 +89,15 @@ class Painter_Simple :
 	void
 	paint (
 		QPainter & painter_n,
-		const ::dpe2::Values_Set & vals_n );
+		const ::dpe2::Key_Values & vals_n );
+
+
+	// Protected methods
+	protected:
+
+	bool
+	is_responsible (
+		const ::dpe2::Key_Values & vset_n );
 
 	QColor
 	random_color ( ) const;

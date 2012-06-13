@@ -11,8 +11,9 @@
 
 #include "flags.hpp"
 #include "callbacks.hpp"
-#include "values_set.hpp"
+#include "key_values.hpp"
 #include "pixmap.hpp"
+#include "pixmap_handle.hpp"
 #include <vector>
 
 
@@ -35,8 +36,7 @@ class Pixmap_Request
 	// Public methods
 	public:
 
-	Pixmap_Request (
-		::dpe2::Pixmap * pixmap_n = 0 );
+	Pixmap_Request ( );
 
 	bool
 	is_return ( ) const;
@@ -49,16 +49,14 @@ class Pixmap_Request
 	// Public attributes
 	public:
 
-	::dpe2::Pixmap * pixmap;
-	::dpe2::Values_Set key_values;
+	::dpe2::Pixmap_Ref2 pixmap_ref;
+	::dpe2::Key_Values key_values;
 	::Flags _flags;
 	::Context_Callback finished_callback;
 };
 
 inline
-Pixmap_Request::Pixmap_Request (
-	::dpe2::Pixmap * pixmap_n ) :
-pixmap ( pixmap_n )
+Pixmap_Request::Pixmap_Request ( )
 {
 }
 

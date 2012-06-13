@@ -25,7 +25,7 @@ Pixmap::~Pixmap ( )
 void
 Pixmap::clear ( )
 {
-	_pixmap.reset();
+	_qpixmap.reset();
 	_width = 0;
 	_height = 0;
 }
@@ -35,7 +35,6 @@ Pixmap::set_size (
 	unsigned int width_n,
 	unsigned int height_n )
 {
-	clear();
 	_width = width_n;
 	_height = height_n;
 	_qimage = QImage ( _width, _height, QImage::Format_ARGB32_Premultiplied );
@@ -44,11 +43,11 @@ Pixmap::set_size (
 QPixmap *
 Pixmap::convert_to_pixmap ( )
 {
-	if ( ( pixmap() == 0 ) || ( !qimage().isNull() ) ) {
-		_pixmap.reset ( new QPixmap ( QPixmap::fromImage ( _qimage ) ) );
+	if ( ( qpixmap() == 0 ) || ( !qimage().isNull() ) ) {
+		_qpixmap.reset ( new QPixmap ( QPixmap::fromImage ( _qimage ) ) );
 		_qimage = QImage();
 	}
-	return pixmap();
+	return qpixmap();
 }
 
 

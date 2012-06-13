@@ -295,9 +295,9 @@ Value_Item::operator= (
 
 
 
-/// @brief Values_Set
+/// @brief Key_Values
 ///
-class Values_Set
+class Key_Values
 {
 	// Public typedefs
 	public:
@@ -308,12 +308,12 @@ class Values_Set
 	// Public methods
 	public:
 
-	Values_Set ( );
+	Key_Values ( );
 
-	Values_Set (
-		const ::dpe2::Values_Set & vset_n );
+	Key_Values (
+		const ::dpe2::Key_Values & vset_n );
 
-	~Values_Set ( );
+	~Key_Values ( );
 
 	void
 	clear ( );
@@ -376,27 +376,27 @@ class Values_Set
 		unsigned int key_n ) const;
 
 
-	::dpe2::Values_Set::Entry &
+	::dpe2::Key_Values::Entry &
 	operator[] (
 		unsigned int idx_n );
 
-	const ::dpe2::Values_Set::Entry &
+	const ::dpe2::Key_Values::Entry &
 	operator[] (
 		unsigned int idx_n ) const;
 
 
-	::dpe2::Values_Set &
+	::dpe2::Key_Values &
 	operator= (
-		const ::dpe2::Values_Set & vset_n );
+		const ::dpe2::Key_Values & vset_n );
 
 
 	bool
 	operator== (
-		const ::dpe2::Values_Set & vset_n ) const;
+		const ::dpe2::Key_Values & vset_n ) const;
 
 	bool
 	operator!= (
-		const ::dpe2::Values_Set & vset_n ) const;
+		const ::dpe2::Key_Values & vset_n ) const;
 
 
 	// Private methods
@@ -404,49 +404,49 @@ class Values_Set
 
 	void
 	assign (
-		const ::dpe2::Values_Set & vset_n );
+		const ::dpe2::Key_Values & vset_n );
 
 
 	// Private attributes
 	private:
 
-	::std::vector < ::dpe2::Values_Set::Entry > _entries;
+	::std::vector < ::dpe2::Key_Values::Entry > _entries;
 };
 
 inline
 bool
-Values_Set::is_clear ( ) const
+Key_Values::is_clear ( ) const
 {
 	return ( num_entries() == 0 );
 }
 
 inline
 unsigned int
-Values_Set::num_entries ( ) const
+Key_Values::num_entries ( ) const
 {
 	return _entries.size();
 }
 
 inline
-::dpe2::Values_Set::Entry &
-Values_Set::operator[] (
+::dpe2::Key_Values::Entry &
+Key_Values::operator[] (
 	unsigned int idx_n )
 {
 	return _entries[idx_n];
 }
 
 inline
-const ::dpe2::Values_Set::Entry &
-Values_Set::operator[] (
+const ::dpe2::Key_Values::Entry &
+Key_Values::operator[] (
 	unsigned int idx_n ) const
 {
 	return _entries[idx_n];
 }
 
 inline
-::dpe2::Values_Set &
-Values_Set::operator= (
-	const ::dpe2::Values_Set & vset_n )
+::dpe2::Key_Values &
+Key_Values::operator= (
+	const ::dpe2::Key_Values & vset_n )
 {
 	clear();
 	assign ( vset_n );

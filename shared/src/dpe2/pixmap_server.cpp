@@ -117,7 +117,7 @@ Pixmap_Server::stop_timeout ( )
 
 ::dpe2::Pixmap_Handle *
 Pixmap_Server::find_handle (
-	::dpe2::Values_Set & vals_n )
+	::dpe2::Key_Values & vals_n )
 {
 	::dpe2::Pixmap_Handle * res ( 0 );
 	for ( int ii=0; ii < _pixmap_handles.size(); ++ii ) {
@@ -136,6 +136,12 @@ Pixmap_Server::send_request (
 {
 	if ( request_n == 0 ) {
 		return;
+	}
+
+	if ( request_n->is_return() ) {
+
+	} else {
+
 	}
 
 	/* TODO

@@ -30,6 +30,8 @@ namespace dpe2
 
 /// @brief Pixmap_Server_Shared
 ///
+/// Paint_Thread instances have access to this class
+/// as well as the Pixmap_Server instance
 class Pixmap_Server_Shared
 {
 	// Public methods

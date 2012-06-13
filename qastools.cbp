@@ -214,6 +214,8 @@
 		<Unit filename="shared/src/dpe/painter_thread.hpp" />
 		<Unit filename="shared/src/dpe/painter_thread_shared.cpp" />
 		<Unit filename="shared/src/dpe/painter_thread_shared.hpp" />
+		<Unit filename="shared/src/dpe2/key_values.cpp" />
+		<Unit filename="shared/src/dpe2/key_values.hpp" />
 		<Unit filename="shared/src/dpe2/paint_thread.cpp" />
 		<Unit filename="shared/src/dpe2/paint_thread.hpp" />
 		<Unit filename="shared/src/dpe2/painter.cpp" />
@@ -228,8 +230,6 @@
 		<Unit filename="shared/src/dpe2/pixmap_server.hpp" />
 		<Unit filename="shared/src/dpe2/pixmap_server_shared.cpp" />
 		<Unit filename="shared/src/dpe2/pixmap_server_shared.hpp" />
-		<Unit filename="shared/src/dpe2/values_set.cpp" />
-		<Unit filename="shared/src/dpe2/values_set.hpp" />
 		<Unit filename="shared/src/flags.hpp" />
 		<Unit filename="shared/src/license_texts.cpp" />
 		<Unit filename="shared/src/license_texts.hpp" />

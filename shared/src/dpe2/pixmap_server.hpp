@@ -14,7 +14,7 @@
 
 // Forward declaration
 namespace dpe2 {
-	class Values_Set;
+	class Key_Values;
 	class Pixmap;
 	class Pixmap_Request;
 	class Pixmap_Handle;
@@ -82,7 +82,7 @@ class Pixmap_Server
 
 	::dpe2::Pixmap_Handle *
 	find_handle (
-		::dpe2::Values_Set & vals_n );
+		::dpe2::Key_Values & vals_n );
 
 	void
 	process_handle (

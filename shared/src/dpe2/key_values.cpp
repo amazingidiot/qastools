@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "values_set.hpp"
+#include "key_values.hpp"
 
 
 namespace dpe2
@@ -173,30 +173,30 @@ Value_Item::operator!= (
 
 
 
-Values_Set::Values_Set ( )
+Key_Values::Key_Values ( )
 {
 
 }
 
-Values_Set::Values_Set (
-	const ::dpe2::Values_Set & vset_n )
+Key_Values::Key_Values (
+	const ::dpe2::Key_Values & vset_n )
 {
 	assign ( vset_n );
 }
 
-Values_Set::~Values_Set ( )
+Key_Values::~Key_Values ( )
 {
 	clear();
 }
 
 void
-Values_Set::clear ( )
+Key_Values::clear ( )
 {
 	_entries.clear();
 }
 
 void
-Values_Set::append_int (
+Key_Values::append_int (
 	unsigned int key_n,
 	int val_n )
 {
@@ -205,7 +205,7 @@ Values_Set::append_int (
 }
 
 void
-Values_Set::append_uint (
+Key_Values::append_uint (
 	unsigned int key_n,
 	unsigned int val_n )
 {
@@ -214,7 +214,7 @@ Values_Set::append_uint (
 }
 
 void
-Values_Set::append_double (
+Key_Values::append_double (
 	unsigned int key_n,
 	double val_n )
 {
@@ -223,7 +223,7 @@ Values_Set::append_double (
 }
 
 void
-Values_Set::append_user (
+Key_Values::append_user (
 	unsigned int key_n,
 	::dpe2::User_Value * val_n )
 {
@@ -232,7 +232,7 @@ Values_Set::append_user (
 }
 
 ::dpe2::Value_Item *
-Values_Set::value_for_key (
+Key_Values::value_for_key (
 	unsigned int key_n )
 {
 	for ( unsigned int ii=0; ii < _entries.size(); ++ii ) {
@@ -245,7 +245,7 @@ Values_Set::value_for_key (
 }
 
 const ::dpe2::Value_Item *
-Values_Set::value_for_key (
+Key_Values::value_for_key (
 	unsigned int key_n ) const
 {
 	for ( unsigned int ii=0; ii < _entries.size(); ++ii ) {
@@ -258,7 +258,7 @@ Values_Set::value_for_key (
 }
 
 bool
-Values_Set::value_int (
+Key_Values::value_int (
 	int & val_n,
 	unsigned int key_n ) const
 {
@@ -273,7 +273,7 @@ Values_Set::value_int (
 }
 
 bool
-Values_Set::value_uint (
+Key_Values::value_uint (
 	unsigned int & val_n,
 	unsigned int key_n ) const
 {
@@ -288,7 +288,7 @@ Values_Set::value_uint (
 }
 
 bool
-Values_Set::value_double (
+Key_Values::value_double (
 	double & val_n,
 	unsigned int key_n ) const
 {
@@ -303,7 +303,7 @@ Values_Set::value_double (
 }
 
 bool
-Values_Set::value_user (
+Key_Values::value_user (
 	::dpe2::User_Value * * val_n,
 	unsigned int key_n ) const
 {
@@ -318,8 +318,8 @@ Values_Set::value_user (
 }
 
 void
-Values_Set::assign (
-	const ::dpe2::Values_Set & vset_n )
+Key_Values::assign (
+	const ::dpe2::Key_Values & vset_n )
 {
 	_entries.resize ( vset_n.num_entries() );
 	for ( unsigned int ii=0; ii < num_entries(); ++ii ) {
@@ -328,8 +328,8 @@ Values_Set::assign (
 }
 
 bool
-Values_Set::operator== (
-	const ::dpe2::Values_Set & vset_n ) const
+Key_Values::operator== (
+	const ::dpe2::Key_Values & vset_n ) const
 {
 	for ( unsigned int ii=0; ii < num_entries(); ++ii ) {
 		if ( _entries[ii] != vset_n[ii] ) {
@@ -340,8 +340,8 @@ Values_Set::operator== (
 }
 
 bool
-Values_Set::operator!= (
-	const ::dpe2::Values_Set & vset_n ) const
+Key_Values::operator!= (
+	const ::dpe2::Key_Values & vset_n ) const
 {
 	for ( unsigned int ii=0; ii < num_entries(); ++ii ) {
 		if ( _entries[ii] != vset_n[ii] ) {

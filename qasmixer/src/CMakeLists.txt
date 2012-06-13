@@ -50,9 +50,10 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd2/controls_watcher.cpp
 	${SHARED_SRC_DIR}/qsnd2/alsa_smi.cpp
 
+	${SHARED_SRC_DIR}/dpe2/key_values.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap.cpp
-	${SHARED_SRC_DIR}/dpe2/values_set.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_request.cpp
+	${SHARED_SRC_DIR}/dpe2/pixmap_handle.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_server.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_server_shared.cpp
 	${SHARED_SRC_DIR}/dpe2/paint_thread.cpp
