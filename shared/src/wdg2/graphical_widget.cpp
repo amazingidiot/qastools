@@ -7,6 +7,7 @@
 //
 
 #include "graphical_widget.hpp"
+#include <cassert>
 
 namespace Wdg2
 {
@@ -39,6 +40,13 @@ GW_Widget::set_bounding_rect (
 		prepareGeometryChange();
 		_brect = rect_n;
 	}
+}
+
+void
+GW_Widget::set_bounding_rect (
+	const QSizeF & size_n )
+{
+	set_bounding_rect ( QRectF ( QPointF ( 0.0, 0.0 ), size_n ) );
 }
 
 void

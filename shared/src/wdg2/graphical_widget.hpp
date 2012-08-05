@@ -55,6 +55,13 @@ class GW_Widget :
 	set_bounding_rect (
 		const QRectF & rect_n );
 
+	void
+	set_bounding_rect (
+		const QSizeF & size_n );
+
+	const QRectF
+	bounding_rect ( ) const;
+
 
 	void
 	paint (
@@ -76,6 +83,13 @@ inline
 GW_Widget::scene_db ( ) const
 {
 	return _scene_db;
+}
+
+inline
+const QRectF
+GW_Widget::bounding_rect ( ) const
+{
+	return _brect;
 }
 
 

@@ -23,7 +23,7 @@ namespace Wdg2
 GW_Sliders_Pad::GW_Sliders_Pad (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( scene_db(), parent_n ),
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _snd_controls ( 0 ),
 _pad_size ( 0, 0 ),
 _panels_shift ( 0 ),

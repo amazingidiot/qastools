@@ -220,10 +220,12 @@
 		<Unit filename="shared/src/dpe2/paint_thread.hpp" />
 		<Unit filename="shared/src/dpe2/painter.cpp" />
 		<Unit filename="shared/src/dpe2/painter.hpp" />
+		<Unit filename="shared/src/dpe2/painter_simple.cpp" />
+		<Unit filename="shared/src/dpe2/painter_simple.hpp" />
 		<Unit filename="shared/src/dpe2/pixmap.cpp" />
 		<Unit filename="shared/src/dpe2/pixmap.hpp" />
-		<Unit filename="shared/src/dpe2/pixmap_handle.cpp" />
-		<Unit filename="shared/src/dpe2/pixmap_handle.hpp" />
+		<Unit filename="shared/src/dpe2/pixmap_ref.cpp" />
+		<Unit filename="shared/src/dpe2/pixmap_ref.hpp" />
 		<Unit filename="shared/src/dpe2/pixmap_request.cpp" />
 		<Unit filename="shared/src/dpe2/pixmap_request.hpp" />
 		<Unit filename="shared/src/dpe2/pixmap_server.cpp" />
@@ -435,6 +437,8 @@
 		<Unit filename="shared/src/wdg2/gw_multi_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_switch.cpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_switch.hpp" />
+		<Unit filename="shared/src/wdg2/gw_pixmaps.cpp" />
+		<Unit filename="shared/src/wdg2/gw_pixmaps.hpp" />
 		<Unit filename="shared/src/wdg2/gw_scrollbar.cpp" />
 		<Unit filename="shared/src/wdg2/gw_scrollbar.hpp" />
 		<Unit filename="shared/src/wdg2/gw_slider.cpp" />

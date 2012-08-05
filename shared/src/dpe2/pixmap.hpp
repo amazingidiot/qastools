@@ -38,6 +38,10 @@ class Pixmap
 	clear ( );
 
 	void
+	reset_qpixmap (
+		QPixmap * pixmap_n = 0 );
+
+	void
 	set_size (
 		unsigned int width_n,
 		unsigned int height_n );
@@ -49,8 +53,8 @@ class Pixmap
 	height ( ) const;
 
 
-	QPixmap *
-	convert_to_pixmap ( );
+	void
+	convert_to_qpixmap ( );
 
 	QPixmap *
 	qpixmap ( ) const;
@@ -62,7 +66,7 @@ class Pixmap
 	// Private attributes
 	private:
 
-	QScopedPointer < QPixmap > _qpixmap;
+	QPixmap * _qpixmap;
 	QImage _qimage;
 
 	unsigned int _width;
@@ -88,7 +92,7 @@ inline
 QPixmap *
 Pixmap::qpixmap ( ) const
 {
-	return _qpixmap.data();
+	return _qpixmap;
 }
 
 inline

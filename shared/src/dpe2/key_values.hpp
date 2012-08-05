@@ -325,27 +325,6 @@ class Key_Values
 	num_entries ( ) const;
 
 
-	void
-	append_int (
-		unsigned int key_n,
-		int val_n );
-
-	void
-	append_uint (
-		unsigned int key_n,
-		unsigned int val_n );
-
-	void
-	append_double (
-		unsigned int key_n,
-		double val_n );
-
-	void
-	append_user (
-		unsigned int key_n,
-		::dpe2::User_Value * val_n );
-
-
 	::dpe2::Value_Item *
 	value_for_key (
 		unsigned int key_n );
@@ -374,6 +353,28 @@ class Key_Values
 	value_user (
 		::dpe2::User_Value * * val_n,
 		unsigned int key_n ) const;
+
+
+
+	void
+	set_int (
+		unsigned int key_n,
+		int val_n );
+
+	void
+	set_uint (
+		unsigned int key_n,
+		unsigned int val_n );
+
+	void
+	set_double (
+		unsigned int key_n,
+		double val_n );
+
+	void
+	set_user (
+		unsigned int key_n,
+		::dpe2::User_Value * val_n );
 
 
 	::dpe2::Key_Values::Entry &

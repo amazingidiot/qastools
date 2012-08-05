@@ -195,42 +195,6 @@ Key_Values::clear ( )
 	_entries.clear();
 }
 
-void
-Key_Values::append_int (
-	unsigned int key_n,
-	int val_n )
-{
-	_entries.push_back ( Entry ( key_n, Value_Item() ) );
-	_entries.back().second.set_int ( val_n );
-}
-
-void
-Key_Values::append_uint (
-	unsigned int key_n,
-	unsigned int val_n )
-{
-	_entries.push_back ( Entry ( key_n, Value_Item() ) );
-	_entries.back().second.set_uint ( val_n );
-}
-
-void
-Key_Values::append_double (
-	unsigned int key_n,
-	double val_n )
-{
-	_entries.push_back ( Entry ( key_n, Value_Item() ) );
-	_entries.back().second.set_double ( val_n );
-}
-
-void
-Key_Values::append_user (
-	unsigned int key_n,
-	::dpe2::User_Value * val_n )
-{
-	_entries.push_back ( Entry ( key_n, Value_Item() ) );
-	_entries.back().second.set_user ( val_n );
-}
-
 ::dpe2::Value_Item *
 Key_Values::value_for_key (
 	unsigned int key_n )
@@ -267,6 +231,7 @@ Key_Values::value_int (
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_INT ) {
 			val_n = val->as_int();
+			return true;
 		}
 	}
 	return false;
@@ -282,6 +247,7 @@ Key_Values::value_uint (
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_UINT ) {
 			val_n = val->as_uint();
+			return true;
 		}
 	}
 	return false;
@@ -297,6 +263,7 @@ Key_Values::value_double (
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_DOUBLE ) {
 			val_n = val->as_double();
+			return true;
 		}
 	}
 	return false;
@@ -312,9 +279,62 @@ Key_Values::value_user (
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_USER ) {
 			*val_n = val->as_user();
+			return true;
 		}
 	}
 	return false;
+}
+
+void
+Key_Values::set_int (
+	unsigned int key_n,
+	int val_n )
+{
+	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
+	if ( vitem == 0 ) {
+		_entries.push_back ( Entry ( key_n, Value_Item() ) );
+		vitem = &_entries.back().second;
+	}
+	vitem->set_int ( val_n );
+}
+
+void
+Key_Values::set_uint (
+	unsigned int key_n,
+	unsigned int val_n )
+{
+	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
+	if ( vitem == 0 ) {
+		_entries.push_back ( Entry ( key_n, Value_Item() ) );
+		vitem = &_entries.back().second;
+	}
+	vitem->set_uint ( val_n );
+}
+
+void
+Key_Values::set_double (
+	unsigned int key_n,
+	double val_n )
+{
+	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
+	if ( vitem == 0 ) {
+		_entries.push_back ( Entry ( key_n, Value_Item() ) );
+		vitem = &_entries.back().second;
+	}
+	vitem->set_double ( val_n );
+}
+
+void
+Key_Values::set_user (
+	unsigned int key_n,
+	::dpe2::User_Value * val_n )
+{
+	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
+	if ( vitem == 0 ) {
+		_entries.push_back ( Entry ( key_n, Value_Item() ) );
+		vitem = &_entries.back().second;
+	}
+	vitem->set_user ( val_n );
 }
 
 void

@@ -13,6 +13,7 @@ namespace dpe2
 
 
 Pixmap::Pixmap ( ) :
+_qpixmap ( 0 ),
 _width ( 0 ),
 _height ( 0 )
 {
@@ -20,14 +21,25 @@ _height ( 0 )
 
 Pixmap::~Pixmap ( )
 {
+	reset_qpixmap();
 }
 
 void
 Pixmap::clear ( )
 {
-	_qpixmap.reset();
+	reset_qpixmap();
 	_width = 0;
 	_height = 0;
+}
+
+void
+Pixmap::reset_qpixmap (
+	QPixmap * pixmap_n )
+{
+	if ( _qpixmap != 0 ) {
+		delete _qpixmap;
+	}
+	_qpixmap = pixmap_n;
 }
 
 void
@@ -35,19 +47,23 @@ Pixmap::set_size (
 	unsigned int width_n,
 	unsigned int height_n )
 {
-	_width = width_n;
-	_height = height_n;
-	_qimage = QImage ( _width, _height, QImage::Format_ARGB32_Premultiplied );
+	if ( ( width() != width_n ) || ( height() != height_n ) ) {
+		reset_qpixmap();
+		_width = width_n;
+		_height = height_n;
+		_qimage = QImage ( _width, _height, QImage::Format_ARGB32_Premultiplied );
+	}
 }
 
-QPixmap *
-Pixmap::convert_to_pixmap ( )
+void
+Pixmap::convert_to_qpixmap ( )
 {
-	if ( ( qpixmap() == 0 ) || ( !qimage().isNull() ) ) {
-		_qpixmap.reset ( new QPixmap ( QPixmap::fromImage ( _qimage ) ) );
-		_qimage = QImage();
+	if ( qpixmap() == 0  ) {
+		if ( ( _qimage.width() > 0 ) && ( _qimage.height() > 0 ) ) {
+			reset_qpixmap ( new QPixmap ( QPixmap::fromImage ( _qimage ) ) );
+			_qimage = QImage();
+		}
 	}
-	return qpixmap();
 }
 
 

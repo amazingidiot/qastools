@@ -10,7 +10,10 @@
 #define __INC_wdg2_scene_database_hpp__
 
 #include "dpe2/pixmap_server.hpp"
+#include <deque>
 #include <QGraphicsItem>
+#include <QMutex>
+#include <QQueue>
 
 namespace Wdg2
 {

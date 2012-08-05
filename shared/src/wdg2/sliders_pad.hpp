@@ -50,6 +50,16 @@ class Sliders_Pad :
 		bool flag_n );
 
 
+	bool
+	event (
+		QEvent * event_n );
+
+	static
+	void
+	notify_pixmaps_finished (
+		void * context_n );
+
+
 	// Public slots
 	public slots:
 
@@ -76,6 +86,7 @@ class Sliders_Pad :
 	::Wdg2::GW_Sliders_Pad _gw_sliders_pad;
 	QGraphicsScene _scene;
 
+	int _etype_deliver_pixmaps;
 	bool _opengl_enabled;
 };
 

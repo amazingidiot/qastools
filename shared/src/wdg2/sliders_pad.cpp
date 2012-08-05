@@ -14,6 +14,7 @@
 #include <QFocusEvent>
 #include <QScrollBar>
 #include <QGLWidget>
+#include <QCoreApplication>
 #include <iostream>
 
 
@@ -27,6 +28,10 @@ QGraphicsView ( parent_n ),
 _gw_sliders_pad ( &_scene_db ),
 _opengl_enabled ( false )
 {
+	_etype_deliver_pixmaps = QEvent::registerEventType();
+	_scene_db.pxm_server()->set_one_done_callback (
+		::Context_Callback ( this, &::Wdg2::Sliders_Pad::notify_pixmaps_finished ) );
+
 	setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
 	setAlignment ( Qt::AlignLeft | Qt::AlignTop );
 	setFocusPolicy ( Qt::WheelFocus );
@@ -91,6 +96,30 @@ Sliders_Pad::update_geometries ( )
 		QRectF srect ( QPointF ( 0.0, 0.0 ), QSizeF ( vps ) );
 		setSceneRect ( srect );
 	}
+}
+
+void
+Sliders_Pad::notify_pixmaps_finished (
+	void * context_n )
+{
+	::Wdg2::Sliders_Pad * cref (
+		reinterpret_cast < ::Wdg2::Sliders_Pad * > ( context_n ) );
+	QCoreApplication * app ( QCoreApplication::instance() );
+	app->postEvent ( cref, new QEvent ( (QEvent::Type)cref->_etype_deliver_pixmaps ) );
+}
+
+bool
+Sliders_Pad::event (
+	QEvent * event_n )
+{
+	bool res ( false );
+	if ( event_n->type() == _etype_deliver_pixmaps ) {
+		_scene_db.pxm_server()->deliver_finished_requests();
+		res = true;
+	} else {
+		res = QGraphicsView::event ( event_n );;
+	}
+	return res;
 }
 
 void

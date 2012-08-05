@@ -9,7 +9,7 @@
 #ifndef __INC_dpe2_painter_hpp__
 #define __INC_dpe2_painter_hpp__
 
-#include "pixmap_handle.hpp"
+#include "pixmap_ref.hpp"
 #include "pixmap_request.hpp"
 #include <QPainter>
 #include <QMutex>
@@ -34,17 +34,9 @@ class Painter
 	process_request (
 		::dpe2::Pixmap_Request & request_n );
 
-	bool
-	return_request (
-		::dpe2::Pixmap_Request & request_n );
-
-	/// @brief Must be implemented in a thread safe fashion
-	///
-	virtual
 	void
-	paint (
-		QPainter & painter_n,
-		const ::dpe2::Key_Values & vals_n ) = 0;
+	iref1_deref (
+		::dpe2::Pixmap_IRef1 * iref1_n );
 
 
 	// Protected methods
@@ -65,42 +57,42 @@ class Painter
 		const ::dpe2::Key_Values & vset1_n,
 		const ::dpe2::Key_Values & vset2_n ) const;
 
-	::dpe2::Pixmap_Ref1 *
+	/// @brief Must be implemented in a thread safe fashion
+	///
+	virtual
+	void
+	paint (
+		QPainter & painter_n,
+		const ::dpe2::Key_Values & vals_n ) = 0;
+
+
+	// Private methods
+	private:
+
+	::dpe2::Pixmap_IRef1 *
 	find_match (
-		const ::dpe2::Key_Values & vset1_n ) const;
+		const ::dpe2::Key_Values & vset1_n );
+
+	void
+	paint_pixmap (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n );
+
+	::dpe2::Pixmap_IRef0 *
+	create_iref0 ( );
+
+	void
+	destroy_iref0 (
+		::dpe2::Pixmap_IRef0 * iref0_n );
 
 
 	// Private attributes
 	private:
 
-	QList < ::dpe2::Pixmap_Ref1 * > _refs1;
+	typedef ::std::vector < ::dpe2::Pixmap_IRef0 * > IRef0_List;
+
+	IRef0_List _iref0s;
 	QMutex _mutex;
-};
-
-
-/// @brief Painter_Simple
-///
-class Painter_Simple :
-	public ::dpe2::Painter
-{
-	// Public methods
-	public:
-
-	void
-	paint (
-		QPainter & painter_n,
-		const ::dpe2::Key_Values & vals_n );
-
-
-	// Protected methods
-	protected:
-
-	bool
-	is_responsible (
-		const ::dpe2::Key_Values & vset_n );
-
-	QColor
-	random_color ( ) const;
 };
 
 

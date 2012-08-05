@@ -12,8 +12,8 @@
 #include "flags.hpp"
 #include "callbacks.hpp"
 #include "graphical_widget.hpp"
+#include "gw_pixmaps.hpp"
 #include "slider_value_map.hpp"
-#include <QGraphicsItem>
 
 namespace Wdg2
 {
@@ -86,7 +86,7 @@ GW_Slider_Rail::state_flags ( )
 /// @brief GW_Slider_Handle
 ///
 class GW_Slider_Handle :
-	public ::Wdg2::GW_Widget
+	public ::Wdg2::GW_Pixmaps
 {
 	// Public methods
 	public:
@@ -94,14 +94,6 @@ class GW_Slider_Handle :
 	GW_Slider_Handle (
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
-
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
-
 
 	const QSize &
 	handle_size ( ) const;

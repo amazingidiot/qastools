@@ -75,11 +75,12 @@ GW_Slider_Rail::set_rail_size (
 GW_Slider_Handle::GW_Slider_Handle (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( scene_db_n, parent_n ),
+::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n ),
 _handle_size ( 0.0, 0.0 )
 {
 }
 
+/* TODO: remove
 void
 GW_Slider_Handle::paint (
 	QPainter * painter_n,
@@ -90,19 +91,22 @@ GW_Slider_Handle::paint (
 	(void) option_n;
 	(void) widget_n;
 
-	double pen_width ( 2.0 );
-	double pwhalf ( pen_width / 2.0 );
-	QRectF prect ( QPointF ( 0.0, 0.0 ), _handle_size );
-	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
-
 	{
-		QPen ppen ( option_n->palette.color ( QPalette::ButtonText ) );
-		ppen.setWidth ( pen_width );
-		painter_n->setPen ( ppen );
+		double pen_width ( 2.0 );
+		double pwhalf ( pen_width / 2.0 );
+		QRectF prect ( QPointF ( 0.0, 0.0 ), _handle_size );
+		prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
+
+		{
+			QPen ppen ( option_n->palette.color ( QPalette::ButtonText ) );
+			ppen.setWidth ( pen_width );
+			painter_n->setPen ( ppen );
+		}
+		painter_n->setBrush ( option_n->palette.color ( QPalette::Button ) );
+		painter_n->drawRoundedRect ( prect, 2.0, 2.0 );
 	}
-	painter_n->setBrush ( option_n->palette.color ( QPalette::Button ) );
-	painter_n->drawRoundedRect ( prect, 2.0, 2.0 );
 }
+*/
 
 void
 GW_Slider_Handle::set_handle_size (
@@ -110,12 +114,8 @@ GW_Slider_Handle::set_handle_size (
 {
 	if ( size_n != _handle_size ) {
 		_handle_size = size_n;
-
-		// Bounding rect
-		{
-			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _handle_size ) );
-			set_bounding_rect ( brect );
-		}
+		set_bounding_rect ( _handle_size );
+		repaint_pixmaps();
 	}
 }
 

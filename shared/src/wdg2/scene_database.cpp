@@ -7,6 +7,7 @@
 //
 
 #include "scene_database.hpp"
+#include <QEvent>
 
 namespace Wdg2
 {
@@ -16,6 +17,7 @@ Scene_Database::Scene_Database ( )
 {
 	// TODO: ScopedPointer?
 	_pxm_server = new ::dpe2::Pixmap_Server;
+	_pxm_server->start();
 }
 
 Scene_Database::~Scene_Database ( )

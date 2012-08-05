@@ -9,6 +9,7 @@
 #ifndef __INC_dpe2_pixmap_server_hpp__
 #define __INC_dpe2_pixmap_server_hpp__
 
+#include "callbacks.hpp"
 #include <QList>
 #include <QScopedPointer>
 
@@ -17,9 +18,8 @@ namespace dpe2 {
 	class Key_Values;
 	class Pixmap;
 	class Pixmap_Request;
-	class Pixmap_Handle;
+	class Pixmap_Ref;
 	class Pixmap_Server_Shared;
-	class Paint_Thread;
 	class Painter;
 }
 
@@ -44,6 +44,12 @@ class Pixmap_Server
 	install_painter (
 		::dpe2::Painter * painter_n );
 
+	void
+	start ( );
+
+	void
+	stop ( );
+
 
 	// Multithreading
 
@@ -58,51 +64,46 @@ class Pixmap_Server
 		bool flag_n );
 
 
+	const ::Context_Callback &
+	one_done_callback ( ) const;
+
+	void
+	set_one_done_callback (
+		const ::Context_Callback & cb_n );
+
+	void
+	deliver_finished_requests ( );
+
+
+	::dpe2::Pixmap_Request *
+	acquire_request ( );
+
+	void
+	release_request (
+		::dpe2::Pixmap_Request * request_n );
+
+
 	/// @brief processes and waits until finished
 	///
 	void
 	send_request (
 		::dpe2::Pixmap_Request * request_n );
 
-	/// @brief just enqueues the request and returns
+	/// @brief Return a pixmap
 	///
 	void
-	post_request (
-		::dpe2::Pixmap_Request * request_n );
+	return_pixmap (
+		::dpe2::Pixmap_Ref & ref_n );
 
 
 	// Private methods
 	private:
 
-	void
-	start_threads ( );
-
-	void
-	stop_threads ( );
-
-	::dpe2::Pixmap_Handle *
-	find_handle (
-		::dpe2::Key_Values & vals_n );
-
-	void
-	process_handle (
-		::dpe2::Pixmap_Handle * handle_n );
-
-	void
-	render_handle (
-		::dpe2::Pixmap_Handle * handle_n );
-
-	void
-	enqueue_handle (
-		::dpe2::Pixmap_Handle * handle_n );
-
 
 	// Private attributes
 	private:
 
-	QList < ::dpe2::Pixmap_Handle * > _pixmap_handles;
 	QScopedPointer < ::dpe2::Pixmap_Server_Shared > _shared;
-	QList < ::dpe2::Paint_Thread * > _threads;
 	bool _multithread;
 };
 

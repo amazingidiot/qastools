@@ -53,16 +53,18 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/dpe2/key_values.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_request.cpp
-	${SHARED_SRC_DIR}/dpe2/pixmap_handle.cpp
+	${SHARED_SRC_DIR}/dpe2/pixmap_ref.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_server.cpp
 	${SHARED_SRC_DIR}/dpe2/pixmap_server_shared.cpp
 	${SHARED_SRC_DIR}/dpe2/paint_thread.cpp
 	${SHARED_SRC_DIR}/dpe2/painter.cpp
+	${SHARED_SRC_DIR}/dpe2/painter_simple.cpp
 
 	${SHARED_SRC_DIR}/wdg2/int_math.cpp
 	${SHARED_SRC_DIR}/wdg2/sliders_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/slider_value_map.cpp
 	${SHARED_SRC_DIR}/wdg2/graphical_widget.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_pixmaps.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_multi_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_switch.cpp

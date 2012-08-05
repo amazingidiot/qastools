@@ -10,6 +10,8 @@
 #define __INC_dpe2_pixmap_server_shared_hpp__
 
 #include "painter.hpp"
+#include "paint_thread.hpp"
+#include "callbacks.hpp"
 #include <QScopedPointer>
 #include <QThread>
 #include <QMutex>
@@ -19,7 +21,7 @@
 // Forward declaration
 namespace dpe2 {
 	class Pixmap;
-	class Pixmap_Handle;
+	class Pixmap_Request;
 	class Painter;
 }
 
@@ -42,62 +44,122 @@ class Pixmap_Server_Shared
 	~Pixmap_Server_Shared ( );
 
 
-	/* TODO
-	::dpe2::Painter *
-	find_painter (
-		::dpe::Image_Set_Meta * meta_n );
-
-	int
-	paint_job (
-		::dpe::Paint_Job * pjob_n );
-
-
-	// Threading
+	// User interface
 
 	void
-	enqueue_job (
-		::dpe::Paint_Job * pjob_n );
-
-	::dpe::Paint_Job *
-	fetch_job ( );
+	install_painter (
+		::dpe2::Painter * painter_n );
 
 	void
-	job_finished (
-		::dpe::Paint_Job * pjob_n );
+	start_threads ( );
+
+	unsigned int
+	threads_running ( ) const;
 
 	void
-	wait_for_finish ( );
+	abort_threads ( );
 
-	*/
-
-
-	/// @brief sends and abort signal to all threads
 	void
-	abort_threads (
-		unsigned int num_n );
+	join_threads ( );
+
+	void
+	stop_threads ( );
 
 
-	// Public attributes
-	public:
+	::dpe2::Pixmap_Request *
+	create_request ( );
 
-	QList < ::dpe2::Painter * > painters;
-	/// @brief Fallback painter
-	QScopedPointer < ::dpe2::Painter > painter_default;
+	void
+	destroy_request (
+		::dpe2::Pixmap_Request * request_n );
 
-	/// @brief Statistics
-	QAtomicInt num_rendering;
+
+	::dpe2::Pixmap_Request *
+	acquire_request ( );
+
+	void
+	release_request (
+		::dpe2::Pixmap_Request * request_n );
+
+	void
+	send_request (
+		::dpe2::Pixmap_Request * request_n );
+
+	void
+	enqueue_request (
+		::dpe2::Pixmap_Request * request_n );
+
+
+	const ::Context_Callback &
+	one_done_callback ( ) const;
+
+	void
+	set_one_done_callback (
+		const ::Context_Callback & cb_n );
+
+	void
+	deliver_finished_requests ( );
+
+	bool
+	destroy_request_on_demand (
+		::dpe2::Pixmap_Request * request_n );
+
+
+	// Threads interface
+
+	::dpe2::Pixmap_Request *
+	fetch_request ( );
+
+	void
+	process_request (
+		::dpe2::Pixmap_Request * request_n );
+
+	void
+	paint_request (
+		::dpe2::Pixmap_Request * request_n );
+
+	void
+	request_finished (
+		::dpe2::Pixmap_Request * request_n );
 
 
 	// Private attributes;
 	private:
 
-	QMutex _queue_mutex;
-	QQueue < ::dpe2::Pixmap_Handle * > _queue;
-	QWaitCondition _queue_cond;
+	typedef QList < ::dpe2::Pixmap_Request * > Request_List;
+	typedef QQueue < ::dpe2::Pixmap_Request * > Request_Queue;
+	typedef QList < ::dpe2::Painter * > Painter_List;
+	typedef QList < ::dpe2::Paint_Thread * > Thread_List;
 
-	bool _finished;
-	QWaitCondition _finished_cond;
+	QMutex _queue_new_mutex;
+	Request_Queue _queue_new;
+	QWaitCondition _queue_new_cond;
+
+	QMutex _queue_done_mutex;
+	bool _queue_done_notified;
+	Request_Queue _queue_done[2];
+	Request_List _released_requests;
+	::Context_Callback _done_callback;
+
+	// Painters
+	Painter_List _painters;
+	Thread_List _threads;
 };
+
+
+inline
+const ::Context_Callback &
+Pixmap_Server_Shared::one_done_callback ( ) const
+{
+	return _done_callback;
+}
+
+inline
+unsigned int
+Pixmap_Server_Shared::threads_running ( ) const
+{
+	return _threads.size();
+}
 
 
 } // End of namespace

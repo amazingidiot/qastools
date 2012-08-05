@@ -22,17 +22,14 @@ _shared ( shared_n )
 void
 Paint_Thread::run ( )
 {
-	/*
 	while ( true ) {
-		::dpe::Paint_Job * pjob ( _shared.fetch_job() );
-		if ( pjob == 0 ) {
-			// Exit loop on invalid job
+		::dpe2::Pixmap_Request * request ( _shared.fetch_request() );
+		if ( request == 0 ) {
+			// Exit loop on NULL job
 			break;
 		}
-		_shared.paint_job ( pjob );
-		_shared.job_finished ( pjob );
+		_shared.process_request ( request );
 	}
-	*/
 }
 
 

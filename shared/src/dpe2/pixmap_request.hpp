@@ -10,69 +10,64 @@
 #define __INC_dpe2_pixmap_request_hpp__
 
 #include "flags.hpp"
-#include "callbacks.hpp"
 #include "key_values.hpp"
 #include "pixmap.hpp"
-#include "pixmap_handle.hpp"
-#include <vector>
+#include "pixmap_ref.hpp"
 
 
 namespace dpe2
 {
+
+class Pixmap_Request;
+typedef void (*Pixmap_Request_CBFunk)( void * contex_n, ::dpe2::Pixmap_Request * request_n );
+
+enum Request_States {
+	RS_FREE          = 0,
+	RS_PROCESSING    = ( 1 << 0 ),
+	RS_NEEDS_UPDATE  = ( 1 << 1 )
+};
 
 
 /// @brief Pixmap_Request
 ///
 class Pixmap_Request
 {
-	// Public typedefs
-	public:
-
-	enum Flags {
-		IS_RETURN = ( 1 << 0 )
-	};
-
-
 	// Public methods
 	public:
 
 	Pixmap_Request ( );
 
-	bool
-	is_return ( ) const;
-
 	void
-	set_is_return (
-		bool flag_n );
+	call_back ( );
 
 
 	// Public attributes
 	public:
 
-	::dpe2::Pixmap_Ref2 pixmap_ref;
-	::dpe2::Key_Values key_values;
-	::Flags _flags;
-	::Context_Callback finished_callback;
+	::dpe2::Pixmap_Ref pxm_ref;
+	::dpe2::Key_Values kvals;
+	unsigned int key; // free to change general purpose identification key
+	::Flags state;
+	void * cb_context;
+	Pixmap_Request_CBFunk cb_func;
 };
 
 inline
-Pixmap_Request::Pixmap_Request ( )
+Pixmap_Request::Pixmap_Request ( ) :
+key ( 0 ),
+state ( RS_FREE ),
+cb_context ( 0 ),
+cb_func ( 0 )
 {
-}
-
-inline
-bool
-Pixmap_Request::is_return ( ) const
-{
-	return _flags.has_any ( ::dpe2::Pixmap_Request::IS_RETURN );
 }
 
 inline
 void
-Pixmap_Request::set_is_return (
-	bool flag_n )
+Pixmap_Request::call_back ( )
 {
-	return _flags.set ( ::dpe2::Pixmap_Request::IS_RETURN, flag_n );
+	if ( cb_func != 0 ) {
+		cb_func ( cb_context, this );
+	}
 }
 
 
