@@ -221,68 +221,72 @@ Key_Values::value_for_key (
 	return 0;
 }
 
-bool
-Key_Values::value_int (
-	int & val_n,
-	unsigned int key_n ) const
+int
+Key_Values::val_int (
+	unsigned int key_n,
+	bool * good_n ) const
 {
-	const ::dpe2::Value_Item * val (
-		value_for_key ( key_n ) );
+	const ::dpe2::Value_Item * val ( value_for_key ( key_n ) );
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_INT ) {
-			val_n = val->as_int();
-			return true;
+			return val->as_int();
 		}
 	}
-	return false;
+	if ( good_n != 0 ) {
+		*good_n = false;
+	}
+	return 0;
 }
 
-bool
-Key_Values::value_uint (
-	unsigned int & val_n,
-	unsigned int key_n ) const
+unsigned int
+Key_Values::val_uint (
+	unsigned int key_n,
+	bool * good_n ) const
 {
-	const ::dpe2::Value_Item * val (
-		value_for_key ( key_n ) );
+	const ::dpe2::Value_Item * val ( value_for_key ( key_n ) );
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_UINT ) {
-			val_n = val->as_uint();
-			return true;
+			return val->as_uint();
 		}
 	}
-	return false;
+	if ( good_n != 0 ) {
+		*good_n = false;
+	}
+	return 0;
 }
 
-bool
-Key_Values::value_double (
-	double & val_n,
-	unsigned int key_n ) const
+double
+Key_Values::val_double (
+	unsigned int key_n,
+	bool * good_n ) const
 {
-	const ::dpe2::Value_Item * val (
-		value_for_key ( key_n ) );
+	const ::dpe2::Value_Item * val ( value_for_key ( key_n ) );
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_DOUBLE ) {
-			val_n = val->as_double();
-			return true;
+			return val->as_double();
 		}
 	}
-	return false;
+	if ( good_n != 0 ) {
+		*good_n = false;
+	}
+	return 0;
 }
 
-bool
-Key_Values::value_user (
-	::dpe2::User_Value * * val_n,
-	unsigned int key_n ) const
+::dpe2::User_Value *
+Key_Values::val_user (
+	unsigned int key_n,
+	bool * good_n ) const
 {
-	const ::dpe2::Value_Item * val (
-		value_for_key ( key_n ) );
+	const ::dpe2::Value_Item * val ( value_for_key ( key_n ) );
 	if ( val != 0 ) {
 		if ( val->type() == ::dpe2::Value_Item::TYPE_USER ) {
-			*val_n = val->as_user();
-			return true;
+			return val->as_user();
 		}
 	}
-	return false;
+	if ( good_n != 0 ) {
+		*good_n = false;
+	}
+	return 0;
 }
 
 void

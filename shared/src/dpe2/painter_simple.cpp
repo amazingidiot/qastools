@@ -25,31 +25,34 @@ Painter_Simple::is_responsible (
 
 void
 Painter_Simple::paint (
-	QPainter & painter_n,
-	const ::dpe2::Key_Values & vals_n )
+	::dpe2::Pixmap & pxmap_n,
+	const ::dpe2::Key_Values & kvals_n )
 {
-	unsigned int iwidth ( 0 );
-	unsigned int iheight ( 0 );
-	vals_n.value_uint ( iwidth, ::dpe2::PMK_WIDTH );
-	vals_n.value_uint ( iheight, ::dpe2::PMK_HEIGHT );
+	(void) kvals_n;
+	pxmap_n.qimage().fill ( 0 );
 
-	QRectF prect ( QPointF ( 0.0, 0.0 ), QSizeF ( iwidth, iheight ) );
+	QRectF prect ( 0.0, 0.0, pxmap_n.width(), pxmap_n.height() );
 	double pen_width ( 1.0 );
 	double pwhalf ( pen_width / 2.0 );
 	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
+
 	{
-		QPen ppen;
-		ppen.setWidth ( pen_width );
-		ppen.setColor ( random_color() );
-		painter_n.setPen ( ppen );
+		QPainter pnt ( &pxmap_n.qimage() );
+		pnt.setRenderHints ( QPainter::Antialiasing );
+		{
+			QPen ppen;
+			ppen.setWidth ( pen_width );
+			ppen.setColor ( random_color() );
+			pnt.setPen ( ppen );
+		}
+		{
+			QBrush brush ( Qt::SolidPattern );
+			brush.setColor ( random_color() );
+			pnt.setBrush ( brush );
+		}
+		const double crad ( 2.0 );
+		pnt.drawRoundedRect ( prect, crad, crad );
 	}
-	{
-		QBrush brush ( Qt::SolidPattern );
-		brush.setColor ( random_color() );
-		painter_n.setBrush ( brush );
-	}
-	const double crad ( 2.0 );
-	painter_n.drawRoundedRect ( prect, crad, crad );
 }
 
 QColor

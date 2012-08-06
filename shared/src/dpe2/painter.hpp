@@ -22,6 +22,12 @@ namespace dpe2
 ///
 class Painter
 {
+	// Public static variables
+	public:
+
+	static const unsigned int _img_area_max = 4096*4096;
+
+
 	// Public methods
 	public:
 
@@ -44,10 +50,6 @@ class Painter
 	iref1_deref (
 		::dpe2::Pixmap_IRef1 * iref1_n );
 
-	::dpe2::Pixmap_IRef1 *
-	find_match (
-		const ::dpe2::Key_Values & vset1_n );
-
 	/// @brief Signalizes this painter feels responsible
 	///
 	/// Must be implemented in a thread safe fashion
@@ -64,18 +66,26 @@ class Painter
 		const ::dpe2::Key_Values & vset1_n,
 		const ::dpe2::Key_Values & vset2_n ) const;
 
-	/// @brief Must be implemented in a thread safe fashion
-	///
-	virtual
-	void
-	paint (
-		QPainter & painter_n,
-		const ::dpe2::Key_Values & vals_n ) = 0;
+	::dpe2::Pixmap_IRef1 *
+	find_match (
+		const ::dpe2::Key_Values & vset1_n );
 
 	void
 	paint_pixmap (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n );
+
+
+	// Protected methods
+	private:
+
+	/// @brief Must be implemented in a thread safe fashion
+	///
+	virtual
+	void
+	paint (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n ) = 0;
 
 
 	// Private attributes

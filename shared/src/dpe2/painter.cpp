@@ -22,6 +22,44 @@ Painter::~Painter ( )
 {
 }
 
+void
+Painter::iref1_deref (
+	::dpe2::Pixmap_IRef1 * iref1_n )
+{
+	mutex().lock();
+	iref1_n->deref_one();
+	if ( iref1_n->num_refs() == 0 ) {
+		::dpe2::Pixmap_IRef0 * iref0 ( iref1_n->iref0() );
+		iref0->destroy_iref1 ( iref1_n );
+		if ( iref0->num_iref1() == 0 ) {
+			iref0_destroy ( iref0 );
+		}
+	}
+	mutex().unlock();
+}
+
+::dpe2::Pixmap_IRef0 *
+Painter::iref0_create ( )
+{
+	::dpe2::Pixmap_IRef0 * res (
+		new ::dpe2::Pixmap_IRef0 ( this ) );
+	_iref0s.push_back ( res );
+	return res;
+}
+
+void
+Painter::iref0_destroy (
+	::dpe2::Pixmap_IRef0 * iref0_n )
+{
+	IRef0_List::iterator it ( _iref0s.begin() );
+	for ( ; it != _iref0s.end(); ++it ) {
+		if ( *it == iref0_n ) {
+			_iref0s.erase ( it );
+			break;
+		}
+	}
+}
+
 bool
 Painter::key_values_match (
 	const ::dpe2::Key_Values & vset1_n,
@@ -53,66 +91,20 @@ Painter::find_match (
 }
 
 void
-Painter::iref1_deref (
-	::dpe2::Pixmap_IRef1 * iref1_n )
-{
-	_mutex.lock();
-	iref1_n->deref_one();
-	if ( iref1_n->num_refs() == 0 ) {
-		::dpe2::Pixmap_IRef0 * iref0 ( iref1_n->iref0() );
-		iref0->destroy_iref1 ( iref1_n );
-		if ( iref0->num_iref1() == 0 ) {
-			iref0_destroy ( iref0 );
-		}
-	}
-	_mutex.unlock();
-}
-
-::dpe2::Pixmap_IRef0 *
-Painter::iref0_create ( )
-{
-	::dpe2::Pixmap_IRef0 * res (
-		new ::dpe2::Pixmap_IRef0 ( this ) );
-	_iref0s.push_back ( res );
-	return res;
-}
-
-void
-Painter::iref0_destroy (
-	::dpe2::Pixmap_IRef0 * iref0_n )
-{
-	IRef0_List::iterator it ( _iref0s.begin() );
-	for ( ; it != _iref0s.end(); ++it ) {
-		if ( *it == iref0_n ) {
-			_iref0s.erase ( it );
-			break;
-		}
-	}
-}
-
-void
 Painter::paint_pixmap (
 	::dpe2::Pixmap & pxmap_n,
 	const ::dpe2::Key_Values & kvals_n )
 {
-	const unsigned int area_max ( 4096*4096 );
-	unsigned int iwidth ( 0 );
-	unsigned int iheight ( 0 );
-	kvals_n.value_uint ( iwidth, ::dpe2::PMK_WIDTH );
-	kvals_n.value_uint ( iheight, ::dpe2::PMK_HEIGHT );
-	if ( iwidth*iheight > area_max ) {
-		iwidth = 0;
-		iheight = 0;
+	bool vgood ( true );
+	unsigned int iwidth ( kvals_n.val_uint ( ::dpe2::PMK_WIDTH, &vgood ) );
+	unsigned int iheight ( kvals_n.val_uint ( ::dpe2::PMK_HEIGHT, &vgood ) );
+	if ( iwidth*iheight > _img_area_max ) {
+		vgood = false;
 	}
 	// Paint if the size is valid
-	if ( ( iwidth > 0 ) && ( iheight > 0 ) ) {
+	if ( vgood ) {
 		pxmap_n.set_size ( iwidth, iheight );
-		pxmap_n.qimage().fill ( 0 );
-		{
-			QPainter pnt ( &pxmap_n.qimage() );
-			pnt.setRenderHints ( QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform );
-			this->paint ( pnt, kvals_n );
-		}
+		this->paint ( pxmap_n, kvals_n );
 	}
 }
 

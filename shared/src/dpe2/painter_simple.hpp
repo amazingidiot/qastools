@@ -20,17 +20,21 @@ namespace dpe2
 class Painter_Simple :
 	public ::dpe2::Painter
 {
-	// Protected methods
-	protected:
+	// Public methods
+	public:
 
 	bool
 	is_responsible (
 		const ::dpe2::Key_Values & vset_n );
 
+
+	// Protected methods
+	protected:
+
 	void
 	paint (
-		QPainter & painter_n,
-		const ::dpe2::Key_Values & vals_n );
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n );
 
 	QColor
 	random_color ( ) const;

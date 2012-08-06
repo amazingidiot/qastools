@@ -334,25 +334,25 @@ class Key_Values
 		unsigned int key_n ) const;
 
 
-	bool
-	value_int (
-		int & val_n,
-		unsigned int key_n ) const;
+	int
+	val_int (
+		unsigned int key_n,
+		bool * good_n = 0 ) const;
 
-	bool
-	value_uint (
-		unsigned int & val_n,
-		unsigned int key_n ) const;
+	unsigned int
+	val_uint (
+		unsigned int key_n,
+		bool * good_n = 0 ) const;
 
-	bool
-	value_double (
-		double & val_n,
-		unsigned int key_n ) const;
+	double
+	val_double (
+		unsigned int key_n,
+		bool * good_n = 0 ) const;
 
-	bool
-	value_user (
-		::dpe2::User_Value * * val_n,
-		unsigned int key_n ) const;
+	::dpe2::User_Value *
+	val_user (
+		unsigned int key_n,
+		bool * good_n = 0 ) const;
 
 
 

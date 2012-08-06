@@ -273,8 +273,8 @@ Pixmap_Server_Shared::paint_request (
 	if ( !req_waiting ) {
 		::dpe2::Pixmap_Paint_Waiter * waiter ( 0 );
 
-		// Paint pixmap new on demand
 		if ( paint_new ) {
+			// Paint pixmap new on demand
 			pnt_n.paint_pixmap ( iref0->pixmap(), kvals );
 
 			// Pick up waiting requests
