@@ -52,68 +52,6 @@ Painter::find_match (
 	return res;
 }
 
-bool
-Painter::process_request (
-	::dpe2::Pixmap_Request & request_n )
-{
-	const ::dpe2::Key_Values & kvals ( request_n.kvals );
-	if ( !this->is_responsible ( kvals ) ) {
-		return false;
-	}
-
-	bool paint_new ( false );
-	::dpe2::Pixmap_IRef0 * iref0;
-	::dpe2::Pixmap_IRef1 * iref1;
-
-	_mutex.lock();
-	iref1 = find_match ( kvals );
-	if ( iref1 == 0 ) {
-		// Create new references
-		iref0 = create_iref0();
-		iref0->create_waiter();
-		iref1 = iref0->create_iref1 ( kvals );
-		iref1->ref_one();
-		paint_new = true;
-	} else {
-		// Take existing reference
-		iref0 = iref1->iref0();
-		iref1->ref_one();
-
-		// Wait until painting finished
-		::dpe2::Pixmap_Paint_Waiter * waiter ( iref0->waiter() );
-		if ( waiter != 0 ) {
-			if ( !waiter->finished ) {
-				++waiter->num_waiters;
-				waiter->wait_cond.wait ( &_mutex );
-				--waiter->num_waiters;
-				if ( waiter->num_waiters == 0 ) {
-					iref0->destroy_waiter();
-				}
-			}
-		}
-	}
-	_mutex.unlock();
-
-	// Paint pixmap new on demand
-	if ( paint_new ) {
-		paint_pixmap ( iref0->pixmap(), kvals );
-		// Notify waiters on demand
-		_mutex.lock();
-		iref0->waiter()->finished = true;
-		if ( iref0->waiter()->num_waiters > 0 ) {
-			iref0->waiter()->wait_cond.wakeAll();
-		} else {
-			iref0->destroy_waiter();
-		}
-		_mutex.unlock();
-	}
-
-	// Set reference and update reference counter
-	request_n.pxm_ref.set_iref1 ( iref1 );
-
-	return true;
-}
-
 void
 Painter::iref1_deref (
 	::dpe2::Pixmap_IRef1 * iref1_n )
@@ -124,14 +62,14 @@ Painter::iref1_deref (
 		::dpe2::Pixmap_IRef0 * iref0 ( iref1_n->iref0() );
 		iref0->destroy_iref1 ( iref1_n );
 		if ( iref0->num_iref1() == 0 ) {
-			destroy_iref0 ( iref0 );
+			iref0_destroy ( iref0 );
 		}
 	}
 	_mutex.unlock();
 }
 
 ::dpe2::Pixmap_IRef0 *
-Painter::create_iref0 ( )
+Painter::iref0_create ( )
 {
 	::dpe2::Pixmap_IRef0 * res (
 		new ::dpe2::Pixmap_IRef0 ( this ) );
@@ -140,7 +78,7 @@ Painter::create_iref0 ( )
 }
 
 void
-Painter::destroy_iref0 (
+Painter::iref0_destroy (
 	::dpe2::Pixmap_IRef0 * iref0_n )
 {
 	IRef0_List::iterator it ( _iref0s.begin() );

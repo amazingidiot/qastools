@@ -45,19 +45,6 @@ Pixmap_IRef0::destroy_iref1 (
 	}
 }
 
-void
-Pixmap_IRef0::create_waiter ( )
-{
-	_waiter = new ::dpe2::Pixmap_Paint_Waiter;
-}
-
-void
-Pixmap_IRef0::destroy_waiter ( )
-{
-	delete _waiter;
-	_waiter = 0;
-}
-
 
 
 Pixmap_Ref::Pixmap_Ref (

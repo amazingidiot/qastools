@@ -105,17 +105,17 @@ Sliders_Pad::notify_pixmaps_finished (
 	::Wdg2::Sliders_Pad * cref (
 		reinterpret_cast < ::Wdg2::Sliders_Pad * > ( context_n ) );
 	QCoreApplication * app ( QCoreApplication::instance() );
-	app->postEvent ( cref, new QEvent ( (QEvent::Type)cref->_etype_deliver_pixmaps ) );
+	app->postEvent (
+		cref, new QEvent ( (QEvent::Type)cref->_etype_deliver_pixmaps ) );
 }
 
 bool
 Sliders_Pad::event (
 	QEvent * event_n )
 {
-	bool res ( false );
+	bool res ( true );
 	if ( event_n->type() == _etype_deliver_pixmaps ) {
 		_scene_db.pxm_server()->deliver_finished_requests();
-		res = true;
 	} else {
 		res = QGraphicsView::event ( event_n );;
 	}

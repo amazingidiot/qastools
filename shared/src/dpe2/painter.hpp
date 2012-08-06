@@ -30,20 +30,27 @@ class Painter
 	virtual
 	~Painter ( );
 
-	bool
-	process_request (
-		::dpe2::Pixmap_Request & request_n );
+	QMutex &
+	mutex ( );
+
+	::dpe2::Pixmap_IRef0 *
+	iref0_create ( );
+
+	void
+	iref0_destroy (
+		::dpe2::Pixmap_IRef0 * iref0_n );
 
 	void
 	iref1_deref (
 		::dpe2::Pixmap_IRef1 * iref1_n );
 
+	::dpe2::Pixmap_IRef1 *
+	find_match (
+		const ::dpe2::Key_Values & vset1_n );
 
-	// Protected methods
-	protected:
-
-	/// @brief Must be implemented in a thread safe fashion
+	/// @brief Signalizes this painter feels responsible
 	///
+	/// Must be implemented in a thread safe fashion
 	virtual
 	bool
 	is_responsible (
@@ -65,25 +72,10 @@ class Painter
 		QPainter & painter_n,
 		const ::dpe2::Key_Values & vals_n ) = 0;
 
-
-	// Private methods
-	private:
-
-	::dpe2::Pixmap_IRef1 *
-	find_match (
-		const ::dpe2::Key_Values & vset1_n );
-
 	void
 	paint_pixmap (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n );
-
-	::dpe2::Pixmap_IRef0 *
-	create_iref0 ( );
-
-	void
-	destroy_iref0 (
-		::dpe2::Pixmap_IRef0 * iref0_n );
 
 
 	// Private attributes
@@ -94,6 +86,14 @@ class Painter
 	IRef0_List _iref0s;
 	QMutex _mutex;
 };
+
+
+inline
+QMutex &
+Painter::mutex ( )
+{
+	return _mutex;
+}
 
 
 } // End of namespace

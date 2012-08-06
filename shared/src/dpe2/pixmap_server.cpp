@@ -96,7 +96,7 @@ Pixmap_Server::set_one_done_callback (
 ::dpe2::Pixmap_Request *
 Pixmap_Server::acquire_request ( )
 {
-	return _shared->create_request();
+	return _shared->acquire_request();
 }
 
 void

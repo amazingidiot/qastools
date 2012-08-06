@@ -11,13 +11,13 @@
 
 #include "key_values.hpp"
 #include "pixmap.hpp"
-#include <QWaitCondition>
 #include <QTime>
 
 // Forward declaration
 namespace dpe2
 {
 	class Painter;
+	class Pixmap_Paint_Waiter;
 	class Pixmap_IRef0;
 	class Pixmap_IRef1;
 	class Pixmap_Ref;
@@ -25,24 +25,6 @@ namespace dpe2
 
 namespace dpe2
 {
-
-
-struct Pixmap_Paint_Waiter
-{
-	Pixmap_Paint_Waiter ( );
-
-	QWaitCondition wait_cond;
-	unsigned int num_waiters;
-	bool finished;
-};
-
-inline
-Pixmap_Paint_Waiter::Pixmap_Paint_Waiter ( ) :
-num_waiters ( 0 ),
-finished ( false )
-{
-}
-
 
 /// @brief Pixmap_IRef0
 ///
@@ -81,14 +63,12 @@ class Pixmap_IRef0
 		::dpe2::Pixmap_IRef1 * iref1_n );
 
 
-	void
-	create_waiter ( );
-
-	void
-	destroy_waiter ( );
-
 	::dpe2::Pixmap_Paint_Waiter *
-	waiter ( );
+	waiter ( ) const;
+
+	void
+	set_waiter (
+		::dpe2::Pixmap_Paint_Waiter * waiter_n );
 
 
 	// Private attributes
@@ -140,9 +120,17 @@ Pixmap_IRef0::iref1 (
 
 inline
 ::dpe2::Pixmap_Paint_Waiter *
-Pixmap_IRef0::waiter ( )
+Pixmap_IRef0::waiter ( ) const
 {
 	return _waiter;
+}
+
+inline
+void
+Pixmap_IRef0::set_waiter (
+	::dpe2::Pixmap_Paint_Waiter * waiter_n )
+{
+	_waiter = waiter_n;
 }
 
 

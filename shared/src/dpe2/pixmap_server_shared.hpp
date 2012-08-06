@@ -29,6 +29,18 @@ namespace dpe2 {
 namespace dpe2
 {
 
+// Type definitions
+typedef QList < ::dpe2::Pixmap_Request * > Request_List;
+typedef QQueue < ::dpe2::Pixmap_Request * > Request_Queue;
+
+
+/// @brief Multiple equal request can wait here for a painting to be finished
+///
+struct Pixmap_Paint_Waiter
+{
+	Request_Queue requests;
+};
+
 
 /// @brief Pixmap_Server_Shared
 ///
@@ -66,13 +78,6 @@ class Pixmap_Server_Shared
 	stop_threads ( );
 
 
-	::dpe2::Pixmap_Request *
-	create_request ( );
-
-	void
-	destroy_request (
-		::dpe2::Pixmap_Request * request_n );
-
 
 	::dpe2::Pixmap_Request *
 	acquire_request ( );
@@ -81,12 +86,13 @@ class Pixmap_Server_Shared
 	release_request (
 		::dpe2::Pixmap_Request * request_n );
 
+
 	void
 	send_request (
 		::dpe2::Pixmap_Request * request_n );
 
 	void
-	enqueue_request (
+	process_request (
 		::dpe2::Pixmap_Request * request_n );
 
 
@@ -100,36 +106,62 @@ class Pixmap_Server_Shared
 	void
 	deliver_finished_requests ( );
 
-	bool
-	destroy_request_on_demand (
-		::dpe2::Pixmap_Request * request_n );
-
 
 	// Threads interface
 
 	::dpe2::Pixmap_Request *
 	fetch_request ( );
 
+
+	// Private methods;
+	private:
+
+	::dpe2::Pixmap_Request *
+	create_request ( );
+
 	void
-	process_request (
+	destroy_request (
+		::dpe2::Pixmap_Request * request_n );
+
+	bool
+	destroy_request_on_demand (
+		::dpe2::Pixmap_Request * request_n );
+
+
+	void
+	enqueue_request (
 		::dpe2::Pixmap_Request * request_n );
 
 	void
 	paint_request (
+		::dpe2::Painter & pnt_n,
 		::dpe2::Pixmap_Request * request_n );
+
+	void
+	request_finished_begin ( );
 
 	void
 	request_finished (
 		::dpe2::Pixmap_Request * request_n );
 
+	void
+	request_finished_end ( );
+
+
+	::dpe2::Pixmap_Paint_Waiter *
+	acquire_waiter ( );
+
+	void
+	release_waiter (
+		::dpe2::Pixmap_Paint_Waiter * waiter_n );
+
 
 	// Private attributes;
 	private:
 
-	typedef QList < ::dpe2::Pixmap_Request * > Request_List;
-	typedef QQueue < ::dpe2::Pixmap_Request * > Request_Queue;
 	typedef QList < ::dpe2::Painter * > Painter_List;
 	typedef QList < ::dpe2::Paint_Thread * > Thread_List;
+	typedef QList < ::dpe2::Pixmap_Paint_Waiter * > Paint_Waiters_List;
 
 	QMutex _queue_new_mutex;
 	Request_Queue _queue_new;
@@ -144,6 +176,9 @@ class Pixmap_Server_Shared
 	// Painters
 	Painter_List _painters;
 	Thread_List _threads;
+
+	QMutex _shared_mutex;
+	Paint_Waiters_List _paint_waiters;
 };
 
 

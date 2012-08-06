@@ -19,7 +19,9 @@ namespace dpe2
 {
 
 class Pixmap_Request;
-typedef void (*Pixmap_Request_CBFunk)( void * contex_n, ::dpe2::Pixmap_Request * request_n );
+typedef void (*Pixmap_Request_CBFunk)(
+	void * contex_n,
+	::dpe2::Pixmap_Request * request_n );
 
 enum Request_States {
 	RS_FREE          = 0,

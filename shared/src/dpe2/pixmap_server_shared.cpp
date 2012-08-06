@@ -30,10 +30,21 @@ Pixmap_Server_Shared::~Pixmap_Server_Shared ( )
 	assert ( _queue_done[1].size() == 0 );
 	assert ( _released_requests.size() == 0 );
 
-	for ( int ii=0; ii < _painters.size(); ++ii ) {
-		delete _painters[ii];
+	// Destroy painters
+	{
+		Painter_List::iterator it ( _painters.begin() );
+		for ( ; it != _painters.end(); ++it ) {
+			delete (*it);
+		}
 	}
-	_painters.clear();
+
+	// Destroy paint waiters
+	{
+		Paint_Waiters_List::iterator it ( _paint_waiters.begin() );
+		for ( ; it != _paint_waiters.end(); ++it ) {
+			delete (*it);
+		}
+	}
 }
 
 void
@@ -67,9 +78,10 @@ Pixmap_Server_Shared::start_threads ( )
 void
 Pixmap_Server_Shared::abort_threads ( )
 {
-	if ( threads_running() > 0 ) {
+	const unsigned int num ( threads_running() );
+	if ( num > 0 ) {
 		_queue_new_mutex.lock();
-		for ( int ii=0; ii < _threads.size(); ++ii ) {
+		for ( unsigned int ii=0; ii < num; ++ii ) {
 			_queue_new.append ( 0 );
 		}
 		_queue_new_mutex.unlock();
@@ -85,8 +97,9 @@ Pixmap_Server_Shared::join_threads ( )
 		{
 			Thread_List::iterator it ( _threads.begin() );
 			for ( ; it != _threads.end(); ++it ) {
-				(*it)->wait();
-				delete (*it);
+				::dpe2::Paint_Thread * pth ( *it );
+				pth->wait();
+				delete pth;
 			}
 		}
 		_threads.clear();
@@ -203,29 +216,109 @@ void
 Pixmap_Server_Shared::process_request (
 	::dpe2::Pixmap_Request * request_n )
 {
-	paint_request ( request_n );
-	request_finished ( request_n );
-}
+	::dpe2::Painter * painter ( 0 );
 
-void
-Pixmap_Server_Shared::paint_request (
-	::dpe2::Pixmap_Request * request_n )
-{
-	// Find painter and paint
-	Painter_List::iterator it ( _painters.begin() );
-	for ( ; it != _painters.end(); ++it ) {
-		if ( (*it)->process_request ( *request_n ) ) {
-			break;
+	{
+		const ::dpe2::Key_Values & kvals ( request_n->kvals );
+		// Find responsible painter
+		Painter_List::iterator it ( _painters.begin() );
+		for ( ; it != _painters.end(); ++it ) {
+			::dpe2::Painter * pnt ( *it );
+			if ( pnt->is_responsible ( kvals ) ) {
+				painter = pnt;
+				break;
+			}
 		}
+	}
+
+	if ( painter != 0 ) {
+		paint_request ( *painter, request_n );
 	}
 }
 
 void
+Pixmap_Server_Shared::paint_request (
+	::dpe2::Painter & pnt_n,
+	::dpe2::Pixmap_Request * request_n )
+{
+	const ::dpe2::Key_Values & kvals ( request_n->kvals );
+
+	bool paint_new ( false );
+	bool req_waiting ( false );
+	::dpe2::Pixmap_IRef0 * iref0;
+	::dpe2::Pixmap_IRef1 * iref1;
+
+	pnt_n.mutex().lock();
+	iref1 = pnt_n.find_match ( kvals );
+	if ( iref1 == 0 ) {
+		// Create new references
+		iref0 = pnt_n.iref0_create();
+		iref1 = iref0->create_iref1 ( kvals );
+		iref0->set_waiter ( new ::dpe2::Pixmap_Paint_Waiter );
+		paint_new = true;
+	} else {
+		// Enqueue to paint finish waiters list on demand
+		::dpe2::Pixmap_Paint_Waiter * waiter ( iref1->iref0()->waiter() );
+		if ( waiter != 0 ) {
+			waiter->requests.enqueue ( request_n );
+			req_waiting = true;
+		}
+	}
+	iref1->ref_one();
+	pnt_n.mutex().unlock();
+
+	// Set pixmap reference in request
+	request_n->pxm_ref.set_iref1 ( iref1 );
+
+	if ( !req_waiting ) {
+		::dpe2::Pixmap_Paint_Waiter * waiter ( 0 );
+
+		// Paint pixmap new on demand
+		if ( paint_new ) {
+			pnt_n.paint_pixmap ( iref0->pixmap(), kvals );
+
+			// Pick up waiting requests
+			pnt_n.mutex().lock();
+			waiter = iref0->waiter();
+			iref0->set_waiter ( 0 );
+			pnt_n.mutex().unlock();
+		}
+
+		// Push all finished requests to the output queue
+		request_finished_begin();
+		request_finished ( request_n );
+		if ( waiter != 0 ) {
+			while ( !waiter->requests.isEmpty() ) {
+				request_finished ( waiter->requests.dequeue() );
+			}
+		}
+		request_finished_end();
+
+		if ( waiter != 0 ) {
+			delete waiter;
+		}
+	}
+}
+
+inline
+void
+Pixmap_Server_Shared::request_finished_begin ( )
+{
+	_queue_done_mutex.lock();
+}
+
+inline
+void
 Pixmap_Server_Shared::request_finished (
 	::dpe2::Pixmap_Request * request_n )
 {
-	_queue_done_mutex.lock();
 	_queue_done[0].enqueue ( request_n );
+}
+
+inline
+void
+Pixmap_Server_Shared::request_finished_end ( )
+{
 	const bool is_notified ( _queue_done_notified );
 	_queue_done_notified = true;
 	_queue_done_mutex.unlock();
@@ -251,6 +344,32 @@ Pixmap_Server_Shared::deliver_finished_requests ( )
 			req->call_back();
 		}
 	}
+}
+
+::dpe2::Pixmap_Paint_Waiter *
+Pixmap_Server_Shared::acquire_waiter ( )
+{
+	::dpe2::Pixmap_Paint_Waiter * res ( 0 );
+
+	_shared_mutex.lock();
+	if ( _paint_waiters.size() > 0 ) {
+		res = _paint_waiters.takeLast();
+	}
+	_shared_mutex.unlock();
+
+	if ( res == 0 ) {
+		res = new ::dpe2::Pixmap_Paint_Waiter;
+	}
+	return res;
+}
+
+void
+Pixmap_Server_Shared::release_waiter (
+	::dpe2::Pixmap_Paint_Waiter * waiter_n )
+{
+	_shared_mutex.lock();
+	_paint_waiters.append ( waiter_n );
+	_shared_mutex.unlock();
 }
 
 
