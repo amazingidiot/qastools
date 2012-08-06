@@ -98,7 +98,11 @@ Painter::paint_pixmap (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::dpe2::PMK_WIDTH, &vgood ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::dpe2::PMK_HEIGHT, &vgood ) );
-	if ( iwidth*iheight > _img_area_max ) {
+	const unsigned int area ( iwidth*iheight );
+	if ( ( area == 0 ) || ( area > _img_area_max ) ||
+		( iwidth > _img_area_max ) ||
+		( iheight > _img_area_max ) )
+	{
 		vgood = false;
 	}
 	// Paint if the size is valid
