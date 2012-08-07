@@ -37,6 +37,19 @@ class GW_Pixmaps :
 		const QStyleOptionGraphicsItem * option_n,
 		QWidget * widget_n = 0 );
 
+
+	const ::Flags &
+	state_flags ( ) const;
+
+	void
+	state_flags_set (
+		unsigned int flags_n );
+
+	void
+	state_flags_unset (
+		unsigned int flags_n );
+
+
 	unsigned int
 	num_pixmaps ( ) const;
 
@@ -69,6 +82,10 @@ class GW_Pixmaps :
 	protected:
 
 	virtual
+	void
+	update_pxm_idx ( ) = 0;
+
+	virtual
 	bool
 	setup_request (
 		unsigned int idx_n,
@@ -88,8 +105,15 @@ class GW_Pixmaps :
 	unsigned int _pxm_idx;
 	::std::vector < ::dpe2::Pixmap_Ref > _pxmaps;
 	::std::vector < ::dpe2::Pixmap_Request * > _pxm_requests;
+	::Flags _state_flags;
 };
 
+inline
+const ::Flags &
+GW_Pixmaps::state_flags ( ) const
+{
+	return _state_flags;
+}
 
 inline
 unsigned int

@@ -40,18 +40,11 @@ class GW_Slider_Rail :
 		const QSize & size_n );
 
 
-	const ::Flags &
-	state_flags ( ) const;
-
-	::Flags &
-	state_flags ( );
+	// Protected methods
+	protected:
 
 	void
 	update_pxm_idx ( );
-
-
-	// Protected methods
-	protected:
 
 	bool
 	setup_request (
@@ -71,20 +64,6 @@ const QSize &
 GW_Slider_Rail::rail_size ( ) const
 {
 	return _rail_size;
-}
-
-inline
-const ::Flags &
-GW_Slider_Rail::state_flags ( ) const
-{
-	return _state_flags;
-}
-
-inline
-::Flags &
-GW_Slider_Rail::state_flags ( )
-{
-	return _state_flags;
 }
 
 
@@ -108,18 +87,11 @@ class GW_Slider_Handle :
 		const QSize & size_n );
 
 
-	const ::Flags &
-	state_flags ( ) const;
-
-	::Flags &
-	state_flags ( );
+	// Protected methods
+	protected:
 
 	void
 	update_pxm_idx ( );
-
-
-	// Protected methods
-	protected:
 
 	bool
 	setup_request (
@@ -140,21 +112,6 @@ GW_Slider_Handle::handle_size ( ) const
 {
 	return _handle_size;
 }
-
-inline
-const ::Flags &
-GW_Slider_Handle::state_flags ( ) const
-{
-	return _state_flags;
-}
-
-inline
-::Flags &
-GW_Slider_Handle::state_flags ( )
-{
-	return _state_flags;
-}
-
 
 
 /// @brief GW_Slider_Sizes

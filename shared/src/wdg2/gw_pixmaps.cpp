@@ -49,16 +49,6 @@ GW_Pixmaps::~GW_Pixmaps ( )
 }
 
 void
-GW_Pixmaps::set_pxm_idx (
-	unsigned int idx_n )
-{
-	if ( _pxm_idx != idx_n ) {
-		_pxm_idx = idx_n;
-		update();
-	}
-}
-
-void
 GW_Pixmaps::paint (
 	QPainter * painter_n,
 	const QStyleOptionGraphicsItem * option_n,
@@ -82,6 +72,36 @@ GW_Pixmaps::paint (
 				*qpxm,
 				QRectF ( 0.0, 0.0, qpxm->width(), qpxm->height() ) );
 		}
+	}
+}
+
+void
+GW_Pixmaps::set_pxm_idx (
+	unsigned int idx_n )
+{
+	if ( _pxm_idx != idx_n ) {
+		_pxm_idx = idx_n;
+		update();
+	}
+}
+
+void
+GW_Pixmaps::state_flags_set (
+	unsigned int flags_n )
+{
+	if ( !_state_flags.has_all ( flags_n ) ) {
+		_state_flags.set ( flags_n );
+		this->update_pxm_idx();
+	}
+}
+
+void
+GW_Pixmaps::state_flags_unset (
+	unsigned int flags_n )
+{
+	if ( _state_flags.has_any ( flags_n ) ) {
+		_state_flags.unset ( flags_n );
+		this->update_pxm_idx();
 	}
 }
 
