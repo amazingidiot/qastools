@@ -10,6 +10,8 @@
 #define __INC_wdg2_theme_painters_hpp__
 
 #include "dpe2/painter.hpp"
+#include "graphical_widget.hpp"
+#include <QPalette>
 
 namespace Wdg2
 {
@@ -21,6 +23,7 @@ enum Pixmap_Request_Keys
 	PRK_NONE = ::dpe2::PMK_USER,
 	PRK_WIDGET_TYPE,
 	PRK_WIDGET_PART,
+	PRK_WIDGET_STATE_FLAGS
 };
 
 enum Widget_Types
@@ -38,10 +41,48 @@ enum Widget_Parts
 };
 
 
-/// @brief Painter_Slider
+/// @brief Theme_Painter
 ///
-class Painter_Slider :
+class Theme_Painter :
 	public ::dpe2::Painter
+{
+	// Public Methods
+	public:
+
+	const QPalette &
+	qpalette ( ) const;
+
+	void
+	set_qpalette (
+		const QPalette & palette_n );
+
+
+	// Private attributes
+	private:
+
+	QPalette _qpalette;
+};
+
+inline
+const QPalette &
+Theme_Painter::qpalette ( ) const
+{
+	return _qpalette;
+}
+
+inline
+void
+Theme_Painter::set_qpalette (
+	const QPalette & palette_n )
+{
+	_qpalette = palette_n;
+}
+
+
+/// @brief Theme_Painter_Slider
+///
+class Theme_Painter_Slider :
+	public ::Wdg2::Theme_Painter
 {
 	// Public methods
 	public:
@@ -49,13 +90,30 @@ class Painter_Slider :
 	bool
 	is_responsible (
 		const ::dpe2::Key_Values & vset_n );
+
+	void
+	paint (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n );
+
+	virtual
+	void
+	paint_handle (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n ) = 0;
+
+	virtual
+	void
+	paint_rail (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n ) = 0;
 };
 
 
-/// @brief Painter_Scrollbar
+/// @brief Theme_Painter_Scrollbar
 ///
-class Painter_Scrollbar :
-	public ::dpe2::Painter
+class Theme_Painter_Scrollbar :
+	public ::Wdg2::Theme_Painter
 {
 	// Public methods
 	public:

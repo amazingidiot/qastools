@@ -71,6 +71,7 @@ class GW_Pixmaps :
 	virtual
 	bool
 	setup_request (
+		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 
 	void

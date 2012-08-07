@@ -23,13 +23,15 @@ namespace Wdg2
 
 
 Sliders_Pad::Sliders_Pad (
+	::Wdg2::Scene_Database * scene_db_n,
 	QWidget * parent_n ) :
 QGraphicsView ( parent_n ),
-_gw_sliders_pad ( &_scene_db ),
+_scene_db ( scene_db_n ),
+_gw_sliders_pad ( _scene_db ),
 _opengl_enabled ( false )
 {
 	_etype_deliver_pixmaps = QEvent::registerEventType();
-	_scene_db.pxm_server()->set_one_done_callback (
+	_scene_db->pxm_server()->set_one_done_callback (
 		::Context_Callback ( this, &::Wdg2::Sliders_Pad::notify_pixmaps_finished ) );
 
 	setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
@@ -115,7 +117,7 @@ Sliders_Pad::event (
 {
 	bool res ( true );
 	if ( event_n->type() == _etype_deliver_pixmaps ) {
-		_scene_db.pxm_server()->deliver_finished_requests();
+		_scene_db->pxm_server()->deliver_finished_requests();
 	} else {
 		res = QGraphicsView::event ( event_n );;
 	}

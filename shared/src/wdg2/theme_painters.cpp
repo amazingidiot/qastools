@@ -7,35 +7,59 @@
 //
 
 #include "theme_painters.hpp"
-#include <QEvent>
+#include <iostream>
 
 namespace Wdg2
 {
 
+
 bool
-Painter_Slider::is_responsible (
+Theme_Painter_Slider::is_responsible (
 	const ::dpe2::Key_Values & vset_n )
 {
 	bool vgood ( true );
 	const unsigned int wgt (
 		vset_n.val_uint ( ::Wdg2::PRK_WIDGET_TYPE, &vgood ) );
-	if ( wgt != WGT_SLIDER ) {
+	if ( wgt != ::Wdg2::WGT_SLIDER ) {
 		vgood = false;
 	}
 	return vgood;
 }
 
+void
+Theme_Painter_Slider::paint (
+	::dpe2::Pixmap & pxmap_n,
+	const ::dpe2::Key_Values & kvals_n )
+{
+	bool vgood ( true );
+	const unsigned int part (
+		kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_PART , &vgood ) );
+	if ( vgood ) {
+		switch ( part ) {
+			case ::Wdg2::WGP_SLIDER_HANDLE:
+				this->paint_handle ( pxmap_n, kvals_n );
+				break;
+			case ::Wdg2::WGP_SLIDER_RAIL:
+				this->paint_rail ( pxmap_n, kvals_n );
+				break;
+			default:
+				break;
+		}
+	}
+}
+
 bool
-Painter_Scrollbar::is_responsible (
+Theme_Painter_Scrollbar::is_responsible (
 	const ::dpe2::Key_Values & vset_n )
 {
 	bool vgood ( true );
 	const unsigned int wgt (
 		vset_n.val_uint ( ::Wdg2::PRK_WIDGET_TYPE, &vgood ) );
-	if ( wgt != WGT_SCROLLBAR ) {
+	if ( wgt != ::Wdg2::WGT_SCROLLBAR ) {
 		vgood = false;
 	}
 	return vgood;
 }
+
 
 } // End of namespace

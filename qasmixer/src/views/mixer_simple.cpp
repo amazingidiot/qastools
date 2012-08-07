@@ -14,6 +14,7 @@
 #include "mwdg/mixer_device_setup.hpp"
 #include "views/mixer_simple_setup.hpp"
 #include "views/message_widget.hpp"
+#include "wdg2/theme_sbevel.hpp"
 
 #include <QCoreApplication>
 #include <QHBoxLayout>
@@ -79,9 +80,15 @@ _status_column_idx ( ~0 )
 		_snd_controls = new ::QSnd2::ASMI_Controls;
 	}
 
+	// Scene database
+	{
+		_scene_db = new ::Wdg2::Scene_Database;
+		_scene_db->install_theme ( new ::Wdg2::Theme_SBevel );
+	}
+
 	// Sliders pad 2
 	{
-		_sliders_pad2 = new ::Wdg2::Sliders_Pad;
+		_sliders_pad2 = new ::Wdg2::Sliders_Pad ( _scene_db );
 	}
 
 	// Vertical splitter

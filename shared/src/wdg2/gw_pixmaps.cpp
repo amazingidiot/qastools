@@ -93,6 +93,10 @@ GW_Pixmaps::pxm_request_finished_cb (
 	::Wdg2::GW_Pixmaps & cref (
 		*reinterpret_cast < ::Wdg2::GW_Pixmaps * > ( context_n ) );
 
+	if ( request_n->key >= cref.num_pixmaps() ) {
+		return;
+	}
+
 	::dpe2::Pixmap_Ref & pxm_ref ( cref.pxmap ( request_n->key ) );
 	// Return old pixmap on demand
 	if ( pxm_ref.is_valid() ) {
@@ -124,7 +128,7 @@ GW_Pixmaps::repaint_pixmap (
 	if ( !req->state.has_any ( ::dpe2::RS_PROCESSING ) ) {
 		//::std::cout << "GW_Pixmaps::repaint_pixmap " << "Sending request" << "\n";
 		req->state.unset ( ::dpe2::RS_NEEDS_UPDATE );
-		if ( this->setup_request ( req->kvals ) ) {
+		if ( this->setup_request ( idx_n, req->kvals ) ) {
 			scene_db()->pxm_server()->send_request ( req );
 		}
 	} else {
@@ -143,6 +147,7 @@ GW_Pixmaps::repaint_pixmaps ( )
 
 bool
 GW_Pixmaps::setup_request (
+	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
 	kvals_n.set_uint ( ::dpe2::PMK_WIDTH, bounding_rect().width() );

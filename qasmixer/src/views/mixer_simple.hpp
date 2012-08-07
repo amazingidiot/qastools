@@ -105,6 +105,7 @@ class Mixer_Simple :
 	// widgets
 	QWidget _wdg_areas;
 	QSplitter _mixer_split;
+	::Wdg2::Scene_Database * _scene_db;
 	::Wdg2::Sliders_Pad * _sliders_pad2;
 
 	unsigned int _status_group_idx;

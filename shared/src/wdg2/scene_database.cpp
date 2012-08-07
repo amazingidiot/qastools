@@ -8,6 +8,7 @@
 
 #include "scene_database.hpp"
 #include "theme.hpp"
+#include "theme_painters.hpp"
 #include <cassert>
 
 namespace Wdg2

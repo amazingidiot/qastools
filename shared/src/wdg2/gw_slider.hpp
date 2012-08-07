@@ -22,7 +22,7 @@ namespace Wdg2
 /// @brief GW_Slider_Rail
 ///
 class GW_Slider_Rail :
-	public ::Wdg2::GW_Widget
+	public ::Wdg2::GW_Pixmaps
 {
 	// Public methods
 	public:
@@ -30,13 +30,6 @@ class GW_Slider_Rail :
 	GW_Slider_Rail (
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
-
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
 
 
 	const QSize &
@@ -52,6 +45,18 @@ class GW_Slider_Rail :
 
 	::Flags &
 	state_flags ( );
+
+	void
+	update_pxm_idx ( );
+
+
+	// Protected methods
+	protected:
+
+	bool
+	setup_request (
+		unsigned int idx_n,
+		::dpe2::Key_Values & kvals_n );
 
 
 	// Private attributes
@@ -108,6 +113,18 @@ class GW_Slider_Handle :
 
 	::Flags &
 	state_flags ( );
+
+	void
+	update_pxm_idx ( );
+
+
+	// Protected methods
+	protected:
+
+	bool
+	setup_request (
+		unsigned int idx_n,
+		::dpe2::Key_Values & kvals_n );
 
 
 	// Private attributes

@@ -9,8 +9,14 @@
 #ifndef __INC_wdg2_theme_hpp__
 #define __INC_wdg2_theme_hpp__
 
-#include "dpe2/painter.hpp"
 #include <QList>
+#include <QPalette>
+
+// Forward declaration
+namespace Wdg2
+{
+	class Theme_Painter;
+}
 
 namespace Wdg2
 {
@@ -32,28 +38,36 @@ class Theme
 	unsigned int
 	num_painters ( ) const;
 
-	::dpe2::Painter *
+	::Wdg2::Theme_Painter *
 	painter (
 		unsigned int idx_n );
-
 
 	/// @brief Adds a painter including ownership to the Theme
 	///
 	void
 	add_painter (
-		::dpe2::Painter * painter_n );
+		::Wdg2::Theme_Painter * painter_n );
 
 	void
 	take_painter (
-		::dpe2::Painter * painter_n );
+		::Wdg2::Theme_Painter * painter_n );
+
+
+	const QPalette &
+	qpalette ( ) const;
+
+	void
+	set_qpalette (
+		const QPalette & palette_n );
 
 
 	// Private attributes
 	private:
 
-	typedef QList < ::dpe2::Painter * > Painter_List;
+	typedef QList < ::Wdg2::Theme_Painter * > Painter_List;
 
 	Painter_List _painters;
+	QPalette _qpalette;
 };
 
 
@@ -65,11 +79,18 @@ Theme::num_painters ( ) const
 }
 
 inline
-::dpe2::Painter *
+::Wdg2::Theme_Painter *
 Theme::painter (
 	unsigned int idx_n )
 {
 	return _painters[idx_n];
+}
+
+inline
+const QPalette &
+Theme::qpalette ( ) const
+{
+	return _qpalette;
 }
 
 

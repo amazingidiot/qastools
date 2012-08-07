@@ -29,6 +29,7 @@ class Sliders_Pad :
 	public:
 
 	Sliders_Pad (
+		::Wdg2::Scene_Database * scene_db_n,
 		QWidget * parent_n = 0 );
 
 	~Sliders_Pad ( );
@@ -48,6 +49,9 @@ class Sliders_Pad :
 	void
 	enable_opengl (
 		bool flag_n );
+
+	::Wdg2::Scene_Database *
+	scene_db ( ) const;
 
 
 	bool
@@ -82,7 +86,7 @@ class Sliders_Pad :
 	// Private attributes
 	private:
 
-	::Wdg2::Scene_Database _scene_db;
+	::Wdg2::Scene_Database * _scene_db;
 	::Wdg2::GW_Sliders_Pad _gw_sliders_pad;
 	QGraphicsScene _scene;
 
@@ -96,6 +100,13 @@ inline
 Sliders_Pad::snd_controls ( ) const
 {
 	return _gw_sliders_pad.snd_controls();
+}
+
+inline
+::Wdg2::Scene_Database *
+Sliders_Pad::scene_db ( ) const
+{
+	return _scene_db;
 }
 
 

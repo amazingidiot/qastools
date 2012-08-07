@@ -8,6 +8,7 @@
 
 #include "gw_slider.hpp"
 #include "gw_multi_slider.hpp"
+#include "theme_painters.hpp"
 #include <iostream>
 #include <cmath>
 #include <QPainter>
@@ -22,37 +23,9 @@ namespace Wdg2
 GW_Slider_Rail::GW_Slider_Rail (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_rail_size ( 0.0, 0.0 )
+::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n ),
+_rail_size ( 0, 0 )
 {
-}
-
-void
-GW_Slider_Rail::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-
-	double pen_width ( 1.0 );
-	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
-		pen_width = 2;
-	}
-	double pwhalf ( pen_width / 2.0 );
-	QRectF prect ( QPointF ( 0.0, 0.0 ), _rail_size );
-	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
-	prect.adjust ( 3, 3, -3, -3 );
-
-	{
-		QPen ppen ( option_n->palette.color ( QPalette::ButtonText ) );
-		ppen.setWidth ( pen_width );
-		painter_n->setPen ( ppen );
-	}
-	painter_n->setBrush ( option_n->palette.color ( QPalette::Button ) );
-	painter_n->drawRoundedRect ( prect, 2.0, 2.0 );
 }
 
 void
@@ -61,13 +34,43 @@ GW_Slider_Rail::set_rail_size (
 {
 	if ( size_n != _rail_size ) {
 		_rail_size = size_n;
-
-		// Bounding rect
-		{
-			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _rail_size ) );
-			set_bounding_rect ( brect );
-		}
+		set_bounding_rect ( _rail_size );
+		repaint_pixmaps();
 	}
+}
+
+void
+GW_Slider_Rail::update_pxm_idx ( )
+{
+	unsigned int idx ( 0 );
+	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		idx = 1;
+	}
+	set_pxm_idx ( idx );
+}
+
+bool
+GW_Slider_Rail::setup_request (
+	unsigned int idx_n,
+	::dpe2::Key_Values & kvals_n )
+{
+	if ( ( _rail_size.width() <= 0 ) && ( _rail_size.height() <= 0 ) ) {
+		return false;
+	}
+
+	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  _rail_size.width() );
+	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, _rail_size.height() );
+	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
+	{
+		unsigned int sflags ( 0 );
+		if ( idx_n == 1 ) {
+			sflags |= ::Wdg2::GW_HAS_FOCUS;
+		}
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags );
+	}
+
+	return true;
 }
 
 
@@ -76,37 +79,9 @@ GW_Slider_Handle::GW_Slider_Handle (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n ),
-_handle_size ( 0.0, 0.0 )
+_handle_size ( 0, 0 )
 {
 }
-
-/* TODO: remove
-void
-GW_Slider_Handle::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-
-	{
-		double pen_width ( 2.0 );
-		double pwhalf ( pen_width / 2.0 );
-		QRectF prect ( QPointF ( 0.0, 0.0 ), _handle_size );
-		prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
-
-		{
-			QPen ppen ( option_n->palette.color ( QPalette::ButtonText ) );
-			ppen.setWidth ( pen_width );
-			painter_n->setPen ( ppen );
-		}
-		painter_n->setBrush ( option_n->palette.color ( QPalette::Button ) );
-		painter_n->drawRoundedRect ( prect, 2.0, 2.0 );
-	}
-}
-*/
 
 void
 GW_Slider_Handle::set_handle_size (
@@ -117,6 +92,40 @@ GW_Slider_Handle::set_handle_size (
 		set_bounding_rect ( _handle_size );
 		repaint_pixmaps();
 	}
+}
+
+void
+GW_Slider_Handle::update_pxm_idx ( )
+{
+	unsigned int idx ( 0 );
+	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		idx = 1;
+	}
+	set_pxm_idx ( idx );
+}
+
+bool
+GW_Slider_Handle::setup_request (
+	unsigned int idx_n,
+	::dpe2::Key_Values & kvals_n )
+{
+	if ( ( _handle_size.width() <= 0 ) && ( _handle_size.height() <= 0 ) ) {
+		return false;
+	}
+
+	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  _handle_size.width() );
+	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, _handle_size.height() );
+	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
+	{
+		unsigned int sflags ( 0 );
+		if ( idx_n == 1 ) {
+			sflags |= ::Wdg2::GW_HAS_FOCUS;
+		}
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags );
+	}
+
+	return true;
 }
 
 
@@ -326,8 +335,8 @@ GW_Slider::focusInEvent (
 	//::std::cout << "GW_Slider::focusInEvent"  << "\n";
 	_rail_wdg.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
 	_handle_wdg.state_flags().set ( ::Wdg2::GW_HAS_FOCUS );
-	_rail_wdg.update();
-	_handle_wdg.update();
+	_rail_wdg.update_pxm_idx();
+	_handle_wdg.update_pxm_idx();
 }
 
 void
@@ -337,8 +346,8 @@ GW_Slider::focusOutEvent (
 	//::std::cout << "GW_Slider::focusOutEvent"  << "\n";
 	_rail_wdg.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
 	_handle_wdg.state_flags().unset ( ::Wdg2::GW_HAS_FOCUS );
-	_rail_wdg.update();
-	_handle_wdg.update();
+	_rail_wdg.update_pxm_idx();
+	_handle_wdg.update_pxm_idx();
 }
 
 void
@@ -348,7 +357,7 @@ GW_Slider::mousePressEvent (
 	//::std::cout << "GW_Slider::mousePressEvent"  << "\n";
 	if ( point_in_handle ( event_n->pos() ) ) {
 		_handle_wdg.state_flags().set ( ::Wdg2::GW_IS_GRABBED );
-		_handle_wdg.update();
+		_handle_wdg.update_pxm_idx();
 	}
 }
 
@@ -360,7 +369,7 @@ GW_Slider::mouseReleaseEvent (
 	if ( _handle_wdg.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		_handle_wdg.state_flags().unset ( ::Wdg2::GW_IS_GRABBED );
 		update_handle_pos_from_value();
-		_handle_wdg.update();
+		_handle_wdg.update_pxm_idx();
 	}
 }
 
