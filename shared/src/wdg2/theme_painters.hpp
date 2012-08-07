@@ -10,7 +10,7 @@
 #define __INC_wdg2_theme_painters_hpp__
 
 #include "dpe2/painter.hpp"
-#include "graphical_widget.hpp"
+#include "gw_widget.hpp"
 #include <QPalette>
 
 namespace Wdg2

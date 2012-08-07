@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "graphical_widget.hpp"
+#include "gw_widget.hpp"
 #include <cassert>
 
 namespace Wdg2

@@ -9,7 +9,7 @@
 #ifndef __INC_wdg2_gw_groups_hpp__
 #define __INC_wdg2_gw_groups_hpp__
 
-#include "graphical_widget.hpp"
+#include "gw_widget.hpp"
 #include "gw_multi_slider.hpp"
 #include "gw_multi_switch.hpp"
 #include "qsnd2/controls_proxies.hpp"

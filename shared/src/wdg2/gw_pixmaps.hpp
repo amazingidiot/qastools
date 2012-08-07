@@ -9,7 +9,7 @@
 #ifndef __INC_wdg2_gw_pixmaps_hpp__
 #define __INC_wdg2_gw_pixmaps_hpp__
 
-#include "graphical_widget.hpp"
+#include "gw_widget.hpp"
 #include "dpe2/pixmap_request.hpp"
 
 namespace Wdg2

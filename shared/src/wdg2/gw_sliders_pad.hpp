@@ -9,7 +9,7 @@
 #ifndef __INC_wdg2_gw_sliders_pad_hpp__
 #define __INC_wdg2_gw_sliders_pad_hpp__
 
-#include "graphical_widget.hpp"
+#include "gw_widget.hpp"
 #include "gw_scrollbar.hpp"
 #include <QGraphicsItem>
 #include <QScopedPointer>

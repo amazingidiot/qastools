@@ -429,8 +429,6 @@
 		<Unit filename="shared/src/wdg/tree_view_kv.hpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.cpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
-		<Unit filename="shared/src/wdg2/graphical_widget.cpp" />
-		<Unit filename="shared/src/wdg2/graphical_widget.hpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.cpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.hpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_slider.cpp" />
@@ -449,6 +447,8 @@
 		<Unit filename="shared/src/wdg2/gw_switch.hpp" />
 		<Unit filename="shared/src/wdg2/gw_volume_slider.cpp" />
 		<Unit filename="shared/src/wdg2/gw_volume_slider.hpp" />
+		<Unit filename="shared/src/wdg2/gw_widget.cpp" />
+		<Unit filename="shared/src/wdg2/gw_widget.hpp" />
 		<Unit filename="shared/src/wdg2/int_math.cpp" />
 		<Unit filename="shared/src/wdg2/int_math.hpp" />
 		<Unit filename="shared/src/wdg2/scene_database.cpp" />

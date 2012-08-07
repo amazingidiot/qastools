@@ -11,7 +11,7 @@
 
 #include "flags.hpp"
 #include "callbacks.hpp"
-#include "graphical_widget.hpp"
+#include "gw_widget.hpp"
 #include "gw_pixmaps.hpp"
 #include "slider_value_map.hpp"
 

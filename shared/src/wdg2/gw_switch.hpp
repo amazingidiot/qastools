@@ -10,7 +10,7 @@
 #define __INC_wdg2_gw_switch_hpp__
 
 #include "flags.hpp"
-#include "graphical_widget.hpp"
+#include "gw_widget.hpp"
 #include "qsnd2/controls_proxies.hpp"
 #include <QGraphicsItem>
 
