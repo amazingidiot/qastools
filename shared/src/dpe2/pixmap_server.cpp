@@ -36,7 +36,17 @@ Pixmap_Server::install_painter (
 	::dpe2::Painter * painter_n )
 {
 	if ( painter_n != 0 ) {
+		assert ( _shared->threads_running() == 0 );
 		_shared->install_painter ( painter_n );
+	}
+}
+
+void
+Pixmap_Server::remove_painter (
+	::dpe2::Painter * painter_n )
+{
+	if ( painter_n != 0 ) {
+		_shared->remove_painter ( painter_n );
 	}
 }
 
@@ -54,6 +64,12 @@ Pixmap_Server::stop ( )
 	if ( multithread() ) {
 		_shared->stop_threads();
 	}
+}
+
+unsigned int
+Pixmap_Server::threads_running ( ) const
+{
+	return _shared->threads_running();
 }
 
 bool

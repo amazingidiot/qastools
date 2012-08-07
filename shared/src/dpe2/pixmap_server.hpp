@@ -45,10 +45,17 @@ class Pixmap_Server
 		::dpe2::Painter * painter_n );
 
 	void
+	remove_painter (
+		::dpe2::Painter * painter_n );
+
+	void
 	start ( );
 
 	void
 	stop ( );
+
+	unsigned int
+	threads_running ( ) const;
 
 
 	// Multithreading

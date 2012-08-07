@@ -75,12 +75,9 @@ class Painter
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n );
 
-
-	// Protected methods
-	private:
-
 	/// @brief Must be implemented in a thread safe fashion
 	///
+	/// The pixmap is already resized to the requested size
 	virtual
 	void
 	paint (

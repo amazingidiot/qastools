@@ -10,10 +10,13 @@
 #define __INC_wdg2_scene_database_hpp__
 
 #include "dpe2/pixmap_server.hpp"
-#include <deque>
-#include <QGraphicsItem>
-#include <QMutex>
-#include <QQueue>
+#include <QList>
+
+// Forward declaration
+namespace Wdg2
+{
+	class Theme;
+}
 
 namespace Wdg2
 {
@@ -34,10 +37,19 @@ class Scene_Database
 	::dpe2::Pixmap_Server *
 	pxm_server ( ) const;
 
+	void
+	install_theme (
+		::Wdg2::Theme * theme_n );
+
+	void
+	remove_theme (
+		::Wdg2::Theme * theme_n );
+
 
 	// Private attributes
 	private:
 
+	QList < ::Wdg2::Theme * > _themes;
 	::dpe2::Pixmap_Server * _pxm_server;
 };
 

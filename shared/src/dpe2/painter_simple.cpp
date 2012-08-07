@@ -50,8 +50,7 @@ Painter_Simple::paint (
 			brush.setColor ( random_color() );
 			pnt.setBrush ( brush );
 		}
-		const double crad ( 2.0 );
-		pnt.drawRoundedRect ( prect, crad, crad );
+		pnt.drawRect ( prect );
 	}
 }
 

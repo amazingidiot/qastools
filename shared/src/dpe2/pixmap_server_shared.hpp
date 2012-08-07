@@ -63,6 +63,11 @@ class Pixmap_Server_Shared
 		::dpe2::Painter * painter_n );
 
 	void
+	remove_painter (
+		::dpe2::Painter * painter_n );
+
+
+	void
 	start_threads ( );
 
 	unsigned int

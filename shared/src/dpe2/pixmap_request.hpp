@@ -14,11 +14,24 @@
 #include "pixmap.hpp"
 #include "pixmap_ref.hpp"
 
+// Forward declarations
+namespace dpe2
+{
+	class Pixmap_Request;
+}
 
 namespace dpe2
 {
 
-class Pixmap_Request;
+// Type definitions
+
+enum Pixmap_Keys {
+	PMK_NONE = 0,
+	PMK_WIDTH,
+	PMK_HEIGHT,
+	PMK_USER = 4096
+};
+
 typedef void (*Pixmap_Request_CBFunk)(
 	void * contex_n,
 	::dpe2::Pixmap_Request * request_n );

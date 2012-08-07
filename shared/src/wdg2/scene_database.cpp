@@ -7,7 +7,8 @@
 //
 
 #include "scene_database.hpp"
-#include <QEvent>
+#include "theme.hpp"
+#include <cassert>
 
 namespace Wdg2
 {
@@ -22,7 +23,59 @@ Scene_Database::Scene_Database ( )
 
 Scene_Database::~Scene_Database ( )
 {
+	_pxm_server->stop();
+	// Remove all themes
+	while ( _themes.size() != 0 ) {
+		remove_theme ( _themes.front() );
+	}
 	delete _pxm_server;
+}
+
+void
+Scene_Database::install_theme (
+	::Wdg2::Theme * theme_n )
+{
+	assert ( theme_n != 0 );
+
+	_themes.append ( theme_n );
+	{
+		const bool was_running ( _pxm_server->threads_running() != 0 );
+		if ( was_running ) {
+			_pxm_server->stop();
+		}
+
+		// Install painters
+		for ( unsigned int ii=0; ii < theme_n->num_painters(); ++ii ) {
+			_pxm_server->install_painter ( theme_n->painter ( ii ) );
+		}
+
+		if ( was_running ) {
+			_pxm_server->start();
+		}
+	}
+}
+
+void
+Scene_Database::remove_theme (
+	::Wdg2::Theme * theme_n )
+{
+	assert ( theme_n != 0 );
+
+	if ( _themes.removeOne ( theme_n ) ) {
+		const bool was_running ( _pxm_server->threads_running() != 0 );
+		if ( was_running ) {
+			_pxm_server->stop();
+		}
+
+		// Remove painters
+		for ( unsigned int ii=0; ii < theme_n->num_painters(); ++ii ) {
+			_pxm_server->remove_painter ( theme_n->painter ( ii ) );
+		}
+
+		if ( was_running ) {
+			_pxm_server->start();
+		}
+	}
 }
 
 

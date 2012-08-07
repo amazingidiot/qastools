@@ -51,7 +51,17 @@ void
 Pixmap_Server_Shared::install_painter (
 	::dpe2::Painter * painter_n )
 {
+	assert ( threads_running() == 0 );
+	// Prepend to list
 	_painters.insert ( _painters.begin(), painter_n );
+}
+
+void
+Pixmap_Server_Shared::remove_painter (
+	::dpe2::Painter * painter_n )
+{
+	assert ( threads_running() == 0 );
+	_painters.removeOne ( painter_n );
 }
 
 void

@@ -74,6 +74,9 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_scrollbar.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_volume_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/scene_database.cpp
+	${SHARED_SRC_DIR}/wdg2/theme.cpp
+	${SHARED_SRC_DIR}/wdg2/theme_painters.cpp
+	${SHARED_SRC_DIR}/wdg2/theme_sbevel.cpp
 
 
 	${SHARED_SRC_DIR}/dpe/image.cpp

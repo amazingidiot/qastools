@@ -457,6 +457,12 @@
 		<Unit filename="shared/src/wdg2/slider_value_map.hpp" />
 		<Unit filename="shared/src/wdg2/sliders_pad.cpp" />
 		<Unit filename="shared/src/wdg2/sliders_pad.hpp" />
+		<Unit filename="shared/src/wdg2/theme.cpp" />
+		<Unit filename="shared/src/wdg2/theme.hpp" />
+		<Unit filename="shared/src/wdg2/theme_painters.cpp" />
+		<Unit filename="shared/src/wdg2/theme_painters.hpp" />
+		<Unit filename="shared/src/wdg2/theme_sbevel.cpp" />
+		<Unit filename="shared/src/wdg2/theme_sbevel.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

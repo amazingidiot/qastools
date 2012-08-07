@@ -12,15 +12,8 @@
 #include <QPixmap>
 #include <QScopedPointer>
 
-
 namespace dpe2
 {
-
-
-enum Pixmap_Keys {
-	PMK_WIDTH,
-	PMK_HEIGHT
-};
 
 
 /// @brief A pixmap
