@@ -56,11 +56,7 @@ GW_Scrollbar_Button::set_size (
 {
 	if ( _size != size_n ) {
 		_size = size_n;
-		// Bounding rect
-		{
-			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _size ) );
-			set_bounding_rect ( brect );
-		}
+		set_bounding_rect ( _size );
 	}
 }
 
@@ -104,11 +100,7 @@ GW_Scrollbar::set_size (
 {
 	if ( _size != size_n ) {
 		_size = size_n;
-		// Bounding rect
-		{
-			QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _size ) );
-			set_bounding_rect ( brect );
-		}
+		set_bounding_rect ( _size );
 		update_geometries();
 	}
 }

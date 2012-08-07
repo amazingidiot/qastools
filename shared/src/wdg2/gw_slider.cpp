@@ -7,12 +7,9 @@
 //
 
 #include "gw_slider.hpp"
-#include "gw_multi_slider.hpp"
 #include "theme_painters.hpp"
 #include <iostream>
 #include <cmath>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
 
@@ -23,20 +20,8 @@ namespace Wdg2
 GW_Slider_Rail::GW_Slider_Rail (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n ),
-_rail_size ( 0, 0 )
+::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
-}
-
-void
-GW_Slider_Rail::set_rail_size (
-	const QSize & size_n )
-{
-	if ( size_n != _rail_size ) {
-		_rail_size = size_n;
-		set_bounding_rect ( _rail_size );
-		repaint_pixmaps();
-	}
 }
 
 void
@@ -54,12 +39,12 @@ GW_Slider_Rail::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	if ( ( _rail_size.width() <= 0 ) && ( _rail_size.height() <= 0 ) ) {
+	if ( ( pxm_size().width() <= 0 ) && ( pxm_size().height() <= 0 ) ) {
 		return false;
 	}
 
-	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  _rail_size.width() );
-	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, _rail_size.height() );
+	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
+	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
 	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
 	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
 	{
@@ -78,20 +63,8 @@ GW_Slider_Rail::setup_request (
 GW_Slider_Handle::GW_Slider_Handle (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n ),
-_handle_size ( 0, 0 )
+::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
-}
-
-void
-GW_Slider_Handle::set_handle_size (
-	const QSize & size_n )
-{
-	if ( size_n != _handle_size ) {
-		_handle_size = size_n;
-		set_bounding_rect ( _handle_size );
-		repaint_pixmaps();
-	}
 }
 
 void
@@ -109,12 +82,12 @@ GW_Slider_Handle::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	if ( ( _handle_size.width() <= 0 ) && ( _handle_size.height() <= 0 ) ) {
+	if ( ( pxm_size().width() <= 0 ) && ( pxm_size().height() <= 0 ) ) {
 		return false;
 	}
 
-	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  _handle_size.width() );
-	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, _handle_size.height() );
+	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
+	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
 	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
 	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
 	{
@@ -220,8 +193,8 @@ GW_Slider::update_geometries ( )
 	value_map()->set_px_span ( _handle_pos_span );
 
 	// resize widgets
-	_rail_wdg.set_rail_size ( rail_size );
-	_handle_wdg.set_handle_size ( handle_size );
+	_rail_wdg.set_pxm_size ( rail_size );
+	_handle_wdg.set_pxm_size ( handle_size );
 
 	// update handle position
 	_handle_pos = ( _handle_pos_span + 1 ); // Invalid value to enforce update

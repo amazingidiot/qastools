@@ -29,6 +29,7 @@ enum Pixmap_Request_Keys
 enum Widget_Types
 {
 	WGT_NONE = 0,
+	WGT_SWITCH,
 	WGT_SLIDER,
 	WGT_SCROLLBAR,
 };
@@ -36,6 +37,8 @@ enum Widget_Types
 enum Widget_Parts
 {
 	WGP_NONE = 0,
+	WGP_SWITCH_GROUND,
+	WGP_SWITCH_HANDLE,
 	WGP_SLIDER_RAIL,
 	WGP_SLIDER_HANDLE,
 };
@@ -79,6 +82,37 @@ Theme_Painter::set_qpalette (
 }
 
 
+/// @brief Theme_Painter_Switch
+///
+class Theme_Painter_Switch :
+	public ::Wdg2::Theme_Painter
+{
+	// Public methods
+	public:
+
+	bool
+	is_responsible (
+		const ::dpe2::Key_Values & vset_n );
+
+	void
+	paint (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n );
+
+	virtual
+	void
+	paint_handle (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n ) = 0;
+
+	virtual
+	void
+	paint_ground (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n ) = 0;
+};
+
+
 /// @brief Theme_Painter_Slider
 ///
 class Theme_Painter_Slider :
@@ -107,20 +141,6 @@ class Theme_Painter_Slider :
 	paint_rail (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n ) = 0;
-};
-
-
-/// @brief Theme_Painter_Scrollbar
-///
-class Theme_Painter_Scrollbar :
-	public ::Wdg2::Theme_Painter
-{
-	// Public methods
-	public:
-
-	bool
-	is_responsible (
-		const ::dpe2::Key_Values & vset_n );
 };
 
 

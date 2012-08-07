@@ -18,6 +18,14 @@
 namespace Wdg2
 {
 
+/// @brief GW_Switch_Handle
+///
+class GW_Switch_Handle :
+	public ::Wdg2::GW_Widget
+{
+
+};
+
 
 /// @brief GW_Switch
 ///

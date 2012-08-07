@@ -14,6 +14,43 @@ namespace Wdg2
 
 
 bool
+Theme_Painter_Switch::is_responsible (
+	const ::dpe2::Key_Values & vset_n )
+{
+	bool vgood ( true );
+	const unsigned int wgt (
+		vset_n.val_uint ( ::Wdg2::PRK_WIDGET_TYPE, &vgood ) );
+	if ( wgt != ::Wdg2::WGT_SWITCH ) {
+		vgood = false;
+	}
+	return vgood;
+}
+
+void
+Theme_Painter_Switch::paint (
+	::dpe2::Pixmap & pxmap_n,
+	const ::dpe2::Key_Values & kvals_n )
+{
+	bool vgood ( true );
+	const unsigned int part (
+		kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_PART , &vgood ) );
+	if ( vgood ) {
+		switch ( part ) {
+			case ::Wdg2::WGP_SWITCH_HANDLE:
+				this->paint_handle ( pxmap_n, kvals_n );
+				break;
+			case ::Wdg2::WGP_SWITCH_GROUND:
+				this->paint_ground ( pxmap_n, kvals_n );
+				break;
+			default:
+				break;
+		}
+	}
+}
+
+
+
+bool
 Theme_Painter_Slider::is_responsible (
 	const ::dpe2::Key_Values & vset_n )
 {
@@ -46,19 +83,6 @@ Theme_Painter_Slider::paint (
 				break;
 		}
 	}
-}
-
-bool
-Theme_Painter_Scrollbar::is_responsible (
-	const ::dpe2::Key_Values & vset_n )
-{
-	bool vgood ( true );
-	const unsigned int wgt (
-		vset_n.val_uint ( ::Wdg2::PRK_WIDGET_TYPE, &vgood ) );
-	if ( wgt != ::Wdg2::WGT_SCROLLBAR ) {
-		vgood = false;
-	}
-	return vgood;
 }
 
 

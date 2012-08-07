@@ -38,18 +38,6 @@ class GW_Pixmaps :
 		QWidget * widget_n = 0 );
 
 
-	const ::Flags &
-	state_flags ( ) const;
-
-	void
-	state_flags_set (
-		unsigned int flags_n );
-
-	void
-	state_flags_unset (
-		unsigned int flags_n );
-
-
 	unsigned int
 	num_pixmaps ( ) const;
 
@@ -62,19 +50,34 @@ class GW_Pixmaps :
 		unsigned int idx_n );
 
 
-	::dpe2::Pixmap_Ref &
-	pxmap (
-		unsigned int idx_n );
+	const QSize &
+	pxm_size ( ) const;
 
-	::dpe2::Pixmap_Request *
-	pxm_request (
-		unsigned int idx_n );
+	void
+	set_pxm_size (
+		const QSize & size_n );
+
+
+	const ::Flags &
+	state_flags ( ) const;
+
+	void
+	state_flags_set (
+		unsigned int flags_n );
+
+	void
+	state_flags_unset (
+		unsigned int flags_n );
 
 
 	static
 	void
 	pxm_request_finished_cb (
 		void * context_n,
+		::dpe2::Pixmap_Request * request_n );
+
+	void
+	pxm_request_finished (
 		::dpe2::Pixmap_Request * request_n );
 
 
@@ -102,18 +105,15 @@ class GW_Pixmaps :
 	// Private attributes
 	private:
 
-	unsigned int _pxm_idx;
-	::std::vector < ::dpe2::Pixmap_Ref > _pxmaps;
-	::std::vector < ::dpe2::Pixmap_Request * > _pxm_requests;
-	::Flags _state_flags;
-};
+	typedef ::std::vector < ::dpe2::Pixmap_Ref > Pixmap_List;
+	typedef ::std::vector < ::dpe2::Pixmap_Request * > Pixmap_Req_List;
 
-inline
-const ::Flags &
-GW_Pixmaps::state_flags ( ) const
-{
-	return _state_flags;
-}
+	unsigned int _pxm_idx;
+	Pixmap_List _pxmaps;
+	Pixmap_Req_List _pxm_requests;
+	::Flags _state_flags;
+	QSize _pxm_size;
+};
 
 inline
 unsigned int
@@ -130,21 +130,18 @@ GW_Pixmaps::pxm_idx ( ) const
 }
 
 inline
-::dpe2::Pixmap_Ref &
-GW_Pixmaps::pxmap (
-	unsigned int idx_n )
+const QSize &
+GW_Pixmaps::pxm_size ( ) const
 {
-	return _pxmaps[idx_n];
+	return _pxm_size;
 }
 
 inline
-::dpe2::Pixmap_Request *
-GW_Pixmaps::pxm_request (
-	unsigned int idx_n )
+const ::Flags &
+GW_Pixmaps::state_flags ( ) const
 {
-	return _pxm_requests[idx_n];
+	return _state_flags;
 }
-
 
 } // End of namespace
 

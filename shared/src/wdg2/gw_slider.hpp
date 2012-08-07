@@ -32,14 +32,6 @@ class GW_Slider_Rail :
 		QGraphicsItem * parent_n = 0 );
 
 
-	const QSize &
-	rail_size ( ) const;
-
-	void
-	set_rail_size (
-		const QSize & size_n );
-
-
 	// Protected methods
 	protected:
 
@@ -50,21 +42,7 @@ class GW_Slider_Rail :
 	setup_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
-
-
-	// Private attributes
-	private:
-
-	QSize _rail_size;
-	::Flags _state_flags;
 };
-
-inline
-const QSize &
-GW_Slider_Rail::rail_size ( ) const
-{
-	return _rail_size;
-}
 
 
 /// @brief GW_Slider_Handle
@@ -79,13 +57,6 @@ class GW_Slider_Handle :
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
-	const QSize &
-	handle_size ( ) const;
-
-	void
-	set_handle_size (
-		const QSize & size_n );
-
 
 	// Protected methods
 	protected:
@@ -97,21 +68,7 @@ class GW_Slider_Handle :
 	setup_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
-
-
-	// Private attributes
-	private:
-
-	QSize _handle_size;
-	::Flags _state_flags;
 };
-
-inline
-const QSize &
-GW_Slider_Handle::handle_size ( ) const
-{
-	return _handle_size;
-}
 
 
 /// @brief GW_Slider_Sizes

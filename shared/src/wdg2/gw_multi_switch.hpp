@@ -59,16 +59,6 @@ class GW_Multi_Switch :
 	proxies_grp ( ) const;
 
 
-	QRectF
-	boundingRect ( ) const;
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
-
-
 	const ::Wdg2::GW_Multi_Switch_Sizes &
 	sizes ( ) const;
 

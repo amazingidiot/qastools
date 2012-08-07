@@ -21,8 +21,7 @@ GW_Multi_Slider::GW_Multi_Slider (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_proxies_grp ( snd_proxies_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+_proxies_grp ( snd_proxies_n )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
@@ -46,31 +45,12 @@ GW_Multi_Slider::~GW_Multi_Slider ( )
 {
 }
 
-QRectF
-GW_Multi_Slider::boundingRect ( ) const
-{
-	return _brect;
-}
-
-void
-GW_Multi_Slider::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-}
-
 void
 GW_Multi_Slider::set_sizes (
 	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n )
 {
-	prepareGeometryChange();
 	_sizes = sizes_n;
-	_brect.setSize ( QSizeF ( int_width(), _sizes.area_height ) );
-
+	set_bounding_rect ( QSizeF ( int_width(), _sizes.area_height ) );
 	{
 		::Wdg2::GW_Slider_Sizes lsizes;
 		lsizes.size.setWidth ( _sizes.slider_width );

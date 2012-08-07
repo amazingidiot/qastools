@@ -21,8 +21,7 @@ GW_Multi_Switch::GW_Multi_Switch (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_snd_proxies ( snd_proxies_n ),
-_brect ( 0.0, 0.0, 0.0, 0.0 )
+_snd_proxies ( snd_proxies_n )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
@@ -37,30 +36,12 @@ GW_Multi_Switch::~GW_Multi_Switch ( )
 {
 }
 
-QRectF
-GW_Multi_Switch::boundingRect ( ) const
-{
-	return _brect;
-}
-
-void
-GW_Multi_Switch::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-}
-
 void
 GW_Multi_Switch::set_sizes (
 	const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n )
 {
-	prepareGeometryChange();
 	_sizes = sizes_n;
-	_brect.setSize ( QSizeF ( int_width(), _sizes.area_height ) );
+	set_bounding_rect ( QSizeF ( int_width(), _sizes.area_height ) );
 
 	{
 		QSize ssize ( _sizes.switch_width, _sizes.area_height );

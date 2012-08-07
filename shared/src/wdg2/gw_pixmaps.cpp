@@ -60,7 +60,7 @@ GW_Pixmaps::paint (
 	if ( pxm_idx() < num_pixmaps() ) {
 		QPixmap * qpxm ( 0 );
 		{
-			const ::dpe2::Pixmap_Ref & pxm_ref ( pxmap ( pxm_idx() ) );
+			const ::dpe2::Pixmap_Ref & pxm_ref ( _pxmaps[_pxm_idx] );
 			const ::dpe2::Pixmap * pxm ( pxm_ref.pixmap() );
 			if ( pxm != 0 ) {
 				qpxm = pxm->qpixmap();
@@ -82,6 +82,17 @@ GW_Pixmaps::set_pxm_idx (
 	if ( _pxm_idx != idx_n ) {
 		_pxm_idx = idx_n;
 		update();
+	}
+}
+
+void
+GW_Pixmaps::set_pxm_size (
+	const QSize & size_n )
+{
+	if ( size_n != _pxm_size ) {
+		_pxm_size = size_n;
+		set_bounding_rect ( _pxm_size );
+		repaint_pixmaps();
 	}
 }
 
@@ -112,29 +123,33 @@ GW_Pixmaps::pxm_request_finished_cb (
 {
 	::Wdg2::GW_Pixmaps & cref (
 		*reinterpret_cast < ::Wdg2::GW_Pixmaps * > ( context_n ) );
+	cref.pxm_request_finished ( request_n );
+}
 
-	if ( request_n->key >= cref.num_pixmaps() ) {
-		return;
-	}
-
-	::dpe2::Pixmap_Ref & pxm_ref ( cref.pxmap ( request_n->key ) );
-	// Return old pixmap on demand
-	if ( pxm_ref.is_valid() ) {
-		cref.scene_db()->pxm_server()->return_pixmap ( pxm_ref );
-	}
-	// Accept new pixmap
-	if ( request_n->pxm_ref.is_valid() ) {
-		pxm_ref = request_n->pxm_ref;
-		request_n->pxm_ref.clear();
-		pxm_ref.pixmap()->convert_to_qpixmap();
-		if ( request_n->key == cref.pxm_idx() ) {
-			cref.update();
+void
+GW_Pixmaps::pxm_request_finished (
+	::dpe2::Pixmap_Request * request_n )
+{
+	if ( request_n->key < num_pixmaps() ) {
+		::dpe2::Pixmap_Ref & pxm_ref ( _pxmaps[request_n->key] );
+		// Return old pixmap on demand
+		if ( pxm_ref.is_valid() ) {
+			scene_db()->pxm_server()->return_pixmap ( pxm_ref );
 		}
-	}
+		// Accept new pixmap
+		if ( request_n->pxm_ref.is_valid() ) {
+			pxm_ref = request_n->pxm_ref;
+			request_n->pxm_ref.clear();
+			pxm_ref.pixmap()->convert_to_qpixmap();
+			if ( request_n->key == pxm_idx() ) {
+				update();
+			}
+		}
 
-	// Repaint on demand
-	if ( request_n->state.has_any ( ::dpe2::RS_NEEDS_UPDATE ) ) {
-		cref.repaint_pixmap ( request_n->key );
+		// Repaint on demand
+		if ( request_n->state.has_any ( ::dpe2::RS_NEEDS_UPDATE ) ) {
+			repaint_pixmap ( request_n->key );
+		}
 	}
 }
 
@@ -144,7 +159,7 @@ GW_Pixmaps::repaint_pixmap (
 {
 	assert ( idx_n < num_pixmaps() );
 
-	::dpe2::Pixmap_Request * req ( pxm_request ( idx_n ) );
+	::dpe2::Pixmap_Request * req ( _pxm_requests[idx_n] );
 	if ( !req->state.has_any ( ::dpe2::RS_PROCESSING ) ) {
 		//::std::cout << "GW_Pixmaps::repaint_pixmap " << "Sending request" << "\n";
 		req->state.unset ( ::dpe2::RS_NEEDS_UPDATE );
@@ -170,6 +185,8 @@ GW_Pixmaps::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
+	// Simple default implementation
+	(void) idx_n;
 	kvals_n.set_uint ( ::dpe2::PMK_WIDTH, bounding_rect().width() );
 	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, bounding_rect().height() );
 	return true;
