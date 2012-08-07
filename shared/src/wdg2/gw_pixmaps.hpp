@@ -57,17 +57,17 @@ class GW_Pixmaps :
 	set_pxm_size (
 		const QSize & size_n );
 
+	bool
+	pxm_size_valid ( ) const;
+
 
 	const ::Flags &
 	state_flags ( ) const;
 
 	void
-	state_flags_set (
-		unsigned int flags_n );
-
-	void
-	state_flags_unset (
-		unsigned int flags_n );
+	set_state_flags (
+		unsigned int flags_n,
+		bool flag_n = true );
 
 
 	static
@@ -134,6 +134,13 @@ const QSize &
 GW_Pixmaps::pxm_size ( ) const
 {
 	return _pxm_size;
+}
+
+inline
+bool
+GW_Pixmaps::pxm_size_valid ( ) const
+{
+	return ( ( pxm_size().width() >= 0 ) && (  pxm_size().height() >= 0 ) );
 }
 
 inline

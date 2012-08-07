@@ -11,19 +11,63 @@
 
 #include "flags.hpp"
 #include "gw_widget.hpp"
+#include "gw_pixmaps.hpp"
 #include "qsnd2/controls_proxies.hpp"
-#include <QGraphicsItem>
 
 
 namespace Wdg2
 {
 
+
+/// @brief GW_Switch_Ground
+///
+class GW_Switch_Ground :
+	public ::Wdg2::GW_Pixmaps
+{
+	// Public methods
+	public:
+
+	GW_Switch_Ground (
+		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+
+
+	// Protected methods
+	protected:
+
+	void
+	update_pxm_idx ( );
+
+	bool
+	setup_request (
+		unsigned int idx_n,
+		::dpe2::Key_Values & kvals_n );
+};
+
+
 /// @brief GW_Switch_Handle
 ///
 class GW_Switch_Handle :
-	public ::Wdg2::GW_Widget
+	public ::Wdg2::GW_Pixmaps
 {
+	// Public methods
+	public:
 
+	GW_Switch_Handle (
+		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+
+
+	// Protected methods
+	protected:
+
+	void
+	update_pxm_idx ( );
+
+	bool
+	setup_request (
+		unsigned int idx_n,
+		::dpe2::Key_Values & kvals_n );
 };
 
 
@@ -41,13 +85,6 @@ class GW_Switch :
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Switch ( );
-
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
 
 
 	const QSize &
@@ -91,16 +128,13 @@ class GW_Switch :
 	// Private attributes
 	private:
 
-	enum State_Flags {
-		SF_ON   = ( 1 << 0 ),
-		SF_DOWN = ( 1 << 1 )
-	};
-
 	::QSnd2::Proxy_Switch & _switch_proxy;
 	QSize _switch_size;
 
-	::Flags _widget_flags;
 	::Flags _state_flags;
+
+	::Wdg2::GW_Switch_Ground _ground;
+	::Wdg2::GW_Switch_Handle _handle;
 };
 
 

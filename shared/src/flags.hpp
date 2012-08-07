@@ -49,6 +49,15 @@ class Flags
 		unsigned int flags_n,
 		bool on_n );
 
+
+	bool
+	operator== (
+		const ::Flags & flags_n ) const;
+
+	bool
+	operator!= (
+		const ::Flags & flags_n ) const;
+
 	bool
 	operator== (
 		unsigned int val_n ) const;
@@ -136,6 +145,22 @@ Flags::set (
 	} else {
 		unset ( flags_n );
 	}
+}
+
+inline
+bool
+Flags::operator== (
+	const ::Flags & flags_n ) const
+{
+	return ( flags() == flags_n.flags() );
+}
+
+inline
+bool
+Flags::operator!= (
+	const ::Flags & flags_n ) const
+{
+	return ( flags() != flags_n.flags() );
 }
 
 inline

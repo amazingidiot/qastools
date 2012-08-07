@@ -21,7 +21,8 @@ enum GW_State_Flags
 {
 	GW_VALUE_READ = ( 1 << 0 ),
 	GW_HAS_FOCUS  = ( 1 << 1 ),
-	GW_IS_GRABBED = ( 1 << 2 )
+	GW_IS_GRABBED = ( 1 << 2 ),
+	GW_IS_ON      = ( 1 << 3 )
 };
 
 

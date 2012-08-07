@@ -101,13 +101,13 @@ class Theme_Painter_Switch :
 
 	virtual
 	void
-	paint_handle (
+	paint_ground (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n ) = 0;
 
 	virtual
 	void
-	paint_ground (
+	paint_handle (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n ) = 0;
 };
@@ -132,13 +132,13 @@ class Theme_Painter_Slider :
 
 	virtual
 	void
-	paint_handle (
+	paint_rail (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n ) = 0;
 
 	virtual
 	void
-	paint_rail (
+	paint_handle (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n ) = 0;
 };

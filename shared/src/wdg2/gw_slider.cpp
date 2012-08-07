@@ -39,23 +39,21 @@ GW_Slider_Rail::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	if ( ( pxm_size().width() <= 0 ) && ( pxm_size().height() <= 0 ) ) {
-		return false;
-	}
-
-	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
-	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
-	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
-	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
-	{
-		unsigned int sflags ( 0 );
-		if ( idx_n == 1 ) {
-			sflags |= ::Wdg2::GW_HAS_FOCUS;
+	bool res ( pxm_size_valid() );
+	if ( res ) {
+		kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
+		kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
+		{
+			::Flags sflags;
+			if ( idx_n == 1 ) {
+				sflags.set ( ::Wdg2::GW_HAS_FOCUS );
+			}
+			kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
 		}
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags );
 	}
-
-	return true;
+	return res;
 }
 
 
@@ -82,23 +80,21 @@ GW_Slider_Handle::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	if ( ( pxm_size().width() <= 0 ) && ( pxm_size().height() <= 0 ) ) {
-		return false;
-	}
-
-	kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
-	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
-	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
-	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
-	{
-		unsigned int sflags ( 0 );
-		if ( idx_n == 1 ) {
-			sflags |= ::Wdg2::GW_HAS_FOCUS;
+	bool res ( pxm_size_valid() );
+	if ( res ) {
+		kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
+		kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
+		{
+			::Flags sflags;
+			if ( idx_n == 1 ) {
+				sflags.set ( ::Wdg2::GW_HAS_FOCUS );
+			}
+			kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
 		}
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags );
 	}
-
-	return true;
+	return res;
 }
 
 
@@ -113,8 +109,8 @@ _handle_pos ( 0 ),
 _handle_pos_span ( 0 ),
 _int_value ( 0 ),
 _value_map ( 0 ),
-_rail_wdg ( scene_db(), this ),
-_handle_wdg ( scene_db(), this )
+_rail ( scene_db(), this ),
+_handle ( scene_db(), this )
 {
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 }
@@ -193,8 +189,8 @@ GW_Slider::update_geometries ( )
 	value_map()->set_px_span ( _handle_pos_span );
 
 	// resize widgets
-	_rail_wdg.set_pxm_size ( rail_size );
-	_handle_wdg.set_pxm_size ( handle_size );
+	_rail.set_pxm_size ( rail_size );
+	_handle.set_pxm_size ( handle_size );
 
 	// update handle position
 	_handle_pos = ( _handle_pos_span + 1 ); // Invalid value to enforce update
@@ -220,7 +216,7 @@ GW_Slider::set_int_value (
 void
 GW_Slider::update_handle_pos_from_value ( )
 {
-	if ( !_handle_wdg.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+	if ( !_handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		set_handle_pos ( value_map()->px_from_value ( _int_value ) );
 	}
 }
@@ -251,7 +247,7 @@ GW_Slider::set_handle_pos (
 			} else {
 				pos.setY ( _handle_pos_span - _handle_pos );
 			}
-			_handle_wdg.setPos ( pos );
+			_handle.setPos ( pos );
 		}
 	}
 }
@@ -306,8 +302,8 @@ GW_Slider::focusInEvent (
 	QFocusEvent * event_n )
 {
 	//::std::cout << "GW_Slider::focusInEvent"  << "\n";
-	_rail_wdg.state_flags_set ( ::Wdg2::GW_HAS_FOCUS );
-	_handle_wdg.state_flags_set ( ::Wdg2::GW_HAS_FOCUS );
+	_rail.set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
+	_handle.set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
 }
 
 void
@@ -315,8 +311,8 @@ GW_Slider::focusOutEvent (
 	QFocusEvent * event_n )
 {
 	//::std::cout << "GW_Slider::focusOutEvent"  << "\n";
-	_rail_wdg.state_flags_unset ( ::Wdg2::GW_HAS_FOCUS );
-	_handle_wdg.state_flags_unset ( ::Wdg2::GW_HAS_FOCUS );
+	_rail.set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
+	_handle.set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
 }
 
 void
@@ -325,7 +321,7 @@ GW_Slider::mousePressEvent (
 {
 	//::std::cout << "GW_Slider::mousePressEvent"  << "\n";
 	if ( point_in_handle ( event_n->pos() ) ) {
-		_handle_wdg.state_flags_set ( ::Wdg2::GW_IS_GRABBED );
+		_handle.set_state_flags ( ::Wdg2::GW_IS_GRABBED );
 	}
 }
 
@@ -334,8 +330,8 @@ GW_Slider::mouseReleaseEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	//::std::cout << "GW_Slider::mouseReleaseEvent"  << "\n";
-	if ( _handle_wdg.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
-		_handle_wdg.state_flags_unset ( ::Wdg2::GW_IS_GRABBED );
+	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+		_handle.set_state_flags ( ::Wdg2::GW_IS_GRABBED, false );
 		update_handle_pos_from_value();
 	}
 }
@@ -345,7 +341,7 @@ GW_Slider::mouseMoveEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	//::std::cout << "GW_Slider::mouseMoveEvent" << "\n";
-	if ( _handle_wdg.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		int delta;
 		{
 			int lfrom;

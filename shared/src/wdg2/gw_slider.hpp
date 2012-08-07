@@ -225,8 +225,8 @@ class GW_Slider :
 
 	::Context_Callback _val_change_cb;
 
-	::Wdg2::GW_Slider_Rail _rail_wdg;
-	::Wdg2::GW_Slider_Handle _handle_wdg;
+	::Wdg2::GW_Slider_Rail _rail;
+	::Wdg2::GW_Slider_Handle _handle;
 };
 
 inline

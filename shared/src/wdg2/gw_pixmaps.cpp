@@ -97,24 +97,17 @@ GW_Pixmaps::set_pxm_size (
 }
 
 void
-GW_Pixmaps::state_flags_set (
-	unsigned int flags_n )
+GW_Pixmaps::set_state_flags (
+	unsigned int flags_n,
+	bool flag_n )
 {
-	if ( !_state_flags.has_all ( flags_n ) ) {
-		_state_flags.set ( flags_n );
+	const ::Flags ftmp ( _state_flags );
+	_state_flags.set ( flags_n, flag_n );
+	if ( _state_flags != ftmp ) {
 		this->update_pxm_idx();
 	}
 }
 
-void
-GW_Pixmaps::state_flags_unset (
-	unsigned int flags_n )
-{
-	if ( _state_flags.has_any ( flags_n ) ) {
-		_state_flags.unset ( flags_n );
-		this->update_pxm_idx();
-	}
-}
 
 void
 GW_Pixmaps::pxm_request_finished_cb (

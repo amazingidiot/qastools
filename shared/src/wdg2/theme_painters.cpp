@@ -36,11 +36,11 @@ Theme_Painter_Switch::paint (
 		kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_PART , &vgood ) );
 	if ( vgood ) {
 		switch ( part ) {
-			case ::Wdg2::WGP_SWITCH_HANDLE:
-				this->paint_handle ( pxmap_n, kvals_n );
-				break;
 			case ::Wdg2::WGP_SWITCH_GROUND:
 				this->paint_ground ( pxmap_n, kvals_n );
+				break;
+			case ::Wdg2::WGP_SWITCH_HANDLE:
+				this->paint_handle ( pxmap_n, kvals_n );
 				break;
 			default:
 				break;
@@ -73,11 +73,11 @@ Theme_Painter_Slider::paint (
 		kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_PART , &vgood ) );
 	if ( vgood ) {
 		switch ( part ) {
-			case ::Wdg2::WGP_SLIDER_HANDLE:
-				this->paint_handle ( pxmap_n, kvals_n );
-				break;
 			case ::Wdg2::WGP_SLIDER_RAIL:
 				this->paint_rail ( pxmap_n, kvals_n );
+				break;
+			case ::Wdg2::WGP_SLIDER_HANDLE:
+				this->paint_handle ( pxmap_n, kvals_n );
 				break;
 			default:
 				break;
