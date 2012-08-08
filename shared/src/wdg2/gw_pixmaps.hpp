@@ -16,6 +16,47 @@ namespace Wdg2
 {
 
 
+struct GW_Pixmaps_Keys
+{
+	GW_Pixmaps_Keys ( );
+
+	unsigned char wdg_type;
+	unsigned char wdg_part;
+
+	bool
+	operator == (
+		const ::Wdg2::GW_Pixmaps_Keys & keys_n );
+
+	bool
+	operator != (
+		const ::Wdg2::GW_Pixmaps_Keys & keys_n );
+};
+
+inline
+GW_Pixmaps_Keys::GW_Pixmaps_Keys ( ) :
+wdg_type ( 0 ),
+wdg_part ( 0 )
+{
+}
+
+inline
+bool
+GW_Pixmaps_Keys::operator == (
+	const ::Wdg2::GW_Pixmaps_Keys & keys_n )
+{
+	return ( wdg_type == keys_n.wdg_type ) &&
+		( wdg_part == keys_n.wdg_part );
+}
+
+inline
+bool
+GW_Pixmaps_Keys::operator != (
+	const ::Wdg2::GW_Pixmaps_Keys & keys_n )
+{
+	return !operator== ( keys_n );
+}
+
+
 /// @brief GW_Pixmaps
 ///
 class GW_Pixmaps :
@@ -77,6 +118,18 @@ class GW_Pixmaps :
 	void
 	repaint_pixmaps ( );
 
+	const ::Wdg2::GW_Pixmaps_Keys &
+	pxm_keys ( ) const;
+
+	void
+	set_pxm_keys (
+		const ::Wdg2::GW_Pixmaps_Keys & keys_n );
+
+	void
+	set_pxm_type_part (
+		unsigned char type_n,
+		unsigned char part_n );
+
 
 	static
 	void
@@ -114,6 +167,7 @@ class GW_Pixmaps :
 	Pixmap_Req_List _pxm_requests;
 	::Flags _state_flags;
 	QSize _pxm_size;
+	::Wdg2::GW_Pixmaps_Keys _pxm_keys;
 };
 
 inline
@@ -142,6 +196,13 @@ bool
 GW_Pixmaps::pxm_size_valid ( ) const
 {
 	return ( ( pxm_size().width() >= 0 ) && (  pxm_size().height() >= 0 ) );
+}
+
+inline
+const ::Wdg2::GW_Pixmaps_Keys &
+GW_Pixmaps::pxm_keys ( ) const
+{
+	return _pxm_keys;
 }
 
 inline

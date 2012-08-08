@@ -15,15 +15,16 @@ namespace Wdg2
 {
 
 
-GW_Label_Pixmaps::GW_Label_Pixmaps (
+GW_Label_Ground::GW_Label_Ground (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 1, parent_n )
 {
+	set_pxm_type_part ( ::Wdg2::WGT_LABEL, ::Wdg2::WGP_LABEL_GROUND );
 }
 
 void
-GW_Label_Pixmaps::set_text (
+GW_Label_Ground::set_text (
 	const QString & text_n )
 {
 	_text = text_n;
@@ -31,7 +32,7 @@ GW_Label_Pixmaps::set_text (
 }
 
 void
-GW_Label_Pixmaps::set_font (
+GW_Label_Ground::set_font (
 	const QFont & font_n )
 {
 	_font = font_n;
@@ -39,24 +40,22 @@ GW_Label_Pixmaps::set_font (
 }
 
 void
-GW_Label_Pixmaps::update_text_brect ( )
+GW_Label_Ground::update_text_brect ( )
 {
 	const QFontMetrics fmet ( font() );
 	_text_brect = fmet.boundingRect ( text() );
 }
 
 bool
-GW_Label_Pixmaps::setup_request (
+GW_Label_Ground::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( pxm_size_valid() && !text().isEmpty() );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n )
+		&& !text().isEmpty() );
 	if ( res ) {
 		double px ( -text_brect().x() );
 		double py ( QFontMetrics ( font() ).ascent() );
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDTH,  pxm_size().width() );
-		kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, pxm_size().height() );
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_LABEL );
 		kvals_n.set_user ( ::Wdg2::PRK_FONT, new ::dpe2::UValue_Font ( font() ) );
 		kvals_n.set_user ( ::Wdg2::PRK_TEXT, new ::dpe2::UValue_String ( text() ) );
 		kvals_n.set_double ( ::Wdg2::PRK_TEXT_PX, px );
@@ -71,7 +70,7 @@ GW_Label::GW_Label (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_pixmaps ( scene_db(), this ),
+_ground ( scene_db(), this ),
 _alignment ( Qt::AlignLeft | Qt::AlignVCenter )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
@@ -91,7 +90,7 @@ GW_Label::set_size (
 void
 GW_Label::auto_set_size ( )
 {
-	const QSize & psize ( _pixmaps.text_brect().size() );
+	const QSize & psize ( _ground.text_brect().size() );
 	if ( size() != psize ) {
 		set_size ( psize );
 	} else {
@@ -113,7 +112,7 @@ GW_Label::set_text (
 	const QString & text_n )
 {
 	if ( text() != text_n ) {
-		_pixmaps.set_text ( text_n );
+		_ground.set_text ( text_n );
 		auto_set_size();
 	}
 }
@@ -123,7 +122,7 @@ GW_Label::set_font (
 	const QFont & font_n )
 {
 	if ( font() != font_n ) {
-		_pixmaps.set_font ( font_n );
+		_ground.set_font ( font_n );
 		auto_set_size();
 	}
 }
@@ -182,13 +181,13 @@ GW_Label::update_pixmap ( )
 		}
 	}
 
-	if ( _pixmaps.pxm_size() != pxm_size ) {
-		_pixmaps.set_pxm_size ( pxm_size );
+	if ( _ground.pxm_size() != pxm_size ) {
+		_ground.set_pxm_size ( pxm_size );
 	} else {
-		_pixmaps.repaint_pixmaps();
+		_ground.repaint_pixmaps();
 	}
 
-	_pixmaps.setPos ( QPointF ( px, py ) );
+	_ground.setPos ( QPointF ( px, py ) );
 }
 
 

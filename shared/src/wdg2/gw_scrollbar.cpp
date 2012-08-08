@@ -7,12 +7,11 @@
 //
 
 #include "gw_scrollbar.hpp"
-#include "limits.h"
+#include "theme_painters.hpp"
+#include <limits.h>
 #include <iostream>
 #include <cmath>
 #include <algorithm>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
 
@@ -23,49 +22,37 @@ namespace Wdg2
 GW_Scrollbar_Button::GW_Scrollbar_Button (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( scene_db_n, parent_n )
+::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
+	set_pxm_type_part (
+		::Wdg2::WGT_SCROLLBAR,
+		::Wdg2::WGP_SCROLLBAR_BTN_LEFT );
 }
 
 void
-GW_Scrollbar_Button::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
+GW_Scrollbar_Button::update_pxm_idx ( )
 {
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-
-	double pen_width ( 1.0 );
-	double pwhalf ( pen_width / 2.0 );
-	QRectF prect ( QPointF ( 0.0, 0.0 ), _size );
-	prect.adjust ( pwhalf, pwhalf, -pwhalf, -pwhalf );
-	{
-		QPen ppen ( option_n->palette.color ( QPalette::ButtonText ) );
-		ppen.setWidth ( pen_width );
-		painter_n->setPen ( ppen );
+	unsigned int idx ( 0 );
+	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		idx = 1;
 	}
-	painter_n->setBrush ( option_n->palette.color ( QPalette::Button ) );
-	painter_n->drawRoundedRect ( prect, 2.0, 2.0 );
+	set_pxm_idx ( idx );
 }
 
-void
-GW_Scrollbar_Button::set_size (
-	const QSize & size_n )
+bool
+GW_Scrollbar_Button::setup_request (
+	unsigned int idx_n,
+	::dpe2::Key_Values & kvals_n )
 {
-	if ( _size != size_n ) {
-		_size = size_n;
-		set_bounding_rect ( _size );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
+	if ( res ) {
+		::Flags sflags;
+		if ( idx_n == 1 ) {
+			sflags.set ( ::Wdg2::GW_HAS_FOCUS );
+		}
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
 	}
-}
-
-Qt::Orientation
-GW_Scrollbar_Button::orientation ( ) const
-{
-	::Wdg2::GW_Scrollbar & sbar (
-		*static_cast < ::Wdg2::GW_Scrollbar * > ( parentItem() ) );
-	return sbar.orientation();
+	return res;
 }
 
 
@@ -85,6 +72,12 @@ _slider ( scene_db(), this )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 	_slider.set_value_map ( &_value_map );
 	_slider.set_orientation ( _orientation );
+	_slider.rail().set_pxm_type_part (
+		::Wdg2::WGT_SCROLLBAR,
+		::Wdg2::WGP_SCROLLBAR_RAIL );
+	_slider.handle().set_pxm_type_part (
+		::Wdg2::WGT_SCROLLBAR,
+		::Wdg2::WGP_SCROLLBAR_HANDLE );
 
 	_slider.set_val_change_callback (
 		::Context_Callback ( this, ::Wdg2::GW_Scrollbar::read_slider_value_cb ) );
@@ -160,6 +153,8 @@ GW_Scrollbar::set_val_change_callback (
 void
 GW_Scrollbar::update_geometries ( )
 {
+	unsigned char btn_low_part;
+	unsigned char btn_high_part;
 	QPointF btn_pos_low;
 	QPointF btn_pos_high;
 	QPointF slider_pos;
@@ -193,6 +188,8 @@ GW_Scrollbar::update_geometries ( )
 
 		// Set sizes
 		if ( _orientation == Qt::Horizontal ) {
+			btn_low_part = ::Wdg2::WGP_SCROLLBAR_BTN_LEFT;
+			btn_high_part = ::Wdg2::WGP_SCROLLBAR_BTN_RIGHT;
 			btn_pos_low  = QPointF ( 0.0, 0.0 );
 			btn_pos_high = QPointF ( len_total - len_btn, 0.0 );
 			slider_pos   = QPointF ( len_btn, 0.0 );
@@ -200,6 +197,8 @@ GW_Scrollbar::update_geometries ( )
 			sl_sizes.size = QSize ( len_slider, width_total );
 			sl_sizes.handle_length = len_handle;
 		} else {
+			btn_low_part = ::Wdg2::WGP_SCROLLBAR_BTN_BOTTOM;
+			btn_high_part = ::Wdg2::WGP_SCROLLBAR_BTN_TOP;
 			btn_pos_low  = QPointF ( 0.0, len_total - len_btn );
 			btn_pos_high = QPointF ( 0.0, 0.0 );
 			slider_pos   = QPointF ( 0.0, len_btn );
@@ -209,10 +208,14 @@ GW_Scrollbar::update_geometries ( )
 		}
 	}
 
+	_btn_low.set_pxm_type_part ( ::Wdg2::WGT_SCROLLBAR, btn_low_part );
+	_btn_low.set_pxm_size ( btn_size );
 	_btn_low.setPos ( btn_pos_low );
-	_btn_low.set_size ( btn_size );
+
+	_btn_high.set_pxm_type_part ( ::Wdg2::WGT_SCROLLBAR, btn_high_part );
+	_btn_high.set_pxm_size ( btn_size );
 	_btn_high.setPos ( btn_pos_high );
-	_btn_high.set_size ( btn_size );
+
 	_slider.setPos ( slider_pos );
 	_slider.set_sizes ( sl_sizes );
 }

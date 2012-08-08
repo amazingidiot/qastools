@@ -157,6 +157,13 @@ class GW_Slider :
 		Qt::Orientation orientation_n );
 
 
+	::Wdg2::GW_Slider_Rail &
+	rail ( );
+
+	::Wdg2::GW_Slider_Handle &
+	handle ( );
+
+
 	// Protected methods
 	protected:
 
@@ -255,6 +262,20 @@ long
 GW_Slider::int_value ( ) const
 {
 	return _int_value;
+}
+
+inline
+::Wdg2::GW_Slider_Rail &
+GW_Slider::rail ( )
+{
+	return _rail;
+}
+
+inline
+::Wdg2::GW_Slider_Handle &
+GW_Slider::handle ( )
+{
+	return _handle;
 }
 
 

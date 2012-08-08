@@ -38,17 +38,40 @@ enum Widget_Types
 	WGT_LABEL,
 	WGT_SWITCH,
 	WGT_SLIDER,
-	WGT_SCROLLBAR,
+	WGT_SCROLLBAR
 };
 
-enum Widget_Parts
+enum Widget_Parts_Label
 {
-	WGP_NONE = 0,
-	WGP_SWITCH_GROUND,
-	WGP_SWITCH_HANDLE,
-	WGP_SLIDER_RAIL,
-	WGP_SLIDER_HANDLE,
+	WGP_LABEL_NONE = 0,
+	WGP_LABEL_GROUND
 };
+
+enum Widget_Parts_Switch
+{
+	WGP_SWITCH_NONE = 0,
+	WGP_SWITCH_GROUND,
+	WGP_SWITCH_HANDLE
+};
+
+enum Widget_Parts_Slider
+{
+	WGP_SLIDER_NONE = 0,
+	WGP_SLIDER_RAIL,
+	WGP_SLIDER_HANDLE
+};
+
+enum Widget_Parts_Scrollbar
+{
+	WGP_SCROLLBAR_NONE = 0,
+	WGP_SCROLLBAR_RAIL,
+	WGP_SCROLLBAR_HANDLE,
+	WGP_SCROLLBAR_BTN_LEFT,
+	WGP_SCROLLBAR_BTN_BOTTOM,
+	WGP_SCROLLBAR_BTN_RIGHT,
+	WGP_SCROLLBAR_BTN_TOP,
+};
+
 
 
 /// @brief Theme_Painter
@@ -168,6 +191,47 @@ class Theme_Painter_Slider :
 	paint_handle (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n ) = 0;
+};
+
+
+
+/// @brief Theme_Painter_Scrollbar
+///
+class Theme_Painter_Scrollbar :
+	public ::Wdg2::Theme_Painter
+{
+	// Public methods
+	public:
+
+	bool
+	is_responsible (
+		const ::dpe2::Key_Values & vset_n );
+
+	void
+	paint (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n );
+
+	virtual
+	void
+	paint_rail (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n ) = 0;
+
+	virtual
+	void
+	paint_handle (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n ) = 0;
+
+	virtual
+	void
+	paint_button (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n,
+		bool forward_n,
+		bool vertical_n ) = 0;
+
 };
 
 

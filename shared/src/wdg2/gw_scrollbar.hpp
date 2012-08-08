@@ -12,9 +12,9 @@
 #include "flags.hpp"
 #include "callbacks.hpp"
 #include "gw_widget.hpp"
+#include "gw_pixmaps.hpp"
 #include "slider_value_map.hpp"
 #include "gw_slider.hpp"
-#include <QGraphicsItem>
 
 namespace Wdg2
 {
@@ -23,7 +23,7 @@ namespace Wdg2
 /// @brief Button for the GW_Scrollbar
 ///
 class GW_Scrollbar_Button :
-	public ::Wdg2::GW_Widget
+	public ::Wdg2::GW_Pixmaps
 {
 	// Public methods
 	public:
@@ -33,25 +33,16 @@ class GW_Scrollbar_Button :
 		QGraphicsItem * parent_n = 0 );
 
 
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
-
+	// Protected methods
+	protected:
 
 	void
-	set_size (
-		const QSize & size_n );
+	update_pxm_idx ( );
 
-	Qt::Orientation
-	orientation ( ) const;
-
-
-	// Private attributes
-	private:
-
-	QSize _size;
+	bool
+	setup_request (
+		unsigned int idx_n,
+		::dpe2::Key_Values & kvals_n );
 };
 
 

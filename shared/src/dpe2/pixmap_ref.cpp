@@ -64,10 +64,11 @@ void
 Pixmap_Ref::set_iref1 (
 	::dpe2::Pixmap_IRef1 * iref1_n )
 {
-	_pixmap = 0;
 	_iref1 = iref1_n;
 	if ( _iref1 != 0 ) {
 		_pixmap = &_iref1->pixmap();
+	} else {
+		_pixmap = 0;
 	}
 }
 

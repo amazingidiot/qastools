@@ -139,4 +139,54 @@ Theme_Painter_Slider::paint (
 }
 
 
+
+
+bool
+Theme_Painter_Scrollbar::is_responsible (
+	const ::dpe2::Key_Values & vset_n )
+{
+	bool vgood ( true );
+	const unsigned int wgt (
+		vset_n.val_uint ( ::Wdg2::PRK_WIDGET_TYPE, &vgood ) );
+	if ( wgt != ::Wdg2::WGT_SCROLLBAR ) {
+		vgood = false;
+	}
+	return vgood;
+}
+
+void
+Theme_Painter_Scrollbar::paint (
+	::dpe2::Pixmap & pxmap_n,
+	const ::dpe2::Key_Values & kvals_n )
+{
+	bool vgood ( true );
+	const unsigned int part (
+		kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_PART , &vgood ) );
+	if ( vgood ) {
+		switch ( part ) {
+			case ::Wdg2::WGP_SCROLLBAR_RAIL:
+				this->paint_rail ( pxmap_n, kvals_n );
+				break;
+			case ::Wdg2::WGP_SCROLLBAR_HANDLE:
+				this->paint_handle ( pxmap_n, kvals_n );
+				break;
+			case ::Wdg2::WGP_SCROLLBAR_BTN_LEFT:
+				this->paint_button ( pxmap_n, kvals_n, false, false );
+				break;
+			case ::Wdg2::WGP_SCROLLBAR_BTN_BOTTOM:
+				this->paint_button ( pxmap_n, kvals_n, false, true );
+				break;
+			case ::Wdg2::WGP_SCROLLBAR_BTN_RIGHT:
+				this->paint_button ( pxmap_n, kvals_n, true, false );
+				break;
+			case ::Wdg2::WGP_SCROLLBAR_BTN_TOP:
+				this->paint_button ( pxmap_n, kvals_n, true, true );
+				break;
+			default:
+				break;
+		}
+	}
+}
+
+
 } // End of namespace

@@ -257,6 +257,10 @@ class Pixmap_Ref
 	void
 	clear ( );
 
+	void
+	swap (
+		::dpe2::Pixmap_Ref & ref_n );
+
 	bool
 	is_valid ( ) const;
 
@@ -290,6 +294,15 @@ bool
 Pixmap_Ref::is_valid ( ) const
 {
 	return ( _pixmap != 0 );
+}
+
+inline
+void
+Pixmap_Ref::swap (
+	::dpe2::Pixmap_Ref & ref_n )
+{
+	::std::swap ( _iref1, ref_n._iref1 );
+	::std::swap ( _pixmap, ref_n._pixmap );
 }
 
 inline

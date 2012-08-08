@@ -17,15 +17,15 @@ namespace Wdg2
 {
 
 
-/// @brief GW_Label_Pixmaps
+/// @brief GW_Label_Ground
 ///
-class GW_Label_Pixmaps :
+class GW_Label_Ground :
 	public ::Wdg2::GW_Pixmaps
 {
 	// Public methods
 	public:
 
-	GW_Label_Pixmaps (
+	GW_Label_Ground (
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
@@ -72,21 +72,21 @@ class GW_Label_Pixmaps :
 
 inline
 const QString &
-GW_Label_Pixmaps::text ( ) const
+GW_Label_Ground::text ( ) const
 {
 	return _text;
 }
 
 inline
 const QFont &
-GW_Label_Pixmaps::font ( ) const
+GW_Label_Ground::font ( ) const
 {
 	return _font;
 }
 
 inline
 const QRect &
-GW_Label_Pixmaps::text_brect ( )
+GW_Label_Ground::text_brect ( )
 {
 	return _text_brect;
 }
@@ -154,7 +154,7 @@ class GW_Label :
 	// Private attributes
 	private:
 
-	GW_Label_Pixmaps _pixmaps;
+	GW_Label_Ground _ground;
 	QSize _size;
 	Qt::Alignment _alignment;
 };
@@ -170,14 +170,14 @@ inline
 const QString &
 GW_Label::text ( ) const
 {
-	return _pixmaps.text();
+	return _ground.text();
 }
 
 inline
 const QFont &
 GW_Label::font ( ) const
 {
-	return _pixmaps.font();
+	return _ground.font();
 }
 
 inline

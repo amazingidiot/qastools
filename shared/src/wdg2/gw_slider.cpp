@@ -22,6 +22,9 @@ GW_Slider_Rail::GW_Slider_Rail (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
+	set_pxm_type_part (
+		::Wdg2::WGT_SLIDER,
+		::Wdg2::WGP_SLIDER_RAIL );
 }
 
 void
@@ -39,19 +42,13 @@ GW_Slider_Rail::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( pxm_size_valid() );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
 	if ( res ) {
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDTH,  pxm_size().width() );
-		kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, pxm_size().height() );
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
-		{
-			::Flags sflags;
-			if ( idx_n == 1 ) {
-				sflags.set ( ::Wdg2::GW_HAS_FOCUS );
-			}
-			kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
+		::Flags sflags;
+		if ( idx_n == 1 ) {
+			sflags.set ( ::Wdg2::GW_HAS_FOCUS );
 		}
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
 	}
 	return res;
 }
@@ -63,6 +60,9 @@ GW_Slider_Handle::GW_Slider_Handle (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
+	set_pxm_type_part (
+		::Wdg2::WGT_SLIDER,
+		::Wdg2::WGP_SLIDER_HANDLE );
 }
 
 void
@@ -80,19 +80,13 @@ GW_Slider_Handle::setup_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( pxm_size_valid() );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
 	if ( res ) {
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDTH,  pxm_size().width() );
-		kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, pxm_size().height() );
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
-		{
-			::Flags sflags;
-			if ( idx_n == 1 ) {
-				sflags.set ( ::Wdg2::GW_HAS_FOCUS );
-			}
-			kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
+		::Flags sflags;
+		if ( idx_n == 1 ) {
+			sflags.set ( ::Wdg2::GW_HAS_FOCUS );
 		}
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
 	}
 	return res;
 }
@@ -124,11 +118,7 @@ GW_Slider::set_sizes (
 	const ::Wdg2::GW_Slider_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ), QSizeF ( _sizes.size ) );
-		set_bounding_rect ( brect );
-	}
+	set_bounding_rect ( _sizes.size );
 	update_geometries();
 }
 
