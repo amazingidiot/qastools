@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <QString>
+#include <QFont>
 
 namespace dpe2
 {
@@ -42,17 +43,17 @@ class User_Value
 };
 
 
-/// @brief User_Value_String
+/// @brief UValue_String
 ///
-class User_Value_String :
+class UValue_String :
 	public ::dpe2::User_Value
 {
 	// Public methods
 	public:
 
-	User_Value_String ( );
+	UValue_String ( );
 
-	User_Value_String (
+	UValue_String (
 		const QString & str_n );
 
 	QString &
@@ -81,17 +82,70 @@ class User_Value_String :
 
 inline
 QString &
-User_Value_String::str ( )
+UValue_String::str ( )
 {
 	return _str;
 }
 
 inline
 const QString &
-User_Value_String::str ( ) const
+UValue_String::str ( ) const
 {
 	return _str;
 }
+
+
+/// @brief UValue_Font
+///
+class UValue_Font :
+	public ::dpe2::User_Value
+{
+	// Public methods
+	public:
+
+	UValue_Font ( );
+
+	UValue_Font (
+		const QFont & font_n );
+
+	QFont &
+	font ( );
+
+	const QFont &
+	font ( ) const;
+
+	::dpe2::User_Value *
+	duplicate ( ) const;
+
+	bool
+	operator== (
+		const ::dpe2::User_Value & val_n );
+
+	bool
+	operator!= (
+		const ::dpe2::User_Value & val_n );
+
+
+	// Private attributes
+	private:
+
+	QFont _font;
+};
+
+inline
+QFont &
+UValue_Font::font ( )
+{
+	return _font;
+}
+
+inline
+const QFont &
+UValue_Font::font ( ) const
+{
+	return _font;
+}
+
 
 
 /// @brief Value_Item

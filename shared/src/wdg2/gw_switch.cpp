@@ -38,8 +38,8 @@ GW_Switch_Ground::setup_request (
 {
 	bool res ( pxm_size_valid() );
 	if ( res ) {
-		kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
-		kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDTH,  pxm_size().width() );
+		kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, pxm_size().height() );
 		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SWITCH );
 		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SWITCH_GROUND );
 		{
@@ -79,8 +79,8 @@ GW_Switch_Handle::setup_request (
 {
 	bool res ( pxm_size_valid() );
 	if ( res ) {
-		kvals_n.set_uint ( ::dpe2::PMK_WIDTH,  pxm_size().width() );
-		kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, pxm_size().height() );
+		kvals_n.set_uint ( ::Wdg2::PRK_WIDTH,  pxm_size().width() );
+		kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, pxm_size().height() );
 		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SWITCH );
 		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SWITCH_HANDLE );
 		{

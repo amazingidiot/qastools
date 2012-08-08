@@ -20,15 +20,22 @@ namespace Wdg2
 
 enum Pixmap_Request_Keys
 {
-	PRK_NONE = ::dpe2::PMK_USER,
-	PRK_WIDGET_TYPE,
+	PRK_WIDTH = ::dpe2::PMK_WIDTH,
+	PRK_HEIGHT = ::dpe2::PMK_HEIGHT,
+	PRK_WIDGET_TYPE = ::dpe2::PMK_USER,
 	PRK_WIDGET_PART,
-	PRK_WIDGET_STATE_FLAGS
+	PRK_WIDGET_STATE_FLAGS,
+	PRK_FONT,
+	PRK_TEXT,
+	PRK_TEXT_PX,
+	PRK_TEXT_PY,
+	PRK_USER
 };
 
 enum Widget_Types
 {
 	WGT_NONE = 0,
+	WGT_LABEL,
 	WGT_SWITCH,
 	WGT_SLIDER,
 	WGT_SCROLLBAR,
@@ -80,6 +87,26 @@ Theme_Painter::set_qpalette (
 {
 	_qpalette = palette_n;
 }
+
+
+
+/// @brief Theme_Painter_Label
+///
+class Theme_Painter_Label :
+	public ::Wdg2::Theme_Painter
+{
+	// Public methods
+	public:
+
+	bool
+	is_responsible (
+		const ::dpe2::Key_Values & vset_n );
+
+	void
+	paint (
+		::dpe2::Pixmap & pxmap_n,
+		const ::dpe2::Key_Values & kvals_n );
+};
 
 
 /// @brief Theme_Painter_Switch

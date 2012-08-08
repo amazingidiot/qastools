@@ -7,7 +7,6 @@
 //
 
 #include "gw_volume_slider.hpp"
-#include "gw_multi_slider.hpp"
 #include <iostream>
 
 namespace Wdg2

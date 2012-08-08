@@ -285,7 +285,7 @@ Pixmap_Server_Shared::paint_request (
 
 		if ( paint_new ) {
 			// Paint pixmap new on demand
-			pnt_n.paint_pixmap ( iref0->pixmap(), kvals );
+			pnt_n.paint ( iref0->pixmap(), kvals );
 
 			// Pick up waiting requests
 			pnt_n.mutex().lock();

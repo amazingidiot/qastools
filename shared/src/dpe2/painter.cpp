@@ -90,27 +90,20 @@ Painter::find_match (
 	return res;
 }
 
-void
-Painter::paint_pixmap (
-	::dpe2::Pixmap & pxmap_n,
-	const ::dpe2::Key_Values & kvals_n )
+bool
+Painter::valid_size (
+	unsigned int width_n,
+	unsigned int height_n )
 {
-	bool vgood ( true );
-	unsigned int iwidth ( kvals_n.val_uint ( ::dpe2::PMK_WIDTH, &vgood ) );
-	unsigned int iheight ( kvals_n.val_uint ( ::dpe2::PMK_HEIGHT, &vgood ) );
-	const unsigned int area ( iwidth*iheight );
-	if ( ( area == 0 ) ||
-		( area > _img_area_max ) ||
-		( iwidth > _img_area_max ) ||
-		( iheight > _img_area_max ) )
+	const unsigned int area ( width_n*height_n );
+	if ( ( width_n <= _img_area_max ) &&
+		( height_n <= _img_area_max ) &&
+		( area <= _img_area_max ) &&
+		( area != 0 ) )
 	{
-		vgood = false;
+		return true;
 	}
-	// Paint if the size is valid
-	if ( vgood ) {
-		pxmap_n.set_size ( iwidth, iheight );
-		this->paint ( pxmap_n, kvals_n );
-	}
+	return false;
 }
 
 

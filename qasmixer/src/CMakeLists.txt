@@ -65,6 +65,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/slider_value_map.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_widget.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_pixmaps.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_label.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_multi_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_switch.cpp

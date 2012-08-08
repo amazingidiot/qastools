@@ -28,30 +28,30 @@ User_Value::operator!= (
 
 
 
-User_Value_String::User_Value_String ( )
+UValue_String::UValue_String ( )
 {
 }
 
-User_Value_String::User_Value_String (
+UValue_String::UValue_String (
 	const QString & str_n ) :
 _str ( str_n )
 {
 }
 
 ::dpe2::User_Value *
-User_Value_String::duplicate ( ) const
+UValue_String::duplicate ( ) const
 {
-	::dpe2::User_Value_String * res (
-		new ::dpe2::User_Value_String ( str() ) );
+	::dpe2::UValue_String * res (
+		new ::dpe2::UValue_String ( str() ) );
 	return res;
 }
 
 bool
-User_Value_String::operator== (
+UValue_String::operator== (
 	const ::dpe2::User_Value & val_n )
 {
-	const ::dpe2::User_Value_String * uval (
-		dynamic_cast < const ::dpe2::User_Value_String * > ( &val_n ) );
+	const ::dpe2::UValue_String * uval (
+		dynamic_cast < const ::dpe2::UValue_String * > ( &val_n ) );
 	if ( uval != 0 ) {
 		return ( str() == uval->str() );
 	}
@@ -59,17 +59,61 @@ User_Value_String::operator== (
 }
 
 bool
-User_Value_String::operator!= (
+UValue_String::operator!= (
 	const ::dpe2::User_Value & val_n )
 {
-	const ::dpe2::User_Value_String * uval (
-		dynamic_cast < const ::dpe2::User_Value_String * > ( &val_n ) );
+	const ::dpe2::UValue_String * uval (
+		dynamic_cast < const ::dpe2::UValue_String * > ( &val_n ) );
 	if ( uval != 0 ) {
 		return ( str() != uval->str() );
 	}
 	return true;
 }
 
+
+
+
+UValue_Font::UValue_Font ( )
+{
+}
+
+UValue_Font::UValue_Font (
+	const QFont & font_n ) :
+_font ( font_n )
+{
+}
+
+::dpe2::User_Value *
+UValue_Font::duplicate ( ) const
+{
+	::dpe2::UValue_Font * res (
+		new ::dpe2::UValue_Font ( font() ) );
+	return res;
+}
+
+bool
+UValue_Font::operator== (
+	const ::dpe2::User_Value & val_n )
+{
+	const ::dpe2::UValue_Font * uval (
+		dynamic_cast < const ::dpe2::UValue_Font * > ( &val_n ) );
+	if ( uval != 0 ) {
+		return ( font() == uval->font() );
+	}
+	return false;
+}
+
+bool
+UValue_Font::operator!= (
+	const ::dpe2::User_Value & val_n )
+{
+	const ::dpe2::UValue_Font * uval (
+		dynamic_cast < const ::dpe2::UValue_Font * > ( &val_n ) );
+	if ( uval != 0 ) {
+		return ( font() != uval->font() );
+	}
+	return true;
+}
 
 
 Value_Item::~Value_Item ( )

@@ -13,6 +13,59 @@ namespace Wdg2
 {
 
 
+
+bool
+Theme_Painter_Label::is_responsible (
+	const ::dpe2::Key_Values & vset_n )
+{
+	bool vgood ( true );
+	const unsigned int wgt (
+		vset_n.val_uint ( ::Wdg2::PRK_WIDGET_TYPE, &vgood ) );
+	if ( wgt != ::Wdg2::WGT_LABEL ) {
+		vgood = false;
+	}
+	return vgood;
+}
+
+void
+Theme_Painter_Label::paint (
+	::dpe2::Pixmap & pxmap_n,
+	const ::dpe2::Key_Values & kvals_n )
+{
+	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
+	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
+	::dpe2::UValue_String * ustr (
+		dynamic_cast < ::dpe2::UValue_String * > (
+		kvals_n.val_user ( ::Wdg2::PRK_TEXT ) ) );
+	::dpe2::UValue_Font * ufont (
+		dynamic_cast < ::dpe2::UValue_Font * > (
+		kvals_n.val_user ( ::Wdg2::PRK_FONT ) ) );
+	double px ( kvals_n.val_double ( ::Wdg2::PRK_TEXT_PX ) );
+	double py ( kvals_n.val_double ( ::Wdg2::PRK_TEXT_PY ) );
+
+	bool vgood ( true );
+	vgood = vgood && valid_size ( iwidth, iheight );
+	vgood = vgood && ( ustr != 0 ) && ( ufont != 0 );
+
+	if ( vgood ) {
+		pxmap_n.set_size ( iwidth, iheight );
+		pxmap_n.qimage().fill ( 0 );
+		{
+			QPainter pnt ( &pxmap_n.qimage() );
+			pnt.setRenderHints ( QPainter::Antialiasing | QPainter::TextAntialiasing );
+			{
+				QPen ppen ( qpalette().color ( QPalette::WindowText ) );
+				pnt.setPen ( ppen );
+			}
+			pnt.setBrush ( Qt::NoBrush );
+			pnt.setFont ( ufont->font() );
+			pnt.drawText ( QPointF ( px, py ), ustr->str() );
+		}
+	}
+}
+
+
+
 bool
 Theme_Painter_Switch::is_responsible (
 	const ::dpe2::Key_Values & vset_n )

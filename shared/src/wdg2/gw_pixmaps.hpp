@@ -70,6 +70,14 @@ class GW_Pixmaps :
 		bool flag_n = true );
 
 
+	void
+	repaint_pixmap (
+		unsigned int idx_n );
+
+	void
+	repaint_pixmaps ( );
+
+
 	static
 	void
 	pxm_request_finished_cb (
@@ -86,20 +94,13 @@ class GW_Pixmaps :
 
 	virtual
 	void
-	update_pxm_idx ( ) = 0;
+	update_pxm_idx ( );
 
 	virtual
 	bool
 	setup_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
-
-	void
-	repaint_pixmap (
-		unsigned int idx_n );
-
-	void
-	repaint_pixmaps ( );
 
 
 	// Private attributes

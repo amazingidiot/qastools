@@ -7,6 +7,7 @@
 //
 
 #include "gw_pixmaps.hpp"
+#include "theme_painters.hpp"
 #include <QPainter>
 #include <cassert>
 #include <iostream>
@@ -108,6 +109,11 @@ GW_Pixmaps::set_state_flags (
 	}
 }
 
+void
+GW_Pixmaps::update_pxm_idx ( )
+{
+	set_pxm_idx ( 0 );
+}
 
 void
 GW_Pixmaps::pxm_request_finished_cb (
@@ -154,13 +160,14 @@ GW_Pixmaps::repaint_pixmap (
 
 	::dpe2::Pixmap_Request * req ( _pxm_requests[idx_n] );
 	if ( !req->state.has_any ( ::dpe2::RS_PROCESSING ) ) {
-		//::std::cout << "GW_Pixmaps::repaint_pixmap " << "Sending request" << "\n";
 		req->state.unset ( ::dpe2::RS_NEEDS_UPDATE );
 		if ( this->setup_request ( idx_n, req->kvals ) ) {
 			scene_db()->pxm_server()->send_request ( req );
+		} else {
+			scene_db()->pxm_server()->return_pixmap ( _pxmaps[idx_n] );
+			update();
 		}
 	} else {
-		//::std::cout << "GW_Pixmaps::repaint_pixmap " << "Requesting update" << "\n";
 		req->state.set ( ::dpe2::RS_NEEDS_UPDATE );
 	}
 }
@@ -180,8 +187,8 @@ GW_Pixmaps::setup_request (
 {
 	// Simple default implementation
 	(void) idx_n;
-	kvals_n.set_uint ( ::dpe2::PMK_WIDTH, bounding_rect().width() );
-	kvals_n.set_uint ( ::dpe2::PMK_HEIGHT, bounding_rect().height() );
+	kvals_n.set_uint ( ::Wdg2::PRK_WIDTH, bounding_rect().width() );
+	kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, bounding_rect().height() );
 	return true;
 }
 

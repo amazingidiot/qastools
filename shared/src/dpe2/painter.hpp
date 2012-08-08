@@ -70,10 +70,6 @@ class Painter
 	find_match (
 		const ::dpe2::Key_Values & vset1_n );
 
-	void
-	paint_pixmap (
-		::dpe2::Pixmap & pxmap_n,
-		const ::dpe2::Key_Values & kvals_n );
 
 	/// @brief Must be implemented in a thread safe fashion
 	///
@@ -83,6 +79,11 @@ class Painter
 	paint (
 		::dpe2::Pixmap & pxmap_n,
 		const ::dpe2::Key_Values & kvals_n ) = 0;
+
+	bool
+	valid_size (
+		unsigned int width_n,
+		unsigned int height_n );
 
 
 	// Private attributes

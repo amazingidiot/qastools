@@ -47,7 +47,8 @@ _label_item ( 0 )
 	_proxies_group.string_val ( _str_label, ::QSnd2::SK_NAME_L10N );
 
 	if ( !_str_label.isEmpty() ) {
-		_label_item = new QGraphicsSimpleTextItem ( _str_label, this );
+		_label_item = new ::Wdg2::GW_Label ( scene_db(), this );
+		_label_item->set_text ( _str_label );
 	}
 
 	update_geometries();

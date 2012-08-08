@@ -12,13 +12,11 @@
 #include "gw_widget.hpp"
 #include "gw_multi_slider.hpp"
 #include "gw_multi_switch.hpp"
+#include "gw_label.hpp"
 #include "qsnd2/controls_proxies.hpp"
-#include <QGraphicsItem>
-#include <QGraphicsSimpleTextItem>
 
 namespace Wdg2
 {
-
 
 
 /// @brief GW_Group2_Sizes
@@ -109,7 +107,7 @@ class GW_Group2 :
 	::QSnd2::Proxies_Group2 & _proxies_group;
 	::Wdg2::GW_Multi_Slider * _gw_levels;
 	::Wdg2::GW_Multi_Switch * _gw_switches;
-	QGraphicsSimpleTextItem * _label_item;
+	::Wdg2::GW_Label * _label_item;
 
 	QString _str_label;
 
