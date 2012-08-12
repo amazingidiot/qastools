@@ -75,6 +75,8 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_scrollbar.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_volume_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/scene_database.cpp
+	${SHARED_SRC_DIR}/wdg2/timer_server.cpp
+	${SHARED_SRC_DIR}/wdg2/timer.cpp
 	${SHARED_SRC_DIR}/wdg2/theme.cpp
 	${SHARED_SRC_DIR}/wdg2/theme_painters.cpp
 	${SHARED_SRC_DIR}/wdg2/theme_sbevel.cpp
@@ -225,6 +227,8 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/wdg/sliders_pad_footer.hpp
 	${SHARED_INC_DIR}/wdg/sliders_pad.hpp
 	${SHARED_INC_DIR}/wdg/switches_pad.hpp
+
+	${SHARED_INC_DIR}/wdg2/timer.hpp
 
 	${SHARED_INC_DIR}/mwdg/controls_delegate.hpp
 	${SHARED_INC_DIR}/mwdg/controls_view.hpp

@@ -20,6 +20,7 @@ Scene_Database::Scene_Database ( )
 	// TODO: ScopedPointer?
 	_pxm_server = new ::dpe2::Pixmap_Server;
 	_pxm_server->start();
+	_timer_server = new ::Wdg2::Timer_Server;
 }
 
 Scene_Database::~Scene_Database ( )
@@ -27,9 +28,10 @@ Scene_Database::~Scene_Database ( )
 	_pxm_server->stop();
 	// Remove all themes
 	while ( _themes.size() != 0 ) {
-		remove_theme ( _themes.front() );
+		remove_theme ( _themes.back() );
 	}
 	delete _pxm_server;
+	delete _timer_server;
 }
 
 void

@@ -10,6 +10,7 @@
 #define __INC_wdg2_scene_database_hpp__
 
 #include "dpe2/pixmap_server.hpp"
+#include "timer_server.hpp"
 #include <QList>
 
 // Forward declaration
@@ -37,6 +38,10 @@ class Scene_Database
 	::dpe2::Pixmap_Server *
 	pxm_server ( ) const;
 
+	::Wdg2::Timer_Server *
+	timer_server ( ) const;
+
+
 	void
 	install_theme (
 		::Wdg2::Theme * theme_n );
@@ -45,12 +50,12 @@ class Scene_Database
 	remove_theme (
 		::Wdg2::Theme * theme_n );
 
-
 	// Private attributes
 	private:
 
-	QList < ::Wdg2::Theme * > _themes;
 	::dpe2::Pixmap_Server * _pxm_server;
+	::Wdg2::Timer_Server * _timer_server;
+	QList < ::Wdg2::Theme * > _themes;
 };
 
 
@@ -59,6 +64,13 @@ inline
 Scene_Database::pxm_server ( ) const
 {
 	return _pxm_server;
+}
+
+inline
+::Wdg2::Timer_Server *
+Scene_Database::timer_server ( ) const
+{
+	return _timer_server;
 }
 
 
