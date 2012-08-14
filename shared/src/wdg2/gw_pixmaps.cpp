@@ -21,6 +21,7 @@ GW_Pixmaps::GW_Pixmaps (
 	unsigned int num_pxmaps_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
+_qpixmap ( 0 ),
 _pxm_idx ( 0 ),
 _pxmaps ( num_pxmaps_n ),
 _pxm_requests ( num_pxmaps_n, 0 )
@@ -58,22 +59,29 @@ GW_Pixmaps::paint (
 	(void) option_n;
 	(void) widget_n;
 
+	if ( _qpixmap != 0 ) {
+		const QRectF pxm_rect ( 0.0, 0.0, _qpixmap->width(), _qpixmap->height() );
+		painter_n->drawPixmap (
+			bounding_rect(),
+			*_qpixmap,
+			pxm_rect );
+	}
+}
+
+void
+GW_Pixmaps::update_qpixmap ( )
+{
+	QPixmap * qpxm ( 0 );
 	if ( pxm_idx() < num_pixmaps() ) {
-		QPixmap * qpxm ( 0 );
-		{
-			const ::dpe2::Pixmap_Ref & pxm_ref ( _pxmaps[_pxm_idx] );
-			const ::dpe2::Pixmap * pxm ( pxm_ref.pixmap() );
-			if ( pxm != 0 ) {
-				qpxm = pxm->qpixmap();
-			}
+		const ::dpe2::Pixmap_Ref & pxm_ref ( _pxmaps[_pxm_idx] );
+		const ::dpe2::Pixmap * pxm ( pxm_ref.pixmap() );
+		if ( pxm != 0 ) {
+			qpxm = pxm->qpixmap();
 		}
-		if ( qpxm != 0 ) {
-			const QRectF pxm_rect ( 0.0, 0.0, qpxm->width(), qpxm->height() );
-			painter_n->drawPixmap (
-				bounding_rect(),
-				*qpxm,
-				pxm_rect );
-		}
+	}
+	if ( qpxm != _qpixmap ) {
+		_qpixmap = qpxm;
+		update();
 	}
 }
 
@@ -83,7 +91,7 @@ GW_Pixmaps::set_pxm_idx (
 {
 	if ( _pxm_idx != idx_n ) {
 		_pxm_idx = idx_n;
-		update();
+		update_qpixmap();
 	}
 }
 
@@ -168,8 +176,8 @@ GW_Pixmaps::pxm_request_finished (
 			if ( request_n->pxm_ref.is_valid() ) {
 				pxm_ref.swap ( request_n->pxm_ref );
 				pxm_ref.pixmap()->convert_to_qpixmap();
-				if ( request_n->key == pxm_idx() ) {
-					update();
+				if ( pxm_idx() == request_n->key ) {
+					update_qpixmap();
 				}
 			}
 		}
@@ -184,14 +192,18 @@ GW_Pixmaps::repaint_pixmap (
 
 	::dpe2::Pixmap_Request * req ( _pxm_requests[idx_n] );
 	if ( !req->state.has_any ( ::dpe2::RS_PROCESSING ) ) {
+		// Update now
 		req->state.unset ( ::dpe2::RS_NEEDS_UPDATE );
 		if ( pxm_size_valid() && this->setup_request ( idx_n, req->kvals ) ) {
 			scene_db()->pxm_server()->send_request ( req );
 		} else {
 			scene_db()->pxm_server()->return_pixmap ( _pxmaps[idx_n] );
-			update();
+			if ( pxm_idx() == idx_n ) {
+				update_qpixmap();
+			}
 		}
 	} else {
+		// Request a later update
 		req->state.set ( ::dpe2::RS_NEEDS_UPDATE );
 	}
 }

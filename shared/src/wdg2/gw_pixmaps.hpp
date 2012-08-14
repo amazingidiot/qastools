@@ -145,6 +145,10 @@ class GW_Pixmaps :
 	// Protected methods
 	protected:
 
+	/// @brief Returns true if the new QPixmap isn't the old one
+	void
+	update_qpixmap ( );
+
 	virtual
 	void
 	update_pxm_idx ( );
@@ -162,9 +166,11 @@ class GW_Pixmaps :
 	typedef ::std::vector < ::dpe2::Pixmap_Ref > Pixmap_List;
 	typedef ::std::vector < ::dpe2::Pixmap_Request * > Pixmap_Req_List;
 
+	QPixmap * _qpixmap;
 	unsigned int _pxm_idx;
 	Pixmap_List _pxmaps;
 	Pixmap_Req_List _pxm_requests;
+
 	::Flags _state_flags;
 	QSize _pxm_size;
 	::Wdg2::GW_Pixmaps_Keys _pxm_keys;
