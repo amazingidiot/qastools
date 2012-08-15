@@ -467,6 +467,8 @@
 		<Unit filename="shared/src/wdg2/theme_sbevel.hpp" />
 		<Unit filename="shared/src/wdg2/timer.cpp" />
 		<Unit filename="shared/src/wdg2/timer.hpp" />
+		<Unit filename="shared/src/wdg2/timer_callback.cpp" />
+		<Unit filename="shared/src/wdg2/timer_callback.hpp" />
 		<Unit filename="shared/src/wdg2/timer_server.cpp" />
 		<Unit filename="shared/src/wdg2/timer_server.hpp" />
 		<Extensions>

@@ -199,6 +199,17 @@ Timer_Server::cback_request_interval (
 	cback_request ( cback_id_n, interval_msec_n, true );
 }
 
+bool
+Timer_Server::cback_is_running (
+	unsigned int cback_id_n )
+{
+	::Wdg2::Timer_Callback * cback ( find_callback ( cback_id_n ) );
+	if ( cback != 0 ) {
+		return cback->is_running();
+	}
+	return false;
+}
+
 void
 Timer_Server::cback_abort_request (
 	unsigned int cback_id_n )

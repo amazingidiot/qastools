@@ -28,19 +28,10 @@ GW_Scrollbar_Button::GW_Scrollbar_Button (
 	set_pxm_type_part (
 		::Wdg2::WGT_SCROLLBAR,
 		::Wdg2::WGP_SCROLLBAR_BTN_LEFT );
-
-	_anim_timer_id = scene_db()->timer_server()->acquire_callback (
-		scene_db()->tid_animation );
-
-	scene_db()->timer_server()->cback_set_callback (
-		_anim_timer_id,
-		::Context_Callback_UInt ( this, &move_animation_cb ) );
 }
 
 GW_Scrollbar_Button::~GW_Scrollbar_Button ( )
 {
-	scene_db()->timer_server()->release_callback (
-		_anim_timer_id );
 }
 
 inline
@@ -77,35 +68,14 @@ GW_Scrollbar_Button::setup_request (
 }
 
 void
-GW_Scrollbar_Button::move_animation_cb (
-	void * context_n,
-	unsigned int msec_n )
-{
-	::Wdg2::GW_Scrollbar_Button * cref (
-		reinterpret_cast < ::Wdg2::GW_Scrollbar_Button * > ( context_n ) );
-	cref->move_animation ( msec_n );
-}
-
-void
-GW_Scrollbar_Button::move_animation (
-	unsigned int msec_n )
-{
-	::std::cout << "GW_Scrollbar_Button::move_animation " << msec_n << "\n";
-	if ( ( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_LEFT ) ||
-		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_BOTTOM ) )
-	{
-
-	} else {
-
-	}
-}
-
-void
 GW_Scrollbar_Button::mousePressEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	set_state_flags ( ::Wdg2::GW_IS_GRABBED, true );
-	scene_db()->timer_server()->cback_request_interval ( _anim_timer_id );
+	const bool forward = (
+		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_RIGHT ) ||
+		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_TOP ) );
+	scrollbar()->begin_move ( forward );
 }
 
 void
@@ -113,7 +83,10 @@ GW_Scrollbar_Button::mouseReleaseEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	set_state_flags ( ::Wdg2::GW_IS_GRABBED, false );
-	scene_db()->timer_server()->cback_abort_request ( _anim_timer_id );
+	const bool forward = (
+		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_RIGHT ) ||
+		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_TOP ) );
+	scrollbar()->end_move ( forward );
 }
 
 void
@@ -138,6 +111,17 @@ _btn_high ( scene_db(), this ),
 _slider ( scene_db(), this )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
+
+	_anim_timer_id = scene_db()->timer_server()->acquire_callback (
+		scene_db()->tid_animation );
+	scene_db()->timer_server()->cback_set_callback (
+		_anim_timer_id,
+		::Context_Callback_UInt ( this, &move_animation_cb ) );
+	_anim_forward = 0;
+	_anim_backward = 0;
+	_anim_micro_step = 0;
+	_anim_speed = 400.0; // units / per sec
+
 	_slider.set_value_map ( &_value_map );
 	_slider.set_orientation ( _orientation );
 	_slider.rail().set_pxm_type_part (
@@ -153,6 +137,8 @@ _slider ( scene_db(), this )
 
 GW_Scrollbar::~GW_Scrollbar ( )
 {
+	scene_db()->timer_server()->release_callback (
+		_anim_timer_id );
 }
 
 void
@@ -305,6 +291,128 @@ GW_Scrollbar::read_slider_value_cb (
 	::Wdg2::GW_Scrollbar * sbar (
 		reinterpret_cast < ::Wdg2::GW_Scrollbar * > ( context_n ) );
 	sbar->read_slider_value();
+}
+
+void
+GW_Scrollbar::set_anim_speed (
+	float speed_n )
+{
+	_anim_speed = speed_n;
+}
+
+void
+GW_Scrollbar::begin_move (
+	bool forward_n )
+{
+	if ( forward_n ) {
+		++_anim_forward;
+	} else {
+		++_anim_backward;
+	}
+
+	animation_update();
+}
+
+void
+GW_Scrollbar::end_move (
+	bool forward_n )
+{
+	if ( forward_n ) {
+		--_anim_forward;
+	} else {
+		--_anim_backward;
+	}
+
+	animation_update();
+}
+
+void
+GW_Scrollbar::animation_start ( )
+{
+	::Wdg2::Timer_Server * tserv ( scene_db()->timer_server() );
+	if ( !tserv->cback_is_running ( _anim_timer_id ) ) {
+		tserv->cback_request_interval ( _anim_timer_id );
+	}
+}
+
+void
+GW_Scrollbar::animation_stop ( )
+{
+	::Wdg2::Timer_Server * tserv ( scene_db()->timer_server() );
+	tserv->cback_abort_request ( _anim_timer_id );
+	_anim_micro_step = 0;
+}
+
+void
+GW_Scrollbar::animation_update ( )
+{
+	::Wdg2::Timer_Server & tserv ( *scene_db()->timer_server() );
+	const int speed ( (int)_anim_forward - (int)_anim_backward );
+	if ( speed != 0 ) {
+		if ( !tserv.cback_is_running ( _anim_timer_id ) ) {
+			tserv.cback_request_interval ( _anim_timer_id );
+			_anim_micro_step = 0;
+		}
+	} else {
+		tserv.cback_abort_request ( _anim_timer_id );
+	}
+}
+
+void
+GW_Scrollbar::move_animation_cb (
+	void * context_n,
+	unsigned int msec_n )
+{
+	::Wdg2::GW_Scrollbar * cref (
+		reinterpret_cast < ::Wdg2::GW_Scrollbar * > ( context_n ) );
+	cref->move_animation ( msec_n );
+}
+
+void
+GW_Scrollbar::move_animation (
+	unsigned int msec_n )
+{
+	int steps;
+	{
+		double fspeed ( double ( _anim_speed ) / 1000.0 );
+		fspeed *= double ( (int)_anim_forward - (int)_anim_backward );
+		fspeed *= double ( msec_n );
+
+		steps = fspeed;
+
+		const int mega ( 1000*1000 );
+		fspeed -= double ( steps );
+		fspeed *= double ( mega );
+		int usteps = fspeed;
+		usteps += (int)_anim_micro_step;
+		{
+			const int mstep ( usteps / mega );
+			if ( mstep != 0 ) {
+				usteps -= ( mstep * mega );
+				steps += mstep;
+			}
+		}
+		_anim_micro_step = usteps;
+	}
+
+	if ( steps != 0 ) {
+		unsigned int vsteps;
+		if ( steps > 0 ) {
+			vsteps = steps;
+			unsigned int vsteps_max ( int_span() - int_value() );
+			if ( vsteps > vsteps_max ) {
+				vsteps = vsteps_max;
+			}
+			vsteps += int_value();
+		} else {
+			vsteps = -steps;
+			if ( vsteps > int_value() ) {
+				vsteps = int_value();
+			}
+			vsteps = int_value() - vsteps;
+		}
+		set_int_value ( vsteps );
+	}
 }
 
 

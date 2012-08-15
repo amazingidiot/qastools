@@ -44,17 +44,6 @@ class GW_Scrollbar_Button :
 	scrollbar ( ) const;
 
 
-	static
-	void
-	move_animation_cb (
-		void * context_n,
-		unsigned int msec_n );
-
-	void
-	move_animation (
-		unsigned int msec_n );
-
-
 	// Protected methods
 	protected:
 
@@ -79,10 +68,9 @@ class GW_Scrollbar_Button :
 	wheelEvent (
 		QGraphicsSceneWheelEvent * event_n );
 
+
 	// Private attributes
 	protected:
-
-	unsigned int _anim_timer_id;
 };
 
 
@@ -117,6 +105,8 @@ class GW_Scrollbar :
 		Qt::Orientation orientation_n );
 
 
+	/// @brief Highest available integer value
+	///
 	unsigned int
 	int_span ( ) const;
 
@@ -155,8 +145,47 @@ class GW_Scrollbar :
 		void * context_n );
 
 
+	/// @brief Slider move speed in units / sec
+	float
+	anim_speed ( ) const;
+
+	void
+	set_anim_speed (
+		float speed_n );
+
+	/// @brief Animation callback
+	static
+	void
+	move_animation_cb (
+		void * context_n,
+		unsigned int msec_n );
+
+	void
+	move_animation (
+		unsigned int msec_n );
+
+
+	void
+	begin_move (
+		bool forward_n );
+
+	void
+	end_move (
+		bool forward_n );
+
+
+
 	// Private methods
 	private:
+
+	void
+	animation_start ( );
+
+	void
+	animation_stop ( );
+
+	void
+	animation_update ( );
 
 	void
 	update_geometries ( );
@@ -172,6 +201,13 @@ class GW_Scrollbar :
 	unsigned int _int_span;
 	unsigned int _int_value;
 	::Context_Callback _val_change_cb;
+
+	float _anim_speed; // in units / sec
+	bool _anim_running;
+	unsigned char _anim_forward;
+	unsigned char _anim_backward;
+	int _anim_micro_step;
+	unsigned int _anim_timer_id;
 
 	::Wdg2::GW_Scrollbar_Button _btn_low;
 	::Wdg2::GW_Scrollbar_Button _btn_high;
@@ -211,6 +247,13 @@ const ::Context_Callback &
 GW_Scrollbar::val_change_callback ( ) const
 {
 	return _val_change_cb;
+}
+
+inline
+float
+GW_Scrollbar::anim_speed ( ) const
+{
+	return _anim_speed;
 }
 
 

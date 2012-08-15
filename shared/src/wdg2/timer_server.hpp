@@ -104,6 +104,11 @@ class Timer_Server
 	cback_abort_request (
 		unsigned int cback_id_n );
 
+	bool
+	cback_is_running (
+		unsigned int cback_id_n );
+
+
 
 	bool
 	process_timeout (
