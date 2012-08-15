@@ -40,7 +40,15 @@ class Basic_Dialog :
 		const QString & str_n );
 
 	void
+	set_top_widget (
+		QWidget * wdg_n );
+
+	void
 	set_central_widget (
+		QWidget * wdg_n );
+
+	void
+	set_bottom_widget (
 		QWidget * wdg_n );
 
 	QLabel *
@@ -54,8 +62,6 @@ class Basic_Dialog :
 	// Private attributes
 	private:
 
-	// Pages
-	QLabel * _lbl_title;
 	QVBoxLayout * _lay_main;
 };
 

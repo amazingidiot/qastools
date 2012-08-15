@@ -229,8 +229,6 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/wdg/sliders_pad.hpp
 	${SHARED_INC_DIR}/wdg/switches_pad.hpp
 
-	${SHARED_INC_DIR}/wdg2/timer.hpp
-
 	${SHARED_INC_DIR}/mwdg/controls_delegate.hpp
 	${SHARED_INC_DIR}/mwdg/controls_view.hpp
 	${SHARED_INC_DIR}/mwdg/ctl_arg_view.hpp

@@ -39,7 +39,6 @@ _updating_values ( false )
 			QString ( "%1 - %2" )
 			.arg ( PROGRAM_TITLE )
 			.arg ( title_str ) );
-		set_title_str ( title_str );
 	}
 
 	_vspace = qMax ( 0, fontMetrics().height() * 2 / 3 );

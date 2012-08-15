@@ -40,7 +40,8 @@ Info_Dialog::Info_Dialog (
 		QString txt ( "%1 - %2" );
 		txt = txt.arg ( PACKAGE_TITLE );
 		txt = txt.arg ( PACKAGE_VERSION );
-		set_title_str ( txt );
+		QWidget * wdg = create_title_widget ( txt );
+		set_top_widget ( wdg );
 	}
 
 	::Wdg::Text_Browser * _txt_info ( 0 );

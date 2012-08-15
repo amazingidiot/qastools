@@ -7,9 +7,7 @@
 //
 
 #include "basic_dialog.hpp"
-
 #include <iostream>
-
 
 namespace Views
 {
@@ -22,25 +20,18 @@ QDialog ( parent_n, flags_n )
 {
 	_lay_main = new QVBoxLayout;
 	setLayout ( _lay_main );
-
-	_lbl_title = create_title_widget ( QString() );
-
-	_lay_main->addWidget ( _lbl_title, 0, Qt::AlignTop );
 }
-
 
 Basic_Dialog::~Basic_Dialog ( )
 {
 }
 
-
 void
-Basic_Dialog::set_title_str (
-	const QString & str_n )
+Basic_Dialog::set_top_widget (
+	QWidget * wdg_n )
 {
-	_lbl_title->setText ( str_n );
+	_lay_main->insertWidget ( 0, wdg_n, 0 );
 }
-
 
 void
 Basic_Dialog::set_central_widget (
@@ -49,6 +40,12 @@ Basic_Dialog::set_central_widget (
 	_lay_main->addWidget ( wdg_n, 1 );
 }
 
+void
+Basic_Dialog::set_bottom_widget (
+	QWidget * wdg_n )
+{
+	_lay_main->insertWidget ( -1, wdg_n, 0 );
+}
 
 QLabel *
 Basic_Dialog::create_title_widget (
@@ -70,7 +67,7 @@ Basic_Dialog::create_title_widget (
 	{
 		QFont fnt ( lbl->font() );
 		fnt.setBold ( true );
-		double scale ( 1.8 );
+		double scale ( 1.3333 );
 		if ( fnt.pixelSize() > 0 ) {
 			fnt.setPixelSize ( fnt.pixelSize() * scale );
 		} else {
@@ -81,7 +78,6 @@ Basic_Dialog::create_title_widget (
 
 	return lbl;
 }
-
 
 QPushButton *
 Basic_Dialog::create_close_button ( )

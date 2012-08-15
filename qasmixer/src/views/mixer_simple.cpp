@@ -89,6 +89,7 @@ _status_column_idx ( ~0 )
 	// Sliders pad 2
 	{
 		_sliders_pad2 = new ::Wdg2::Sliders_Pad ( _scene_db );
+		_sliders_pad2->enable_opengl ( false );
 	}
 
 	// Vertical splitter
