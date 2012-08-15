@@ -7,6 +7,7 @@
 //
 
 #include "gw_pixmaps.hpp"
+#include "scene_database.hpp"
 #include "theme_painters.hpp"
 #include <QPainter>
 #include <cassert>

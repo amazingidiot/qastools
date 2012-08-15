@@ -16,6 +16,12 @@
 #include "slider_value_map.hpp"
 #include "gw_slider.hpp"
 
+// Forward declaration
+namespace Wdg2
+{
+	class GW_Scrollbar;
+}
+
 namespace Wdg2
 {
 
@@ -32,6 +38,22 @@ class GW_Scrollbar_Button :
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
+	~GW_Scrollbar_Button ( );
+
+	::Wdg2::GW_Scrollbar *
+	scrollbar ( ) const;
+
+
+	static
+	void
+	move_animation_cb (
+		void * context_n,
+		unsigned int msec_n );
+
+	void
+	move_animation (
+		unsigned int msec_n );
+
 
 	// Protected methods
 	protected:
@@ -43,8 +65,25 @@ class GW_Scrollbar_Button :
 	setup_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
-};
 
+
+	void
+	mousePressEvent (
+		QGraphicsSceneMouseEvent * event_n );
+
+	void
+	mouseReleaseEvent (
+		QGraphicsSceneMouseEvent * event_n );
+
+	void
+	wheelEvent (
+		QGraphicsSceneWheelEvent * event_n );
+
+	// Private attributes
+	protected:
+
+	unsigned int _anim_timer_id;
+};
 
 
 /// @brief GW_Scrollbar
@@ -106,6 +145,7 @@ class GW_Scrollbar :
 		const ::Context_Callback & cb_n );
 
 
+	/// @brief Slider widget callback mapper
 	void
 	read_slider_value ( );
 

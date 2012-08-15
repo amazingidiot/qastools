@@ -45,16 +45,6 @@ Timer::append_callback_idx (
 	start();
 }
 
-unsigned int
-Timer::msec_latest ( ) const
-{
-	int res (  time().msecsTo ( QTime::currentTime() ) );
-	if ( res < 0 ) {
-		res = 0;
-	}
-	return res;
-}
-
 void
 Timer::remove_callback_idx (
 	unsigned int cback_idx_n )
@@ -69,8 +59,8 @@ void
 Timer::start ( )
 {
 	if ( _timer_id < 0 ) {
-		_timer_id = startTimer ( _interval_msec );
 		_time.start();
+		_timer_id = startTimer ( _interval_msec );
 	}
 }
 
@@ -89,13 +79,16 @@ Timer::timerEvent (
 {
 	(void) event_n;
 	{
-		const int msec_delta ( _time.restart() );
-		CBack_List::iterator it ( _callbacks.begin() );
-		while ( it != _callbacks.end() ) {
-			if ( !_server->process_timeout ( *it, interval_msec(), msec_delta ) ) {
-				it = _callbacks.erase ( it );
-			} else {
-				++it;
+		const QTime timeout ( _time );
+		_time.start(); // Restart current time
+		{
+			CBack_List::iterator it ( _callbacks.begin() );
+			while ( it != _callbacks.end() ) {
+				if ( _server->process_timeout ( *it, timeout ) ) {
+					++it;
+				} else {
+					it = _callbacks.erase ( it );
+				}
 			}
 		}
 	}

@@ -9,28 +9,11 @@
 #include "timer_server.hpp"
 #include "timer.hpp"
 #include <cassert>
+#include <iostream>
 
 namespace Wdg2
 {
 
-
-//
-// Timer_Callback
-//
-
-Timer_Callback::Timer_Callback ( ) :
-_msec_remain ( 0 ),
-_timer_idx ( 0 ),
-_is_used ( false ),
-_is_running ( false ),
-_is_repeating ( false )
-{
-}
-
-
-//
-// Timer_Server
-//
 
 Timer_Server::Timer_Server ( )
 {
@@ -89,7 +72,7 @@ Timer_Server::destroy_timer (
 }
 
 unsigned int
-Timer_Server::aquire_callback (
+Timer_Server::acquire_callback (
 	unsigned int timer_id_n )
 {
 	unsigned int res ( 0 );
@@ -133,43 +116,87 @@ Timer_Server::release_callback (
 }
 
 void
-Timer_Server::cback_request_single (
-	unsigned int cback_id_n )
+Timer_Server::cback_set_callback (
+	unsigned int cback_id_n,
+	const ::Context_Callback_UInt & cback_n )
 {
 	::Wdg2::Timer_Callback * cback ( find_callback ( cback_id_n ) );
 	if ( cback != 0 ) {
 		if ( cback->is_used() ) {
-			cback->set_is_repeating ( false );
+			cback->set_callback ( cback_n );
+		}
+	}
+}
 
+void
+Timer_Server::cback_request (
+	unsigned int cback_id_n,
+	bool repeating_n )
+{
+	::Wdg2::Timer_Callback * cback ( find_callback ( cback_id_n ) );
+	if ( cback != 0 ) {
+		if ( cback->is_used() ) {
 			::Wdg2::Timer * timer ( _timers[cback->timer_idx()] );
 			if ( !cback->is_running() ) {
 				cback->set_is_running ( true );
 				timer->append_callback_idx ( cback_id_n-1 );
 			}
-			cback->set_msec_remain (
-				timer->interval_msec() + timer->msec_latest() );
+			cback->set_msec_interval ( timer->interval_msec() );
+			cback->set_start_time ( QTime::currentTime() );
+			cback->set_is_repeating ( repeating_n );
 		}
 	}
+}
+
+void
+Timer_Server::cback_request (
+	unsigned int cback_id_n,
+	unsigned int interval_msec_n,
+	bool repeating_n )
+{
+	::Wdg2::Timer_Callback * cback ( find_callback ( cback_id_n ) );
+	if ( cback != 0 ) {
+		if ( cback->is_used() ) {
+			::Wdg2::Timer * timer ( _timers[cback->timer_idx()] );
+			if ( !cback->is_running() ) {
+				cback->set_is_running ( true );
+				timer->append_callback_idx ( cback_id_n-1 );
+			}
+			cback->set_msec_interval ( interval_msec_n );
+			cback->set_start_time ( QTime::currentTime() );
+			cback->set_is_repeating ( repeating_n );
+		}
+	}
+}
+
+void
+Timer_Server::cback_request_single (
+	unsigned int cback_id_n )
+{
+	cback_request ( cback_id_n, false );
+}
+
+void
+Timer_Server::cback_request_single (
+	unsigned int cback_id_n,
+	unsigned int interval_msec_n )
+{
+	cback_request ( cback_id_n, interval_msec_n, false );
 }
 
 void
 Timer_Server::cback_request_interval (
 	unsigned int cback_id_n )
 {
-	::Wdg2::Timer_Callback * cback ( find_callback ( cback_id_n ) );
-	if ( cback != 0 ) {
-		if ( cback->is_used() ) {
-			cback->set_is_repeating ( true );
+	cback_request ( cback_id_n, true );
+}
 
-			::Wdg2::Timer * timer ( _timers[cback->timer_idx()] );
-			if ( !cback->is_running() ) {
-				cback->set_is_running ( true );
-				timer->append_callback_idx ( cback_id_n-1 );
-			}
-			cback->set_msec_remain (
-				timer->interval_msec() + timer->msec_latest() );
-		}
-	}
+void
+Timer_Server::cback_request_interval (
+	unsigned int cback_id_n,
+	unsigned int interval_msec_n )
+{
+	cback_request ( cback_id_n, interval_msec_n, true );
 }
 
 void
@@ -190,26 +217,23 @@ Timer_Server::cback_abort_request (
 bool
 Timer_Server::process_timeout (
 	unsigned int cback_idx_n,
-	unsigned int interval_msec_n,
-	unsigned int msec_delta_n )
+	const QTime timeout_n )
 {
 	::Wdg2::Timer_Callback & cback ( _callbacks[cback_idx_n] );
 	if ( cback.is_running() ) {
-		unsigned int overtime =
-			cback.decrement_msec_remain ( msec_delta_n );
-		if ( cback.msec_remain() == 0 ) {
-			// Set any values before calling the callback
-			// because it may change values as well.
+		const int msec_delta ( cback.start_time().msecsTo ( timeout_n ) );
+		if ( msec_delta >= (int)cback.msec_interval() ) {
+			// Set any flags/values before calling the callback
+			// because it's invocation may change these as well.
 			if ( cback.is_repeating() ) {
-				overtime = overtime % interval_msec_n;
-				cback.set_msec_remain ( interval_msec_n - overtime );
+				cback.set_start_time ( timeout_n );
 			} else {
 				cback.set_is_running ( false );
 			}
 
 			// Invoke callback
 			if ( cback.callback().is_valid() ) {
-				cback.set_callback_value ( msec_delta_n );
+				cback.set_callback_value ( msec_delta );
 				cback.callback().call();
 			}
 		}

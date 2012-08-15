@@ -10,6 +10,7 @@
 #define __INC_wdg2_timer_server_hpp__
 
 #include "callbacks.hpp"
+#include "timer_callback.hpp"
 #include <QList>
 #include <vector>
 
@@ -21,200 +22,6 @@ namespace Wdg2
 
 namespace Wdg2
 {
-
-
-
-/// @brief Timer_Callback
-///
-class Timer_Callback
-{
-	// Public methods
-	public:
-
-	Timer_Callback ( );
-
-
-	unsigned int
-	timer_idx ( ) const;
-
-	void
-	set_timer_idx (
-		unsigned int idx_n );
-
-
-	unsigned int
-	msec_remain ( ) const;
-
-	void
-	set_msec_remain (
-		unsigned int msec_n );
-
-	/// @return The number of overtime msecs
-	unsigned int
-	decrement_msec_remain (
-		unsigned int delta_n );
-
-
-	const ::Context_Callback_UInt &
-	callback ( ) const;
-
-	void
-	set_callback (
-		const ::Context_Callback_UInt & cb_n );
-
-	void
-	set_callback_value (
-		unsigned int value_n );
-
-
-	bool
-	is_used ( ) const;
-
-	void
-	set_is_used (
-		bool flag_n );
-
-
-	bool
-	is_running ( ) const;
-
-	void
-	set_is_running (
-		bool flag_n );
-
-
-	bool
-	is_repeating ( ) const;
-
-	void
-	set_is_repeating (
-		bool flag_n );
-
-
-	// Private attributes
-	private:
-
-	unsigned int _msec_remain;
-	::Context_Callback_UInt _callback;
-	unsigned int _timer_idx;
-	bool _is_used;
-	bool _is_running;
-	bool _is_repeating;
-};
-
-inline
-unsigned int
-Timer_Callback::msec_remain ( ) const
-{
-	return _msec_remain;
-}
-
-inline
-void
-Timer_Callback::set_msec_remain (
-	unsigned int msec_n )
-{
-	_msec_remain = msec_n;
-}
-
-inline
-unsigned int
-Timer_Callback::decrement_msec_remain (
-	unsigned int msec_n )
-{
-	unsigned int overtime;
-	if ( _msec_remain > msec_n ) {
-		overtime = 0;
-		_msec_remain -= msec_n;
-	} else {
-		overtime = msec_n - _msec_remain;
-		_msec_remain = 0;
-	}
-	return overtime;
-}
-
-inline
-const ::Context_Callback_UInt &
-Timer_Callback::callback ( ) const
-{
-	return _callback;
-}
-
-inline
-void
-Timer_Callback::set_callback (
-	const ::Context_Callback_UInt & cb_n )
-{
-	_callback = cb_n;
-}
-
-inline
-void
-Timer_Callback::set_callback_value (
-	unsigned int value_n )
-{
-	_callback.set_value ( value_n );
-}
-
-inline
-unsigned int
-Timer_Callback::timer_idx ( ) const
-{
-	return _timer_idx;
-}
-
-inline
-void
-Timer_Callback::set_timer_idx (
-	unsigned int timer_idx_n )
-{
-	_timer_idx = timer_idx_n;
-}
-
-inline
-bool
-Timer_Callback::is_used ( ) const
-{
-	return _is_used;
-}
-
-inline
-void
-Timer_Callback::set_is_used (
-	bool flag_n )
-{
-	_is_used = flag_n;
-}
-
-inline
-bool
-Timer_Callback::is_running ( ) const
-{
-	return _is_running;
-}
-
-inline
-void
-Timer_Callback::set_is_running (
-	bool flag_n )
-{
-	_is_running = flag_n;
-}
-
-inline
-bool
-Timer_Callback::is_repeating ( ) const
-{
-	return _is_repeating;
-}
-
-inline
-void
-Timer_Callback::set_is_repeating (
-	bool flag_n )
-{
-	_is_repeating = flag_n;
-}
 
 
 /// @brief Timer_Server
@@ -240,7 +47,7 @@ class Timer_Server
 
 
 	unsigned int
-	aquire_callback (
+	acquire_callback (
 		unsigned int timer_id_n );
 
 	void
@@ -250,16 +57,48 @@ class Timer_Server
 	void
 	cback_set_callback (
 		unsigned int cback_id_n,
-		const ::Context_Callback & cback_n );
+		const ::Context_Callback_UInt & cback_n );
 
 
+	void
+	cback_request (
+		unsigned int cback_id_n,
+		bool repeating_n );
+
+	void
+	cback_request (
+		unsigned int cback_id_n,
+		unsigned int interval_msec_n,
+		bool repeating_n );
+
+	/// @brief Calls back on the next timeout with ( t_timeout - t_request ) >= timer->intervall_msec()
+	///
 	void
 	cback_request_single (
 		unsigned int cback_id_n );
 
+	/// @brief Calls back on the next timeout with ( t_timeout - t_request ) >= interval_msec_n
+	///
+	/// Setting interval_msec_n to zero calls back on every timeout
+	void
+	cback_request_single (
+		unsigned int cback_id_n,
+		unsigned int interval_msec_n );
+
+	/// @brief Calls back on every timeout with ( t_timeout - t_prev_call ) >= timer->intervall_msec()
+	///
+	/// Setting interval_msec_n to zero calls back on every timeout
 	void
 	cback_request_interval (
 		unsigned int cback_id_n );
+
+	/// @brief Calls back on every timeout with ( t_timeout - t_prev_call ) >= interval_msec_n
+	///
+	/// Setting interval_msec_n to zero calls back on every timeout
+	void
+	cback_request_interval (
+		unsigned int cback_id_n,
+		unsigned int interval_msec_n );
 
 	void
 	cback_abort_request (
@@ -269,8 +108,7 @@ class Timer_Server
 	bool
 	process_timeout (
 		unsigned int cback_idx_n,
-		unsigned int interval_msec_n,
-		unsigned int msec_delta_n );
+		const QTime timeout_n );
 
 
 	// Private methods

@@ -7,6 +7,7 @@
 //
 
 #include "gw_scrollbar.hpp"
+#include "scene_database.hpp"
 #include "theme_painters.hpp"
 #include <limits.h>
 #include <iostream>
@@ -27,13 +28,33 @@ GW_Scrollbar_Button::GW_Scrollbar_Button (
 	set_pxm_type_part (
 		::Wdg2::WGT_SCROLLBAR,
 		::Wdg2::WGP_SCROLLBAR_BTN_LEFT );
+
+	_anim_timer_id = scene_db()->timer_server()->acquire_callback (
+		scene_db()->tid_animation );
+
+	scene_db()->timer_server()->cback_set_callback (
+		_anim_timer_id,
+		::Context_Callback_UInt ( this, &move_animation_cb ) );
+}
+
+GW_Scrollbar_Button::~GW_Scrollbar_Button ( )
+{
+	scene_db()->timer_server()->release_callback (
+		_anim_timer_id );
+}
+
+inline
+::Wdg2::GW_Scrollbar *
+GW_Scrollbar_Button::scrollbar ( ) const
+{
+	return static_cast < ::Wdg2::GW_Scrollbar * > ( parentItem() );
 }
 
 void
 GW_Scrollbar_Button::update_pxm_idx ( )
 {
 	unsigned int idx ( 0 );
-	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+	if ( state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		idx = 1;
 	}
 	set_pxm_idx ( idx );
@@ -48,11 +69,58 @@ GW_Scrollbar_Button::setup_request (
 	if ( res ) {
 		::Flags sflags;
 		if ( idx_n == 1 ) {
-			sflags.set ( ::Wdg2::GW_HAS_FOCUS );
+			sflags.set ( ::Wdg2::GW_IS_GRABBED );
 		}
 		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
 	}
 	return res;
+}
+
+void
+GW_Scrollbar_Button::move_animation_cb (
+	void * context_n,
+	unsigned int msec_n )
+{
+	::Wdg2::GW_Scrollbar_Button * cref (
+		reinterpret_cast < ::Wdg2::GW_Scrollbar_Button * > ( context_n ) );
+	cref->move_animation ( msec_n );
+}
+
+void
+GW_Scrollbar_Button::move_animation (
+	unsigned int msec_n )
+{
+	::std::cout << "GW_Scrollbar_Button::move_animation " << msec_n << "\n";
+	if ( ( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_LEFT ) ||
+		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_BOTTOM ) )
+	{
+
+	} else {
+
+	}
+}
+
+void
+GW_Scrollbar_Button::mousePressEvent (
+	QGraphicsSceneMouseEvent * event_n )
+{
+	set_state_flags ( ::Wdg2::GW_IS_GRABBED, true );
+	scene_db()->timer_server()->cback_request_interval ( _anim_timer_id );
+}
+
+void
+GW_Scrollbar_Button::mouseReleaseEvent (
+	QGraphicsSceneMouseEvent * event_n )
+{
+	set_state_flags ( ::Wdg2::GW_IS_GRABBED, false );
+	scene_db()->timer_server()->cback_abort_request ( _anim_timer_id );
+}
+
+void
+GW_Scrollbar_Button::wheelEvent (
+	QGraphicsSceneWheelEvent * event_n )
+{
+
 }
 
 

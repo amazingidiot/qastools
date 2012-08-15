@@ -51,11 +51,6 @@ class Timer :
 	const QTime &
 	time ( ) const;
 
-	/// @brief Milliseconds since the latest timeout
-	unsigned int
-	msec_latest ( ) const;
-
-
 	void
 	append_callback_idx (
 		unsigned int cback_idx_n );

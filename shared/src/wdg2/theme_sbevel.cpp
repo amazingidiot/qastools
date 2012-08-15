@@ -331,7 +331,7 @@ TPainter_SBevel_Scrollbar::paint_button (
 		pxmap_n.qimage().fill ( 0 );
 
 		double pen_width ( 1.0 );
-		if ( sflags.has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		if ( sflags.has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 			pen_width = 2.0;
 		}
 		double pwhalf ( pen_width / 2.0 );

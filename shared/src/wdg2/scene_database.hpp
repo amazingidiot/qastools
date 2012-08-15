@@ -50,6 +50,13 @@ class Scene_Database
 	remove_theme (
 		::Wdg2::Theme * theme_n );
 
+
+	// Public attributes
+	public:
+
+	unsigned int tid_animation;
+
+
 	// Private attributes
 	private:
 

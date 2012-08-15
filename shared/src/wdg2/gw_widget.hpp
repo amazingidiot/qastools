@@ -9,9 +9,13 @@
 #ifndef __INC_wdg2_graphical_widget_hpp__
 #define __INC_wdg2_graphical_widget_hpp__
 
-#include "scene_database.hpp"
 #include <QGraphicsItem>
 
+// Forward declaration
+namespace Wdg2
+{
+	class Scene_Database;
+}
 
 namespace Wdg2
 {

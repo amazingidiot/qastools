@@ -21,6 +21,8 @@ Scene_Database::Scene_Database ( )
 	_pxm_server = new ::dpe2::Pixmap_Server;
 	_pxm_server->start();
 	_timer_server = new ::Wdg2::Timer_Server;
+
+	tid_animation = _timer_server->create_timer ( 1000 / 60 );
 }
 
 Scene_Database::~Scene_Database ( )
