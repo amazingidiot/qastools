@@ -48,13 +48,7 @@ GW_Label_Ground::calc_brect (
 	const QString & text_n )
 {
 	QRect brect ( fmet_n.boundingRect ( text_n ) );
-	{
-		int twidth ( fmet_n.width ( text_n ) );
-		twidth -= _text_brect.x();
-		if ( twidth > _text_brect.width() ) {
-			brect.setWidth ( twidth );
-		}
-	}
+	brect.adjust ( 0, 0, 1, 0 );
 	return brect;
 }
 
