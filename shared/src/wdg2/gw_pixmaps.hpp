@@ -16,47 +16,6 @@ namespace Wdg2
 {
 
 
-struct GW_Pixmaps_Keys
-{
-	GW_Pixmaps_Keys ( );
-
-	unsigned char wdg_type;
-	unsigned char wdg_part;
-
-	bool
-	operator == (
-		const ::Wdg2::GW_Pixmaps_Keys & keys_n );
-
-	bool
-	operator != (
-		const ::Wdg2::GW_Pixmaps_Keys & keys_n );
-};
-
-inline
-GW_Pixmaps_Keys::GW_Pixmaps_Keys ( ) :
-wdg_type ( 0 ),
-wdg_part ( 0 )
-{
-}
-
-inline
-bool
-GW_Pixmaps_Keys::operator == (
-	const ::Wdg2::GW_Pixmaps_Keys & keys_n )
-{
-	return ( wdg_type == keys_n.wdg_type ) &&
-		( wdg_part == keys_n.wdg_part );
-}
-
-inline
-bool
-GW_Pixmaps_Keys::operator != (
-	const ::Wdg2::GW_Pixmaps_Keys & keys_n )
-{
-	return !operator== ( keys_n );
-}
-
-
 /// @brief GW_Pixmaps
 ///
 class GW_Pixmaps :

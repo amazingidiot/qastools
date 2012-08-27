@@ -297,6 +297,7 @@ void
 GW_Slider::focusInEvent (
 	QFocusEvent * event_n )
 {
+	(void) event_n;
 	//::std::cout << "GW_Slider::focusInEvent"  << "\n";
 	_rail.set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
 	_handle.set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
@@ -306,6 +307,7 @@ void
 GW_Slider::focusOutEvent (
 	QFocusEvent * event_n )
 {
+	(void) event_n;
 	//::std::cout << "GW_Slider::focusOutEvent"  << "\n";
 	_rail.set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
 	_handle.set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
@@ -315,6 +317,7 @@ void
 GW_Slider::mousePressEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
+	(void) event_n;
 	//::std::cout << "GW_Slider::mousePressEvent"  << "\n";
 	if ( point_in_handle ( event_n->pos() ) ) {
 		_handle.set_state_flags ( ::Wdg2::GW_IS_GRABBED );
@@ -325,6 +328,7 @@ void
 GW_Slider::mouseReleaseEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
+	(void) event_n;
 	//::std::cout << "GW_Slider::mouseReleaseEvent"  << "\n";
 	if ( _handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
 		_handle.set_state_flags ( ::Wdg2::GW_IS_GRABBED, false );
