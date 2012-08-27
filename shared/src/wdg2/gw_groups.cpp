@@ -10,7 +10,6 @@
 #include <iostream>
 #include <cmath>
 
-
 namespace Wdg2
 {
 
@@ -31,7 +30,7 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Slider * sliders ( _proxies_group.sliders() );
 		if ( sliders != 0 ) {
-			_gw_levels = new ::Wdg2::GW_Volume_Multi_Slider ( *sliders, scene_db(), this );
+			_gw_levels = new ::Wdg2::GW_Volume_Joinable_Sliders ( *sliders, scene_db(), this );
 		}
 	}
 
@@ -82,11 +81,11 @@ GW_Group2::set_sizes (
 }
 
 inline
-::Wdg2::GW_Multi_Slider_Sizes
+::Wdg2::GW_Joinable_Sliders_Sizes
 GW_Group2::gw_levels_sizes (
 	const ::Wdg2::GW_Group2_Sizes & sizes_n ) const
 {
-	::Wdg2::GW_Multi_Slider_Sizes lsizes;
+	::Wdg2::GW_Joinable_Sliders_Sizes lsizes;
 	lsizes.area_height = sizes_n.levels_height;
 	lsizes.slider_width = sizes_n.slider_width;
 	lsizes.channels_hgap = sizes_n.channels_hgap;

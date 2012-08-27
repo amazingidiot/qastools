@@ -69,6 +69,34 @@ class GW_Scrollbar_Button :
 };
 
 
+/// @brief GW_Scrollbar_Rail
+///
+class GW_Scrollbar_Rail :
+	public ::Wdg2::GW_Slider_Rail
+{
+	// Public methods
+	public:
+
+	GW_Scrollbar_Rail (
+		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+};
+
+
+/// @brief GW_Scrollbar_Handle
+///
+class GW_Scrollbar_Handle :
+	public ::Wdg2::GW_Slider_Handle
+{
+	// Public methods
+	public:
+
+	GW_Scrollbar_Handle (
+		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+};
+
+
 /// @brief GW_Scrollbar
 ///
 class GW_Scrollbar :

@@ -10,7 +10,7 @@
 #define __INC_wdg2_gw_groups_hpp__
 
 #include "gw_widget.hpp"
-#include "gw_volume_multi_slider.hpp"
+#include "gw_volume_joinable_sliders.hpp"
 #include "gw_multi_switch.hpp"
 #include "gw_label.hpp"
 #include "qsnd2/controls_proxies.hpp"
@@ -89,7 +89,7 @@ class GW_Group2 :
 	// Private methods
 	private:
 
-	::Wdg2::GW_Multi_Slider_Sizes
+	::Wdg2::GW_Joinable_Sliders_Sizes
 	gw_levels_sizes (
 		const ::Wdg2::GW_Group2_Sizes & sizes_n ) const;
 
@@ -105,7 +105,7 @@ class GW_Group2 :
 	private:
 
 	::QSnd2::Proxies_Group2 & _proxies_group;
-	::Wdg2::GW_Volume_Multi_Slider * _gw_levels;
+	::Wdg2::GW_Volume_Joinable_Sliders * _gw_levels;
 	::Wdg2::GW_Multi_Switch * _gw_switches;
 	::Wdg2::GW_Label * _label_item;
 

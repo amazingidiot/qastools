@@ -431,6 +431,8 @@
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.cpp" />
 		<Unit filename="shared/src/wdg2/gw_groups.hpp" />
+		<Unit filename="shared/src/wdg2/gw_joinable_sliders.cpp" />
+		<Unit filename="shared/src/wdg2/gw_joinable_sliders.hpp" />
 		<Unit filename="shared/src/wdg2/gw_label.cpp" />
 		<Unit filename="shared/src/wdg2/gw_label.hpp" />
 		<Unit filename="shared/src/wdg2/gw_multi_slider.cpp" />
@@ -447,12 +449,14 @@
 		<Unit filename="shared/src/wdg2/gw_sliders_pad.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.hpp" />
-		<Unit filename="shared/src/wdg2/gw_volume_multi_slider.cpp" />
-		<Unit filename="shared/src/wdg2/gw_volume_multi_slider.hpp" />
+		<Unit filename="shared/src/wdg2/gw_volume_joinable_sliders.cpp" />
+		<Unit filename="shared/src/wdg2/gw_volume_joinable_sliders.hpp" />
 		<Unit filename="shared/src/wdg2/gw_volume_slider.cpp" />
 		<Unit filename="shared/src/wdg2/gw_volume_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_widget.cpp" />
 		<Unit filename="shared/src/wdg2/gw_widget.hpp" />
+		<Unit filename="shared/src/wdg2/gw_widget_element.cpp" />
+		<Unit filename="shared/src/wdg2/gw_widget_element.hpp" />
 		<Unit filename="shared/src/wdg2/int_math.cpp" />
 		<Unit filename="shared/src/wdg2/int_math.hpp" />
 		<Unit filename="shared/src/wdg2/scene_database.cpp" />

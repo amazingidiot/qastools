@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_volume_multi_slider.hpp"
+#include "gw_volume_joinable_sliders.hpp"
 #include "gw_volume_slider.hpp"
 #include <iostream>
 
@@ -14,11 +14,11 @@ namespace Wdg2
 {
 
 
-GW_Volume_Multi_Slider::GW_Volume_Multi_Slider (
+GW_Volume_Joinable_Sliders::GW_Volume_Joinable_Sliders (
 	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Multi_Slider ( scene_db_n, parent_n ),
+::Wdg2::GW_Joinable_Sliders ( scene_db_n, parent_n ),
 _proxies_grp ( snd_proxies_n )
 {
 	{
@@ -34,7 +34,7 @@ _proxies_grp ( snd_proxies_n )
 	}
 }
 
-GW_Volume_Multi_Slider::~GW_Volume_Multi_Slider ( )
+GW_Volume_Joinable_Sliders::~GW_Volume_Joinable_Sliders ( )
 {
 }
 

@@ -55,11 +55,10 @@ GW_Widget::paint (
 	const QStyleOptionGraphicsItem * option_n,
 	QWidget * widget_n )
 {
+	// Default implementation
 	(void) painter_n;
 	(void) option_n;
 	(void) widget_n;
-
-	// Empty dummy implementation
 }
 
 

@@ -12,8 +12,9 @@
 #include "flags.hpp"
 #include "callbacks.hpp"
 #include "gw_widget.hpp"
-#include "gw_pixmaps.hpp"
+#include "gw_widget_element.hpp"
 #include "slider_value_map.hpp"
+#include <QScopedPointer>
 
 namespace Wdg2
 {
@@ -22,7 +23,7 @@ namespace Wdg2
 /// @brief GW_Slider_Rail
 ///
 class GW_Slider_Rail :
-	public ::Wdg2::GW_Pixmaps
+	public ::Wdg2::GW_Widget_Element_Pixmaps
 {
 	// Public methods
 	public:
@@ -36,14 +37,14 @@ class GW_Slider_Rail :
 	protected:
 
 	void
-	update_pxm_idx ( );
+	state_flags_changed ( );
 };
 
 
 /// @brief GW_Slider_Handle
 ///
 class GW_Slider_Handle :
-	public ::Wdg2::GW_Pixmaps
+	public ::Wdg2::GW_Widget_Element_Pixmaps
 {
 	// Public methods
 	public:
@@ -57,7 +58,7 @@ class GW_Slider_Handle :
 	protected:
 
 	void
-	update_pxm_idx ( );
+	state_flags_changed ( );
 };
 
 
@@ -95,7 +96,7 @@ class GW_Slider :
 	~GW_Slider ( );
 
 
-	/// @brief Determines the range of int_value()
+	/// @brief Contains the allowed values of int_value()
 	///
 	::Wdg2::Slider_Value_Map *
 	value_map ( ) const;
@@ -147,11 +148,21 @@ class GW_Slider :
 		Qt::Orientation orientation_n );
 
 
-	::Wdg2::GW_Slider_Rail &
+	// Part getting / replacement
+
+	::Wdg2::GW_Widget_Element *
 	rail ( );
 
-	::Wdg2::GW_Slider_Handle &
+	void
+	replace_rail (
+		::Wdg2::GW_Widget_Element * rail_n );
+
+	::Wdg2::GW_Widget_Element *
 	handle ( );
+
+	void
+	replace_handle (
+		::Wdg2::GW_Widget_Element * handle_n );
 
 
 	// Protected methods
@@ -226,8 +237,8 @@ class GW_Slider :
 
 	::Context_Callback _val_change_cb;
 
-	::Wdg2::GW_Slider_Rail _rail;
-	::Wdg2::GW_Slider_Handle _handle;
+	QScopedPointer < ::Wdg2::GW_Widget_Element > _rail;
+	QScopedPointer < ::Wdg2::GW_Widget_Element > _handle;
 };
 
 inline
@@ -259,17 +270,17 @@ GW_Slider::int_value ( ) const
 }
 
 inline
-::Wdg2::GW_Slider_Rail &
+::Wdg2::GW_Widget_Element *
 GW_Slider::rail ( )
 {
-	return _rail;
+	return _rail.data();
 }
 
 inline
-::Wdg2::GW_Slider_Handle &
+::Wdg2::GW_Widget_Element *
 GW_Slider::handle ( )
 {
-	return _handle;
+	return _handle.data();
 }
 
 

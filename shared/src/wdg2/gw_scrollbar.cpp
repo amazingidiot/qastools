@@ -88,6 +88,28 @@ GW_Scrollbar_Button::wheelEvent (
 }
 
 
+GW_Scrollbar_Rail::GW_Scrollbar_Rail (
+	::Wdg2::Scene_Database * scene_db_n,
+	QGraphicsItem * parent_n ) :
+::Wdg2::GW_Slider_Rail ( scene_db_n, parent_n )
+{
+	gw_pixmaps()->pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
+	gw_pixmaps()->pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SCROLLBAR_RAIL );
+}
+
+GW_Scrollbar_Handle::GW_Scrollbar_Handle (
+	::Wdg2::Scene_Database * scene_db_n,
+	QGraphicsItem * parent_n ) :
+::Wdg2::GW_Slider_Handle ( scene_db_n, parent_n )
+{
+	gw_pixmaps()->pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
+	gw_pixmaps()->pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SCROLLBAR_HANDLE );
+}
+
 
 GW_Scrollbar::GW_Scrollbar (
 	::Wdg2::Scene_Database * scene_db_n,
@@ -120,16 +142,8 @@ _slider ( scene_db(), this )
 
 	_slider.set_value_map ( &_value_map );
 	_slider.set_orientation ( _orientation );
-
-	_slider.rail().pxm_kvals().set_uint (
-		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
-	_slider.rail().pxm_kvals().set_uint (
-		::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SCROLLBAR_RAIL );
-
-	_slider.handle().pxm_kvals().set_uint (
-		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
-	_slider.handle().pxm_kvals().set_uint (
-		::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SCROLLBAR_HANDLE );
+	_slider.replace_rail ( new ::Wdg2::GW_Scrollbar_Rail ( scene_db(), this ) );
+	_slider.replace_handle ( new ::Wdg2::GW_Scrollbar_Handle ( scene_db(), this ) );
 
 	_slider.set_val_change_callback (
 		::Context_Callback ( this, ::Wdg2::GW_Scrollbar::read_slider_value_cb ) );
