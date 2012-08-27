@@ -47,7 +47,16 @@ class GW_Label_Ground :
 
 
 	const QRect &
-	text_brect ( );
+	text_brect ( ) const;
+
+	int
+	font_height ( ) const;
+
+
+	QRect
+	calc_brect (
+		const QFontMetrics & fmet_n,
+		const QString & text_n );
 
 
 	// Protected methods
@@ -68,6 +77,7 @@ class GW_Label_Ground :
 	QString _text;
 	QFont _font;
 	QRect _text_brect;
+	int _font_height;
 };
 
 inline
@@ -86,9 +96,16 @@ GW_Label_Ground::font ( ) const
 
 inline
 const QRect &
-GW_Label_Ground::text_brect ( )
+GW_Label_Ground::text_brect ( ) const
 {
 	return _text_brect;
+}
+
+inline
+int
+GW_Label_Ground::font_height ( ) const
+{
+	return _font_height;
 }
 
 

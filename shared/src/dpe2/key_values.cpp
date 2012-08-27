@@ -152,7 +152,7 @@ Value_Item::assign (
 				_value.uint_val = item_n.as_uint();
 				break;
 			case ::dpe2::Value_Item::TYPE_DOUBLE:
-				_value.uint_val = item_n.as_double();
+				_value.double_val = item_n.as_double();
 				break;
 			case ::dpe2::Value_Item::TYPE_USER:
 				_value.user_val = item_n.as_user()->duplicate();
