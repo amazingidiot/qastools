@@ -52,8 +52,8 @@ GW_Label_Ground::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n )
-		&& !text().isEmpty() );
+	bool res ( !text().isEmpty() &&
+		::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
 	if ( res ) {
 		double px ( -text_brect().x() );
 		double py ( QFontMetrics ( font() ).ascent() );
@@ -104,7 +104,7 @@ GW_Label::probe_size (
 	const QString & text_n )
 {
 	const QFontMetrics fmet ( font() );
-	const QRect brect ( fmet.boundingRect ( text() ) );
+	const QRect brect ( fmet.boundingRect ( text_n ) );
 	return brect.size();
 }
 

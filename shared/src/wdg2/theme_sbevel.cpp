@@ -38,7 +38,8 @@ TPainter_SBevel_Switch::paint_ground (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
-	const ::Flags sflags ( kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS ) );
+	unsigned int pxm_idx ( kvals_n.val_uint ( ::Wdg2::PRK_PXM_INDEX ) );
+	bool has_focus ( pxm_idx == 1 );
 
 	vgood = vgood && valid_size ( iwidth, iheight );
 
@@ -47,7 +48,7 @@ TPainter_SBevel_Switch::paint_ground (
 		pxmap_n.qimage().fill ( 0 );
 
 		double pen_width ( 1.0 );
-		if ( sflags.has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		if ( has_focus ) {
 			pen_width = 2;
 		}
 		double crad ( 2.0 );
@@ -81,10 +82,11 @@ TPainter_SBevel_Switch::paint_handle (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
-	const ::Flags sflags ( kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS ) );
+	unsigned int pxm_idx ( kvals_n.val_uint ( ::Wdg2::PRK_PXM_INDEX ) );
+	bool is_on ( pxm_idx == 1 );
 
 	vgood = vgood && valid_size ( iwidth, iheight );
-	vgood = vgood && ( sflags.has_any ( ::Wdg2::GW_IS_GRABBED | ::Wdg2::GW_IS_ON ) );
+	vgood = vgood && ( is_on );
 
 	if ( vgood ) {
 		pxmap_n.set_size ( iwidth, iheight );
@@ -132,7 +134,8 @@ TPainter_SBevel_Slider::paint_rail (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
-	const ::Flags sflags ( kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS ) );
+	unsigned int pxm_idx ( kvals_n.val_uint ( ::Wdg2::PRK_PXM_INDEX ) );
+	bool has_focus ( pxm_idx == 1 );
 
 	vgood = vgood && valid_size ( iwidth, iheight );
 
@@ -141,7 +144,7 @@ TPainter_SBevel_Slider::paint_rail (
 		pxmap_n.qimage().fill ( 0 );
 
 		double pen_width ( 1.0 );
-		if ( sflags.has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		if ( has_focus ) {
 			pen_width = 2;
 		}
 		double crad ( 2.0 );
@@ -175,7 +178,8 @@ TPainter_SBevel_Slider::paint_handle (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
-	const ::Flags sflags ( kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS ) );
+	unsigned int pxm_idx ( kvals_n.val_uint ( ::Wdg2::PRK_PXM_INDEX ) );
+	bool has_focus ( pxm_idx == 1 );
 
 	vgood = vgood && valid_size ( iwidth, iheight );
 
@@ -240,6 +244,7 @@ TPainter_SBevel_Scrollbar::paint_rail (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
+	unsigned int pxm_idx ( kvals_n.val_uint ( ::Wdg2::PRK_PXM_INDEX ) );
 	const ::Flags sflags ( kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS ) );
 
 	vgood = vgood && valid_size ( iwidth, iheight );
@@ -279,6 +284,7 @@ TPainter_SBevel_Scrollbar::paint_handle (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
+	unsigned int pxm_idx ( kvals_n.val_uint ( ::Wdg2::PRK_PXM_INDEX ) );
 	const ::Flags sflags ( kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS ) );
 
 	vgood = vgood && valid_size ( iwidth, iheight );
@@ -322,7 +328,8 @@ TPainter_SBevel_Scrollbar::paint_button (
 	bool vgood ( true );
 	unsigned int iwidth ( kvals_n.val_uint ( ::Wdg2::PRK_WIDTH ) );
 	unsigned int iheight ( kvals_n.val_uint ( ::Wdg2::PRK_HEIGHT ) );
-	const ::Flags sflags ( kvals_n.val_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS ) );
+	unsigned int pxm_idx ( kvals_n.val_uint ( ::Wdg2::PRK_PXM_INDEX ) );
+	bool is_grabbed ( pxm_idx == 1 );
 
 	vgood = vgood && valid_size ( iwidth, iheight );
 
@@ -331,7 +338,7 @@ TPainter_SBevel_Scrollbar::paint_button (
 		pxmap_n.qimage().fill ( 0 );
 
 		double pen_width ( 1.0 );
-		if ( sflags.has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+		if ( is_grabbed ) {
 			pen_width = 2.0;
 		}
 		double pwhalf ( pen_width / 2.0 );

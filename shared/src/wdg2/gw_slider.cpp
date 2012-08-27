@@ -36,22 +36,6 @@ GW_Slider_Rail::update_pxm_idx ( )
 	set_pxm_idx ( idx );
 }
 
-bool
-GW_Slider_Rail::setup_pxm_request (
-	unsigned int idx_n,
-	::dpe2::Key_Values & kvals_n )
-{
-	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
-	if ( res ) {
-		::Flags sflags;
-		if ( idx_n == 1 ) {
-			sflags.set ( ::Wdg2::GW_HAS_FOCUS );
-		}
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
-	}
-	return res;
-}
-
 
 
 GW_Slider_Handle::GW_Slider_Handle (
@@ -71,22 +55,6 @@ GW_Slider_Handle::update_pxm_idx ( )
 		idx = 1;
 	}
 	set_pxm_idx ( idx );
-}
-
-bool
-GW_Slider_Handle::setup_pxm_request (
-	unsigned int idx_n,
-	::dpe2::Key_Values & kvals_n )
-{
-	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
-	if ( res ) {
-		::Flags sflags;
-		if ( idx_n == 1 ) {
-			sflags.set ( ::Wdg2::GW_HAS_FOCUS );
-		}
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
-	}
-	return res;
 }
 
 

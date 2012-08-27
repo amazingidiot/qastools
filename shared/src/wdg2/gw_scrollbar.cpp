@@ -51,22 +51,6 @@ GW_Scrollbar_Button::update_pxm_idx ( )
 }
 
 bool
-GW_Scrollbar_Button::setup_pxm_request (
-	unsigned int idx_n,
-	::dpe2::Key_Values & kvals_n )
-{
-	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
-	if ( res ) {
-		::Flags sflags;
-		if ( idx_n == 1 ) {
-			sflags.set ( ::Wdg2::GW_IS_GRABBED );
-		}
-		kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_STATE_FLAGS, sflags.flags() );
-	}
-	return res;
-}
-
-bool
 GW_Scrollbar_Button::is_forward ( ) const
 {
 	bool vgood ( true );

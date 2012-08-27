@@ -53,11 +53,6 @@ class GW_Scrollbar_Button :
 	void
 	update_pxm_idx ( );
 
-	bool
-	setup_pxm_request (
-		unsigned int idx_n,
-		::dpe2::Key_Values & kvals_n );
-
 
 	void
 	mousePressEvent (

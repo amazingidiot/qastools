@@ -37,11 +37,6 @@ class GW_Slider_Rail :
 
 	void
 	update_pxm_idx ( );
-
-	bool
-	setup_pxm_request (
-		unsigned int idx_n,
-		::dpe2::Key_Values & kvals_n );
 };
 
 
@@ -63,11 +58,6 @@ class GW_Slider_Handle :
 
 	void
 	update_pxm_idx ( );
-
-	bool
-	setup_pxm_request (
-		unsigned int idx_n,
-		::dpe2::Key_Values & kvals_n );
 };
 
 
