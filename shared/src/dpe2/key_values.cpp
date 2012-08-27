@@ -333,17 +333,25 @@ Key_Values::val_user (
 	return 0;
 }
 
-void
-Key_Values::set_int (
-	unsigned int key_n,
-	int val_n )
+inline
+::dpe2::Value_Item *
+Key_Values::ensured_value_for_key (
+	unsigned int key_n )
 {
 	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
 	if ( vitem == 0 ) {
 		_entries.push_back ( Entry ( key_n, Value_Item() ) );
 		vitem = &_entries.back().second;
 	}
-	vitem->set_int ( val_n );
+	return vitem;
+}
+
+void
+Key_Values::set_int (
+	unsigned int key_n,
+	int val_n )
+{
+	ensured_value_for_key ( key_n )->set_int ( val_n );
 }
 
 void
@@ -351,12 +359,7 @@ Key_Values::set_uint (
 	unsigned int key_n,
 	unsigned int val_n )
 {
-	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
-	if ( vitem == 0 ) {
-		_entries.push_back ( Entry ( key_n, Value_Item() ) );
-		vitem = &_entries.back().second;
-	}
-	vitem->set_uint ( val_n );
+	ensured_value_for_key ( key_n )->set_uint ( val_n );
 }
 
 void
@@ -364,12 +367,7 @@ Key_Values::set_double (
 	unsigned int key_n,
 	double val_n )
 {
-	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
-	if ( vitem == 0 ) {
-		_entries.push_back ( Entry ( key_n, Value_Item() ) );
-		vitem = &_entries.back().second;
-	}
-	vitem->set_double ( val_n );
+	ensured_value_for_key ( key_n )->set_double ( val_n );
 }
 
 void
@@ -377,12 +375,25 @@ Key_Values::set_user (
 	unsigned int key_n,
 	::dpe2::User_Value * val_n )
 {
-	::dpe2::Value_Item * vitem ( value_for_key ( key_n ) );
-	if ( vitem == 0 ) {
-		_entries.push_back ( Entry ( key_n, Value_Item() ) );
-		vitem = &_entries.back().second;
+	ensured_value_for_key ( key_n )->set_user ( val_n );
+}
+
+void
+Key_Values::set_value (
+	unsigned int key_n,
+	const ::dpe2::Value_Item & val_n )
+{
+	*ensured_value_for_key ( key_n ) = val_n;
+}
+
+void
+Key_Values::set_from (
+	const ::dpe2::Key_Values & vset_n )
+{
+	for ( unsigned int ii=0; ii < vset_n.num_entries(); ++ii ) {
+		const ::dpe2::Key_Values::Entry & entry ( vset_n.entry ( ii ) );
+		set_value ( entry.first, entry.second );
 	}
-	vitem->set_user ( val_n );
 }
 
 void

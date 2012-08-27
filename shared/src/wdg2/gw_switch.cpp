@@ -19,9 +19,8 @@ GW_Switch_Ground::GW_Switch_Ground (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
-	set_pxm_type_part (
-		::Wdg2::WGT_SWITCH,
-		::Wdg2::WGP_SWITCH_GROUND );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SWITCH );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SWITCH_GROUND );
 }
 
 void
@@ -35,11 +34,11 @@ GW_Switch_Ground::update_pxm_idx ( )
 }
 
 bool
-GW_Switch_Ground::setup_request (
+GW_Switch_Ground::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
 	if ( res ) {
 		{
 			::Flags sflags;
@@ -59,9 +58,8 @@ GW_Switch_Handle::GW_Switch_Handle (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
-	set_pxm_type_part (
-		::Wdg2::WGT_SWITCH,
-		::Wdg2::WGP_SWITCH_HANDLE );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SWITCH );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SWITCH_HANDLE );
 }
 
 void
@@ -75,11 +73,11 @@ GW_Switch_Handle::update_pxm_idx ( )
 }
 
 bool
-GW_Switch_Handle::setup_request (
+GW_Switch_Handle::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
 	if ( res ) {
 		{
 			::Flags sflags;

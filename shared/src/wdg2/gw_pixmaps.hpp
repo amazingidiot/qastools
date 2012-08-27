@@ -79,13 +79,18 @@ class GW_Pixmaps :
 		QWidget * widget_n = 0 );
 
 
+	/// @brief Number of pixmaps / pixmap indices
+	///
 	unsigned int
 	num_pixmaps ( ) const;
 
 	/// @brief Current pixmap index
+	///
 	unsigned int
 	pxm_idx ( ) const;
 
+	/// @brief Change the current pixmap index
+	///
 	void
 	set_pxm_idx (
 		unsigned int idx_n );
@@ -111,24 +116,19 @@ class GW_Pixmaps :
 		bool flag_n = true );
 
 
+	const ::dpe2::Key_Values &
+	pxm_kvals ( ) const;
+
+	::dpe2::Key_Values &
+	pxm_kvals ( );
+
+
 	void
 	repaint_pixmap (
 		unsigned int idx_n );
 
 	void
 	repaint_pixmaps ( );
-
-	const ::Wdg2::GW_Pixmaps_Keys &
-	pxm_keys ( ) const;
-
-	void
-	set_pxm_keys (
-		const ::Wdg2::GW_Pixmaps_Keys & keys_n );
-
-	void
-	set_pxm_type_part (
-		unsigned char type_n,
-		unsigned char part_n );
 
 
 	static
@@ -155,7 +155,7 @@ class GW_Pixmaps :
 
 	virtual
 	bool
-	setup_request (
+	setup_pxm_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 
@@ -173,7 +173,7 @@ class GW_Pixmaps :
 
 	::Flags _state_flags;
 	QSize _pxm_size;
-	::Wdg2::GW_Pixmaps_Keys _pxm_keys;
+	::dpe2::Key_Values _pxm_kvals;
 };
 
 inline
@@ -205,18 +205,26 @@ GW_Pixmaps::pxm_size_valid ( ) const
 }
 
 inline
-const ::Wdg2::GW_Pixmaps_Keys &
-GW_Pixmaps::pxm_keys ( ) const
-{
-	return _pxm_keys;
-}
-
-inline
 const ::Flags &
 GW_Pixmaps::state_flags ( ) const
 {
 	return _state_flags;
 }
+
+inline
+const ::dpe2::Key_Values &
+GW_Pixmaps::pxm_kvals ( ) const
+{
+	return _pxm_kvals;
+}
+
+inline
+::dpe2::Key_Values &
+GW_Pixmaps::pxm_kvals ( )
+{
+	return _pxm_kvals;
+}
+
 
 } // End of namespace
 

@@ -20,7 +20,8 @@ GW_Label_Ground::GW_Label_Ground (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 1, parent_n )
 {
-	set_pxm_type_part ( ::Wdg2::WGT_LABEL, ::Wdg2::WGP_LABEL_GROUND );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_LABEL );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_LABEL_GROUND );
 }
 
 void
@@ -47,11 +48,11 @@ GW_Label_Ground::update_text_brect ( )
 }
 
 bool
-GW_Label_Ground::setup_request (
+GW_Label_Ground::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n )
+	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n )
 		&& !text().isEmpty() );
 	if ( res ) {
 		double px ( -text_brect().x() );

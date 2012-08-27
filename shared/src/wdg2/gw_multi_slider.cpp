@@ -8,41 +8,33 @@
 
 #include "gw_multi_slider.hpp"
 #include <iostream>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
-
 
 namespace Wdg2
 {
 
 
 GW_Multi_Slider::GW_Multi_Slider (
-	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_proxies_grp ( snd_proxies_n )
+_is_joined ( false )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
-
-	{
-		::QSnd2::Integer_Pair vrange;
-		_proxies_grp.int_range ( vrange );
-		_value_map.set_value_range ( vrange[0], vrange[1] );
-	}
-	for ( unsigned int ii=0; ii < proxies_grp().num_proxies(); ++ii ) {
-		::Wdg2::GW_Volume_Slider * gw_slider (
-			new ::Wdg2::GW_Volume_Slider ( *proxies_grp().slider_proxy ( ii ), scene_db(), this ) );
-		gw_slider->set_value_map ( &_value_map );
-		gw_slider->read_value_from_proxy();
-		_sliders.append ( gw_slider );
-	}
-	_slider_handle = new ::Wdg2::GW_Slider_Handle ( scene_db(), this );
-	_slider_handle->setVisible ( false );
 }
 
 GW_Multi_Slider::~GW_Multi_Slider ( )
 {
+}
+
+void
+GW_Multi_Slider::add_slider (
+	::Wdg2::GW_Slider * slider_n )
+{
+	if ( slider_n != 0 ) {
+		slider_n->setParentItem ( this );
+		slider_n->set_value_map ( &value_map() );
+		_sliders.append ( slider_n );
+	}
 }
 
 void
@@ -75,7 +67,19 @@ GW_Multi_Slider::update_geometries ( )
 			spos.rx() += delta_x;
 		}
 	}
-	_slider_handle->setPos ( QPointF ( 0.0, 0.0 ) );
+}
+
+unsigned int
+GW_Multi_Slider::int_width_probe (
+	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const
+{
+	unsigned int iwidth ( 0 );
+	const unsigned int num ( num_sliders() );
+	if ( num > 0 ) {
+		iwidth += sizes_n.slider_width * num;
+		iwidth += sizes_n.channels_hgap * ( num - 1 );
+	}
+	return iwidth;
 }
 
 unsigned int
@@ -84,16 +88,18 @@ GW_Multi_Slider::int_width ( ) const
 	return int_width_probe ( _sizes );
 }
 
-unsigned int
-GW_Multi_Slider::int_width_probe (
-	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const
+void
+GW_Multi_Slider::set_is_joined (
+	bool flag_n )
 {
-	unsigned int iwidth ( 0 );
-	if ( proxies_grp().num_proxies() > 0 ) {
-		iwidth += sizes_n.slider_width * proxies_grp().num_proxies();
-		iwidth += sizes_n.channels_hgap * ( proxies_grp().num_proxies() - 1 );
+	if ( flag_n != _is_joined ) {
+		_is_joined = flag_n;
+		if ( _is_joined ) {
+
+		} else {
+
+		}
 	}
-	return iwidth;
 }
 
 

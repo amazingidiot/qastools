@@ -25,9 +25,8 @@ GW_Scrollbar_Button::GW_Scrollbar_Button (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
-	set_pxm_type_part (
-		::Wdg2::WGT_SCROLLBAR,
-		::Wdg2::WGP_SCROLLBAR_BTN_LEFT );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SCROLLBAR_BTN_LEFT );
 }
 
 GW_Scrollbar_Button::~GW_Scrollbar_Button ( )
@@ -52,11 +51,11 @@ GW_Scrollbar_Button::update_pxm_idx ( )
 }
 
 bool
-GW_Scrollbar_Button::setup_request (
+GW_Scrollbar_Button::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
 	if ( res ) {
 		::Flags sflags;
 		if ( idx_n == 1 ) {
@@ -67,15 +66,26 @@ GW_Scrollbar_Button::setup_request (
 	return res;
 }
 
+bool
+GW_Scrollbar_Button::is_forward ( ) const
+{
+	bool vgood ( true );
+	const unsigned int part_key (
+		pxm_kvals().val_uint ( ::Wdg2::PRK_WIDGET_PART, &vgood ) );
+	if ( ( part_key != WGP_SCROLLBAR_BTN_RIGHT ) &&
+		( part_key != WGP_SCROLLBAR_BTN_TOP ) )
+	{
+		vgood = false;
+	}
+	return vgood;
+}
+
 void
 GW_Scrollbar_Button::mousePressEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	set_state_flags ( ::Wdg2::GW_IS_GRABBED, true );
-	const bool forward = (
-		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_RIGHT ) ||
-		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_TOP ) );
-	scrollbar()->begin_move ( forward );
+	scrollbar()->begin_move ( is_forward() );
 }
 
 void
@@ -83,10 +93,7 @@ GW_Scrollbar_Button::mouseReleaseEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
 	set_state_flags ( ::Wdg2::GW_IS_GRABBED, false );
-	const bool forward = (
-		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_RIGHT ) ||
-		( pxm_keys().wdg_part == ::Wdg2::WGP_SCROLLBAR_BTN_TOP ) );
-	scrollbar()->end_move ( forward );
+	scrollbar()->end_move ( is_forward() );
 }
 
 void
@@ -122,14 +129,23 @@ _slider ( scene_db(), this )
 	_anim_micro_step = 0;
 	_anim_speed = 400.0; // units / per sec
 
+	_btn_low.pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
+	_btn_high.pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
+
 	_slider.set_value_map ( &_value_map );
 	_slider.set_orientation ( _orientation );
-	_slider.rail().set_pxm_type_part (
-		::Wdg2::WGT_SCROLLBAR,
-		::Wdg2::WGP_SCROLLBAR_RAIL );
-	_slider.handle().set_pxm_type_part (
-		::Wdg2::WGT_SCROLLBAR,
-		::Wdg2::WGP_SCROLLBAR_HANDLE );
+
+	_slider.rail().pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
+	_slider.rail().pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SCROLLBAR_RAIL );
+
+	_slider.handle().pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
+	_slider.handle().pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SCROLLBAR_HANDLE );
 
 	_slider.set_val_change_callback (
 		::Context_Callback ( this, ::Wdg2::GW_Scrollbar::read_slider_value_cb ) );
@@ -262,11 +278,13 @@ GW_Scrollbar::update_geometries ( )
 		}
 	}
 
-	_btn_low.set_pxm_type_part ( ::Wdg2::WGT_SCROLLBAR, btn_low_part );
+	_btn_low.pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_PART, btn_low_part );
 	_btn_low.set_pxm_size ( btn_size );
 	_btn_low.setPos ( btn_pos_low );
 
-	_btn_high.set_pxm_type_part ( ::Wdg2::WGT_SCROLLBAR, btn_high_part );
+	_btn_high.pxm_kvals().set_uint (
+		::Wdg2::PRK_WIDGET_PART, btn_high_part );
 	_btn_high.set_pxm_size ( btn_size );
 	_btn_high.setPos ( btn_pos_high );
 

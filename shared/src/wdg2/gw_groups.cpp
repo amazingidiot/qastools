@@ -31,7 +31,7 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Slider * sliders ( _proxies_group.sliders() );
 		if ( sliders != 0 ) {
-			_gw_levels = new ::Wdg2::GW_Multi_Slider ( *sliders, scene_db(), this );
+			_gw_levels = new ::Wdg2::GW_Volume_Multi_Slider ( *sliders, scene_db(), this );
 		}
 	}
 

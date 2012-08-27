@@ -57,7 +57,7 @@ class GW_Label_Ground :
 	update_text_brect ( );
 
 	bool
-	setup_request (
+	setup_pxm_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 

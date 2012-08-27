@@ -39,7 +39,7 @@ class GW_Slider_Rail :
 	update_pxm_idx ( );
 
 	bool
-	setup_request (
+	setup_pxm_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 };
@@ -65,7 +65,7 @@ class GW_Slider_Handle :
 	update_pxm_idx ( );
 
 	bool
-	setup_request (
+	setup_pxm_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 };
@@ -167,12 +167,13 @@ class GW_Slider :
 	// Protected methods
 	protected:
 
-	void
-	update_handle_pos_from_value ( );
-
+	// Geometries
 
 	void
 	update_geometries ( );
+
+
+	// Handle manipulation
 
 	void
 	set_handle_pos (
@@ -180,6 +181,9 @@ class GW_Slider :
 
 	void
 	update_value_from_handle_pos ( );
+
+	void
+	update_handle_pos_from_value ( );
 
 	bool
 	point_in_handle (

@@ -22,9 +22,8 @@ GW_Slider_Rail::GW_Slider_Rail (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
-	set_pxm_type_part (
-		::Wdg2::WGT_SLIDER,
-		::Wdg2::WGP_SLIDER_RAIL );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
 }
 
 void
@@ -38,11 +37,11 @@ GW_Slider_Rail::update_pxm_idx ( )
 }
 
 bool
-GW_Slider_Rail::setup_request (
+GW_Slider_Rail::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
 	if ( res ) {
 		::Flags sflags;
 		if ( idx_n == 1 ) {
@@ -60,9 +59,8 @@ GW_Slider_Handle::GW_Slider_Handle (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Pixmaps ( scene_db_n, 2, parent_n )
 {
-	set_pxm_type_part (
-		::Wdg2::WGT_SLIDER,
-		::Wdg2::WGP_SLIDER_HANDLE );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+	pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
 }
 
 void
@@ -76,11 +74,11 @@ GW_Slider_Handle::update_pxm_idx ( )
 }
 
 bool
-GW_Slider_Handle::setup_request (
+GW_Slider_Handle::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
-	bool res ( ::Wdg2::GW_Pixmaps::setup_request ( idx_n, kvals_n ) );
+	bool res ( ::Wdg2::GW_Pixmaps::setup_pxm_request ( idx_n, kvals_n ) );
 	if ( res ) {
 		::Flags sflags;
 		if ( idx_n == 1 ) {
@@ -136,8 +134,10 @@ void
 GW_Slider::set_value_map (
 	::Wdg2::Slider_Value_Map * map_n )
 {
-	_value_map = map_n;
-	update_handle_pos_from_value();
+	if ( _value_map != map_n ) {
+		_value_map = map_n;
+		update_handle_pos_from_value();
+	}
 }
 
 void
@@ -191,33 +191,39 @@ void
 GW_Slider::set_int_value (
 	long value_n )
 {
-	if ( value_n < value_map()->value_min() ) {
-		value_n = value_map()->value_min();
-	}
-	if ( value_n > value_map()->value_max() ) {
-		value_n = value_map()->value_max();
-	}
-	if ( value_n != _int_value ) {
-		_int_value = value_n;
-		update_handle_pos_from_value();
+	if ( value_map() != 0 ) {
+		if ( value_n < value_map()->value_min() ) {
+			value_n = value_map()->value_min();
+		}
+		if ( value_n > value_map()->value_max() ) {
+			value_n = value_map()->value_max();
+		}
+		if ( value_n != _int_value ) {
+			_int_value = value_n;
+			update_handle_pos_from_value();
+		}
 	}
 }
 
 void
 GW_Slider::update_handle_pos_from_value ( )
 {
-	if ( !_handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
-		set_handle_pos ( value_map()->px_from_value ( _int_value ) );
+	if ( value_map() != 0 ) {
+		if ( !_handle.state_flags().has_any ( ::Wdg2::GW_IS_GRABBED ) ) {
+			set_handle_pos ( value_map()->px_from_value ( _int_value ) );
+		}
 	}
 }
 
 void
 GW_Slider::update_value_from_handle_pos ( )
 {
-	const long cval ( value_map()->value_from_px ( _handle_pos ) );
-	if ( _int_value != cval ) {
-		_int_value = cval;
-		_val_change_cb.call_if_valid();
+	if ( value_map() != 0 ) {
+		const long cval ( value_map()->value_from_px ( _handle_pos ) );
+		if ( _int_value != cval ) {
+			_int_value = cval;
+			_val_change_cb.call_if_valid();
+		}
 	}
 }
 

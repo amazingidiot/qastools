@@ -43,6 +43,9 @@ class GW_Scrollbar_Button :
 	::Wdg2::GW_Scrollbar *
 	scrollbar ( ) const;
 
+	bool
+	is_forward ( ) const;
+
 
 	// Protected methods
 	protected:
@@ -51,7 +54,7 @@ class GW_Scrollbar_Button :
 	update_pxm_idx ( );
 
 	bool
-	setup_request (
+	setup_pxm_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 
@@ -68,9 +71,6 @@ class GW_Scrollbar_Button :
 	wheelEvent (
 		QGraphicsSceneWheelEvent * event_n );
 
-
-	// Private attributes
-	protected:
 };
 
 

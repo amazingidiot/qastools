@@ -127,29 +127,6 @@ GW_Pixmaps::update_pxm_idx ( )
 }
 
 void
-GW_Pixmaps::set_pxm_keys (
-	const ::Wdg2::GW_Pixmaps_Keys & keys_n )
-{
-	if ( _pxm_keys != keys_n ) {
-		_pxm_keys = keys_n;
-		repaint_pixmaps();
-	}
-}
-
-void
-GW_Pixmaps::set_pxm_type_part (
-	unsigned char type_n,
-	unsigned char part_n )
-{
-	{
-		::Wdg2::GW_Pixmaps_Keys pkeys ( pxm_keys() );
-		pkeys.wdg_type = type_n;
-		pkeys.wdg_part = part_n;
-		set_pxm_keys ( pkeys );
-	}
-}
-
-void
 GW_Pixmaps::pxm_request_finished_cb (
 	void * context_n,
 	::dpe2::Pixmap_Request * request_n )
@@ -195,7 +172,7 @@ GW_Pixmaps::repaint_pixmap (
 	if ( !req->state.has_any ( ::dpe2::RS_PROCESSING ) ) {
 		// Update now
 		req->state.unset ( ::dpe2::RS_NEEDS_UPDATE );
-		if ( pxm_size_valid() && this->setup_request ( idx_n, req->kvals ) ) {
+		if ( pxm_size_valid() && this->setup_pxm_request ( idx_n, req->kvals ) ) {
 			scene_db()->pxm_server()->send_request ( req );
 		} else {
 			scene_db()->pxm_server()->return_pixmap ( _pxmaps[idx_n] );
@@ -218,16 +195,15 @@ GW_Pixmaps::repaint_pixmaps ( )
 }
 
 bool
-GW_Pixmaps::setup_request (
+GW_Pixmaps::setup_pxm_request (
 	unsigned int idx_n,
 	::dpe2::Key_Values & kvals_n )
 {
 	// Simple default implementation
-	(void) idx_n;
+	kvals_n.set_from ( _pxm_kvals );
 	kvals_n.set_uint ( ::Wdg2::PRK_WIDTH, pxm_size().width() );
 	kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, pxm_size().height() );
-	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_TYPE, pxm_keys().wdg_type );
-	kvals_n.set_uint ( ::Wdg2::PRK_WIDGET_PART, pxm_keys().wdg_part );
+	kvals_n.set_uint ( ::Wdg2::PRK_PXM_INDEX, idx_n );
 	return true;
 }
 

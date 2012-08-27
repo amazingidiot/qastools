@@ -6,12 +6,11 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_gw_levels_hpp__
-#define __INC_wdg2_gw_levels_hpp__
+#ifndef __INC_wdg2_gw_multi_slider_hpp__
+#define __INC_wdg2_gw_multi_slider_hpp__
 
-#include <QGraphicsItem>
-#include "qsnd2/controls_proxies.hpp"
-#include "wdg2/gw_volume_slider.hpp"
+#include "wdg2/gw_widget.hpp"
+#include "wdg2/gw_slider.hpp"
 #include "wdg2/slider_value_map.hpp"
 
 namespace Wdg2
@@ -45,17 +44,18 @@ class GW_Multi_Slider :
 	public:
 
 	GW_Multi_Slider (
-		::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Multi_Slider ( );
 
-	::QSnd2::Proxies_Group1_Slider &
-	proxies_grp ( );
 
-	const ::QSnd2::Proxies_Group1_Slider &
-	proxies_grp ( ) const;
+	void
+	add_slider (
+		::Wdg2::GW_Slider * slider_n );
+
+	unsigned int
+	num_sliders ( ) const;
 
 
 	const ::Wdg2::GW_Multi_Slider_Sizes &
@@ -65,14 +65,26 @@ class GW_Multi_Slider :
 	set_sizes (
 		const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n );
 
-	unsigned int
-	int_width ( ) const;
-
 	/// @brief Used to probe a sizes set
 	///
 	unsigned int
 	int_width_probe (
 		const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const;
+
+	unsigned int
+	int_width ( ) const;
+
+
+	bool
+	is_joined ( ) const;
+
+	void
+	set_is_joined (
+		bool flag_n );
+
+
+	::Wdg2::Slider_Value_Map &
+	value_map ( );
 
 	const ::Wdg2::Slider_Value_Map &
 	value_map ( ) const;
@@ -88,27 +100,18 @@ class GW_Multi_Slider :
 	// Private attributes
 	private:
 
-	::QSnd2::Proxies_Group1_Slider & _proxies_grp;
-	::Wdg2::GW_Multi_Slider_Sizes _sizes;
-
 	::Wdg2::Slider_Value_Map _value_map;
-	QList < ::Wdg2::GW_Volume_Slider * > _sliders;
-	::Wdg2::GW_Slider_Handle * _slider_handle;
+	QList < ::Wdg2::GW_Slider * > _sliders;
+
+	::Wdg2::GW_Multi_Slider_Sizes _sizes;
+	bool _is_joined;
 };
 
-
 inline
-::QSnd2::Proxies_Group1_Slider &
-GW_Multi_Slider::proxies_grp ( )
+unsigned int
+GW_Multi_Slider::num_sliders ( ) const
 {
-	return _proxies_grp;
-}
-
-inline
-const ::QSnd2::Proxies_Group1_Slider &
-GW_Multi_Slider::proxies_grp ( ) const
-{
-	return _proxies_grp;
+	return _sliders.size();
 }
 
 inline
@@ -116,6 +119,20 @@ const ::Wdg2::GW_Multi_Slider_Sizes &
 GW_Multi_Slider::sizes ( ) const
 {
 	return _sizes;
+}
+
+inline
+bool
+GW_Multi_Slider::is_joined ( ) const
+{
+	return _is_joined;
+}
+
+inline
+::Wdg2::Slider_Value_Map &
+GW_Multi_Slider::value_map ( )
+{
+	return _value_map;
 }
 
 inline

@@ -447,6 +447,8 @@
 		<Unit filename="shared/src/wdg2/gw_sliders_pad.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switch.hpp" />
+		<Unit filename="shared/src/wdg2/gw_volume_multi_slider.cpp" />
+		<Unit filename="shared/src/wdg2/gw_volume_multi_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_volume_slider.cpp" />
 		<Unit filename="shared/src/wdg2/gw_volume_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_widget.cpp" />

@@ -378,6 +378,10 @@ class Key_Values
 	unsigned int
 	num_entries ( ) const;
 
+	const ::dpe2::Key_Values::Entry &
+	entry (
+		unsigned int idx_n ) const;
+
 
 	::dpe2::Value_Item *
 	value_for_key (
@@ -430,6 +434,16 @@ class Key_Values
 		unsigned int key_n,
 		::dpe2::User_Value * val_n );
 
+	void
+	set_value (
+		unsigned int key_n,
+		const ::dpe2::Value_Item & val_n );
+
+
+	void
+	set_from (
+		const ::dpe2::Key_Values & vset_n );
+
 
 	::dpe2::Key_Values::Entry &
 	operator[] (
@@ -457,6 +471,10 @@ class Key_Values
 	// Private methods
 	private:
 
+	::dpe2::Value_Item *
+	ensured_value_for_key (
+		unsigned int key_n );
+
 	void
 	assign (
 		const ::dpe2::Key_Values & vset_n );
@@ -480,6 +498,14 @@ unsigned int
 Key_Values::num_entries ( ) const
 {
 	return _entries.size();
+}
+
+inline
+const ::dpe2::Key_Values::Entry &
+Key_Values::entry (
+	unsigned int idx_n ) const
+{
+	return _entries[idx_n];
 }
 
 inline

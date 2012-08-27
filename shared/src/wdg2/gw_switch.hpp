@@ -39,7 +39,7 @@ class GW_Switch_Ground :
 	update_pxm_idx ( );
 
 	bool
-	setup_request (
+	setup_pxm_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 };
@@ -65,7 +65,7 @@ class GW_Switch_Handle :
 	update_pxm_idx ( );
 
 	bool
-	setup_request (
+	setup_pxm_request (
 		unsigned int idx_n,
 		::dpe2::Key_Values & kvals_n );
 };
