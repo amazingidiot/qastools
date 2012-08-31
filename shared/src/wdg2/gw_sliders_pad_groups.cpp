@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_groups.hpp"
+#include "gw_sliders_pad_groups.hpp"
 #include <iostream>
 #include <cmath>
 
@@ -14,7 +14,7 @@ namespace Wdg2
 {
 
 
-GW_Group2::GW_Group2 (
+GW_SlPad_Group2::GW_SlPad_Group2 (
 	::QSnd2::Proxies_Group2 & proxies_group_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
@@ -54,13 +54,13 @@ _label_item ( 0 )
 	update_geometries();
 }
 
-GW_Group2::~GW_Group2 ( )
+GW_SlPad_Group2::~GW_SlPad_Group2 ( )
 {
 }
 
 void
-GW_Group2::set_sizes (
-	const ::Wdg2::GW_Group2_Sizes & sizes_n )
+GW_SlPad_Group2::set_sizes (
+	const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
 
@@ -83,8 +83,8 @@ GW_Group2::set_sizes (
 
 inline
 ::Wdg2::GW_Joinable_Sliders_Sizes
-GW_Group2::gw_levels_sizes (
-	const ::Wdg2::GW_Group2_Sizes & sizes_n ) const
+GW_SlPad_Group2::gw_levels_sizes (
+	const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n ) const
 {
 	::Wdg2::GW_Joinable_Sliders_Sizes lsizes;
 	lsizes.area_height = sizes_n.levels_height;
@@ -95,8 +95,8 @@ GW_Group2::gw_levels_sizes (
 
 inline
 ::Wdg2::GW_Multi_Switch_Sizes
-GW_Group2::gw_switches_sizes (
-	const ::Wdg2::GW_Group2_Sizes & sizes_n ) const
+GW_SlPad_Group2::gw_switches_sizes (
+	const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n ) const
 {
 	::Wdg2::GW_Multi_Switch_Sizes lsizes;
 	lsizes.area_height = sizes_n.switches_height;
@@ -106,7 +106,7 @@ GW_Group2::gw_switches_sizes (
 }
 
 void
-GW_Group2::update_geometries ( )
+GW_SlPad_Group2::update_geometries ( )
 {
 	double pos_x ( 0.0 );
 	// Label
@@ -136,14 +136,14 @@ GW_Group2::update_geometries ( )
 }
 
 unsigned int
-GW_Group2::int_width ( ) const
+GW_SlPad_Group2::int_width ( ) const
 {
 	return int_width_probe ( _sizes );
 }
 
 unsigned int
-GW_Group2::int_width_probe (
-	const ::Wdg2::GW_Group2_Sizes & sizes_n ) const
+GW_SlPad_Group2::int_width_probe (
+	const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n ) const
 {
 	unsigned int iwidth ( 0 );
 	if ( _gw_levels != 0 ) {
@@ -171,7 +171,7 @@ GW_Group2::int_width_probe (
 
 
 
-GW_Group3::GW_Group3 (
+GW_SlPad_Group3::GW_SlPad_Group3 (
 	::QSnd2::Proxies_Group3 & proxies_group_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
@@ -181,19 +181,19 @@ _proxies_group ( proxies_group_n )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
-		::Wdg2::GW_Group2 * grp2 (
-			new ::Wdg2::GW_Group2 ( *_proxies_group.group ( ii ), scene_db(), this ) );
+		::Wdg2::GW_SlPad_Group2 * grp2 (
+			new ::Wdg2::GW_SlPad_Group2 ( *_proxies_group.group ( ii ), scene_db(), this ) );
 		_gw_groups.append ( grp2 );
 	}
 }
 
-GW_Group3::~GW_Group3 ( )
+GW_SlPad_Group3::~GW_SlPad_Group3 ( )
 {
 }
 
 void
-GW_Group3::set_sizes (
-	const ::Wdg2::GW_Group3_Sizes & sizes_n )
+GW_SlPad_Group3::set_sizes (
+	const ::Wdg2::GW_SlPad_Group3_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
 	// Bounding rect
@@ -206,11 +206,11 @@ GW_Group3::set_sizes (
 }
 
 inline
-::Wdg2::GW_Group2_Sizes
-GW_Group3::gw_group2_sizes (
-	const ::Wdg2::GW_Group3_Sizes & sizes_n ) const
+::Wdg2::GW_SlPad_Group2_Sizes
+GW_SlPad_Group3::gw_group2_sizes (
+	const ::Wdg2::GW_SlPad_Group3_Sizes & sizes_n ) const
 {
-	::Wdg2::GW_Group2_Sizes lsizes;
+	::Wdg2::GW_SlPad_Group2_Sizes lsizes;
 	lsizes.height = sizes_n.height;
 	lsizes.slider_width = sizes_n.slider_width;
 	lsizes.channels_hgap = sizes_n.channels_hgap;
@@ -218,14 +218,14 @@ GW_Group3::gw_group2_sizes (
 }
 
 void
-GW_Group3::update_geometries ( )
+GW_SlPad_Group3::update_geometries ( )
 {
 	unsigned int xpos ( 0 );
 	const unsigned int group2_hgap ( _sizes.group2_hgap );
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
 		unsigned int grp_width;
 		{
-			::Wdg2::GW_Group2 * grp2 ( _gw_groups[ii] );
+			::Wdg2::GW_SlPad_Group2 * grp2 ( _gw_groups[ii] );
 			grp2->set_sizes ( gw_group2_sizes ( _sizes ) );
 			grp2->setPos ( xpos, 0.0 );
 			grp_width = grp2->int_width();
@@ -239,19 +239,19 @@ GW_Group3::update_geometries ( )
 }
 
 unsigned int
-GW_Group3::int_width ( ) const
+GW_SlPad_Group3::int_width ( ) const
 {
 	return int_width_probe ( _sizes );
 }
 
 unsigned int
-GW_Group3::int_width_probe (
-	const ::Wdg2::GW_Group3_Sizes & sizes_n ) const
+GW_SlPad_Group3::int_width_probe (
+	const ::Wdg2::GW_SlPad_Group3_Sizes & sizes_n ) const
 {
 	unsigned int iwidth ( 0 );
 	const unsigned int group2_hgap ( sizes_n.group2_hgap );
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
-		::Wdg2::GW_Group2 * grp2 ( _gw_groups[ii] );
+		::Wdg2::GW_SlPad_Group2 * grp2 ( _gw_groups[ii] );
 		const unsigned int grp_width (
 			grp2->int_width_probe ( gw_group2_sizes ( sizes_n ) ) );
 		if ( grp_width > 0 ) {
@@ -267,7 +267,7 @@ GW_Group3::int_width_probe (
 
 
 
-GW_Group4::GW_Group4 (
+GW_SlPad_Group4::GW_SlPad_Group4 (
 	::QSnd2::Proxies_Group4 & proxies_group_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
@@ -277,19 +277,19 @@ _proxies_group ( proxies_group_n )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
-		::Wdg2::GW_Group3 * grp3 (
-			new ::Wdg2::GW_Group3 ( *_proxies_group.group ( ii ), scene_db(), this ) );
+		::Wdg2::GW_SlPad_Group3 * grp3 (
+			new ::Wdg2::GW_SlPad_Group3 ( *_proxies_group.group ( ii ), scene_db(), this ) );
 		_gw_groups.append ( grp3 );
 	}
 }
 
-GW_Group4::~GW_Group4 ( )
+GW_SlPad_Group4::~GW_SlPad_Group4 ( )
 {
 }
 
 void
-GW_Group4::set_sizes (
-	const ::Wdg2::GW_Group4_Sizes & sizes_n )
+GW_SlPad_Group4::set_sizes (
+	const ::Wdg2::GW_SlPad_Group4_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
 	// Bounding rect
@@ -302,11 +302,11 @@ GW_Group4::set_sizes (
 }
 
 inline
-::Wdg2::GW_Group3_Sizes
-GW_Group4::gw_group3_sizes (
-	const ::Wdg2::GW_Group4_Sizes & sizes_n ) const
+::Wdg2::GW_SlPad_Group3_Sizes
+GW_SlPad_Group4::gw_group3_sizes (
+	const ::Wdg2::GW_SlPad_Group4_Sizes & sizes_n ) const
 {
-	::Wdg2::GW_Group3_Sizes lsizes;
+	::Wdg2::GW_SlPad_Group3_Sizes lsizes;
 	lsizes.height = sizes_n.height;
 	lsizes.slider_width = sizes_n.slider_width;
 	lsizes.channels_hgap = sizes_n.channels_hgap;
@@ -315,14 +315,14 @@ GW_Group4::gw_group3_sizes (
 }
 
 void
-GW_Group4::update_geometries ( )
+GW_SlPad_Group4::update_geometries ( )
 {
 	unsigned int xpos ( 0 );
 	const unsigned int group3_hgap ( _sizes.group3_hgap );
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
 		unsigned int grp_width;
 		{
-			::Wdg2::GW_Group3 * grp3 ( _gw_groups[ii] );
+			::Wdg2::GW_SlPad_Group3 * grp3 ( _gw_groups[ii] );
 			grp3->set_sizes ( gw_group3_sizes ( _sizes ) );
 			grp3->setPos ( xpos, 0.0 );
 			grp_width = grp3->int_width();
@@ -336,19 +336,19 @@ GW_Group4::update_geometries ( )
 }
 
 unsigned int
-GW_Group4::int_width ( ) const
+GW_SlPad_Group4::int_width ( ) const
 {
 	return int_width_probe ( _sizes );
 }
 
 unsigned int
-GW_Group4::int_width_probe (
-	const ::Wdg2::GW_Group4_Sizes & sizes_n ) const
+GW_SlPad_Group4::int_width_probe (
+	const ::Wdg2::GW_SlPad_Group4_Sizes & sizes_n ) const
 {
 	unsigned int iwidth ( 0 );
 	const unsigned int group3_hgap ( sizes_n.group3_hgap );
 	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
-		::Wdg2::GW_Group3 * grp3 (  _gw_groups[ii] );
+		::Wdg2::GW_SlPad_Group3 * grp3 (  _gw_groups[ii] );
 		const unsigned int grp_width (
 			grp3->int_width_probe ( gw_group3_sizes ( sizes_n ) ) );
 		if ( grp_width > 0 ) {

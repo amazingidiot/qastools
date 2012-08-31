@@ -15,7 +15,7 @@
 #include <QScopedPointer>
 
 // Forward declaration
-namespace Wdg2 { class GW_Group4; }
+namespace Wdg2 { class GW_SlPad_Group4; }
 namespace QSnd2 { class Controls; }
 
 namespace Wdg2
@@ -102,7 +102,7 @@ class GW_Sliders_Pad :
 	int _panels_shift;
 	int _panels_shift_max;
 
-	QScopedPointer < ::Wdg2::GW_Group4 > _group4;
+	QScopedPointer < ::Wdg2::GW_SlPad_Group4 > _group4;
 	QScopedPointer < ::Wdg2::GW_Scrollbar > _scrollbar;
 };
 

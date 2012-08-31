@@ -7,7 +7,7 @@
 //
 
 #include "sliders_pad.hpp"
-#include "gw_groups.hpp"
+#include "gw_sliders_pad_groups.hpp"
 #include "qsnd2/controls.hpp"
 #include <QEvent>
 #include <QKeyEvent>

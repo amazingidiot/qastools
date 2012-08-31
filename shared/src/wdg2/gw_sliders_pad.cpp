@@ -7,7 +7,7 @@
 //
 
 #include "gw_sliders_pad.hpp"
-#include "gw_groups.hpp"
+#include "gw_sliders_pad_groups.hpp"
 #include "qsnd2/controls.hpp"
 #include <iostream>
 #include <cmath>
@@ -130,7 +130,7 @@ GW_Sliders_Pad::build_scene_items ( )
 {
 	if ( _snd_controls->num_groups() > 0 ) {
 		_group4.reset (
-			new ::Wdg2::GW_Group4 ( *_snd_controls->group ( 0 ), scene_db(), this ) );
+			new ::Wdg2::GW_SlPad_Group4 ( *_snd_controls->group ( 0 ), scene_db(), this ) );
 	}
 }
 
@@ -138,7 +138,7 @@ void
 GW_Sliders_Pad::update_geometries ( )
 {
 	if ( _group4 != 0 ) {
-		::Wdg2::GW_Group4_Sizes lsizes;
+		::Wdg2::GW_SlPad_Group4_Sizes lsizes;
 		lsizes.height = _pad_size.height();
 		lsizes.slider_width = 16;
 		lsizes.channels_hgap = 8;

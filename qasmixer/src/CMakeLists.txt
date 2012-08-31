@@ -72,7 +72,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_sliders_joinable.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_switch.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_multi_switch.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_groups.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_sliders_pad_groups.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_sliders_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_scrollbar.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_volume_slider.cpp
