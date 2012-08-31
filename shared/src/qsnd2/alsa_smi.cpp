@@ -104,6 +104,25 @@ ASMI_Proxies_Group1_Slider::ASMI_Proxies_Group1_Slider::db_from_int (
 	return res;
 }
 
+void
+ASMI_Proxies_Group1_Slider::set_int_value_joined (
+	long value_n )
+{
+	if ( has_feature ( ::QSnd2::FFLAG_CAPTURE ) ) {
+		int err = snd_mixer_selem_set_capture_volume_all (
+			_snd_mixer_elem, value_n );
+		if ( err < 0 ) {
+			::QSnd::print_alsa_error ( "snd_mixer_selem_set_capture_volume_all", err );
+		}
+	} else {
+		int err = snd_mixer_selem_set_playback_volume_all (
+			_snd_mixer_elem, value_n );
+		if ( err < 0 ) {
+			::QSnd::print_alsa_error ( "snd_mixer_selem_set_playback_volume_all", err );
+		}
+	}
+}
+
 long
 ASMI_Proxies_Group1_Slider::int_value (
 	::snd_mixer_selem_channel_id_t channel_id_n ) const

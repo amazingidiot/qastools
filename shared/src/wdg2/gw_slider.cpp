@@ -104,7 +104,7 @@ GW_Slider::set_value_map (
 {
 	if ( _value_map != map_n ) {
 		_value_map = map_n;
-		update_handle_pos_from_value();
+		update_geometries();
 	}
 }
 
@@ -144,7 +144,9 @@ GW_Slider::update_geometries ( )
 		_rail_span = rail_length - 1;
 	}
 	_handle_pos_span = ( rail_length - handle_length );
-	value_map()->set_px_span ( _handle_pos_span );
+	if ( value_map() != 0 ) {
+		value_map()->set_px_span ( _handle_pos_span );
+	}
 
 	// resize widgets
 	_rail->set_size ( rail_size );

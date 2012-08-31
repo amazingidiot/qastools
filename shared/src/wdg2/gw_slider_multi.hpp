@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_gw_multi_slider_hpp__
-#define __INC_wdg2_gw_multi_slider_hpp__
+#ifndef __INC_wdg2_gw_slider_multi_hpp__
+#define __INC_wdg2_gw_slider_multi_hpp__
 
 #include "wdg2/gw_widget.hpp"
 #include "wdg2/gw_slider.hpp"
@@ -35,19 +35,19 @@ channels_hgap ( 0 )
 }
 
 
-/// @brief GW_Multi_Slider
+/// @brief GW_Slider_Multi
 ///
-class GW_Multi_Slider :
+class GW_Slider_Multi :
 	public ::Wdg2::GW_Slider
 {
 	// Public methods
 	public:
 
-	GW_Multi_Slider (
+	GW_Slider_Multi (
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
-	~GW_Multi_Slider ( );
+	~GW_Slider_Multi ( );
 
 
 	unsigned int
@@ -92,14 +92,14 @@ class GW_Multi_Slider :
 
 inline
 unsigned int
-GW_Multi_Slider::num_sliders ( ) const
+GW_Slider_Multi::num_sliders ( ) const
 {
 	return _num_sliders;
 }
 
 inline
 const ::Wdg2::GW_Multi_Slider_Sizes &
-GW_Multi_Slider::sizes ( ) const
+GW_Slider_Multi::sizes ( ) const
 {
 	return _sizes;
 }

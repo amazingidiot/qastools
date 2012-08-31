@@ -81,6 +81,10 @@ class ASMI_Proxies_Group1_Slider :
 		long dbval_n,
 		int dir_n ) const;
 
+	void
+	set_int_value_joined (
+		long value_n );
+
 
 	// Specific interface
 

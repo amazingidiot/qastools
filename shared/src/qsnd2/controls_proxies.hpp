@@ -124,61 +124,6 @@ Integer_Pair::operator[] (
 }
 
 
-/// @brief Context plus function callback reference class
-///
-struct Context_Callback
-{
-	typedef void (*Func)( void * context_n );
-
-	Context_Callback (
-		void * context_n = 0,
-		Func func_n = 0 );
-
-	bool
-	valid ( ) const;
-
-	void
-	call ( ) const;
-
-	void
-	call_if_valid ( ) const;
-
-	void * context;
-	Func func;
-};
-
-inline
-Context_Callback::Context_Callback (
-	void * context_n,
-	Func func_n ) :
-context ( context_n ),
-func ( func_n )
-{
-}
-
-inline
-bool
-Context_Callback::valid ( ) const
-{
-	return ( ( context != 0 ) && ( func != 0 ) );
-}
-
-inline
-void
-Context_Callback::call ( ) const
-{
-	func ( context );
-}
-
-inline
-void
-Context_Callback::call_if_valid ( ) const
-{
-	if ( valid() ) {
-		call();
-	}
-}
-
 
 /// @brief Base class for control proxies
 ///
@@ -529,6 +474,16 @@ class Proxies_Group1_Slider :
 	int_from_db (
 		long dbval_n,
 		int dir_n ) const = 0;
+
+
+	virtual
+	long
+	int_value_joined ( );
+
+	virtual
+	void
+	set_int_value_joined (
+		long value_n );
 };
 
 inline

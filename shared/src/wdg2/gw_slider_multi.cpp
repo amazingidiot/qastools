@@ -6,26 +6,26 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_multi_slider.hpp"
+#include "gw_slider_multi.hpp"
 #include <iostream>
 
 namespace Wdg2
 {
 
 
-GW_Multi_Slider::GW_Multi_Slider (
+GW_Slider_Multi::GW_Slider_Multi (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Slider ( scene_db_n, parent_n )
 {
 }
 
-GW_Multi_Slider::~GW_Multi_Slider ( )
+GW_Slider_Multi::~GW_Slider_Multi ( )
 {
 }
 
 void
-GW_Multi_Slider::set_num_sliders (
+GW_Slider_Multi::set_num_sliders (
 	unsigned int num_n )
 {
 	if ( _num_sliders != num_n ) {
@@ -35,7 +35,7 @@ GW_Multi_Slider::set_num_sliders (
 }
 
 void
-GW_Multi_Slider::set_sizes (
+GW_Slider_Multi::set_sizes (
 	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
@@ -43,13 +43,13 @@ GW_Multi_Slider::set_sizes (
 }
 
 void
-GW_Multi_Slider::update_geometries ( )
+GW_Slider_Multi::update_geometries ( )
 {
 	set_bounding_rect ( QSizeF ( int_width(), _sizes.area_height ) );
 }
 
 unsigned int
-GW_Multi_Slider::int_width_probe (
+GW_Slider_Multi::int_width_probe (
 	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const
 {
 	unsigned int iwidth ( 0 );
@@ -62,7 +62,7 @@ GW_Multi_Slider::int_width_probe (
 }
 
 unsigned int
-GW_Multi_Slider::int_width ( ) const
+GW_Slider_Multi::int_width ( ) const
 {
 	return int_width_probe ( _sizes );
 }

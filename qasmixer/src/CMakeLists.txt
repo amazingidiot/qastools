@@ -68,15 +68,16 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_widget_element.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_label.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_slider.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_multi_slider.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_joinable_sliders.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_slider_multi.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_sliders_joinable.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_switch.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_multi_switch.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_groups.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_sliders_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_scrollbar.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_volume_slider.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_volume_joinable_sliders.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_volume_slider_multi.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_volume_sliders_joinable.cpp
 	${SHARED_SRC_DIR}/wdg2/scene_database.cpp
 	${SHARED_SRC_DIR}/wdg2/timer_server.cpp
 	${SHARED_SRC_DIR}/wdg2/timer_callback.cpp

@@ -30,7 +30,8 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Slider * sliders ( _proxies_group.sliders() );
 		if ( sliders != 0 ) {
-			_gw_levels = new ::Wdg2::GW_Volume_Joinable_Sliders ( *sliders, scene_db(), this );
+			_gw_levels = new ::Wdg2::GW_Volume_Sliders_Joinable ( *sliders, scene_db(), this );
+			_gw_levels->select_separate();
 		}
 	}
 

@@ -38,18 +38,18 @@ GW_Volume_Slider::read_value_from_proxy ( )
 }
 
 void
+GW_Volume_Slider::write_value_to_proxy ( ) const
+{
+	_slider_proxy.set_int_value ( int_value() );
+}
+
+void
 GW_Volume_Slider::read_value_from_proxy_cb (
 	void * context_n )
 {
 	::Wdg2::GW_Volume_Slider * slider (
 		reinterpret_cast < ::Wdg2::GW_Volume_Slider * > ( context_n ) );
 	slider->read_value_from_proxy();
-}
-
-void
-GW_Volume_Slider::write_value_to_proxy ( ) const
-{
-	_slider_proxy.set_int_value ( int_value() );
 }
 
 void

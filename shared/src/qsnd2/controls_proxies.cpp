@@ -161,6 +161,25 @@ Proxies_Group1_Slider::~Proxies_Group1_Slider ( )
 {
 }
 
+long
+Proxies_Group1_Slider::int_value_joined ( )
+{
+	long res ( 0 );
+	if ( num_proxies() > 0 ) {
+		res = slider_proxy ( 0 )->int_value();
+	}
+	return res;
+}
+
+void
+Proxies_Group1_Slider::set_int_value_joined (
+	long value_n )
+{
+	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
+		slider_proxy ( ii )->set_int_value ( value_n );
+	}
+}
+
 
 
 Proxies_Group1_Switch::Proxies_Group1_Switch ( ) :
