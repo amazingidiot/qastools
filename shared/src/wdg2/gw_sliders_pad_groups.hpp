@@ -11,7 +11,7 @@
 
 #include "gw_widget.hpp"
 #include "gw_volume_sliders_joinable.hpp"
-#include "gw_multi_switch.hpp"
+#include "gw_switch_joinable.hpp"
 #include "gw_label.hpp"
 #include "qsnd2/controls_proxies.hpp"
 
@@ -106,7 +106,7 @@ class GW_SlPad_Group2 :
 
 	::QSnd2::Proxies_Group2 & _proxies_group;
 	::Wdg2::GW_Volume_Sliders_Joinable * _gw_levels;
-	::Wdg2::GW_Multi_Switch * _gw_switches;
+	::Wdg2::GW_Switch_Joinable * _gw_switches;
 	::Wdg2::GW_Label * _label_item;
 
 	QString _str_label;

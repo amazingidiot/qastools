@@ -45,7 +45,7 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Switch * pswitches ( _proxies_group.switches() );
 		if ( pswitches != 0 ) {
-			_gw_switches = new ::Wdg2::GW_Multi_Switch ( *pswitches, scene_db(), this );
+			_gw_switches = new ::Wdg2::GW_Switch_Joinable ( *pswitches, scene_db(), this );
 		}
 		// TODO: select joined/separate
 		//if ( pswitches->values_equal() ) {

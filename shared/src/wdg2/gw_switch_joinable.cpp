@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_multi_switch.hpp"
+#include "gw_switch_joinable.hpp"
 #include <iostream>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -16,7 +16,7 @@ namespace Wdg2
 {
 
 
-GW_Multi_Switch::GW_Multi_Switch (
+GW_Switch_Joinable::GW_Switch_Joinable (
 	::QSnd2::Proxies_Group1_Switch & snd_proxies_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
@@ -32,12 +32,12 @@ _snd_proxies ( snd_proxies_n )
 	}
 }
 
-GW_Multi_Switch::~GW_Multi_Switch ( )
+GW_Switch_Joinable::~GW_Switch_Joinable ( )
 {
 }
 
 void
-GW_Multi_Switch::set_sizes (
+GW_Switch_Joinable::set_sizes (
 	const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
@@ -54,7 +54,7 @@ GW_Multi_Switch::set_sizes (
 }
 
 void
-GW_Multi_Switch::update_geometries ( )
+GW_Switch_Joinable::update_geometries ( )
 {
 	const double delta_x ( _sizes.switch_width + _sizes.channels_gap );
 	QPointF spos ( 0.0, 0.0 );
@@ -65,14 +65,14 @@ GW_Multi_Switch::update_geometries ( )
 }
 
 unsigned int
-GW_Multi_Switch::int_width ( ) const
+GW_Switch_Joinable::int_width ( ) const
 {
 	return int_width_probe ( _sizes );
 }
 
 
 unsigned int
-GW_Multi_Switch::int_width_probe (
+GW_Switch_Joinable::int_width_probe (
 	const ::Wdg2::GW_Multi_Switch_Sizes & sizes_n ) const
 {
 	unsigned int iwidth ( 0 );
