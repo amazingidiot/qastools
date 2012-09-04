@@ -71,13 +71,18 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_slider_multi.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_sliders_joinable.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_switch.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_switch_joinable.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_switch_multi.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_switches_joinable.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_sliders_pad_groups.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_sliders_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_scrollbar.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_volume_slider.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_volume_slider_multi.cpp
-	${SHARED_SRC_DIR}/wdg2/gw_volume_sliders_joinable.cpp
+
+	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_switch.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_switch_multi.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_switches_joinable.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_slider.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_slider_multi.cpp
+	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_sliders_joinable.cpp
 	${SHARED_SRC_DIR}/wdg2/scene_database.cpp
 	${SHARED_SRC_DIR}/wdg2/timer_server.cpp
 	${SHARED_SRC_DIR}/wdg2/timer_callback.cpp

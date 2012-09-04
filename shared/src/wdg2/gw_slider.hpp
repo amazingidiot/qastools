@@ -21,20 +21,22 @@ namespace Wdg2
 
 
 
-/// @brief GW_Slider_Sizes
+/// @brief GW_Slider_Settings
 ///
-struct GW_Slider_Sizes
+struct GW_Slider_Settings
 {
-	GW_Slider_Sizes ( );
+	GW_Slider_Settings ( );
 
 	QSize size;
 	unsigned int handle_length;
+	Qt::Orientation orientation;
 };
 
 inline
-GW_Slider_Sizes::GW_Slider_Sizes ( ) :
+GW_Slider_Settings::GW_Slider_Settings ( ) :
 size ( 0, 0 ),
-handle_length ( 0 )
+handle_length ( 0 ),
+orientation ( Qt::Vertical )
 {
 }
 
@@ -95,12 +97,12 @@ class GW_Slider :
 		const ::Context_Callback & cb_n );
 
 
-	const ::Wdg2::GW_Slider_Sizes &
-	sizes ( ) const;
+	const ::Wdg2::GW_Slider_Settings &
+	settings ( ) const;
 
 	void
-	set_sizes (
-		const ::Wdg2::GW_Slider_Sizes & sizes_n );
+	load_settings (
+		const ::Wdg2::GW_Slider_Settings & settings_n );
 
 
 	/// @brief The slider orientation
@@ -182,16 +184,13 @@ class GW_Slider :
 	// Private attributes
 	private:
 
-	::Wdg2::GW_Slider_Sizes _sizes;
-
-	Qt::Orientation _orientation;
+	::Wdg2::GW_Slider_Settings _settings;
 	unsigned int _rail_span;
 	unsigned int _handle_pos;
 	unsigned int _handle_pos_span;
 
 	long _int_value;
 	::Wdg2::Slider_Value_Map * _value_map;
-
 	::Context_Callback _val_change_cb;
 
 	QScopedPointer < ::Wdg2::GW_Widget_Element > _rail;
@@ -199,17 +198,17 @@ class GW_Slider :
 };
 
 inline
-const ::Wdg2::GW_Slider_Sizes &
-GW_Slider::sizes ( ) const
+const ::Wdg2::GW_Slider_Settings &
+GW_Slider::settings ( ) const
 {
-	return _sizes;
+	return _settings;
 }
 
 inline
 Qt::Orientation
 GW_Slider::orientation ( ) const
 {
-	return _orientation;
+	return _settings.orientation;
 }
 
 inline

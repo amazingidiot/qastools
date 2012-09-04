@@ -11,8 +11,8 @@
 #include "qsnd2/controls.hpp"
 #include <iostream>
 #include <cmath>
+#include <QGraphicsScene>
 #include <QPainter>
-#include <QStyleOptionGraphicsItem>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
 
@@ -37,30 +37,13 @@ GW_Sliders_Pad::~GW_Sliders_Pad ( )
 	set_snd_controls ( 0 );
 }
 
-QRectF
-GW_Sliders_Pad::boundingRect ( ) const
-{
-	return QRectF ( QPointF ( 0.0, 0.0 ), QSizeF ( _pad_size ) );
-}
-
-void
-GW_Sliders_Pad::paint (
-	QPainter * painter_n,
-	const QStyleOptionGraphicsItem * option_n,
-	QWidget * widget_n )
-{
-	(void) painter_n;
-	(void) option_n;
-	(void) widget_n;
-}
-
 void
 GW_Sliders_Pad::set_pad_size (
 	const QSize & size_n )
 {
 	if ( _pad_size != size_n ) {
-		prepareGeometryChange();
 		_pad_size = size_n;
+		set_bounding_rect ( _pad_size );
 		update_geometries();
 	}
 }
@@ -115,10 +98,17 @@ GW_Sliders_Pad::read_panels_shift_cb (
 void
 GW_Sliders_Pad::destroy_scene_items ( )
 {
+	QGraphicsScene * qscene ( scene() );
 	if ( _group4 != 0 ) {
+		if ( qscene != 0 ) {
+			qscene->removeItem ( _group4.data() );
+		}
 		_group4.reset();
 	}
 	if ( _scrollbar != 0 ) {
+		if ( qscene != 0 ) {
+			qscene->removeItem ( _scrollbar.data() );
+		}
 		_scrollbar.reset();
 	}
 }

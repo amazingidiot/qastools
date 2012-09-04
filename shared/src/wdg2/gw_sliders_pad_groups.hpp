@@ -10,8 +10,8 @@
 #define __INC_wdg2_gw_sliders_pad_groups_hpp__
 
 #include "gw_widget.hpp"
-#include "gw_volume_sliders_joinable.hpp"
-#include "gw_switch_joinable.hpp"
+#include "gw_qsnd2_sliders_joinable.hpp"
+#include "gw_qsnd2_switches_joinable.hpp"
 #include "gw_label.hpp"
 #include "qsnd2/controls_proxies.hpp"
 
@@ -89,12 +89,12 @@ class GW_SlPad_Group2 :
 	// Private methods
 	private:
 
-	::Wdg2::GW_Joinable_Sliders_Sizes
+	::Wdg2::GW_Joinable_Sliders_Settings
 	gw_levels_sizes (
 		const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n ) const;
 
-	::Wdg2::GW_Multi_Switch_Sizes
-	gw_switches_sizes (
+	::Wdg2::GW_Switches_Joinable_Settings
+	gw_switches_settings (
 		const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n ) const;
 
 	void
@@ -105,8 +105,8 @@ class GW_SlPad_Group2 :
 	private:
 
 	::QSnd2::Proxies_Group2 & _proxies_group;
-	::Wdg2::GW_Volume_Sliders_Joinable * _gw_levels;
-	::Wdg2::GW_Switch_Joinable * _gw_switches;
+	::Wdg2::GW_QSnd2_Sliders_Joinable * _gw_levels;
+	::Wdg2::GW_Switches_Joinable * _gw_switches;
 	::Wdg2::GW_Label * _label_item;
 
 	QString _str_label;

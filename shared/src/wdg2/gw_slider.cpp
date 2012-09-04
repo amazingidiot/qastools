@@ -17,8 +17,6 @@ namespace Wdg2
 {
 
 
-
-
 GW_Slider::GW_Slider (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
@@ -44,7 +42,6 @@ GW_Slider::init (
 {
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 
-	_orientation = Qt::Vertical;
 	_rail_span = 0;
 	_handle_pos = 0;
 	_handle_pos_span = 0;
@@ -71,11 +68,11 @@ GW_Slider::~GW_Slider ( )
 }
 
 void
-GW_Slider::set_sizes (
-	const ::Wdg2::GW_Slider_Sizes & sizes_n )
+GW_Slider::load_settings (
+	const ::Wdg2::GW_Slider_Settings & settings_n )
 {
-	_sizes = sizes_n;
-	set_bounding_rect ( _sizes.size );
+	_settings = settings_n;
+	set_bounding_rect ( _settings.size );
 	update_geometries();
 }
 
@@ -83,9 +80,10 @@ void
 GW_Slider::set_orientation (
 	Qt::Orientation orientation_n )
 {
-	if ( _orientation != orientation_n ) {
-		_orientation = orientation_n;
-		update_geometries();
+	::Wdg2::GW_Slider_Settings sl_settings ( settings() );
+	if ( sl_settings.orientation != orientation_n ) {
+		sl_settings.orientation = orientation_n;
+		load_settings ( sl_settings );
 	}
 }
 
@@ -109,24 +107,24 @@ GW_Slider::set_val_change_callback (
 void
 GW_Slider::update_geometries ( )
 {
-	QSize rail_size ( _sizes.size );
+	QSize rail_size ( _settings.size );
 	QSize handle_size ( 0, 0 );
 
 	unsigned int rail_length;
-	unsigned int handle_length ( _sizes.handle_length );
+	unsigned int handle_length ( _settings.handle_length );
 
 	if ( orientation() == Qt::Horizontal ) {
-		rail_length = _sizes.size.width();
+		rail_length = _settings.size.width();
 		if ( handle_length > rail_length ) {
 			handle_length = rail_length / 2;
 		}
-		handle_size = QSize ( handle_length, _sizes.size.height() );
+		handle_size = QSize ( handle_length, _settings.size.height() );
 	} else {
-		rail_length = _sizes.size.height();
+		rail_length = _settings.size.height();
 		if ( handle_length > rail_length ) {
 			handle_length = rail_length / 2;
 		}
-		handle_size = QSize ( _sizes.size.width(), handle_length );
+		handle_size = QSize ( _settings.size.width(), handle_length );
 	}
 
 	// update ranges
@@ -219,18 +217,18 @@ GW_Slider::point_in_handle (
 	if ( orientation() == Qt::Horizontal ) {
 		plen   = point_n.x();
 		pwidth = point_n.y();
-		hwidth = _sizes.size.height();
+		hwidth = _settings.size.height();
 	} else {
 		plen   = (int)_rail_span - (int)point_n.y();
 		pwidth = point_n.x();
-		hwidth = _sizes.size.width();
+		hwidth = _settings.size.width();
 	}
 	plen -= _handle_pos;
 
 	const bool res =
 		( plen >= 0 ) &&
 		( pwidth >= 0 ) &&
-		( plen < (int)_sizes.handle_length ) &&
+		( plen < (int)_settings.handle_length ) &&
 		( pwidth < hwidth );
 
 	return res;
@@ -278,7 +276,6 @@ void
 GW_Slider::mousePressEvent (
 	QGraphicsSceneMouseEvent * event_n )
 {
-	(void) event_n;
 	//::std::cout << "GW_Slider::mousePressEvent"  << "\n";
 	if ( point_in_handle ( event_n->pos() ) ) {
 		_handle->set_state_flags ( ::Wdg2::GW_IS_GRABBED );
@@ -318,7 +315,7 @@ GW_Slider::mouseMoveEvent (
 
 			// Dead zones at and beyond the rail ends
 			// for a movement direction towards the rail center
-			int lim ( _sizes.handle_length / 2 );
+			int lim ( _settings.handle_length / 2 );
 			if ( lto > lfrom ) {
 				if ( lfrom < lim ) {
 					lfrom = lim;
@@ -346,6 +343,7 @@ GW_Slider::wheelEvent (
 	QGraphicsSceneWheelEvent * event_n )
 {
 	// TODO
+	(void) event_n;
 	::std::cout << "GW_Slider::wheelEvent" << "\n";
 }
 

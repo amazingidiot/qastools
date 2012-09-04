@@ -6,16 +6,16 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_volume_sliders_joinable.hpp"
-#include "gw_volume_slider.hpp"
-#include "gw_volume_slider_multi.hpp"
+#include "gw_qsnd2_sliders_joinable.hpp"
+#include "gw_qsnd2_slider.hpp"
+#include "gw_qsnd2_slider_multi.hpp"
 #include <iostream>
 
 namespace Wdg2
 {
 
 
-GW_Volume_Sliders_Joinable::GW_Volume_Sliders_Joinable (
+GW_QSnd2_Sliders_Joinable::GW_QSnd2_Sliders_Joinable (
 	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
@@ -30,18 +30,18 @@ _proxies_grp ( snd_proxies_n )
 	set_num_sliders ( proxies_grp().num_proxies() );
 }
 
-GW_Volume_Sliders_Joinable::~GW_Volume_Sliders_Joinable ( )
+GW_QSnd2_Sliders_Joinable::~GW_QSnd2_Sliders_Joinable ( )
 {
 }
 
 ::Wdg2::GW_Slider *
-GW_Volume_Sliders_Joinable::create_single_slider (
+GW_QSnd2_Sliders_Joinable::create_single_slider (
 	unsigned int idx_n )
 {
-	::Wdg2::GW_Volume_Slider * slider;
+	::Wdg2::GW_QSnd2_Slider * slider;
 	{
 		::QSnd2::Proxy_Slider & sproxy ( *proxies_grp().slider_proxy ( idx_n ) );
-		slider = new ::Wdg2::GW_Volume_Slider ( sproxy, scene_db() );
+		slider = new ::Wdg2::GW_QSnd2_Slider ( sproxy, scene_db() );
 	}
 	slider->set_value_map ( &value_map() );
 	slider->read_value_from_proxy();
@@ -49,10 +49,10 @@ GW_Volume_Sliders_Joinable::create_single_slider (
 }
 
 ::Wdg2::GW_Slider_Multi *
-GW_Volume_Sliders_Joinable::create_multi_slider ( )
+GW_QSnd2_Sliders_Joinable::create_multi_slider ( )
 {
-	::Wdg2::GW_Volume_Slider_Multi * slider (
-		new ::Wdg2::GW_Volume_Slider_Multi ( proxies_grp(), scene_db() ) );
+	::Wdg2::GW_QSnd2_Slider_Multi * slider (
+		new ::Wdg2::GW_QSnd2_Slider_Multi ( proxies_grp(), scene_db() ) );
 	slider->set_value_map ( &value_map() );
 	slider->read_value_from_proxy();
 	return slider;

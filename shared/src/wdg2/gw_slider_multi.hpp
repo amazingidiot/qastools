@@ -53,10 +53,10 @@ class GW_Slider_Multi :
 
 
 	const ::Wdg2::GW_Slider_Multi_Settings &
-	settings ( ) const;
+	settings_multi ( ) const;
 
 	void
-	load_settings (
+	load_settings_multi (
 		const ::Wdg2::GW_Slider_Multi_Settings & settings_n );
 
 
@@ -73,14 +73,14 @@ class GW_Slider_Multi :
 	// Private attributes
 	private:
 
-	::Wdg2::GW_Slider_Multi_Settings _settings;
+	::Wdg2::GW_Slider_Multi_Settings _settings_multi;
 };
 
 inline
 const ::Wdg2::GW_Slider_Multi_Settings &
-GW_Slider_Multi::settings ( ) const
+GW_Slider_Multi::settings_multi ( ) const
 {
-	return _settings;
+	return _settings_multi;
 }
 
 
@@ -164,9 +164,6 @@ class GW_Slider_Multi_Handle :
 
 	::Wdg2::GW_Slider_Multi *
 	slider_multi ( );
-
-	void
-	reload_settings ( );
 };
 
 inline

@@ -24,9 +24,9 @@ namespace Wdg2
 {
 
 
-struct GW_Joinable_Sliders_Sizes
+struct GW_Joinable_Sliders_Settings
 {
-	GW_Joinable_Sliders_Sizes ( );
+	GW_Joinable_Sliders_Settings ( );
 
 	unsigned int area_height;
 	unsigned int slider_width;
@@ -34,7 +34,7 @@ struct GW_Joinable_Sliders_Sizes
 };
 
 inline
-GW_Joinable_Sliders_Sizes::GW_Joinable_Sliders_Sizes ( ) :
+GW_Joinable_Sliders_Settings::GW_Joinable_Sliders_Settings ( ) :
 area_height ( 0 ),
 slider_width ( 0 ),
 channels_gap ( 0 )
@@ -53,7 +53,7 @@ class GW_Sliders_Joinable :
 	enum State_Flags {
 		SF_NULL = 0,
 		SF_SEPARATE = ( 1 << 0 ),
-		SF_JOINED = ( 1 << 1 )
+		SF_JOINED   = ( 1 << 1 )
 	};
 
 
@@ -92,18 +92,18 @@ class GW_Sliders_Joinable :
 		bool flag_n );
 
 
-	const ::Wdg2::GW_Joinable_Sliders_Sizes &
-	sizes ( ) const;
+	const ::Wdg2::GW_Joinable_Sliders_Settings &
+	settings ( ) const;
 
 	void
-	set_sizes (
-		const ::Wdg2::GW_Joinable_Sliders_Sizes & sizes_n );
+	load_settings (
+		const ::Wdg2::GW_Joinable_Sliders_Settings & settings_n );
 
 	/// @brief Used to probe a sizes set
 	///
 	unsigned int
 	int_width_probe (
-		const ::Wdg2::GW_Joinable_Sliders_Sizes & sizes_n ) const;
+		const ::Wdg2::GW_Joinable_Sliders_Settings & settings_n ) const;
 
 	unsigned int
 	int_width ( ) const;
@@ -127,10 +127,10 @@ class GW_Sliders_Joinable :
 	destroy_sliders ( );
 
 	void
-	init_single_sliders ( );
+	init_sliders_single ( );
 
 	void
-	init_multi_slider ( );
+	init_slider_multi ( );
 
 	virtual
 	::Wdg2::GW_Slider *
@@ -151,7 +151,7 @@ class GW_Sliders_Joinable :
 
 	unsigned int _num_sliders;
 	::Flags _state_flags;
-	::Wdg2::GW_Joinable_Sliders_Sizes _sizes;
+	::Wdg2::GW_Joinable_Sliders_Settings _settings;
 };
 
 inline
@@ -162,10 +162,10 @@ GW_Sliders_Joinable::num_sliders ( ) const
 }
 
 inline
-const ::Wdg2::GW_Joinable_Sliders_Sizes &
-GW_Sliders_Joinable::sizes ( ) const
+const ::Wdg2::GW_Joinable_Sliders_Settings &
+GW_Sliders_Joinable::settings ( ) const
 {
-	return _sizes;
+	return _settings;
 }
 
 inline

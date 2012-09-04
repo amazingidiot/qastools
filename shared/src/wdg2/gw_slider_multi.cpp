@@ -30,15 +30,15 @@ GW_Slider_Multi::~GW_Slider_Multi ( )
 }
 
 void
-GW_Slider_Multi::load_settings (
+GW_Slider_Multi::load_settings_multi (
 	const ::Wdg2::GW_Slider_Multi_Settings & settings_n )
 {
-	_settings = settings_n;
+	_settings_multi = settings_n;
 	{
-		::Wdg2::GW_Slider_Sizes lsizes;
-		lsizes.size = QSize ( int_width(), _settings.area_height );
-		lsizes.handle_length = _settings.area_height / 10;
-		::Wdg2::GW_Slider::set_sizes ( lsizes  );
+		::Wdg2::GW_Slider_Settings sl_settings ( settings() );
+		sl_settings.size = QSize ( int_width(), _settings_multi.area_height );
+		sl_settings.handle_length = _settings_multi.area_height / 10;
+		::Wdg2::GW_Slider::load_settings ( sl_settings  );
 	}
 }
 
@@ -57,7 +57,7 @@ GW_Slider_Multi::int_width_probe (
 unsigned int
 GW_Slider_Multi::int_width ( ) const
 {
-	return int_width_probe ( _settings );
+	return int_width_probe ( settings_multi() );
 }
 
 
@@ -111,11 +111,12 @@ GW_Slider_Multi_Rail::state_flags_changed ( )
 void
 GW_Slider_Multi_Rail::reload_settings ( )
 {
-	const ::Wdg2::GW_Slider_Multi_Settings & settings ( slider_multi()->settings() );
+	const ::Wdg2::GW_Slider_Multi_Settings & settings_multi (
+		slider_multi()->settings_multi() );
 
-	if ( _rails.size() != (int)settings.num_sliders ) {
+	if ( _rails.size() != (int)settings_multi.num_sliders ) {
 		clear_rails();
-		for ( unsigned int ii=0; ii < settings.num_sliders; ++ii ) {
+		for ( unsigned int ii=0; ii < settings_multi.num_sliders; ++ii ) {
 			::Wdg2::GW_Pixmaps * rail (
 				new ::Wdg2::GW_Pixmaps ( _wdg.scene_db(), 2, &_wdg ) );
 			rail->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
@@ -125,10 +126,10 @@ GW_Slider_Multi_Rail::reload_settings ( )
 	}
 
 	if ( _rails.size() > 0 ) {
-		const double delta_x ( settings.slider_width + settings.channels_gap );
+		const double delta_x ( settings_multi.slider_width + settings_multi.channels_gap );
 		QPointF spos ( 0.0, 0.0 );
 
-		QSize rail_size ( settings.slider_width, settings.area_height );
+		QSize rail_size ( settings_multi.slider_width, settings_multi.area_height );
 		for ( int ii=0; ii < _rails.size(); ++ii ) {
 			::Wdg2::GW_Pixmaps * rail ( _rails[ii] );
 			rail->set_pxm_size ( rail_size );
@@ -148,12 +149,6 @@ GW_Slider_Multi_Handle::GW_Slider_Multi_Handle (
 	// TODO:
 	//gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
 	//gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
-}
-
-void
-GW_Slider_Multi_Handle::reload_settings ( )
-{
-
 }
 
 

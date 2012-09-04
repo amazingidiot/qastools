@@ -14,6 +14,102 @@ namespace Wdg2
 {
 
 
+GW_Switch::GW_Switch (
+	::Wdg2::Scene_Database * scene_db_n,
+	QGraphicsItem * parent_n ) :
+::Wdg2::GW_Widget ( scene_db_n, parent_n ),
+_ground ( new ::Wdg2::GW_Switch_Ground ( scene_db(), this ) ),
+_handle ( new ::Wdg2::GW_Switch_Handle ( scene_db(), this ) ),
+_switch_size ( 0, 0 )
+{
+	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
+}
+
+GW_Switch::~GW_Switch ( )
+{
+}
+
+void
+GW_Switch::set_switch_size (
+	const QSize & size_n )
+{
+	if ( _switch_size != size_n ) {
+		_switch_size = size_n;
+		set_bounding_rect ( _switch_size );
+		_ground->set_pxm_size ( _switch_size );
+		_handle->set_pxm_size ( _switch_size );
+	}
+}
+
+void
+GW_Switch::set_switch_state (
+	bool state_n )
+{
+	if ( state_n != _state_flags.has_any ( ::Wdg2::GW_IS_ON ) ) {
+		_state_flags.set ( ::Wdg2::GW_IS_ON, state_n );
+		_ground->set_state_flags ( ::Wdg2::GW_IS_ON, state_n );
+		_handle->set_state_flags ( ::Wdg2::GW_IS_ON, state_n );
+
+		_val_change_cb.call_if_valid();
+	}
+}
+
+void
+GW_Switch::toggle_switch_state ( )
+{
+	set_switch_state ( !switch_state() );
+}
+
+void
+GW_Switch::set_val_change_callback (
+	const ::Context_Callback & cb_n )
+{
+	_val_change_cb = cb_n;
+}
+
+void
+GW_Switch::focusInEvent (
+	QFocusEvent * event_n )
+{
+	//::std::cout << "GW_Switch::focusInEvent"  << "\n";
+	_state_flags.set ( ::Wdg2::GW_HAS_FOCUS );
+	_ground->set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
+	_handle->set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
+}
+
+void
+GW_Switch::focusOutEvent (
+	QFocusEvent * event_n )
+{
+	//::std::cout << "GW_Switch::focusOutEvent"  << "\n";
+	_state_flags.set ( ::Wdg2::GW_HAS_FOCUS, false );
+	_ground->set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
+	_handle->set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
+}
+
+void
+GW_Switch::mousePressEvent (
+	QGraphicsSceneMouseEvent * event_n )
+{
+	//::std::cout << "GW_Switch::mousePressEvent"  << "\n";
+	_state_flags.set ( ::Wdg2::GW_IS_GRABBED );
+	_handle->set_state_flags ( ::Wdg2::GW_IS_GRABBED );
+}
+
+void
+GW_Switch::mouseReleaseEvent (
+	QGraphicsSceneMouseEvent * event_n )
+{
+	//::std::cout << "GW_Switch::mouseReleaseEvent"  << "\n";
+	_state_flags.unset ( ::Wdg2::GW_IS_GRABBED );
+	_handle->set_state_flags ( ::Wdg2::GW_IS_GRABBED, false );
+
+	toggle_switch_state();
+}
+
+
+
+
 GW_Switch_Ground::GW_Switch_Ground (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
@@ -52,102 +148,6 @@ GW_Switch_Handle::update_pxm_idx ( )
 		idx = 1;
 	}
 	set_pxm_idx ( idx );
-}
-
-
-
-GW_Switch::GW_Switch (
-	::QSnd2::Proxy_Switch & switch_proxy_n,
-	::Wdg2::Scene_Database * scene_db_n,
-	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_switch_proxy ( switch_proxy_n ),
-_switch_size ( 0.0, 0.0 ),
-_ground ( scene_db(), this ),
-_handle ( scene_db(), this )
-{
-	_switch_proxy.set_val_change_callback (
-		::Context_Callback ( this, ::Wdg2::GW_Switch::read_proxy_value_cb ) );
-	setFlags ( QGraphicsItem::ItemIsFocusable );
-}
-
-GW_Switch::~GW_Switch ( )
-{
-}
-
-void
-GW_Switch::set_switch_size (
-	const QSize & size_n )
-{
-	if ( size_n != _switch_size ) {
-		_switch_size = size_n;
-		set_bounding_rect ( _switch_size );
-		_ground.set_pxm_size ( _switch_size );
-		_handle.set_pxm_size ( _switch_size );
-		read_proxy_value();
-	}
-}
-
-void
-GW_Switch::read_proxy_value ( )
-{
-	const bool pstate ( _switch_proxy.switch_state() );
-	if ( pstate != _state_flags.has_any ( ::Wdg2::GW_IS_ON ) ) {
-		_state_flags.set ( ::Wdg2::GW_IS_ON, pstate );
-		_ground.set_state_flags ( ::Wdg2::GW_IS_ON, pstate );
-		_handle.set_state_flags ( ::Wdg2::GW_IS_ON, pstate );
-		update();
-	}
-}
-
-void
-GW_Switch::read_proxy_value_cb (
-	void * context_n )
-{
-	::Wdg2::GW_Switch & gw_switch (
-		*reinterpret_cast < ::Wdg2::GW_Switch * > ( context_n ) );
-	gw_switch.read_proxy_value();
-}
-
-void
-GW_Switch::focusInEvent (
-	QFocusEvent * event_n )
-{
-	//::std::cout << "GW_Switch::focusInEvent"  << "\n";
-	_state_flags.set ( ::Wdg2::GW_HAS_FOCUS );
-	_ground.set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
-	_handle.set_state_flags ( ::Wdg2::GW_HAS_FOCUS );
-}
-
-void
-GW_Switch::focusOutEvent (
-	QFocusEvent * event_n )
-{
-	//::std::cout << "GW_Switch::focusOutEvent"  << "\n";
-	_state_flags.set ( ::Wdg2::GW_HAS_FOCUS, false );
-	_ground.set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
-	_handle.set_state_flags ( ::Wdg2::GW_HAS_FOCUS, false );
-}
-
-void
-GW_Switch::mousePressEvent (
-	QGraphicsSceneMouseEvent * event_n )
-{
-	//::std::cout << "GW_Switch::mousePressEvent"  << "\n";
-	_state_flags.set ( ::Wdg2::GW_IS_GRABBED );
-	_handle.set_state_flags ( ::Wdg2::GW_IS_GRABBED );
-}
-
-void
-GW_Switch::mouseReleaseEvent (
-	QGraphicsSceneMouseEvent * event_n )
-{
-	//::std::cout << "GW_Switch::mouseReleaseEvent"  << "\n";
-	_state_flags.unset ( ::Wdg2::GW_IS_GRABBED );
-	_handle.set_state_flags ( ::Wdg2::GW_IS_GRABBED, false );
-
-	_switch_proxy.toggle_switch_state();
-	read_proxy_value();
 }
 
 

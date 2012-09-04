@@ -143,11 +143,10 @@ _slider ( scene_db(),
 	_btn_high.pxm_kvals().set_uint (
 		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
 
-	_slider.set_value_map ( &_value_map );
-	_slider.set_orientation ( _orientation );
-
 	_slider.set_val_change_callback (
 		::Context_Callback ( this, ::Wdg2::GW_Scrollbar::read_slider_value_cb ) );
+	_slider.set_value_map ( &_value_map );
+	_slider.set_orientation ( _orientation );
 }
 
 GW_Scrollbar::~GW_Scrollbar ( )
@@ -228,7 +227,7 @@ GW_Scrollbar::update_geometries ( )
 	QPointF btn_pos_high;
 	QPointF slider_pos;
 	QSize btn_size;
-	::Wdg2::GW_Slider_Sizes sl_sizes;
+	::Wdg2::GW_Slider_Settings sl_settings;
 
 	{
 		unsigned int len_total;
@@ -263,8 +262,9 @@ GW_Scrollbar::update_geometries ( )
 			btn_pos_high = QPointF ( len_total - len_btn, 0.0 );
 			slider_pos   = QPointF ( len_btn, 0.0 );
 			btn_size    = QSize ( len_btn, width_total );
-			sl_sizes.size = QSize ( len_slider, width_total );
-			sl_sizes.handle_length = len_handle;
+			sl_settings.size = QSize ( len_slider, width_total );
+			sl_settings.handle_length = len_handle;
+			sl_settings.orientation = Qt::Horizontal;
 		} else {
 			btn_low_part = ::Wdg2::WGP_SCROLLBAR_BTN_BOTTOM;
 			btn_high_part = ::Wdg2::WGP_SCROLLBAR_BTN_TOP;
@@ -272,8 +272,9 @@ GW_Scrollbar::update_geometries ( )
 			btn_pos_high = QPointF ( 0.0, 0.0 );
 			slider_pos   = QPointF ( 0.0, len_btn );
 			btn_size    = QSize ( width_total, len_btn );
-			sl_sizes.size = QSize ( width_total, len_slider );
-			sl_sizes.handle_length = len_handle;
+			sl_settings.size = QSize ( width_total, len_slider );
+			sl_settings.handle_length = len_handle;
+			sl_settings.orientation = Qt::Vertical;
 		}
 	}
 
@@ -288,7 +289,7 @@ GW_Scrollbar::update_geometries ( )
 	_btn_high.setPos ( btn_pos_high );
 
 	_slider.setPos ( slider_pos );
-	_slider.set_sizes ( sl_sizes );
+	_slider.load_settings ( sl_settings );
 }
 
 void

@@ -36,15 +36,6 @@ class GW_Sliders_Pad :
 
 	~GW_Sliders_Pad ( );
 
-	QRectF
-	boundingRect ( ) const;
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionGraphicsItem * option_n,
-		QWidget * widget_n = 0 );
-
 
 	const QSize &
 	pad_size ( ) const;

@@ -30,8 +30,9 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Slider * psliders ( _proxies_group.sliders() );
 		if ( psliders != 0 ) {
-			_gw_levels = new ::Wdg2::GW_Volume_Sliders_Joinable (
+			_gw_levels = new ::Wdg2::GW_QSnd2_Sliders_Joinable (
 				*psliders, scene_db(), this );
+
 			// select joined/separate
 			if ( psliders->values_equal() ) {
 				_gw_levels->select_joined();
@@ -45,14 +46,15 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group1_Switch * pswitches ( _proxies_group.switches() );
 		if ( pswitches != 0 ) {
-			_gw_switches = new ::Wdg2::GW_Switch_Joinable ( *pswitches, scene_db(), this );
+			_gw_switches = new ::Wdg2::GW_QSnd2_Switches_Joinable ( *pswitches, scene_db(), this );
+
+			// select joined/separate
+			if ( pswitches->values_equal() ) {
+				_gw_switches->select_joined();
+			} else {
+				_gw_switches->select_separate();
+			}
 		}
-		// TODO: select joined/separate
-		//if ( pswitches->values_equal() ) {
-		//	_gw_switches->select_joined();
-		//} else {
-		//	_gw_switches->select_separate();
-		//}
 	}
 
 	// Label string
@@ -94,11 +96,11 @@ GW_SlPad_Group2::set_sizes (
 }
 
 inline
-::Wdg2::GW_Joinable_Sliders_Sizes
+::Wdg2::GW_Joinable_Sliders_Settings
 GW_SlPad_Group2::gw_levels_sizes (
 	const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n ) const
 {
-	::Wdg2::GW_Joinable_Sliders_Sizes lsizes;
+	::Wdg2::GW_Joinable_Sliders_Settings lsizes;
 	lsizes.area_height = sizes_n.levels_height;
 	lsizes.slider_width = sizes_n.slider_width;
 	lsizes.channels_gap = sizes_n.channels_gap;
@@ -106,11 +108,11 @@ GW_SlPad_Group2::gw_levels_sizes (
 }
 
 inline
-::Wdg2::GW_Multi_Switch_Sizes
-GW_SlPad_Group2::gw_switches_sizes (
+::Wdg2::GW_Switches_Joinable_Settings
+GW_SlPad_Group2::gw_switches_settings (
 	const ::Wdg2::GW_SlPad_Group2_Sizes & sizes_n ) const
 {
-	::Wdg2::GW_Multi_Switch_Sizes lsizes;
+	::Wdg2::GW_Switches_Joinable_Settings lsizes;
 	lsizes.area_height = sizes_n.switches_height;
 	lsizes.switch_width = sizes_n.slider_width;
 	lsizes.channels_gap = sizes_n.channels_gap;
@@ -135,13 +137,13 @@ GW_SlPad_Group2::update_geometries ( )
 
 	// Levels
 	if ( _gw_levels != 0 ) {
-		_gw_levels->set_sizes ( gw_levels_sizes ( _sizes ) );
+		_gw_levels->load_settings ( gw_levels_sizes ( _sizes ) );
 		_gw_levels->setPos ( QPointF ( pos_x, 0.0 ) );
 	}
 
 	// Switches
 	if ( _gw_switches != 0 ) {
-		_gw_switches->set_sizes ( gw_switches_sizes ( _sizes ) );
+		_gw_switches->load_settings ( gw_switches_settings ( _sizes ) );
 		QPointF spos ( pos_x, _sizes.levels_height + _sizes.switches_vgap );
 		_gw_switches->setPos ( spos );
 	}
@@ -165,7 +167,7 @@ GW_SlPad_Group2::int_width_probe (
 	if ( _gw_switches != 0 ) {
 		const unsigned int giwidth (
 			_gw_switches->int_width_probe (
-				gw_switches_sizes ( sizes_n ) ) );
+				gw_switches_settings ( sizes_n ) ) );
 		if ( giwidth > iwidth ) {
 			iwidth = giwidth;
 		}
@@ -193,8 +195,9 @@ _proxies_group ( proxies_group_n )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_groups(); ++ii ) {
+		::QSnd2::Proxies_Group2 & pgrp2 ( *_proxies_group.group ( ii ) );
 		::Wdg2::GW_SlPad_Group2 * grp2 (
-			new ::Wdg2::GW_SlPad_Group2 ( *_proxies_group.group ( ii ), scene_db(), this ) );
+			new ::Wdg2::GW_SlPad_Group2 ( pgrp2, scene_db(), this ) );
 		_gw_groups.append ( grp2 );
 	}
 }

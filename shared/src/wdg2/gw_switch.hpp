@@ -10,13 +10,118 @@
 #define __INC_wdg2_gw_switch_hpp__
 
 #include "flags.hpp"
+#include "callbacks.hpp"
 #include "gw_widget.hpp"
 #include "gw_pixmaps.hpp"
-#include "qsnd2/controls_proxies.hpp"
+#include <QScopedPointer>
+
+// Forward declaration
+namespace Wdg2
+{
+	class GW_Switch_Ground;
+	class GW_Switch_Handle;
+};
 
 
 namespace Wdg2
 {
+
+
+/// @brief GW_Switch
+///
+class GW_Switch :
+	public ::Wdg2::GW_Widget
+{
+	// Public methods
+	public:
+
+	GW_Switch (
+		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+
+	~GW_Switch ( );
+
+
+	const QSize &
+	switch_size ( ) const;
+
+	void
+	set_switch_size (
+		const QSize & size_n );
+
+
+	bool
+	switch_state ( ) const;
+
+	void
+	set_switch_state (
+		bool state_n );
+
+	void
+	toggle_switch_state ( );
+
+
+	/// @brief Gets called when the switch state changed
+	///
+	const ::Context_Callback &
+	val_change_callback ( ) const;
+
+	void
+	set_val_change_callback (
+		const ::Context_Callback & cb_n );
+
+
+	// Protected methods
+	protected:
+
+	void
+	focusInEvent (
+		QFocusEvent * event_n );
+
+	void
+	focusOutEvent (
+		QFocusEvent * event_n );
+
+	void
+	mousePressEvent (
+		QGraphicsSceneMouseEvent * event_n );
+
+	void
+	mouseReleaseEvent (
+		QGraphicsSceneMouseEvent * event_n );
+
+
+	// Private attributes
+	private:
+
+	QScopedPointer < ::Wdg2::GW_Switch_Ground > _ground;
+	QScopedPointer < ::Wdg2::GW_Switch_Handle > _handle;
+
+	::Flags _state_flags;
+	::Context_Callback _val_change_cb;
+	QSize _switch_size;
+};
+
+inline
+const QSize &
+GW_Switch::switch_size ( ) const
+{
+	return _switch_size;
+}
+
+inline
+bool
+GW_Switch::switch_state ( ) const
+{
+	return _state_flags.has_any ( ::Wdg2::GW_IS_ON );
+}
+
+inline
+const ::Context_Callback &
+GW_Switch::val_change_callback ( ) const
+{
+	return _val_change_cb;
+}
 
 
 /// @brief GW_Switch_Ground
@@ -59,81 +164,6 @@ class GW_Switch_Handle :
 	void
 	update_pxm_idx ( );
 };
-
-
-/// @brief GW_Switch
-///
-class GW_Switch :
-	public ::Wdg2::GW_Widget
-{
-	// Public methods
-	public:
-
-	GW_Switch (
-		::QSnd2::Proxy_Switch & switch_proxy_n,
-		::Wdg2::Scene_Database * scene_db_n,
-		QGraphicsItem * parent_n = 0 );
-
-	~GW_Switch ( );
-
-
-	const QSize &
-	switch_size ( ) const;
-
-	void
-	set_switch_size (
-		const QSize & size_n );
-
-
-	void
-	read_proxy_value ( );
-
-	/// @brief Callback version
-	static
-	void
-	read_proxy_value_cb (
-		void * context_n );
-
-
-	// Protected methods
-	protected:
-
-	void
-	focusInEvent (
-		QFocusEvent * event_n );
-
-	void
-	focusOutEvent (
-		QFocusEvent * event_n );
-
-	void
-	mousePressEvent (
-		QGraphicsSceneMouseEvent * event_n );
-
-	void
-	mouseReleaseEvent (
-		QGraphicsSceneMouseEvent * event_n );
-
-
-	// Private attributes
-	private:
-
-	::QSnd2::Proxy_Switch & _switch_proxy;
-	QSize _switch_size;
-
-	::Flags _state_flags;
-
-	::Wdg2::GW_Switch_Ground _ground;
-	::Wdg2::GW_Switch_Handle _handle;
-};
-
-
-inline
-const QSize &
-GW_Switch::switch_size ( ) const
-{
-	return _switch_size;
-}
 
 
 } // End of namespace
