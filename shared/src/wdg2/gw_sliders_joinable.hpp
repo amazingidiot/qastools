@@ -30,14 +30,14 @@ struct GW_Joinable_Sliders_Sizes
 
 	unsigned int area_height;
 	unsigned int slider_width;
-	unsigned int channels_hgap;
+	unsigned int channels_gap;
 };
 
 inline
 GW_Joinable_Sliders_Sizes::GW_Joinable_Sliders_Sizes ( ) :
 area_height ( 0 ),
 slider_width ( 0 ),
-channels_hgap ( 0 )
+channels_gap ( 0 )
 {
 }
 
@@ -87,6 +87,10 @@ class GW_Sliders_Joinable :
 	void
 	select_joined ( );
 
+	void
+	select_joined (
+		bool flag_n );
+
 
 	const ::Wdg2::GW_Joinable_Sliders_Sizes &
 	sizes ( ) const;
@@ -120,10 +124,7 @@ class GW_Sliders_Joinable :
 	update_geometries ( );
 
 	void
-	clear_single_sliders ( );
-
-	void
-	clear_multi_slider ( );
+	destroy_sliders ( );
 
 	void
 	init_single_sliders ( );

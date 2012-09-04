@@ -56,7 +56,7 @@ GW_Multi_Switch::set_sizes (
 void
 GW_Multi_Switch::update_geometries ( )
 {
-	const double delta_x ( _sizes.switch_width + _sizes.channels_hgap );
+	const double delta_x ( _sizes.switch_width + _sizes.channels_gap );
 	QPointF spos ( 0.0, 0.0 );
 	for ( int ii=0; ii < _switches.size(); ++ii ) {
 		_switches[ii]->setPos ( spos );
@@ -78,7 +78,7 @@ GW_Multi_Switch::int_width_probe (
 	unsigned int iwidth ( 0 );
 	if ( _snd_proxies.num_proxies() > 0 ) {
 		iwidth += sizes_n.switch_width * _snd_proxies.num_proxies();
-		iwidth += sizes_n.channels_hgap * ( _snd_proxies.num_proxies() - 1 );
+		iwidth += sizes_n.channels_gap * ( _snd_proxies.num_proxies() - 1 );
 	}
 	return iwidth;
 }

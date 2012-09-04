@@ -10,6 +10,7 @@
 #define __INC_qsnd_control_proxies_hpp__
 
 #include "callbacks.hpp"
+#include "flags.hpp"
 #include <QList>
 #include <QString>
 
@@ -314,6 +315,7 @@ class Proxies_Group
 		QString & str_n,
 		unsigned int key_n ) const;
 
+
 	// Private attributes
 	private:
 
@@ -346,8 +348,10 @@ class Proxies_Group1 :
 
 	~Proxies_Group1 ( );
 
+
 	unsigned int
 	control_type ( ) const;
+
 
 	void
 	set_feature (
@@ -374,6 +378,18 @@ class Proxies_Group1 :
 		::QSnd2::Proxy * proxy_n );
 
 
+	/// @brief Value change callback
+	///
+	/// This one will be called if the value of
+	/// the proxy object changed (e.g. slider volume changed)
+	const ::Context_Callback &
+	val_change_callback ( ) const;
+
+	void
+	set_val_change_callback (
+		const ::Context_Callback & callback_n );
+
+
 	void
 	notify_proxies_value_changed ( );
 
@@ -382,7 +398,8 @@ class Proxies_Group1 :
 	private:
 
 	const unsigned int _control_type;
-	unsigned int _feature_flags;
+	::Flags _feature_flags;
+	::Context_Callback _val_change_callback;
 	QList < ::QSnd2::Proxy * > _proxies;
 };
 
@@ -401,16 +418,19 @@ Proxies_Group1::control_type ( ) const
 }
 
 inline
+const ::Context_Callback &
+Proxies_Group1::val_change_callback ( ) const
+{
+	return _val_change_callback;
+}
+
+inline
 void
 Proxies_Group1::set_feature (
 	unsigned int feat_id_n,
 	bool on_n )
 {
-	if ( on_n ) {
-		_feature_flags |= feat_id_n;
-	} else {
-		_feature_flags &= ~feat_id_n;
-	}
+	_feature_flags.set ( feat_id_n, on_n );
 }
 
 inline
@@ -418,7 +438,7 @@ bool
 Proxies_Group1::has_feature (
 	unsigned int feat_id_n ) const
 {
-	return ( _feature_flags & feat_id_n );
+	return ( _feature_flags.has_any ( feat_id_n ) );
 }
 
 inline
@@ -484,6 +504,11 @@ class Proxies_Group1_Slider :
 	void
 	set_int_value_joined (
 		long value_n );
+
+
+	virtual
+	bool
+	values_equal ( ) const;
 };
 
 inline
@@ -517,18 +542,29 @@ class Proxies_Group1_Switch :
 
 	~Proxies_Group1_Switch ( );
 
-	virtual
-	void
-	set_all_switches (
-		bool state_n );
-
-	virtual
-	void
-	toggle_all_switches ( );
 
 	::QSnd2::Proxy_Switch *
 	switch_proxy (
 		unsigned int idx_n ) const;
+
+
+	virtual
+	bool
+	switches_state_joined ( );
+
+	virtual
+	void
+	set_switches_state_joined (
+		bool state_n );
+
+	virtual
+	void
+	toggle_switches ( );
+
+
+	virtual
+	bool
+	values_equal ( ) const;
 };
 
 inline

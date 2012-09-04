@@ -116,11 +116,9 @@ void
 GW_Sliders_Pad::destroy_scene_items ( )
 {
 	if ( _group4 != 0 ) {
-		_group4->setParentItem ( 0 );
 		_group4.reset();
 	}
 	if ( _scrollbar != 0 ) {
-		_scrollbar->setParentItem ( 0 );
 		_scrollbar.reset();
 	}
 }
@@ -130,7 +128,8 @@ GW_Sliders_Pad::build_scene_items ( )
 {
 	if ( _snd_controls->num_groups() > 0 ) {
 		_group4.reset (
-			new ::Wdg2::GW_SlPad_Group4 ( *_snd_controls->group ( 0 ), scene_db(), this ) );
+			new ::Wdg2::GW_SlPad_Group4 ( *_snd_controls->group ( 0 ), scene_db() ) );
+		_group4->setParentItem ( this );
 	}
 }
 
@@ -141,7 +140,7 @@ GW_Sliders_Pad::update_geometries ( )
 		::Wdg2::GW_SlPad_Group4_Sizes lsizes;
 		lsizes.height = _pad_size.height();
 		lsizes.slider_width = 16;
-		lsizes.channels_hgap = 8;
+		lsizes.channels_gap = 8;
 		lsizes.group2_hgap = 16;
 		lsizes.group3_hgap = 16;
 

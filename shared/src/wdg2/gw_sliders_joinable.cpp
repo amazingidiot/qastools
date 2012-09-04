@@ -27,8 +27,7 @@ _num_sliders ( 0 )
 
 GW_Sliders_Joinable::~GW_Sliders_Joinable ( )
 {
-	clear_single_sliders();
-	clear_multi_slider();
+	destroy_sliders();
 }
 
 void
@@ -36,10 +35,8 @@ GW_Sliders_Joinable::set_num_sliders (
 	unsigned int num_n )
 {
 	if ( _num_sliders != num_n ) {
+		destroy_sliders();
 		_state_flags.unset ( SF_SEPARATE | SF_JOINED );
-		clear_single_sliders();
-		clear_multi_slider();
-
 		_num_sliders = num_n;
 	}
 }
@@ -57,7 +54,7 @@ void
 GW_Sliders_Joinable::update_geometries ( )
 {
 	if ( _sliders.size() > 0 ) {
-		const double delta_x ( _sizes.slider_width + _sizes.channels_hgap );
+		const double delta_x ( _sizes.slider_width + _sizes.channels_gap );
 		QPointF spos ( 0.0, 0.0 );
 
 		::Wdg2::GW_Slider_Sizes lsizes;
@@ -75,7 +72,16 @@ GW_Sliders_Joinable::update_geometries ( )
 		}
 	}
 	if ( _slider_multi != 0 ) {
+		{
+			::Wdg2::GW_Slider_Multi_Settings lsettings;
+			lsettings.num_sliders = num_sliders();
+			lsettings.area_height = _sizes.area_height;
+			lsettings.slider_width = _sizes.slider_width;
+			lsettings.channels_gap = _sizes.channels_gap;
 
+			_slider_multi->load_settings ( lsettings );
+		}
+		_slider_multi->setPos ( QPointF ( 0.0, 0.0 ) );
 	}
 }
 
@@ -87,7 +93,7 @@ GW_Sliders_Joinable::int_width_probe (
 	const unsigned int num ( num_sliders() );
 	if ( num > 0 ) {
 		iwidth += sizes_n.slider_width * num;
-		iwidth += sizes_n.channels_hgap * ( num - 1 );
+		iwidth += sizes_n.channels_gap * ( num - 1 );
 	}
 	return iwidth;
 }
@@ -99,16 +105,24 @@ GW_Sliders_Joinable::int_width ( ) const
 }
 
 void
+GW_Sliders_Joinable::select_joined (
+	bool flag_n )
+{
+	if ( flag_n ) {
+		select_joined();
+	} else {
+		select_separate();
+	}
+}
+
+void
 GW_Sliders_Joinable::select_separate ( )
 {
 	if ( ( num_sliders() > 0 ) &&
 		!_state_flags.has_any ( SF_SEPARATE ) )
 	{
-		if ( _state_flags.has_any ( SF_JOINED ) ) {
-			_state_flags.unset ( SF_JOINED );
-			clear_multi_slider();
-		}
-
+		destroy_sliders();
+		_state_flags.unset ( SF_JOINED );
 		_state_flags.set ( SF_SEPARATE );
 		init_single_sliders();
 		update_geometries();
@@ -121,11 +135,8 @@ GW_Sliders_Joinable::select_joined ( )
 	if ( ( num_sliders() > 0 ) &&
 		!_state_flags.has_any ( SF_JOINED ) )
 	{
-		if ( _state_flags.has_any ( SF_SEPARATE ) ) {
-			_state_flags.unset ( SF_SEPARATE );
-			clear_single_sliders();
-		}
-
+		destroy_sliders();
+		_state_flags.unset ( SF_SEPARATE );
 		_state_flags.set ( SF_JOINED );
 		init_multi_slider();
 		update_geometries();
@@ -133,7 +144,7 @@ GW_Sliders_Joinable::select_joined ( )
 }
 
 void
-GW_Sliders_Joinable::clear_single_sliders ( )
+GW_Sliders_Joinable::destroy_sliders ( )
 {
 	if ( _sliders.size() > 0 ) {
 		for ( int ii=0; ii < _sliders.size(); ++ii ) {
@@ -141,11 +152,7 @@ GW_Sliders_Joinable::clear_single_sliders ( )
 		}
 		_sliders.clear();
 	}
-}
 
-void
-GW_Sliders_Joinable::clear_multi_slider ( )
-{
 	if ( _slider_multi != 0 ) {
 		delete _slider_multi;
 		_slider_multi = 0;

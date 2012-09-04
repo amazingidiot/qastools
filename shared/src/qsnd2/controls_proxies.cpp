@@ -143,8 +143,16 @@ Proxies_Group1::append_proxy (
 }
 
 void
+Proxies_Group1::set_val_change_callback (
+	const ::Context_Callback & callback_n )
+{
+	_val_change_callback = callback_n;
+}
+
+void
 Proxies_Group1::notify_proxies_value_changed ( )
 {
+	val_change_callback().call_if_valid();
 	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
 		proxy ( ii )->notify_value_changed();
 	}
@@ -180,6 +188,24 @@ Proxies_Group1_Slider::set_int_value_joined (
 	}
 }
 
+bool
+Proxies_Group1_Slider::values_equal ( ) const
+{
+	bool res ( false );
+	if ( num_proxies() > 0 ) {
+		res = true;
+		if ( num_proxies() > 1 ) {
+			const long int_val_test ( slider_proxy ( 0 )->int_value() );
+			for ( unsigned int ii=1; ii < num_proxies(); ++ii ) {
+				if ( slider_proxy ( ii )->int_value() != int_val_test ) {
+					res = false;
+					break;
+				}
+			}
+		}
+	}
+	return res;
+}
 
 
 Proxies_Group1_Switch::Proxies_Group1_Switch ( ) :
@@ -191,8 +217,18 @@ Proxies_Group1_Switch::~Proxies_Group1_Switch ( )
 {
 }
 
+bool
+Proxies_Group1_Switch::switches_state_joined ( )
+{
+	bool res ( false );
+	if ( num_proxies() > 0 ) {
+		res = switch_proxy ( 0 )->switch_state();
+	}
+	return res;
+}
+
 void
-Proxies_Group1_Switch::set_all_switches (
+Proxies_Group1_Switch::set_switches_state_joined (
 	bool state_n )
 {
 	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
@@ -201,13 +237,31 @@ Proxies_Group1_Switch::set_all_switches (
 }
 
 void
-Proxies_Group1_Switch::toggle_all_switches ( )
+Proxies_Group1_Switch::toggle_switches ( )
 {
 	for ( unsigned int ii=0; ii < num_proxies(); ++ii ) {
 		switch_proxy ( ii )->toggle_switch_state();
 	}
 }
 
+bool
+Proxies_Group1_Switch::values_equal ( ) const
+{
+	bool res ( false );
+	if ( num_proxies() > 0 ) {
+		res = true;
+		if ( num_proxies() > 1 ) {
+			const bool state_test ( switch_proxy ( 0 )->switch_state() );
+			for ( unsigned int ii=1; ii < num_proxies(); ++ii ) {
+				if ( switch_proxy ( ii )->switch_state() != state_test ) {
+					res = false;
+					break;
+				}
+			}
+		}
+	}
+	return res;
+}
 
 
 Proxies_Group1_Enum::Proxies_Group1_Enum ( ) :

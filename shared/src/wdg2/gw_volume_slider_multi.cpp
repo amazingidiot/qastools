@@ -20,6 +20,10 @@ GW_Volume_Slider_Multi::GW_Volume_Slider_Multi (
 ::Wdg2::GW_Slider_Multi ( scene_db_n, parent_n ),
 _proxy_group ( proxy_group_n )
 {
+	set_val_change_callback (
+		::Context_Callback ( this, ::Wdg2::GW_Volume_Slider_Multi::write_value_to_proxy_cb ) );
+	_proxy_group.set_val_change_callback (
+		::Context_Callback ( this, ::Wdg2::GW_Volume_Slider_Multi::read_value_from_proxy_cb ) );
 }
 
 GW_Volume_Slider_Multi::~GW_Volume_Slider_Multi ( )

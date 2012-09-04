@@ -28,19 +28,31 @@ _label_item ( 0 )
 
 	// Sliders
 	{
-		::QSnd2::Proxies_Group1_Slider * sliders ( _proxies_group.sliders() );
-		if ( sliders != 0 ) {
-			_gw_levels = new ::Wdg2::GW_Volume_Sliders_Joinable ( *sliders, scene_db(), this );
-			_gw_levels->select_separate();
+		::QSnd2::Proxies_Group1_Slider * psliders ( _proxies_group.sliders() );
+		if ( psliders != 0 ) {
+			_gw_levels = new ::Wdg2::GW_Volume_Sliders_Joinable (
+				*psliders, scene_db(), this );
+			// select joined/separate
+			if ( psliders->values_equal() ) {
+				_gw_levels->select_joined();
+			} else {
+				_gw_levels->select_separate();
+			}
 		}
 	}
 
 	// Switches
 	{
-		::QSnd2::Proxies_Group1_Switch * switches ( _proxies_group.switches() );
-		if ( switches != 0 ) {
-			_gw_switches = new ::Wdg2::GW_Multi_Switch ( *switches, scene_db(), this );
+		::QSnd2::Proxies_Group1_Switch * pswitches ( _proxies_group.switches() );
+		if ( pswitches != 0 ) {
+			_gw_switches = new ::Wdg2::GW_Multi_Switch ( *pswitches, scene_db(), this );
 		}
+		// TODO: select joined/separate
+		//if ( pswitches->values_equal() ) {
+		//	_gw_switches->select_joined();
+		//} else {
+		//	_gw_switches->select_separate();
+		//}
 	}
 
 	// Label string
@@ -65,7 +77,7 @@ GW_SlPad_Group2::set_sizes (
 	_sizes = sizes_n;
 
 	_sizes.switches_height = _sizes.slider_width;
-	_sizes.switches_vgap = _sizes.channels_hgap;
+	_sizes.switches_vgap = _sizes.channels_gap;
 
 	_sizes.levels_height = _sizes.height;
 	_sizes.levels_height -= _sizes.switches_height;
@@ -89,7 +101,7 @@ GW_SlPad_Group2::gw_levels_sizes (
 	::Wdg2::GW_Joinable_Sliders_Sizes lsizes;
 	lsizes.area_height = sizes_n.levels_height;
 	lsizes.slider_width = sizes_n.slider_width;
-	lsizes.channels_hgap = sizes_n.channels_hgap;
+	lsizes.channels_gap = sizes_n.channels_gap;
 	return lsizes;
 }
 
@@ -101,7 +113,7 @@ GW_SlPad_Group2::gw_switches_sizes (
 	::Wdg2::GW_Multi_Switch_Sizes lsizes;
 	lsizes.area_height = sizes_n.switches_height;
 	lsizes.switch_width = sizes_n.slider_width;
-	lsizes.channels_hgap = sizes_n.channels_hgap;
+	lsizes.channels_gap = sizes_n.channels_gap;
 	return lsizes;
 }
 
@@ -213,7 +225,7 @@ GW_SlPad_Group3::gw_group2_sizes (
 	::Wdg2::GW_SlPad_Group2_Sizes lsizes;
 	lsizes.height = sizes_n.height;
 	lsizes.slider_width = sizes_n.slider_width;
-	lsizes.channels_hgap = sizes_n.channels_hgap;
+	lsizes.channels_gap = sizes_n.channels_gap;
 	return lsizes;
 }
 
@@ -309,7 +321,7 @@ GW_SlPad_Group4::gw_group3_sizes (
 	::Wdg2::GW_SlPad_Group3_Sizes lsizes;
 	lsizes.height = sizes_n.height;
 	lsizes.slider_width = sizes_n.slider_width;
-	lsizes.channels_hgap = sizes_n.channels_hgap;
+	lsizes.channels_gap = sizes_n.channels_gap;
 	lsizes.group2_hgap = sizes_n.group2_hgap;
 	return lsizes;
 }

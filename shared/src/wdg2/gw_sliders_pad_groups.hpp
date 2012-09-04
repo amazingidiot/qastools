@@ -26,7 +26,7 @@ struct GW_SlPad_Group2_Sizes
 	GW_SlPad_Group2_Sizes ( );
 
 	unsigned int height;
-	unsigned int channels_hgap;
+	unsigned int channels_gap;
 	unsigned int slider_width;
 	unsigned int levels_height;
 	unsigned int switches_vgap;
@@ -39,7 +39,7 @@ struct GW_SlPad_Group2_Sizes
 inline
 GW_SlPad_Group2_Sizes::GW_SlPad_Group2_Sizes ( ) :
 height ( 0 ),
-channels_hgap ( 0 ),
+channels_gap ( 0 ),
 slider_width ( 0 ),
 levels_height ( 0 ),
 switches_vgap ( 0 ),
@@ -131,7 +131,7 @@ struct GW_SlPad_Group3_Sizes
 
 	unsigned int height;
 	unsigned int slider_width;
-	unsigned int channels_hgap;
+	unsigned int channels_gap;
 	unsigned int group2_hgap;
 };
 
@@ -139,7 +139,7 @@ inline
 GW_SlPad_Group3_Sizes::GW_SlPad_Group3_Sizes ( ) :
 height ( 0 ),
 slider_width ( 0 ),
-channels_hgap ( 0 ),
+channels_gap ( 0 ),
 group2_hgap ( 0 )
 {
 }
@@ -214,7 +214,7 @@ struct GW_SlPad_Group4_Sizes
 
 	unsigned int height;
 	unsigned int slider_width;
-	unsigned int channels_hgap;
+	unsigned int channels_gap;
 	unsigned int group2_hgap;
 	unsigned int group3_hgap;
 };
@@ -223,7 +223,7 @@ inline
 GW_SlPad_Group4_Sizes::GW_SlPad_Group4_Sizes ( ) :
 height ( 0 ),
 slider_width ( 0 ),
-channels_hgap ( 0 ),
+channels_gap ( 0 ),
 group2_hgap ( 0 ),
 group3_hgap ( 0 )
 {

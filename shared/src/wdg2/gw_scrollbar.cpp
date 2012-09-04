@@ -121,7 +121,10 @@ _int_span ( 0 ),
 _int_value ( 0 ),
 _btn_low ( scene_db(), this ),
 _btn_high ( scene_db(), this ),
-_slider ( scene_db(), this )
+_slider ( scene_db(),
+	new ::Wdg2::GW_Scrollbar_Rail ( scene_db(), this ),
+	new ::Wdg2::GW_Scrollbar_Handle ( scene_db(), this ),
+	this )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
@@ -142,8 +145,6 @@ _slider ( scene_db(), this )
 
 	_slider.set_value_map ( &_value_map );
 	_slider.set_orientation ( _orientation );
-	_slider.replace_rail ( new ::Wdg2::GW_Scrollbar_Rail ( scene_db(), this ) );
-	_slider.replace_handle ( new ::Wdg2::GW_Scrollbar_Handle ( scene_db(), this ) );
 
 	_slider.set_val_change_callback (
 		::Context_Callback ( this, ::Wdg2::GW_Scrollbar::read_slider_value_cb ) );

@@ -24,14 +24,14 @@ struct GW_Multi_Switch_Sizes
 
 	unsigned int area_height;
 	unsigned int switch_width;
-	unsigned int channels_hgap;
+	unsigned int channels_gap;
 };
 
 inline
 GW_Multi_Switch_Sizes::GW_Multi_Switch_Sizes ( ) :
 area_height ( 0 ),
 switch_width ( 0 ),
-channels_hgap ( 0 )
+channels_gap ( 0 )
 {
 }
 

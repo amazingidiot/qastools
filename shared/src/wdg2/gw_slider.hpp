@@ -20,47 +20,6 @@ namespace Wdg2
 {
 
 
-/// @brief GW_Slider_Rail
-///
-class GW_Slider_Rail :
-	public ::Wdg2::GW_Widget_Element_Pixmaps
-{
-	// Public methods
-	public:
-
-	GW_Slider_Rail (
-		::Wdg2::Scene_Database * scene_db_n,
-		QGraphicsItem * parent_n = 0 );
-
-
-	// Protected methods
-	protected:
-
-	void
-	state_flags_changed ( );
-};
-
-
-/// @brief GW_Slider_Handle
-///
-class GW_Slider_Handle :
-	public ::Wdg2::GW_Widget_Element_Pixmaps
-{
-	// Public methods
-	public:
-
-	GW_Slider_Handle (
-		::Wdg2::Scene_Database * scene_db_n,
-		QGraphicsItem * parent_n = 0 );
-
-
-	// Protected methods
-	protected:
-
-	void
-	state_flags_changed ( );
-};
-
 
 /// @brief GW_Slider_Sizes
 ///
@@ -91,6 +50,12 @@ class GW_Slider :
 
 	GW_Slider (
 		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+
+	GW_Slider (
+		::Wdg2::Scene_Database * scene_db_n,
+		::Wdg2::GW_Widget_Element * rail_n,
+		::Wdg2::GW_Widget_Element * handle_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Slider ( );
@@ -146,23 +111,6 @@ class GW_Slider :
 	void
 	set_orientation (
 		Qt::Orientation orientation_n );
-
-
-	// Part getting / replacement
-
-	::Wdg2::GW_Widget_Element *
-	rail ( );
-
-	void
-	replace_rail (
-		::Wdg2::GW_Widget_Element * rail_n );
-
-	::Wdg2::GW_Widget_Element *
-	handle ( );
-
-	void
-	replace_handle (
-		::Wdg2::GW_Widget_Element * handle_n );
 
 
 	// Protected methods
@@ -222,6 +170,15 @@ class GW_Slider :
 		QGraphicsSceneWheelEvent * event_n );
 
 
+	// Private methods
+	private:
+
+	void
+	init (
+		::Wdg2::GW_Widget_Element * rail_n = 0,
+		::Wdg2::GW_Widget_Element * handle_n = 0 );
+
+
 	// Private attributes
 	private:
 
@@ -269,19 +226,49 @@ GW_Slider::int_value ( ) const
 	return _int_value;
 }
 
-inline
-::Wdg2::GW_Widget_Element *
-GW_Slider::rail ( )
-{
-	return _rail.data();
-}
 
-inline
-::Wdg2::GW_Widget_Element *
-GW_Slider::handle ( )
+
+
+/// @brief GW_Slider_Rail
+///
+class GW_Slider_Rail :
+	public ::Wdg2::GW_Widget_Element_Pixmaps
 {
-	return _handle.data();
-}
+	// Public methods
+	public:
+
+	GW_Slider_Rail (
+		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+
+
+	// Protected methods
+	protected:
+
+	void
+	state_flags_changed ( );
+};
+
+
+/// @brief GW_Slider_Handle
+///
+class GW_Slider_Handle :
+	public ::Wdg2::GW_Widget_Element_Pixmaps
+{
+	// Public methods
+	public:
+
+	GW_Slider_Handle (
+		::Wdg2::Scene_Database * scene_db_n,
+		QGraphicsItem * parent_n = 0 );
+
+
+	// Protected methods
+	protected:
+
+	void
+	state_flags_changed ( );
+};
 
 
 } // End of namespace

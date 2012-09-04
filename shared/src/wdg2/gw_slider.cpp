@@ -17,62 +17,53 @@ namespace Wdg2
 {
 
 
-GW_Slider_Rail::GW_Slider_Rail (
-	::Wdg2::Scene_Database * scene_db_n,
-	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget_Element_Pixmaps ( scene_db_n, 2, parent_n )
-{
-	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
-	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
-}
-
-void
-GW_Slider_Rail::state_flags_changed ( )
-{
-	unsigned int idx ( 0 );
-	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
-		idx = 1;
-	}
-	gw_pixmaps()->set_pxm_idx ( idx );
-}
-
-
-
-GW_Slider_Handle::GW_Slider_Handle (
-	::Wdg2::Scene_Database * scene_db_n,
-	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget_Element_Pixmaps ( scene_db_n, 2, parent_n )
-{
-	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
-	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
-}
-
-void
-GW_Slider_Handle::state_flags_changed ( )
-{
-	unsigned int idx ( 0 );
-	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
-		idx = 1;
-	}
-	gw_pixmaps()->set_pxm_idx ( idx );
-}
-
 
 
 GW_Slider::GW_Slider (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_orientation ( Qt::Vertical ),
-_rail_span ( 0 ),
-_handle_pos ( 0 ),
-_handle_pos_span ( 0 ),
-_int_value ( 0 ),
-_value_map ( 0 ),
-_rail ( new ::Wdg2::GW_Slider_Rail ( scene_db(), this ) ),
-_handle ( new ::Wdg2::GW_Slider_Handle ( scene_db(), this ) )
+::Wdg2::GW_Widget ( scene_db_n, parent_n )
+{
+	init();
+}
+
+GW_Slider::GW_Slider (
+	::Wdg2::Scene_Database * scene_db_n,
+	::Wdg2::GW_Widget_Element * rail_n,
+	::Wdg2::GW_Widget_Element * handle_n,
+	QGraphicsItem * parent_n ) :
+::Wdg2::GW_Widget ( scene_db_n, parent_n )
+{
+	init ( rail_n, handle_n );
+}
+
+void
+GW_Slider::init (
+	::Wdg2::GW_Widget_Element * rail_n,
+	::Wdg2::GW_Widget_Element * handle_n )
 {
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
+
+	_orientation = Qt::Vertical;
+	_rail_span = 0;
+	_handle_pos = 0;
+	_handle_pos_span = 0;
+	_int_value = 0;
+	_value_map = 0;
+
+	if ( rail_n == 0 ) {
+		rail_n = new ::Wdg2::GW_Slider_Rail ( scene_db(), this );
+	} else {
+		rail_n->gw_widget()->setParentItem ( this );
+	}
+	_rail.reset ( rail_n );
+
+	if ( handle_n == 0 ) {
+		handle_n = new ::Wdg2::GW_Slider_Handle ( scene_db(), this );
+	} else {
+		handle_n->gw_widget()->setParentItem ( this );
+	}
+	_handle.reset ( handle_n );
 }
 
 GW_Slider::~GW_Slider ( )
@@ -358,26 +349,46 @@ GW_Slider::wheelEvent (
 	::std::cout << "GW_Slider::wheelEvent" << "\n";
 }
 
-void
-GW_Slider::replace_rail (
-	::Wdg2::GW_Widget_Element * rail_n )
+
+
+GW_Slider_Rail::GW_Slider_Rail (
+	::Wdg2::Scene_Database * scene_db_n,
+	QGraphicsItem * parent_n ) :
+::Wdg2::GW_Widget_Element_Pixmaps ( scene_db_n, 2, parent_n )
 {
-	if ( rail_n != 0 ) {
-		_rail.reset ( rail_n );
-		_rail->gw_widget()->setParentItem ( this );
-		update_geometries();
-	}
+	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
 }
 
 void
-GW_Slider::replace_handle (
-	::Wdg2::GW_Widget_Element * handle_n )
+GW_Slider_Rail::state_flags_changed ( )
 {
-	if ( handle_n != 0 ) {
-		_handle.reset ( handle_n );
-		_handle->gw_widget()->setParentItem ( this );
-		update_geometries();
+	unsigned int idx ( 0 );
+	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		idx = 1;
 	}
+	gw_pixmaps()->set_pxm_idx ( idx );
+}
+
+
+
+GW_Slider_Handle::GW_Slider_Handle (
+	::Wdg2::Scene_Database * scene_db_n,
+	QGraphicsItem * parent_n ) :
+::Wdg2::GW_Widget_Element_Pixmaps ( scene_db_n, 2, parent_n )
+{
+	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+	gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
+}
+
+void
+GW_Slider_Handle::state_flags_changed ( )
+{
+	unsigned int idx ( 0 );
+	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		idx = 1;
+	}
+	gw_pixmaps()->set_pxm_idx ( idx );
 }
 
 

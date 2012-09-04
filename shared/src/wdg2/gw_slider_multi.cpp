@@ -7,6 +7,7 @@
 //
 
 #include "gw_slider_multi.hpp"
+#include "theme_painters.hpp"
 #include <iostream>
 
 namespace Wdg2
@@ -16,7 +17,11 @@ namespace Wdg2
 GW_Slider_Multi::GW_Slider_Multi (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Slider ( scene_db_n, parent_n )
+::Wdg2::GW_Slider (
+	scene_db_n,
+	new ::Wdg2::GW_Slider_Multi_Rail ( scene_db_n ),
+	new ::Wdg2::GW_Slider_Multi_Handle ( scene_db_n ),
+	parent_n )
 {
 }
 
@@ -25,38 +30,26 @@ GW_Slider_Multi::~GW_Slider_Multi ( )
 }
 
 void
-GW_Slider_Multi::set_num_sliders (
-	unsigned int num_n )
+GW_Slider_Multi::load_settings (
+	const ::Wdg2::GW_Slider_Multi_Settings & settings_n )
 {
-	if ( _num_sliders != num_n ) {
-		_num_sliders = num_n;
-		update_geometries();
+	_settings = settings_n;
+	{
+		::Wdg2::GW_Slider_Sizes lsizes;
+		lsizes.size = QSize ( int_width(), _settings.area_height );
+		lsizes.handle_length = _settings.area_height / 10;
+		::Wdg2::GW_Slider::set_sizes ( lsizes  );
 	}
-}
-
-void
-GW_Slider_Multi::set_sizes (
-	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n )
-{
-	_sizes = sizes_n;
-	update_geometries();
-}
-
-void
-GW_Slider_Multi::update_geometries ( )
-{
-	set_bounding_rect ( QSizeF ( int_width(), _sizes.area_height ) );
 }
 
 unsigned int
 GW_Slider_Multi::int_width_probe (
-	const ::Wdg2::GW_Multi_Slider_Sizes & sizes_n ) const
+	const ::Wdg2::GW_Slider_Multi_Settings & settings_n ) const
 {
 	unsigned int iwidth ( 0 );
-	const unsigned int num ( num_sliders() );
-	if ( num > 0 ) {
-		iwidth += sizes_n.slider_width * num;
-		iwidth += sizes_n.channels_hgap * ( num - 1 );
+	if ( settings_n.num_sliders > 0 ) {
+		iwidth += settings_n.slider_width * settings_n.num_sliders;
+		iwidth += settings_n.channels_gap * ( settings_n.num_sliders - 1 );
 	}
 	return iwidth;
 }
@@ -64,7 +57,103 @@ GW_Slider_Multi::int_width_probe (
 unsigned int
 GW_Slider_Multi::int_width ( ) const
 {
-	return int_width_probe ( _sizes );
+	return int_width_probe ( _settings );
+}
+
+
+
+GW_Slider_Multi_Rail::GW_Slider_Multi_Rail (
+	::Wdg2::Scene_Database * scene_db_n,
+	::Wdg2::GW_Slider_Multi * parent_n ) :
+_wdg ( scene_db_n, parent_n )
+{
+	_wdg.setFlags ( QGraphicsItem::ItemHasNoContents );
+}
+
+GW_Slider_Multi_Rail::~GW_Slider_Multi_Rail ( )
+{
+	clear_rails();
+}
+
+void
+GW_Slider_Multi_Rail::clear_rails ( )
+{
+	for ( int ii=0; ii < _rails.size(); ++ii ) {
+		delete _rails[ii];
+	}
+	_rails.clear();
+}
+
+void
+GW_Slider_Multi_Rail::size_changed ( )
+{
+	reload_settings();
+}
+
+void
+GW_Slider_Multi_Rail::pos_changed ( )
+{
+	_wdg.setPos ( pos() );
+}
+
+void
+GW_Slider_Multi_Rail::state_flags_changed ( )
+{
+	unsigned int idx ( 0 );
+	if ( state_flags().has_any ( ::Wdg2::GW_HAS_FOCUS ) ) {
+		idx = 1;
+	}
+	for ( int ii=0; ii < _rails.size(); ++ii ) {
+		_rails[ii]->set_pxm_idx ( idx );
+	}
+}
+
+void
+GW_Slider_Multi_Rail::reload_settings ( )
+{
+	const ::Wdg2::GW_Slider_Multi_Settings & settings ( slider_multi()->settings() );
+
+	if ( _rails.size() != (int)settings.num_sliders ) {
+		clear_rails();
+		for ( unsigned int ii=0; ii < settings.num_sliders; ++ii ) {
+			::Wdg2::GW_Pixmaps * rail (
+				new ::Wdg2::GW_Pixmaps ( _wdg.scene_db(), 2, &_wdg ) );
+			rail->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+			rail->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_RAIL );
+			_rails.append ( rail );
+		}
+	}
+
+	if ( _rails.size() > 0 ) {
+		const double delta_x ( settings.slider_width + settings.channels_gap );
+		QPointF spos ( 0.0, 0.0 );
+
+		QSize rail_size ( settings.slider_width, settings.area_height );
+		for ( int ii=0; ii < _rails.size(); ++ii ) {
+			::Wdg2::GW_Pixmaps * rail ( _rails[ii] );
+			rail->set_pxm_size ( rail_size );
+			rail->setPos ( spos );
+			spos.rx() += delta_x;
+		}
+	}
+}
+
+
+
+GW_Slider_Multi_Handle::GW_Slider_Multi_Handle (
+	::Wdg2::Scene_Database * scene_db_n,
+	QGraphicsItem * parent_n ) :
+::Wdg2::GW_Slider_Handle ( scene_db_n, parent_n )
+{
+	// TODO:
+	//gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SLIDER );
+	//gw_pixmaps()->pxm_kvals().set_uint ( ::Wdg2::PRK_WIDGET_PART, ::Wdg2::WGP_SLIDER_HANDLE );
+}
+
+void
+GW_Slider_Multi_Handle::reload_settings ( )
+{
+
 }
 
 
