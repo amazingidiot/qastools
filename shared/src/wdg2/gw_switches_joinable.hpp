@@ -106,6 +106,26 @@ class GW_Switches_Joinable :
 	select_joined (
 		bool flag_n );
 
+	void
+	toggle_joined ( );
+
+
+	bool
+	has_focus ( );
+
+	void
+	set_focus (
+		Qt::FocusReason focusReason_n = Qt::OtherFocusReason );
+
+
+	// Protected methods
+	protected:
+
+	bool
+	sceneEventFilter (
+		QGraphicsItem * watched_n,
+		QEvent * event_n );
+
 
 	// Private methods
 	private:
@@ -117,10 +137,7 @@ class GW_Switches_Joinable :
 	destroy_switches ( );
 
 	void
-	init_switches_single ( );
-
-	void
-	init_switch_multi ( );
+	init_switches ( );
 
 	virtual
 	::Wdg2::GW_Switch *

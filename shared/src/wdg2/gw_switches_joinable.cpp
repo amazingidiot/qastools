@@ -9,10 +9,10 @@
 #include "gw_switches_joinable.hpp"
 #include "gw_switch.hpp"
 #include "gw_switch_multi.hpp"
+#include "wdg2/scene_database.hpp"
+#include <QEvent>
+#include <QKeyEvent>
 #include <iostream>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
-
 
 namespace Wdg2
 {
@@ -26,6 +26,7 @@ _switch_multi ( 0 ),
 _num_switches ( 0 )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
+	setFiltersChildEvents ( true );
 }
 
 GW_Switches_Joinable::~GW_Switches_Joinable ( )
@@ -112,38 +113,47 @@ void
 GW_Switches_Joinable::select_joined (
 	bool flag_n )
 {
-	if ( flag_n ) {
-		select_joined();
-	} else {
-		select_separate();
+	if ( num_switches() > 0 ) {
+		unsigned int flag_set ( SF_JOINED );
+		unsigned int flag_unset ( SF_SEPARATE );
+		if ( !flag_n ) {
+			::std::swap ( flag_set, flag_unset );
+		}
+		if ( !_state_flags.has_any ( flag_set ) ) {
+			const bool had_focus ( has_focus() );
+			destroy_switches();
+			_state_flags.unset ( flag_unset );
+			_state_flags.set ( flag_set );
+			init_switches();
+			update_geometries();
+			if ( had_focus ) {
+				set_focus();
+			}
+		}
 	}
 }
 
 void
 GW_Switches_Joinable::select_separate ( )
 {
-	if ( ( num_switches() > 0 ) &&
-		!_state_flags.has_any ( SF_SEPARATE ) )
-	{
-		destroy_switches();
-		_state_flags.unset ( SF_JOINED );
-		_state_flags.set ( SF_SEPARATE );
-		init_switches_single();
-		update_geometries();
-	}
+	select_joined ( false );
 }
 
 void
 GW_Switches_Joinable::select_joined ( )
 {
-	if ( ( num_switches() > 0 ) &&
-		!_state_flags.has_any ( SF_JOINED ) )
-	{
-		destroy_switches();
-		_state_flags.unset ( SF_SEPARATE );
-		_state_flags.set ( SF_JOINED );
-		init_switch_multi();
-		update_geometries();
+	select_joined ( true );
+}
+
+void
+GW_Switches_Joinable::toggle_joined ( )
+{
+	if ( _state_flags.has_any ( SF_JOINED | SF_SEPARATE ) ) {
+		if ( _state_flags.has_any ( SF_JOINED ) ) {
+			select_separate();
+		} else {
+			select_joined();
+		}
 	}
 }
 
@@ -163,20 +173,64 @@ GW_Switches_Joinable::destroy_switches ( )
 }
 
 void
-GW_Switches_Joinable::init_switches_single ( )
+GW_Switches_Joinable::init_switches ( )
 {
-	for ( unsigned int ii=0; ii < num_switches(); ++ii ) {
-		::Wdg2::GW_Switch * gw_switch ( this->create_switch_single ( ii ) );
-		gw_switch->setParentItem ( this );
-		_switches.append ( gw_switch );
+	if ( _state_flags.has_any ( SF_SEPARATE ) ) {
+		for ( unsigned int ii=0; ii < num_switches(); ++ii ) {
+			::Wdg2::GW_Switch * gw_switch ( this->create_switch_single ( ii ) );
+			gw_switch->setParentItem ( this );
+			_switches.append ( gw_switch );
+		}
+	} else if ( _state_flags.has_any ( SF_JOINED ) ) {
+		_switch_multi = this->create_switch_multi();
+		_switch_multi->setParentItem ( this );
 	}
 }
 
-void
-GW_Switches_Joinable::init_switch_multi ( )
+
+bool
+GW_Switches_Joinable::has_focus ( )
 {
-	_switch_multi = this->create_switch_multi();
-	_switch_multi->setParentItem ( this );
+	bool res ( false );
+	if ( _switch_multi != 0 ) {
+		res = _switch_multi->hasFocus();
+	} else if ( _switches.size() > 0 ) {
+		for ( int ii=0; ii < _switches.size(); ++ii ) {
+			if ( _switches[ii]->hasFocus() ) {
+				res = true;
+				break;
+			}
+		}
+	}
+	return res;
+}
+
+void
+GW_Switches_Joinable::set_focus (
+	Qt::FocusReason focusReason_n )
+{
+	if ( _switch_multi != 0 ) {
+		_switch_multi->setFocus ( focusReason_n );
+	} else if ( _switches.size() > 0 ) {
+		_switches[0]->setFocus ( focusReason_n );
+	}
+}
+
+bool
+GW_Switches_Joinable::sceneEventFilter (
+	QGraphicsItem * watched_n,
+	QEvent * event_n )
+{
+	(void) watched_n;
+	bool res ( false );
+	if ( event_n->type() == QEvent::KeyPress ) {
+		QKeyEvent * kev ( static_cast < QKeyEvent * > ( event_n ) );
+		if ( scene_db()->inputs_db()->action_key_match ( scene_db()->ikid_joinable_toggle_joined, kev->key() ) ) {
+			toggle_joined();
+			res = true;
+		}
+	}
+	return res;
 }
 
 

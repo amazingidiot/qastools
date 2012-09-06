@@ -219,6 +219,7 @@ GW_Sliders_Joinable::sceneEventFilter (
 	QGraphicsItem * watched_n,
 	QEvent * event_n )
 {
+	(void) watched_n;
 	bool res ( false );
 	if ( event_n->type() == QEvent::KeyPress ) {
 		QKeyEvent * kev ( static_cast < QKeyEvent * > ( event_n ) );
