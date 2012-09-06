@@ -44,7 +44,7 @@ Timer_Server::destroy_timer_obj (
 
 /// @brief Creates a timer and returns its id
 unsigned int
-Timer_Server::create_timer (
+Timer_Server::register_timer (
 	unsigned int interval_msec_n )
 {
 	{
@@ -56,7 +56,7 @@ Timer_Server::create_timer (
 }
 
 void
-Timer_Server::destroy_timer (
+Timer_Server::unregister_timer (
 	unsigned int timer_id_n )
 {
 	if ( timer_id_n != 0 ) {

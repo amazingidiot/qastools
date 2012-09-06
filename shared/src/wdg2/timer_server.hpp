@@ -38,11 +38,11 @@ class Timer_Server
 
 	/// @brief Creates a timer and returns its id
 	unsigned int
-	create_timer (
+	register_timer (
 		unsigned int interval_msec_n );
 
 	void
-	destroy_timer (
+	unregister_timer (
 		unsigned int timer_id_n );
 
 

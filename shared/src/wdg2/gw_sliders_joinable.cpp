@@ -9,6 +9,9 @@
 #include "gw_sliders_joinable.hpp"
 #include "wdg2/gw_slider.hpp"
 #include "wdg2/gw_slider_multi.hpp"
+#include "wdg2/scene_database.hpp"
+#include <QEvent>
+#include <QKeyEvent>
 #include <iostream>
 
 namespace Wdg2
@@ -23,6 +26,7 @@ _slider_multi ( 0 ),
 _num_sliders ( 0 )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
+	setFiltersChildEvents ( true );
 }
 
 GW_Sliders_Joinable::~GW_Sliders_Joinable ( )
@@ -108,38 +112,47 @@ void
 GW_Sliders_Joinable::select_joined (
 	bool flag_n )
 {
-	if ( flag_n ) {
-		select_joined();
-	} else {
-		select_separate();
-	}
-}
-
-void
-GW_Sliders_Joinable::select_separate ( )
-{
-	if ( ( num_sliders() > 0 ) &&
-		!_state_flags.has_any ( SF_SEPARATE ) )
-	{
-		destroy_sliders();
-		_state_flags.unset ( SF_JOINED );
-		_state_flags.set ( SF_SEPARATE );
-		init_sliders_single();
-		update_geometries();
+	if ( num_sliders() > 0 ) {
+		unsigned int flag_set ( SF_JOINED );
+		unsigned int flag_unset ( SF_SEPARATE );
+		if ( !flag_n ) {
+			::std::swap ( flag_set, flag_unset );
+		}
+		if ( !_state_flags.has_any ( flag_set ) ) {
+			const bool had_focus ( has_focus() );
+			destroy_sliders();
+			_state_flags.unset ( flag_unset );
+			_state_flags.set ( flag_set );
+			init_sliders();
+			update_geometries();
+			if ( had_focus ) {
+				set_focus();
+			}
+		}
 	}
 }
 
 void
 GW_Sliders_Joinable::select_joined ( )
 {
-	if ( ( num_sliders() > 0 ) &&
-		!_state_flags.has_any ( SF_JOINED ) )
-	{
-		destroy_sliders();
-		_state_flags.unset ( SF_SEPARATE );
-		_state_flags.set ( SF_JOINED );
-		init_slider_multi();
-		update_geometries();
+	select_joined ( true );
+}
+
+void
+GW_Sliders_Joinable::select_separate ( )
+{
+	select_joined ( false );
+}
+
+void
+GW_Sliders_Joinable::toggle_joined ( )
+{
+	if ( _state_flags.has_any ( SF_JOINED | SF_SEPARATE ) ) {
+		if ( _state_flags.has_any ( SF_JOINED ) ) {
+			select_separate();
+		} else {
+			select_joined();
+		}
 	}
 }
 
@@ -152,7 +165,6 @@ GW_Sliders_Joinable::destroy_sliders ( )
 		}
 		_sliders.clear();
 	}
-
 	if ( _slider_multi != 0 ) {
 		delete _slider_multi;
 		_slider_multi = 0;
@@ -160,20 +172,62 @@ GW_Sliders_Joinable::destroy_sliders ( )
 }
 
 void
-GW_Sliders_Joinable::init_sliders_single ( )
+GW_Sliders_Joinable::init_sliders ( )
 {
-	for ( unsigned int ii=0; ii < num_sliders(); ++ii ) {
-		::Wdg2::GW_Slider * slider ( this->create_single_slider ( ii ) );
-		slider->setParentItem ( this );
-		_sliders.append ( slider );
+	if ( _state_flags.has_any ( SF_SEPARATE ) ) {
+		for ( unsigned int ii=0; ii < num_sliders(); ++ii ) {
+			::Wdg2::GW_Slider * slider ( this->create_single_slider ( ii ) );
+			slider->setParentItem ( this );
+			_sliders.append ( slider );
+		}
+	} else if ( _state_flags.has_any ( SF_JOINED ) ) {
+		_slider_multi = this->create_multi_slider();
+		_slider_multi->setParentItem ( this );
 	}
 }
 
-void
-GW_Sliders_Joinable::init_slider_multi ( )
+bool
+GW_Sliders_Joinable::has_focus ( )
 {
-	_slider_multi = this->create_multi_slider();
-	_slider_multi->setParentItem ( this );
+	bool res ( false );
+	if ( _slider_multi != 0 ) {
+		res = _slider_multi->hasFocus();
+	} else if ( _sliders.size() > 0 ) {
+		for ( int ii=0; ii < _sliders.size(); ++ii ) {
+			if ( _sliders[ii]->hasFocus() ) {
+				res = true;
+				break;
+			}
+		}
+	}
+	return res;
+}
+
+void
+GW_Sliders_Joinable::set_focus (
+	Qt::FocusReason focusReason_n )
+{
+	if ( _slider_multi != 0 ) {
+		_slider_multi->setFocus ( focusReason_n );
+	} else if ( _sliders.size() > 0 ) {
+		_sliders[0]->setFocus ( focusReason_n );
+	}
+}
+
+bool
+GW_Sliders_Joinable::sceneEventFilter (
+	QGraphicsItem * watched_n,
+	QEvent * event_n )
+{
+	bool res ( false );
+	if ( event_n->type() == QEvent::KeyPress ) {
+		QKeyEvent * kev ( static_cast < QKeyEvent * > ( event_n ) );
+		if ( scene_db()->inputs_db()->action_key_match ( scene_db()->ikid_joinable_toggle_joined, kev->key() ) ) {
+			toggle_joined();
+			res = true;
+		}
+	}
+	return res;
 }
 
 

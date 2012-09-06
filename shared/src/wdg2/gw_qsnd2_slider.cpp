@@ -28,7 +28,7 @@ _slider_proxy ( slider_proxy_n )
 
 GW_QSnd2_Slider::~GW_QSnd2_Slider ( )
 {
-	_slider_proxy.set_val_change_callback ( ::Context_Callback() );
+	_slider_proxy.reset_val_change_callback();
 }
 
 void

@@ -91,6 +91,9 @@ class GW_Sliders_Joinable :
 	select_joined (
 		bool flag_n );
 
+	void
+	toggle_joined ( );
+
 
 	const ::Wdg2::GW_Joinable_Sliders_Settings &
 	settings ( ) const;
@@ -117,6 +120,23 @@ class GW_Sliders_Joinable :
 	value_map ( ) const;
 
 
+	bool
+	has_focus ( );
+
+	void
+	set_focus (
+		Qt::FocusReason focusReason_n = Qt::OtherFocusReason );
+
+
+	// Protected methods
+	protected:
+
+	bool
+	sceneEventFilter (
+		QGraphicsItem * watched_n,
+		QEvent * event_n );
+
+
 	// Private methods
 	private:
 
@@ -127,10 +147,7 @@ class GW_Sliders_Joinable :
 	destroy_sliders ( );
 
 	void
-	init_sliders_single ( );
-
-	void
-	init_slider_multi ( );
+	init_sliders ( );
 
 	virtual
 	::Wdg2::GW_Slider *

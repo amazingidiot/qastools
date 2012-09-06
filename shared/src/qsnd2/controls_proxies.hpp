@@ -177,6 +177,9 @@ class Proxy
 	set_val_change_callback (
 		const ::Context_Callback & callback_n );
 
+	void
+	reset_val_change_callback ( );
+
 
 	///@brief calls the val_change_callback
 	///
@@ -388,6 +391,9 @@ class Proxies_Group1 :
 	void
 	set_val_change_callback (
 		const ::Context_Callback & callback_n );
+
+	void
+	reset_val_change_callback ( );
 
 
 	void

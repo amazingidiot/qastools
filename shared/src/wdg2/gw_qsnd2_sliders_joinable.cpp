@@ -55,6 +55,7 @@ GW_QSnd2_Sliders_Joinable::create_multi_slider ( )
 		new ::Wdg2::GW_QSnd2_Slider_Multi ( proxies_grp(), scene_db() ) );
 	slider->set_value_map ( &value_map() );
 	slider->read_value_from_proxy();
+	slider->write_value_to_proxy();
 	return slider;
 }
 

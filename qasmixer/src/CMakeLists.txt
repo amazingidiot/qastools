@@ -83,6 +83,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_slider.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_slider_multi.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_sliders_joinable.cpp
+	${SHARED_SRC_DIR}/wdg2/input_keys_database.cpp
 	${SHARED_SRC_DIR}/wdg2/scene_database.cpp
 	${SHARED_SRC_DIR}/wdg2/timer_server.cpp
 	${SHARED_SRC_DIR}/wdg2/timer_callback.cpp

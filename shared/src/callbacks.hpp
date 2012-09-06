@@ -20,12 +20,16 @@ struct Context_Callback
 		void * context_n = 0,
 		Func_t func_n = 0 );
 
+	void
+	reset ( );
+
 	void *
 	context ( ) const;
 
 	void
 	set_context (
 		void * context_n );
+
 
 	Func_t
 	func ( ) const;
@@ -34,10 +38,12 @@ struct Context_Callback
 	set_func (
 		Func_t func_n );
 
+
 	void
 	set (
 		void * context_n,
 		Func_t func_n);
+
 
 	bool
 	is_valid ( ) const;
@@ -63,6 +69,14 @@ Context_Callback::Context_Callback (
 _context ( context_n ),
 _func ( func_n )
 {
+}
+
+inline
+void
+Context_Callback::reset ( )
+{
+	_context = 0;
+	_func = 0;
 }
 
 inline
@@ -141,6 +155,9 @@ struct Context_Callback_UInt
 		Func_t func_n = 0,
 		unsigned int val_n = 0 );
 
+	void
+	reset ( );
+
 	void *
 	context ( ) const;
 
@@ -200,6 +217,15 @@ _context ( context_n ),
 _func ( func_n ),
 _value ( val_n )
 {
+}
+
+inline
+void
+Context_Callback_UInt::reset ( )
+{
+	_context = 0;
+	_func = 0;
+	_value = 0;
 }
 
 inline

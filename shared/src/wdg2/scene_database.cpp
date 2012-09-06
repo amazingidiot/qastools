@@ -21,8 +21,20 @@ Scene_Database::Scene_Database ( )
 	_pxm_server = new ::dpe2::Pixmap_Server;
 	_pxm_server->start();
 	_timer_server = new ::Wdg2::Timer_Server;
+	_inputs_db = new ::Wdg2::Input_Keys_Database;
 
-	tid_animation = _timer_server->create_timer ( 1000 / 60 );
+	tid_animation = timer_server()->register_timer ( 1000 / 60 );
+
+	{
+		unsigned int ikey_id ( inputs_db()->register_action() );
+		{
+			::Wdg2::Input_Action ikey ( *inputs_db()->action ( ikey_id ) );
+			ikey.default_key = Qt::Key_S;
+			ikey.reset_to_default();
+			inputs_db()->set_action ( ikey_id, ikey );
+		}
+		ikid_joinable_toggle_joined = ikey_id;
+	}
 }
 
 Scene_Database::~Scene_Database ( )
@@ -32,8 +44,13 @@ Scene_Database::~Scene_Database ( )
 	while ( _themes.size() != 0 ) {
 		remove_theme ( _themes.back() );
 	}
+
+	inputs_db()->unregister_action ( ikid_joinable_toggle_joined );
+	timer_server()->unregister_timer ( tid_animation );
+
 	delete _pxm_server;
 	delete _timer_server;
+	delete _inputs_db;
 }
 
 void

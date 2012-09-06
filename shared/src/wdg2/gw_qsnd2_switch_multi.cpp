@@ -28,6 +28,7 @@ _proxies_group ( proxies_group_n )
 
 GW_QSnd2_Switch_Multi::~GW_QSnd2_Switch_Multi ( )
 {
+	_proxies_group.reset_val_change_callback();
 }
 
 void

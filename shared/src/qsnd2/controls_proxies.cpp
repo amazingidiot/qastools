@@ -48,6 +48,12 @@ Proxy::set_val_change_callback (
 }
 
 void
+Proxy::reset_val_change_callback ( )
+{
+	_val_change_callback.reset();
+}
+
+void
 Proxy::notify_value_changed ( ) const
 {
 	val_change_callback().call_if_valid();
@@ -147,6 +153,12 @@ Proxies_Group1::set_val_change_callback (
 	const ::Context_Callback & callback_n )
 {
 	_val_change_callback = callback_n;
+}
+
+void
+Proxies_Group1::reset_val_change_callback ( )
+{
+	_val_change_callback.reset();
 }
 
 void

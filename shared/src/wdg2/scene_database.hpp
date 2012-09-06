@@ -11,6 +11,7 @@
 
 #include "dpe2/pixmap_server.hpp"
 #include "timer_server.hpp"
+#include "input_keys_database.hpp"
 #include <QList>
 
 // Forward declaration
@@ -41,6 +42,9 @@ class Scene_Database
 	::Wdg2::Timer_Server *
 	timer_server ( ) const;
 
+	::Wdg2::Input_Keys_Database *
+	inputs_db ( ) const;
+
 
 	void
 	install_theme (
@@ -54,7 +58,11 @@ class Scene_Database
 	// Public attributes
 	public:
 
+	// Timer ids
 	unsigned int tid_animation;
+
+	// Input key ids
+	unsigned int ikid_joinable_toggle_joined;
 
 
 	// Private attributes
@@ -62,6 +70,7 @@ class Scene_Database
 
 	::dpe2::Pixmap_Server * _pxm_server;
 	::Wdg2::Timer_Server * _timer_server;
+	::Wdg2::Input_Keys_Database * _inputs_db;
 	QList < ::Wdg2::Theme * > _themes;
 };
 
@@ -78,6 +87,13 @@ inline
 Scene_Database::timer_server ( ) const
 {
 	return _timer_server;
+}
+
+inline
+::Wdg2::Input_Keys_Database *
+Scene_Database::inputs_db ( ) const
+{
+	return _inputs_db;
 }
 
 
