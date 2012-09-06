@@ -29,7 +29,7 @@ Scene_Database::Scene_Database ( )
 		unsigned int ikey_id ( inputs_db()->register_action() );
 		{
 			::Wdg2::Input_Action ikey ( *inputs_db()->action ( ikey_id ) );
-			ikey.default_key = Qt::Key_S;
+			ikey.default_key = Qt::Key_J;
 			ikey.reset_to_default();
 			inputs_db()->set_action ( ikey_id, ikey );
 		}

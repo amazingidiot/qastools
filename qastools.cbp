@@ -467,6 +467,8 @@
 		<Unit filename="shared/src/wdg2/gw_widget.hpp" />
 		<Unit filename="shared/src/wdg2/gw_widget_element.cpp" />
 		<Unit filename="shared/src/wdg2/gw_widget_element.hpp" />
+		<Unit filename="shared/src/wdg2/input_keys_database.cpp" />
+		<Unit filename="shared/src/wdg2/input_keys_database.hpp" />
 		<Unit filename="shared/src/wdg2/int_math.cpp" />
 		<Unit filename="shared/src/wdg2/int_math.hpp" />
 		<Unit filename="shared/src/wdg2/scene_database.cpp" />
