@@ -155,7 +155,7 @@ GW_Scroll_Area::update_geometries ( )
 		}
 		// Create scrollbar on demand and set it up
 		if ( _scrollbar == 0 ) {
-			_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( scene_db(), this ) );
+			_scrollbar.reset ( new ::Wdg2::GW_Scroll_Bar ( scene_db(), this ) );
 			_scrollbar->set_val_change_callback (
 				::Context_Callback ( this, ::Wdg2::GW_Scroll_Area::read_panels_shift_cb ) );
 		}

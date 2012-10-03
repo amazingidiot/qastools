@@ -142,7 +142,7 @@ GW_Switches_Pad::update_geometries ( )
 				lsizes.height = size().height();
 				lsizes.height -= sbar_hgap + sbar_height;
 				if ( _scrollbar == 0 ) {
-					_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( scene_db(), this ) );
+					_scrollbar.reset ( new ::Wdg2::GW_Scroll_Bar ( scene_db(), this ) );
 					_scrollbar->set_val_change_callback (
 						::Context_Callback ( this, ::Wdg2::GW_Switches_Pad::read_panels_shift_cb ) );
 				}

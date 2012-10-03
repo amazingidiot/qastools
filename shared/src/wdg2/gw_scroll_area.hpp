@@ -10,7 +10,7 @@
 #define __INC_wdg2_gw_scroll_area_hpp__
 
 #include "gw_widget.hpp"
-#include "gw_scrollbar.hpp"
+#include "gw_scroll_bar.hpp"
 #include <QScopedPointer>
 
 namespace Wdg2
@@ -103,7 +103,7 @@ class GW_Scroll_Area :
 	int _panels_shift;
 	int _panels_shift_max;
 	::Wdg2::GW_Widget _viewport;
-	QScopedPointer < ::Wdg2::GW_Scrollbar > _scrollbar;
+	QScopedPointer < ::Wdg2::GW_Scroll_Bar > _scrollbar;
 	::Wdg2::GW_Widget * _widget;
 };
 

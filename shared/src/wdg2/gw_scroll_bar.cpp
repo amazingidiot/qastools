@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_scrollbar.hpp"
+#include "gw_scroll_bar.hpp"
 #include "scene_database.hpp"
 #include "theme_painters.hpp"
 #include <limits.h>
@@ -34,10 +34,10 @@ GW_Scrollbar_Button::~GW_Scrollbar_Button ( )
 }
 
 inline
-::Wdg2::GW_Scrollbar *
+::Wdg2::GW_Scroll_Bar *
 GW_Scrollbar_Button::scrollbar ( ) const
 {
-	return static_cast < ::Wdg2::GW_Scrollbar * > ( parentItem() );
+	return static_cast < ::Wdg2::GW_Scroll_Bar * > ( parentItem() );
 }
 
 void
@@ -111,7 +111,7 @@ GW_Scrollbar_Handle::GW_Scrollbar_Handle (
 }
 
 
-GW_Scrollbar::GW_Scrollbar (
+GW_Scroll_Bar::GW_Scroll_Bar (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
@@ -143,19 +143,19 @@ _slider ( scene_db(),
 		::Wdg2::PRK_WIDGET_TYPE, ::Wdg2::WGT_SCROLLBAR );
 
 	_slider.set_val_change_callback (
-		::Context_Callback ( this, ::Wdg2::GW_Scrollbar::read_slider_value_cb ) );
+		::Context_Callback ( this, ::Wdg2::GW_Scroll_Bar::read_slider_value_cb ) );
 	_slider.set_value_map ( &_value_map );
 	_slider.set_orientation ( _orientation );
 }
 
-GW_Scrollbar::~GW_Scrollbar ( )
+GW_Scroll_Bar::~GW_Scroll_Bar ( )
 {
 	scene_db()->timer_server()->release_callback (
 		_anim_timer_id );
 }
 
 void
-GW_Scrollbar::set_size (
+GW_Scroll_Bar::set_size (
 	const QSize & size_n )
 {
 	if ( size() != size_n ) {
@@ -165,7 +165,7 @@ GW_Scrollbar::set_size (
 }
 
 void
-GW_Scrollbar::set_orientation (
+GW_Scroll_Bar::set_orientation (
 	Qt::Orientation orientation_n )
 {
 	if ( _orientation != orientation_n ) {
@@ -176,7 +176,7 @@ GW_Scrollbar::set_orientation (
 }
 
 void
-GW_Scrollbar::set_int_span (
+GW_Scroll_Bar::set_int_span (
 	unsigned int span_n )
 {
 	if ( span_n != _int_span ) {
@@ -196,7 +196,7 @@ GW_Scrollbar::set_int_span (
 }
 
 void
-GW_Scrollbar::set_int_value (
+GW_Scroll_Bar::set_int_value (
 	unsigned int value_n )
 {
 	if ( value_n > _int_span ) {
@@ -210,14 +210,14 @@ GW_Scrollbar::set_int_value (
 }
 
 void
-GW_Scrollbar::set_val_change_callback (
+GW_Scroll_Bar::set_val_change_callback (
 	const ::Context_Callback & cb_n )
 {
 	_val_change_cb = cb_n;
 }
 
 void
-GW_Scrollbar::update_geometries ( )
+GW_Scroll_Bar::update_geometries ( )
 {
 	unsigned char btn_low_part;
 	unsigned char btn_high_part;
@@ -294,7 +294,7 @@ GW_Scrollbar::update_geometries ( )
 }
 
 void
-GW_Scrollbar::read_slider_value ( )
+GW_Scroll_Bar::read_slider_value ( )
 {
 	const long sval ( _slider.int_value() );
 	if ( sval != _int_value ) {
@@ -304,23 +304,23 @@ GW_Scrollbar::read_slider_value ( )
 }
 
 void
-GW_Scrollbar::read_slider_value_cb (
+GW_Scroll_Bar::read_slider_value_cb (
 	void * context_n )
 {
-	::Wdg2::GW_Scrollbar * sbar (
-		reinterpret_cast < ::Wdg2::GW_Scrollbar * > ( context_n ) );
+	::Wdg2::GW_Scroll_Bar * sbar (
+		reinterpret_cast < ::Wdg2::GW_Scroll_Bar * > ( context_n ) );
 	sbar->read_slider_value();
 }
 
 void
-GW_Scrollbar::set_anim_speed (
+GW_Scroll_Bar::set_anim_speed (
 	float speed_n )
 {
 	_anim_speed = speed_n;
 }
 
 void
-GW_Scrollbar::begin_move (
+GW_Scroll_Bar::begin_move (
 	bool forward_n )
 {
 	if ( forward_n ) {
@@ -333,7 +333,7 @@ GW_Scrollbar::begin_move (
 }
 
 void
-GW_Scrollbar::end_move (
+GW_Scroll_Bar::end_move (
 	bool forward_n )
 {
 	if ( forward_n ) {
@@ -346,7 +346,7 @@ GW_Scrollbar::end_move (
 }
 
 void
-GW_Scrollbar::animation_start ( )
+GW_Scroll_Bar::animation_start ( )
 {
 	::Wdg2::Timer_Server * tserv ( scene_db()->timer_server() );
 	if ( !tserv->cback_is_running ( _anim_timer_id ) ) {
@@ -355,7 +355,7 @@ GW_Scrollbar::animation_start ( )
 }
 
 void
-GW_Scrollbar::animation_stop ( )
+GW_Scroll_Bar::animation_stop ( )
 {
 	::Wdg2::Timer_Server * tserv ( scene_db()->timer_server() );
 	tserv->cback_abort_request ( _anim_timer_id );
@@ -363,7 +363,7 @@ GW_Scrollbar::animation_stop ( )
 }
 
 void
-GW_Scrollbar::animation_update ( )
+GW_Scroll_Bar::animation_update ( )
 {
 	::Wdg2::Timer_Server & tserv ( *scene_db()->timer_server() );
 	const int speed ( (int)_anim_forward - (int)_anim_backward );
@@ -378,17 +378,17 @@ GW_Scrollbar::animation_update ( )
 }
 
 void
-GW_Scrollbar::move_animation_cb (
+GW_Scroll_Bar::move_animation_cb (
 	void * context_n,
 	unsigned int msec_n )
 {
-	::Wdg2::GW_Scrollbar * cref (
-		reinterpret_cast < ::Wdg2::GW_Scrollbar * > ( context_n ) );
+	::Wdg2::GW_Scroll_Bar * cref (
+		reinterpret_cast < ::Wdg2::GW_Scroll_Bar * > ( context_n ) );
 	cref->move_animation ( msec_n );
 }
 
 void
-GW_Scrollbar::move_animation (
+GW_Scroll_Bar::move_animation (
 	unsigned int msec_n )
 {
 	int steps;

@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_gw_scrollbar_hpp__
-#define __INC_wdg2_gw_scrollbar_hpp__
+#ifndef __INC_wdg2_gw_scroll_bar_hpp__
+#define __INC_wdg2_gw_scroll_bar_hpp__
 
 #include "flags.hpp"
 #include "callbacks.hpp"
@@ -19,14 +19,14 @@
 // Forward declaration
 namespace Wdg2
 {
-	class GW_Scrollbar;
+	class GW_Scroll_Bar;
 }
 
 namespace Wdg2
 {
 
 
-/// @brief Button for the GW_Scrollbar
+/// @brief Button for the GW_Scroll_Bar
 ///
 class GW_Scrollbar_Button :
 	public ::Wdg2::GW_Pixmaps
@@ -40,7 +40,7 @@ class GW_Scrollbar_Button :
 
 	~GW_Scrollbar_Button ( );
 
-	::Wdg2::GW_Scrollbar *
+	::Wdg2::GW_Scroll_Bar *
 	scrollbar ( ) const;
 
 	bool
@@ -97,19 +97,19 @@ class GW_Scrollbar_Handle :
 };
 
 
-/// @brief GW_Scrollbar
+/// @brief GW_Scroll_Bar
 ///
-class GW_Scrollbar :
+class GW_Scroll_Bar :
 	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
 
-	GW_Scrollbar (
+	GW_Scroll_Bar (
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
-	~GW_Scrollbar ( );
+	~GW_Scroll_Bar ( );
 
 
 	void
@@ -235,35 +235,35 @@ class GW_Scrollbar :
 
 inline
 Qt::Orientation
-GW_Scrollbar::orientation ( ) const
+GW_Scroll_Bar::orientation ( ) const
 {
 	return _orientation;
 }
 
 inline
 unsigned int
-GW_Scrollbar::int_span ( ) const
+GW_Scroll_Bar::int_span ( ) const
 {
 	return _int_span;
 }
 
 inline
 unsigned int
-GW_Scrollbar::int_value ( ) const
+GW_Scroll_Bar::int_value ( ) const
 {
 	return _int_value;
 }
 
 inline
 const ::Context_Callback &
-GW_Scrollbar::val_change_callback ( ) const
+GW_Scroll_Bar::val_change_callback ( ) const
 {
 	return _val_change_cb;
 }
 
 inline
 float
-GW_Scrollbar::anim_speed ( ) const
+GW_Scroll_Bar::anim_speed ( ) const
 {
 	return _anim_speed;
 }

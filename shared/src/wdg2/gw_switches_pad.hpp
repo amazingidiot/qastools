@@ -10,7 +10,7 @@
 #define __INC_wdg2_gw_switches_pad_hpp__
 
 #include "gw_widget.hpp"
-#include "gw_scrollbar.hpp"
+#include "gw_scroll_bar.hpp"
 #include <QGraphicsItem>
 #include <QScopedPointer>
 
@@ -90,7 +90,7 @@ class GW_Switches_Pad :
 	int _panels_shift_max;
 
 	QScopedPointer < ::Wdg2::GW_SwPad_Group4 > _group4;
-	QScopedPointer < ::Wdg2::GW_Scrollbar > _scrollbar;
+	QScopedPointer < ::Wdg2::GW_Scroll_Bar > _scrollbar;
 };
 
 
