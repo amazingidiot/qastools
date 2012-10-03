@@ -8,10 +8,11 @@
 
 #include "gw_slider.hpp"
 #include "theme_painters.hpp"
+#include <cmath>
+#include <cassert>
+#include <iostream>
 #include <QEvent>
 #include <QGraphicsSceneMouseEvent>
-#include <cmath>
-#include <iostream>
 
 namespace Wdg2
 {
@@ -72,6 +73,11 @@ GW_Slider::load_settings (
 	const ::Wdg2::GW_Slider_Settings & settings_n )
 {
 	_settings = settings_n;
+	assert ( _settings.size.width() >= 0 );
+	assert ( _settings.size.height() >= 0 );
+	if ( ( _settings.size.width() < 0 ) || ( _settings.size.height() < 0 ) ) {
+		_settings.size = QSize ( 0, 0 );
+	}
 	::Wdg2::GW_Widget::set_size ( _settings.size );
 	update_geometries();
 }

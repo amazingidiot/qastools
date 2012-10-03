@@ -24,6 +24,7 @@ _viewport ( scene_db_n, this ),
 _widget ( 0 )
 {
 	setFlags ( QGraphicsItem::ItemHasNoContents );
+	_viewport.setFlags ( QGraphicsItem::ItemHasNoContents | QGraphicsItem::ItemClipsChildrenToShape );
 }
 
 GW_Scroll_Area::~GW_Scroll_Area ( )
@@ -77,7 +78,9 @@ GW_Scroll_Area::set_scroll_orientation (
 	}
 	if ( _scroll_orientation != orientation_n ) {
 		_scroll_orientation = orientation_n;
-		update_geometries();
+		if ( _widget != 0 ) {
+			update_geometries();
+		}
 	}
 }
 
@@ -117,29 +120,31 @@ GW_Scroll_Area::update_geometries ( )
 {
 	const unsigned int sbar_width ( 16 );
 	const unsigned int sbar_gap ( 2 );
+	const unsigned int sbar_wspace ( sbar_width + sbar_gap );
 
+	unsigned int scroll_length ( 0 );
 	QSize size_off ( 0, 0 );
 	QSize size_on ( 0, 0 );
+
 	if ( ( size().width() > 0 ) && ( size().height() ) ) {
 		size_off = size();
 		size_on = size();
 	}
 	if ( scroll_orientation() == Qt::Horizontal ) {
-		if ( size_on.height() > (int)sbar_width ) {
-			size_on.rheight() -= sbar_width;
-		}
-		if ( size_on.height() > (int)sbar_gap ) {
-			size_on.rheight() -= sbar_gap;
+		if ( (unsigned int)size_on.height() > sbar_wspace ) {
+			size_on.rheight() -= sbar_wspace;
+			++scroll_length;
 		}
 	} else {
-		if ( size_on.width() > (int)sbar_width ) {
-			size_on.rwidth() -= sbar_width;
-		}
-		if ( size_on.width() > (int)sbar_gap ) {
-			size_on.rwidth() -= sbar_gap;
+		if ( (unsigned int)size_on.width() > sbar_wspace ) {
+			size_on.rwidth() -= sbar_wspace;
+			++scroll_length;
 		}
 	}
-	const unsigned int scroll_length ( this->viewport_resize ( size_off, size_on ) );
+
+	if ( scroll_length != 0 ) {
+		scroll_length = this->viewport_resize ( size_off, size_on );
+	}
 
 	_panels_shift_max = 0;
 	_panels_shift = 0;
@@ -156,13 +161,14 @@ GW_Scroll_Area::update_geometries ( )
 		}
 		_scrollbar->set_orientation ( scroll_orientation() );
 		{
+			// position and size
 			QPointF sb_pos ( 0, 0 );
 			QSize sb_size ( size_off );
 			if ( scroll_orientation() == Qt::Horizontal ) {
-				sb_pos.setX ( size_on.height() );
+				sb_pos.setY ( size_on.height() + sbar_gap );
 				sb_size.setHeight ( sbar_width );
 			} else {
-				sb_pos.setX ( size_on.width() );
+				sb_pos.setX ( size_on.width() + sbar_gap );
 				sb_size.setWidth ( sbar_width );
 			}
 			_scrollbar->setPos ( sb_pos );

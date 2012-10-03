@@ -12,8 +12,6 @@
 #include <iostream>
 #include <cmath>
 #include <QGraphicsScene>
-#include <QEvent>
-#include <QGraphicsSceneMouseEvent>
 
 namespace Wdg2
 {
@@ -22,12 +20,9 @@ namespace Wdg2
 GW_Sliders_Pad::GW_Sliders_Pad (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
-::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_snd_controls ( 0 ),
-_panels_shift ( 0 ),
-_panels_shift_max ( 0 )
+::Wdg2::GW_Scroll_Area ( scene_db_n, parent_n ),
+_snd_controls ( 0 )
 {
-	setFlags ( QGraphicsItem::ItemHasNoContents );
 }
 
 GW_Sliders_Pad::~GW_Sliders_Pad ( )
@@ -36,151 +31,68 @@ GW_Sliders_Pad::~GW_Sliders_Pad ( )
 }
 
 void
-GW_Sliders_Pad::set_size (
-	const QSize & size_n )
-{
-	if ( size() != size_n ) {
-		::Wdg2::GW_Widget::set_size ( size_n );
-		update_geometries();
-	}
-}
-
-void
 GW_Sliders_Pad::set_snd_controls (
 	::QSnd2::Controls * controls_n )
 {
 	if ( _snd_controls != 0 ) {
-		destroy_scene_items();
+		destroy_items();
 	}
-
 	_snd_controls = controls_n;
-
 	if ( _snd_controls != 0 ) {
-		build_scene_items();
-		update_geometries();
+		build_items();
 	}
 }
 
 void
-GW_Sliders_Pad::set_panels_shift (
-	long amount_n )
-{
-	if ( amount_n < 0 ) {
-		amount_n = 0;
-	}
-	if ( amount_n > (long)_panels_shift_max ) {
-		amount_n = _panels_shift_max;
-	}
-	if ( _panels_shift != amount_n ) {
-		_panels_shift = amount_n;
-		update_panels_position();
-	}
-}
-
-void
-GW_Sliders_Pad::read_panels_shift ( )
-{
-	set_panels_shift ( _scrollbar->int_value() );
-}
-
-void
-GW_Sliders_Pad::read_panels_shift_cb (
-	void * context_n )
-{
-	::Wdg2::GW_Sliders_Pad & pad (
-		*reinterpret_cast < ::Wdg2::GW_Sliders_Pad * > ( context_n ) );
-	pad.read_panels_shift();
-}
-
-void
-GW_Sliders_Pad::destroy_scene_items ( )
+GW_Sliders_Pad::destroy_items ( )
 {
 	QGraphicsScene * qscene ( scene() );
 	if ( _group4 != 0 ) {
 		if ( qscene != 0 ) {
 			qscene->removeItem ( _group4.data() );
 		}
+		take_widget();
 		_group4.reset();
-	}
-	if ( _scrollbar != 0 ) {
-		if ( qscene != 0 ) {
-			qscene->removeItem ( _scrollbar.data() );
-		}
-		_scrollbar.reset();
 	}
 }
 
 void
-GW_Sliders_Pad::build_scene_items ( )
+GW_Sliders_Pad::build_items ( )
 {
 	if ( _snd_controls->num_groups() > 0 ) {
 		_group4.reset (
 			new ::Wdg2::GW_SlPad_Group4 ( *_snd_controls->group ( 0 ), scene_db() ) );
 		if ( _group4->num_children() > 0 ) {
-			_group4->setParentItem ( this );
+			set_widget ( _group4.data() );
 		} else {
 			_group4.reset();
 		}
 	}
 }
 
-void
-GW_Sliders_Pad::update_geometries ( )
+unsigned int
+GW_Sliders_Pad::viewport_resize (
+	QSize size_off_n,
+	QSize size_on_n )
 {
+	unsigned int res ( 0 );
 	if ( _group4 != 0 ) {
 		::Wdg2::GW_SlPad_Group4_Sizes lsizes;
-		lsizes.height = 0;
+		lsizes.height = size_off_n.height();
 		lsizes.slider_width = 16;
 		lsizes.channels_gap = 8;
 		lsizes.group2_hgap = 16;
 		lsizes.group3_hgap = 16;
-		if ( size().height() > 0 ) {
-			lsizes.height = size().height();
-		}
 
-		const unsigned int sbar_height ( 16 );
-		const unsigned int sbar_gap ( 2 );
-		{
-			bool enable_scrollbar ( false );
-			const unsigned int iwidth ( _group4->int_width_probe ( lsizes ) );
-			if ( (int)iwidth > size().width() ) {
-				if ( lsizes.height > ( sbar_gap + sbar_height ) ) {
-					lsizes.height -= ( sbar_gap + sbar_height );
-					enable_scrollbar = true;
-				}
-			}
-
-			if ( enable_scrollbar ) {
-				_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( scene_db(), this ) );
-				_scrollbar->set_val_change_callback (
-					::Context_Callback ( this, ::Wdg2::GW_Sliders_Pad::read_panels_shift_cb ) );
-			} else {
-				_scrollbar.reset();
-			}
+		const unsigned int iwidth ( _group4->int_width_probe ( lsizes ) );
+		if ( iwidth > (unsigned int)size_off_n.width() ) {
+			lsizes.height = size_on_n.height();
+			res = iwidth;
 		}
 
 		_group4->set_sizes ( lsizes );
-		if ( _scrollbar != 0 ) {
-			_panels_shift_max = _group4->int_width() - size().width();
-			_scrollbar->setPos ( QPointF ( 0.0, lsizes.height + sbar_gap ) );
-			_scrollbar->set_size ( QSize ( size().width(), sbar_height ) );
-			_scrollbar->set_int_span ( _panels_shift_max );
-			_panels_shift = _scrollbar->int_value();
-		} else {
-			_panels_shift_max = 0;
-			_panels_shift = 0;
-		}
-
-		update_panels_position();
 	}
-}
-
-void
-GW_Sliders_Pad::update_panels_position ( )
-{
-	if ( _group4 != 0 ) {
-		_group4->setPos ( QPointF ( -double ( _panels_shift ), 0.0 ) );
-	}
+	return res;
 }
 
 

@@ -9,13 +9,16 @@
 #ifndef __INC_wdg2_gw_sliders_pad_hpp__
 #define __INC_wdg2_gw_sliders_pad_hpp__
 
-#include "gw_widget.hpp"
-#include "gw_scrollbar.hpp"
+#include "gw_scroll_area.hpp"
 #include <QScopedPointer>
 
-// Forward declaration
-namespace Wdg2 { class GW_SlPad_Group4; }
-namespace QSnd2 { class Controls; }
+// Forward declarations
+namespace Wdg2 {
+	class GW_SlPad_Group4;
+}
+namespace QSnd2 {
+	class Controls;
+}
 
 namespace Wdg2
 {
@@ -24,7 +27,7 @@ namespace Wdg2
 /// @brief GW_Sliders_Pad
 ///
 class GW_Sliders_Pad :
-	public ::Wdg2::GW_Widget
+	public ::Wdg2::GW_Scroll_Area
 {
 	// Public methods
 	public:
@@ -34,11 +37,6 @@ class GW_Sliders_Pad :
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_Sliders_Pad ( );
-
-
-	void
-	set_size (
-		const QSize & size_n );
 
 
 	::QSnd2::Controls *
@@ -65,31 +63,30 @@ class GW_Sliders_Pad :
 		void * context_n );
 
 
+	// Protected methods
+	protected:
+
+	unsigned int
+	viewport_resize (
+		QSize size_off_n,
+		QSize size_on_n );
+
+
 	// Private methods
 	private:
 
 	void
-	destroy_scene_items ( );
+	destroy_items ( );
 
 	void
-	build_scene_items ( );
-
-	void
-	update_geometries ( );
-
-	void
-	update_panels_position ( );
+	build_items ( );
 
 
 	// Private attributes
 	private:
 
 	::QSnd2::Controls * _snd_controls;
-	int _panels_shift;
-	int _panels_shift_max;
-
 	QScopedPointer < ::Wdg2::GW_SlPad_Group4 > _group4;
-	QScopedPointer < ::Wdg2::GW_Scrollbar > _scrollbar;
 };
 
 
@@ -98,13 +95,6 @@ inline
 GW_Sliders_Pad::snd_controls ( ) const
 {
 	return _snd_controls;
-}
-
-inline
-int
-GW_Sliders_Pad::panels_shift ( )
-{
-	return _panels_shift;
 }
 
 

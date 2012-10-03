@@ -243,6 +243,9 @@ GW_Scrollbar::update_geometries ( )
 		}
 
 		len_btn = ( 5*width_total ) / 3;
+		if ( 3*len_btn > len_total ) {
+			len_btn = len_total / 3;
+		}
 		len_slider = len_total - 2*len_btn;
 		len_handle = len_btn;
 		if ( _int_span < len_slider ) {
@@ -259,7 +262,7 @@ GW_Scrollbar::update_geometries ( )
 			btn_pos_low  = QPointF ( 0.0, 0.0 );
 			btn_pos_high = QPointF ( len_total - len_btn, 0.0 );
 			slider_pos   = QPointF ( len_btn, 0.0 );
-			btn_size    = QSize ( len_btn, width_total );
+			btn_size     = QSize ( len_btn, width_total );
 			sl_settings.size = QSize ( len_slider, width_total );
 			sl_settings.handle_length = len_handle;
 			sl_settings.orientation = Qt::Horizontal;
@@ -269,7 +272,7 @@ GW_Scrollbar::update_geometries ( )
 			btn_pos_low  = QPointF ( 0.0, len_total - len_btn );
 			btn_pos_high = QPointF ( 0.0, 0.0 );
 			slider_pos   = QPointF ( 0.0, len_btn );
-			btn_size    = QSize ( width_total, len_btn );
+			btn_size     = QSize ( width_total, len_btn );
 			sl_settings.size = QSize ( width_total, len_slider );
 			sl_settings.handle_length = len_handle;
 			sl_settings.orientation = Qt::Vertical;
