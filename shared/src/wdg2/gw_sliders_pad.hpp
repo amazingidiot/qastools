@@ -11,7 +11,6 @@
 
 #include "gw_widget.hpp"
 #include "gw_scrollbar.hpp"
-#include <QGraphicsItem>
 #include <QScopedPointer>
 
 // Forward declaration

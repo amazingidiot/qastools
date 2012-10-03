@@ -242,10 +242,10 @@ Alsa_Config_Model::cfg_value_string (
 QVariant
 Alsa_Config_Model::headerData (
 	int section,
-	Qt::Orientation orientation,
+	Qt::Orientation orientation_n,
 	int role ) const
 {
-	if ( orientation == Qt::Horizontal ) {
+	if ( orientation_n == Qt::Horizontal ) {
 		if ( role == Qt::DisplayRole ) {
 			if ( section == 0 ) {
 				return tr ( "Key" ) ;

@@ -447,6 +447,8 @@
 		<Unit filename="shared/src/wdg2/gw_qsnd2_switch_multi.hpp" />
 		<Unit filename="shared/src/wdg2/gw_qsnd2_switches_joinable.cpp" />
 		<Unit filename="shared/src/wdg2/gw_qsnd2_switches_joinable.hpp" />
+		<Unit filename="shared/src/wdg2/gw_scroll_area.cpp" />
+		<Unit filename="shared/src/wdg2/gw_scroll_area.hpp" />
 		<Unit filename="shared/src/wdg2/gw_scrollbar.cpp" />
 		<Unit filename="shared/src/wdg2/gw_scrollbar.hpp" />
 		<Unit filename="shared/src/wdg2/gw_slider.cpp" />
