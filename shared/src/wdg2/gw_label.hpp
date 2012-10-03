@@ -121,8 +121,6 @@ class GW_Label :
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
-	const QSize &
-	size ( ) const;
 
 	void
 	set_size (
@@ -172,16 +170,8 @@ class GW_Label :
 	private:
 
 	GW_Label_Ground _ground;
-	QSize _size;
 	Qt::Alignment _alignment;
 };
-
-inline
-const QSize &
-GW_Label::size ( ) const
-{
-	return _size;
-}
 
 inline
 const QString &

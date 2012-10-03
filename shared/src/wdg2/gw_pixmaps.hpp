@@ -59,15 +59,8 @@ class GW_Pixmaps :
 	set_size (
 		const QSize & size_n );
 
-	const QSize &
-	pxm_size ( ) const;
-
-	void
-	set_pxm_size (
-		const QSize & size_n );
-
 	bool
-	pxm_size_valid ( ) const;
+	size_valid ( ) const;
 
 
 	const ::Flags &
@@ -135,7 +128,6 @@ class GW_Pixmaps :
 	Pixmap_Req_List _pxm_requests;
 
 	::Flags _state_flags;
-	QSize _pxm_size;
 	::dpe2::Key_Values _pxm_kvals;
 };
 
@@ -154,17 +146,10 @@ GW_Pixmaps::pxm_idx ( ) const
 }
 
 inline
-const QSize &
-GW_Pixmaps::pxm_size ( ) const
-{
-	return _pxm_size;
-}
-
-inline
 bool
-GW_Pixmaps::pxm_size_valid ( ) const
+GW_Pixmaps::size_valid ( ) const
 {
-	return ( ( pxm_size().width() >= 0 ) && (  pxm_size().height() >= 0 ) );
+	return ( ( size().width() > 0 ) && ( size().height() > 0 ) );
 }
 
 inline

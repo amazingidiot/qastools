@@ -115,7 +115,6 @@ GW_Scrollbar::GW_Scrollbar (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
-_size ( 0.0, 0.0 ),
 _orientation ( Qt::Horizontal ),
 _int_span ( 0 ),
 _int_value ( 0 ),
@@ -159,9 +158,8 @@ void
 GW_Scrollbar::set_size (
 	const QSize & size_n )
 {
-	if ( _size != size_n ) {
-		_size = size_n;
-		set_bounding_rect ( _size );
+	if ( size() != size_n ) {
+		::Wdg2::GW_Widget::set_size ( size_n );
 		update_geometries();
 	}
 }
@@ -237,11 +235,11 @@ GW_Scrollbar::update_geometries ( )
 		unsigned int len_handle;
 
 		if ( _orientation == Qt::Horizontal ) {
-			len_total = _size.width();
-			width_total = _size.height();
+			len_total = size().width();
+			width_total = size().height();
 		} else {
-			len_total = _size.height();
-			width_total = _size.width();
+			len_total = size().height();
+			width_total = size().width();
 		}
 
 		len_btn = ( 5*width_total ) / 3;
@@ -280,12 +278,12 @@ GW_Scrollbar::update_geometries ( )
 
 	_btn_low.pxm_kvals().set_uint (
 		::Wdg2::PRK_WIDGET_PART, btn_low_part );
-	_btn_low.set_pxm_size ( btn_size );
+	_btn_low.set_size ( btn_size );
 	_btn_low.setPos ( btn_pos_low );
 
 	_btn_high.pxm_kvals().set_uint (
 		::Wdg2::PRK_WIDGET_PART, btn_high_part );
-	_btn_high.set_pxm_size ( btn_size );
+	_btn_high.set_size ( btn_size );
 	_btn_high.setPos ( btn_pos_high );
 
 	_slider.setPos ( slider_pos );

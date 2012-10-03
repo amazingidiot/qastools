@@ -17,7 +17,6 @@ GW_Mixer_Pad::GW_Mixer_Pad (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _snd_controls ( 0 ),
-_pad_size ( 0, 0 ),
 _gw_sliders_pad ( scene_db(), this ),
 _gw_switches_pad ( scene_db(), this )
 {
@@ -28,12 +27,11 @@ GW_Mixer_Pad::~GW_Mixer_Pad ( )
 }
 
 void
-GW_Mixer_Pad::set_pad_size (
+GW_Mixer_Pad::set_size (
 	const QSize & size_n )
 {
-	if ( _pad_size != size_n ) {
-		_pad_size = size_n;
-		set_bounding_rect ( _pad_size );
+	if ( size() != size_n ) {
+		::Wdg2::GW_Widget::set_size ( size_n );
 		update_geometries();
 	}
 }
@@ -53,10 +51,10 @@ void
 GW_Mixer_Pad::update_geometries ( )
 {
 	if ( snd_controls() != 0 ) {
-		QSize sl_size ( pad_size() );
-		QSize sw_size ( pad_size() );
+		QSize sl_size ( size() );
+		QSize sw_size ( size() );
 		sl_size.rwidth() *= 0.75;
-		sw_size.setWidth ( pad_size().width() - sl_size.width() );
+		sw_size.setWidth ( size().width() - sl_size.width() );
 
 		_gw_sliders_pad.set_size ( sl_size );
 		_gw_switches_pad.set_size ( sw_size );

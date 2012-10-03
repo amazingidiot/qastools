@@ -50,7 +50,7 @@ GW_Sliders_Joinable::load_settings (
 	const ::Wdg2::GW_Joinable_Sliders_Settings & settings_n )
 {
 	_settings = settings_n;
-	set_bounding_rect ( QSizeF ( int_width(), _settings.area_height ) );
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _settings.area_height ) );
 	update_geometries();
 }
 

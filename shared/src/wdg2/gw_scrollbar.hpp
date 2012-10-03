@@ -112,9 +112,6 @@ class GW_Scrollbar :
 	~GW_Scrollbar ( );
 
 
-	const QSize &
-	size ( ) const;
-
 	void
 	set_size (
 		const QSize & size_n );
@@ -217,7 +214,6 @@ class GW_Scrollbar :
 	// Private attributes
 	private:
 
-	QSize _size;
 	Qt::Orientation _orientation;
 
 	::Wdg2::Slider_Value_Map _value_map;
@@ -242,13 +238,6 @@ Qt::Orientation
 GW_Scrollbar::orientation ( ) const
 {
 	return _orientation;
-}
-
-inline
-const QSize &
-GW_Scrollbar::size ( ) const
-{
-	return _size;
 }
 
 inline

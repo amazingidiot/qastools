@@ -32,7 +32,7 @@ GW_Switch_Multi::load_settings_multi (
 	const ::Wdg2::GW_Switch_Multi_Settings & settings_n )
 {
 	_settings_multi = settings_n;
-	set_switch_size ( QSize ( int_width(), _settings_multi.area_height ) );
+	set_size ( QSize ( int_width(), _settings_multi.area_height ) );
 }
 
 unsigned int

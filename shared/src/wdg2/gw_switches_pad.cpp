@@ -41,7 +41,6 @@ GW_Switches_Pad::set_size (
 {
 	if ( size() != size_n ) {
 		::Wdg2::GW_Widget::set_size ( size_n );
-		set_bounding_rect ( size() );
 		update_geometries();
 	}
 }
@@ -117,7 +116,11 @@ GW_Switches_Pad::build_scene_items ( )
 	if ( _snd_controls->num_groups() > 0 ) {
 		_group4.reset (
 			new ::Wdg2::GW_SwPad_Group4 ( *_snd_controls->group ( 0 ), scene_db() ) );
-		_group4->setParentItem ( this );
+		if ( _group4->num_children() > 0 ) {
+			_group4->setParentItem ( this );
+		} else {
+			_group4.reset();
+		}
 	}
 }
 

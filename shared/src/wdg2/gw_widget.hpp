@@ -86,6 +86,14 @@ class GW_Widget :
 		QWidget * widget_n = 0 );
 
 
+	// Protected methods
+	protected:
+
+	void
+	set_size_raw (
+		const QSize & size_n );
+
+
 	// Private attributes
 	private:
 

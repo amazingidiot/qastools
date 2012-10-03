@@ -100,16 +100,24 @@ void
 GW_Pixmaps::set_size (
 	const QSize & size_n )
 {
-	set_pxm_size ( size_n );
-}
+	QSize snew ( size_n );
+	{
+		// Size checks
+		const int lim ( 1024*6 );
+		assert ( snew.width()  >= 0 );
+		assert ( snew.height() >= 0 );
+		assert ( snew.width()  <= lim );
+		assert ( snew.height() <= lim );
+		if ( ( snew.width() < 0 ) || ( snew.height() < 0 )
+			|| ( snew.width() > lim ) || ( snew.height() > lim ) )
+		{
+			snew.setWidth ( 0 );
+			snew.setHeight ( 0 );
+		}
+	}
 
-void
-GW_Pixmaps::set_pxm_size (
-	const QSize & size_n )
-{
-	if ( size_n != _pxm_size ) {
-		_pxm_size = size_n;
-		set_bounding_rect ( _pxm_size );
+	if ( size() != snew ) {
+		::Wdg2::GW_Widget::set_size ( snew );
 		repaint_pixmaps();
 	}
 }
@@ -179,7 +187,7 @@ GW_Pixmaps::repaint_pixmap (
 	if ( !req->state.has_any ( ::dpe2::RS_PROCESSING ) ) {
 		// Update now
 		req->state.unset ( ::dpe2::RS_NEEDS_UPDATE );
-		if ( pxm_size_valid() && this->setup_pxm_request ( idx_n, req->kvals ) ) {
+		if ( size_valid() && this->setup_pxm_request ( idx_n, req->kvals ) ) {
 			scene_db()->pxm_server()->send_request ( req );
 		} else {
 			scene_db()->pxm_server()->return_pixmap ( _pxmaps[idx_n] );
@@ -208,8 +216,8 @@ GW_Pixmaps::setup_pxm_request (
 {
 	// Simple default implementation
 	kvals_n.set_from ( _pxm_kvals );
-	kvals_n.set_uint ( ::Wdg2::PRK_WIDTH, pxm_size().width() );
-	kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, pxm_size().height() );
+	kvals_n.set_uint ( ::Wdg2::PRK_WIDTH, size().width() );
+	kvals_n.set_uint ( ::Wdg2::PRK_HEIGHT, size().height() );
 	kvals_n.set_uint ( ::Wdg2::PRK_PXM_INDEX, idx_n );
 	return true;
 }

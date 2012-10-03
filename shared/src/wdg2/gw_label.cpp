@@ -94,9 +94,8 @@ void
 GW_Label::set_size (
 	const QSize & size_n )
 {
-	if ( _size != size_n ) {
-		_size = size_n;
-		set_bounding_rect ( _size );
+	if ( size() != size_n ) {
+		::Wdg2::GW_Widget::set_size ( size_n );
 		update_pixmap();
 	}
 }
@@ -196,8 +195,8 @@ GW_Label::update_pixmap ( )
 		}
 	}
 
-	if ( _ground.pxm_size() != pxm_size ) {
-		_ground.set_pxm_size ( pxm_size );
+	if ( _ground.size() != pxm_size ) {
+		_ground.set_size ( pxm_size );
 	} else {
 		_ground.repaint_pixmaps();
 	}

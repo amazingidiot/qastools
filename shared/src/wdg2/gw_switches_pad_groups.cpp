@@ -60,14 +60,7 @@ GW_SwPad_Group2::set_sizes (
 	const ::Wdg2::GW_SwPad_Group2_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
-
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
-	}
-
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -143,10 +136,12 @@ _proxies_group ( proxies_group_n )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_children(); ++ii ) {
-		::QSnd2::Proxies_Group2 & pgrp2 ( *_proxies_group.child_group ( ii ) );
-		::Wdg2::GW_SwPad_Group2 * grp2 (
-			new ::Wdg2::GW_SwPad_Group2 ( pgrp2, scene_db(), this ) );
-		_gw_groups.append ( grp2 );
+		::QSnd2::Proxies_Group2 * pgrp2 ( _proxies_group.child_group ( ii ) );
+		if ( ( pgrp2->sliders() == 0 ) && ( pgrp2->switches() != 0 ) ) {
+			::Wdg2::GW_SwPad_Group2 * grp2 (
+				new ::Wdg2::GW_SwPad_Group2 ( *pgrp2, scene_db(), this ) );
+			_gw_groups.append ( grp2 );
+		}
 	}
 }
 
@@ -159,12 +154,7 @@ GW_SwPad_Group3::set_sizes (
 	const ::Wdg2::GW_SwPad_Group3_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
-	}
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -239,9 +229,12 @@ _proxies_group ( proxies_group_n )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_children(); ++ii ) {
-		::Wdg2::GW_SwPad_Group3 * grp3 (
-			new ::Wdg2::GW_SwPad_Group3 ( *_proxies_group.child_group ( ii ), scene_db(), this ) );
-		_gw_groups.append ( grp3 );
+		::QSnd2::Proxies_Group3 * pgrp3 ( _proxies_group.child_group ( ii ) );
+		QScopedPointer < ::Wdg2::GW_SwPad_Group3 > grp3 (
+			new ::Wdg2::GW_SwPad_Group3 ( *pgrp3, scene_db(), this ) );
+		if ( grp3->num_children() > 0 ) {
+			_gw_groups.append ( grp3.take() );
+		}
 	}
 }
 
@@ -254,12 +247,7 @@ GW_SwPad_Group4::set_sizes (
 	const ::Wdg2::GW_SwPad_Group4_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
-	}
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 

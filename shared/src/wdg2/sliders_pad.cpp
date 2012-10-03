@@ -26,7 +26,7 @@ Sliders_Pad::Sliders_Pad (
 	QWidget * parent_n ) :
 QGraphicsView ( parent_n ),
 _scene_db ( scene_db_n ),
-_gw_sliders_pad ( _scene_db ),
+_gw_mixer_pad ( _scene_db ),
 _opengl_enabled ( false )
 {
 	_etype_deliver_pixmaps = QEvent::registerEventType();
@@ -56,13 +56,13 @@ Sliders_Pad::set_snd_controls (
 	::QSnd2::Controls * controls_n )
 {
 	if ( snd_controls() != 0 ) {
-		_scene.removeItem ( &_gw_sliders_pad );
+		_scene.removeItem ( &_gw_mixer_pad );
 	}
 
-	_gw_sliders_pad.set_snd_controls ( controls_n );
+	_gw_mixer_pad.set_snd_controls ( controls_n );
 
 	if ( snd_controls() != 0 ) {
-		_scene.addItem ( &_gw_sliders_pad );
+		_scene.addItem ( &_gw_mixer_pad );
 		update_geometries();
 	}
 }
@@ -92,7 +92,7 @@ Sliders_Pad::update_geometries ( )
 {
 	if ( snd_controls() != 0 ) {
 		const QSize vps ( maximumViewportSize() );
-		_gw_sliders_pad.set_size ( vps );
+		_gw_mixer_pad.set_size ( vps );
 
 		QRectF srect ( QPointF ( 0.0, 0.0 ), QSizeF ( vps ) );
 		setSceneRect ( srect );

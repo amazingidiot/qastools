@@ -132,7 +132,7 @@ GW_Slider_Multi_Rail::reload_settings ( )
 		QSize rail_size ( settings_multi.slider_width, settings_multi.area_height );
 		for ( int ii=0; ii < _rails.size(); ++ii ) {
 			::Wdg2::GW_Pixmaps * rail ( _rails[ii] );
-			rail->set_pxm_size ( rail_size );
+			rail->set_size ( rail_size );
 			rail->setPos ( spos );
 			spos.rx() += delta_x;
 		}

@@ -160,6 +160,10 @@ class GW_SlPad_Group3 :
 	~GW_SlPad_Group3 ( );
 
 
+	unsigned int
+	num_children ( ) const;
+
+
 	const ::Wdg2::GW_SlPad_Group3_Sizes &
 	sizes ( ) const;
 
@@ -196,6 +200,13 @@ class GW_SlPad_Group3 :
 
 	::Wdg2::GW_SlPad_Group3_Sizes _sizes;
 };
+
+inline
+unsigned int
+GW_SlPad_Group3::num_children ( ) const
+{
+	return _gw_groups.size();
+}
 
 inline
 const ::Wdg2::GW_SlPad_Group3_Sizes &
@@ -246,6 +257,10 @@ class GW_SlPad_Group4 :
 	~GW_SlPad_Group4 ( );
 
 
+	unsigned int
+	num_children ( ) const;
+
+
 	const ::Wdg2::GW_SlPad_Group4_Sizes &
 	sizes ( ) const;
 
@@ -279,9 +294,15 @@ class GW_SlPad_Group4 :
 
 	::QSnd2::Proxies_Group4 & _proxies_group;
 	QList < ::Wdg2::GW_SlPad_Group3 * > _gw_groups;
-
 	GW_SlPad_Group4_Sizes _sizes;
 };
+
+inline
+unsigned int
+GW_SlPad_Group4::num_children ( ) const
+{
+	return _gw_groups.size();
+}
 
 
 } // End of namespace

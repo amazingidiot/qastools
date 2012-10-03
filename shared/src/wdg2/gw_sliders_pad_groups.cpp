@@ -31,7 +31,8 @@ _label_item ( 0 )
 		::QSnd2::Proxies_Group_Sliders * psliders ( _proxies_group.sliders() );
 		if ( psliders != 0 ) {
 			_gw_levels = new ::Wdg2::GW_QSnd2_Sliders_Joinable (
-				*psliders, scene_db(), this );
+				*psliders, scene_db() );
+			_gw_levels->setParentItem ( this );
 
 			// select joined/separate
 			if ( psliders->values_equal() ) {
@@ -46,7 +47,8 @@ _label_item ( 0 )
 	{
 		::QSnd2::Proxies_Group_Switches * pswitches ( _proxies_group.switches() );
 		if ( pswitches != 0 ) {
-			_gw_switches = new ::Wdg2::GW_QSnd2_Switches_Joinable ( *pswitches, scene_db(), this );
+			_gw_switches = new ::Wdg2::GW_QSnd2_Switches_Joinable ( *pswitches, scene_db() );
+			_gw_switches->setParentItem ( this );
 
 			// select joined/separate
 			if ( pswitches->values_equal() ) {
@@ -82,16 +84,14 @@ GW_SlPad_Group2::set_sizes (
 	_sizes.switches_vgap = _sizes.channels_gap;
 
 	_sizes.levels_height = _sizes.height;
-	_sizes.levels_height -= _sizes.switches_height;
-	_sizes.levels_height -= _sizes.switches_vgap;
-
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
+	if ( _sizes.levels_height > _sizes.switches_height ) {
+		_sizes.levels_height -= _sizes.switches_height;
+	}
+	if ( _sizes.levels_height > _sizes.switches_vgap ) {
+		_sizes.levels_height -= _sizes.switches_vgap;
 	}
 
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -195,10 +195,12 @@ _proxies_group ( proxies_group_n )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_children(); ++ii ) {
-		::QSnd2::Proxies_Group2 & pgrp2 ( *_proxies_group.child_group ( ii ) );
-		::Wdg2::GW_SlPad_Group2 * grp2 (
-			new ::Wdg2::GW_SlPad_Group2 ( pgrp2, scene_db(), this ) );
-		_gw_groups.append ( grp2 );
+		::QSnd2::Proxies_Group2 * pgrp2 ( _proxies_group.child_group ( ii ) );
+		if ( pgrp2->sliders() != 0 ) {
+			::Wdg2::GW_SlPad_Group2 * grp2 (
+				new ::Wdg2::GW_SlPad_Group2 ( *pgrp2, scene_db(), this ) );
+			_gw_groups.append ( grp2 );
+		}
 	}
 }
 
@@ -211,12 +213,7 @@ GW_SlPad_Group3::set_sizes (
 	const ::Wdg2::GW_SlPad_Group3_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
-	}
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -293,9 +290,11 @@ _proxies_group ( proxies_group_n )
 
 	for ( unsigned int ii=0; ii < _proxies_group.num_children(); ++ii ) {
 		::QSnd2::Proxies_Group3 * pgrp3 ( _proxies_group.child_group ( ii ) );
-		::Wdg2::GW_SlPad_Group3 * grp3 (
+		QScopedPointer < ::Wdg2::GW_SlPad_Group3 > grp3 (
 			new ::Wdg2::GW_SlPad_Group3 ( *pgrp3, scene_db(), this ) );
-		_gw_groups.append ( grp3 );
+		if ( grp3->num_children() > 0 ) {
+			_gw_groups.append ( grp3.take() );
+		}
 	}
 }
 
@@ -308,12 +307,7 @@ GW_SlPad_Group4::set_sizes (
 	const ::Wdg2::GW_SlPad_Group4_Sizes & sizes_n )
 {
 	_sizes = sizes_n;
-	// Bounding rect
-	{
-		QRectF brect ( QPointF ( 0.0, 0.0 ),
-			QSizeF ( int_width(), _sizes.height ) );
-		set_bounding_rect ( brect );
-	}
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _sizes.height ) );
 	update_geometries();
 }
 
@@ -335,7 +329,7 @@ GW_SlPad_Group4::update_geometries ( )
 {
 	unsigned int xpos ( 0 );
 	const unsigned int group3_hgap ( _sizes.group3_hgap );
-	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
+	for ( unsigned int ii=0; ii < num_children(); ++ii ) {
 		unsigned int grp_width;
 		{
 			::Wdg2::GW_SlPad_Group3 * grp3 ( _gw_groups[ii] );
@@ -363,8 +357,8 @@ GW_SlPad_Group4::int_width_probe (
 {
 	unsigned int iwidth ( 0 );
 	const unsigned int group3_hgap ( sizes_n.group3_hgap );
-	for ( int ii=0; ii < _gw_groups.size(); ++ii ) {
-		::Wdg2::GW_SlPad_Group3 * grp3 (  _gw_groups[ii] );
+	for ( unsigned int ii=0; ii < num_children(); ++ii ) {
+		::Wdg2::GW_SlPad_Group3 * grp3 ( _gw_groups[ii] );
 		const unsigned int grp_width (
 			grp3->int_width_probe ( gw_group3_sizes ( sizes_n ) ) );
 		if ( grp_width > 0 ) {

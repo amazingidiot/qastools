@@ -50,15 +50,13 @@ GW_Switches_Joinable::load_settings (
 	const ::Wdg2::GW_Switches_Joinable_Settings & settings_n )
 {
 	_settings = settings_n;
-	set_bounding_rect ( QSizeF ( int_width(), _settings.area_height ) );
-
+	::Wdg2::GW_Widget::set_size ( QSize ( int_width(), _settings.area_height ) );
 	{
-		QSize ssize ( _settings.switch_width, _settings.area_height );
+		const QSize ssize ( _settings.switch_width, _settings.area_height );
 		for ( int ii=0; ii < _switches.size(); ++ii ) {
-			_switches[ii]->set_switch_size ( ssize );
+			_switches[ii]->set_size ( ssize );
 		}
 	}
-
 	update_geometries();
 }
 
@@ -72,7 +70,7 @@ GW_Switches_Joinable::update_geometries ( )
 
 		for ( int ii=0; ii < _switches.size(); ++ii ) {
 			::Wdg2::GW_Switch * gw_switch ( _switches[ii] );
-			gw_switch->set_switch_size ( sw_size );
+			gw_switch->set_size ( sw_size );
 			gw_switch->setPos ( spos );
 			spos.rx() += delta_x;
 		}

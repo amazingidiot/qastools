@@ -88,7 +88,7 @@ GW_Widget_Element_Pixmaps::~GW_Widget_Element_Pixmaps ( )
 void
 GW_Widget_Element_Pixmaps::size_changed ( )
 {
-	gw_pixmaps()->set_pxm_size ( size() );
+	gw_pixmaps()->set_size ( size() );
 }
 
 void

@@ -41,7 +41,6 @@ GW_Sliders_Pad::set_size (
 {
 	if ( size() != size_n ) {
 		::Wdg2::GW_Widget::set_size ( size_n );
-		set_bounding_rect ( size() );
 		update_geometries();
 	}
 }
@@ -117,7 +116,11 @@ GW_Sliders_Pad::build_scene_items ( )
 	if ( _snd_controls->num_groups() > 0 ) {
 		_group4.reset (
 			new ::Wdg2::GW_SlPad_Group4 ( *_snd_controls->group ( 0 ), scene_db() ) );
-		_group4->setParentItem ( this );
+		if ( _group4->num_children() > 0 ) {
+			_group4->setParentItem ( this );
+		} else {
+			_group4.reset();
+		}
 	}
 }
 
@@ -126,35 +129,40 @@ GW_Sliders_Pad::update_geometries ( )
 {
 	if ( _group4 != 0 ) {
 		::Wdg2::GW_SlPad_Group4_Sizes lsizes;
-		lsizes.height = size().height();
+		lsizes.height = 0;
 		lsizes.slider_width = 16;
 		lsizes.channels_gap = 8;
 		lsizes.group2_hgap = 16;
 		lsizes.group3_hgap = 16;
+		if ( size().height() > 0 ) {
+			lsizes.height = size().height();
+		}
 
 		const unsigned int sbar_height ( 16 );
-		const unsigned int sbar_hgap ( 2 );
+		const unsigned int sbar_gap ( 2 );
 		{
-			unsigned int iwidth ( _group4->int_width_probe ( lsizes ) );
+			bool enable_scrollbar ( false );
+			const unsigned int iwidth ( _group4->int_width_probe ( lsizes ) );
 			if ( (int)iwidth > size().width() ) {
-				lsizes.height = size().height();
-				lsizes.height -= sbar_hgap + sbar_height;
-				if ( _scrollbar == 0 ) {
-					_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( scene_db(), this ) );
-					_scrollbar->set_val_change_callback (
-						::Context_Callback ( this, ::Wdg2::GW_Sliders_Pad::read_panels_shift_cb ) );
+				if ( lsizes.height > ( sbar_gap + sbar_height ) ) {
+					lsizes.height -= ( sbar_gap + sbar_height );
+					enable_scrollbar = true;
 				}
+			}
+
+			if ( enable_scrollbar ) {
+				_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( scene_db(), this ) );
+				_scrollbar->set_val_change_callback (
+					::Context_Callback ( this, ::Wdg2::GW_Sliders_Pad::read_panels_shift_cb ) );
 			} else {
-				if ( _scrollbar != 0 ) {
-					_scrollbar.reset();
-				}
+				_scrollbar.reset();
 			}
 		}
 
 		_group4->set_sizes ( lsizes );
 		if ( _scrollbar != 0 ) {
 			_panels_shift_max = _group4->int_width() - size().width();
-			_scrollbar->setPos ( QPointF ( 0.0, lsizes.height + sbar_hgap ) );
+			_scrollbar->setPos ( QPointF ( 0.0, lsizes.height + sbar_gap ) );
 			_scrollbar->set_size ( QSize ( size().width(), sbar_height ) );
 			_scrollbar->set_int_span ( _panels_shift_max );
 			_panels_shift = _scrollbar->int_value();

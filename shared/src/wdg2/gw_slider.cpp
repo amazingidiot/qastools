@@ -72,7 +72,7 @@ GW_Slider::load_settings (
 	const ::Wdg2::GW_Slider_Settings & settings_n )
 {
 	_settings = settings_n;
-	set_bounding_rect ( _settings.size );
+	::Wdg2::GW_Widget::set_size ( _settings.size );
 	update_geometries();
 }
 
@@ -107,32 +107,36 @@ GW_Slider::set_val_change_callback (
 void
 GW_Slider::update_geometries ( )
 {
-	QSize rail_size ( _settings.size );
+	QSize rail_size ( 0, 0 );
 	QSize handle_size ( 0, 0 );
 
-	unsigned int rail_length;
+	unsigned int rail_length ( 0 );
 	unsigned int handle_length ( _settings.handle_length );
 
-	if ( orientation() == Qt::Horizontal ) {
-		rail_length = _settings.size.width();
-		if ( handle_length > rail_length ) {
-			handle_length = rail_length / 2;
+	_rail_span = 0;
+	_handle_pos_span = 0;
+	if ( ( _settings.size.width() >= 0 ) && ( _settings.size.height() >= 0 ) ) {
+		rail_size = _settings.size;
+		if ( orientation() == Qt::Horizontal ) {
+			rail_length = _settings.size.width();
+			if ( handle_length > rail_length ) {
+				handle_length = rail_length / 2;
+			}
+			handle_size = QSize ( handle_length, _settings.size.height() );
+		} else {
+			rail_length = _settings.size.height();
+			if ( handle_length > rail_length ) {
+				handle_length = rail_length / 2;
+			}
+			handle_size = QSize ( _settings.size.width(), handle_length );
 		}
-		handle_size = QSize ( handle_length, _settings.size.height() );
-	} else {
-		rail_length = _settings.size.height();
-		if ( handle_length > rail_length ) {
-			handle_length = rail_length / 2;
-		}
-		handle_size = QSize ( _settings.size.width(), handle_length );
+
+		// update ranges
+		_rail_span = rail_length - 1;
+		_handle_pos_span = ( rail_length - handle_length );
 	}
 
-	// update ranges
-	_rail_span = 0;
-	if ( rail_length > 0 ) {
-		_rail_span = rail_length - 1;
-	}
-	_handle_pos_span = ( rail_length - handle_length );
+	// update value map
 	if ( value_map() != 0 ) {
 		value_map()->set_px_span ( _handle_pos_span );
 	}

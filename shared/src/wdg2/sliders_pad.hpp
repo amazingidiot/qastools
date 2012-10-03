@@ -11,6 +11,7 @@
 
 #include "scene_database.hpp"
 #include "gw_sliders_pad.hpp"
+#include "gw_mixer_pad.hpp"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
@@ -87,7 +88,7 @@ class Sliders_Pad :
 	private:
 
 	::Wdg2::Scene_Database * _scene_db;
-	::Wdg2::GW_Sliders_Pad _gw_sliders_pad;
+	::Wdg2::GW_Mixer_Pad _gw_mixer_pad;
 	QGraphicsScene _scene;
 
 	int _etype_deliver_pixmaps;
@@ -99,7 +100,7 @@ inline
 ::QSnd2::Controls *
 Sliders_Pad::snd_controls ( ) const
 {
-	return _gw_sliders_pad.snd_controls();
+	return _gw_mixer_pad.snd_controls();
 }
 
 inline

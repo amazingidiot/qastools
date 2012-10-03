@@ -41,14 +41,9 @@ class GW_Switch :
 
 	~GW_Switch ( );
 
-
-	const QSize &
-	switch_size ( ) const;
-
 	void
-	set_switch_size (
+	set_size (
 		const QSize & size_n );
-
 
 	bool
 	switch_state ( ) const;
@@ -99,15 +94,7 @@ class GW_Switch :
 
 	::Flags _state_flags;
 	::Context_Callback _val_change_cb;
-	QSize _switch_size;
 };
-
-inline
-const QSize &
-GW_Switch::switch_size ( ) const
-{
-	return _switch_size;
-}
 
 inline
 bool

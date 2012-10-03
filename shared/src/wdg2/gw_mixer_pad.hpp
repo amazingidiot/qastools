@@ -35,11 +35,8 @@ class GW_Mixer_Pad :
 	~GW_Mixer_Pad ( );
 
 
-	const QSize &
-	pad_size ( ) const;
-
 	void
-	set_pad_size (
+	set_size (
 		const QSize & size_n );
 
 
@@ -62,7 +59,6 @@ class GW_Mixer_Pad :
 	private:
 
 	::QSnd2::Controls * _snd_controls;
-	QSize _pad_size;
 	::Wdg2::GW_Sliders_Pad _gw_sliders_pad;
 	::Wdg2::GW_Switches_Pad _gw_switches_pad;
 };
@@ -73,13 +69,6 @@ inline
 GW_Mixer_Pad::snd_controls ( ) const
 {
 	return _gw_sliders_pad.snd_controls();
-}
-
-inline
-const QSize &
-GW_Mixer_Pad::pad_size ( ) const
-{
-	return _pad_size;
 }
 
 

@@ -19,8 +19,7 @@ GW_Switch::GW_Switch (
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
 _ground ( new ::Wdg2::GW_Switch_Ground ( scene_db(), this ) ),
-_handle ( new ::Wdg2::GW_Switch_Handle ( scene_db(), this ) ),
-_switch_size ( 0, 0 )
+_handle ( new ::Wdg2::GW_Switch_Handle ( scene_db(), this ) )
 {
 	setFlags ( QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemHasNoContents );
 }
@@ -30,14 +29,13 @@ GW_Switch::~GW_Switch ( )
 }
 
 void
-GW_Switch::set_switch_size (
+GW_Switch::set_size (
 	const QSize & size_n )
 {
-	if ( _switch_size != size_n ) {
-		_switch_size = size_n;
-		set_bounding_rect ( _switch_size );
-		_ground->set_pxm_size ( _switch_size );
-		_handle->set_pxm_size ( _switch_size );
+	if ( size() != size_n ) {
+		::Wdg2::GW_Widget::set_size ( size_n );
+		_ground->set_size ( size() );
+		_handle->set_size ( size() );
 	}
 }
 
