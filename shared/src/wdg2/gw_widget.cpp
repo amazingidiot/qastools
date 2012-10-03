@@ -18,12 +18,20 @@ GW_Widget::GW_Widget (
 	QGraphicsItem * parent_n ) :
 QGraphicsItem ( parent_n ),
 _brect ( 0.0, 0.0, 0.0, 0.0 ),
+_size ( 0, 0 ),
 _scene_db ( scene_db_n )
 {
 }
 
 GW_Widget::~GW_Widget ( )
 {
+}
+
+void
+GW_Widget::set_size (
+	const QSize & size_n )
+{
+	_size = size_n;
 }
 
 QRectF

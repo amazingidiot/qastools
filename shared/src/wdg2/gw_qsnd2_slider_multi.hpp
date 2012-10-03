@@ -25,7 +25,7 @@ class GW_QSnd2_Slider_Multi :
 	public:
 
 	GW_QSnd2_Slider_Multi (
-		::QSnd2::Proxies_Group1_Slider & proxies_grp_n,
+		::QSnd2::Proxies_Group_Sliders & proxies_grp_n,
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
@@ -53,7 +53,7 @@ class GW_QSnd2_Slider_Multi :
 	// Private attributes
 	private:
 
-	::QSnd2::Proxies_Group1_Slider & _proxies_group;
+	::QSnd2::Proxies_Group_Sliders & _proxies_group;
 };
 
 

@@ -55,6 +55,10 @@ class GW_Pixmaps :
 		unsigned int idx_n );
 
 
+	void
+	set_size (
+		const QSize & size_n );
+
 	const QSize &
 	pxm_size ( ) const;
 

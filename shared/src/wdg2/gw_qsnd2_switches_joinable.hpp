@@ -25,17 +25,17 @@ class GW_QSnd2_Switches_Joinable :
 	public:
 
 	GW_QSnd2_Switches_Joinable (
-		::QSnd2::Proxies_Group1_Switch & proxies_grp_n,
+		::QSnd2::Proxies_Group_Switches & proxies_grp_n,
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_QSnd2_Switches_Joinable ( );
 
 
-	::QSnd2::Proxies_Group1_Switch &
+	::QSnd2::Proxies_Group_Switches &
 	proxies_grp ( );
 
-	const ::QSnd2::Proxies_Group1_Switch &
+	const ::QSnd2::Proxies_Group_Switches &
 	proxies_grp ( ) const;
 
 
@@ -53,19 +53,19 @@ class GW_QSnd2_Switches_Joinable :
 	// Private attributes
 	private:
 
-	::QSnd2::Proxies_Group1_Switch & _proxies_grp;
+	::QSnd2::Proxies_Group_Switches & _proxies_grp;
 };
 
 
 inline
-::QSnd2::Proxies_Group1_Switch &
+::QSnd2::Proxies_Group_Switches &
 GW_QSnd2_Switches_Joinable::proxies_grp ( )
 {
 	return _proxies_grp;
 }
 
 inline
-const ::QSnd2::Proxies_Group1_Switch &
+const ::QSnd2::Proxies_Group_Switches &
 GW_QSnd2_Switches_Joinable::proxies_grp ( ) const
 {
 	return _proxies_grp;

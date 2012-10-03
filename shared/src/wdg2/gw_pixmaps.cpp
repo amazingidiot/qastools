@@ -97,6 +97,13 @@ GW_Pixmaps::set_pxm_idx (
 }
 
 void
+GW_Pixmaps::set_size (
+	const QSize & size_n )
+{
+	set_pxm_size ( size_n );
+}
+
+void
 GW_Pixmaps::set_pxm_size (
 	const QSize & size_n )
 {

@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_qsnd_controls_hpp__
-#define __INC_qsnd_controls_hpp__
+#ifndef __INC_qsnd2_controls_hpp__
+#define __INC_qsnd2_controls_hpp__
 
 #include "controls_proxies.hpp"
 #include <poll.h>

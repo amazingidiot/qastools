@@ -51,7 +51,16 @@ class GW_Widget :
 	scene_db ( ) const;
 
 
-	// bounding rect
+	const QSize &
+	size ( ) const;
+
+	virtual
+	void
+	set_size (
+		const QSize & size_n );
+
+
+	// Bounding rectangle
 
 	QRectF
 	boundingRect ( ) const;
@@ -68,6 +77,8 @@ class GW_Widget :
 	bounding_rect ( ) const;
 
 
+	// Paint method
+
 	void
 	paint (
 		QPainter * painter_n,
@@ -79,6 +90,7 @@ class GW_Widget :
 	private:
 
 	QRectF _brect;
+	QSize _size;
 	::Wdg2::Scene_Database * _scene_db;
 };
 
@@ -95,6 +107,13 @@ const QRectF
 GW_Widget::bounding_rect ( ) const
 {
 	return _brect;
+}
+
+inline
+const QSize &
+GW_Widget::size ( ) const
+{
+	return _size;
 }
 
 

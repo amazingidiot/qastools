@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_gw_sliders_pad_hpp__
-#define __INC_wdg2_gw_sliders_pad_hpp__
+#ifndef __INC_wdg2_gw_switches_pad_hpp__
+#define __INC_wdg2_gw_switches_pad_hpp__
 
 #include "gw_widget.hpp"
 #include "gw_scrollbar.hpp"
@@ -15,26 +15,26 @@
 #include <QScopedPointer>
 
 // Forward declaration
-namespace Wdg2 { class GW_SlPad_Group4; }
+namespace Wdg2 { class GW_SwPad_Group4; }
 namespace QSnd2 { class Controls; }
 
 namespace Wdg2
 {
 
 
-/// @brief GW_Sliders_Pad
+/// @brief GW_Switches_Pad
 ///
-class GW_Sliders_Pad :
+class GW_Switches_Pad :
 	public ::Wdg2::GW_Widget
 {
 	// Public methods
 	public:
 
-	GW_Sliders_Pad (
+	GW_Switches_Pad (
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
-	~GW_Sliders_Pad ( );
+	~GW_Switches_Pad ( );
 
 
 	void
@@ -89,21 +89,21 @@ class GW_Sliders_Pad :
 	int _panels_shift;
 	int _panels_shift_max;
 
-	QScopedPointer < ::Wdg2::GW_SlPad_Group4 > _group4;
+	QScopedPointer < ::Wdg2::GW_SwPad_Group4 > _group4;
 	QScopedPointer < ::Wdg2::GW_Scrollbar > _scrollbar;
 };
 
 
 inline
 ::QSnd2::Controls *
-GW_Sliders_Pad::snd_controls ( ) const
+GW_Switches_Pad::snd_controls ( ) const
 {
 	return _snd_controls;
 }
 
 inline
 int
-GW_Sliders_Pad::panels_shift ( )
+GW_Switches_Pad::panels_shift ( )
 {
 	return _panels_shift;
 }

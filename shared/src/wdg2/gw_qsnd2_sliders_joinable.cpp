@@ -16,7 +16,7 @@ namespace Wdg2
 
 
 GW_QSnd2_Sliders_Joinable::GW_QSnd2_Sliders_Joinable (
-	::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
+	::QSnd2::Proxies_Group_Sliders & snd_proxies_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Sliders_Joinable ( scene_db_n, parent_n ),
@@ -27,7 +27,7 @@ _proxies_grp ( snd_proxies_n )
 		_proxies_grp.int_range ( vrange );
 		value_map().set_value_range ( vrange[0], vrange[1] );
 	}
-	set_num_sliders ( proxies_grp().num_proxies() );
+	set_num_sliders ( proxies_grp().num_children() );
 }
 
 GW_QSnd2_Sliders_Joinable::~GW_QSnd2_Sliders_Joinable ( )

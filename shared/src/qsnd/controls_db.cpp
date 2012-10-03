@@ -201,7 +201,7 @@ create_ctl_def_args (
 			snd_config_search (
 				scfg_args, str_num.toLatin1().constData(), &scfg_arg );
 			if ( scfg_arg != 0 ) {
-				if ( snd_config_get_type ( scfg_arg ) == SND_CONFIG_TYPE_STRING ) {
+				if ( snd_config_get_type ( scfg_arg ) == ::SND_CONFIG_TYPE_STRING ) {
 					const char * char_ptr ( 0 );
 					int err = snd_config_get_string ( scfg_arg, &char_ptr );
 					if ( ( err == 0 ) && ( char_ptr != 0 ) ) {
@@ -235,7 +235,7 @@ setup_ctl_def_args (
 		if ( ( err != 0 ) || ( scfg_arg_com == 0 ) ) {
 			return;
 		}
-		if ( snd_config_get_type ( scfg_arg_com ) != SND_CONFIG_TYPE_COMPOUND ) {
+		if ( snd_config_get_type ( scfg_arg_com ) != ::SND_CONFIG_TYPE_COMPOUND ) {
 			return;
 		}
 	}
@@ -244,7 +244,7 @@ setup_ctl_def_args (
 		snd_config_t * scfg_arg_type ( 0 );
 		int err = snd_config_search ( scfg_arg_com, "type", &scfg_arg_type );
 		if ( ( err == 0 ) && ( scfg_arg_type != 0 ) ) {
-			if ( snd_config_get_type ( scfg_arg_type ) == SND_CONFIG_TYPE_STRING ) {
+			if ( snd_config_get_type ( scfg_arg_type ) == ::SND_CONFIG_TYPE_STRING ) {
 				const char * char_ptr ( 0 );
 				err = snd_config_get_string ( scfg_arg_type, &char_ptr );
 				if ( ( err == 0 ) && ( char_ptr != 0 ) ) {

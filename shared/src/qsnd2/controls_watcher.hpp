@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_qsnd_controls_watcher_hpp__
-#define __INC_qsnd_controls_watcher_hpp__
+#ifndef __INC_qsnd2_controls_watcher_hpp__
+#define __INC_qsnd2_controls_watcher_hpp__
 
 #include "controls.hpp"
 #include <QList>

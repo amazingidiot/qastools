@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "gw_sliders_pad.hpp"
-#include "gw_sliders_pad_groups.hpp"
+#include "gw_switches_pad.hpp"
+#include "gw_switches_pad_groups.hpp"
 #include "qsnd2/controls.hpp"
 #include <iostream>
 #include <cmath>
@@ -19,7 +19,7 @@ namespace Wdg2
 {
 
 
-GW_Sliders_Pad::GW_Sliders_Pad (
+GW_Switches_Pad::GW_Switches_Pad (
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Widget ( scene_db_n, parent_n ),
@@ -30,13 +30,13 @@ _panels_shift_max ( 0 )
 	setFlags ( QGraphicsItem::ItemHasNoContents );
 }
 
-GW_Sliders_Pad::~GW_Sliders_Pad ( )
+GW_Switches_Pad::~GW_Switches_Pad ( )
 {
 	set_snd_controls ( 0 );
 }
 
 void
-GW_Sliders_Pad::set_size (
+GW_Switches_Pad::set_size (
 	const QSize & size_n )
 {
 	if ( size() != size_n ) {
@@ -47,7 +47,7 @@ GW_Sliders_Pad::set_size (
 }
 
 void
-GW_Sliders_Pad::set_snd_controls (
+GW_Switches_Pad::set_snd_controls (
 	::QSnd2::Controls * controls_n )
 {
 	if ( _snd_controls != 0 ) {
@@ -63,7 +63,7 @@ GW_Sliders_Pad::set_snd_controls (
 }
 
 void
-GW_Sliders_Pad::set_panels_shift (
+GW_Switches_Pad::set_panels_shift (
 	long amount_n )
 {
 	if ( amount_n < 0 ) {
@@ -79,22 +79,22 @@ GW_Sliders_Pad::set_panels_shift (
 }
 
 void
-GW_Sliders_Pad::read_panels_shift ( )
+GW_Switches_Pad::read_panels_shift ( )
 {
 	set_panels_shift ( _scrollbar->int_value() );
 }
 
 void
-GW_Sliders_Pad::read_panels_shift_cb (
+GW_Switches_Pad::read_panels_shift_cb (
 	void * context_n )
 {
-	::Wdg2::GW_Sliders_Pad & pad (
-		*reinterpret_cast < ::Wdg2::GW_Sliders_Pad * > ( context_n ) );
+	::Wdg2::GW_Switches_Pad & pad (
+		*reinterpret_cast < ::Wdg2::GW_Switches_Pad * > ( context_n ) );
 	pad.read_panels_shift();
 }
 
 void
-GW_Sliders_Pad::destroy_scene_items ( )
+GW_Switches_Pad::destroy_scene_items ( )
 {
 	QGraphicsScene * qscene ( scene() );
 	if ( _group4 != 0 ) {
@@ -112,25 +112,24 @@ GW_Sliders_Pad::destroy_scene_items ( )
 }
 
 void
-GW_Sliders_Pad::build_scene_items ( )
+GW_Switches_Pad::build_scene_items ( )
 {
 	if ( _snd_controls->num_groups() > 0 ) {
 		_group4.reset (
-			new ::Wdg2::GW_SlPad_Group4 ( *_snd_controls->group ( 0 ), scene_db() ) );
+			new ::Wdg2::GW_SwPad_Group4 ( *_snd_controls->group ( 0 ), scene_db() ) );
 		_group4->setParentItem ( this );
 	}
 }
 
 void
-GW_Sliders_Pad::update_geometries ( )
+GW_Switches_Pad::update_geometries ( )
 {
 	if ( _group4 != 0 ) {
-		::Wdg2::GW_SlPad_Group4_Sizes lsizes;
+		::Wdg2::GW_SwPad_Group4_Sizes lsizes;
 		lsizes.height = size().height();
-		lsizes.slider_width = 16;
 		lsizes.channels_gap = 8;
-		lsizes.group2_hgap = 16;
-		lsizes.group3_hgap = 16;
+		lsizes.group2_gap = 16;
+		lsizes.group3_gap = 16;
 
 		const unsigned int sbar_height ( 16 );
 		const unsigned int sbar_hgap ( 2 );
@@ -142,7 +141,7 @@ GW_Sliders_Pad::update_geometries ( )
 				if ( _scrollbar == 0 ) {
 					_scrollbar.reset ( new ::Wdg2::GW_Scrollbar ( scene_db(), this ) );
 					_scrollbar->set_val_change_callback (
-						::Context_Callback ( this, ::Wdg2::GW_Sliders_Pad::read_panels_shift_cb ) );
+						::Context_Callback ( this, ::Wdg2::GW_Switches_Pad::read_panels_shift_cb ) );
 				}
 			} else {
 				if ( _scrollbar != 0 ) {
@@ -168,7 +167,7 @@ GW_Sliders_Pad::update_geometries ( )
 }
 
 void
-GW_Sliders_Pad::update_panels_position ( )
+GW_Switches_Pad::update_panels_position ( )
 {
 	if ( _group4 != 0 ) {
 		_group4->setPos ( QPointF ( -double ( _panels_shift ), 0.0 ) );

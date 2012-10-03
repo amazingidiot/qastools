@@ -431,6 +431,8 @@
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
 		<Unit filename="shared/src/wdg2/gw_label.cpp" />
 		<Unit filename="shared/src/wdg2/gw_label.hpp" />
+		<Unit filename="shared/src/wdg2/gw_mixer_pad.cpp" />
+		<Unit filename="shared/src/wdg2/gw_mixer_pad.hpp" />
 		<Unit filename="shared/src/wdg2/gw_pixmaps.cpp" />
 		<Unit filename="shared/src/wdg2/gw_pixmaps.hpp" />
 		<Unit filename="shared/src/wdg2/gw_qsnd2_slider.cpp" />
@@ -463,6 +465,10 @@
 		<Unit filename="shared/src/wdg2/gw_switch_multi.hpp" />
 		<Unit filename="shared/src/wdg2/gw_switches_joinable.cpp" />
 		<Unit filename="shared/src/wdg2/gw_switches_joinable.hpp" />
+		<Unit filename="shared/src/wdg2/gw_switches_pad.cpp" />
+		<Unit filename="shared/src/wdg2/gw_switches_pad.hpp" />
+		<Unit filename="shared/src/wdg2/gw_switches_pad_groups.cpp" />
+		<Unit filename="shared/src/wdg2/gw_switches_pad_groups.hpp" />
 		<Unit filename="shared/src/wdg2/gw_widget.cpp" />
 		<Unit filename="shared/src/wdg2/gw_widget.hpp" />
 		<Unit filename="shared/src/wdg2/gw_widget_element.cpp" />

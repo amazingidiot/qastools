@@ -17,7 +17,6 @@
 #include <QCoreApplication>
 #include <iostream>
 
-
 namespace Wdg2
 {
 
@@ -93,7 +92,7 @@ Sliders_Pad::update_geometries ( )
 {
 	if ( snd_controls() != 0 ) {
 		const QSize vps ( maximumViewportSize() );
-		_gw_sliders_pad.set_pad_size ( vps );
+		_gw_sliders_pad.set_size ( vps );
 
 		QRectF srect ( QPointF ( 0.0, 0.0 ), QSizeF ( vps ) );
 		setSceneRect ( srect );

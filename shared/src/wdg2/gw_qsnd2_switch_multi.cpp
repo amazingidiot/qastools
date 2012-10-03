@@ -14,7 +14,7 @@ namespace Wdg2
 
 
 GW_QSnd2_Switch_Multi::GW_QSnd2_Switch_Multi (
-	::QSnd2::Proxies_Group1_Switch & proxies_group_n,
+	::QSnd2::Proxies_Group_Switches & proxies_group_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Switch_Multi ( scene_db_n, parent_n ),
@@ -28,7 +28,7 @@ _proxies_group ( proxies_group_n )
 
 GW_QSnd2_Switch_Multi::~GW_QSnd2_Switch_Multi ( )
 {
-	_proxies_group.reset_val_change_callback();
+	_proxies_group.clear_val_change_callback();
 }
 
 void

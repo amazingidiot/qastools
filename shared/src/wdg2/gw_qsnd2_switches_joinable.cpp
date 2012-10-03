@@ -16,13 +16,13 @@ namespace Wdg2
 
 
 GW_QSnd2_Switches_Joinable::GW_QSnd2_Switches_Joinable (
-	::QSnd2::Proxies_Group1_Switch & proxies_grp_n,
+	::QSnd2::Proxies_Group_Switches & proxies_grp_n,
 	::Wdg2::Scene_Database * scene_db_n,
 	QGraphicsItem * parent_n ) :
 ::Wdg2::GW_Switches_Joinable ( scene_db_n, parent_n ),
 _proxies_grp ( proxies_grp_n )
 {
-	set_num_switches ( proxies_grp().num_proxies() );
+	set_num_switches ( proxies_grp().num_children() );
 }
 
 GW_QSnd2_Switches_Joinable::~GW_QSnd2_Switches_Joinable ( )

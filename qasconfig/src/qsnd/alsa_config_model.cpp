@@ -167,7 +167,7 @@ Alsa_Config_Model::cfg_count_children (
 	int count ( 0 );
 
 	if ( cfg_n != 0 ) {
-		if ( snd_config_get_type ( cfg_n ) == SND_CONFIG_TYPE_COMPOUND ) {
+		if ( snd_config_get_type ( cfg_n ) == ::SND_CONFIG_TYPE_COMPOUND ) {
 			snd_config_iterator_t iter;
 			snd_config_iterator_t iter_end;
 			iter = snd_config_iterator_first ( cfg_n );
@@ -190,7 +190,7 @@ Alsa_Config_Model::cfg_child (
 	snd_config_t * res ( 0 );
 
 	if ( cfg_n != 0 ) {
-		if ( snd_config_get_type ( cfg_n ) == SND_CONFIG_TYPE_COMPOUND ) {
+		if ( snd_config_get_type ( cfg_n ) == ::SND_CONFIG_TYPE_COMPOUND ) {
 			snd_config_iterator_t iter;
 			snd_config_iterator_t iter_end;
 			iter = snd_config_iterator_first ( cfg_n );

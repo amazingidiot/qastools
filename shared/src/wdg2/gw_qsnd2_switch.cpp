@@ -28,7 +28,7 @@ _switch_proxy ( switch_proxy_n )
 
 GW_QSnd2_Switch::~GW_QSnd2_Switch ( )
 {
-	_switch_proxy.reset_val_change_callback();
+	_switch_proxy.clear_val_change_callback();
 }
 
 void

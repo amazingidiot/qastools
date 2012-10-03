@@ -25,17 +25,17 @@ class GW_QSnd2_Sliders_Joinable :
 	public:
 
 	GW_QSnd2_Sliders_Joinable (
-		::QSnd2::Proxies_Group1_Slider & snd_proxies_n,
+		::QSnd2::Proxies_Group_Sliders & snd_proxies_n,
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
 	~GW_QSnd2_Sliders_Joinable ( );
 
 
-	::QSnd2::Proxies_Group1_Slider &
+	::QSnd2::Proxies_Group_Sliders &
 	proxies_grp ( );
 
-	const ::QSnd2::Proxies_Group1_Slider &
+	const ::QSnd2::Proxies_Group_Sliders &
 	proxies_grp ( ) const;
 
 
@@ -53,19 +53,19 @@ class GW_QSnd2_Sliders_Joinable :
 	// Private attributes
 	private:
 
-	::QSnd2::Proxies_Group1_Slider & _proxies_grp;
+	::QSnd2::Proxies_Group_Sliders & _proxies_grp;
 };
 
 
 inline
-::QSnd2::Proxies_Group1_Slider &
+::QSnd2::Proxies_Group_Sliders &
 GW_QSnd2_Sliders_Joinable::proxies_grp ( )
 {
 	return _proxies_grp;
 }
 
 inline
-const ::QSnd2::Proxies_Group1_Slider &
+const ::QSnd2::Proxies_Group_Sliders &
 GW_QSnd2_Sliders_Joinable::proxies_grp ( ) const
 {
 	return _proxies_grp;

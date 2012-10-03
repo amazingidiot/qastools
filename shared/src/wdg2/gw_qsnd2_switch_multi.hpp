@@ -25,7 +25,7 @@ class GW_QSnd2_Switch_Multi :
 	public:
 
 	GW_QSnd2_Switch_Multi (
-		::QSnd2::Proxies_Group1_Switch & proxies_group_n,
+		::QSnd2::Proxies_Group_Switches & proxies_group_n,
 		::Wdg2::Scene_Database * scene_db_n,
 		QGraphicsItem * parent_n = 0 );
 
@@ -52,7 +52,7 @@ class GW_QSnd2_Switch_Multi :
 	// Private attributes
 	private:
 
-	::QSnd2::Proxies_Group1_Switch & _proxies_group;
+	::QSnd2::Proxies_Group_Switches & _proxies_group;
 };
 
 

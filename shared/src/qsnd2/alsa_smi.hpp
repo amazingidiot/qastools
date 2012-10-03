@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_qsnd_mixer_hpp__
-#define __INC_qsnd_mixer_hpp__
+#ifndef __INC_qsnd2_mixer_hpp__
+#define __INC_qsnd2_mixer_hpp__
 
 #include "qsnd/alsa.hpp"
 #include "controls.hpp"
@@ -53,7 +53,7 @@ class ASMI_Proxy_Slider :
 
 
 class ASMI_Proxies_Group1_Slider :
-	public ::QSnd2::Proxies_Group1_Slider
+	public ::QSnd2::Proxies_Group_Sliders
 {
 	// Public methods
 	public:
@@ -108,7 +108,7 @@ inline
 ::QSnd2::ASMI_Proxies_Group1_Slider *
 ASMI_Proxy_Slider::asmi_pgroup ( ) const
 {
-	return static_cast < ::QSnd2::ASMI_Proxies_Group1_Slider * > ( pgroup() );
+	return static_cast < ::QSnd2::ASMI_Proxies_Group1_Slider * > ( controls_group() );
 }
 
 
@@ -145,7 +145,7 @@ class ASMI_Proxy_Switch :
 
 
 class ASMI_Proxies_Group1_Switch :
-	public ::QSnd2::Proxies_Group1_Switch
+	public ::QSnd2::Proxies_Group_Switches
 {
 	// Public methods
 	public:
@@ -176,7 +176,7 @@ inline
 ::QSnd2::ASMI_Proxies_Group1_Switch *
 ASMI_Proxy_Switch::asmi_pgroup ( ) const
 {
-	return static_cast < ::QSnd2::ASMI_Proxies_Group1_Switch * > ( pgroup() );
+	return static_cast < ::QSnd2::ASMI_Proxies_Group1_Switch * > ( controls_group() );
 }
 
 

@@ -44,7 +44,7 @@ _view_setup ( 0 )
 		this, SIGNAL ( sig_mdev_reload_request() ) );
 
 	_default_iface_type_idx =
-		_snd_mixer->info_db()->iface_type_idx ( SND_CTL_ELEM_IFACE_MIXER );
+		_snd_mixer->info_db()->iface_type_idx ( ::SND_CTL_ELEM_IFACE_MIXER );
 
 	// Mixer widget
 	_mixer_hctl = new ::MWdg::Mixer_HCTL;
