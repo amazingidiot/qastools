@@ -204,6 +204,8 @@ Main_Window::set_window_setup (
 		// Pass setup tree to child classes
 		_dev_select->set_view_setup ( &_win_setup->dev_select );
 		_dev_select->silent_select_ctl ( _win_setup->mixer_dev.ctl_addr );
+
+		_gw_mixer->set_mdev_setup ( &_win_setup->mixer_dev );
 	}
 }
 
