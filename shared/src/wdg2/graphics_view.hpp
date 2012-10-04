@@ -6,42 +6,46 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_wdg2_sliders_pad_hpp__
-#define __INC_wdg2_sliders_pad_hpp__
+#ifndef __INC_wdg2_graphics_view_hpp__
+#define __INC_wdg2_graphics_view_hpp__
 
 #include "scene_database.hpp"
-#include "gw_sliders_pad.hpp"
-#include "gw_mixer_pad.hpp"
 #include <QGraphicsScene>
 #include <QGraphicsView>
+
+// Forward declarations
+namespace Wdg2 {
+	class GW_Widget;
+}
 
 namespace Wdg2
 {
 
-
-/// @brief Sliders_Pad
+/// @brief Graphics_View
 ///
-class Sliders_Pad :
+class Graphics_View :
 	public QGraphicsView
 {
-	Q_OBJECT
-
 	// Public methods
 	public:
 
-	Sliders_Pad (
+	Graphics_View (
 		::Wdg2::Scene_Database * scene_db_n,
 		QWidget * parent_n = 0 );
 
-	~Sliders_Pad ( );
+	~Graphics_View ( );
 
 
-	::QSnd2::Controls *
-	snd_controls ( ) const;
+	::Wdg2::Scene_Database *
+	scene_db ( ) const;
+
+
+	::Wdg2::GW_Widget *
+	widget ( ) const;
 
 	void
-	set_snd_controls (
-		::QSnd2::Controls * controls_n );
+	set_widget (
+		::Wdg2::GW_Widget * widget_n );
 
 
 	bool
@@ -51,9 +55,6 @@ class Sliders_Pad :
 	enable_opengl (
 		bool flag_n );
 
-	::Wdg2::Scene_Database *
-	scene_db ( ) const;
-
 
 	bool
 	event (
@@ -61,12 +62,8 @@ class Sliders_Pad :
 
 	static
 	void
-	notify_pixmaps_finished (
+	pixmaps_finished_cb (
 		void * context_n );
-
-
-	// Public slots
-	public slots:
 
 
 	// Protected methods
@@ -87,25 +84,24 @@ class Sliders_Pad :
 	// Private attributes
 	private:
 
-	::Wdg2::Scene_Database * _scene_db;
-	::Wdg2::GW_Mixer_Pad _gw_mixer_pad;
 	QGraphicsScene _scene;
+	QScopedPointer < ::Wdg2::GW_Widget > _widget;
+	::Wdg2::Scene_Database * _scene_db;
 
 	int _etype_deliver_pixmaps;
 	bool _opengl_enabled;
 };
 
-
 inline
-::QSnd2::Controls *
-Sliders_Pad::snd_controls ( ) const
+::Wdg2::GW_Widget *
+Graphics_View::widget ( ) const
 {
-	return _gw_mixer_pad.snd_controls();
+	return _widget.data();
 }
 
 inline
 ::Wdg2::Scene_Database *
-Sliders_Pad::scene_db ( ) const
+Graphics_View::scene_db ( ) const
 {
 	return _scene_db;
 }

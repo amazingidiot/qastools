@@ -385,10 +385,6 @@ Settings_Dialog::update_inputs_values ( )
 	}
 	_start_dev_user_edit->setText ( _dsetup->start_user_device );
 
-	// Appearance
-	_btn_show_sliders_labels->setChecked (
-		_dsetup->main_window.mixer_simple.show_slider_value_labels );
-
 	// Input
 	{
 		const int value ( _dsetup->main_window.inputs.wheel_degrees );
@@ -498,6 +494,7 @@ Settings_Dialog::change_appearance ( )
 	}
 
 	bool changed ( false );
+	/* TODO: remove
 	{
 		bool & sflag (
 			_dsetup->main_window.mixer_simple.show_slider_value_labels );
@@ -506,6 +503,7 @@ Settings_Dialog::change_appearance ( )
 			changed = true;
 		}
 	}
+	*/
 	if ( changed ) {
 		//::std::cout << "sig_change_mixer_view()\n";
 		emit sig_change_mixer_view();

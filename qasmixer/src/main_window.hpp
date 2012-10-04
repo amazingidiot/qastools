@@ -11,16 +11,16 @@
 
 #include "qastools_config.hpp"
 #include "main_window_setup.hpp"
-
+#include "wdg2/graphics_view.hpp"
 #include <QAction>
 #include <QActionGroup>
 #include <QMainWindow>
 #include <QSplitter>
 #include <QScopedPointer>
 
-// Forward declaration
+// Forward declarations
 namespace Views {
-	class Mixer_Simple;
+	class GW_Mixer;
 	class Dev_Select_View;
 }
 
@@ -139,10 +139,13 @@ class Main_Window :
 
 	Main_Window_Setup * _win_setup;
 
+	::Wdg2::Scene_Database _scene_db;
+
 	// Base widgets
 	QScopedPointer < QSplitter > _splitter;
-	::Views::Mixer_Simple * _mixer_simple;
-	::Views::Dev_Select_View * _dev_select;
+	QScopedPointer < ::Wdg2::Graphics_View > _graphics_view;
+	::Views::GW_Mixer * _gw_mixer;
+	QScopedPointer < ::Views::Dev_Select_View > _dev_select;
 
 	// Menubar
 	QMenu * _menu_mixer;

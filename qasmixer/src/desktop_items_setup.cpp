@@ -51,7 +51,6 @@ Desktop_Items_Setup::read_from_storage ( )
 	tray_is_minimized = settings.value ( "tray_is_minimized",
 		tray_is_minimized ).toBool();
 
-
 	// Main window state
 	{
 		settings.beginGroup ( "main_window" );
@@ -71,7 +70,6 @@ Desktop_Items_Setup::read_from_storage ( )
 		settings.endGroup();
 	}
 
-
 	// Device selection
 	{
 		::Views::Dev_Select_View_Setup & vsetup (
@@ -84,28 +82,6 @@ Desktop_Items_Setup::read_from_storage ( )
 
 		settings.endGroup();
 	}
-
-
-	// Simple mixer
-	{
-		::Views::Mixer_Simple_Setup & vsetup (
-			main_window.mixer_simple );
-
-		settings.beginGroup ( "simple_mixer" );
-
-		vsetup.show_stream[0] = settings.value ( "show_stream_playback",
-			vsetup.show_stream[0] ).toBool();
-
-		vsetup.show_stream[1] = settings.value ( "show_stream_capture",
-			vsetup.show_stream[1] ).toBool();
-
-		vsetup.show_slider_value_labels = settings.value (
-			"show_slider_value_labels",
-			vsetup.show_slider_value_labels ).toBool();
-
-		settings.endGroup();
-	}
-
 
 	// Tray mixer
 	{
@@ -159,13 +135,6 @@ Desktop_Items_Setup::read_from_storage ( )
 	if ( tray_mdev.device_mode > ::Tray_Mixer_MDev_Setup::MIXER_DEV_LAST ) {
 		tray_mdev.device_mode = ::Tray_Mixer_MDev_Setup::MIXER_DEV_DEFAULT;
 	}
-
-	{
-		::Views::Mixer_Simple_Setup & vsetup ( main_window.mixer_simple );
-		if ( !( vsetup.show_stream[0] || vsetup.show_stream[1] ) ) {
-			vsetup.show_stream[0] = true;
-		}
-	}
 }
 
 
@@ -200,7 +169,6 @@ Desktop_Items_Setup::write_to_storage ( )
 	settings.setValue ( "tray_is_minimized",
 		tray_is_minimized );
 
-
 	// Main window state
 	{
 		settings.beginGroup ( "main_window" );
@@ -220,7 +188,6 @@ Desktop_Items_Setup::write_to_storage ( )
 		settings.endGroup();
 	}
 
-
 	// Device selection
 	{
 		const ::Views::Dev_Select_View_Setup & vsetup (
@@ -232,27 +199,6 @@ Desktop_Items_Setup::write_to_storage ( )
 
 		settings.endGroup();
 	}
-
-
-	// Simple mixer
-	{
-		const ::Views::Mixer_Simple_Setup & vsetup (
-			main_window.mixer_simple );
-
-		settings.beginGroup ( "simple_mixer" );
-
-		settings.setValue ( "show_stream_playback",
-			vsetup.show_stream[0] );
-
-		settings.setValue ( "show_stream_capture",
-			vsetup.show_stream[1] );
-
-		settings.setValue ( "show_slider_value_labels",
-			vsetup.show_slider_value_labels );
-
-		settings.endGroup();
-	}
-
 
 	// Mini mixer
 	{
@@ -280,7 +226,6 @@ Desktop_Items_Setup::write_to_storage ( )
 
 		settings.endGroup();
 	}
-
 
 	// Settings view
 	{

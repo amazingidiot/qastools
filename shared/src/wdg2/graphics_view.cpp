@@ -6,13 +6,9 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "sliders_pad.hpp"
-#include "gw_sliders_pad_groups.hpp"
-#include "qsnd2/controls.hpp"
+#include "graphics_view.hpp"
+#include "gw_widget.hpp"
 #include <QEvent>
-#include <QKeyEvent>
-#include <QFocusEvent>
-#include <QScrollBar>
 #include <QGLWidget>
 #include <QCoreApplication>
 #include <iostream>
@@ -21,17 +17,16 @@ namespace Wdg2
 {
 
 
-Sliders_Pad::Sliders_Pad (
+Graphics_View::Graphics_View (
 	::Wdg2::Scene_Database * scene_db_n,
 	QWidget * parent_n ) :
 QGraphicsView ( parent_n ),
 _scene_db ( scene_db_n ),
-_gw_mixer_pad ( _scene_db ),
 _opengl_enabled ( false )
 {
 	_etype_deliver_pixmaps = QEvent::registerEventType();
 	_scene_db->pxm_server()->set_one_done_callback (
-		::Context_Callback ( this, &::Wdg2::Sliders_Pad::notify_pixmaps_finished ) );
+		::Context_Callback ( this, &::Wdg2::Graphics_View::pixmaps_finished_cb ) );
 
 	setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
 	setAlignment ( Qt::AlignLeft | Qt::AlignTop );
@@ -47,34 +42,32 @@ _opengl_enabled ( false )
 	setScene ( &_scene );
 }
 
-Sliders_Pad::~Sliders_Pad ( )
+Graphics_View::~Graphics_View ( )
 {
 }
 
 void
-Sliders_Pad::set_snd_controls (
-	::QSnd2::Controls * controls_n )
+Graphics_View::set_widget (
+	::Wdg2::GW_Widget * widget_n )
 {
-	if ( snd_controls() != 0 ) {
-		_scene.removeItem ( &_gw_mixer_pad );
+	if ( _widget != 0 ) {
+		_scene.removeItem ( _widget.data() );
 	}
-
-	_gw_mixer_pad.set_snd_controls ( controls_n );
-
-	if ( snd_controls() != 0 ) {
-		_scene.addItem ( &_gw_mixer_pad );
+	_widget.reset ( widget_n );
+	if ( _widget != 0 ) {
+		_scene.addItem ( _widget.data() );
 		update_geometries();
 	}
 }
 
 bool
-Sliders_Pad::opengl_enabled ( ) const
+Graphics_View::opengl_enabled ( ) const
 {
 	return _opengl_enabled;
 }
 
 void
-Sliders_Pad::enable_opengl (
+Graphics_View::enable_opengl (
 	bool flag_n )
 {
 	if ( flag_n != _opengl_enabled ) {
@@ -88,30 +81,29 @@ Sliders_Pad::enable_opengl (
 }
 
 void
-Sliders_Pad::update_geometries ( )
+Graphics_View::update_geometries ( )
 {
-	if ( snd_controls() != 0 ) {
-		const QSize vps ( maximumViewportSize() );
-		_gw_mixer_pad.set_size ( vps );
-
-		QRectF srect ( QPointF ( 0.0, 0.0 ), QSizeF ( vps ) );
-		setSceneRect ( srect );
+	const QSize vps ( maximumViewportSize() );
+	if ( _widget != 0 ) {
+		_widget->set_size ( vps );
 	}
+	QRectF srect ( QPointF ( 0.0, 0.0 ), QSizeF ( vps ) );
+	setSceneRect ( srect );
 }
 
 void
-Sliders_Pad::notify_pixmaps_finished (
+Graphics_View::pixmaps_finished_cb (
 	void * context_n )
 {
-	::Wdg2::Sliders_Pad * cref (
-		reinterpret_cast < ::Wdg2::Sliders_Pad * > ( context_n ) );
+	::Wdg2::Graphics_View * cref (
+		reinterpret_cast < ::Wdg2::Graphics_View * > ( context_n ) );
 	QCoreApplication * app ( QCoreApplication::instance() );
 	app->postEvent (
 		cref, new QEvent ( (QEvent::Type)cref->_etype_deliver_pixmaps ) );
 }
 
 bool
-Sliders_Pad::event (
+Graphics_View::event (
 	QEvent * event_n )
 {
 	bool res ( true );
@@ -124,7 +116,7 @@ Sliders_Pad::event (
 }
 
 void
-Sliders_Pad::resizeEvent (
+Graphics_View::resizeEvent (
 	QResizeEvent * event_n )
 {
 	QGraphicsView::resizeEvent ( event_n );

@@ -51,15 +51,10 @@ _shutdown ( false )
 			stype, mstyle.style_palette ( stype ) );
 	}
 
-	{
-		_dsetup.main_window.mixer_simple.wdg_style_db = &_wdg_style_db;
-		_dsetup.main_window.mixer_simple.image_alloc = &_image_alloc;
-	}
 	_dsetup.tray_view.image_alloc = &_image_alloc;
 
 	_evt_mixer_closed = QEvent::registerEventType();
 }
-
 
 Desktop_Items::~Desktop_Items ( )
 {
@@ -69,7 +64,6 @@ Desktop_Items::~Desktop_Items ( )
 	}
 }
 
-
 int
 Desktop_Items::init_settings (
 	int argc,
@@ -78,7 +72,6 @@ Desktop_Items::init_settings (
 	_dsetup.read_from_storage();
 	return parse_cmd_options ( argc, argv );
 }
-
 
 int
 Desktop_Items::parse_cmd_options (
@@ -199,7 +192,6 @@ Desktop_Items::parse_cmd_options (
 	return 0;
 }
 
-
 void
 Desktop_Items::parse_message (
 	QString msg_n )
@@ -237,7 +229,6 @@ Desktop_Items::parse_message (
 	}
 }
 
-
 QString
 Desktop_Items::message_to_other_instance ( ) const
 {
@@ -258,7 +249,6 @@ Desktop_Items::message_to_other_instance ( ) const
 
 	return msg;
 }
-
 
 void
 Desktop_Items::start (
@@ -292,14 +282,6 @@ Desktop_Items::start (
 		} else {
 			ctl_addr = _cmd_opts.start_ctl_address;
 		}
-	}
-
-	// Slider painter bevelled
-	{
-		::Wdg::Painter::DS_Slider_Painter_Bevelled * pnt (
-			new ::Wdg::Painter::DS_Slider_Painter_Bevelled );
-		pnt->set_wdg_style_db ( &_wdg_style_db );
-		_image_alloc.install_painter ( pnt );
 	}
 
 	// Switch painter circle
@@ -351,7 +333,6 @@ Desktop_Items::start (
 	}
 }
 
-
 void
 Desktop_Items::main_mixer_create ( )
 {
@@ -379,7 +360,6 @@ Desktop_Items::main_mixer_create ( )
 	_main_mixer->show();
 }
 
-
 void
 Desktop_Items::main_mixer_destroy ( )
 {
@@ -389,7 +369,6 @@ Desktop_Items::main_mixer_destroy ( )
 		//::std::cout << "Main mixer destroyed\n";
 	}
 }
-
 
 bool
 Desktop_Items::main_mixer_visible ( )
@@ -401,7 +380,6 @@ Desktop_Items::main_mixer_visible ( )
 	return res;
 }
 
-
 void
 Desktop_Items::main_mixer_close ( )
 {
@@ -409,7 +387,6 @@ Desktop_Items::main_mixer_close ( )
 		_main_mixer->close();
 	}
 }
-
 
 void
 Desktop_Items::main_mixer_raise ( )
@@ -428,7 +405,6 @@ Desktop_Items::main_mixer_raise ( )
 
 	tray_mixer_update_visibility();
 }
-
 
 void
 Desktop_Items::main_mixer_toggle_by_tray ( )
@@ -452,7 +428,6 @@ Desktop_Items::main_mixer_toggle_by_tray ( )
 	}
 }
 
-
 void
 Desktop_Items::main_mixer_closed ( )
 {
@@ -469,7 +444,6 @@ Desktop_Items::main_mixer_closed ( )
 	}
 }
 
-
 void
 Desktop_Items::main_mixer_reload_view ( )
 {
@@ -477,7 +451,6 @@ Desktop_Items::main_mixer_reload_view ( )
 		_main_mixer->reload_mixer_view();
 	}
 }
-
 
 void
 Desktop_Items::tray_mixer_create ( )
@@ -505,7 +478,6 @@ Desktop_Items::tray_mixer_create ( )
 	_tray_mixer->set_view_setup ( &_dsetup.tray_view );
 }
 
-
 void
 Desktop_Items::tray_mixer_destroy ( )
 {
@@ -514,7 +486,6 @@ Desktop_Items::tray_mixer_destroy ( )
 		_tray_mixer = 0;
 	}
 }
-
 
 void
 Desktop_Items::tray_mixer_update_visibility ( )
@@ -536,7 +507,6 @@ Desktop_Items::tray_mixer_update_visibility ( )
 	}
 }
 
-
 bool
 Desktop_Items::tray_mixer_visible ( )
 {
@@ -547,8 +517,6 @@ Desktop_Items::tray_mixer_visible ( )
 	return res;
 }
 
-
-
 void
 Desktop_Items::tray_mixer_reload_mdev ( )
 {
@@ -557,7 +525,6 @@ Desktop_Items::tray_mixer_reload_mdev ( )
 		_tray_mixer->set_mdev_setup ( &_dsetup.tray_mdev );
 	}
 }
-
 
 void
 Desktop_Items::tray_mixer_reload_current_mdev ( )
@@ -574,7 +541,6 @@ Desktop_Items::tray_mixer_reload_current_mdev ( )
 	}
 }
 
-
 void
 Desktop_Items::tray_mixer_update_balloon_setup ( )
 {
@@ -582,7 +548,6 @@ Desktop_Items::tray_mixer_update_balloon_setup ( )
 		_tray_mixer->update_balloon_setup();
 	}
 }
-
 
 void
 Desktop_Items::reload_inputs_setup ( )
@@ -599,7 +564,6 @@ Desktop_Items::reload_inputs_setup ( )
 		_tray_mixer->update_balloon_setup();
 	}
 }
-
 
 void
 Desktop_Items::show_dialog_settings ( )
@@ -634,7 +598,6 @@ Desktop_Items::show_dialog_settings ( )
 	_dialog_settings->show();
 }
 
-
 void
 Desktop_Items::show_dialog_info ( )
 {
@@ -652,7 +615,6 @@ Desktop_Items::show_dialog_info ( )
 	_dialog_info->show();
 }
 
-
 void
 Desktop_Items::shutdown ( )
 {
@@ -664,14 +626,12 @@ Desktop_Items::shutdown ( )
 	}
 }
 
-
 void
 Desktop_Items::quit ( )
 {
 	shutdown();
 	emit sig_quit();
 }
-
 
 bool
 Desktop_Items::event (
@@ -686,7 +646,6 @@ Desktop_Items::event (
 	}
 	return res;
 }
-
 
 bool
 Desktop_Items::eventFilter (
@@ -706,4 +665,3 @@ Desktop_Items::eventFilter (
 	}
 	return filtered;
 }
-

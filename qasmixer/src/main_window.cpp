@@ -7,11 +7,10 @@
 //
 
 #include "main_window.hpp"
-
-#include "views/mixer_simple.hpp"
+#include "wdg2/theme_sbevel.hpp"
 #include "views/dev_select_view.hpp"
 #include "views/view_utility.hpp"
-
+#include "views/gw_mixer.hpp"
 #include <QMenuBar>
 #include <QSplitter>
 #include <QLabel>
@@ -27,7 +26,8 @@ Main_Window::Main_Window (
 	Qt::WindowFlags flags_n ) :
 QMainWindow ( parent_n, flags_n ),
 _win_setup ( 0 ),
-_mixer_simple ( 0 ),
+_graphics_view ( 0 ),
+_gw_mixer ( 0 ),
 _dev_select ( 0 )
 {
 	setWindowTitle ( PROGRAM_TITLE );
@@ -39,6 +39,8 @@ _dev_select ( 0 )
 	_icon_fscreen_enable = QIcon::fromTheme ( "view-fullscreen" );
 	_icon_fscreen_disable = QIcon::fromTheme ( "view-restore" );
 
+	_scene_db.install_theme ( new ::Wdg2::Theme_SBevel );
+
 	// Init menus
 	init_menus();
 	init_widgets();
@@ -46,11 +48,9 @@ _dev_select ( 0 )
 	update_fullscreen_action();
 }
 
-
 Main_Window::~Main_Window ( )
 {
 }
-
 
 void
 Main_Window::init_menus ( )
@@ -133,33 +133,35 @@ Main_Window::init_menus ( )
 		this, SIGNAL ( sig_show_info() ) );
 }
 
-
 void
 Main_Window::init_widgets ( )
 {
 	// Device selection
 	{
-		_dev_select = new ::Views::Dev_Select_View;
+		_dev_select.reset ( new ::Views::Dev_Select_View );
 		_dev_select->hide();
 
 		// QueuedConnection to update the GUI before loading the mixer
-		connect ( _dev_select, SIGNAL ( sig_control_changed() ),
+		connect ( _dev_select.data(), SIGNAL ( sig_control_changed() ),
 			this, SLOT ( select_ctl_from_side_iface() ), Qt::QueuedConnection );
 
-		connect ( _dev_select, SIGNAL ( sig_close() ),
+		connect ( _dev_select.data(), SIGNAL ( sig_close() ),
 			this, SLOT ( toggle_device_selection() ) );
 	}
 
-	// Central mixer
+	// Graphics view and mixer
 	{
-		_mixer_simple = new ::Views::Mixer_Simple;
+		_gw_mixer = new ::Views::GW_Mixer ( &_scene_db );
+
+		_graphics_view.reset ( new ::Wdg2::Graphics_View ( &_scene_db ) );
+		_graphics_view->set_widget ( _gw_mixer );
 	}
 
 	// Central splitter
 	{
 		_splitter.reset ( new QSplitter );
-		_splitter->addWidget ( _mixer_simple );
-		_splitter->addWidget ( _dev_select );
+		_splitter->addWidget ( _graphics_view.data() );
+		_splitter->addWidget ( _dev_select.data() );
 		_splitter->setStretchFactor ( 0, 1 );
 		_splitter->setStretchFactor ( 1, 0 );
 		_splitter->setCollapsible ( 0, false );
@@ -167,7 +169,6 @@ Main_Window::init_widgets ( )
 		setCentralWidget ( _splitter.data() );
 	}
 }
-
 
 QSize
 Main_Window::sizeHint ( ) const
@@ -177,15 +178,11 @@ Main_Window::sizeHint ( ) const
 	return res;
 }
 
-
 void
 Main_Window::set_window_setup (
 	Main_Window_Setup * setup_n )
 {
 	if ( _win_setup != 0 ) {
-		_mixer_simple->set_mdev_setup ( 0 );
-		_mixer_simple->set_inputs_setup ( 0 );
-		_mixer_simple->set_view_setup ( 0 );
 		_dev_select->set_view_setup ( 0 );
 	}
 
@@ -207,13 +204,8 @@ Main_Window::set_window_setup (
 		// Pass setup tree to child classes
 		_dev_select->set_view_setup ( &_win_setup->dev_select );
 		_dev_select->silent_select_ctl ( _win_setup->mixer_dev.ctl_addr );
-
-		_mixer_simple->set_view_setup ( &_win_setup->mixer_simple );
-		_mixer_simple->set_inputs_setup ( &_win_setup->inputs );
-		_mixer_simple->set_mdev_setup ( &_win_setup->mixer_dev );
 	}
 }
-
 
 void
 Main_Window::update_fullscreen_action ( )
@@ -237,7 +229,6 @@ Main_Window::update_fullscreen_action ( )
 	_act_fullscreen->setChecked ( checked );
 }
 
-
 void
 Main_Window::select_ctl (
 	const QString & ctl_n )
@@ -249,17 +240,16 @@ Main_Window::select_ctl (
 	if ( _win_setup != 0 ) {
 		if ( ctl_n != _win_setup->mixer_dev.ctl_addr ) {
 			// Remove
-			_mixer_simple->set_mdev_setup ( 0 );
+			_gw_mixer->set_mdev_setup ( 0 );
 			// Change
 			_win_setup->mixer_dev.ctl_addr = ctl_n;
 			// Reinstall
-			_mixer_simple->set_mdev_setup ( &_win_setup->mixer_dev );
+			_gw_mixer->set_mdev_setup ( &_win_setup->mixer_dev );
 		}
 	}
 
 	emit sig_control_changed();
 }
-
 
 void
 Main_Window::select_ctl_from_side_iface ( )
@@ -270,35 +260,31 @@ Main_Window::select_ctl_from_side_iface ( )
 	emit sig_control_changed();
 }
 
-
 void
 Main_Window::reload_mixer_device ( )
 {
 	//::std::cout << "Main_Window::reload_mixer_device" << "\n";
 	_dev_select->reload_database();
 
-	_mixer_simple->set_mdev_setup ( 0 );
-	_mixer_simple->set_mdev_setup ( &_win_setup->mixer_dev );
+	_gw_mixer->set_mdev_setup ( 0 );
+	_gw_mixer->set_mdev_setup ( &_win_setup->mixer_dev );
 }
-
 
 void
 Main_Window::reload_mixer_inputs ( )
 {
 	//::std::cout << "Main_Window::reload_mixer_inputs" << "\n";
-	_mixer_simple->set_inputs_setup ( 0 );
-	_mixer_simple->set_inputs_setup ( &_win_setup->inputs );
+	//_gw_mixer->set_inputs_setup ( 0 );
+	//_gw_mixer->set_inputs_setup ( &_win_setup->inputs );
 }
-
 
 void
 Main_Window::reload_mixer_view ( )
 {
 	//::std::cout << "Main_Window::reload_mixer_view" << "\n";
-	_mixer_simple->set_view_setup ( 0 );
-	_mixer_simple->set_view_setup ( &_win_setup->mixer_simple );
+	//_gw_mixer->set_view_setup ( 0 );
+	//_gw_mixer->set_view_setup ( &_win_setup->mixer_simple );
 }
-
 
 void
 Main_Window::set_fullscreen (
@@ -314,7 +300,6 @@ Main_Window::set_fullscreen (
 	}
 }
 
-
 void
 Main_Window::show_device_selection (
 	bool flag_n )
@@ -327,13 +312,11 @@ Main_Window::show_device_selection (
 	_dev_select->setVisible ( flag_n );
 }
 
-
 void
 Main_Window::toggle_device_selection ( )
 {
 	_act_show_dev_select->setChecked ( !_act_show_dev_select->isChecked() );
 }
-
 
 void
 Main_Window::save_state ( )
@@ -345,7 +328,6 @@ Main_Window::save_state ( )
 	}
 }
 
-
 void
 Main_Window::changeEvent (
 	QEvent * event_n )
@@ -355,7 +337,6 @@ Main_Window::changeEvent (
 		update_fullscreen_action();
 	}
 }
-
 
 void
 Main_Window::keyPressEvent (

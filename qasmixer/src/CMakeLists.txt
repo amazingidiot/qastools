@@ -61,7 +61,6 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/dpe2/painter_simple.cpp
 
 	${SHARED_SRC_DIR}/wdg2/int_math.cpp
-	${SHARED_SRC_DIR}/wdg2/sliders_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/slider_value_map.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_widget.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_pixmaps.cpp
@@ -79,6 +78,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/wdg2/gw_switches_pad.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_scroll_bar.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_scroll_area.cpp
+	${SHARED_SRC_DIR}/wdg2/graphics_view.cpp
 
 	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_switch.cpp
 	${SHARED_SRC_DIR}/wdg2/gw_qsnd2_switch_multi.cpp
@@ -129,39 +129,9 @@ SET ( SRC_GUI
 
 	${SHARED_SRC_DIR}/wdg/uint_mapper.cpp
 	${SHARED_SRC_DIR}/wdg/cubic_curve.cpp
-	${SHARED_SRC_DIR}/wdg/ds_slider_meta_bg.cpp
-	${SHARED_SRC_DIR}/wdg/ds_slider_painter_bevelled.cpp
-	${SHARED_SRC_DIR}/wdg/ds_slider.cpp
 
 	${SHARED_SRC_DIR}/wdg/event_types.cpp
 	${SHARED_SRC_DIR}/wdg/pass_events.cpp
-
-	${SHARED_SRC_DIR}/wdg/pad_focus_info.cpp
-	${SHARED_SRC_DIR}/wdg/pad_proxy.cpp
-	${SHARED_SRC_DIR}/wdg/pad_proxy_style.cpp
-	${SHARED_SRC_DIR}/wdg/pad_proxy_slider.cpp
-	${SHARED_SRC_DIR}/wdg/pad_proxy_switch.cpp
-	${SHARED_SRC_DIR}/wdg/pad_proxy_enum.cpp
-	${SHARED_SRC_DIR}/wdg/pad_proxies_column.cpp
-	${SHARED_SRC_DIR}/wdg/pad_proxies_group.cpp
-
-	${SHARED_SRC_DIR}/wdg/layout_weights.cpp
-	${SHARED_SRC_DIR}/wdg/equal_columns_layout_group.cpp
-	${SHARED_SRC_DIR}/wdg/equal_columns_layout.cpp
-	${SHARED_SRC_DIR}/wdg/fill_columns_layout.cpp
-
-	${SHARED_SRC_DIR}/wdg/sliders_pad_layout.cpp
-	${SHARED_SRC_DIR}/wdg/sliders_pad_style.cpp
-	${SHARED_SRC_DIR}/wdg/sliders_pad_data.cpp
-	${SHARED_SRC_DIR}/wdg/sliders_pad_header_data.cpp
-	${SHARED_SRC_DIR}/wdg/sliders_pad_header.cpp
-	${SHARED_SRC_DIR}/wdg/sliders_pad_footer.cpp
-	${SHARED_SRC_DIR}/wdg/sliders_pad.cpp
-
-	${SHARED_SRC_DIR}/wdg/switches_pad_widgets.cpp
-	${SHARED_SRC_DIR}/wdg/switches_pad_widgets_group.cpp
-	${SHARED_SRC_DIR}/wdg/switches_pad.cpp
-	${SHARED_SRC_DIR}/wdg/switches_area.cpp
 
 	${SHARED_SRC_DIR}/mwdg/event_types.cpp
 	${SHARED_SRC_DIR}/mwdg/ctl_arg_view.cpp
@@ -192,8 +162,7 @@ SET ( SRC_GUI
 	mwdg/mixer_gui_state.cpp
 	mwdg/mixer_simple_setup.cpp
 
-	views/mixer_simple_setup.cpp
-	views/mixer_simple.cpp
+	views/gw_mixer.cpp
 	views/settings_dialog_setup.cpp
 	views/settings_dialog.cpp
 
@@ -223,25 +192,12 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/qsnd/mixer_simple.hpp
 
 	${SHARED_INC_DIR}/qsnd2/controls_watcher.hpp
-	${SHARED_INC_DIR}/wdg2/sliders_pad.hpp
 
 	${SHARED_INC_DIR}/dpe/is_buffer.hpp
 	${SHARED_INC_DIR}/dpe/image_allocator.hpp
 
-	${SHARED_INC_DIR}/wdg/ds_slider.hpp
 	${SHARED_INC_DIR}/wdg/ds_switch.hpp
 	${SHARED_INC_DIR}/wdg/balloon_widget.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy_slider.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy_switch.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy_enum.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxies_column.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxies_group.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_data.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_header.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_footer.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad.hpp
-	${SHARED_INC_DIR}/wdg/switches_pad.hpp
 
 	${SHARED_INC_DIR}/mwdg/controls_delegate.hpp
 	${SHARED_INC_DIR}/mwdg/controls_view.hpp
@@ -261,7 +217,6 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/unix_signal_handler.hpp
 	${SHARED_INC_DIR}/single_application.hpp
 
-	views/mixer_simple.hpp
 	views/settings_dialog.hpp
 
 	tray_mixer_icon.hpp

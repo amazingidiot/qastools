@@ -38,8 +38,10 @@ void
 Timer_Server::destroy_timer_obj (
 	::Wdg2::Timer * timer_n )
 {
-	assert ( timer_n->num_callbacks() == 0 );
-	delete timer_n;
+	if ( timer_n != 0 ) {
+		assert ( timer_n->num_callbacks() == 0 );
+		delete timer_n;
+	}
 }
 
 /// @brief Creates a timer and returns its id
