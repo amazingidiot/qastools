@@ -172,10 +172,8 @@
 		<Unit filename="qasmixer/src/tray_mixer_mdev_setup.hpp" />
 		<Unit filename="qasmixer/src/tray_mixer_view_setup.cpp" />
 		<Unit filename="qasmixer/src/tray_mixer_view_setup.hpp" />
-		<Unit filename="qasmixer/src/views/mixer_simple.cpp" />
-		<Unit filename="qasmixer/src/views/mixer_simple.hpp" />
-		<Unit filename="qasmixer/src/views/mixer_simple_setup.cpp" />
-		<Unit filename="qasmixer/src/views/mixer_simple_setup.hpp" />
+		<Unit filename="qasmixer/src/views/gw_mixer.cpp" />
+		<Unit filename="qasmixer/src/views/gw_mixer.hpp" />
 		<Unit filename="qasmixer/src/views/settings_dialog.cpp" />
 		<Unit filename="qasmixer/src/views/settings_dialog.hpp" />
 		<Unit filename="qasmixer/src/views/settings_dialog_setup.cpp" />
@@ -429,6 +427,8 @@
 		<Unit filename="shared/src/wdg/tree_view_kv.hpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.cpp" />
 		<Unit filename="shared/src/wdg/uint_mapper.hpp" />
+		<Unit filename="shared/src/wdg2/graphics_view.cpp" />
+		<Unit filename="shared/src/wdg2/graphics_view.hpp" />
 		<Unit filename="shared/src/wdg2/gw_label.cpp" />
 		<Unit filename="shared/src/wdg2/gw_label.hpp" />
 		<Unit filename="shared/src/wdg2/gw_mixer_pad.cpp" />
@@ -449,8 +449,8 @@
 		<Unit filename="shared/src/wdg2/gw_qsnd2_switches_joinable.hpp" />
 		<Unit filename="shared/src/wdg2/gw_scroll_area.cpp" />
 		<Unit filename="shared/src/wdg2/gw_scroll_area.hpp" />
-		<Unit filename="shared/src/wdg2/gw_scrollbar.cpp" />
-		<Unit filename="shared/src/wdg2/gw_scrollbar.hpp" />
+		<Unit filename="shared/src/wdg2/gw_scroll_bar.cpp" />
+		<Unit filename="shared/src/wdg2/gw_scroll_bar.hpp" />
 		<Unit filename="shared/src/wdg2/gw_slider.cpp" />
 		<Unit filename="shared/src/wdg2/gw_slider.hpp" />
 		<Unit filename="shared/src/wdg2/gw_slider_multi.cpp" />
@@ -483,8 +483,6 @@
 		<Unit filename="shared/src/wdg2/scene_database.hpp" />
 		<Unit filename="shared/src/wdg2/slider_value_map.cpp" />
 		<Unit filename="shared/src/wdg2/slider_value_map.hpp" />
-		<Unit filename="shared/src/wdg2/sliders_pad.cpp" />
-		<Unit filename="shared/src/wdg2/sliders_pad.hpp" />
 		<Unit filename="shared/src/wdg2/theme.cpp" />
 		<Unit filename="shared/src/wdg2/theme.hpp" />
 		<Unit filename="shared/src/wdg2/theme_painters.cpp" />
