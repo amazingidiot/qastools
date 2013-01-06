@@ -29,9 +29,12 @@ SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -Wl,--as-needed" )
 # Sources
 
 SET ( SRC_GUI
-	${SHARED_SRC_DIR}/qlog/server.cpp
-	${SHARED_SRC_DIR}/qlog/context.cpp
+	${SHARED_SRC_DIR}/qlog/core_message.cpp
 	${SHARED_SRC_DIR}/qlog/message.cpp
+	${SHARED_SRC_DIR}/qlog/context.cpp
+	${SHARED_SRC_DIR}/qlog/server.cpp
+	${SHARED_SRC_DIR}/qlog/server_context.cpp
+	${SHARED_SRC_DIR}/qlog/server_message.cpp
 	${SHARED_SRC_DIR}/qlog/sink.cpp
 	${SHARED_SRC_DIR}/qlog/sink_ostream.cpp
 

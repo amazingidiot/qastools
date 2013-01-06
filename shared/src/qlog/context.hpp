@@ -9,7 +9,7 @@
 #ifndef __INC_qlog_context_hpp__
 #define __INC_qlog_context_hpp__
 
-#include <QString>
+#include "server_context.hpp"
 
 // Forward declarations
 namespace QLog
@@ -40,8 +40,12 @@ class Context
 	~Context ( );
 
 
+	::QLog::Server_Context *
+	server_context ( ) const;
+
 	::QLog::Server &
 	log_server ( ) const;
+
 
 	const QString &
 	context_name ( ) const;
@@ -59,22 +63,44 @@ class Context
 	// Private attributes
 	private:
 
-	::QLog::Server & _log_server;
-	QString _context_name;
+	::QLog::Server_Context * _server_context;
 };
+
+inline
+::QLog::Server_Context *
+Context::server_context ( ) const
+{
+	return _server_context;
+}
 
 inline
 ::QLog::Server &
 Context::log_server ( ) const
 {
-	return _log_server;
+	return server_context()->log_server();
 }
 
 inline
 const QString &
 Context::context_name ( ) const
 {
-	return _context_name;
+	return server_context()->context_name();
+}
+
+inline
+void
+Context::set_context_name (
+	const QString & name_n )
+{
+	server_context()->set_context_name ( name_n );
+}
+
+inline
+void
+Context::log_message (
+	const ::QLog::Message & msg_n )
+{
+	server_context()->log_message ( msg_n );
 }
 
 

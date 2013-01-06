@@ -46,7 +46,7 @@ Sink_OStream::log_message (
 			txt.append ( msg_n.log_context().context_name() );
 			txt.append ( ": " );
 		}
-		txt.append ( msg_n.message() );
+		txt.append ( msg_n.text() );
 		barr = txt.toLocal8Bit();
 	}
 

@@ -10,22 +10,10 @@
 #define __INC_qlog_message_hpp__
 
 #include "context.hpp"
-#include <QString>
+#include "core_message.hpp"
 
 namespace QLog
 {
-
-
-enum Log_Level
-{
-	LOG_LEVEL_ERROR,
-	LOG_LEVEL_WARNING,
-	LOG_LEVEL_INFO,
-	LOG_LEVEL_PROGRESS,
-	LOG_LEVEL_DEBUG_0,
-	LOG_LEVEL_DEBUG_1,
-	LOG_LEVEL_DEBUG_2,
-};
 
 
 /// @brief Message
@@ -45,13 +33,6 @@ class Message
 		::QLog::Log_Level level_n = ::QLog::LOG_LEVEL_INFO );
 
 	~Message ( );
-
-
-	::QLog::Context &
-	log_context ( );
-
-	const ::QLog::Context &
-	log_context ( ) const;
 
 
 	::QLog::Log_Level
@@ -75,10 +56,20 @@ class Message
 		const ::std::string & str_n );
 
 	QString &
-	message ( );
+	text ( );
 
 	const QString &
-	message ( ) const;
+	text ( ) const;
+
+
+	::QLog::Context &
+	log_context ( );
+
+	const ::QLog::Context &
+	log_context ( ) const;
+
+	const ::QLog::Core_Message &
+	core_message ( ) const;
 
 
 	// Protected methods
@@ -89,8 +80,7 @@ class Message
 	private:
 
 	::QLog::Context & _log_context;
-	QString _message;
-	::QLog::Log_Level _log_level;
+	::QLog::Core_Message _core_message;
 };
 
 inline
@@ -98,7 +88,7 @@ Message::Message (
 	::QLog::Context & context_n,
 	::QLog::Log_Level level_n ) :
 _log_context ( context_n ),
-_log_level ( level_n )
+_core_message ( level_n )
 {
 }
 
@@ -108,8 +98,7 @@ Message::Message (
 	const QString & message_n,
 	::QLog::Log_Level level_n ) :
 _log_context ( context_n ),
-_message ( message_n ),
-_log_level ( level_n )
+_core_message ( message_n, level_n )
 {
 }
 
@@ -137,7 +126,7 @@ inline
 ::QLog::Log_Level
 Message::log_level ( ) const
 {
-	return _log_level;
+	return _core_message.log_level();
 }
 
 inline
@@ -145,7 +134,7 @@ void
 Message::set_log_level (
 	::QLog::Log_Level level_n )
 {
-	_log_level = level_n;
+	_core_message.set_log_level ( level_n );
 }
 
 inline
@@ -153,7 +142,7 @@ void
 Message::append (
 	const char * str_n )
 {
-	message().append ( str_n );
+	_core_message.text().append ( str_n );
 }
 
 inline
@@ -161,7 +150,7 @@ void
 Message::append (
 	const QString & str_n )
 {
-	message().append ( str_n );
+	_core_message.text().append ( str_n );
 }
 
 inline
@@ -169,21 +158,28 @@ void
 Message::append (
 	const ::std::string & str_n )
 {
-	message().append ( str_n.c_str() );
+	_core_message.text().append ( str_n.c_str() );
 }
 
 inline
 QString &
-Message::message ( )
+Message::text ( )
 {
-	return _message;
+	return _core_message.text();
 }
 
 inline
 const QString &
-Message::message ( ) const
+Message::text ( ) const
 {
-	return _message;
+	return _core_message.text();
+}
+
+inline
+const ::QLog::Core_Message &
+Message::core_message ( ) const
+{
+	return _core_message;
 }
 
 

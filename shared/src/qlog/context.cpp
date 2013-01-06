@@ -15,36 +15,25 @@ namespace QLog
 
 Context::Context (
 	::QLog::Server & log_server_n,
-	const QString & context_name_n ) :
-_log_server ( log_server_n ),
-_context_name ( context_name_n )
+	const QString & context_name_n )
 {
+	_server_context = log_server_n.context_create ( context_name_n );
+	_server_context->ref();
 }
 
 Context::Context (
 	const ::QLog::Context & parent_n,
-	const QString & context_name_n ) :
-_log_server ( parent_n.log_server() ),
-_context_name ( context_name_n )
+	const QString & context_name_n )
 {
+	_server_context = parent_n.log_server().context_create (
+		context_name_n,
+		parent_n._server_context );
+	_server_context->ref();
 }
 
 Context::~Context ( )
 {
-}
-
-void
-Context::set_context_name (
-	const QString & name_n )
-{
-	_context_name = name_n;
-}
-
-void
-Context::log_message (
-	const ::QLog::Message & msg_n )
-{
-	log_server().log_message ( msg_n );
+	_server_context->unref();
 }
 
 

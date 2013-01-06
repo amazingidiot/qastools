@@ -258,10 +258,16 @@
 		<Unit filename="shared/src/qastools_config.hpp.cmake" />
 		<Unit filename="shared/src/qlog/context.cpp" />
 		<Unit filename="shared/src/qlog/context.hpp" />
+		<Unit filename="shared/src/qlog/core_message.cpp" />
+		<Unit filename="shared/src/qlog/core_message.hpp" />
 		<Unit filename="shared/src/qlog/message.cpp" />
 		<Unit filename="shared/src/qlog/message.hpp" />
 		<Unit filename="shared/src/qlog/server.cpp" />
 		<Unit filename="shared/src/qlog/server.hpp" />
+		<Unit filename="shared/src/qlog/server_context.cpp" />
+		<Unit filename="shared/src/qlog/server_context.hpp" />
+		<Unit filename="shared/src/qlog/server_message.cpp" />
+		<Unit filename="shared/src/qlog/server_message.hpp" />
 		<Unit filename="shared/src/qlog/sink.cpp" />
 		<Unit filename="shared/src/qlog/sink.hpp" />
 		<Unit filename="shared/src/qlog/sink_ostream.cpp" />

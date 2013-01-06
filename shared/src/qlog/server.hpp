@@ -10,12 +10,13 @@
 #define __INC_qlog_server_hpp__
 
 #include <QString>
-#include <vector>
+#include <QList>
 #include <pthread.h>
 
 // Forward declarations
 namespace QLog
 {
+	class Server_Context;
 	class Context;
 	class Message;
 	class Sink;
@@ -50,6 +51,16 @@ class Server
 		const ::QLog::Message & msg_n );
 
 
+	::QLog::Server_Context *
+	context_create (
+		const QString & context_name_n = QString(),
+		::QLog::Server_Context * parent_context_n = 0 );
+
+	void
+	context_destroy (
+		::QLog::Server_Context * context_n );
+
+
 	// Private methods
 	private:
 
@@ -60,10 +71,14 @@ class Server
 	// Private attributes
 	private:
 
-	typedef ::std::vector < ::QLog::Sink * > Sink_List;
+	typedef QList < ::QLog::Sink * > Sink_List;
+	typedef QList < ::QLog::Server_Context * > Context_List;
 
 	pthread_rwlock_t _sink_list_rwlock;
-	Sink_List _log_sinks;
+	Sink_List _sinks;
+
+	pthread_mutex_t _context_list_mutex;
+	Context_List _server_contexts;
 };
 
 
