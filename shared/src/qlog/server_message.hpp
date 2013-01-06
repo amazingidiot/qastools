@@ -85,7 +85,9 @@ Server_Message::Server_Message (
 _server_context ( msg_n.log_context().server_context() ),
 _core_message ( msg_n.core_message() )
 {
-	_server_context->ref();
+	if ( _server_context != 0 ) {
+		_server_context->ref();
+	}
 }
 
 inline
@@ -105,6 +107,9 @@ Server_Message::operator= (
 		_server_context->unref();
 	}
 	_server_context = msg_n.server_context();
+	if ( _server_context != 0 ) {
+		_server_context->ref();
+	}
 	_core_message = msg_n.core_message();
 	_server_context->ref();
 	return *this;
