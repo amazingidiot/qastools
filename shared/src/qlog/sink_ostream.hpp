@@ -1,7 +1,7 @@
 //
 // libqlog: Text string logging infrastructure
 //
-// For license information check the LICENSE-libqlog.txt file 
+// For license information check the LICENSE-libqlog.txt file
 // that comes with this source distribution.
 //
 
@@ -55,28 +55,28 @@ Sink_OStream::ostream ( ) const
 }
 
 
-/// @brief Log_Sink_StdOut
+/// @brief Sink_StdOut
 ///
-class Log_Sink_StdOut :
+class Sink_StdOut :
 	public ::QLog::Sink_OStream
 {
 	// Public methods
 	public:
 
-	Log_Sink_StdOut (
+	Sink_StdOut (
 		::QLog::Log_Level limit_level_n = ::QLog::LOG_LEVEL_INFO );
 };
 
 
-/// @brief Log_Sink_File
+/// @brief Sink_File
 ///
-class Log_Sink_File :
+class Sink_File :
 	public ::QLog::Sink_OStream
 {
 	// Public methods
 	public:
 
-	Log_Sink_File (
+	Sink_File (
 		::QLog::Log_Level limit_level_n = ::QLog::LOG_LEVEL_INFO );
 };
 

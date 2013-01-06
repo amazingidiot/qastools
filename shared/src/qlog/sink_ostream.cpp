@@ -1,7 +1,7 @@
 //
 // libqlog: Text string logging infrastructure
 //
-// For license information check the LICENSE-libqlog.txt file 
+// For license information check the LICENSE-libqlog.txt file
 // that comes with this source distribution.
 //
 
@@ -50,7 +50,7 @@ Sink_OStream::log_message (
 }
 
 
-Log_Sink_StdOut::Log_Sink_StdOut (
+Sink_StdOut::Sink_StdOut (
 	::QLog::Log_Level limit_level_n ) :
 ::QLog::Sink_OStream ( &::std::cout, limit_level_n )
 {
