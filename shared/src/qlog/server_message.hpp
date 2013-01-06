@@ -27,6 +27,9 @@ class Server_Message
 	Server_Message ( );
 
 	Server_Message (
+		const ::QLog::Server_Message & msg_n );
+
+	Server_Message (
 		const ::QLog::Message & msg_n );
 
 	~Server_Message ( );
@@ -61,6 +64,15 @@ inline
 Server_Message::Server_Message ( ) :
 _server_context ( 0 )
 {
+}
+
+inline
+Server_Message::Server_Message (
+	const ::QLog::Server_Message & msg_n ) :
+_server_context ( msg_n.server_context() ),
+_core_message ( msg_n.core_message() )
+{
+	_server_context->ref();
 }
 
 inline
