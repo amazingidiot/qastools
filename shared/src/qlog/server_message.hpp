@@ -1,10 +1,8 @@
 //
-// QasTools: Dektop toolset for the Linux sound system ALSA
+// libqlog: Text string logging infrastructure
 //
-// For license information check the LICENSE-QasTools.txt file 
+// For license information check the LICENSE-libqlog.txt file 
 // that comes with this source distribution.
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012, 2013
 //
 
 #ifndef __INC_qlog_server_message_hpp__
