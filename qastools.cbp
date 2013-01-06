@@ -256,6 +256,16 @@
 		<Unit filename="shared/src/mwdg/slider_status_widget.cpp" />
 		<Unit filename="shared/src/mwdg/slider_status_widget.hpp" />
 		<Unit filename="shared/src/qastools_config.hpp.cmake" />
+		<Unit filename="shared/src/qlog/context.cpp" />
+		<Unit filename="shared/src/qlog/context.hpp" />
+		<Unit filename="shared/src/qlog/message.cpp" />
+		<Unit filename="shared/src/qlog/message.hpp" />
+		<Unit filename="shared/src/qlog/server.cpp" />
+		<Unit filename="shared/src/qlog/server.hpp" />
+		<Unit filename="shared/src/qlog/sink.cpp" />
+		<Unit filename="shared/src/qlog/sink.hpp" />
+		<Unit filename="shared/src/qlog/sink_ostream.cpp" />
+		<Unit filename="shared/src/qlog/sink_ostream.hpp" />
 		<Unit filename="shared/src/qsnd/alsa.cpp" />
 		<Unit filename="shared/src/qsnd/alsa.hpp" />
 		<Unit filename="shared/src/qsnd/alsa_config_watcher.cpp" />
