@@ -43,6 +43,9 @@ class Server_Message
 	::QLog::Server_Context *
 	server_context ( ) const;
 
+	::QLog::Core_Message &
+	core_message ( );
+
 	const ::QLog::Core_Message &
 	core_message ( ) const;
 
@@ -82,6 +85,13 @@ inline
 Server_Message::server_context ( ) const
 {
 	return _server_context;
+}
+
+inline
+::QLog::Core_Message &
+Server_Message::core_message ( )
+{
+	return _core_message;
 }
 
 inline

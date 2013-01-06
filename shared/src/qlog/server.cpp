@@ -107,11 +107,15 @@ void
 Server::log_message (
 	const ::QLog::Message & msg_n )
 {
+	::QLog::Server_Message srv_msg ( msg_n );
+
 	::pthread_rwlock_rdlock ( &_sink_list_rwlock );
-	Sink_List::iterator it ( _sinks.begin() );
-	while ( it != _sinks.end() ) {
-		(*it)->log_message ( msg_n );
-		++it;
+	{
+		Sink_List::iterator it ( _sinks.begin() );
+		while ( it != _sinks.end() ) {
+			(*it)->log_message ( srv_msg );
+			++it;
+		}
 	}
 	::pthread_rwlock_unlock ( &_sink_list_rwlock );
 }
