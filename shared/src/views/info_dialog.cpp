@@ -1,9 +1,8 @@
 //
 // QasTools: Dektop toolset for the Linux sound system ALSA
 //
-// License: See COPYING file that comes with this source distribution
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
+// For license information check the LICENSE-QasTools.txt file 
+// that comes with this source distribution.
 //
 
 #include "info_dialog.hpp"
@@ -159,7 +158,7 @@ Info_Dialog::Info_Dialog (
 			const unsigned int num_search ( 2 );
 			QString fl_abs[num_search];
 			fl_abs[0] = INSTALL_DIR_DATA;
-			fl_abs[0] += "/COPYING";
+			fl_abs[0] += "/LICENSE-QasTools.txt";
 			fl_abs[1] = "/usr/share/common-licenses/GPL-3";
 
 			bool found ( false );

@@ -84,7 +84,7 @@ hrepl_in = '''\
 //
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2011
 //
-// Copyright: See COPYING file that comes with this distribution
+// Copyright: See LICENSE-QasTools.txt file that comes with this distribution
 //
 //\
 '''
@@ -93,7 +93,7 @@ hrepl_out = '''\
 //
 // QasTools: Dektop toolset for the Linux sound system ALSA
 //
-// License: See COPYING file that comes with this source distribution
+// License: See LICENSE-QasTools.txt file that comes with this source distribution
 //
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //\

@@ -1,7 +1,8 @@
 //
-// libdjp: distributed job processing library
+// QasTools: Dektop toolset for the Linux sound system ALSA
 //
-// License: See LICENSE-libdjp.txt file that comes with this source
+// For license information check the LICENSE-QasTools.txt file 
+// that comes with this source distribution.
 //
 
 #ifndef __INC_flags_hpp__

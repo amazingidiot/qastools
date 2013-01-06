@@ -1,7 +1,8 @@
 //
 // QasTools: Dektop toolset for the Linux sound system ALSA
 //
-// License: See COPYING file that comes with this source distribution
+// For license information check the LICENSE-QasTools.txt file 
+// that comes with this source distribution.
 //
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012, 2013
 //
@@ -35,6 +36,16 @@ class Message
 	~Message ( );
 
 
+	::QLog::Context &
+	log_context ( );
+
+	const ::QLog::Context &
+	log_context ( ) const;
+
+	const ::QLog::Core_Message &
+	core_message ( ) const;
+
+
 	::QLog::Log_Level
 	log_level ( ) const;
 
@@ -62,18 +73,8 @@ class Message
 	text ( ) const;
 
 
-	::QLog::Context &
-	log_context ( );
-
-	const ::QLog::Context &
-	log_context ( ) const;
-
-	const ::QLog::Core_Message &
-	core_message ( ) const;
-
-
-	// Protected methods
-	protected:
+	void
+	send ( );
 
 
 	// Private attributes
@@ -105,7 +106,6 @@ _core_message ( message_n, level_n )
 inline
 Message::~Message ( )
 {
-	log_context().log_message ( *this );
 }
 
 inline
@@ -176,10 +176,63 @@ Message::text ( ) const
 }
 
 inline
+void
+Message::send ( )
+{
+	log_context().log_message ( *this );
+}
+
+inline
 const ::QLog::Core_Message &
 Message::core_message ( ) const
 {
 	return _core_message;
+}
+
+
+/// @brief Message_Sender
+///
+/// Sends the message on destruction.
+class Message_Sender :
+	public ::QLog::Message
+{
+	// Public methods
+	public:
+
+	Message_Sender (
+		::QLog::Context & context_n,
+		::QLog::Log_Level level_n = ::QLog::LOG_LEVEL_INFO );
+
+	Message_Sender (
+		::QLog::Context & context_n,
+		const QString & message_n,
+		::QLog::Log_Level level_n = ::QLog::LOG_LEVEL_INFO );
+
+	~Message_Sender ( );
+};
+
+inline
+Message_Sender::Message_Sender (
+	::QLog::Context & context_n,
+	::QLog::Log_Level level_n ) :
+::QLog::Message ( context_n, level_n )
+{
+}
+
+inline
+Message_Sender::Message_Sender (
+	::QLog::Context & context_n,
+	const QString & message_n,
+	::QLog::Log_Level level_n ) :
+::QLog::Message ( context_n, message_n, level_n )
+{
+}
+
+inline
+Message_Sender::~Message_Sender ( )
+{
+	// Send on scope end / destruction
+	send();
 }
 
 
