@@ -34,6 +34,10 @@ class Server_Message
 
 	~Server_Message ( );
 
+	::QLog::Server_Message &
+	operator= (
+		const ::QLog::Server_Message & msg_n );
+
 
 	void
 	reset ( );
@@ -90,6 +94,20 @@ Server_Message::~Server_Message ( )
 	if ( _server_context != 0 ) {
 		_server_context->unref();
 	}
+}
+
+inline
+::QLog::Server_Message &
+Server_Message::operator= (
+	const ::QLog::Server_Message & msg_n )
+{
+	if ( _server_context != 0 ) {
+		_server_context->unref();
+	}
+	_server_context = msg_n.server_context();
+	_core_message = msg_n.core_message();
+	_server_context->ref();
+	return *this;
 }
 
 inline
