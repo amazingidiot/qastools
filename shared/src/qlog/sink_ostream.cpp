@@ -26,35 +26,28 @@ Sink_OStream::~Sink_OStream ( )
 }
 
 void
-Sink_OStream::set_ostream (
-	::std::ostream * ostr_n )
-{
-	mutex_lock();
-	_ostream = ostr_n;
-	mutex_unlock();
-}
-
-void
 Sink_OStream::log_message (
-	const ::QLog::Message & msg_n )
+	const ::QLog::Server_Message & msg_n )
 {
-	QByteArray barr;
-	// Compose text string
+	if ( ( ostream() != 0 ) &&
+		( msg_n.core_message().log_level() <= limit_level() ) )
 	{
-		QString txt;
-		if ( !msg_n.log_context().context_name().isEmpty() ) {
-			txt.append ( msg_n.log_context().context_name() );
-			txt.append ( ": " );
+		QByteArray barr;
+		// Compose text string
+		{
+			QString txt;
+			if ( !msg_n.server_context()->context_name().isEmpty() ) {
+				txt.append ( msg_n.server_context()->context_name() );
+				txt.append ( ": " );
+			}
+			txt.append ( msg_n.core_message().text() );
+			barr = txt.toLocal8Bit();
 		}
-		txt.append ( msg_n.text() );
-		barr = txt.toLocal8Bit();
-	}
 
-	mutex_lock();
-	if ( ( ostream() != 0 ) && ( msg_n.log_level() <= limit_level() ) ) {
+		mutex_lock();
 		ostream()->write ( barr.constData(), barr.size() );
+		mutex_unlock();
 	}
-	mutex_unlock();
 }
 
 

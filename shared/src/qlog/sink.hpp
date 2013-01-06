@@ -9,7 +9,7 @@
 #ifndef __INC_qlog_sink_hpp__
 #define __INC_qlog_sink_hpp__
 
-#include "message.hpp"
+#include "server_message.hpp"
 #include <pthread.h>
 
 namespace QLog
@@ -41,7 +41,7 @@ class Sink
 	virtual
 	void
 	log_message (
-		const ::QLog::Message & msg_n ) = 0;
+		const ::QLog::Server_Message & msg_n ) = 0;
 
 
 	// Protected methods

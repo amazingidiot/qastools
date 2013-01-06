@@ -35,15 +35,11 @@ class Sink_OStream :
 	::std::ostream *
 	ostream ( ) const;
 
-	void
-	set_ostream (
-		::std::ostream * ostr_n );
-
 
 	virtual
 	void
 	log_message (
-		const ::QLog::Message & msg_n );
+		const ::QLog::Server_Message & msg_n );
 
 
 	// Private attributes
