@@ -19,7 +19,8 @@ namespace MWdg
 CTL_Arg_View::CTL_Arg_View (
 	QWidget * parent_n ) :
 QWidget ( parent_n ),
-_ctl_db ( 0 )
+_ctl_db ( 0 ),
+_ctl_arg ( 0 )
 {
 	_wdg_title = new QLabel;
 	{
