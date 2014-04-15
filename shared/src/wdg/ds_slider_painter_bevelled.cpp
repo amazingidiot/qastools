@@ -1161,7 +1161,7 @@ DS_Slider_Painter_Bevelled::papp_bevel_frame_corner (
 			x_scale = -1;
 			y_scale = -1;
 		} else {
-			y_off =+ area_n.height();
+			y_off += area_n.height();
 			y_scale = -1;
 		}
 
