@@ -187,18 +187,28 @@ Mixer_Sliders_Proxies_Group::event (
 		if ( ev_kp->column_idx < num_columns() ) {
 			::Wdg::Pad_Proxies_Column * col (
 				column ( ev_kp->column_idx ) );
-
 			// Pass the key event to the switch widget
 			::Wdg::Pad_Proxy_Slider * spp_sl ( col->slider_proxy() );
-			::Wdg::Pad_Proxy_Switch * spp_sw ( col->switch_proxy() );
-			if ( ( spp_sl != 0 ) && ( spp_sw != 0 ) ) {
-				// Pass event to switch widget
-				if ( spp_sw->widget() != 0 ) {
-					const bool old_focus ( spp_sw->has_focus() );
-					spp_sw->set_has_focus ( spp_sl->has_focus() );
-					QCoreApplication::sendEvent (
-						spp_sw->widget(), &ev_kp->ev_key );
-					spp_sw->set_has_focus ( old_focus );
+			if ( spp_sl != 0 ) {
+				::Wdg::Pad_Proxy_Switch * spp_sw ( col->switch_proxy() );
+				// Use joined switch on demand
+				if ( spp_sw == 0 ) {
+					::Wdg::Pad_Proxies_Column * col0 ( column ( 0 ) );
+					spp_sw = col0->switch_proxy();
+				}
+				if ( spp_sw != 0 ) {
+					// Pass event to switch widget
+					if ( spp_sw->widget() != 0 ) {
+						if ( ev_kp->ev_key.key() == Qt::Key_VolumeMute ) {
+							spp_sw->set_switch_state ( false );
+						} else {
+							const bool old_focus ( spp_sw->has_focus() );
+							spp_sw->set_has_focus ( spp_sl->has_focus() );
+							QCoreApplication::sendEvent (
+								spp_sw->widget(), &ev_kp->ev_key );
+							spp_sw->set_has_focus ( old_focus );
+						}
+					}
 				}
 			}
 		}

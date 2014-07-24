@@ -215,10 +215,18 @@ Mixer_Sliders_Proxy_Slider::eventFilter (
 		{
 			QKeyEvent * ev_kev ( static_cast < QKeyEvent * > ( event_n ) );
 			// Pass certain key events to the parent proxy
-			if ( ev_kev->key() == Qt::Key_Space ) {
-				if ( parent() != 0 ) {
-					::Wdg::Pass_Event_Key ev_pass ( *ev_kev, 0 );
-					QCoreApplication::sendEvent ( parent(), &ev_pass );
+
+			if ( parent() != 0 ) {
+				switch ( ev_kev->key() ) {
+					case Qt::Key_Space:
+					case Qt::Key_VolumeMute:
+						{
+							::Wdg::Pass_Event_Key ev_pass ( *ev_kev, 0 );
+							QCoreApplication::sendEvent ( parent(), &ev_pass );
+						}
+						break;
+					default:
+						break;
 				}
 			}
 		}
