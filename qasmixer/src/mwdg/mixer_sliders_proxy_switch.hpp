@@ -62,6 +62,12 @@ class Mixer_Sliders_Proxy_Switch :
 		bool flag_n );
 
 
+	bool
+	eventFilter (
+		QObject * obj_n,
+		QEvent * event_n );
+
+
 	// Public slots
 	public slots:
 

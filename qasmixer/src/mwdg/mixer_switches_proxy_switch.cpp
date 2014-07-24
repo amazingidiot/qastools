@@ -9,7 +9,8 @@
 
 #include "mixer_switches_proxy_switch.hpp"
 
-#include <iostream>
+#include <QEvent>
+#include <QKeyEvent>
 
 
 namespace MWdg
@@ -83,6 +84,29 @@ Mixer_Switches_Proxy_Switch::update_value_from_source ( )
 		set_switch_state ( mixer_simple_elem()->switch_state ( snd_dir(), channel_idx() ) );
 		_alsa_updating = false;
 	}
+}
+
+
+bool
+Mixer_Switches_Proxy_Switch::eventFilter (
+	QObject * obj_n,
+	QEvent * event_n )
+{
+	bool res ( Pad_Proxy_Switch::eventFilter ( obj_n, event_n ) );
+
+	if ( !res &&
+		( event_n->type() == QEvent::KeyPress ) )
+	{
+		QKeyEvent * kev (
+			static_cast < QKeyEvent * > ( event_n ) );
+
+		if ( kev->key() == Qt::Key_VolumeMute ) {
+			set_switch_state ( false );
+			res = true;
+		}
+	}
+
+	return res;
 }
 
 

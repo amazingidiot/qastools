@@ -200,7 +200,9 @@ Mixer_Sliders_Proxies_Group::event (
 					// Pass event to switch widget
 					if ( spp_sw->widget() != 0 ) {
 						if ( ev_kp->ev_key.key() == Qt::Key_VolumeMute ) {
-							spp_sw->set_switch_state ( false );
+							if ( ev_kp->type() == QEvent::KeyPress ) {
+								spp_sw->set_switch_state ( false );
+							}
 						} else {
 							const bool old_focus ( spp_sw->has_focus() );
 							spp_sw->set_has_focus ( spp_sl->has_focus() );
