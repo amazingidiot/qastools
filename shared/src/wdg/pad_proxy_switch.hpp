@@ -51,6 +51,9 @@ class Pad_Proxy_Switch :
 	set_switch_state (
 		bool state_n );
 
+	void
+	toggle_switch_state ( );
+
 
 	// Protected methods
 	protected:

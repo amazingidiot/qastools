@@ -36,6 +36,11 @@ Pad_Proxy_Switch::set_switch_state (
 	}
 }
 
+void
+Pad_Proxy_Switch::toggle_switch_state ( )
+{
+	this->set_switch_state ( !switch_state() );
+}
 
 void
 Pad_Proxy_Switch::switch_state_changed ( )

@@ -94,19 +94,16 @@ Mixer_Sliders_Proxy_Switch::eventFilter (
 	QEvent * event_n )
 {
 	bool res ( Pad_Proxy_Switch::eventFilter ( obj_n, event_n ) );
-
-	if ( !res &&
-		( event_n->type() == QEvent::KeyPress ) )
-	{
-		QKeyEvent * kev (
-			static_cast < QKeyEvent * > ( event_n ) );
-
-		if ( kev->key() == Qt::Key_VolumeMute ) {
-			set_switch_state ( false );
-			res = true;
+	if ( !res ) {
+		if ( event_n->type() == QEvent::KeyPress ) {
+			QKeyEvent * kev (
+				static_cast < QKeyEvent * > ( event_n ) );
+			if ( kev->key() == Qt::Key_VolumeMute ) {
+				toggle_switch_state();
+				res = true;
+			}
 		}
 	}
-
 	return res;
 }
 
