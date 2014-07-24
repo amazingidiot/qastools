@@ -770,6 +770,12 @@ DS_Slider::keyPressEvent (
 		case Qt::Key_Down:
 			idx_adjust = -_step_single;
 			break;
+		case Qt::Key_VolumeDown:
+			idx_adjust = -_step_single;
+			break;
+		case Qt::Key_VolumeUp:
+			idx_adjust = _step_single;
+			break;
 		case Qt::Key_PageUp:
 			idx_adjust = _step_page;
 			break;
