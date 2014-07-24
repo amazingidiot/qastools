@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "layout_weights.hpp"
+#include <QFontMetrics>
 
 
 namespace Wdg
@@ -558,7 +559,18 @@ Equal_Columns_Layout::calc_row_heights (
 				max_width = _row_heights[ii];
 			}
 		}
-		max_width = max_width / 5;
+		max_width = ( max_width / 5 );
+		{
+			unsigned int max_width_font ( 0 );
+			{
+				QFont fnt;
+				QFontMetrics fmet ( fnt );
+				max_width_font = fmet.height() * 3;
+			}
+			if ( max_width > max_width_font ) {
+				max_width = max_width_font;
+			}
+		}
 		for ( int ii=0; ii < 4; ++ii ) {
 			_col_max_widths[ii] = max_width;
 		}

@@ -281,14 +281,8 @@
 		<Unit filename="shared/src/qsnd/ctl_def.hpp" />
 		<Unit filename="shared/src/qsnd/ctl_def_arg.cpp" />
 		<Unit filename="shared/src/qsnd/ctl_def_arg.hpp" />
-		<Unit filename="shared/src/qsnd/ctl_info.hpp" />
-		<Unit filename="shared/src/qsnd/ctl_info_model.hpp" />
 		<Unit filename="shared/src/qsnd/event_types.cpp" />
 		<Unit filename="shared/src/qsnd/event_types.hpp" />
-		<Unit filename="shared/src/qsnd/mixer_ctl.hpp" />
-		<Unit filename="shared/src/qsnd/mixer_ctl_elem.hpp" />
-		<Unit filename="shared/src/qsnd/mixer_ctl_elem_group.hpp" />
-		<Unit filename="shared/src/qsnd/mixer_ctl_info_db.hpp" />
 		<Unit filename="shared/src/qsnd/mixer_hctl.cpp" />
 		<Unit filename="shared/src/qsnd/mixer_hctl.hpp" />
 		<Unit filename="shared/src/qsnd/mixer_hctl_elem.cpp" />
