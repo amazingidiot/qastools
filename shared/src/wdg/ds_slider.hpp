@@ -391,8 +391,6 @@ class DS_Slider :
 	::Wdg::Cubic_Curve _cubic_curve;
 
 	// Graphics creation
-	const unsigned int _handle_min_height;
-	const unsigned int _handle_max_height;
 	QSize _marker_size;
 
 	// Pixmap buffers

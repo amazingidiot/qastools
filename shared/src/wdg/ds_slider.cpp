@@ -53,8 +53,6 @@ _cursor_select_allowed ( false ),
 _cursor_over_handle ( false ),
 _cursor_value_hinting ( false ),
 _anim_run_snap ( false ),
-_handle_min_height ( 15 ),
-_handle_max_height ( 99 ),
 _meta_bg ( num_images_bg, ::Wdg::DS_SLIDER, 0 ),
 _meta_marker ( num_images_marker, ::Wdg::DS_SLIDER, 1 ),
 _meta_frame ( num_images_frame, ::Wdg::DS_SLIDER, 2 ),
@@ -811,14 +809,7 @@ DS_Slider::resizeEvent (
 	}
 
 	// Handle rect
-	unsigned int handle_height;
-	handle_height = height() / 10;
-	if ( handle_height > _handle_max_height ) {
-		handle_height = _handle_max_height;
-	}
-	if ( handle_height < _handle_min_height ) {
-		handle_height = _handle_min_height;
-	}
+	unsigned int handle_height ( width() );
 	handle_height += ( handle_height + 1 ) % 2; // Make odd
 
 	_handle_rect.setRect (
