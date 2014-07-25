@@ -79,8 +79,8 @@ Desktop_Items_Setup::read_from_storage ( )
 
 		settings.beginGroup ( "device_selection" );
 
-		vsetup.sel_db_set ( settings.value ( "selection_db",
-			vsetup.sel_db_get() ).toStringList() );
+		vsetup.selection_db_set ( settings.value ( "selection_db",
+			vsetup.selection_db_get() ).toStringList() );
 
 		settings.endGroup();
 	}
@@ -228,7 +228,7 @@ Desktop_Items_Setup::write_to_storage ( )
 		settings.beginGroup ( "device_selection" );
 
 		settings.setValue ( "selection_db",
-			vsetup.sel_db_get() );
+			vsetup.selection_db_get() );
 
 		settings.endGroup();
 	}

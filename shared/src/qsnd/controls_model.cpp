@@ -60,7 +60,6 @@ Controls_Model::ctl_format (
 	const QModelIndex & idx_n ) const
 {
 	const ::QSnd::CTL_Format * res ( 0 );
-
 	if ( ( _ctl_db != 0 ) && ( idx_n.isValid() ) ) {
 		const QVariant & idata ( data ( idx_n, MKEY_DB_INDEX ) );
 		if ( idata.type() == QVariant::UInt ) {
@@ -70,10 +69,22 @@ Controls_Model::ctl_format (
 			}
 		}
 	}
-
 	return res;
 }
 
+void
+Controls_Model::ctl_format (
+	::QSnd::CTL_Format & ctl_format_n,
+	const QModelIndex & idx_n ) const
+{
+	const ::QSnd::CTL_Format * format (
+		ctl_format ( idx_n ) );
+	if ( format != 0 ) {
+		ctl_format_n = *format;
+	} else {
+		ctl_format_n.clear();
+	}
+}
 
 QModelIndex
 Controls_Model::ctl_format_index (

@@ -140,9 +140,13 @@ Controls_Database::load_cards ( )
 	// Load card infos
 	{
 		int card_idx = -1;
-		while (	( snd_card_next ( &card_idx ) == 0 ) &&
-			( card_idx >= 0 ) )
-		{
+		while (	true ) {
+			if ( snd_card_next ( &card_idx ) != 0 ) {
+				break;
+			}
+			if ( card_idx < 0 ) {
+				break;
+			}
 			_card_infos.append ( ::QSnd::Card_Info ( card_idx ) );
 		}
 	}

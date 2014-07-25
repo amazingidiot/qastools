@@ -44,7 +44,7 @@ class CTL_Format
 	clear ( );
 
 	bool
-	is_clear ( ) const;
+	is_valid ( ) const;
 
 
 	// Control name
@@ -111,9 +111,9 @@ class CTL_Format
 
 inline
 bool
-CTL_Format::is_clear ( ) const
+CTL_Format::is_valid ( ) const
 {
-	return _ctl_name.isEmpty();
+	return !_ctl_name.isEmpty();
 }
 
 

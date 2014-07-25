@@ -278,8 +278,8 @@ Main_Window::restore_state ( )
 	{
 		settings.beginGroup ( "device_selection" );
 
-		_setup.dev_select.sel_db_set ( settings.value ( "selection_db",
-			_setup.dev_select.sel_db_get() ).toStringList() );
+		_setup.dev_select.selection_db_set ( settings.value ( "selection_db",
+			_setup.dev_select.selection_db_get() ).toStringList() );
 
 		settings.endGroup();
 	}
@@ -342,7 +342,7 @@ Main_Window::save_state ( )
 	// Device selection
 	{
 		settings.beginGroup ( "device_selection" );
-		settings.setValue ( "selection_db", _setup.dev_select.sel_db_get() );
+		settings.setValue ( "selection_db", _setup.dev_select.selection_db_get() );
 		settings.endGroup();
 	}
 }

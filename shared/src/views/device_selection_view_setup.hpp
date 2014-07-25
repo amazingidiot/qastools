@@ -28,6 +28,12 @@ namespace Views
 ///
 class Device_Selection_View_Setup
 {
+	// Public types
+	public:
+
+	typedef QList < ::QSnd::CTL_Address > Selection_DB;
+
+
 	// Public methods
 	public:
 
@@ -35,14 +41,15 @@ class Device_Selection_View_Setup
 
 	~Device_Selection_View_Setup ( );
 
+
 	void
-	sel_db_clear ( );
+	selection_db_clear ( );
 
 	QStringList
-	sel_db_get ( ) const;
+	selection_db_get ( ) const;
 
 	void
-	sel_db_set (
+	selection_db_set (
 		const QStringList & sel_db_n );
 
 
@@ -50,7 +57,7 @@ class Device_Selection_View_Setup
 	public:
 
 	QKeySequence kseq_toggle_vis;
-	QList < const ::QSnd::CTL_Address * > selection_db;
+	Selection_DB selection_db;
 };
 
 

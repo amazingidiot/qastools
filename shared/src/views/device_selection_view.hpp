@@ -130,17 +130,17 @@ class Device_Selection_View :
 
 
 	const ::QSnd::CTL_Address *
-	sel_db_find (
+	selection_db_find (
 		const QString & ctl_name_n ) const;
 
 	void
-	sel_db_commit (
-		const ::QSnd::CTL_Address * ctl_addr_n );
+	selection_db_commit (
+		const ::QSnd::CTL_Address & ctl_addr_n );
 
 	/// @brief Removes non existing CTL addresses
 	///
 	void
-	sel_db_clean ( );
+	selection_db_clean ( );
 
 
 	// Private attributes
@@ -155,8 +155,8 @@ class Device_Selection_View :
 	QVBoxLayout * _lay_arg_views;
 
 	// Selection state
-	const ::QSnd::CTL_Format * _current_ctl_format;
 	::QSnd::CTL_Address _selected_ctl;
+	::QSnd::CTL_Format _selected_ctl_format;
 	bool _silent_ctl_change;
 	bool _silent_arg_change;
 

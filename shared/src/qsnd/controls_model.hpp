@@ -56,6 +56,11 @@ class Controls_Model :
 	ctl_format (
 		const QModelIndex & idx_n ) const;
 
+	void
+	ctl_format (
+		::QSnd::CTL_Format & ctl_format_n,
+		const QModelIndex & idx_n ) const;
+
 	QModelIndex
 	ctl_format_index (
 		const QString & ctl_addr_n ) const;
