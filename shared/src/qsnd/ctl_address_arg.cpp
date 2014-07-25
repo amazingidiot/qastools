@@ -13,12 +13,12 @@ namespace QSnd
 {
 
 
-CTL_Address_Arg::CTL_Address_Arg ( )
+CTL_Address_Argument::CTL_Address_Argument ( )
 {
 }
 
 
-CTL_Address_Arg::CTL_Address_Arg (
+CTL_Address_Argument::CTL_Address_Argument (
 	const QString & name_n,
 	const QString & value_n ) :
 arg_name ( name_n ),
@@ -28,7 +28,7 @@ arg_value ( value_n )
 
 
 void
-CTL_Address_Arg::clear ( )
+CTL_Address_Argument::clear ( )
 {
 	arg_name.clear();
 	arg_value.clear();

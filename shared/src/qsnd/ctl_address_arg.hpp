@@ -16,16 +16,16 @@ namespace QSnd
 {
 
 
-/// @brief CTL_Address_Arg
+/// @brief CTL_Address_Argument
 ///
-class CTL_Address_Arg
+class CTL_Address_Argument
 {
 	// Public methods
 	public:
 
-	CTL_Address_Arg ( );
+	CTL_Address_Argument ( );
 
-	CTL_Address_Arg (
+	CTL_Address_Argument (
 		const QString & name_n,
 		const QString & value_n = QString() );
 

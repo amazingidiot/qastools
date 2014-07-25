@@ -85,6 +85,9 @@ class Main_Window :
 	void
 	reload_mixer_view ( );
 
+	void
+	refresh_views ( );
+
 
 	/// @brief Sets/unsets fullscreen mode
 	///

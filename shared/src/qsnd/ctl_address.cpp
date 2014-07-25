@@ -89,7 +89,7 @@ CTL_Address::set_addr_str (
 				pstr = pstr.mid ( idx + 1 );
 			}
 
-			::QSnd::CTL_Address_Arg argm;
+			::QSnd::CTL_Address_Argument argm;
 
 			idx = arg_str.indexOf ( '=' );
 			if ( idx < 0 ) {
@@ -111,7 +111,7 @@ CTL_Address::set_addr_str (
 
 void
 CTL_Address::append_arg (
-	const ::QSnd::CTL_Address_Arg & arg_n )
+	const ::QSnd::CTL_Address_Argument & arg_n )
 {
 	_args.append ( arg_n );
 	update_addr_str();
@@ -126,8 +126,8 @@ CTL_Address::match (
 	res = res && ( num_args() == ctl_addr_n.num_args() );
 	if ( res ) {
 		for ( unsigned int ii=0; ii < ctl_addr_n.num_args(); ++ii ) {
-			const ::QSnd::CTL_Address_Arg & arg1 ( arg ( ii ) );
-			const ::QSnd::CTL_Address_Arg & arg2 ( ctl_addr_n.arg ( ii ) );
+			const ::QSnd::CTL_Address_Argument & arg1 ( arg ( ii ) );
+			const ::QSnd::CTL_Address_Argument & arg2 ( ctl_addr_n.arg ( ii ) );
 			if ( arg1.arg_value == arg2.arg_value ) {
 				if ( ( !arg1.arg_name.isEmpty() ) &&
 				     ( !arg2.arg_name.isEmpty() ) )
@@ -164,7 +164,7 @@ CTL_Address::update_addr_str ( )
 	if ( _args.size() > 0 ) {
 		_addr_str.append ( ":" );
 		for ( int ii=0; ii < _args.size(); ++ii ) {
-			const ::QSnd::CTL_Address_Arg & argm ( arg ( ii ) );
+			const ::QSnd::CTL_Address_Argument & argm ( arg ( ii ) );
 			if ( ii > 0 ) {
 				_addr_str.append ( "," );
 			}

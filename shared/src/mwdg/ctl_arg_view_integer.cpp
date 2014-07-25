@@ -21,6 +21,8 @@ CTL_Arg_View_Integer::CTL_Arg_View_Integer (
 ::MWdg::CTL_Arg_View ( parent_n )
 {
 	_ledit = new QLineEdit;
+	_ledit_signal_block = false;
+
 	QIntValidator * vali ( new QIntValidator ( _ledit ) );
 	_ledit->setValidator ( vali );
 	connect ( _ledit, SIGNAL ( editingFinished() ),
@@ -30,18 +32,26 @@ CTL_Arg_View_Integer::CTL_Arg_View_Integer (
 }
 
 
-QString
-CTL_Arg_View_Integer::arg_string ( ) const
-{
-	return _ledit->text();
-}
-
-
 void
 CTL_Arg_View_Integer::set_arg_string (
 	const QString & str_n )
 {
-	_ledit->setText ( str_n );
+	if ( set_arg_string_private ( str_n ) ) {
+		{
+			_ledit_signal_block = true;
+			_ledit->setText ( str_n );
+			_ledit_signal_block = false;
+		}
+		emit sig_arg_changed();
+	}
+}
+
+void
+CTL_Arg_View_Integer::input_string_changed ( )
+{
+	if ( !_ledit_signal_block ) {
+		set_arg_string ( _ledit->text() );
+	}
 }
 
 

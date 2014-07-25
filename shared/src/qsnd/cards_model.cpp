@@ -47,7 +47,7 @@ Cards_Model::set_controls_db (
 	}
 	_ctl_db = ctl_db_n;
 	if ( _ctl_db != 0 ) {
-		connect ( _ctl_db, SIGNAL ( sig_change_comming() ), this, SLOT ( reload_begin() ) );
+		connect ( _ctl_db, SIGNAL ( sig_change_coming() ), this, SLOT ( reload_begin() ) );
 		connect ( _ctl_db, SIGNAL ( sig_change_done() ), this, SLOT ( reload_finish() ) );
 	}
 	reload_finish();

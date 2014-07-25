@@ -75,7 +75,11 @@ class Device_Selection_View :
 	sig_close ( );
 
 	void
-	sig_control_changed ( );
+	sig_control_selected ( );
+
+	/// @brief Gets emitted e.g. when the card of the selected ctl appears/disappears
+	void
+	sig_control_reload ( );
 
 
 	// Public slots
@@ -125,6 +129,9 @@ class Device_Selection_View :
 	compile_ctl_address (
 		::QSnd::CTL_Address & ctl_addr_n );
 
+	void
+	update_selected_ctl_checks ( );
+
 	bool
 	update_selected_ctl ( );
 
@@ -140,7 +147,7 @@ class Device_Selection_View :
 	/// @brief Removes non existing CTL addresses
 	///
 	void
-	selection_db_clean ( );
+	selection_db_sanitize ( );
 
 
 	// Private attributes
@@ -157,6 +164,8 @@ class Device_Selection_View :
 	// Selection state
 	::QSnd::CTL_Address _selected_ctl;
 	::QSnd::CTL_Format _selected_ctl_format;
+	bool _selected_ctl_checks_good;
+
 	bool _silent_ctl_change;
 	bool _silent_arg_change;
 

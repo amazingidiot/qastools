@@ -34,7 +34,9 @@ Device_Selection_View::Device_Selection_View (
 QWidget ( parent_n ),
 _view_setup ( 0 ),
 _lay_arg_views ( 0 ),
-_silent_ctl_change ( false )
+_selected_ctl_checks_good ( false ),
+_silent_ctl_change ( false ),
+_silent_arg_change ( false )
 {
 	// Strings
 	_str_type_card = "card";
@@ -49,6 +51,10 @@ _silent_ctl_change ( false )
 	}
 	connect ( _act_close, SIGNAL ( triggered ( bool ) ),
 		this, SIGNAL ( sig_close() ) );
+
+	// Controls database
+	connect ( &_controls_db, SIGNAL ( sig_reload_required() ),
+		this, SLOT ( reload_database() ) );
 
 	// Control selection model and view
 	{
@@ -107,7 +113,7 @@ Device_Selection_View::set_view_setup (
 {
 	_view_setup = setup_n;
 	if ( _view_setup != 0 ) {
-		selection_db_clean();
+		selection_db_sanitize();
 	}
 }
 
@@ -129,7 +135,7 @@ Device_Selection_View::compile_ctl_address (
 			const QString & arg_str ( _arg_views[ii]->arg_string() );
 			if ( !arg_str.isEmpty() ) {
 				ctl_addr_n.append_arg (
-					::QSnd::CTL_Address_Arg ( arg_name, arg_str ) );
+					::QSnd::CTL_Address_Argument ( arg_name, arg_str ) );
 			}
 		}
 	} else {
@@ -151,7 +157,7 @@ Device_Selection_View::silent_select_ctl (
 		_selected_ctl.clear();
 		_controls_view->clearSelection();
 
-		// Find model index from name
+		// Find control format model index from name
 		const QModelIndex midx (
 			_controls_model->ctl_format_index ( ctl_addr_n.ctl_name() ) );
 
@@ -161,20 +167,22 @@ Device_Selection_View::silent_select_ctl (
 		if ( midx.isValid() ) {
 			// The address in the database will be used by the arg view restore
 			selection_db_commit ( ctl_addr_n );
-
 			{
-				const ::QSnd::CTL_Format * format (
-					_controls_model->ctl_format ( midx ) );
-				if ( format != 0 ) {
-					_selected_ctl_format = *format;
+				::QSnd::CTL_Format format;
+				_controls_model->ctl_format ( format, midx );
+				if ( format.is_valid() ) {
+					_selected_ctl_format = format;
 				}
 			}
+
+			// Create and update argument inputs
 			_silent_arg_change = true;
 			create_arg_views();
 			restore_arg_views();
 			_silent_arg_change = false;
 
 			compile_ctl_address ( _selected_ctl );
+			update_selected_ctl_checks();
 		}
 
 		_silent_ctl_change = false;
@@ -186,20 +194,30 @@ void
 Device_Selection_View::reload_database ( )
 {
 	//::std::cout << "Device_Selection_View::reload_database" << "\n";
-
 	if ( _view_setup != 0 ) {
-		// Remember and clear selection
+		// Remember selection
 		const ::QSnd::CTL_Address ctl_addr ( _selected_ctl );
+		const bool ctl_check_good ( _selected_ctl_checks_good );
+
+		// Clear selection
 		_selected_ctl.clear();
 		_selected_ctl_format.clear();
 
+		// Silent reload
 		_silent_ctl_change = true;
 		_controls_db.reload();
-		selection_db_clean();
+		selection_db_sanitize();
 		_silent_ctl_change = false;
 
-		// Restore selection
+		// Non silent selection restore
 		silent_select_ctl ( ctl_addr );
+
+		// Look for changes
+		if ( !_selected_ctl.match ( ctl_addr ) ) {
+			emit sig_control_selected();
+		} else if ( _selected_ctl_checks_good != ctl_check_good ) {
+			emit sig_control_reload();
+		}
 	}
 }
 
@@ -219,23 +237,25 @@ Device_Selection_View::control_changed (
 {
 	//::std::cout << "Device_Selection_View::control_changed " << "\n";
 
-	if ( idx_n.isValid() && !_silent_ctl_change ) {
-		::QSnd::CTL_Format ctl_format;
-		_controls_model->ctl_format ( ctl_format, idx_n );
-		if ( _selected_ctl_format != ctl_format ) {
-			// Clear
-			clear_arg_views();
-			_selected_ctl_format = ctl_format;
-			if ( _selected_ctl_format.is_valid() ) {
-
-				_silent_arg_change = true;
-				create_arg_views();
-				restore_arg_views();
-				_silent_arg_change = false;
-
-				update_selected_ctl();
+	if ( !_silent_ctl_change ) {
+		{
+			::QSnd::CTL_Format ctl_format;
+			_controls_model->ctl_format ( ctl_format, idx_n );
+			if ( _selected_ctl_format != ctl_format ) {
+				// Clear argument inputs
+				clear_arg_views();
+				// Update format
+				_selected_ctl_format = ctl_format;
+				// Create new argument inputs on demand
+				if ( _selected_ctl_format.is_valid() ) {
+					_silent_arg_change = true;
+					create_arg_views();
+					restore_arg_views();
+					_silent_arg_change = false;
+				}
 			}
 		}
+		update_selected_ctl();
 	}
 }
 
@@ -254,19 +274,55 @@ Device_Selection_View::control_arg_changed ( )
 }
 
 
+void
+Device_Selection_View::update_selected_ctl_checks ( )
+{
+	_selected_ctl_checks_good = false;
+	if ( _selected_ctl.is_valid() ) {
+		_selected_ctl_checks_good = true;
+
+		const unsigned int num_args ( _selected_ctl.num_args() );
+		if ( num_args <= _selected_ctl_format.num_args() ) {
+			for ( unsigned int ii=0; ii != num_args; ++ii ) {
+				const ::QSnd::CTL_Address_Argument & arg (
+					_selected_ctl.arg ( ii ) );
+				if ( arg.arg_value.isEmpty() ) {
+					// Empty arguments are bad
+					_selected_ctl_checks_good = false;
+				} else {
+					const ::QSnd::CTL_Format_Argument & arg_format (
+						_selected_ctl_format.arg ( ii ) );
+					if ( arg_format.arg_name.compare ( _str_type_card, Qt::CaseInsensitive ) == 0 ) {
+						unsigned int card_id ( arg.arg_value.toUInt() );
+						if ( _controls_db.card_info_by_id ( card_id ) == 0 ) {
+							_selected_ctl_checks_good = false;
+						}
+					}
+				}
+			}
+		} else {
+			_selected_ctl_checks_good = false;
+		}
+	}
+}
+
+
 bool
 Device_Selection_View::update_selected_ctl ( )
 {
 	//::std::cout << "Device_Selection_View::update_selected_ctl " << "\n";
-
-	::QSnd::CTL_Address ctl_addr;
-	compile_ctl_address ( ctl_addr );
-	if ( !_selected_ctl.match ( ctl_addr ) ) {
-		_selected_ctl = ctl_addr;
-		emit sig_control_changed();
-		return true;
+	bool res ( false );
+	{
+		::QSnd::CTL_Address ctl_addr;
+		compile_ctl_address ( ctl_addr );
+		if ( !_selected_ctl.match ( ctl_addr ) ) {
+			_selected_ctl = ctl_addr;
+			emit sig_control_selected();
+			res = true;
+		}
 	}
-	return false;
+	update_selected_ctl_checks();
+	return res;
 }
 
 
@@ -294,7 +350,7 @@ Device_Selection_View::selection_db_commit (
 	const ::QSnd::CTL_Address & ctl_addr_n )
 {
 	if ( ( _view_setup != 0 ) &&
-		!ctl_addr_n.is_clear() )
+		ctl_addr_n.is_valid() )
 	{
 		bool found ( false );
 		for ( int ii=0; ii < _view_setup->selection_db.size(); ++ii ) {
@@ -313,7 +369,7 @@ Device_Selection_View::selection_db_commit (
 
 
 void
-Device_Selection_View::selection_db_clean ( )
+Device_Selection_View::selection_db_sanitize ( )
 {
 	if ( _view_setup != 0 ) {
 		// Remove entries from selection db that don't exist in the
@@ -321,8 +377,7 @@ Device_Selection_View::selection_db_clean ( )
 		typedef Device_Selection_View_Setup::Selection_DB::iterator Iterator;
 		Iterator itc ( _view_setup->selection_db.begin() );
 		while ( itc != _view_setup->selection_db.end() ) {
-			const ::QSnd::CTL_Address & addr ( *itc );
-			if ( _controls_db.find_control_def ( addr.ctl_name() ) == 0 ) {
+			if ( _controls_db.find_control_def ( itc->ctl_name() ) == 0 ) {
 				itc = _view_setup->selection_db.erase ( itc );
 			} else {
 				++itc;
@@ -386,7 +441,7 @@ Device_Selection_View::restore_arg_views ( )
 			const unsigned int num_args (
 				::std::min ( ctl_addr->num_args(), _selected_ctl_format.num_args() ) );
 			for ( unsigned int ii=0; ii != num_args; ++ii ) {
-				const ::QSnd::CTL_Address_Arg & ctl_arg ( ctl_addr->arg ( ii ) );
+				const ::QSnd::CTL_Address_Argument & ctl_arg ( ctl_addr->arg ( ii ) );
 				::MWdg::CTL_Arg_View * arg_view ( _arg_views[ii] );
 				bool name_match ( true );
 				if ( !ctl_arg.arg_name.isEmpty() ) {

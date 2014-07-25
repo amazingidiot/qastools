@@ -28,36 +28,45 @@ CTL_Arg_View_Card::CTL_Arg_View_Card (
 
 	connect ( _ctl_view->selectionModel(),
 		SIGNAL ( currentChanged ( const QModelIndex &, const QModelIndex & ) ),
-		this, SIGNAL ( sig_arg_changed() ) );
+		this, SLOT ( view_selection_changed ( const QModelIndex &, const QModelIndex & ) ) );
 
 	lay_content()->addWidget ( _ctl_view );
 }
-
-
-QString
-CTL_Arg_View_Card::arg_string ( ) const
-{
-	QString res;
-	const ::QSnd::Card_Info * cinfo (
-		_cards_model->card_info ( _ctl_view->currentIndex() ) );
-	if ( cinfo != 0 ) {
-		res.setNum ( cinfo->card_index() );
-	}
-	return res;
-}
-
 
 void
 CTL_Arg_View_Card::set_arg_string (
 	const QString & str_n )
 {
-	QModelIndex midx (
-		_cards_model->card_info_index ( str_n ) );
-	if ( midx.isValid() ) {
-		_ctl_view->setCurrentIndex ( midx );
+	if ( set_arg_string_private ( str_n ) ) {
+		// Update view
+		{
+			QModelIndex midx (
+				_cards_model->card_info_index ( arg_string() ) );
+			if ( midx.isValid() ) {
+				_ctl_view->setCurrentIndex ( midx );
+			}
+		}
+		emit sig_arg_changed();
 	}
 }
 
+void
+CTL_Arg_View_Card::view_selection_changed (
+	const QModelIndex & index_to_n,
+	const QModelIndex & index_from_n )
+{
+	(void) index_from_n;
+	// Update arg string if selected index is valid
+	{
+		const ::QSnd::Card_Info * cinfo (
+			_cards_model->card_info ( index_to_n ) );
+		if ( cinfo != 0 ) {
+			QString str;
+			str.setNum ( cinfo->card_index() );
+			set_arg_string ( str );
+		}
+	}
+}
 
 void
 CTL_Arg_View_Card::ctl_db_changed ( )

@@ -82,7 +82,7 @@ CTL_Format::match (
 	}
 	if ( res ) {
 		for ( unsigned int ii=0; ii < ctl_addr_n.num_args(); ++ii ) {
-			const ::QSnd::CTL_Address_Arg & arga ( ctl_addr_n.arg ( ii ) );
+			const ::QSnd::CTL_Address_Argument & arga ( ctl_addr_n.arg ( ii ) );
 			if ( !arga.arg_name.isEmpty() ) {
 				const ::QSnd::CTL_Format_Argument & argd ( arg ( ii ) );
 				if ( arga.arg_name != argd.arg_name ) {

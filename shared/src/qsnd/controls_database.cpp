@@ -9,8 +9,7 @@
 #include "controls_database.hpp"
 
 #include "qsnd/alsa.hpp"
-#include "qsnd/card_info.hpp"
-#include "qsnd/ctl_format.hpp"
+#include "qsnd/udev_device_lookout.hpp"
 
 #include <QStringList>
 #include <iostream>
@@ -41,6 +40,12 @@ setup_ctl_format_arg (
 
 Controls_Database::Controls_Database ( )
 {
+	{
+		::QSnd::UDev_Device_Lookout * lookout (
+			new ::QSnd::UDev_Device_Lookout ( this ) );
+		connect ( lookout, SIGNAL ( sig_change() ),
+			this, SIGNAL ( sig_reload_required() ) );
+	}
 	reload_silent();
 }
 
@@ -79,7 +84,7 @@ Controls_Database::reload_silent ( )
 void
 Controls_Database::reload ( )
 {
-	emit sig_change_comming();
+	emit sig_change_coming();
 	reload_silent();
 	emit sig_change_done();
 }
@@ -153,6 +158,25 @@ Controls_Database::load_cards ( )
 }
 
 
+const ::QSnd::Card_Info *
+Controls_Database::card_info_by_id (
+	unsigned int id_n )
+{
+	const ::QSnd::Card_Info * res ( 0 );
+	{
+		const unsigned int num ( _card_infos.size() );
+		for ( unsigned int ii=0; ii != num; ++ii ) {
+			const ::QSnd::Card_Info & cinfo ( _card_infos[ii] );
+			if ( (unsigned int)cinfo.card_index() == id_n ) {
+				res = &cinfo;
+				break;
+			}
+		}
+	}
+	return res;
+}
+
+
 bool
 setup_ctl_format (
 	::QSnd::CTL_Format & ctl_format_n,
@@ -170,7 +194,6 @@ setup_ctl_format (
 	}
 	return false;
 }
-
 
 inline
 void

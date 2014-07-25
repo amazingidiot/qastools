@@ -59,8 +59,8 @@ class CTL_Arg_View :
 	set_ctl_arg (
 		const ::QSnd::CTL_Format_Argument & ctl_arg_n );
 
-	virtual
-	QString
+
+	const QString &
 	arg_string ( ) const;
 
 	virtual
@@ -79,6 +79,10 @@ class CTL_Arg_View :
 	// Protected methods
 	protected:
 
+	bool
+	set_arg_string_private (
+		const QString & str_n );
+
 	virtual
 	void
 	ctl_db_changed ( );
@@ -96,6 +100,7 @@ class CTL_Arg_View :
 
 	const ::QSnd::Controls_Database * _ctl_db;
 	::QSnd::CTL_Format_Argument _ctl_arg;
+	QString _arg_string;
 	QLabel * _wdg_title;
 	QVBoxLayout * _lay_content;
 };
@@ -116,6 +121,13 @@ CTL_Arg_View::ctl_arg ( ) const
 }
 
 inline
+const QString &
+CTL_Arg_View::arg_string ( ) const
+{
+	return _arg_string;
+}
+
+inline
 QVBoxLayout *
 CTL_Arg_View::lay_content ( )
 {
@@ -124,6 +136,5 @@ CTL_Arg_View::lay_content ( )
 
 
 } // End of namespace
-
 
 #endif

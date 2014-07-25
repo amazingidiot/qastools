@@ -10,6 +10,9 @@ FIND_PACKAGE ( Qt4 4.6 REQUIRED )
 FIND_PACKAGE ( ALSA REQUIRED )
 INCLUDE ( ${QT_USE_FILE} )
 
+# TODO: FIND_PACKAGE
+SET ( UDEV_LIBRARIES udev )
+
 
 # Configure files
 INCLUDE ( CheckIncludeFiles )
@@ -35,6 +38,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/mixer_hctl_elem.cpp
 	${SHARED_SRC_DIR}/qsnd/mixer_hctl_elem_group.cpp
 	${SHARED_SRC_DIR}/qsnd/mixer_hctl_info_db.cpp
+	${SHARED_SRC_DIR}/qsnd/udev_device_lookout.cpp
 
 	${SHARED_SRC_DIR}/dpe/image_allocator.cpp
 	${SHARED_SRC_DIR}/dpe/image.cpp
@@ -149,6 +153,7 @@ SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/qsnd/controls_model.hpp
 	${SHARED_INC_DIR}/qsnd/mixer_hctl.hpp
 	${SHARED_INC_DIR}/qsnd/mixer_hctl_elem.hpp
+	${SHARED_INC_DIR}/qsnd/udev_device_lookout.hpp
 
 	${SHARED_INC_DIR}/dpe/is_buffer.hpp
 	${SHARED_INC_DIR}/dpe/image_allocator.hpp
@@ -228,6 +233,7 @@ ADD_EXECUTABLE ( ${PROGRAM_NAME}
 TARGET_LINK_LIBRARIES ( ${PROGRAM_NAME}
 	${QT_LIBRARIES}
 	${ALSA_LIBRARIES}
+	${UDEV_LIBRARIES}
 )
 
 

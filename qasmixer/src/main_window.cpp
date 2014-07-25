@@ -118,7 +118,7 @@ Main_Window::init_menus ( )
 		this, SLOT ( show_device_selection ( bool ) ) );
 
     connect ( act_refresh, SIGNAL ( triggered() ),
-		this, SLOT ( reload_mixer_device() ) );
+		this, SLOT ( refresh_views() ) );
 
     connect ( _act_fullscreen, SIGNAL ( toggled ( bool ) ),
 		this, SLOT ( set_fullscreen ( bool ) ) );
@@ -143,8 +143,11 @@ Main_Window::init_widgets ( )
 		_dev_select->hide();
 
 		// QueuedConnection to update the GUI before loading the mixer
-		connect ( _dev_select, SIGNAL ( sig_control_changed() ),
+		connect ( _dev_select, SIGNAL ( sig_control_selected() ),
 			this, SLOT ( select_ctl_from_side_iface() ), Qt::QueuedConnection );
+
+		connect ( _dev_select, SIGNAL ( sig_control_reload() ),
+			this, SLOT ( reload_mixer_device() ), Qt::QueuedConnection );
 
 		connect ( _dev_select, SIGNAL ( sig_close() ),
 			this, SLOT ( toggle_device_selection() ) );
@@ -247,7 +250,7 @@ Main_Window::select_ctl (
 	_dev_select->silent_select_ctl ( ctl_n );
 
 	if ( _win_setup != 0 ) {
-		if ( ctl_n != _win_setup->mixer_dev.ctl_addr ) {
+		if ( _win_setup->mixer_dev.ctl_addr != ctl_n ) {
 			// Remove
 			_mixer_simple->set_mdev_setup ( 0 );
 			// Change
@@ -275,8 +278,6 @@ void
 Main_Window::reload_mixer_device ( )
 {
 	//::std::cout << "Main_Window::reload_mixer_device" << "\n";
-	_dev_select->reload_database();
-
 	_mixer_simple->set_mdev_setup ( 0 );
 	_mixer_simple->set_mdev_setup ( &_win_setup->mixer_dev );
 }
@@ -290,6 +291,12 @@ Main_Window::reload_mixer_inputs ( )
 	_mixer_simple->set_inputs_setup ( &_win_setup->inputs );
 }
 
+void
+Main_Window::refresh_views ( )
+{
+	_dev_select->reload_database();
+	reload_mixer_device();
+}
 
 void
 Main_Window::reload_mixer_view ( )

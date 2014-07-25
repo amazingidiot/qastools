@@ -10,6 +10,7 @@
 #define __INC_mwdg_ctl_arg_view_card_hpp__
 
 #include "mwdg/ctl_arg_view.hpp"
+#include <QModelIndex>
 
 // Forward declaration
 namespace QSnd {
@@ -38,9 +39,6 @@ class CTL_Arg_View_Card :
 	CTL_Arg_View_Card (
 		QWidget * parent_n = 0 );
 
-	QString
-	arg_string ( ) const;
-
 	void
 	set_arg_string (
 		const QString & str_n );
@@ -51,6 +49,15 @@ class CTL_Arg_View_Card :
 
 	void
 	ctl_db_changed ( );
+
+
+	// Protected methods
+	protected slots:
+
+	void
+	view_selection_changed (
+		const QModelIndex & index_to_n,
+		const QModelIndex & index_from_n );
 
 
 	// Private attributes

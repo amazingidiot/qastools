@@ -116,8 +116,8 @@ Main_Window::init_widgets ( )
 		_dev_select = new ::Views::Device_Selection_View;
 		_dev_select->hide();
 
-		connect ( _dev_select, SIGNAL ( sig_control_changed() ),
-			this, SLOT ( select_ctl_from_side_iface() ), Qt::QueuedConnection );
+		connect ( _dev_select, SIGNAL ( sig_control_selected() ),
+			this, SLOT ( select_ctl_from_side_iface() ) );
 
 		connect ( _dev_select, SIGNAL ( sig_close() ),
 			this, SLOT ( toggle_device_selection() ) );

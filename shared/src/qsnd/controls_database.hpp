@@ -57,16 +57,25 @@ class Controls_Database :
 	card_info (
 		unsigned int index_n ) const;
 
+	const ::QSnd::Card_Info *
+	card_info_by_id (
+		unsigned int id_n );
+
 
 
 	// Signals
 	signals:
 
 	void
-	sig_change_comming ( );
+	sig_change_coming ( );
 
 	void
 	sig_change_done ( );
+
+
+
+	void
+	sig_reload_required ( );
 
 
 	// Public slots

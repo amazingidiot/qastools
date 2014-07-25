@@ -43,7 +43,7 @@ class CTL_Address
 	clear ( );
 
 	bool
-	is_clear ( ) const;
+	is_valid ( ) const;
 
 
 	// Control name
@@ -71,13 +71,13 @@ class CTL_Address
 	unsigned int
 	num_args ( ) const;
 
-	const ::QSnd::CTL_Address_Arg &
+	const ::QSnd::CTL_Address_Argument &
 	arg (
 		unsigned int idx_n ) const;
 
 	void
 	append_arg (
-		const ::QSnd::CTL_Address_Arg & arg_n );
+		const ::QSnd::CTL_Address_Argument & arg_n );
 
 
 	// Comparison
@@ -110,15 +110,15 @@ class CTL_Address
 
 	QString _addr_str;
 	QString _ctl_name;
-	QList < ::QSnd::CTL_Address_Arg > _args;
+	QList < ::QSnd::CTL_Address_Argument > _args;
 };
 
 
 inline
 bool
-CTL_Address::is_clear ( ) const
+CTL_Address::is_valid ( ) const
 {
-	return _ctl_name.isEmpty();
+	return !_ctl_name.isEmpty();
 }
 
 
@@ -139,7 +139,7 @@ CTL_Address::num_args ( ) const
 
 
 inline
-const ::QSnd::CTL_Address_Arg &
+const ::QSnd::CTL_Address_Argument &
 CTL_Address::arg (
 	unsigned int idx_n ) const
 {

@@ -60,18 +60,26 @@ CTL_Arg_View::set_ctl_arg (
 }
 
 
-QString
-CTL_Arg_View::arg_string ( ) const
+void
+CTL_Arg_View::set_arg_string (
+	const QString & str_n )
 {
-	return QString();
+	if ( _arg_string != str_n ) {
+		_arg_string = str_n;
+		emit sig_arg_changed();
+	}
 }
 
 
-void
-CTL_Arg_View::set_arg_string (
-	const QString & )
+bool
+CTL_Arg_View::set_arg_string_private (
+	const QString & str_n )
 {
-	// Does nothing by default
+	if ( _arg_string != str_n ) {
+		_arg_string = str_n;
+		return true;
+	}
+	return false;
 }
 
 

@@ -31,18 +31,24 @@ class CTL_Arg_View_Integer :
 	CTL_Arg_View_Integer (
 		QWidget * parent_n = 0 );
 
-	QString
-	arg_string ( ) const;
 
 	void
 	set_arg_string (
 		const QString & str_n );
 
 
+	// Protected slots
+	protected slots:
+
+	void
+	input_string_changed ( );
+
+
 	// Private attributes
 	private:
 
 	QLineEdit * _ledit;
+	bool _ledit_signal_block;
 };
 
 
