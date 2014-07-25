@@ -90,14 +90,8 @@ Controls_Database::clear_data ( )
 {
 	// Controls
 	_ctl_formats.clear();
-
 	// Cards
-	if ( _card_infos.size() > 0 ) {
-		for ( int ii=0; ii < _card_infos.size(); ++ii ) {
-			delete _card_infos[ii];
-		}
-		_card_infos.clear();
-	}
+	_card_infos.clear();
 }
 
 
@@ -149,9 +143,7 @@ Controls_Database::load_cards ( )
 		while (	( snd_card_next ( &card_idx ) == 0 ) &&
 			( card_idx >= 0 ) )
 		{
-			::QSnd::Card_Info * cinfo (
-				new ::QSnd::Card_Info ( card_idx ) );
-			_card_infos.append ( cinfo );
+			_card_infos.append ( ::QSnd::Card_Info ( card_idx ) );
 		}
 	}
 }

@@ -65,7 +65,7 @@ Cards_Model::card_info (
 		if ( idata.type() == QVariant::UInt ) {
 			const unsigned int ctl_idx ( idata.toUInt() );
 			if ( ctl_idx < _ctl_db->num_cards() ) {
-				res = _ctl_db->card_info ( ctl_idx );
+				res = &_ctl_db->card_info ( ctl_idx );
 			}
 		}
 	}
@@ -137,16 +137,16 @@ Cards_Model::load_data ( )
 	}
 
 	for ( unsigned int ii=0; ii < _ctl_db->num_cards(); ++ii ) {
-		const ::QSnd::Card_Info * cinfo ( _ctl_db->card_info ( ii ) );
+		const ::QSnd::Card_Info & cinfo ( _ctl_db->card_info ( ii ) );
 		// Create standard item and append
 		QStandardItem * sitem ( new QStandardItem );
-		sitem->setText ( cinfo->card_name() );
+		sitem->setText ( cinfo.card_name() );
 		sitem->setEditable ( false );
 		sitem->setSelectable ( true );
 		sitem->setData ( QVariant ( ii ), MKEY_DB_INDEX );
-		sitem->setData ( QVariant ( cinfo->card_index() ), MKEY_CARD_INDEX );
-		sitem->setData ( QVariant ( cinfo->card_name() ), MKEY_CARD_NAME );
-		sitem->setData ( QVariant ( cinfo->card_mixer_name() ), MKEY_CARD_MIXER_NAME );
+		sitem->setData ( QVariant ( cinfo.card_index() ), MKEY_CARD_INDEX );
+		sitem->setData ( QVariant ( cinfo.card_name() ), MKEY_CARD_NAME );
+		sitem->setData ( QVariant ( cinfo.card_mixer_name() ), MKEY_CARD_MIXER_NAME );
 		appendRow ( sitem );
 	}
 }

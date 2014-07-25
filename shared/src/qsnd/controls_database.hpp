@@ -9,16 +9,10 @@
 #ifndef __INC_qsnd_controls_db_hpp__
 #define __INC_qsnd_controls_db_hpp__
 
-#include <qsnd/ctl_format.hpp>
+#include "qsnd/ctl_format.hpp"
+#include "qsnd/card_info.hpp"
 #include <QObject>
 #include <QList>
-
-
-// Forward declaration
-namespace QSnd {
-	class Card_Info;
-}
-
 
 namespace QSnd
 {
@@ -59,7 +53,7 @@ class Controls_Database :
 	unsigned int
 	num_cards ( ) const;
 
-	const ::QSnd::Card_Info *
+	const ::QSnd::Card_Info &
 	card_info (
 		unsigned int index_n ) const;
 
@@ -102,7 +96,7 @@ class Controls_Database :
 	private:
 
 	QList < ::QSnd::CTL_Format > _ctl_formats;
-	QList < ::QSnd::Card_Info * > _card_infos;
+	QList < ::QSnd::Card_Info > _card_infos;
 };
 
 
@@ -132,7 +126,7 @@ Controls_Database::num_cards ( ) const
 
 
 inline
-const ::QSnd::Card_Info *
+const ::QSnd::Card_Info &
 Controls_Database::card_info (
 	unsigned int index_n ) const
 {
