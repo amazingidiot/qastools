@@ -90,7 +90,7 @@ HEADERS = \
 	../shared/src/qsnd/alsa_i18n.hpp \
 	../shared/src/qsnd/card_info.hpp \
 	../shared/src/qsnd/cards_model.hpp \
-	../shared/src/qsnd/controls_db.hpp \
+	../shared/src/qsnd/controls_database.hpp \
 	../shared/src/qsnd/controls_model.hpp \
 	../shared/src/qsnd/ctl_address.hpp \
 	../shared/src/qsnd/ctl_address_arg.hpp \
@@ -262,7 +262,7 @@ SOURCES = \
 	../shared/src/qsnd/alsa_config_watcher.cpp \
 	../shared/src/qsnd/card_info.cpp \
 	../shared/src/qsnd/cards_model.cpp \
-	../shared/src/qsnd/controls_db.cpp \
+	../shared/src/qsnd/controls_database.cpp \
 	../shared/src/qsnd/controls_model.cpp \
 	../shared/src/qsnd/ctl_address.cpp \
 	../shared/src/qsnd/ctl_address_arg.cpp \

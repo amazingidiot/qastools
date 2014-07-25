@@ -40,7 +40,7 @@ _ctl_arg ( 0 )
 
 void
 CTL_Arg_View::set_ctl_db (
-	const ::QSnd::Controls_DB * ctl_db_n )
+	const ::QSnd::Controls_Database * ctl_db_n )
 {
 	if ( _ctl_db != ctl_db_n ) {
 		_ctl_db = ctl_db_n;

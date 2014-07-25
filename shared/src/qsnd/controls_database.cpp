@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "controls_db.hpp"
+#include "controls_database.hpp"
 
 #include "qsnd/alsa.hpp"
 #include "qsnd/card_info.hpp"
@@ -37,22 +37,22 @@ setup_ctl_format_arg (
 	snd_config_t * scfg_n );
 
 
-// Controls_DB
+// Controls_Database
 
-Controls_DB::Controls_DB ( )
+Controls_Database::Controls_Database ( )
 {
 	reload_silent();
 }
 
 
-Controls_DB::~Controls_DB ( )
+Controls_Database::~Controls_Database ( )
 {
 	clear_data();
 }
 
 
 const ::QSnd::CTL_Format *
-Controls_DB::find_control_def (
+Controls_Database::find_control_def (
 	const QString & ctl_name_n ) const
 {
 	const ::QSnd::CTL_Format * res ( 0 );
@@ -68,7 +68,7 @@ Controls_DB::find_control_def (
 
 
 void
-Controls_DB::reload_silent ( )
+Controls_Database::reload_silent ( )
 {
 	clear_data();
 	load_plugins();
@@ -77,7 +77,7 @@ Controls_DB::reload_silent ( )
 
 
 void
-Controls_DB::reload ( )
+Controls_Database::reload ( )
 {
 	emit sig_change_comming();
 	reload_silent();
@@ -86,7 +86,7 @@ Controls_DB::reload ( )
 
 
 void
-Controls_DB::clear_data ( )
+Controls_Database::clear_data ( )
 {
 	// Controls
 	_ctl_formats.clear();
@@ -102,7 +102,7 @@ Controls_DB::clear_data ( )
 
 
 void
-Controls_DB::load_plugins ( )
+Controls_Database::load_plugins ( )
 {
 	// Load ALSA configuration tree and read ctl entries
 	{
@@ -141,7 +141,7 @@ Controls_DB::load_plugins ( )
 
 
 void
-Controls_DB::load_cards ( )
+Controls_Database::load_cards ( )
 {
 	// Load card infos
 	{

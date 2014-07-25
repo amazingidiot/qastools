@@ -15,7 +15,7 @@
 // Forward declaration
 namespace QSnd {
 	class Card_Info;
-	class Controls_DB;
+	class Controls_Database;
 }
 
 
@@ -42,12 +42,12 @@ class Cards_Model :
 
 	// Controls database
 
-	const ::QSnd::Controls_DB *
+	const ::QSnd::Controls_Database *
 	controls_db ( ) const;
 
 	void
 	set_controls_db (
-		const ::QSnd::Controls_DB * ctl_db_n );
+		const ::QSnd::Controls_Database * ctl_db_n );
 
 
 	// Control definition access
@@ -88,12 +88,12 @@ class Cards_Model :
 	// Private attributes
 	private:
 
-	const ::QSnd::Controls_DB * _ctl_db;
+	const ::QSnd::Controls_Database * _ctl_db;
 };
 
 
 inline
-const ::QSnd::Controls_DB *
+const ::QSnd::Controls_Database *
 Cards_Model::controls_db ( ) const
 {
 	return _ctl_db;

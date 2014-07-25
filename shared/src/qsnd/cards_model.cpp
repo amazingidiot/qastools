@@ -11,7 +11,7 @@
 #include "qsnd/alsa.hpp"
 #include "qsnd/model_keys.hpp"
 #include "qsnd/card_info.hpp"
-#include "qsnd/controls_db.hpp"
+#include "qsnd/controls_database.hpp"
 #include <QFont>
 #include <iostream>
 
@@ -35,7 +35,7 @@ Cards_Model::~Cards_Model ( )
 
 void
 Cards_Model::set_controls_db (
-	const ::QSnd::Controls_DB * ctl_db_n )
+	const ::QSnd::Controls_Database * ctl_db_n )
 {
 	if ( _ctl_db == ctl_db_n ) {
 		return;

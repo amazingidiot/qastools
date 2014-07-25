@@ -11,7 +11,7 @@
 #include "qsnd/alsa.hpp"
 #include "qsnd/model_keys.hpp"
 #include "qsnd/ctl_format.hpp"
-#include "qsnd/controls_db.hpp"
+#include "qsnd/controls_database.hpp"
 #include <QFont>
 #include <QCoreApplication>
 #include <iostream>
@@ -36,7 +36,7 @@ Controls_Model::~Controls_Model ( )
 
 void
 Controls_Model::set_controls_db (
-	::QSnd::Controls_DB * ctl_db_n )
+	::QSnd::Controls_Database * ctl_db_n )
 {
 	if ( _ctl_db == ctl_db_n ) {
 		return;

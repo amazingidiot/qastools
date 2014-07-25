@@ -15,7 +15,7 @@
 // Forward declaration
 namespace QSnd {
 	class CTL_Format;
-	class Controls_DB;
+	class Controls_Database;
 }
 
 
@@ -42,12 +42,12 @@ class Controls_Model :
 
 	// Controls database
 
-	::QSnd::Controls_DB *
+	::QSnd::Controls_Database *
 	controls_db ( ) const;
 
 	void
 	set_controls_db (
-		::QSnd::Controls_DB * ctl_db_n );
+		::QSnd::Controls_Database * ctl_db_n );
 
 
 	// Control definition access
@@ -88,12 +88,12 @@ class Controls_Model :
 	// Private attributes
 	private:
 
-	::QSnd::Controls_DB * _ctl_db;
+	::QSnd::Controls_Database * _ctl_db;
 };
 
 
 inline
-::QSnd::Controls_DB *
+::QSnd::Controls_Database *
 Controls_Model::controls_db ( ) const
 {
 	return _ctl_db;

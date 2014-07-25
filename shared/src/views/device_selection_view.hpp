@@ -10,7 +10,7 @@
 #define __INC_views_device_selection_view_hpp__
 
 #include "qsnd/ctl_address.hpp"
-#include "qsnd/controls_db.hpp"
+#include "qsnd/controls_database.hpp"
 #include "mwdg/ctl_arg_view.hpp"
 
 #include <QWidget>
@@ -148,7 +148,7 @@ class Device_Selection_View :
 
 	::Views::Device_Selection_View_Setup * _view_setup;
 
-	::QSnd::Controls_DB _controls_db;
+	::QSnd::Controls_Database _controls_db;
 	::QSnd::Controls_Model * _controls_model;
 	::MWdg::Controls_View * _controls_view;
 	QList < ::MWdg::CTL_Arg_View * > _arg_views;

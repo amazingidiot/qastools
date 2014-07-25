@@ -17,7 +17,7 @@
 
 // Forward declaration
 namespace QSnd {
-	class Controls_DB;
+	class Controls_Database;
 }
 
 
@@ -42,12 +42,12 @@ class CTL_Arg_View :
 
 	// Controls database
 
-	const ::QSnd::Controls_DB *
+	const ::QSnd::Controls_Database *
 	ctl_db ( ) const;
 
 	void
 	set_ctl_db (
-		const ::QSnd::Controls_DB * ctl_db_n );
+		const ::QSnd::Controls_Database * ctl_db_n );
 
 
 	// Control argument
@@ -94,7 +94,7 @@ class CTL_Arg_View :
 	// Private attributes
 	private:
 
-	const ::QSnd::Controls_DB * _ctl_db;
+	const ::QSnd::Controls_Database * _ctl_db;
 	::QSnd::CTL_Format_Argument _ctl_arg;
 	QLabel * _wdg_title;
 	QVBoxLayout * _lay_content;
@@ -102,7 +102,7 @@ class CTL_Arg_View :
 
 
 inline
-const ::QSnd::Controls_DB *
+const ::QSnd::Controls_Database *
 CTL_Arg_View::ctl_db ( ) const
 {
 	return _ctl_db;

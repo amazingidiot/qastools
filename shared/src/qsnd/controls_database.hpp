@@ -24,9 +24,9 @@ namespace QSnd
 {
 
 
-/// @brief Controls_DB
+/// @brief Controls_Database
 ///
-class Controls_DB :
+class Controls_Database :
 	public QObject
 {
 	Q_OBJECT;
@@ -35,9 +35,9 @@ class Controls_DB :
 	// Public methods
 	public:
 
-	Controls_DB ( );
+	Controls_Database ( );
 
-	~Controls_DB ( );
+	~Controls_Database ( );
 
 
 	// Control plugins
@@ -108,7 +108,7 @@ class Controls_DB :
 
 inline
 unsigned int
-Controls_DB::num_controls ( ) const
+Controls_Database::num_controls ( ) const
 {
 	return _ctl_formats.size();
 }
@@ -116,7 +116,7 @@ Controls_DB::num_controls ( ) const
 
 inline
 const ::QSnd::CTL_Format &
-Controls_DB::control_def (
+Controls_Database::control_def (
 	unsigned int index_n ) const
 {
 	return _ctl_formats[index_n];
@@ -125,7 +125,7 @@ Controls_DB::control_def (
 
 inline
 unsigned int
-Controls_DB::num_cards ( ) const
+Controls_Database::num_cards ( ) const
 {
 	return _card_infos.size();
 }
@@ -133,7 +133,7 @@ Controls_DB::num_cards ( ) const
 
 inline
 const ::QSnd::Card_Info *
-Controls_DB::card_info (
+Controls_Database::card_info (
 	unsigned int index_n ) const
 {
 	return _card_infos[index_n];
