@@ -94,8 +94,8 @@ HEADERS = \
 	../shared/src/qsnd/controls_model.hpp \
 	../shared/src/qsnd/ctl_address.hpp \
 	../shared/src/qsnd/ctl_address_arg.hpp \
-	../shared/src/qsnd/ctl_def.hpp \
-	../shared/src/qsnd/ctl_def_arg.hpp \
+	../shared/src/qsnd/ctl_format.hpp \
+	../shared/src/qsnd/ctl_format_argument.hpp \
 	../shared/src/qsnd/event_types.hpp \
 	../shared/src/qsnd/mixer_hctl.hpp \
 	../shared/src/qsnd/mixer_hctl_elem.hpp \
@@ -266,8 +266,8 @@ SOURCES = \
 	../shared/src/qsnd/controls_model.cpp \
 	../shared/src/qsnd/ctl_address.cpp \
 	../shared/src/qsnd/ctl_address_arg.cpp \
-	../shared/src/qsnd/ctl_def.cpp \
-	../shared/src/qsnd/ctl_def_arg.cpp \
+	../shared/src/qsnd/ctl_format.cpp \
+	../shared/src/qsnd/ctl_format_argument.cpp \
 	../shared/src/qsnd/event_types.cpp \
 	../shared/src/qsnd/mixer_hctl.cpp \
 	../shared/src/qsnd/mixer_hctl_elem.cpp \

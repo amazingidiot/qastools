@@ -122,7 +122,7 @@ class Device_Selection_View :
 	restore_arg_views ( );
 
 	void
-	compile_ctl_addr (
+	compile_ctl_address (
 		::QSnd::CTL_Address & ctl_addr_n );
 
 	bool
@@ -155,7 +155,7 @@ class Device_Selection_View :
 	QVBoxLayout * _lay_arg_views;
 
 	// Selection state
-	const ::QSnd::CTL_Def * _current_ctl_def;
+	const ::QSnd::CTL_Format * _current_ctl_format;
 	::QSnd::CTL_Address _selected_ctl;
 	bool _silent_ctl_change;
 	bool _silent_arg_change;

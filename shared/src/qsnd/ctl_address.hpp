@@ -71,13 +71,13 @@ class CTL_Address
 	unsigned int
 	num_args ( ) const;
 
-	const ::QSnd::CTL_Address_Arg *
+	const ::QSnd::CTL_Address_Arg &
 	arg (
 		unsigned int idx_n ) const;
 
 	void
 	append_arg (
-		const ::QSnd::CTL_Address_Arg * arg_n );
+		const ::QSnd::CTL_Address_Arg & arg_n );
 
 
 	// Comparison
@@ -105,14 +105,12 @@ class CTL_Address
 	update_addr_str ( );
 
 
-
-
 	// Private attributes
 	private:
 
 	QString _addr_str;
 	QString _ctl_name;
-	QList < const ::QSnd::CTL_Address_Arg * > _args;
+	QList < ::QSnd::CTL_Address_Arg > _args;
 };
 
 
@@ -141,7 +139,7 @@ CTL_Address::num_args ( ) const
 
 
 inline
-const ::QSnd::CTL_Address_Arg *
+const ::QSnd::CTL_Address_Arg &
 CTL_Address::arg (
 	unsigned int idx_n ) const
 {

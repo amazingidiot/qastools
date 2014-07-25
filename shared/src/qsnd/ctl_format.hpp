@@ -6,11 +6,11 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_qsnd_control_def_hpp__
-#define __INC_qsnd_control_def_hpp__
+#ifndef __INC_qsnd_control_format_hpp__
+#define __INC_qsnd_control_format_hpp__
 
 #include "qsnd/ctl_address.hpp"
-#include "qsnd/ctl_def_arg.hpp"
+#include "qsnd/ctl_format_argument.hpp"
 #include <QString>
 #include <QList>
 
@@ -19,23 +19,23 @@ namespace QSnd
 {
 
 
-/// @brief CTL_Def
+/// @brief CTL_Format
 ///
-class CTL_Def
+class CTL_Format
 {
 	// Public methods
 	public:
 
-	CTL_Def (
+	CTL_Format (
 		const char * ctl_str_n = 0 );
 
-	CTL_Def (
+	CTL_Format (
 		const QString & ctl_str_n );
 
-	CTL_Def (
-		const CTL_Def & ctl_def_n );
+	CTL_Format (
+		const CTL_Format & ctl_format_n );
 
-	~CTL_Def ( );
+	~CTL_Format ( );
 
 
 	// Clear
@@ -62,13 +62,13 @@ class CTL_Def
 	unsigned int
 	num_args ( ) const;
 
-	const ::QSnd::CTL_Def_Arg *
+	const ::QSnd::CTL_Format_Argument &
 	arg (
 		unsigned int idx_n ) const;
 
 	void
 	append_arg (
-		const ::QSnd::CTL_Def_Arg * arg_n );
+		const ::QSnd::CTL_Format_Argument & arg_n );
 
 
 	// Comparison
@@ -80,17 +80,17 @@ class CTL_Def
 
 	// Operators
 
-	CTL_Def &
+	CTL_Format &
 	operator = (
-		const ::QSnd::CTL_Def & ctl_def_n );
+		const ::QSnd::CTL_Format & ctl_format_n );
 
 	bool
 	operator == (
-		const ::QSnd::CTL_Def & ctl_def_n ) const;
+		const ::QSnd::CTL_Format & ctl_format_n ) const;
 
 	bool
 	operator != (
-		const ::QSnd::CTL_Def & ctl_def_n ) const;
+		const ::QSnd::CTL_Format & ctl_format_n ) const;
 
 
 	// Private methods
@@ -98,20 +98,20 @@ class CTL_Def
 
 	void
 	clone_def (
-		const ::QSnd::CTL_Def & ctl_def_n );
+		const ::QSnd::CTL_Format & ctl_format_n );
 
 
 	// Private attributes
 	private:
 
 	QString _ctl_name;
-	QList < const ::QSnd::CTL_Def_Arg * > _args;
+	QList < ::QSnd::CTL_Format_Argument > _args;
 };
 
 
 inline
 bool
-CTL_Def::is_clear ( ) const
+CTL_Format::is_clear ( ) const
 {
 	return _ctl_name.isEmpty();
 }
@@ -119,7 +119,7 @@ CTL_Def::is_clear ( ) const
 
 inline
 const QString &
-CTL_Def::ctl_name ( ) const
+CTL_Format::ctl_name ( ) const
 {
 	return _ctl_name;
 }
@@ -127,15 +127,15 @@ CTL_Def::ctl_name ( ) const
 
 inline
 unsigned int
-CTL_Def::num_args ( ) const
+CTL_Format::num_args ( ) const
 {
 	return _args.size();
 }
 
 
 inline
-const ::QSnd::CTL_Def_Arg *
-CTL_Def::arg (
+const ::QSnd::CTL_Format_Argument &
+CTL_Format::arg (
 	unsigned int idx_n ) const
 {
 	return _args[idx_n];

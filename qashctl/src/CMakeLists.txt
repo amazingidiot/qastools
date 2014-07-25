@@ -25,8 +25,8 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/event_types.cpp
 	${SHARED_SRC_DIR}/qsnd/ctl_address_arg.cpp
 	${SHARED_SRC_DIR}/qsnd/ctl_address.cpp
-	${SHARED_SRC_DIR}/qsnd/ctl_def_arg.cpp
-	${SHARED_SRC_DIR}/qsnd/ctl_def.cpp
+	${SHARED_SRC_DIR}/qsnd/ctl_format_argument.cpp
+	${SHARED_SRC_DIR}/qsnd/ctl_format.cpp
 	${SHARED_SRC_DIR}/qsnd/card_info.cpp
 	${SHARED_SRC_DIR}/qsnd/controls_db.cpp
 	${SHARED_SRC_DIR}/qsnd/cards_model.cpp

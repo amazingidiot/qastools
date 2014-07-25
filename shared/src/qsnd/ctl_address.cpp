@@ -49,12 +49,7 @@ CTL_Address::clear ( )
 {
 	_addr_str.clear();
 	_ctl_name.clear();
-	if ( _args.size() > 0 ) {
-		for ( int ii=0; ii < _args.size(); ++ii ) {
-			delete _args[ii];
-		}
-		_args.clear();
-	}
+	_args.clear();
 }
 
 
@@ -105,7 +100,7 @@ CTL_Address::set_addr_str (
 			}
 
 			if ( !argm.arg_value.isEmpty() ) {
-				_args.append ( new ::QSnd::CTL_Address_Arg ( argm ) );
+				_args.append ( argm );
 			}
 		}
 	}
@@ -116,12 +111,10 @@ CTL_Address::set_addr_str (
 
 void
 CTL_Address::append_arg (
-	const ::QSnd::CTL_Address_Arg * arg_n )
+	const ::QSnd::CTL_Address_Arg & arg_n )
 {
-	if ( arg_n != 0 ) {
-		_args.append ( arg_n );
-		update_addr_str();
-	}
+	_args.append ( arg_n );
+	update_addr_str();
 }
 
 
@@ -133,13 +126,13 @@ CTL_Address::match (
 	res = res && ( num_args() == ctl_addr_n.num_args() );
 	if ( res ) {
 		for ( unsigned int ii=0; ii < ctl_addr_n.num_args(); ++ii ) {
-			const ::QSnd::CTL_Address_Arg * arg1 ( arg ( ii ) );
-			const ::QSnd::CTL_Address_Arg * arg2 ( ctl_addr_n.arg ( ii ) );
-			if ( arg1->arg_value == arg2->arg_value ) {
-				if ( ( !arg1->arg_name.isEmpty() ) &&
-				     ( !arg2->arg_name.isEmpty() ) )
+			const ::QSnd::CTL_Address_Arg & arg1 ( arg ( ii ) );
+			const ::QSnd::CTL_Address_Arg & arg2 ( ctl_addr_n.arg ( ii ) );
+			if ( arg1.arg_value == arg2.arg_value ) {
+				if ( ( !arg1.arg_name.isEmpty() ) &&
+				     ( !arg2.arg_name.isEmpty() ) )
 				{
-					if ( arg1->arg_name != arg2->arg_name ) {
+					if ( arg1.arg_name != arg2.arg_name ) {
 						res = false;
 						break;
 					}
@@ -171,16 +164,16 @@ CTL_Address::update_addr_str ( )
 	if ( _args.size() > 0 ) {
 		_addr_str.append ( ":" );
 		for ( int ii=0; ii < _args.size(); ++ii ) {
-			const ::QSnd::CTL_Address_Arg * argm ( arg ( ii ) );
+			const ::QSnd::CTL_Address_Arg & argm ( arg ( ii ) );
 			if ( ii > 0 ) {
 				_addr_str.append ( "," );
 			}
 
-			if ( !argm->arg_name.isEmpty() ) {
-				_addr_str.append ( argm->arg_name );
+			if ( !argm.arg_name.isEmpty() ) {
+				_addr_str.append ( argm.arg_name );
 				_addr_str.append ( "=" );
 			}
-			_addr_str.append ( argm->arg_value );
+			_addr_str.append ( argm.arg_value );
 		}
 	}
 }
@@ -193,7 +186,7 @@ CTL_Address::clone_addr (
 	_addr_str = ctl_addr_n.addr_str();
 	_ctl_name = ctl_addr_n.ctl_name();
 	for ( unsigned int ii=0; ii < ctl_addr_n.num_args(); ++ii ) {
-		_args.append ( new ::QSnd::CTL_Address_Arg ( *ctl_addr_n.arg ( ii ) ) );
+		_args.append ( ctl_addr_n.arg ( ii ) );
 	}
 }
 

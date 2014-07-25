@@ -10,7 +10,7 @@
 
 #include "qsnd/alsa.hpp"
 #include "qsnd/model_keys.hpp"
-#include "qsnd/ctl_def.hpp"
+#include "qsnd/ctl_format.hpp"
 #include "qsnd/controls_db.hpp"
 #include <QFont>
 #include <QCoreApplication>
@@ -55,18 +55,18 @@ Controls_Model::set_controls_db (
 }
 
 
-const ::QSnd::CTL_Def *
-Controls_Model::ctl_def (
+const ::QSnd::CTL_Format *
+Controls_Model::ctl_format (
 	const QModelIndex & idx_n ) const
 {
-	const ::QSnd::CTL_Def * res ( 0 );
+	const ::QSnd::CTL_Format * res ( 0 );
 
 	if ( ( _ctl_db != 0 ) && ( idx_n.isValid() ) ) {
 		const QVariant & idata ( data ( idx_n, MKEY_DB_INDEX ) );
 		if ( idata.type() == QVariant::UInt ) {
 			const unsigned int ctl_idx ( idata.toUInt() );
 			if ( ctl_idx < _ctl_db->num_controls() ) {
-				res = _ctl_db->control_def ( ctl_idx );
+				res = &_ctl_db->control_def ( ctl_idx );
 			}
 		}
 	}
@@ -76,7 +76,7 @@ Controls_Model::ctl_def (
 
 
 QModelIndex
-Controls_Model::ctl_def_index (
+Controls_Model::ctl_format_index (
 	const QString & ctl_addr_n ) const
 {
 	QModelIndex res;
@@ -88,7 +88,7 @@ Controls_Model::ctl_def_index (
 			const QVariant & idata ( data ( midx, MKEY_DB_INDEX ) );
 			const unsigned int ctl_idx ( idata.toUInt() );
 			if ( ctl_idx < _ctl_db->num_controls() ) {
-				if ( _ctl_db->control_def ( ctl_idx )->match ( ctl_addr_n ) ) {
+				if ( _ctl_db->control_def ( ctl_idx ).match ( ctl_addr_n ) ) {
 					res = midx;
 					break;
 				}
@@ -135,25 +135,25 @@ Controls_Model::load_data ( )
 	}
 
 	for ( unsigned int ii=0; ii < _ctl_db->num_controls(); ++ii ) {
-		const ::QSnd::CTL_Def * ctl_def ( _ctl_db->control_def ( ii ) );
+		const ::QSnd::CTL_Format & ctl_format ( _ctl_db->control_def ( ii ) );
 		// Create standard item and append
 		QStandardItem * sitem ( new QStandardItem );
-		sitem->setText ( ctl_def->ctl_name() );
+		sitem->setText ( ctl_format.ctl_name() );
 		sitem->setEditable ( false );
 		sitem->setSelectable ( true );
 		sitem->setData ( QVariant ( ii ), MKEY_DB_INDEX );
-		QString ttip ( ctl_def->ctl_name() );
+		QString ttip ( ctl_format.ctl_name() );
 		QStringList args_l10n;
-		if ( ctl_def->num_args() > 0 ) {
+		if ( ctl_format.num_args() != 0 ) {
 			ttip.append ( ":" );
-			for ( unsigned int jj=0; jj < ctl_def->num_args(); ++jj ) {
-				const ::QSnd::CTL_Def_Arg * arg ( ctl_def->arg ( jj ) );
+			for ( unsigned int jj=0; jj != ctl_format.num_args(); ++jj ) {
+				const ::QSnd::CTL_Format_Argument & arg ( ctl_format.arg ( jj ) );
 				if ( jj > 0 ) {
 					ttip.append ( "," );
 				}
-				ttip.append ( arg->arg_name );
+				ttip.append ( arg.arg_name );
 				QString str_l10n ( QCoreApplication::translate (
-					"ALSA::CTL_Arg_Name", arg->arg_name.toLatin1().constData() ) );
+					"ALSA::CTL_Arg_Name", arg.arg_name.toUtf8().constData() ) );
 				args_l10n.append ( str_l10n );
 			}
 		}

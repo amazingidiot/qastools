@@ -14,7 +14,7 @@
 
 // Forward declaration
 namespace QSnd {
-	class CTL_Def;
+	class CTL_Format;
 	class Controls_DB;
 }
 
@@ -52,12 +52,12 @@ class Controls_Model :
 
 	// Control definition access
 
-	const ::QSnd::CTL_Def *
-	ctl_def (
+	const ::QSnd::CTL_Format *
+	ctl_format (
 		const QModelIndex & idx_n ) const;
 
 	QModelIndex
-	ctl_def_index (
+	ctl_format_index (
 		const QString & ctl_addr_n ) const;
 
 

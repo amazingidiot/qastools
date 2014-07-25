@@ -8,7 +8,7 @@
 
 #include "ctl_arg_view.hpp"
 
-#include "qsnd/ctl_def_arg.hpp"
+#include "qsnd/ctl_format_argument.hpp"
 #include <QCoreApplication>
 
 
@@ -51,7 +51,7 @@ CTL_Arg_View::set_ctl_db (
 
 void
 CTL_Arg_View::set_ctl_arg (
-	const ::QSnd::CTL_Def_Arg * ctl_arg_n )
+	const ::QSnd::CTL_Format_Argument & ctl_arg_n )
 {
 	if ( _ctl_arg != ctl_arg_n ) {
 		_ctl_arg = ctl_arg_n;
@@ -85,12 +85,12 @@ CTL_Arg_View::ctl_db_changed ( )
 void
 CTL_Arg_View::ctl_arg_changed ( )
 {
-	if ( _ctl_arg != 0 ) {
+	if ( _ctl_arg.is_valid() ) {
 		// Text
 		{
 			const QString name_l10n ( QCoreApplication::translate (
 				"ALSA::CTL_Arg_Name",
-				_ctl_arg->arg_name.toLatin1().constData() ) );
+				_ctl_arg.arg_name.toUtf8().constData() ) );
 			QString txt;
 			//txt.append ( QChar ( 0x2192 ) );
 			txt.append ( name_l10n );
@@ -98,9 +98,9 @@ CTL_Arg_View::ctl_arg_changed ( )
 		}
 		// Tooltip
 		{
-			QString ttip ( _ctl_arg->arg_name );
+			QString ttip ( _ctl_arg.arg_name );
 			ttip.append ( " (" );
-			ttip.append ( _ctl_arg->arg_type );
+			ttip.append ( _ctl_arg.arg_type );
 			ttip.append ( ")" );
 			_wdg_title->setToolTip ( ttip );
 		}

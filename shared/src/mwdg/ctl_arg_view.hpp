@@ -9,6 +9,7 @@
 #ifndef __INC_mwdg_ctl_arg_view_hpp__
 #define __INC_mwdg_ctl_arg_view_hpp__
 
+#include <qsnd/ctl_format_argument.hpp>
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QLabel>
@@ -16,7 +17,6 @@
 
 // Forward declaration
 namespace QSnd {
-	class CTL_Def_Arg;
 	class Controls_DB;
 }
 
@@ -52,12 +52,12 @@ class CTL_Arg_View :
 
 	// Control argument
 
-	const ::QSnd::CTL_Def_Arg *
+	const ::QSnd::CTL_Format_Argument &
 	ctl_arg ( ) const;
 
 	void
 	set_ctl_arg (
-		const ::QSnd::CTL_Def_Arg * ctl_arg_n );
+		const ::QSnd::CTL_Format_Argument & ctl_arg_n );
 
 	virtual
 	QString
@@ -95,7 +95,7 @@ class CTL_Arg_View :
 	private:
 
 	const ::QSnd::Controls_DB * _ctl_db;
-	const ::QSnd::CTL_Def_Arg * _ctl_arg;
+	::QSnd::CTL_Format_Argument _ctl_arg;
 	QLabel * _wdg_title;
 	QVBoxLayout * _lay_content;
 };
@@ -108,14 +108,12 @@ CTL_Arg_View::ctl_db ( ) const
 	return _ctl_db;
 }
 
-
 inline
-const ::QSnd::CTL_Def_Arg *
+const ::QSnd::CTL_Format_Argument &
 CTL_Arg_View::ctl_arg ( ) const
 {
 	return _ctl_arg;
 }
-
 
 inline
 QVBoxLayout *

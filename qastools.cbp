@@ -277,10 +277,10 @@
 		<Unit filename="shared/src/qsnd/ctl_address.hpp" />
 		<Unit filename="shared/src/qsnd/ctl_address_arg.cpp" />
 		<Unit filename="shared/src/qsnd/ctl_address_arg.hpp" />
-		<Unit filename="shared/src/qsnd/ctl_def.cpp" />
-		<Unit filename="shared/src/qsnd/ctl_def.hpp" />
-		<Unit filename="shared/src/qsnd/ctl_def_arg.cpp" />
-		<Unit filename="shared/src/qsnd/ctl_def_arg.hpp" />
+		<Unit filename="shared/src/qsnd/ctl_format.cpp" />
+		<Unit filename="shared/src/qsnd/ctl_format.hpp" />
+		<Unit filename="shared/src/qsnd/ctl_format_argument.cpp" />
+		<Unit filename="shared/src/qsnd/ctl_format_argument.hpp" />
 		<Unit filename="shared/src/qsnd/event_types.cpp" />
 		<Unit filename="shared/src/qsnd/event_types.hpp" />
 		<Unit filename="shared/src/qsnd/mixer_hctl.cpp" />

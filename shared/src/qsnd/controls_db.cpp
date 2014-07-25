@@ -10,7 +10,7 @@
 
 #include "qsnd/alsa.hpp"
 #include "qsnd/card_info.hpp"
-#include "qsnd/ctl_def.hpp"
+#include "qsnd/ctl_format.hpp"
 
 #include <QStringList>
 #include <iostream>
@@ -21,19 +21,20 @@ namespace QSnd
 
 // Local functions
 
-::QSnd::CTL_Def *
-create_ctl_def (
+bool
+setup_ctl_format (
+	::QSnd::CTL_Format & ctl_format_n,
 	snd_config_t * scfg_n );
 
 void
-create_ctl_def_args (
-	snd_config_t * scfg_n,
-	::QSnd::CTL_Def * ctl_def_n );
+setup_ctl_format_args (
+	::QSnd::CTL_Format & ctl_format_n,
+	snd_config_t * scfg_n );
 
 void
-setup_ctl_def_args (
-	snd_config_t * scfg_n,
-	::QSnd::CTL_Def_Arg * ctl_def_n );
+setup_ctl_format_arg (
+	::QSnd::CTL_Format_Argument & ctl_arg_n,
+	snd_config_t * scfg_n );
 
 
 // Controls_DB
@@ -50,15 +51,15 @@ Controls_DB::~Controls_DB ( )
 }
 
 
-const ::QSnd::CTL_Def *
+const ::QSnd::CTL_Format *
 Controls_DB::find_control_def (
 	const QString & ctl_name_n ) const
 {
-	const ::QSnd::CTL_Def * res ( 0 );
-	for ( int ii=0; ii < _ctl_defs.size(); ++ii ) {
-		const ::QSnd::CTL_Def * ctl_def ( _ctl_defs[ii] );
-		if ( ctl_def->ctl_name() == ctl_name_n ) {
-			res = ctl_def;
+	const ::QSnd::CTL_Format * res ( 0 );
+	for ( int ii=0; ii != _ctl_formats.size(); ++ii ) {
+		const ::QSnd::CTL_Format & ctl_format ( _ctl_formats[ii] );
+		if ( ctl_format.ctl_name() == ctl_name_n ) {
+			res = &ctl_format;
 			break;
 		}
 	}
@@ -88,12 +89,7 @@ void
 Controls_DB::clear_data ( )
 {
 	// Controls
-	if ( _ctl_defs.size() > 0 ) {
-		for ( int ii=0; ii < _ctl_defs.size(); ++ii ) {
-			delete _ctl_defs[ii];
-		}
-		_ctl_defs.clear();
-	}
+	_ctl_formats.clear();
 
 	// Cards
 	if ( _card_infos.size() > 0 ) {
@@ -128,9 +124,11 @@ Controls_DB::load_plugins ( )
 					snd_config_iterator_end ( snd_cfg_ctl );
 				while ( iter != iter_end ) {
 					snd_config_t * scfg = snd_config_iterator_entry ( iter );
-					::QSnd::CTL_Def * ctl_def ( create_ctl_def ( scfg ) );
-					if ( ctl_def != 0 ) {
-						_ctl_defs.append ( ctl_def );
+					{
+						::QSnd::CTL_Format ctl_format;
+						if ( setup_ctl_format ( ctl_format, scfg ) ) {
+							_ctl_formats.append ( ctl_format );
+						}
 					}
 					iter = snd_config_iterator_next ( iter );
 				}
@@ -159,79 +157,73 @@ Controls_DB::load_cards ( )
 }
 
 
-::QSnd::CTL_Def *
-create_ctl_def (
+bool
+setup_ctl_format (
+	::QSnd::CTL_Format & ctl_format_n,
 	snd_config_t * scfg_n )
 {
-	::QSnd::CTL_Def * ctl_def ( 0 );
-
 	if ( scfg_n != 0 ) {
 		const char * char_ptr ( 0 );
 		int err = snd_config_get_id ( scfg_n, &char_ptr );
 		if ( ( err == 0 ) && ( char_ptr != 0 ) ) {
 			QString ctl_id ( char_ptr );
-			ctl_def = new ::QSnd::CTL_Def ( ctl_id );
-			create_ctl_def_args ( scfg_n, ctl_def );
+			ctl_format_n.set_ctl_name ( ctl_id );
+			setup_ctl_format_args ( ctl_format_n, scfg_n );
 		}
+		return true;
 	}
-
-	return ctl_def;
+	return false;
 }
 
 
 inline
 void
-create_ctl_def_args (
-	snd_config_t * scfg_n,
-	::QSnd::CTL_Def * ctl_def_n )
+setup_ctl_format_args (
+	::QSnd::CTL_Format & ctl_format_n,
+	snd_config_t * scfg_n )
 {
 	snd_config_t * scfg_args ( 0 );
 	snd_config_search ( scfg_n, "@args", &scfg_args );
-	if ( scfg_args == 0 ) {
-		return;
-	}
-
-	QStringList arg_names;
-
-	{
-		QString str_num;
-		for ( unsigned int ii=0; ii < 9; ++ii ) {
-			str_num.setNum ( ii );
-			snd_config_t * scfg_arg ( 0 );
-			snd_config_search (
-				scfg_args, str_num.toLatin1().constData(), &scfg_arg );
-			if ( scfg_arg != 0 ) {
-				if ( snd_config_get_type ( scfg_arg ) == SND_CONFIG_TYPE_STRING ) {
-					const char * char_ptr ( 0 );
-					int err = snd_config_get_string ( scfg_arg, &char_ptr );
-					if ( ( err == 0 ) && ( char_ptr != 0 ) ) {
-						arg_names.append ( char_ptr );
+	if ( scfg_args != 0 ) {
+		QStringList arg_names;
+		{
+			QString str_num;
+			for ( unsigned int ii=0; ii < 9; ++ii ) {
+				str_num.setNum ( ii );
+				snd_config_t * scfg_arg ( 0 );
+				snd_config_search (
+					scfg_args, str_num.toLatin1().constData(), &scfg_arg );
+				if ( scfg_arg != 0 ) {
+					if ( snd_config_get_type ( scfg_arg ) == SND_CONFIG_TYPE_STRING ) {
+						const char * char_ptr ( 0 );
+						int err = snd_config_get_string ( scfg_arg, &char_ptr );
+						if ( ( err == 0 ) && ( char_ptr != 0 ) ) {
+							arg_names.append ( char_ptr );
+						}
 					}
 				}
 			}
 		}
+		for ( int ii=0; ii < arg_names.size(); ++ii ) {
+			::QSnd::CTL_Format_Argument ctl_arg;
+			ctl_arg.arg_name = arg_names[ii];
+			setup_ctl_format_arg ( ctl_arg, scfg_args );
+			ctl_format_n.append_arg ( ctl_arg );
+		}
 	}
-
-	for ( int ii=0; ii < arg_names.size(); ++ii ) {
-		::QSnd::CTL_Def_Arg * ctl_arg ( new ::QSnd::CTL_Def_Arg );
-		ctl_arg->arg_name = arg_names[ii];
-		setup_ctl_def_args ( scfg_args, ctl_arg );
-		ctl_def_n->append_arg ( ctl_arg );
-	}
-
 }
 
 
 inline
 void
-setup_ctl_def_args (
-	snd_config_t * scfg_n,
-	::QSnd::CTL_Def_Arg * ctl_arg_n )
+setup_ctl_format_arg (
+	::QSnd::CTL_Format_Argument & ctl_arg_n,
+	snd_config_t * scfg_n )
 {
 	snd_config_t * scfg_arg_com ( 0 );
 	{
 		int err = snd_config_search (
-			scfg_n, ctl_arg_n->arg_name.toLatin1().constData(), &scfg_arg_com );
+			scfg_n, ctl_arg_n.arg_name.toUtf8().constData(), &scfg_arg_com );
 		if ( ( err != 0 ) || ( scfg_arg_com == 0 ) ) {
 			return;
 		}
@@ -249,7 +241,7 @@ setup_ctl_def_args (
 				err = snd_config_get_string ( scfg_arg_type, &char_ptr );
 				if ( ( err == 0 ) && ( char_ptr != 0 ) ) {
 					//::std::cout << "Found ctl arg type: " << char_ptr << "\n";
-					ctl_arg_n->arg_type = char_ptr;
+					ctl_arg_n.arg_type = char_ptr;
 				}
 			}
 		}
