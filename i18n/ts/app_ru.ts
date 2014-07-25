@@ -1084,7 +1084,7 @@
     </message>
 </context>
 <context>
-    <name>Views::Dev_Select_View</name>
+    <name>Views::Device_Selection_View</name>
     <message>
         <location filename="../../shared/src/views/dev_select_view.cpp" line="51"/>
         <source>&amp;Close device selection</source>

@@ -15,7 +15,7 @@
 #include "wdg/ds_slider_painter_bevelled.hpp"
 #include "mwdg/mixer_style.hpp"
 #include "views/info_dialog.hpp"
-#include "views/dev_select_view.hpp"
+#include "views/device_selection_view.hpp"
 #include "views/view_utility.hpp"
 
 #include <QSettings>
@@ -113,7 +113,7 @@ Main_Window::init_widgets ( )
 	// Device selection
 	{
 		// QueuedConnection to update the GUI before loading the mixer
-		_dev_select = new ::Views::Dev_Select_View;
+		_dev_select = new ::Views::Device_Selection_View;
 		_dev_select->hide();
 
 		connect ( _dev_select, SIGNAL ( sig_control_changed() ),

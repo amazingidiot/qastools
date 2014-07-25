@@ -24,7 +24,7 @@
 
 // Forward declaration
 namespace Views { class Mixer_HCTL; }
-namespace Views { class Dev_Select_View; }
+namespace Views { class Device_Selection_View; }
 
 
 /// @brief Main_Window
@@ -123,7 +123,7 @@ class Main_Window :
 	// Widgets
 	QScopedPointer < QSplitter > _splitter;
 	::Views::Mixer_HCTL * _mixer_hctl;
-	::Views::Dev_Select_View * _dev_select;
+	::Views::Device_Selection_View * _dev_select;
 
 	QPointer < QDialog > _info_dialog;
 

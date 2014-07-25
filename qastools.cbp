@@ -312,10 +312,10 @@
 		<Unit filename="shared/src/unix_signal_handler.hpp" />
 		<Unit filename="shared/src/views/basic_dialog.cpp" />
 		<Unit filename="shared/src/views/basic_dialog.hpp" />
-		<Unit filename="shared/src/views/dev_select_view.cpp" />
-		<Unit filename="shared/src/views/dev_select_view.hpp" />
-		<Unit filename="shared/src/views/dev_select_view_setup.cpp" />
-		<Unit filename="shared/src/views/dev_select_view_setup.hpp" />
+		<Unit filename="shared/src/views/device_selection_view.cpp" />
+		<Unit filename="shared/src/views/device_selection_view.hpp" />
+		<Unit filename="shared/src/views/device_selection_view_setup.cpp" />
+		<Unit filename="shared/src/views/device_selection_view_setup.hpp" />
 		<Unit filename="shared/src/views/info_dialog.cpp" />
 		<Unit filename="shared/src/views/info_dialog.hpp" />
 		<Unit filename="shared/src/views/message_widget.cpp" />

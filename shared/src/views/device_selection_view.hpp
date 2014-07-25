@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_mv_dev_select_view_hpp__
-#define __INC_mv_dev_select_view_hpp__
+#ifndef __INC_views_device_selection_view_hpp__
+#define __INC_views_device_selection_view_hpp__
 
 #include "qsnd/ctl_address.hpp"
 #include "qsnd/controls_db.hpp"
@@ -26,7 +26,7 @@ namespace MWdg {
 	class Controls_View;
 }
 namespace Views {
-	class Dev_Select_View_Setup;
+	class Device_Selection_View_Setup;
 }
 
 
@@ -34,10 +34,10 @@ namespace Views
 {
 
 
-/// @brief Dev_Select_View
+/// @brief Device_Selection_View
 ///
 /// Mixer device selection view
-class Dev_Select_View :
+class Device_Selection_View :
 	public QWidget
 {
 	Q_OBJECT
@@ -46,15 +46,15 @@ class Dev_Select_View :
 	// Public methods
 	public:
 
-	Dev_Select_View (
+	Device_Selection_View (
 		QWidget * parent_n = 0 );
 
-	~Dev_Select_View ( );
+	~Device_Selection_View ( );
 
 
 	void
 	set_view_setup (
-		::Views::Dev_Select_View_Setup * setup_n );
+		::Views::Device_Selection_View_Setup * setup_n );
 
 
 	const ::QSnd::CTL_Address &
@@ -146,7 +146,7 @@ class Dev_Select_View :
 	// Private attributes
 	private:
 
-	::Views::Dev_Select_View_Setup * _view_setup;
+	::Views::Device_Selection_View_Setup * _view_setup;
 
 	::QSnd::Controls_DB _controls_db;
 	::QSnd::Controls_Model * _controls_model;
@@ -172,7 +172,7 @@ class Dev_Select_View :
 
 inline
 const ::QSnd::CTL_Address &
-Dev_Select_View::selected_ctl ( ) const
+Device_Selection_View::selected_ctl ( ) const
 {
 	return _selected_ctl;
 }

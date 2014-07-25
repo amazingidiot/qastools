@@ -74,7 +74,7 @@ Desktop_Items_Setup::read_from_storage ( )
 
 	// Device selection
 	{
-		::Views::Dev_Select_View_Setup & vsetup (
+		::Views::Device_Selection_View_Setup & vsetup (
 			main_window.dev_select );
 
 		settings.beginGroup ( "device_selection" );
@@ -223,7 +223,7 @@ Desktop_Items_Setup::write_to_storage ( )
 
 	// Device selection
 	{
-		const ::Views::Dev_Select_View_Setup & vsetup (
+		const ::Views::Device_Selection_View_Setup & vsetup (
 			main_window.dev_select );
 		settings.beginGroup ( "device_selection" );
 

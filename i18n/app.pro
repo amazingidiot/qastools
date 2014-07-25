@@ -112,8 +112,8 @@ HEADERS = \
 	../shared/src/single_application.hpp \
 	../shared/src/unix_signal_handler.hpp \
 	../shared/src/views/basic_dialog.hpp \
-	../shared/src/views/dev_select_view.hpp \
-	../shared/src/views/dev_select_view_setup.hpp \
+	../shared/src/views/device_selection_view.hpp \
+	../shared/src/views/device_selection_view_setup.hpp \
 	../shared/src/views/info_dialog.hpp \
 	../shared/src/views/message_widget.hpp \
 	../shared/src/views/multi_page_dialog.hpp \
@@ -283,8 +283,8 @@ SOURCES = \
 	../shared/src/single_application.cpp \
 	../shared/src/unix_signal_handler.cpp \
 	../shared/src/views/basic_dialog.cpp \
-	../shared/src/views/dev_select_view.cpp \
-	../shared/src/views/dev_select_view_setup.cpp \
+	../shared/src/views/device_selection_view.cpp \
+	../shared/src/views/device_selection_view_setup.cpp \
 	../shared/src/views/info_dialog.cpp \
 	../shared/src/views/message_widget.cpp \
 	../shared/src/views/multi_page_dialog.cpp \

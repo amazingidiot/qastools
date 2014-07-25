@@ -21,7 +21,7 @@
 // Forward declaration
 namespace Views {
 	class Mixer_Simple;
-	class Dev_Select_View;
+	class Device_Selection_View;
 }
 
 
@@ -142,7 +142,7 @@ class Main_Window :
 	// Base widgets
 	QScopedPointer < QSplitter > _splitter;
 	::Views::Mixer_Simple * _mixer_simple;
-	::Views::Dev_Select_View * _dev_select;
+	::Views::Device_Selection_View * _dev_select;
 
 	// Menubar
 	QMenu * _menu_mixer;

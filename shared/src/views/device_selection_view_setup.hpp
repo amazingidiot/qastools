@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_dev_select_view_setup_hpp__
-#define __INC_dev_select_view_setup_hpp__
+#ifndef __INC_device_selection_view_setup_hpp__
+#define __INC_device_selection_view_setup_hpp__
 
 #include <QKeySequence>
 #include <QList>
@@ -24,16 +24,16 @@ namespace Views
 {
 
 
-/// @brief Dev_Select_View_Setup
+/// @brief Device_Selection_View_Setup
 ///
-class Dev_Select_View_Setup
+class Device_Selection_View_Setup
 {
 	// Public methods
 	public:
 
-	Dev_Select_View_Setup ( );
+	Device_Selection_View_Setup ( );
 
-	~Dev_Select_View_Setup ( );
+	~Device_Selection_View_Setup ( );
 
 	void
 	sel_db_clear ( );

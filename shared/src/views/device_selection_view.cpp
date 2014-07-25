@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "dev_select_view.hpp"
+#include "device_selection_view.hpp"
 
 #include "qsnd/ctl_address.hpp"
 #include "qsnd/ctl_def.hpp"
@@ -16,7 +16,7 @@
 #include "mwdg/ctl_arg_view_string.hpp"
 #include "mwdg/ctl_arg_view_integer.hpp"
 #include "mwdg/ctl_arg_view_card.hpp"
-#include "views/dev_select_view_setup.hpp"
+#include "views/device_selection_view_setup.hpp"
 
 #include <QLabel>
 #include <QMenu>
@@ -29,7 +29,7 @@ namespace Views
 {
 
 
-Dev_Select_View::Dev_Select_View (
+Device_Selection_View::Device_Selection_View (
 	QWidget * parent_n ) :
 QWidget ( parent_n ),
 _view_setup ( 0 ),
@@ -96,15 +96,15 @@ _silent_ctl_change ( false )
 }
 
 
-Dev_Select_View::~Dev_Select_View ( )
+Device_Selection_View::~Device_Selection_View ( )
 {
 	clear_arg_views();
 }
 
 
 void
-Dev_Select_View::set_view_setup (
-	::Views::Dev_Select_View_Setup * setup_n )
+Device_Selection_View::set_view_setup (
+	::Views::Device_Selection_View_Setup * setup_n )
 {
 	_view_setup = setup_n;
 
@@ -115,10 +115,10 @@ Dev_Select_View::set_view_setup (
 
 
 void
-Dev_Select_View::compile_ctl_addr (
+Device_Selection_View::compile_ctl_addr (
 	::QSnd::CTL_Address & ctl_addr_n )
 {
-	//::std::cout << "Dev_Select_View::compile_ctl_addr: " << ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
+	//::std::cout << "Device_Selection_View::compile_ctl_addr: " << ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
 
 	const QModelIndex & cidx ( _controls_view->currentIndex() );
 	const ::QSnd::CTL_Def * ctl_def ( _controls_model->ctl_def ( cidx ) );
@@ -138,7 +138,7 @@ Dev_Select_View::compile_ctl_addr (
 
 
 void
-Dev_Select_View::silent_select_ctl (
+Device_Selection_View::silent_select_ctl (
 	const ::QSnd::CTL_Address & ctl_addr_n )
 {
 	if ( _selected_ctl.match ( ctl_addr_n ) ) {
@@ -179,9 +179,9 @@ Dev_Select_View::silent_select_ctl (
 
 
 void
-Dev_Select_View::reload_database ( )
+Device_Selection_View::reload_database ( )
 {
-	//::std::cout << "Dev_Select_View::reload_database" << "\n";
+	//::std::cout << "Device_Selection_View::reload_database" << "\n";
 
 	if ( _view_setup != 0 ) {
 		// Remember and clear selection
@@ -201,7 +201,7 @@ Dev_Select_View::reload_database ( )
 
 
 void
-Dev_Select_View::control_changed (
+Device_Selection_View::control_changed (
 	const QModelIndex & cur_idx_n,
 	const QModelIndex & )
 {
@@ -210,10 +210,10 @@ Dev_Select_View::control_changed (
 
 
 void
-Dev_Select_View::control_changed (
+Device_Selection_View::control_changed (
 	const QModelIndex & idx_n )
 {
-	//::std::cout << "Dev_Select_View::control_changed " << "\n";
+	//::std::cout << "Device_Selection_View::control_changed " << "\n";
 
 	if ( idx_n.isValid() && !_silent_ctl_change ) {
 		const ::QSnd::CTL_Def * ctl_def (
@@ -239,9 +239,9 @@ Dev_Select_View::control_changed (
 
 
 void
-Dev_Select_View::control_arg_changed ( )
+Device_Selection_View::control_arg_changed ( )
 {
-	//::std::cout << "Dev_Select_View::control_arg_changed " << "\n";
+	//::std::cout << "Device_Selection_View::control_arg_changed " << "\n";
 
 	if ( !( _silent_ctl_change || _silent_arg_change ) ) {
 		if ( update_selected_ctl() ) {
@@ -253,9 +253,9 @@ Dev_Select_View::control_arg_changed ( )
 
 
 bool
-Dev_Select_View::update_selected_ctl ( )
+Device_Selection_View::update_selected_ctl ( )
 {
-	//::std::cout << "Dev_Select_View::update_selected_ctl " << "\n";
+	//::std::cout << "Device_Selection_View::update_selected_ctl " << "\n";
 
 	::QSnd::CTL_Address ctl_addr;
 	compile_ctl_addr ( ctl_addr );
@@ -269,7 +269,7 @@ Dev_Select_View::update_selected_ctl ( )
 
 
 const ::QSnd::CTL_Address *
-Dev_Select_View::sel_db_find (
+Device_Selection_View::sel_db_find (
 	const QString & ctl_name_n ) const
 {
 	const ::QSnd::CTL_Address * res ( 0 );
@@ -288,7 +288,7 @@ Dev_Select_View::sel_db_find (
 
 
 void
-Dev_Select_View::sel_db_commit (
+Device_Selection_View::sel_db_commit (
 	const ::QSnd::CTL_Address * ctl_addr_n )
 {
 	if ( ctl_addr_n == 0 ) {
@@ -311,7 +311,7 @@ Dev_Select_View::sel_db_commit (
 
 
 void
-Dev_Select_View::sel_db_clean ( )
+Device_Selection_View::sel_db_clean ( )
 {
 	if ( _view_setup == 0 ) {
 		return;
@@ -333,7 +333,7 @@ Dev_Select_View::sel_db_clean ( )
 
 
 void
-Dev_Select_View::clear_arg_views ( )
+Device_Selection_View::clear_arg_views ( )
 {
 	for ( int ii=0; ii < _arg_views.size(); ++ii ) {
 		delete _arg_views[ii];
@@ -343,9 +343,9 @@ Dev_Select_View::clear_arg_views ( )
 
 
 void
-Dev_Select_View::create_arg_views ( )
+Device_Selection_View::create_arg_views ( )
 {
-	//::std::cout << "Dev_Select_View::create_arg_views"\n";
+	//::std::cout << "Device_Selection_View::create_arg_views"\n";
 	if ( _current_ctl_def == 0 ) {
 		return;
 	}
@@ -378,7 +378,7 @@ Dev_Select_View::create_arg_views ( )
 
 
 void
-Dev_Select_View::restore_arg_views ( )
+Device_Selection_View::restore_arg_views ( )
 {
 	if ( _current_ctl_def == 0 ) {
 		return;
@@ -409,7 +409,7 @@ Dev_Select_View::restore_arg_views ( )
 
 
 void
-Dev_Select_View::contextMenuEvent (
+Device_Selection_View::contextMenuEvent (
 	QContextMenuEvent * event_n )
 {
 	QMenu cmenu ( this );

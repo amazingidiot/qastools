@@ -12,7 +12,7 @@
 #include "mwdg/mixer_device_setup.hpp"
 #include "mwdg/inputs_setup.hpp"
 #include "views/mixer_simple_setup.hpp"
-#include "views/dev_select_view_setup.hpp"
+#include "views/device_selection_view_setup.hpp"
 #include <QByteArray>
 #include <QKeySequence>
 
@@ -39,7 +39,7 @@ class Main_Window_Setup
 	::MWdg::Inputs_Setup inputs;
 
 	::Views::Mixer_Simple_Setup mixer_simple;
-	::Views::Dev_Select_View_Setup dev_select;
+	::Views::Device_Selection_View_Setup dev_select;
 };
 
 

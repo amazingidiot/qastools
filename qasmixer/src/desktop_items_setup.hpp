@@ -9,7 +9,7 @@
 #ifndef __INC_desktop_items_setup_hpp__
 #define __INC_desktop_items_setup_hpp__
 
-#include "views/dev_select_view.hpp"
+#include "views/device_selection_view.hpp"
 #include "views/settings_dialog_setup.hpp"
 #include "tray_mixer_mdev_setup.hpp"
 #include "tray_mixer_view_setup.hpp"
@@ -55,7 +55,7 @@ class Desktop_Items_Setup
 	::Tray_Mixer_MDev_Setup tray_mdev;
 	::Tray_Mixer_View_Setup tray_view;
 	::Main_Window_Setup main_window;
-	::Views::Dev_Select_View_Setup dev_select_view;
+	::Views::Device_Selection_View_Setup device_selection_view;
 	::Views::Settings_Dialog_Setup settings_dialog;
 
 	bool tray_on_close;

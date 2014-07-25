@@ -106,8 +106,8 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/views/message_widget.cpp
 	${SHARED_SRC_DIR}/views/view_base_setup.cpp
 	${SHARED_SRC_DIR}/views/view_base.cpp
-	${SHARED_SRC_DIR}/views/dev_select_view_setup.cpp
-	${SHARED_SRC_DIR}/views/dev_select_view.cpp
+	${SHARED_SRC_DIR}/views/device_selection_view_setup.cpp
+	${SHARED_SRC_DIR}/views/device_selection_view.cpp
 	${SHARED_SRC_DIR}/views/basic_dialog.cpp
 	${SHARED_SRC_DIR}/views/multi_page_dialog.cpp
 	${SHARED_SRC_DIR}/views/info_dialog.cpp
@@ -177,7 +177,7 @@ SET ( SRC_GUI_HEADER_MOC
 
 	${SHARED_INC_DIR}/views/message_widget.hpp
 	${SHARED_INC_DIR}/views/view_base.hpp
-	${SHARED_INC_DIR}/views/dev_select_view.hpp
+	${SHARED_INC_DIR}/views/device_selection_view.hpp
 	${SHARED_INC_DIR}/views/basic_dialog.hpp
 	${SHARED_INC_DIR}/views/multi_page_dialog.hpp
 	${SHARED_INC_DIR}/views/info_dialog.hpp

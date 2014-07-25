@@ -9,7 +9,7 @@
 #include "main_window.hpp"
 
 #include "views/mixer_simple.hpp"
-#include "views/dev_select_view.hpp"
+#include "views/device_selection_view.hpp"
 #include "views/view_utility.hpp"
 
 #include <QMenuBar>
@@ -139,7 +139,7 @@ Main_Window::init_widgets ( )
 {
 	// Device selection
 	{
-		_dev_select = new ::Views::Dev_Select_View;
+		_dev_select = new ::Views::Device_Selection_View;
 		_dev_select->hide();
 
 		// QueuedConnection to update the GUI before loading the mixer
