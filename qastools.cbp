@@ -275,8 +275,8 @@
 		<Unit filename="shared/src/qsnd/controls_model.hpp" />
 		<Unit filename="shared/src/qsnd/ctl_address.cpp" />
 		<Unit filename="shared/src/qsnd/ctl_address.hpp" />
-		<Unit filename="shared/src/qsnd/ctl_address_arg.cpp" />
-		<Unit filename="shared/src/qsnd/ctl_address_arg.hpp" />
+		<Unit filename="shared/src/qsnd/ctl_address_argument.cpp" />
+		<Unit filename="shared/src/qsnd/ctl_address_argument.hpp" />
 		<Unit filename="shared/src/qsnd/ctl_format.cpp" />
 		<Unit filename="shared/src/qsnd/ctl_format.hpp" />
 		<Unit filename="shared/src/qsnd/ctl_format_argument.cpp" />
@@ -306,6 +306,8 @@
 		<Unit filename="shared/src/qsnd/pcm_subdevice_info.hpp" />
 		<Unit filename="shared/src/qsnd/pcm_subdevices_info.cpp" />
 		<Unit filename="shared/src/qsnd/pcm_subdevices_info.hpp" />
+		<Unit filename="shared/src/qsnd/udev_device_lookout.cpp" />
+		<Unit filename="shared/src/qsnd/udev_device_lookout.hpp" />
 		<Unit filename="shared/src/single_application.cpp" />
 		<Unit filename="shared/src/single_application.hpp" />
 		<Unit filename="shared/src/unix_signal_handler.cpp" />

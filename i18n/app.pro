@@ -93,7 +93,7 @@ HEADERS = \
 	../shared/src/qsnd/controls_database.hpp \
 	../shared/src/qsnd/controls_model.hpp \
 	../shared/src/qsnd/ctl_address.hpp \
-	../shared/src/qsnd/ctl_address_arg.hpp \
+	../shared/src/qsnd/ctl_address_argument.hpp \
 	../shared/src/qsnd/ctl_format.hpp \
 	../shared/src/qsnd/ctl_format_argument.hpp \
 	../shared/src/qsnd/event_types.hpp \
@@ -265,7 +265,7 @@ SOURCES = \
 	../shared/src/qsnd/controls_database.cpp \
 	../shared/src/qsnd/controls_model.cpp \
 	../shared/src/qsnd/ctl_address.cpp \
-	../shared/src/qsnd/ctl_address_arg.cpp \
+	../shared/src/qsnd/ctl_address_argument.cpp \
 	../shared/src/qsnd/ctl_format.cpp \
 	../shared/src/qsnd/ctl_format_argument.cpp \
 	../shared/src/qsnd/event_types.cpp \

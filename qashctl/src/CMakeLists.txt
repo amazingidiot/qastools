@@ -26,7 +26,7 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/alsa.cpp
 	${SHARED_SRC_DIR}/qsnd/alsa_config_watcher.cpp
 	${SHARED_SRC_DIR}/qsnd/event_types.cpp
-	${SHARED_SRC_DIR}/qsnd/ctl_address_arg.cpp
+	${SHARED_SRC_DIR}/qsnd/ctl_address_argument.cpp
 	${SHARED_SRC_DIR}/qsnd/ctl_address.cpp
 	${SHARED_SRC_DIR}/qsnd/ctl_format_argument.cpp
 	${SHARED_SRC_DIR}/qsnd/ctl_format.cpp

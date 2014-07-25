@@ -9,7 +9,7 @@
 #ifndef __INC_qsnd_control_address_hpp__
 #define __INC_qsnd_control_address_hpp__
 
-#include "qsnd/ctl_address_arg.hpp"
+#include "qsnd/ctl_address_argument.hpp"
 #include <QString>
 #include <QList>
 

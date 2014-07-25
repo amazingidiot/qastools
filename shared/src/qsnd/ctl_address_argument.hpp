@@ -6,8 +6,8 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_qsnd_control_address_arg_hpp__
-#define __INC_qsnd_control_address_arg_hpp__
+#ifndef __INC_qsnd_control_address_argument_hpp__
+#define __INC_qsnd_control_address_argument_hpp__
 
 #include <QString>
 

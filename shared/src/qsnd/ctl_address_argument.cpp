@@ -6,7 +6,7 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#include "ctl_address_arg.hpp"
+#include "ctl_address_argument.hpp"
 
 
 namespace QSnd
