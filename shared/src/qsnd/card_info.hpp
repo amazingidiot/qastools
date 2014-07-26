@@ -75,6 +75,15 @@ class Card_Info
 	card_components ( ) const;
 
 
+	bool
+	operator== (
+		const ::QSnd::Card_Info & cinfo_n ) const;
+
+	bool
+	operator!= (
+		const ::QSnd::Card_Info & cinfo_n ) const;
+
+
 	// Private attributes
 	private:
 

@@ -9,15 +9,8 @@
 #ifndef __INC_qsnd_cards_model_hpp__
 #define __INC_qsnd_cards_model_hpp__
 
+#include "qsnd/card_info.hpp"
 #include <QStandardItemModel>
-
-
-// Forward declaration
-namespace QSnd {
-	class Card_Info;
-	class Controls_Database;
-}
-
 
 namespace QSnd
 {
@@ -30,6 +23,11 @@ class Cards_Model :
 {
 	Q_OBJECT;
 
+	// Public types
+	public:
+
+	typedef QList < ::QSnd::Card_Info > Card_Infos;
+
 
 	// Public methods
 	public:
@@ -40,25 +38,27 @@ class Cards_Model :
 	~Cards_Model ( );
 
 
-	// Controls database
+	unsigned int
+	num_cards ( ) const;
 
-	const ::QSnd::Controls_Database *
-	controls_db ( ) const;
+	const ::QSnd::Card_Info &
+	card_info (
+		unsigned int index_n ) const;
 
-	void
-	set_controls_db (
-		const ::QSnd::Controls_Database * ctl_db_n );
+	const ::QSnd::Card_Info *
+	card_info_by_card_id (
+		unsigned int id_n );
 
 
 	// Control definition access
 
 	const ::QSnd::Card_Info *
-	card_info (
+	card_info_by_model_index (
 		const QModelIndex & idx_n ) const;
 
 	QModelIndex
-	card_info_index (
-		const QString & str_n ) const;
+	model_index_by_card_id (
+		const QString & id_str_n ) const;
 
 
 	// Public slots
@@ -68,35 +68,34 @@ class Cards_Model :
 	reload ( );
 
 
-	// Protected slots
-	protected slots:
-
-	void
-	reload_begin ( );
-
-	void
-	reload_finish ( );
-
-
 	// Protected methods
 	protected:
 
 	void
-	load_data ( );
+	load_cards (
+		Card_Infos & card_infos_n );
 
 
 	// Private attributes
 	private:
 
-	const ::QSnd::Controls_Database * _ctl_db;
+	Card_Infos _card_infos;
 };
 
 
 inline
-const ::QSnd::Controls_Database *
-Cards_Model::controls_db ( ) const
+unsigned int
+Cards_Model::num_cards ( ) const
 {
-	return _ctl_db;
+	return _card_infos.size();
+}
+
+inline
+const ::QSnd::Card_Info &
+Cards_Model::card_info (
+	unsigned int index_n ) const
+{
+	return _card_infos[index_n];
 }
 
 

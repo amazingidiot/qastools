@@ -7,16 +7,14 @@
 //
 
 #include "controls_database.hpp"
-
 #include "qsnd/alsa.hpp"
-#include "qsnd/udev_device_lookout.hpp"
-
 #include <QStringList>
 #include <iostream>
 
 
 namespace QSnd
 {
+
 
 // Local functions
 
@@ -40,24 +38,16 @@ setup_ctl_format_arg (
 
 Controls_Database::Controls_Database ( )
 {
-	{
-		::QSnd::UDev_Device_Lookout * lookout (
-			new ::QSnd::UDev_Device_Lookout ( this ) );
-		connect ( lookout, SIGNAL ( sig_change() ),
-			this, SIGNAL ( sig_reload_required() ) );
-	}
 	reload_silent();
 }
 
-
 Controls_Database::~Controls_Database ( )
 {
-	clear_data();
+	clear_silent();
 }
 
-
 const ::QSnd::CTL_Format *
-Controls_Database::find_control_def (
+Controls_Database::find_control_format (
 	const QString & ctl_name_n ) const
 {
 	const ::QSnd::CTL_Format * res ( 0 );
@@ -71,15 +61,19 @@ Controls_Database::find_control_def (
 	return res;
 }
 
-
 void
-Controls_Database::reload_silent ( )
+Controls_Database::clear ( )
 {
-	clear_data();
-	load_plugins();
-	load_cards();
+	emit sig_change_coming();
+	clear_silent();
+	emit sig_change_done();
 }
 
+void
+Controls_Database::clear_silent ( )
+{
+	_ctl_formats.clear();
+}
 
 void
 Controls_Database::reload ( )
@@ -89,16 +83,12 @@ Controls_Database::reload ( )
 	emit sig_change_done();
 }
 
-
 void
-Controls_Database::clear_data ( )
+Controls_Database::reload_silent ( )
 {
-	// Controls
-	_ctl_formats.clear();
-	// Cards
-	_card_infos.clear();
+	clear_silent();
+	load_plugins();
 }
-
 
 void
 Controls_Database::load_plugins ( )
@@ -136,44 +126,6 @@ Controls_Database::load_plugins ( )
 			snd_config_delete ( snd_cfg );
 		}
 	}
-}
-
-
-void
-Controls_Database::load_cards ( )
-{
-	// Load card infos
-	{
-		int card_idx = -1;
-		while (	true ) {
-			if ( snd_card_next ( &card_idx ) != 0 ) {
-				break;
-			}
-			if ( card_idx < 0 ) {
-				break;
-			}
-			_card_infos.append ( ::QSnd::Card_Info ( card_idx ) );
-		}
-	}
-}
-
-
-const ::QSnd::Card_Info *
-Controls_Database::card_info_by_id (
-	unsigned int id_n )
-{
-	const ::QSnd::Card_Info * res ( 0 );
-	{
-		const unsigned int num ( _card_infos.size() );
-		for ( unsigned int ii=0; ii != num; ++ii ) {
-			const ::QSnd::Card_Info & cinfo ( _card_infos[ii] );
-			if ( (unsigned int)cinfo.card_index() == id_n ) {
-				res = &cinfo;
-				break;
-			}
-		}
-	}
-	return res;
 }
 
 

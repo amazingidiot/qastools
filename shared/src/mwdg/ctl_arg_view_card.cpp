@@ -12,6 +12,7 @@
 #include "qsnd/cards_model.hpp"
 #include "mwdg/controls_view.hpp"
 #include <QLayout>
+#include <iostream>
 
 
 namespace MWdg
@@ -22,14 +23,7 @@ CTL_Arg_View_Card::CTL_Arg_View_Card (
 	QWidget * parent_n ) :
 ::MWdg::CTL_Arg_View ( parent_n )
 {
-	_cards_model = new ::QSnd::Cards_Model ( this );
 	_ctl_view = new ::MWdg::Controls_View ( this );
-	_ctl_view->setModel ( _cards_model );
-
-	connect ( _ctl_view->selectionModel(),
-		SIGNAL ( currentChanged ( const QModelIndex &, const QModelIndex & ) ),
-		this, SLOT ( view_selection_changed ( const QModelIndex &, const QModelIndex & ) ) );
-
 	lay_content()->addWidget ( _ctl_view );
 }
 
@@ -39,9 +33,9 @@ CTL_Arg_View_Card::set_arg_string (
 {
 	if ( set_arg_string_private ( str_n ) ) {
 		// Update view
-		{
+		if ( cards_model() != 0 ) {
 			QModelIndex midx (
-				_cards_model->card_info_index ( arg_string() ) );
+				cards_model()->model_index_by_card_id ( arg_string() ) );
 			if ( midx.isValid() ) {
 				_ctl_view->setCurrentIndex ( midx );
 			}
@@ -51,15 +45,13 @@ CTL_Arg_View_Card::set_arg_string (
 }
 
 void
-CTL_Arg_View_Card::view_selection_changed (
-	const QModelIndex & index_to_n,
-	const QModelIndex & index_from_n )
+CTL_Arg_View_Card::read_view_selection ( )
 {
-	(void) index_from_n;
 	// Update arg string if selected index is valid
-	{
+	if ( cards_model() != 0 ) {
+		QModelIndex midx ( _ctl_view->currentIndex() );
 		const ::QSnd::Card_Info * cinfo (
-			_cards_model->card_info ( index_to_n ) );
+			cards_model()->card_info_by_model_index ( midx ) );
 		if ( cinfo != 0 ) {
 			QString str;
 			str.setNum ( cinfo->card_index() );
@@ -69,9 +61,32 @@ CTL_Arg_View_Card::view_selection_changed (
 }
 
 void
-CTL_Arg_View_Card::ctl_db_changed ( )
+CTL_Arg_View_Card::cards_model_changed ( )
 {
-	_cards_model->set_controls_db ( ctl_db() );
+	if ( _ctl_view->model() != 0 ) {
+		disconnect ( _ctl_view, 0, this, 0 );
+	}
+
+	_ctl_view->setModel ( cards_model() );
+
+	if ( cards_model() != 0 ) {
+		connect ( _ctl_view->selectionModel(),
+			SIGNAL ( currentChanged ( const QModelIndex &, const QModelIndex & ) ),
+			this, SLOT ( read_view_selection() ) );
+
+		connect ( cards_model(),
+			SIGNAL ( layoutChanged() ),
+			this, SLOT ( read_view_selection() ) );
+		connect ( cards_model(),
+			SIGNAL ( rowsRemoved ( const QModelIndex &, int, int ) ),
+			this, SLOT ( read_view_selection() ) );
+		connect ( cards_model(),
+			SIGNAL ( rowsInserted ( const QModelIndex &, int, int ) ),
+			this, SLOT ( read_view_selection() ) );
+		connect ( cards_model(),
+			SIGNAL ( rowsMoved ( const QModelIndex &, int, int, const QModelIndex &, int ) ),
+			this, SLOT ( read_view_selection() ) );
+	}
 }
 
 

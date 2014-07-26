@@ -65,7 +65,7 @@ Controls_Model::ctl_format (
 		if ( idata.type() == QVariant::UInt ) {
 			const unsigned int ctl_idx ( idata.toUInt() );
 			if ( ctl_idx < _ctl_db->num_controls() ) {
-				res = &_ctl_db->control_def ( ctl_idx );
+				res = &_ctl_db->control_format ( ctl_idx );
 			}
 		}
 	}
@@ -99,7 +99,7 @@ Controls_Model::ctl_format_index (
 			const QVariant & idata ( data ( midx, MKEY_DB_INDEX ) );
 			const unsigned int ctl_idx ( idata.toUInt() );
 			if ( ctl_idx < _ctl_db->num_controls() ) {
-				if ( _ctl_db->control_def ( ctl_idx ).match ( ctl_addr_n ) ) {
+				if ( _ctl_db->control_format ( ctl_idx ).match ( ctl_addr_n ) ) {
 					res = midx;
 					break;
 				}
@@ -145,8 +145,9 @@ Controls_Model::load_data ( )
 		return;
 	}
 
-	for ( unsigned int ii=0; ii < _ctl_db->num_controls(); ++ii ) {
-		const ::QSnd::CTL_Format & ctl_format ( _ctl_db->control_def ( ii ) );
+	for ( unsigned int ii=0; ii != _ctl_db->num_controls(); ++ii ) {
+		const ::QSnd::CTL_Format & ctl_format (
+			_ctl_db->control_format ( ii ) );
 		// Create standard item and append
 		QStandardItem * sitem ( new QStandardItem );
 		sitem->setText ( ctl_format.ctl_name() );

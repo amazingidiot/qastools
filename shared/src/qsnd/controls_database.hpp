@@ -6,11 +6,10 @@
 // Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
 //
 
-#ifndef __INC_qsnd_controls_db_hpp__
-#define __INC_qsnd_controls_db_hpp__
+#ifndef __INC_qsnd_controls_database_hpp__
+#define __INC_qsnd_controls_database_hpp__
 
 #include "qsnd/ctl_format.hpp"
-#include "qsnd/card_info.hpp"
 #include <QObject>
 #include <QList>
 
@@ -40,27 +39,12 @@ class Controls_Database :
 	num_controls ( ) const;
 
 	const ::QSnd::CTL_Format &
-	control_def (
+	control_format (
 		unsigned int index_n ) const;
 
 	const ::QSnd::CTL_Format *
-	find_control_def (
+	find_control_format (
 		const QString & ctl_name_n ) const;
-
-
-	// Cards access
-
-	unsigned int
-	num_cards ( ) const;
-
-	const ::QSnd::Card_Info &
-	card_info (
-		unsigned int index_n ) const;
-
-	const ::QSnd::Card_Info *
-	card_info_by_id (
-		unsigned int id_n );
-
 
 
 	// Signals
@@ -72,8 +56,6 @@ class Controls_Database :
 	void
 	sig_change_done ( );
 
-
-
 	void
 	sig_reload_required ( );
 
@@ -82,30 +64,29 @@ class Controls_Database :
 	public slots:
 
 	void
-	reload_silent ( );
+	clear ( );
+
+	void
+	clear_silent ( );
 
 	void
 	reload ( );
+
+	void
+	reload_silent ( );
 
 
 	// Protected methods
 	protected:
 
 	void
-	clear_data ( );
-
-	void
 	load_plugins ( );
-
-	void
-	load_cards ( );
 
 
 	// Private attributes
 	private:
 
 	QList < ::QSnd::CTL_Format > _ctl_formats;
-	QList < ::QSnd::Card_Info > _card_infos;
 };
 
 
@@ -116,34 +97,15 @@ Controls_Database::num_controls ( ) const
 	return _ctl_formats.size();
 }
 
-
 inline
 const ::QSnd::CTL_Format &
-Controls_Database::control_def (
+Controls_Database::control_format (
 	unsigned int index_n ) const
 {
 	return _ctl_formats[index_n];
 }
 
 
-inline
-unsigned int
-Controls_Database::num_cards ( ) const
-{
-	return _card_infos.size();
-}
-
-
-inline
-const ::QSnd::Card_Info &
-Controls_Database::card_info (
-	unsigned int index_n ) const
-{
-	return _card_infos[index_n];
-}
-
-
 } // End of namespace
-
 
 #endif

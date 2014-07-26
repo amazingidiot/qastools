@@ -125,7 +125,8 @@ Device_Selection_View::compile_ctl_address (
 	//::std::cout << "Device_Selection_View::compile_ctl_address: " << ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
 
 	const QModelIndex & cidx ( _controls_view->currentIndex() );
-	const ::QSnd::CTL_Format * ctl_format ( _controls_model->ctl_format ( cidx ) );
+	const ::QSnd::CTL_Format * ctl_format (
+		_controls_model->ctl_format ( cidx ) );
 	if ( ctl_format != 0 ) {
 		// Control name
 		ctl_addr_n.set_ctl_name ( ctl_format->ctl_name() );
@@ -294,7 +295,7 @@ Device_Selection_View::update_selected_ctl_checks ( )
 						_selected_ctl_format.arg ( ii ) );
 					if ( arg_format.arg_name.compare ( _str_type_card, Qt::CaseInsensitive ) == 0 ) {
 						unsigned int card_id ( arg.arg_value.toUInt() );
-						if ( _controls_db.card_info_by_id ( card_id ) == 0 ) {
+						if ( _cards_model.card_info_by_card_id ( card_id ) == 0 ) {
 							_selected_ctl_checks_good = false;
 						}
 					}
@@ -377,7 +378,7 @@ Device_Selection_View::selection_db_sanitize ( )
 		typedef Device_Selection_View_Setup::Selection_DB::iterator Iterator;
 		Iterator itc ( _view_setup->selection_db.begin() );
 		while ( itc != _view_setup->selection_db.end() ) {
-			if ( _controls_db.find_control_def ( itc->ctl_name() ) == 0 ) {
+			if ( _controls_db.find_control_format ( itc->ctl_name() ) == 0 ) {
 				itc = _view_setup->selection_db.erase ( itc );
 			} else {
 				++itc;
@@ -418,6 +419,7 @@ Device_Selection_View::create_arg_views ( )
 
 			if ( arg_view != 0 ) {
 				arg_view->set_ctl_db ( &_controls_db );
+				arg_view->set_cards_model ( &_cards_model );
 				arg_view->set_ctl_arg ( ctl_arg );
 				connect ( arg_view, SIGNAL ( sig_arg_changed() ),
 					this, SLOT ( control_arg_changed() ) );

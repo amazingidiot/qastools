@@ -115,5 +115,41 @@ Card_Info::acquire_info (
 	return err;
 }
 
+bool
+Card_Info::operator== (
+	const ::QSnd::Card_Info & cinfo_n ) const
+{
+	bool res ( card_index() == cinfo_n.card_index() );
+	if ( res ) {
+		const unsigned int num_strings (
+			sizeof ( _strings ) / sizeof ( QString ) );
+		for ( unsigned int ii=0; ii != num_strings; ++ii ) {
+			if ( _strings[ii] != cinfo_n._strings[ii] ) {
+				res = false;
+				break;
+			}
+		}
+	}
+	return res;
+}
+
+bool
+Card_Info::operator!= (
+	const ::QSnd::Card_Info & cinfo_n ) const
+{
+	bool res ( card_index() != cinfo_n.card_index() );
+	if ( !res ) {
+		const unsigned int num_strings (
+			sizeof ( _strings ) / sizeof ( QString ) );
+		for ( unsigned int ii=0; ii != num_strings; ++ii ) {
+			if ( _strings[ii] != cinfo_n._strings[ii] ) {
+				res = true;
+				break;
+			}
+		}
+	}
+	return res;
+}
+
 
 } // End of namespace

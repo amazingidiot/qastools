@@ -31,8 +31,8 @@ SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/ctl_format_argument.cpp
 	${SHARED_SRC_DIR}/qsnd/ctl_format.cpp
 	${SHARED_SRC_DIR}/qsnd/card_info.cpp
-	${SHARED_SRC_DIR}/qsnd/controls_database.cpp
 	${SHARED_SRC_DIR}/qsnd/cards_model.cpp
+	${SHARED_SRC_DIR}/qsnd/controls_database.cpp
 	${SHARED_SRC_DIR}/qsnd/controls_model.cpp
 	${SHARED_SRC_DIR}/qsnd/mixer_hctl.cpp
 	${SHARED_SRC_DIR}/qsnd/mixer_hctl_elem.cpp
@@ -148,8 +148,8 @@ SET ( SRC_GUI
 
 SET ( SRC_GUI_HEADER_MOC
 	${SHARED_INC_DIR}/qsnd/alsa_config_watcher.hpp
-	${SHARED_INC_DIR}/qsnd/controls_database.hpp
 	${SHARED_INC_DIR}/qsnd/cards_model.hpp
+	${SHARED_INC_DIR}/qsnd/controls_database.hpp
 	${SHARED_INC_DIR}/qsnd/controls_model.hpp
 	${SHARED_INC_DIR}/qsnd/mixer_hctl.hpp
 	${SHARED_INC_DIR}/qsnd/mixer_hctl_elem.hpp

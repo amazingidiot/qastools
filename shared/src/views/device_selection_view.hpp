@@ -11,6 +11,7 @@
 
 #include "qsnd/ctl_address.hpp"
 #include "qsnd/controls_database.hpp"
+#include "qsnd/cards_model.hpp"
 #include "mwdg/ctl_arg_view.hpp"
 
 #include <QWidget>
@@ -156,6 +157,8 @@ class Device_Selection_View :
 	::Views::Device_Selection_View_Setup * _view_setup;
 
 	::QSnd::Controls_Database _controls_db;
+	::QSnd::Cards_Model _cards_model;
+
 	::QSnd::Controls_Model * _controls_model;
 	::MWdg::Controls_View * _controls_view;
 	QList < ::MWdg::CTL_Arg_View * > _arg_views;

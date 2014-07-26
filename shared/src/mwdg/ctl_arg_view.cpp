@@ -20,6 +20,7 @@ CTL_Arg_View::CTL_Arg_View (
 	QWidget * parent_n ) :
 QWidget ( parent_n ),
 _ctl_db ( 0 ),
+_cards_model ( 0 ),
 _ctl_arg ( 0 )
 {
 	_wdg_title = new QLabel;
@@ -37,7 +38,6 @@ _ctl_arg ( 0 )
 	setLayout ( lay_vbox );
 }
 
-
 void
 CTL_Arg_View::set_ctl_db (
 	const ::QSnd::Controls_Database * ctl_db_n )
@@ -48,6 +48,15 @@ CTL_Arg_View::set_ctl_db (
 	}
 }
 
+void
+CTL_Arg_View::set_cards_model (
+	::QSnd::Cards_Model * cards_model_n )
+{
+	if ( _cards_model != cards_model_n ) {
+		_cards_model = cards_model_n;
+		this->cards_model_changed();
+	}
+}
 
 void
 CTL_Arg_View::set_ctl_arg (
@@ -59,7 +68,6 @@ CTL_Arg_View::set_ctl_arg (
 	}
 }
 
-
 void
 CTL_Arg_View::set_arg_string (
 	const QString & str_n )
@@ -69,7 +77,6 @@ CTL_Arg_View::set_arg_string (
 		emit sig_arg_changed();
 	}
 }
-
 
 bool
 CTL_Arg_View::set_arg_string_private (
@@ -82,13 +89,17 @@ CTL_Arg_View::set_arg_string_private (
 	return false;
 }
 
-
 void
 CTL_Arg_View::ctl_db_changed ( )
 {
 	// Does nothing by default
 }
 
+void
+CTL_Arg_View::cards_model_changed ( )
+{
+	// Does nothing by default
+}
 
 void
 CTL_Arg_View::ctl_arg_changed ( )

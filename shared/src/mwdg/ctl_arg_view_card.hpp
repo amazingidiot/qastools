@@ -13,9 +13,6 @@
 #include <QModelIndex>
 
 // Forward declaration
-namespace QSnd {
-	class Cards_Model;
-}
 namespace MWdg {
 	class Controls_View;
 }
@@ -48,22 +45,19 @@ class CTL_Arg_View_Card :
 	protected:
 
 	void
-	ctl_db_changed ( );
+	cards_model_changed ( );
 
 
 	// Protected methods
 	protected slots:
 
 	void
-	view_selection_changed (
-		const QModelIndex & index_to_n,
-		const QModelIndex & index_from_n );
+	read_view_selection ( );
 
 
 	// Private attributes
 	private:
 
-	::QSnd::Cards_Model * _cards_model;
 	::MWdg::Controls_View * _ctl_view;
 };
 
