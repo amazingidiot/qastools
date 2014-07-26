@@ -267,8 +267,6 @@
 		<Unit filename="shared/src/qsnd/alsa_i18n.hpp" />
 		<Unit filename="shared/src/qsnd/card_info.cpp" />
 		<Unit filename="shared/src/qsnd/card_info.hpp" />
-		<Unit filename="shared/src/qsnd/cards_database.cpp" />
-		<Unit filename="shared/src/qsnd/cards_database.hpp" />
 		<Unit filename="shared/src/qsnd/cards_model.cpp" />
 		<Unit filename="shared/src/qsnd/cards_model.hpp" />
 		<Unit filename="shared/src/qsnd/controls_database.cpp" />
