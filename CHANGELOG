@@ -1,3 +1,6 @@
+2014-07-25      Sebastian Holtermann  <sebholt@xwmw.org>
+	* QasMixer: Soundcard hotplug detection using udev
+
 2014-07-24      Sebastian Holtermann  <sebholt@xwmw.org>
 	* QasMixer: Slider width limited
 	* QasMixer: Slider handles are always square (height may +/-1 from square to stay odd)
