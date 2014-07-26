@@ -84,25 +84,38 @@ UDev_Device_Lookout::udev_process ( )
 	bool any_change ( false );
 	while ( true ) {
 		// Read all device device changes from udev
-		::udev_device * dev ( ::udev_monitor_receive_device ( _udev_mon ) );
-		if ( dev == 0 ) {
-			break;
-		} else {
+		::udev_device * dev (
+			::udev_monitor_receive_device ( _udev_mon ) );
+		if ( dev != 0 ) {
 #ifndef NDEBUG
-	{
-		const char * devnode ( ::udev_device_get_devnode ( dev ) );
-		const char * subsystem ( ::udev_device_get_subsystem ( dev ) );
-		const char * devtype ( ::udev_device_get_devtype ( dev ) );
-		const char * action ( ::udev_device_get_action ( dev ) );
-		::std::cout << "UDev action" << "\n";
-		::std::cout << "  Node:      " << ( devnode ? devnode : "(null)" ) << "\n";
-		::std::cout << "  Subsystem: " << ( subsystem ? subsystem : "(null)" ) << "\n";
-		::std::cout << "  Devtype:   " << ( devtype ? devtype : "(null)" ) << "\n";
-		::std::cout << "  Action:    " << ( action ? action : "(null)" ) << "\n";
-	}
+			{
+				::std::string devnode;
+				::std::string subsystem;
+				::std::string devtype;
+				::std::string action;
+				{
+					const char * nullstr ( "(null)" );
+					const char * cstr ( 0 );
+					cstr = ::udev_device_get_devnode ( dev );
+					devnode = ( ( cstr != 0 ) ? cstr : nullstr );
+					cstr = ::udev_device_get_subsystem ( dev );
+					subsystem = ( ( cstr != 0 ) ? cstr : nullstr );
+					cstr = ::udev_device_get_devtype ( dev );
+					devtype = ( ( cstr != 0 ) ? cstr : nullstr );
+					cstr = ::udev_device_get_action ( dev );
+					action = ( ( cstr != 0 ) ? cstr : nullstr );
+				}
+				::std::cout << "UDev action" << "\n";
+				::std::cout << "  Node:      " << devnode << "\n";
+				::std::cout << "  Subsystem: " << subsystem << "\n";
+				::std::cout << "  Devtype:   " << devtype << "\n";
+				::std::cout << "  Action:    " << action << "\n";
+			}
 #endif // NDEBUG
-			any_change = true;
 			::udev_device_unref ( dev );
+			any_change = true;
+		} else {
+			break;
 		}
 	}
 
