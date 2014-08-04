@@ -87,7 +87,7 @@ UDev_Device_Lookout::udev_process ( )
 		::udev_device * dev (
 			::udev_monitor_receive_device ( _udev_mon ) );
 		if ( dev != 0 ) {
-#ifndef NDEBUG
+#ifdef QASTOOLS_UDEV_DEBUG
 			{
 				::std::string devnode;
 				::std::string subsystem;
@@ -111,7 +111,7 @@ UDev_Device_Lookout::udev_process ( )
 				::std::cout << "  Devtype:   " << devtype << "\n";
 				::std::cout << "  Action:    " << action << "\n";
 			}
-#endif // NDEBUG
+#endif
 			::udev_device_unref ( dev );
 			any_change = true;
 		} else {
