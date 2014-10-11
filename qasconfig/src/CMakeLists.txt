@@ -51,9 +51,8 @@ SET ( SRC_GUI_HEADER_MOC
 
 
 ADD_DEFINITIONS ( "-Wextra -Wunused -Wall" )
-
-SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -DDEBUG -fno-inline" )
-SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG -Wl,--as-needed" )
+SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline" )
+SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -Wl,--as-needed" )
 
 
 # Find modules

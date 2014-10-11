@@ -23,8 +23,8 @@ CONFIGURE_FILE (
 
 # Compiler flags
 ADD_DEFINITIONS ( "-Wextra -Wunused -Wall" )
-SET ( CMAKE_CXX_FLAGS_DEBUG   "-O0 -g -DDEBUG -fno-inline" )
-SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s -DNDEBUG -Wl,--as-needed" )
+SET ( CMAKE_CXX_FLAGS_DEBUG   "-O0 -g -fno-inline" )
+SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s -Wl,--as-needed" )
 
 
 # Sources
