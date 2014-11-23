@@ -11,6 +11,7 @@ Icon=${PROGRAM_NAME}
 StartupNotify=false
 Terminal=false
 Categories=AudioVideo;Audio;Mixer;Qt;
+Keywords=ALSA;Audio;Mixer;Qt;
 Comment=Graphical mixer application for the ALSA
 Comment[cs]=Grafický směšovač pro ALSA
 Comment[de]=Graphische Mixeranwendung für ALSA

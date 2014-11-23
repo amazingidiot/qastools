@@ -11,6 +11,7 @@ Icon=${PROGRAM_NAME}
 StartupNotify=false
 Terminal=false
 Categories=AudioVideo;Audio;Mixer;Qt;
+Keywords=ALSA;Audio;Configuration;Qt;
 Comment=ALSA configuration browser
 Comment[cs]=Prohlížeč nastavení ALSA
 Comment[de]=ALSA-Konfigurationsbetrachter
