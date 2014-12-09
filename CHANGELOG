@@ -1,3 +1,16 @@
+2014-12-09      Sebastian Holtermann  <sebholt@xwmw.org>
+	* Release version 0.18.1
+
+2014-11-23      Sebastian Holtermann  <sebholt@xwmw.org>
+	* all: Desktop files: "Categories" list extended with "Qt"
+	* all: Desktop files: "Keywords" list added
+	* all: Desktop files: Italian translation updated (submitted by Alexey Loginov)
+	* all: Desktop files: Russian translation updated (submitted by Alexey Loginov)
+
+2014-10-12      Sebastian Holtermann  <sebholt@xwmw.org>
+	* all: Using NDEBUG for simple debugging removed
+	* all: Setting NDEBUG for compilation removed
+
 2014-07-27      Sebastian Holtermann  <sebholt@xwmw.org>
 	* Release version 0.18.0
 
