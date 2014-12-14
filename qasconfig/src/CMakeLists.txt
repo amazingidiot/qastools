@@ -64,8 +64,8 @@ SET ( SRC_GUI_HEADER_MOC
 
 # --- Compiler flags
 
-SET ( CXX_COMMON_FLAGS "-fPIC -fPIE -Wextra -Wunused -Wall" )
-SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline  ${CXX_COMMON_FLAGS}" )
+SET ( CXX_COMMON_FLAGS "-std=c++11 -fPIC -fPIE -Wextra -Wunused -Wall" )
+SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline ${CXX_COMMON_FLAGS}" )
 SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 ${CXX_COMMON_FLAGS} -Wl,--as-needed" )
 
 
