@@ -59,7 +59,7 @@ SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -Wl,--as-needed" )
 
 # Find modules
 if(USE_QT5)
-find_package(Qt5Widgets)
+FIND_PACKAGE ( Qt5Widgets )
 
 ADD_DEFINITIONS ( "-fPIC" )
 else()

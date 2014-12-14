@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED ( VERSION 2.8.11 )
 
 # Find modules
 if(USE_QT5)
-find_package(Qt5LinguistTools)
+FIND_PACKAGE ( Qt5LinguistTools )
 else()
 SET ( QT_USE_QTCORE TRUE )
 FIND_PACKAGE ( Qt4 4.6 REQUIRED )
