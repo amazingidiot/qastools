@@ -1,7 +1,7 @@
 
 CMAKE_MINIMUM_REQUIRED ( VERSION 2.8.11 )
 
-option(USE_QT5 "Force use of Qt5." $ENV{USE_QT5})
+OPTION ( USE_QT5 "Force use of Qt5." $ENV{USE_QT5} )
 
 # Default build type
 
