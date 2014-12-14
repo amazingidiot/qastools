@@ -8,7 +8,6 @@ FIND_PACKAGE ( Qt5Core REQUIRED )
 FIND_PACKAGE ( Qt5Widgets REQUIRED )
 FIND_PACKAGE ( Qt5Svg REQUIRED )
 FIND_PACKAGE ( Qt5Network REQUIRED )
-ADD_DEFINITIONS ( "-fPIC" )
 else()
 SET ( QT_USE_QTCORE TRUE )
 SET ( QT_USE_QTGUI TRUE )
@@ -31,9 +30,9 @@ CONFIGURE_FILE (
 
 
 # Compiler flags
-ADD_DEFINITIONS ( "-Wextra -Wunused -Wall" )
-SET ( CMAKE_CXX_FLAGS_DEBUG   "-O0 -g -fno-inline" )
-SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -s -Wl,--as-needed" )
+SET ( CXX_COMMON_FLAGS "-fPIC -fPIE -Wextra -Wunused -Wall" )
+SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline  ${CXX_COMMON_FLAGS}" )
+SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 ${CXX_COMMON_FLAGS} -Wl,--as-needed" )
 
 
 # Sources

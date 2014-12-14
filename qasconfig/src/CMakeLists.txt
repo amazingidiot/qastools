@@ -49,19 +49,13 @@ SET ( SRC_GUI_HEADER_MOC
 	main_window.hpp
 )
 
-
-ADD_DEFINITIONS ( "-Wextra -Wunused -Wall" )
-SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline" )
-SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -Wl,--as-needed" )
-
-
-# Find modules
+SET ( CXX_COMMON_FLAGS "-fPIC -fPIE -Wextra -Wunused -Wall" )
+SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline  ${CXX_COMMON_FLAGS}" )
+SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 ${CXX_COMMON_FLAGS} -Wl,--as-needed" )
 
 # Find modules
 if(USE_QT5)
 FIND_PACKAGE ( Qt5Widgets )
-
-ADD_DEFINITIONS ( "-fPIC" )
 else()
 SET ( QT_USE_QTCORE TRUE )
 SET ( QT_USE_QTGUI TRUE )

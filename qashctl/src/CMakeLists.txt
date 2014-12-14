@@ -217,9 +217,9 @@ SET ( SRC_GUI_HEADER_MOC
 
 
 # Compiler flags
-ADD_DEFINITIONS ( "-Wextra -Wunused -Wall" )
-SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline" )
-SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 -Wl,--as-needed" )
+SET ( CXX_COMMON_FLAGS "-fPIC -fPIE -Wextra -Wunused -Wall" )
+SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline  ${CXX_COMMON_FLAGS}" )
+SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 ${CXX_COMMON_FLAGS} -Wl,--as-needed" )
 
 
 # QT stuff
