@@ -2,8 +2,9 @@
 CMAKE_MINIMUM_REQUIRED ( VERSION 2.8.11 )
 
 
-# Find modules
-if(USE_QT5)
+# --- Find modules
+
+if ( USE_QT5 )
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 FIND_PACKAGE ( Qt5Widgets )
 FIND_PACKAGE ( Qt5Svg )
@@ -20,14 +21,16 @@ FIND_PACKAGE ( ALSA REQUIRED )
 SET ( UDEV_LIBRARIES udev )
 
 
-# Configure files
+# --- Configure files
+
 INCLUDE ( CheckIncludeFiles )
 CONFIGURE_FILE (
 	${SHARED_SRC_DIR}/qastools_config.hpp.cmake
 	${CMAKE_CURRENT_BINARY_DIR}/qastools_config.hpp )
 
 
-# Source files
+# --- Sources
+
 SET ( SRC_GUI
 	${SHARED_SRC_DIR}/qsnd/alsa.cpp
 	${SHARED_SRC_DIR}/qsnd/alsa_config_watcher.cpp
@@ -216,14 +219,24 @@ SET ( SRC_GUI_HEADER_MOC
 )
 
 
-# Compiler flags
+# --- Compiler flags
+
 SET ( CXX_COMMON_FLAGS "-fPIC -fPIE -Wextra -Wunused -Wall" )
 SET ( CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-inline  ${CXX_COMMON_FLAGS}" )
 SET ( CMAKE_CXX_FLAGS_RELEASE "-O2 ${CXX_COMMON_FLAGS} -Wl,--as-needed" )
 
 
-# QT stuff
-if(USE_QT5)
+# --- Include directories
+
+INCLUDE_DIRECTORIES ( ${CMAKE_CURRENT_SOURCE_DIR} )
+INCLUDE_DIRECTORIES ( ${CMAKE_CURRENT_BINARY_DIR} )
+INCLUDE_DIRECTORIES ( ${SHARED_INC_DIR} )
+INCLUDE_DIRECTORIES ( ${ALSA_INCLUDE_DIRS} )
+
+
+# --- QT extras
+
+if ( USE_QT5 )
 QT5_WRAP_CPP ( SRC_GUI_MOC ${SRC_GUI_HEADER_MOC} )
 QT5_WRAP_CPP ( SRC_EXTRA_MOC ${SRC_EXTRA_HEADER_MOC} )
 else()
@@ -231,20 +244,18 @@ QT4_WRAP_CPP ( SRC_GUI_MOC ${SRC_GUI_HEADER_MOC} )
 QT4_WRAP_CPP ( SRC_EXTRA_MOC ${SRC_EXTRA_HEADER_MOC} )
 endif()
 
-INCLUDE_DIRECTORIES ( ${CMAKE_CURRENT_SOURCE_DIR} )
-INCLUDE_DIRECTORIES ( ${CMAKE_CURRENT_BINARY_DIR} )
-INCLUDE_DIRECTORIES ( ${SHARED_INC_DIR} )
-INCLUDE_DIRECTORIES ( ${ALSA_INCLUDE_DIRS} )
+
+# --- Executable
 
 ADD_EXECUTABLE ( ${PROGRAM_NAME}
 	${SRC_GUI}
 	${SRC_GUI_MOC}
 )
 
-if(USE_QT5)
+if ( USE_QT5 )
 TARGET_LINK_LIBRARIES ( ${PROGRAM_NAME}
 	Qt5::Widgets
-        Qt5::Svg
+	Qt5::Svg
 	${ALSA_LIBRARIES}
 	${UDEV_LIBRARIES}
 )
@@ -257,7 +268,7 @@ TARGET_LINK_LIBRARIES ( ${PROGRAM_NAME}
 endif()
 
 
-# Installation
+# --- Installation
 
 INSTALL (
 	TARGETS ${PROGRAM_NAME} RUNTIME
