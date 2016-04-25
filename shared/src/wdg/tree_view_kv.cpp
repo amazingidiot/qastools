@@ -23,11 +23,7 @@ Tree_View_KV::Tree_View_KV (
 QTreeView ( parent ),
 _activate_current ( true )
 {
-#ifdef USE_QT5
-	header()->setResizeMode ( QHeaderView::Interactive );
-#else
 	header()->setSectionResizeMode ( QHeaderView::Interactive );
-#endif
 }
 
 
