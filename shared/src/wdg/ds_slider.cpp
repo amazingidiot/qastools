@@ -1108,7 +1108,7 @@ DS_Slider::anim_tick ( )
 
 	if ( _anim_run_snap ) {
 		// Passed seconds since the animation start
-		unsigned int msec ( abs ( _anim_snap_time.elapsed() ) );
+		unsigned int msec ( ::std::abs ( _anim_snap_time.elapsed() ) );
 		if ( msec >= _anim_snap_msec_max ) {
 			msec = _anim_snap_msec_max;
 			_anim_run_snap = false;
@@ -1142,7 +1142,7 @@ DS_Slider::anim_snap_start ( )
 
 		if ( _anim_run_snap ) {
 			// A snapping annimation is already running.
-			unsigned int msec ( abs ( _anim_snap_time.elapsed() ) );
+			unsigned int msec ( ::std::abs ( _anim_snap_time.elapsed() ) );
 			if ( msec < _anim_snap_msec_max ) {
 				// Acquire the current speed
 				v_x0 = double ( msec ) / 1000.0;

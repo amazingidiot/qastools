@@ -520,8 +520,8 @@ Mixer_Simple_Elem::ask_dB_vol_nearest (
 	long db_above ( ask_vol_dB ( snd_dir_n, vol_above ) );
 	long db_below ( ask_vol_dB ( snd_dir_n, vol_below ) );
 
-	db_above = abs ( db_above - dB_value_n );
-	db_below = abs ( dB_value_n - db_below );
+	db_above = ::std::abs ( db_above - dB_value_n );
+	db_below = ::std::abs ( dB_value_n - db_below );
 
 	if ( db_above > db_below ) {
 		res = vol_below;
