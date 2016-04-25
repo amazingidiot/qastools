@@ -54,7 +54,6 @@ QLayout ( parent_n ),
 _smallest_group_dist ( 0 ),
 _smallest_column_dist ( 0 ),
 _spacing_vertical ( 7 ),
-_mass_change ( 0 ),
 _cache_dirty ( true )
 {
 	_col_type_min_widths[0] = 3; // Horizontal spacing minor

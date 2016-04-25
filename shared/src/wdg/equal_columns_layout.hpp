@@ -228,8 +228,6 @@ class Equal_Columns_Layout :
 
 	int _spacing_vertical;
 
-	unsigned int _mass_change;
-
 	bool _cache_dirty;
 };
 
