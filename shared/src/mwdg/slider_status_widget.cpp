@@ -35,7 +35,7 @@ _sliders_pad ( 0 )
 	QFont fnt_title ( _volume_title.font() );
 	fnt_title.setWeight ( QFont::Bold );
 
-	const Qt::Alignment align_lc ( Qt::AlignLeft | Qt::AlignVCenter );
+	//const Qt::Alignment align_lc ( Qt::AlignLeft | Qt::AlignVCenter );
 	const Qt::Alignment align_rc ( Qt::AlignRight | Qt::AlignVCenter );
 	const Qt::Alignment align_cc ( Qt::AlignHCenter | Qt::AlignVCenter );
 
