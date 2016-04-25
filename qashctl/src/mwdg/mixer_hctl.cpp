@@ -144,7 +144,7 @@ _editor_pad ( 0 )
 	// Item alignment
 	{
 		const Qt::Alignment align_cc ( Qt::AlignHCenter | Qt::AlignVCenter );
-		const Qt::Alignment align_lc ( Qt::AlignLeft | Qt::AlignVCenter );
+		//const Qt::Alignment align_lc ( Qt::AlignLeft | Qt::AlignVCenter );
 		_info_lbl_index.value.setAlignment ( align_cc );
 		_info_lbl_dev.value.setAlignment ( align_cc );
 		_info_lbl_flags.value.setAlignment ( align_cc );

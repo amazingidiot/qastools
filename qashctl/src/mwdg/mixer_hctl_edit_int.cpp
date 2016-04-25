@@ -320,7 +320,7 @@ Mixer_HCTL_Edit_Int::create_range_label ( )
 	lbl_dB_range->setText ( _str_dB_range );
 
 	const Qt::Alignment align_cc ( Qt::AlignHCenter | Qt::AlignVCenter );
-	const Qt::Alignment align_lc ( Qt::AlignLeft | Qt::AlignVCenter );
+	//const Qt::Alignment align_lc ( Qt::AlignLeft | Qt::AlignVCenter );
 
 	{
 		{

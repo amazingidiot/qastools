@@ -165,7 +165,7 @@ Mixer_HCTL_Edit_Bool::setup_multi ( )
 		QGridLayout * lay_grid ( new QGridLayout );
 		lay_grid->setContentsMargins ( 0, 0, 0, 0 );
 
-		const Qt::Alignment align_rc ( Qt::AlignRight | Qt::AlignVCenter );
+		//const Qt::Alignment align_rc ( Qt::AlignRight | Qt::AlignVCenter );
 		const Qt::Alignment align_cc ( Qt::AlignHCenter | Qt::AlignVCenter );
 		const QString val ( "%1" );
 

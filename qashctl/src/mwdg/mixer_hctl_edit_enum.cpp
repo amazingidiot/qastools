@@ -175,7 +175,7 @@ Mixer_HCTL_Edit_Enum::setup_multi ( )
 
 		QStringList item_names;
 
-		const Qt::Alignment align_rc ( Qt::AlignRight | Qt::AlignVCenter );
+		//const Qt::Alignment align_rc ( Qt::AlignRight | Qt::AlignVCenter );
 		const Qt::Alignment align_cc ( Qt::AlignHCenter | Qt::AlignVCenter );
 		const QString val ( "%1" );
 
