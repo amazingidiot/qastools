@@ -147,7 +147,7 @@ IS_Buffer::return_img_set (
 			if ( byte_count() <= _storage_limit ) {
 				// Delete later
 				handle->remove_time.start();
-				handle->remove_time.addMSecs ( 1000 );
+				handle->remove_time = handle->remove_time.addMSecs ( 1000 );
 				if ( !_remove_poll_timer.isActive() ) {
 					_remove_poll_timer.start();
 				}
