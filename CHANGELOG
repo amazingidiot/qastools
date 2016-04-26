@@ -1,3 +1,10 @@
+2016-04-26      Sebastian Holtermann  <sebholt@xwmw.org>
+	* all: Qt5 only. Qt4 support removed.
+	* all: Compile with C++11 (required)
+	* all: Compiler warning fixes
+	* all: Bug fixes
+	* Release version 0.20
+
 2014-12-09      Sebastian Holtermann  <sebholt@xwmw.org>
 	* Release version 0.18.1
 
