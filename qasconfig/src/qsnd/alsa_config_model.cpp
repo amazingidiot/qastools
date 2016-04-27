@@ -12,6 +12,7 @@
 #include <QString>
 #include <QStringList>
 #include <iostream>
+#include <sstream>
 
 namespace QSnd
 {
@@ -66,7 +67,11 @@ Alsa_Config_Model::load_config ( )
 	}
 
 	if ( ( err < 0 ) || ( _snd_cfg_root == 0 ) ) {
-		::std::cerr << "[EE] Alsa configuration reading failed\n";
+		{
+			::std::stringstream msg;
+			msg << "[EE] Alsa configuration reading failed" << ::std::endl;
+			::std::cerr << msg.str();
+		}
 		::QSnd::print_alsa_error ( "snd_config_update_r()", err );
 	} else {
 		add_children_recursively ( stree().root_node(), _snd_cfg_root );

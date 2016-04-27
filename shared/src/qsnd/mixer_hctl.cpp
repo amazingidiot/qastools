@@ -12,6 +12,7 @@
 #include "qsnd/mixer_hctl_info_db.hpp"
 
 #include <iostream>
+#include <sstream>
 #include <QEvent>
 #include <QCoreApplication>
 
@@ -343,8 +344,12 @@ Mixer_HCTL::alsa_callback_hctl (
 		{
 			qsnd_mixer->request_reload();
 		} else {
-			::std::cerr << "Mixer_HCTL::alsa_callback_hctl: ";
-			::std::cerr << "Unknown mask ( " << mask_n << " )\n";
+			{
+				::std::stringstream msg;
+				msg << "Mixer_HCTL::alsa_callback_hctl: ";
+				msg << "Unknown mask ( " << mask_n << " )" << ::std::endl;
+				::std::cerr << msg.str();
+			}
 			res = -1;
 		}
 	}

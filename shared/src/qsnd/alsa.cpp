@@ -9,6 +9,7 @@
 #include "alsa.hpp"
 
 #include <iostream>
+#include <sstream>
 #include <QString>
 
 
@@ -21,9 +22,11 @@ print_alsa_error (
 	const std::string & prefix,
 	int err_n )
 {
-	::std::cerr << "[EE] ";
-	::std::cerr << prefix << ": ";
-	::std::cerr << snd_strerror ( err_n ) << "\n";
+	::std::stringstream msg;
+	msg << "[EE] ";
+	msg << prefix << ": ";
+	msg << snd_strerror ( err_n ) << ::std::endl;
+	::std::cerr << msg.str();
 }
 
 

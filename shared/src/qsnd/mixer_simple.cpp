@@ -13,6 +13,7 @@
 #include "qsnd/event_types.hpp"
 
 #include <iostream>
+#include <sstream>
 #include <QEvent>
 #include <QCoreApplication>
 
@@ -489,8 +490,12 @@ Mixer_Simple::alsa_callback_mixer (
 		{
 			qsnd_mixer->request_reload();
 		} else {
-			::std::cerr << "Mixer_Simple::alsa_callback_mixer: ";
-			::std::cerr << "Unknown mask ( " << mask_n << " )\n";
+			{
+				::std::stringstream msg;
+				msg << "Mixer_Simple::alsa_callback_mixer: ";
+				msg << "Unknown mask ( " << mask_n << " )" << ::std::endl;
+				::std::cerr << msg.str();
+			}
 			res = -1;
 		}
 	}

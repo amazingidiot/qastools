@@ -14,6 +14,7 @@
 #include <QFile>
 #include <QRegExp>
 #include <iostream>
+#include <sstream>
 
 #include <stdlib.h>
 #include <pwd.h>
@@ -136,14 +137,23 @@ Single_Application::set_unique_key (
 			}
 			if ( !_is_running ) {
 				// Connection failed
-				::std::cerr << "[WW] SApp: Exisiting socket does not reply.\n";
-				::std::cerr << "[WW] SApp: Removing broken socket: ";
-				::std::cerr << _com_file.toLocal8Bit().constData();
-				::std::cerr << "\n";
+				{
+					::std::stringstream msg;
+					msg << "[WW] SApp: Exisiting socket does not reply.";
+					msg << ::std::endl;
+					msg << "[WW] SApp: Removing broken socket: ";
+					msg << _com_file.toLocal8Bit().constData();
+					msg << ::std::endl;
+					::std::cerr << msg.str();
+				}
 				// Remove dead socket file
 				if ( !com_fl.remove() ) {
 					_is_running = true;
-					::std::cerr << "[WW] Removing socket failed\n";
+					{
+						::std::stringstream msg;
+						msg << "[WW] Removing socket failed" << ::std::endl;
+						::std::cerr << msg.str();
+					}
 				}
 			}
 		}
@@ -158,8 +168,13 @@ Single_Application::set_unique_key (
 		} else {
 			QString err ( _local_server->errorString() );
 			if ( !err.isEmpty() ) {
-				::std::cerr << "[EE] SApp: QLocalServer::listen\n";
-				::std::cerr << "[EE] " << err.toLocal8Bit().constData() << "\n";
+				{
+					::std::stringstream msg;
+					msg << "[EE] SApp: QLocalServer::listen" << ::std::endl;
+					msg << "[EE] " << err.toLocal8Bit().constData();
+					msg << ::std::endl;
+					::std::cerr << msg.str();
+				}
 			}
 			delete _local_server;
 			_local_server = 0;
@@ -276,16 +291,26 @@ Single_Application::send_message (
 		} else {
 			QString err ( lsocket.errorString() );
 			if ( !err.isEmpty() ) {
-				::std::cerr << "[EE] SApp: send_message\n";
-				::std::cerr << "[EE] " << err.toLocal8Bit().constData() << "\n";
+				{
+					::std::stringstream msg;
+					msg << "[EE] SApp: send_message" << ::std::endl;
+					msg << "[EE] " << err.toLocal8Bit().constData();
+					msg << ::std::endl;
+					::std::cerr << msg.str();
+				}
 			}
 		}
 		lsocket.disconnectFromServer();
 	} else {
 		QString err ( lsocket.errorString() );
 		if ( !err.isEmpty() ) {
-			::std::cerr << "[EE] SApp: send_message\n";
-			::std::cerr << "[EE] " << err.toLocal8Bit().constData() << "\n";
+			{
+				::std::stringstream msg;
+				msg << "[EE] SApp: send_message" << ::std::endl;
+				msg << "[EE] " << err.toLocal8Bit().constData();
+				msg << ::std::endl;
+				::std::cerr << msg.str();
+			}
 		}
 	}
 

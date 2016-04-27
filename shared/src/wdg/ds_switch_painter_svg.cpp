@@ -20,6 +20,7 @@
 #include <QSvgRenderer>
 
 #include <iostream>
+#include <sstream>
 
 
 namespace Wdg
@@ -196,8 +197,12 @@ DS_Switch_Painter_SVG::render_svg (
 			svg_render.render ( &pnt );
 		} else {
 			img_n.clear();
-			::std::cerr << "SVG image loading failed for " << "\n";
-			::std::cerr << svg_file_n.toLocal8Bit().data() << "\n";
+			{
+				::std::stringstream msg;
+				msg << "SVG image loading failed for " << ::std::endl;
+				msg << svg_file_n.toLocal8Bit().data() << ::std::endl;
+				::std::cerr << msg.str();
+			}
 			res = -1;
 		}
 	}

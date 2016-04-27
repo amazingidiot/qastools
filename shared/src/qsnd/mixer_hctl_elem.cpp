@@ -14,6 +14,7 @@
 #include <QEvent>
 
 #include <iostream>
+#include <sstream>
 
 
 namespace QSnd
@@ -527,8 +528,12 @@ Mixer_HCTL_Elem::alsa_callback_hctl_elem (
 			smce->update_value_mark();
 		} else {
 			// Unusual mask
-			::std::cerr << "Mixer_HCTL_Elem::alsa_callback_hctl_elem: ";
-			::std::cerr << "Unknown mask ( " << mask_n << " )\n";
+			{
+				::std::stringstream msg;
+				msg << "Mixer_HCTL_Elem::alsa_callback_hctl_elem: ";
+				msg << "Unknown mask ( " << mask_n << " )" << ::std::endl;
+				::std::cerr << msg.str();
+			}
 			res = -1;
 		}
 	}
