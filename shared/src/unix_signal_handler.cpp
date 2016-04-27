@@ -25,15 +25,15 @@ Unix_Signal_Handler::Unix_Signal_Handler (
 QObject ( parent_n )
 {
 	if ( ::socketpair ( AF_UNIX, SOCK_STREAM, 0, _sig_int_fds ) ) {
-		qFatal ( "Couldn't create INT socketpair" );
+		qFatal ( "Couldn't create SIGINT socketpair" );
 	}
 
 	if ( ::socketpair ( AF_UNIX, SOCK_STREAM, 0, _sig_hup_fds ) ) {
-		qFatal ( "Couldn't create HUP socketpair" );
+		qFatal ( "Couldn't create SIGHUP socketpair" );
 	}
 
 	if ( ::socketpair ( AF_UNIX, SOCK_STREAM, 0, _sig_term_fds ) ) {
-		qFatal ( "Couldn't create TERM socketpair" );
+		qFatal ( "Couldn't create SIGTERM socketpair" );
 	}
 
 	_sn_int = new QSocketNotifier (
@@ -112,7 +112,10 @@ Unix_Signal_Handler::signal_handler_int (
 	int )
 {
 	char dat ( 1 );
-	::write ( _sig_int_fds[0], &dat, sizeof ( dat ) );
+	int size ( sizeof ( dat ) );
+	if ( ::write ( _sig_int_fds[0], &dat, size ) != size ) {
+		qFatal ( "Unix_Signal_Handler: Writing to SIGINT socket failed" );
+	}
 }
 
 
@@ -121,7 +124,10 @@ Unix_Signal_Handler::signal_handler_hup (
 	int )
 {
 	char dat ( 1 );
-	::write ( _sig_hup_fds[0], &dat, sizeof ( dat ) );
+	int size ( sizeof ( dat ) );
+	if ( ::write ( _sig_hup_fds[0], &dat, size ) != size ) {
+		qFatal ( "Unix_Signal_Handler: Writing to SIGHUP socket failed" );
+	}
 }
 
 
@@ -130,7 +136,10 @@ Unix_Signal_Handler::signal_handler_term (
 	int )
 {
 	char dat ( 1 );
-	::write ( _sig_term_fds[0], &dat, sizeof ( dat ) );
+	int size ( sizeof ( dat ) );
+	if ( ::write ( _sig_term_fds[0], &dat, size ) != size ) {
+		qFatal ( "Unix_Signal_Handler: Writing to SIGTERM socket failed" );
+	}
 }
 
 
@@ -141,7 +150,10 @@ Unix_Signal_Handler::sev_handle_sig_int ( )
 
 	_sn_int->setEnabled ( false );
 	char tmp;
-	::read ( _sig_int_fds[1], &tmp, sizeof ( tmp ) );
+	int size ( sizeof ( tmp ) );
+	if ( ::read ( _sig_int_fds[1], &tmp, size ) == -1 ) {
+		qFatal ( "Unix_Signal_Handler: Reading from SIGINT socket failed" );
+	}
 
 	emit sig_int();
 
@@ -156,7 +168,10 @@ Unix_Signal_Handler::sev_handle_sig_hup ( )
 
 	_sn_hup->setEnabled ( false );
 	char tmp;
-	::read ( _sig_hup_fds[1], &tmp, sizeof ( tmp ) );
+	int size ( sizeof ( tmp ) );
+	if ( ::read ( _sig_hup_fds[1], &tmp, size ) == -1 ) {
+		qFatal ( "Unix_Signal_Handler: Reading from SIGHUP socket failed" );
+	}
 
 	emit sig_hup();
 
@@ -171,7 +186,10 @@ Unix_Signal_Handler::sev_handle_sig_term ( )
 
 	_sn_term->setEnabled ( false );
 	char tmp;
-	::read ( _sig_term_fds[1], &tmp, sizeof ( tmp ) );
+	int size ( sizeof ( tmp ) );
+	if ( ::read ( _sig_term_fds[1], &tmp, size ) == -1 ) {
+		qFatal ( "Unix_Signal_Handler: Reading from SIGTERM socket failed" );
+	}
 
 	emit sig_term();
 
