@@ -12,6 +12,7 @@
 #include "info_texts.hpp"
 
 #include <iostream>
+#include <sstream>
 #include <getopt.h>
 
 
@@ -92,28 +93,38 @@ Desktop_Items::parse_cmd_options (
 	}
 
 	if ( flag_print_help ) {
-		::std::cout << "Usage:\n";
-		::std::cout << "  " << PROGRAM_NAME << " [OPTION]...\n";
-		::std::cout << "\n";
-		::std::cout << info_text_options;
-		::std::cout << "\n";
-		::std::cout.flush();
+		{
+			::std::stringstream msg;
+			msg << "Usage:" << ::std::endl;
+			msg << "  " << PROGRAM_NAME << " [OPTION]..." << ::std::endl;
+			msg << ::std::endl;
+			msg << info_text_options;
+			msg << ::std::endl;
+			::std::cout << msg.str() << ::std::flush;
+		}
 		return -1;
 	}
 
 	if ( flag_print_version ) {
-		::std::cout << PROGRAM_NAME << " " << VERSION << "\n";
-		::std::cout.flush();
+		{
+			::std::stringstream msg;
+			msg << PROGRAM_NAME << " " << VERSION << ::std::endl;
+			::std::cout << msg.str() << ::std::flush;
+		}
 		return -1;
 	}
 
 	if ( flag_print_copy_info ) {
-		::std::cout << PROGRAM_TITLE;
-		::std::cout << " - desktop mixer for ALSA's High level Control Interface.\n";
-		::std::cout << "\n";
-		::std::cout << license_text_short;
-		::std::cout << "\n";
-		::std::cout.flush();
+		{
+			::std::stringstream msg;
+			msg << PROGRAM_TITLE;
+			msg << " - desktop mixer for ALSA's High level Control Interface.";
+			msg << ::std::endl;
+			msg << ::std::endl;
+			msg << license_text_short;
+			msg << ::std::endl;
+			::std::cout << msg.str() << ::std::flush;
+		}
 		return -1;
 	}
 

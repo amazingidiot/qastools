@@ -9,6 +9,7 @@
 #include "udev_device_lookout.hpp"
 #include <QSocketNotifier>
 #include <iostream>
+#include <sstream>
 
 
 namespace QSnd
@@ -36,11 +37,20 @@ UDev_Device_Lookout::udev_init ( )
 	if ( _udev == 0 ) {
 		_udev = ::udev_new();
 		if ( _udev == 0 ) {
-			::std::cout << "Could not create udev object\n";
+			{
+				::std::stringstream msg;
+				msg << "Could not create udev object" << ::std::endl;
+				::std::cout << msg.str() << ::std::flush;
+			}
 		} else {
 			_udev_mon = ::udev_monitor_new_from_netlink ( _udev, "udev" );
 			if ( _udev_mon == 0 ) {
-				::std::cout << "Could not create udev monitor object\n";
+				{
+					::std::stringstream msg;
+					msg << "Could not create udev monitor object";
+					msg << ::std::endl;
+					::std::cout << msg.str() << ::std::flush;
+				}
 				udev_close();
 			} else {
 				::udev_monitor_filter_add_match_subsystem_devtype (
@@ -105,11 +115,15 @@ UDev_Device_Lookout::udev_process ( )
 					cstr = ::udev_device_get_action ( dev );
 					action = ( ( cstr != 0 ) ? cstr : nullstr );
 				}
-				::std::cout << "UDev action" << "\n";
-				::std::cout << "  Node:      " << devnode << "\n";
-				::std::cout << "  Subsystem: " << subsystem << "\n";
-				::std::cout << "  Devtype:   " << devtype << "\n";
-				::std::cout << "  Action:    " << action << "\n";
+				{
+					::std::stringstream msg;
+					msg << "UDev action" << ::std::endl;
+					msg << "  Node:      " << devnode << ::std::endl;
+					msg << "  Subsystem: " << subsystem << ::std::endl;
+					msg << "  Devtype:   " << devtype << ::std::endl;
+					msg << "  Action:    " << action << ::std::endl;
+					::std::cout << msg.str() << ::std::flush;
+				}
 			}
 #endif
 			::udev_device_unref ( dev );
