@@ -1,3 +1,10 @@
+2016-04-27      Sebastian Holtermann  <sebholt@xwmw.org>
+	* all: Console messages flushed as single complete strings
+	* all: System function error evaluation
+	* all: Don't enforce compiler flags -fPIC -fPIE
+	* all: Bug fixes
+	* Release version 0.21
+
 2016-04-26      Sebastian Holtermann  <sebholt@xwmw.org>
 	* all: Qt5 only. Qt4 support removed.
 	* all: Compile with C++11 (required)
