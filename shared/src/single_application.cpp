@@ -139,7 +139,7 @@ Single_Application::set_unique_key (
 				// Connection failed
 				{
 					::std::stringstream msg;
-					msg << "[WW] SApp: Exisiting socket does not reply.";
+					msg << "[WW] SApp: Existing socket does not reply.";
 					msg << ::std::endl;
 					msg << "[WW] SApp: Removing broken socket: ";
 					msg << _com_file.toLocal8Bit().constData();
