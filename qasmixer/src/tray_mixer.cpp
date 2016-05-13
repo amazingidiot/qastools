@@ -251,20 +251,22 @@ Tray_Mixer::raise_balloon ( )
 		_tray_icon->isVisible() &&
 		_view_setup->show_balloon )
 	{
-		_balloon = new Tray_Mixer_Balloon ( _view_setup->image_alloc );
-		_balloon->setAttribute ( Qt::WA_DeleteOnClose );
+		_balloon.reset ( new Tray_Mixer_Balloon ( _view_setup->image_alloc ) );
 		_balloon->set_tray_icon_geometry ( _tray_icon->geometry() );
 		_balloon->set_duration_ms ( _view_setup->balloon_lifetime );
 		_balloon->set_icon ( _icons_volume[3] );
 
-		connect ( _balloon, SIGNAL ( sig_activated() ),
+		connect ( _balloon.data(), SIGNAL ( sig_activated() ),
 			this, SIGNAL ( sig_toggle_mixer() ) );
 
-		connect ( _balloon, SIGNAL ( sig_middle_click() ),
+		connect ( _balloon.data(), SIGNAL ( sig_middle_click() ),
 			this, SLOT ( mixer_toggle_switch() ) );
 
-		connect ( _balloon, SIGNAL ( sig_wheel_delta ( int ) ),
+		connect ( _balloon.data(), SIGNAL ( sig_wheel_delta ( int ) ),
 			this, SLOT ( mouse_wheel_delta ( int ) ) );
+
+		connect ( _balloon.data(), SIGNAL ( sig_close() ),
+			this, SLOT ( close_balloon() ) );
 	}
 	if ( _balloon != 0 ) {
 		_balloon->set_muted ( _volume_muted );
@@ -278,7 +280,7 @@ void
 Tray_Mixer::close_balloon ( )
 {
 	if ( _balloon != 0 ) {
-		_balloon->close();
+		_balloon.reset();
 	}
 }
 

@@ -69,6 +69,13 @@ class Balloon_Widget :
 		QWidget * wdg_n );
 
 
+	// Public signals
+	signals:
+
+	void
+	sig_close ( );
+
+
 	// Public slots
 	public slots:
 

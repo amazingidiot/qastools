@@ -11,7 +11,7 @@
 
 #include <QObject>
 #include <QIcon>
-#include <QPointer>
+#include <QScopedPointer>
 
 
 // Forward declaration
@@ -140,7 +140,7 @@ class Tray_Mixer :
 	bool _updating_scheduled;
 
 	Tray_Mixer_Icon * _tray_icon;
-	QPointer < Tray_Mixer_Balloon > _balloon;
+	QScopedPointer < Tray_Mixer_Balloon > _balloon;
 };
 
 

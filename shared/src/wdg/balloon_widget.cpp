@@ -215,7 +215,7 @@ Balloon_Widget::close_timeout ( )
 	}
 
 	if ( !_remains_on_hover ) {
-		close();
+		emit sig_close();
 	}
 }
 
@@ -227,7 +227,7 @@ Balloon_Widget::leaveEvent (
 	QWidget::leaveEvent ( event_n );
 	if ( _remains_on_hover ) {
 		_remains_on_hover = false;
-		close();
+		emit sig_close();
 	}
 }
 
