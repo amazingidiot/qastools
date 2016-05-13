@@ -36,31 +36,28 @@ QObject ( parent_n )
 		qFatal ( "Couldn't create SIGTERM socketpair" );
 	}
 
-	_sn_int = new QSocketNotifier (
-		_sig_int_fds[1], QSocketNotifier::Read, this );
+	_sn_int.reset ( new QSocketNotifier (
+		_sig_int_fds[1], QSocketNotifier::Read, this ) );
 
-	_sn_hup = new QSocketNotifier (
-		_sig_hup_fds[1], QSocketNotifier::Read, this );
+	_sn_hup.reset ( new QSocketNotifier (
+		_sig_hup_fds[1], QSocketNotifier::Read, this ) );
 
-	_sn_term = new QSocketNotifier (
-		_sig_term_fds[1], QSocketNotifier::Read, this );
+	_sn_term.reset ( new QSocketNotifier (
+		_sig_term_fds[1], QSocketNotifier::Read, this ) );
 
-	connect ( _sn_int, SIGNAL ( activated ( int ) ),
+	connect ( _sn_int.get(), SIGNAL ( activated ( int ) ),
 		this, SLOT ( sev_handle_sig_int() ) );
 
-	connect ( _sn_hup, SIGNAL ( activated ( int ) ),
+	connect ( _sn_hup.get(), SIGNAL ( activated ( int ) ),
 		this, SLOT ( sev_handle_sig_hup() ) );
 
-	connect ( _sn_term, SIGNAL ( activated ( int ) ),
+	connect ( _sn_term.get(), SIGNAL ( activated ( int ) ),
 		this, SLOT ( sev_handle_sig_term() ) );
 }
 
 
 Unix_Signal_Handler::~Unix_Signal_Handler ( )
 {
-	delete _sn_int;
-	delete _sn_hup;
-	delete _sn_term;
 }
 
 

@@ -10,6 +10,7 @@
 #define __INC_unix_signal_handler_hpp__
 
 #include <QObject>
+#include <memory>
 
 // Forward declaration
 class QSocketNotifier;
@@ -86,9 +87,9 @@ class Unix_Signal_Handler :
 	static int _sig_hup_fds[2];
 	static int _sig_term_fds[2];
 
-	QSocketNotifier * _sn_int;
-	QSocketNotifier * _sn_hup;
-	QSocketNotifier * _sn_term;
+	::std::unique_ptr < QSocketNotifier > _sn_int;
+	::std::unique_ptr < QSocketNotifier > _sn_hup;
+	::std::unique_ptr < QSocketNotifier > _sn_term;
 };
 
 
