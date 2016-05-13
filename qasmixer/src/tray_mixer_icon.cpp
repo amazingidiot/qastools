@@ -71,14 +71,23 @@ bool
 Tray_Mixer_Icon::event (
 	QEvent * event_n )
 {
+	//::std::cout << "Tray_Mixer_Icon::event: " << event_n->type() << "\n";
+
 	bool res ( QSystemTrayIcon::event ( event_n ) );
 
-	if ( event_n->type() == QEvent::Wheel ) {
-		QWheelEvent * wev ( static_cast < QWheelEvent * > ( event_n ) );
-		emit sig_wheel_delta ( wev->delta() );
-		res = true;
-	} else if ( event_n->type() == QEvent::ToolTip ) {
+	switch ( event_n->type() ) {
+	case QEvent::Wheel:
+		{
+			QWheelEvent * wev ( static_cast < QWheelEvent * > ( event_n ) );
+			emit sig_wheel_delta ( wev->delta() );
+			res = true;
+		}
+		break;
+	case QEvent::ToolTip:
 		emit sig_hover();
+		break;
+	default:
+		break;
 	}
 
 	return res;
