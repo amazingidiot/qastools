@@ -62,7 +62,7 @@ file_list.sort()
 
 # Source file name filter
 filter_regs = [
-	#re.compile ( ".*\.hpp$" ),
+	re.compile ( ".*\.hpp$" ),
 	re.compile ( ".*\.cpp$" )
 ]
 
@@ -76,27 +76,13 @@ for fname in file_list:
 			file_list_filtered.append ( fname )
 
 hrepl_in = '''\
-//
-// C++ Implementation:
-//
-// Description:
-//
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2011
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//\
+/// QasTools: Dektop toolset for the Linux sound system ALSA.
+/// \\\\copyright See COPYING file.\
 '''
 
 hrepl_out = '''\
-//
-// QasTools: Dektop toolset for the Linux sound system ALSA
-//
-// License: See COPYING file that comes with this source distribution
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
-//\
+/// QasTools: Desktop toolset for the Linux sound system ALSA.
+/// \copyright See COPYING file.\
 '''
 
 hrepl_in = hrepl_in.replace ( '/', '\/' )

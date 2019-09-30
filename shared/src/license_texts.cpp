@@ -1,27 +1,27 @@
-//
-// QasTools: Dektop toolset for the Linux sound system ALSA
-//
-// License: See COPYING file that comes with this source distribution
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
-//
+/// QasTools: Desktop toolset for the Linux sound system ALSA.
+/// \copyright See COPYING file.
 
 #include "license_texts.hpp"
 
-
 const char license_text_short[] = "\
-Copyright (C) 2012  Sebastian Holtermann <sebholt@xwmw.org>\n\
+Copyright QasTools Contributors.\n\
 \n\
-This program is free software: you can redistribute it and/or modify\n\
-it under the terms of the GNU General Public License as published by\n\
-the Free Software Foundation, either version 3 of the License, or\n\
-(at your option) any later version.\n\
+Permission is hereby granted, free of charge, to any person obtaining\n\
+a copy of this software and associated documentation files (the\n\
+\"Software\"), to deal in the Software without restriction, including\n\
+without limitation the rights to use, copy, modify, merge, publish,\n\
+distribute, sublicense, and/or sell copies of the Software, and to\n\
+permit persons to whom the Software is furnished to do so, subject to\n\
+the following conditions:\n\
 \n\
-This program is distributed in the hope that it will be useful,\n\
-but WITHOUT ANY WARRANTY; without even the implied warranty of\n\
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n\
-GNU General Public License for more details.\n\
+The above copyright notice and this permission notice shall be\n\
+included in all copies or substantial portions of the Software.\n\
 \n\
-You should have received a copy of the GNU General Public License\n\
-along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\n\
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\n\
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\n\
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\n\
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\n\
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\n\
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\
 ";

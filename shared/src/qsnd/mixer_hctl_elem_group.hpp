@@ -1,10 +1,5 @@
-//
-// QasTools: Dektop toolset for the Linux sound system ALSA
-//
-// License: See COPYING file that comes with this source distribution
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
-//
+/// QasTools: Desktop toolset for the Linux sound system ALSA.
+/// \copyright See COPYING file.
 
 #ifndef __INC_qsnd_mixer_hctl_elem_group_hpp__
 #define __INC_qsnd_mixer_hctl_elem_group_hpp__

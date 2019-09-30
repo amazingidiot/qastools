@@ -1,10 +1,5 @@
-//
-// QasTools: Dektop toolset for the Linux sound system ALSA
-//
-// License: See COPYING file that comes with this source distribution
-//
-// Author: Sebastian Holtermann <sebholt@xwmw.org>, (C) 2012
-//
+/// QasTools: Desktop toolset for the Linux sound system ALSA.
+/// \copyright See COPYING file.
 
 #include "pad_proxies_column.hpp"
 
