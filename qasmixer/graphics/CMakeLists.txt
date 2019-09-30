@@ -1,7 +1,3 @@
-
-CMAKE_MINIMUM_REQUIRED ( VERSION 2.8.11 )
-
-
 # Install application icons
 
 INSTALL( FILES icons/app-icon-16x16.png

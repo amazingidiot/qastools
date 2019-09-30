@@ -1,7 +1,3 @@
-
-CMAKE_MINIMUM_REQUIRED ( VERSION 2.8.11 )
-
-
 # Install widgets graphics
 
 FILE ( GLOB switch_icons "widgets/sw_joined_bg_*.svg" )
