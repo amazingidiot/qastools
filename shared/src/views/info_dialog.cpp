@@ -63,10 +63,6 @@ Info_Dialog::Info_Dialog (
 		txt += hmask.arg ( tr ( "Internet" ) );
 
 		txt += "<p>";
-		txt += amask.arg ( "http://xwmw.org/qastools", tr ( "Home page" ) );
-		txt += "</p>";
-
-		txt += "<p>";
 		txt += amask.arg ( "http://sourceforge.net/projects/qastools/", tr ( "Project page" ) );
 		txt += "</p>";
 
@@ -100,7 +96,7 @@ Info_Dialog::Info_Dialog (
 		{
 			txt += hmask.arg ( tr ( "Developers" ) );
 			const char * names[] = {
-				"Sebastian Holtermann", "sebholt@xwmw.org",
+				"Sebastian Holtermann", "sebholt@web.de",
 				0, 0
 			};
 			for ( const char ** ptr ( &names[0] ); *ptr != 0; ptr += 2 ) {
@@ -127,7 +123,7 @@ Info_Dialog::Info_Dialog (
 			txt += hmask.arg ( tr ( "Translators" ) );
 			const char * names[] = {
 				"Pavel Fric",           "pavelfric@seznam.cz",       "cs",
-				"Sebastian Holtermann", "sebholt@xwmw.org",          "de",
+				"Sebastian Holtermann", "sebholt@web.de",            "de",
 				"Jose Lencioni",        "elcorreodelcoco@gmail.com", "es",
 				"Ivan Sorokin",         "vanyacpp@gmail.com",        "ru",
 				0, 0, 0
