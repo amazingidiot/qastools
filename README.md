@@ -1,47 +1,22 @@
-About
------
+# About
 
 QasTools is a collection of Qt-based mixer and setup tools for the
 Linux sound system ALSA.
 
 
-Copying
--------
+## Copying
 
 QasTools is distributed under the terms in the COPYING text file that
 comes with this package.
 
 
-Requirements
-------------
-
-The following libraries are required on runtime.
-(Debian squeeze package names)
-
-libasound2
-libqtcore4
-libqtgui4
-libqt4-network
-libqt4-svg
-
-The Qt libraries must be of version 4.6 at least.
-
-
-Installation
-------------
-
-The following packages are required for a successful build.
-(Debian squeeze names)
-
-libasound2-dev - ALSA library develoment files
-libqt4-dev     - Qt development files
-cmake          - The build system
-
+## Installation
 
 QasTools uses the CMake build system.
 
 For a system wide installation type:
 
+```
 tar -xjf qastools_X.Y.Z.bz2
 cd qastools_X.Y.Z
 mkdir build
@@ -49,10 +24,11 @@ cd build
 cmake ..
 make -j8
 sudo make install
-
+```
 
 For a local build instead call:
 
+```
 tar -xjf qastools_X.Y.Z.bz2
 cd qastools_X.Y.Z
 mkdir install
@@ -61,6 +37,7 @@ cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../install
 make -j8
 make install
+```
 
 
 Authors
@@ -68,5 +45,4 @@ Authors
 
 QasTools was written by:
 
-Sebastian Holtermann <sebholt@xwmw.org>
-
+Sebastian Holtermann <sebholt@web.de>
