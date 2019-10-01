@@ -142,69 +142,6 @@ SET ( SRC_GUI
 	main.cpp
 )
 
-SET ( SRC_GUI_HEADER_MOC
-	${SHARED_INC_DIR}/qsnd/alsa_config_watcher.hpp
-	${SHARED_INC_DIR}/qsnd/cards_model.hpp
-	${SHARED_INC_DIR}/qsnd/controls_database.hpp
-	${SHARED_INC_DIR}/qsnd/controls_model.hpp
-	${SHARED_INC_DIR}/qsnd/mixer_hctl.hpp
-	${SHARED_INC_DIR}/qsnd/mixer_hctl_elem.hpp
-	${SHARED_INC_DIR}/qsnd/udev_device_lookout.hpp
-
-	${SHARED_INC_DIR}/dpe/is_buffer.hpp
-	${SHARED_INC_DIR}/dpe/image_allocator.hpp
-
-	${SHARED_INC_DIR}/wdg/tree_view_kv.hpp
-	${SHARED_INC_DIR}/wdg/ds_switch.hpp
-	${SHARED_INC_DIR}/wdg/ds_slider.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxies_column.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxies_group.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy_enum.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy_slider.hpp
-	${SHARED_INC_DIR}/wdg/pad_proxy_switch.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_data.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_footer.hpp
-	${SHARED_INC_DIR}/wdg/sliders_pad_header.hpp
-
-	${SHARED_INC_DIR}/mwdg/slider_status_widget.hpp
-	${SHARED_INC_DIR}/mwdg/controls_view.hpp
-	${SHARED_INC_DIR}/mwdg/controls_delegate.hpp
-	${SHARED_INC_DIR}/mwdg/ctl_arg_view.hpp
-	${SHARED_INC_DIR}/mwdg/ctl_arg_view_integer.hpp
-	${SHARED_INC_DIR}/mwdg/ctl_arg_view_string.hpp
-	${SHARED_INC_DIR}/mwdg/ctl_arg_view_card.hpp
-
-	${SHARED_INC_DIR}/views/message_widget.hpp
-	${SHARED_INC_DIR}/views/view_base.hpp
-	${SHARED_INC_DIR}/views/device_selection_view.hpp
-	${SHARED_INC_DIR}/views/basic_dialog.hpp
-	${SHARED_INC_DIR}/views/multi_page_dialog.hpp
-	${SHARED_INC_DIR}/views/info_dialog.hpp
-
-	mwdg/mixer_hctl.hpp
-	mwdg/mixer_hctl_edit_bool.hpp
-	mwdg/mixer_hctl_edit_enum.hpp
-	mwdg/mixer_hctl_edit_int.hpp
-	mwdg/mixer_hctl_editor.hpp
-	mwdg/mixer_hctl_edit_unsupported.hpp
-	mwdg/mixer_hctl_int_proxies_group.hpp
-	mwdg/mixer_hctl_int_proxy_column.hpp
-	mwdg/mixer_hctl_int_proxy_slider.hpp
-	mwdg/mixer_hctl_proxies_group.hpp
-	mwdg/mixer_hctl_proxy.hpp
-	mwdg/mixer_hctl_proxy_enum.hpp
-	mwdg/mixer_hctl_proxy_switch.hpp
-	mwdg/mixer_hctl_slider_status_widget.hpp
-	mwdg/mixer_hctl_table_model.hpp
-	mwdg/mixer_hctl_tree_model.hpp
-
-	views/mixer_hctl.hpp
-
-	main_window.hpp
-)
-
 
 # --- Compiler flags
 
@@ -224,19 +161,13 @@ INCLUDE_DIRECTORIES ( ${SHARED_INC_DIR} )
 INCLUDE_DIRECTORIES ( ${ALSA_INCLUDE_DIRS} )
 
 
-# --- QT extras
-
-QT5_WRAP_CPP ( SRC_GUI_MOC ${SRC_GUI_HEADER_MOC} )
-QT5_WRAP_CPP ( SRC_EXTRA_MOC ${SRC_EXTRA_HEADER_MOC} )
-
-
 # --- Executable
 
 ADD_EXECUTABLE ( ${PROGRAM_NAME}
 	${SRC_GUI}
 	${SRC_GUI_MOC}
 )
-
+SET_TARGET_PROPERTIES ( ${PROGRAM_NAME} PROPERTIES AUTOMOC ON )
 TARGET_LINK_LIBRARIES ( ${PROGRAM_NAME}
 	Qt5::Widgets
 	Qt5::Svg

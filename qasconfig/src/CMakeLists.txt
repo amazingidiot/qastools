@@ -38,19 +38,6 @@ SET ( SRC_GUI
 	main.cpp
 )
 
-SET ( SRC_GUI_HEADER_MOC
-	${SHARED_INC_DIR}/qsnd/alsa_config_watcher.hpp
-	${SHARED_INC_DIR}/wdg/tree_view_kv.hpp
-	${SHARED_INC_DIR}/views/basic_dialog.hpp
-	${SHARED_INC_DIR}/views/multi_page_dialog.hpp
-	${SHARED_INC_DIR}/views/info_dialog.hpp
-
-	qsnd/alsa_config_model.hpp
-	views/alsa_config_view.hpp
-
-	main_window.hpp
-)
-
 
 # --- Compiler flags
 
@@ -70,19 +57,13 @@ INCLUDE_DIRECTORIES ( ${SHARED_INC_DIR} )
 INCLUDE_DIRECTORIES ( ${ALSA_INCLUDE_DIRS} )
 
 
-# --- QT extras
-
-QT5_WRAP_CPP ( SRC_GUI_MOC ${SRC_GUI_HEADER_MOC} )
-QT5_WRAP_CPP ( SRC_EXTRA_MOC ${SRC_EXTRA_HEADER_MOC} )
-
-
 # --- Executable
 
 ADD_EXECUTABLE ( ${PROGRAM_NAME}
 	${SRC_GUI}
 	${SRC_GUI_MOC}
 )
-
+SET_TARGET_PROPERTIES ( ${PROGRAM_NAME} PROPERTIES AUTOMOC ON )
 TARGET_LINK_LIBRARIES ( ${PROGRAM_NAME}
 	Qt5::Widgets
 	${ALSA_LIBRARIES}
