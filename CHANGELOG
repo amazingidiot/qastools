@@ -1,3 +1,11 @@
+2010-10-03      Sebastian Holtermann  <sebholt@web.de>
+	* Switch to MIT license
+	* Remove xwmw.org references
+	* CMake: Modernize CMakeLists.txt
+	* CMake: Use AUTOMOC
+	* Bug fixes
+	* Release version 0.22
+
 2016-04-27      Sebastian Holtermann  <sebholt@xwmw.org>
 	* all: Console messages flushed as single complete strings
 	* all: System function error evaluation
