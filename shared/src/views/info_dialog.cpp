@@ -63,7 +63,7 @@ Info_Dialog::Info_Dialog (
 		txt += hmask.arg ( tr ( "Internet" ) );
 
 		txt += "<p>";
-		txt += amask.arg ( "http://sourceforge.net/projects/qastools/", tr ( "Project page" ) );
+		txt += amask.arg ( "https://gitlab.com/sebholt/qastools", tr ( "Project page" ) );
 		txt += "</p>";
 
 
