@@ -13,33 +13,33 @@ FIND_PACKAGE ( ALSA REQUIRED )
 INCLUDE ( CheckIncludeFiles )
 
 CONFIGURE_FILE (
-	${SHARED_SRC_DIR}/qastools_config.hpp.cmake
-	${CMAKE_CURRENT_BINARY_DIR}/qastools_config.hpp )
+  ${SHARED_SRC_DIR}/qastools_config.hpp.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/qastools_config.hpp )
 
 
 # --- Sources
 
 SET ( SRC_GUI
-	${SHARED_SRC_DIR}/qsnd/alsa.cpp
-	${SHARED_SRC_DIR}/qsnd/alsa_config_watcher.cpp
-	${SHARED_SRC_DIR}/wdg/scroll_area_vertical.cpp
-	${SHARED_SRC_DIR}/wdg/text_browser.cpp
-	${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
-	${SHARED_SRC_DIR}/views/view_utility.cpp
-	${SHARED_SRC_DIR}/views/basic_dialog.cpp
-	${SHARED_SRC_DIR}/views/multi_page_dialog.cpp
-	${SHARED_SRC_DIR}/views/info_dialog.cpp
-	${SHARED_SRC_DIR}/license_texts.cpp
+  ${SHARED_SRC_DIR}/qsnd/alsa.cpp
+  ${SHARED_SRC_DIR}/qsnd/alsa_config_watcher.cpp
+  ${SHARED_SRC_DIR}/wdg/scroll_area_vertical.cpp
+  ${SHARED_SRC_DIR}/wdg/text_browser.cpp
+  ${SHARED_SRC_DIR}/wdg/tree_view_kv.cpp
+  ${SHARED_SRC_DIR}/views/view_utility.cpp
+  ${SHARED_SRC_DIR}/views/basic_dialog.cpp
+  ${SHARED_SRC_DIR}/views/multi_page_dialog.cpp
+  ${SHARED_SRC_DIR}/views/info_dialog.cpp
+  ${SHARED_SRC_DIR}/license_texts.cpp
 
-	qsnd/alsa_config_model.cpp
-	views/alsa_config_view.cpp
+  qsnd/alsa_config_model.cpp
+  views/alsa_config_view.cpp
 
-	info_texts.cpp
-	static_tree.cpp
-	static_tree_model.cpp
-	main_window.cpp
-	desktop_items.cpp
-	main.cpp
+  info_texts.cpp
+  static_tree.cpp
+  static_tree_model.cpp
+  main_window.cpp
+  desktop_items.cpp
+  main.cpp
 )
 
 
@@ -64,18 +64,18 @@ INCLUDE_DIRECTORIES ( ${ALSA_INCLUDE_DIRS} )
 # --- Executable
 
 ADD_EXECUTABLE ( ${PROGRAM_NAME}
-	${SRC_GUI}
-	${SRC_GUI_MOC}
+  ${SRC_GUI}
+  ${SRC_GUI_MOC}
 )
 SET_TARGET_PROPERTIES ( ${PROGRAM_NAME} PROPERTIES AUTOMOC ON )
 TARGET_LINK_LIBRARIES ( ${PROGRAM_NAME}
-	Qt5::Widgets
-	${ALSA_LIBRARIES}
+  Qt5::Widgets
+  ${ALSA_LIBRARIES}
 )
 
 
 # --- Installation
 
 INSTALL (
-	TARGETS ${PROGRAM_NAME} RUNTIME
-	DESTINATION ${INSTALL_DIR_BIN} )
+  TARGETS ${PROGRAM_NAME} RUNTIME
+  DESTINATION ${INSTALL_DIR_BIN} )

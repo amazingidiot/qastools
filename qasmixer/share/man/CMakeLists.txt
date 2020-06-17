@@ -2,7 +2,7 @@
 FIND_PACKAGE ( UnixCommands REQUIRED )
 
 IF ( NOT GZIP )
-	MESSAGE ( FATAL_ERROR "Unable to find 'gzip' program" )
+  MESSAGE ( FATAL_ERROR "Unable to find 'gzip' program" )
 ENDIF ( NOT GZIP )
 
 
@@ -18,18 +18,18 @@ CONFIGURE_FILE ( ${man_src} ${man_plain} )
 # Compress manpages
 
 ADD_CUSTOM_COMMAND (
-	OUTPUT ${man_gz}
-	COMMAND ${GZIP} -c -9 ${man_plain} > ${man_gz}
-	DEPENDS ${man_plain}
-	COMMENT "Building ${man_gz}" )
+  OUTPUT ${man_gz}
+  COMMAND ${GZIP} -c -9 ${man_plain} > ${man_gz}
+  DEPENDS ${man_plain}
+  COMMENT "Building ${man_gz}" )
 
 ADD_CUSTOM_TARGET (
-	qasmixer_manpage ALL
-	DEPENDS ${man_gz} )
+  qasmixer_manpage ALL
+  DEPENDS ${man_gz} )
 
 
 # Installation of the manpage
 
 INSTALL ( FILES ${man_gz}
-	DESTINATION ${INSTALL_DIR_MAN}
-	RENAME ${PROGRAM_NAME}.1.gz )
+  DESTINATION ${INSTALL_DIR_MAN}
+  RENAME ${PROGRAM_NAME}.1.gz )

@@ -6,7 +6,7 @@ SET ( desktop_file     ${CMAKE_CURRENT_BINARY_DIR}/${PROGRAM_NAME}.desktop )
 CONFIGURE_FILE ( ${desktop_file_src} ${desktop_file} )
 
 INSTALL( FILES ${desktop_file}
-	DESTINATION ${INSTALL_DIR_DESKTOP} )
+  DESTINATION ${INSTALL_DIR_DESKTOP} )
 
 
 # Subdirectories
