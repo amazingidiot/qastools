@@ -2,10 +2,24 @@
 /// \copyright See COPYING file.
 
 #include "controls_delegate.hpp"
+#include "qsnd/cards_model.hpp"
+#include "qsnd/controls_model.hpp"
 #include "qsnd/model_keys.hpp"
 #include <QApplication>
 #include <QPainter>
 #include <iostream>
+
+namespace
+{
+
+inline bool
+_is_card ( const QModelIndex & index_n )
+{
+  return ( dynamic_cast< const ::QSnd::Cards_Model * > ( index_n.model () ) !=
+           nullptr );
+}
+
+} // namespace
 
 namespace MWdg
 {
@@ -30,7 +44,7 @@ Controls_Delegate::sizeHint ( const QStyleOptionViewItem & option_n,
   const QFontMetrics & fmet ( opt.fontMetrics );
   res.setWidth ( fmet.averageCharWidth () * 12 );
   res.rheight () += 2 * _vmargin;
-  if ( index_n.data ( ::QSnd::MKEY_CARD_INDEX ).isValid () ) {
+  if ( _is_card ( index_n ) ) {
     // Is Card
     res.rheight () += fmet.height () * 2;
     res.rheight () += _vspace;
@@ -135,7 +149,7 @@ Controls_Delegate::paint ( QPainter * painter_n,
     }
   }
 
-  if ( index_n.data ( ::QSnd::MKEY_CARD_INDEX ).isValid () ) {
+  if ( _is_card ( index_n ) ) {
     // Is card
 
     QRect re_t0;
@@ -167,12 +181,12 @@ Controls_Delegate::paint ( QPainter * painter_n,
 
     // Index string
     QString txt;
-    txt.setNum ( index_n.data ( ::QSnd::MKEY_CARD_INDEX ).toInt () );
+    txt.setNum ( index_n.data ( ::QSnd::Cards_Model::ROLE_INDEX ).toInt () );
     txt.append ( ":" );
     painter_n->drawText ( re_t0, Qt::AlignRight | Qt::AlignVCenter, txt );
 
     // Name string
-    txt = index_n.data ( ::QSnd::MKEY_CARD_NAME ).toString ();
+    txt = index_n.data ( ::QSnd::Cards_Model::ROLE_NAME ).toString ();
     txt = fmet.elidedText ( txt, opt.textElideMode, re_t1.width () );
     painter_n->drawText ( re_t1, Qt::AlignLeft | Qt::AlignVCenter, txt );
 
@@ -183,7 +197,7 @@ Controls_Delegate::paint ( QPainter * painter_n,
     col_fg.setAlpha ( 160 );
     painter_n->setPen ( QPen ( col_fg ) );
 
-    txt = index_n.data ( ::QSnd::MKEY_CARD_MIXER_NAME ).toString ();
+    txt = index_n.data ( ::QSnd::Cards_Model::ROLE_MIXER_NAME ).toString ();
     txt = fmet.elidedText ( txt, opt.textElideMode, re_t2.width () );
     painter_n->drawText ( re_t2, Qt::AlignLeft | Qt::AlignVCenter, txt );
 

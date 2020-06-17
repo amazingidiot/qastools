@@ -3,151 +3,124 @@
 
 #include "cards_model.hpp"
 #include "qsnd/alsa.hpp"
-#include "qsnd/model_keys.hpp"
 #include "qsnd/udev_device_lookout.hpp"
+#include <algorithm>
 #include <iostream>
 
 namespace QSnd
 {
 
 Cards_Model::Cards_Model ( QObject * parent_n )
-: QStandardItemModel ( parent_n )
+: QAbstractListModel ( parent_n )
 {
-  reload ();
+  connect ( this,
+            &QAbstractListModel::rowsInserted,
+            this,
+            &Cards_Model::countChanged );
+  connect ( this,
+            &QAbstractListModel::rowsRemoved,
+            this,
+            &Cards_Model::countChanged );
 
   // Device lookout
   {
-    ::QSnd::UDev_Device_Lookout * lookout (
-        new ::QSnd::UDev_Device_Lookout ( this ) );
+    auto * lookout = new ::QSnd::UDev_Device_Lookout ( this );
     connect ( lookout, SIGNAL ( sig_change () ), this, SLOT ( reload () ) );
   }
+
+  // Initial reload
+  reload ();
 }
 
 Cards_Model::~Cards_Model () {}
 
-const ::QSnd::Card_Info *
-Cards_Model::card_info_by_card_id ( unsigned int id_n )
+Cards_Model::Const_Info_Handle
+Cards_Model::card_info_by_card_index ( int index_n )
 {
-  const ::QSnd::Card_Info * res ( 0 );
-  {
-    const unsigned int num ( _card_infos.size () );
-    for ( unsigned int ii = 0; ii != num; ++ii ) {
-      const ::QSnd::Card_Info & cinfo ( _card_infos[ ii ] );
-      if ( (unsigned int)cinfo.card_index () == id_n ) {
-        res = &cinfo;
-        break;
-      }
+  for ( auto & item : _cards ) {
+    if ( item->index () == index_n ) {
+      return item;
     }
   }
-  return res;
+  return Const_Info_Handle ();
 }
 
-const ::QSnd::Card_Info *
+Cards_Model::Const_Info_Handle
 Cards_Model::card_info_by_model_index ( const QModelIndex & idx_n ) const
 {
-  const ::QSnd::Card_Info * res ( 0 );
-  if ( idx_n.isValid () && !idx_n.parent ().isValid () ) {
-    if ( ( idx_n.column () == 0 ) && ( idx_n.row () < _card_infos.size () ) ) {
-      res = &_card_infos[ idx_n.row () ];
-    }
+  if ( !idx_n.isValid () || idx_n.parent ().isValid () ||
+       ( idx_n.column () != 0 ) || ( idx_n.row () < 0 ) ||
+       ( idx_n.row () >= static_cast< int > ( _cards.size () ) ) ) {
+    return Const_Info_Handle ();
   }
-  return res;
+  return _cards[ idx_n.row () ];
 }
 
 QModelIndex
 Cards_Model::model_index_by_card_id ( const QString & id_str_n ) const
 {
-  QModelIndex res;
+  bool is_int = false;
+  int int_val = id_str_n.toInt ( &is_int );
 
-  bool found ( false );
-  bool is_int ( false );
-  int int_val ( id_str_n.toInt ( &is_int ) );
-  for ( int ii = 0; ii != _card_infos.size (); ++ii ) {
-    const ::QSnd::Card_Info & cinfo ( _card_infos[ ii ] );
-    if ( is_int ) {
-      if ( cinfo.card_index () == int_val ) {
-        found = true;
-      }
-    } else {
-      if ( cinfo.card_id () == id_str_n ) {
-        found = true;
-      }
+  int ii = 0;
+  for ( const auto & item : _cards ) {
+    if ( is_int && ( item->index () == int_val ) ) {
+      return index ( ii, 0 );
     }
-    if ( found ) {
-      res = QModelIndex ( index ( ii, 0 ) );
-      break;
+    if ( item->id () == id_str_n ) {
+      return index ( ii, 0 );
     }
+    ++ii;
   }
 
-  return res;
+  return QModelIndex ();
 }
 
 void
 Cards_Model::reload ()
 {
   Card_Infos cards;
+  // Reserve some more space
+  cards.reserve ( _cards.size () + 4 );
   load_cards ( cards );
 
-  unsigned int index_src ( 0 );
-  unsigned int index_dst ( 0 );
-  while ( ( index_src != (unsigned int)cards.size () ) ||
-          ( index_dst != (unsigned int)_card_infos.size () ) ) {
-    bool dst_item_remove ( false );
-    bool src_item_insert ( false );
-    bool src_dst_matching ( false );
-    if ( index_src == (unsigned int)cards.size () ) {
-      dst_item_remove = true;
-    } else {
-      if ( index_dst == (unsigned int)_card_infos.size () ) {
-        src_item_insert = true;
-      } else {
-        const ::QSnd::Card_Info & cinfo_src ( cards[ index_src ] );
-        const ::QSnd::Card_Info & cinfo_dst ( _card_infos[ index_dst ] );
-        if ( cinfo_src.card_index () == cinfo_dst.card_index () ) {
-          if ( cinfo_src == cinfo_dst ) {
-            src_dst_matching = true;
-          } else {
-            dst_item_remove = true;
-            src_item_insert = true;
-          }
-        } else {
-          if ( cinfo_src.card_index () > cinfo_dst.card_index () ) {
-            dst_item_remove = true;
-          } else {
-            src_item_insert = true;
-          }
-        }
-      }
+  // -- Remove disappeared cards
+  for ( auto it = _cards.cbegin (); it != _cards.cend (); ) {
+    auto itf =
+        std::find_if ( cards.cbegin (),
+                       cards.cend (),
+                       [& card = *it] ( const Const_Info_Handle & card_n ) {
+                         return *card == *card_n;
+                       } );
+    if ( itf != cards.cend () ) {
+      ++it;
+      continue;
     }
-    if ( src_dst_matching ) {
-      ++index_src;
-      ++index_dst;
-    } else {
-      if ( dst_item_remove ) {
-        _card_infos.removeAt ( index_dst );
-        QList< QStandardItem * > lst ( takeRow ( index_dst ) );
-        for ( int ii = 0; ii != lst.size (); ++ii ) {
-          delete lst[ ii ];
-        }
-      }
-      if ( src_item_insert ) {
-        const ::QSnd::Card_Info & cinfo ( cards[ index_src ] );
-        _card_infos.insert ( index_dst, cinfo );
-        {
-          // Create standard item and append
-          QStandardItem * sitem ( new QStandardItem );
-          sitem->setText ( cinfo.card_name () );
-          sitem->setEditable ( false );
-          sitem->setSelectable ( true );
-          sitem->setData ( QVariant ( cinfo.card_index () ), MKEY_CARD_INDEX );
-          sitem->setData ( QVariant ( cinfo.card_name () ), MKEY_CARD_NAME );
-          sitem->setData ( QVariant ( cinfo.card_mixer_name () ),
-                           MKEY_CARD_MIXER_NAME );
-          insertRow ( index_dst, sitem );
-        }
-        ++index_src;
-        ++index_dst;
-      }
+    // Not found. Erase.
+    {
+      auto index = std::distance ( _cards.cbegin (), it );
+      beginRemoveRows ( QModelIndex (), index, index );
+      it = _cards.erase ( it );
+      endRemoveRows ();
+    }
+  }
+
+  // -- Insert new cards
+  for ( const auto & card : cards ) {
+    auto itf = std::find_if ( _cards.cbegin (),
+                              _cards.cend (),
+                              [&card] ( const Const_Info_Handle & card_n ) {
+                                return *card == *card_n;
+                              } );
+    if ( itf != _cards.cend () ) {
+      continue;
+    }
+    // Not found. Insert.
+    {
+      auto index = _cards.size ();
+      beginInsertRows ( QModelIndex (), index, index );
+      _cards.emplace_back ( card );
+      endInsertRows ();
     }
   }
 }
@@ -155,8 +128,6 @@ Cards_Model::reload ()
 void
 Cards_Model::load_cards ( Card_Infos & card_infos_n )
 {
-  card_infos_n.clear ();
-
   int card_idx = -1;
   while ( true ) {
     if ( ::snd_card_next ( &card_idx ) != 0 ) {
@@ -165,8 +136,62 @@ Cards_Model::load_cards ( Card_Infos & card_infos_n )
     if ( card_idx < 0 ) {
       break;
     }
-    card_infos_n.append ( ::QSnd::Card_Info ( card_idx ) );
+    card_infos_n.emplace_back (
+        std::make_shared<::QSnd::Card_Info > ( card_idx ) );
   }
+  card_infos_n.shrink_to_fit ();
+}
+
+QHash< int, QByteArray >
+Cards_Model::roleNames () const
+{
+  auto res = QAbstractListModel::roleNames ();
+  res.insert ( ROLE_INDEX, "index" );
+  res.insert ( ROLE_ID, "id" );
+  res.insert ( ROLE_DRIVER, "driver" );
+  res.insert ( ROLE_NAME, "name" );
+  res.insert ( ROLE_LONG_NAME, "longName" );
+  res.insert ( ROLE_MIXER_NAME, "mixerName" );
+  res.insert ( ROLE_COMPONENTS, "components" );
+  return res;
+}
+
+int
+Cards_Model::rowCount ( const QModelIndex & parent_n ) const
+{
+  if ( parent_n.isValid () ) {
+    return 0;
+  }
+  return _cards.size ();
+}
+
+QVariant
+Cards_Model::data ( const QModelIndex & index_n, int role_n ) const
+{
+  auto handle = card_info_by_model_index ( index_n );
+  if ( handle ) {
+    switch ( role_n ) {
+    case Qt::DisplayRole:
+      return QVariant ( handle->name () );
+    case ROLE_INDEX:
+      return QVariant ( handle->index () );
+    case ROLE_ID:
+      return QVariant ( handle->id () );
+    case ROLE_DRIVER:
+      return QVariant ( handle->driver () );
+    case ROLE_NAME:
+      return QVariant ( handle->name () );
+    case ROLE_LONG_NAME:
+      return QVariant ( handle->long_name () );
+    case ROLE_MIXER_NAME:
+      return QVariant ( handle->mixer_name () );
+    case ROLE_COMPONENTS:
+      return QVariant ( handle->components () );
+    default:
+      break;
+    }
+  }
+  return QVariant ();
 }
 
 } // namespace QSnd

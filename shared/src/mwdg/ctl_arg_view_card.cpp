@@ -37,17 +37,16 @@ CTL_Arg_View_Card::set_arg_string ( const QString & str_n )
 void
 CTL_Arg_View_Card::read_view_selection ()
 {
-  // Update arg string if selected index is valid
-  if ( cards_model () != 0 ) {
-    QModelIndex midx ( _ctl_view->currentIndex () );
-    const ::QSnd::Card_Info * cinfo (
-        cards_model ()->card_info_by_model_index ( midx ) );
-    if ( cinfo != 0 ) {
-      QString str;
-      str.setNum ( cinfo->card_index () );
-      set_arg_string ( str );
-    }
+  if ( cards_model () == nullptr ) {
+    return;
   }
+  // Update arg string if selected index is valid
+  auto cinfo =
+      cards_model ()->card_info_by_model_index ( _ctl_view->currentIndex () );
+  if ( !cinfo ) {
+    return;
+  }
+  set_arg_string ( QString::number ( cinfo->index () ) );
 }
 
 void

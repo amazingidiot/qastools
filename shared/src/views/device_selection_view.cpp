@@ -114,7 +114,7 @@ void
 Device_Selection_View::compile_ctl_address ( ::QSnd::CTL_Address & ctl_addr_n )
 {
   //::std::cout << "Device_Selection_View::compile_ctl_address: " <<
-  //ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
+  // ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
 
   const QModelIndex & cidx ( _controls_view->currentIndex () );
   const ::QSnd::CTL_Format * ctl_format (
@@ -279,7 +279,7 @@ Device_Selection_View::update_selected_ctl_checks ()
           if ( arg_format.arg_name.compare ( _str_type_card,
                                              Qt::CaseInsensitive ) == 0 ) {
             unsigned int card_id ( arg.arg_value.toUInt () );
-            if ( _cards_model.card_info_by_card_id ( card_id ) == 0 ) {
+            if ( !_cards_model.card_info_by_card_index ( card_id ) ) {
               _selected_ctl_checks_good = false;
             }
           }

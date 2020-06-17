@@ -14,19 +14,19 @@ namespace QSnd
 ///
 class Card_Info
 {
-  // Public methods
   public:
+  // -- Construction
+
   Card_Info ();
 
   Card_Info ( const int hw_idx_n );
 
   Card_Info ( const QString & dev_str_n );
 
+  // -- Setup
+
   void
   clear ();
-
-  bool
-  is_clear () const;
 
   int
   acquire_info ( const int hw_idx_n );
@@ -37,26 +37,57 @@ class Card_Info
   int
   acquire_info ( snd_hctl_t * snd_hctl_n );
 
+  // -- Accessors
+
+  bool
+  is_valid () const
+  {
+    return ( _index >= 0 );
+  }
+
   int
-  card_index () const;
+  index () const
+  {
+    return _index;
+  }
 
   const QString &
-  card_id () const;
+  id () const
+  {
+    return _id;
+  }
 
   const QString &
-  card_driver () const;
+  driver () const
+  {
+    return _driver;
+  }
 
   const QString &
-  card_name () const;
+  name () const
+  {
+    return _name;
+  }
 
   const QString &
-  card_long_name () const;
+  long_name () const
+  {
+    return _long_name;
+  }
 
   const QString &
-  card_mixer_name () const;
+  mixer_name () const
+  {
+    return _mixer_name;
+  }
 
   const QString &
-  card_components () const;
+  components () const
+  {
+    return _components;
+  }
+
+  // -- Comparison operators
 
   bool
   operator== ( const ::QSnd::Card_Info & cinfo_n ) const;
@@ -64,53 +95,16 @@ class Card_Info
   bool
   operator!= ( const ::QSnd::Card_Info & cinfo_n ) const;
 
-  // Private attributes
   private:
-  int _card_index;
-  QString _strings[ 6 ];
+  // -- Attributes
+  int _index = -1;
+  QString _id;
+  QString _driver;
+  QString _name;
+  QString _long_name;
+  QString _mixer_name;
+  QString _components;
 };
-
-inline int
-Card_Info::card_index () const
-{
-  return _card_index;
-}
-
-inline const QString &
-Card_Info::card_id () const
-{
-  return _strings[ 0 ];
-}
-
-inline const QString &
-Card_Info::card_driver () const
-{
-  return _strings[ 1 ];
-}
-
-inline const QString &
-Card_Info::card_name () const
-{
-  return _strings[ 2 ];
-}
-
-inline const QString &
-Card_Info::card_long_name () const
-{
-  return _strings[ 3 ];
-}
-
-inline const QString &
-Card_Info::card_mixer_name () const
-{
-  return _strings[ 4 ];
-}
-
-inline const QString &
-Card_Info::card_components () const
-{
-  return _strings[ 5 ];
-}
 
 } // namespace QSnd
 

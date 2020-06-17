@@ -5,71 +5,107 @@
 #define __INC_qsnd_cards_model_hpp__
 
 #include "qsnd/card_info.hpp"
-#include <QStandardItemModel>
+#include <QAbstractListModel>
+#include <memory>
+#include <vector>
 
 namespace QSnd
 {
 
 /// @brief Cards_Model
 ///
-class Cards_Model : public QStandardItemModel
+class Cards_Model : public QAbstractListModel
 {
   Q_OBJECT;
 
-  // Public types
   public:
-  typedef QList<::QSnd::Card_Info > Card_Infos;
+  // -- Types
 
-  // Public methods
-  public:
-  Cards_Model ( QObject * parent_n = 0 );
+  using Info_Handle = std::shared_ptr<::QSnd::Card_Info >;
+  using Const_Info_Handle = std::shared_ptr< const ::QSnd::Card_Info >;
+  using Card_Infos = std::vector< Const_Info_Handle >;
+
+  enum Extra_Roles
+  {
+    ROLE_INDEX = ( Qt::UserRole + 1 ),
+    ROLE_ID = ( Qt::UserRole + 2 ),
+    ROLE_DRIVER = ( Qt::UserRole + 3 ),
+    ROLE_NAME = ( Qt::UserRole + 4 ),
+    ROLE_LONG_NAME = ( Qt::UserRole + 5 ),
+    ROLE_MIXER_NAME = ( Qt::UserRole + 6 ),
+    ROLE_COMPONENTS = ( Qt::UserRole + 7 )
+  };
+
+  // -- Properties
+
+  Q_PROPERTY ( int count READ count NOTIFY countChanged )
+
+  // -- Construction
+
+  Cards_Model ( QObject * parent_n = nullptr );
 
   ~Cards_Model ();
 
-  unsigned int
-  num_cards () const;
+  // -- Card info accessors
 
-  const ::QSnd::Card_Info &
-  card_info ( unsigned int index_n ) const;
+  int
+  count () const
+  {
+    return _cards.size ();
+  }
 
-  const ::QSnd::Card_Info *
-  card_info_by_card_id ( unsigned int id_n );
+  Q_SIGNAL
+  void
+  countChanged ();
 
-  // Control definition access
+  std::size_t
+  num_cards () const
+  {
+    return _cards.size ();
+  }
 
-  const ::QSnd::Card_Info *
+  const Const_Info_Handle &
+  card_info ( std::size_t index_n ) const
+  {
+    return _cards[ index_n ];
+  }
+
+  Const_Info_Handle
+  card_info_by_card_index ( int index_n );
+
+  Const_Info_Handle
   card_info_by_model_index ( const QModelIndex & idx_n ) const;
 
   QModelIndex
   model_index_by_card_id ( const QString & id_str_n ) const;
 
-  // Public slots
-  public slots:
-
+  /// @brief Reload cards list
+  Q_SLOT
   void
   reload ();
 
-  // Protected methods
+  // -- Model interface
+
+  QHash< int, QByteArray >
+  roleNames () const override;
+
+  int
+  rowCount ( const QModelIndex & parent_n = QModelIndex () ) const override;
+
+  QVariant
+  data ( const QModelIndex & index_n,
+         int role_n = Qt::DisplayRole ) const override;
+
   protected:
+  // -- Utility
+
   void
   load_cards ( Card_Infos & card_infos_n );
 
-  // Private attributes
   private:
-  Card_Infos _card_infos;
+  // -- Attributes
+  Card_Infos _cards;
 };
-
-inline unsigned int
-Cards_Model::num_cards () const
-{
-  return _card_infos.size ();
-}
-
-inline const ::QSnd::Card_Info &
-Cards_Model::card_info ( unsigned int index_n ) const
-{
-  return _card_infos[ index_n ];
-}
 
 } // namespace QSnd
 
