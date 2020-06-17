@@ -24,7 +24,7 @@ Controls_Delegate::sizeHint ( const QStyleOptionViewItem & option_n,
 {
   QSize res ( 0, 0 );
 
-  QStyleOptionViewItemV4 opt ( option_n );
+  QStyleOptionViewItem opt ( option_n );
   initStyleOption ( &opt, index_n );
 
   const QFontMetrics & fmet ( opt.fontMetrics );
@@ -49,7 +49,7 @@ Controls_Delegate::paint ( QPainter * painter_n,
 {
   Q_ASSERT ( index_n.isValid () );
 
-  QStyleOptionViewItemV4 opt ( option_n );
+  QStyleOptionViewItem opt ( option_n );
   initStyleOption ( &opt, index_n );
   const QFontMetrics & fmet ( opt.fontMetrics );
   opt.text = QString ();
