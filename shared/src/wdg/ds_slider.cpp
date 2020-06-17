@@ -445,6 +445,8 @@ DS_Slider::changeEvent ( QEvent * event_n )
   case QEvent::ActivationChange:
   case QEvent::EnabledChange:
     upd_pixmaps = true;
+    upd_painter = true;
+    break;
   case QEvent::StyleChange:
   case QEvent::PaletteChange:
   case QEvent::LayoutDirectionChange:
