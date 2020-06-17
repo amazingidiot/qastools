@@ -4,7 +4,6 @@
 #include "controls_delegate.hpp"
 #include "qsnd/cards_model.hpp"
 #include "qsnd/controls_model.hpp"
-#include "qsnd/model_keys.hpp"
 #include <QApplication>
 #include <QPainter>
 #include <iostream>
@@ -228,7 +227,8 @@ Controls_Delegate::paint ( QPainter * painter_n,
 
     {
       const QStringList & arg_lst (
-          index_n.data ( ::QSnd::MKEY_L10N_ARGS ).toStringList () );
+          index_n.data ( ::QSnd::Controls_Model::ROLE_L10N_ARGS )
+              .toStringList () );
       if ( arg_lst.size () > 0 ) {
         col_fg.setAlpha ( 160 );
         painter_n->setPen ( QPen ( col_fg ) );

@@ -22,21 +22,33 @@ class Controls_Model : public QStandardItemModel
 {
   Q_OBJECT;
 
-  // Public methods
   public:
+  // -- Types
+
+  enum Extra_Roles
+  {
+    ROLE_DB_INDEX = ( Qt::UserRole + 1 ),
+    ROLE_L10N_ARGS = ( Qt::UserRole + 2 )
+  };
+
+  // -- Construction
+
   Controls_Model ( QObject * parent_n = 0 );
 
   ~Controls_Model ();
 
-  // Controls database
+  // -- Controls database
 
   ::QSnd::Controls_Database *
-  controls_db () const;
+  controls_db () const
+  {
+    return _ctl_db;
+  }
 
   void
   set_controls_db ( ::QSnd::Controls_Database * ctl_db_n );
 
-  // Control definition access
+  // -- Control definition access
 
   const ::QSnd::CTL_Format *
   ctl_format ( const QModelIndex & idx_n ) const;
@@ -48,36 +60,28 @@ class Controls_Model : public QStandardItemModel
   QModelIndex
   ctl_format_index ( const QString & ctl_addr_n ) const;
 
-  // Public slots
-  public slots:
-
+  Q_SLOT
   void
   reload ();
 
-  // Protected slots
-  protected slots:
+  protected:
+  // -- Utility
 
+  Q_SLOT
   void
   reload_begin ();
 
+  Q_SLOT
   void
   reload_finish ();
 
-  // Protected methods
-  protected:
   void
   load_data ();
 
-  // Private attributes
   private:
-  ::QSnd::Controls_Database * _ctl_db;
+  // -- Attributes
+  ::QSnd::Controls_Database * _ctl_db = nullptr;
 };
-
-inline ::QSnd::Controls_Database *
-Controls_Model::controls_db () const
-{
-  return _ctl_db;
-}
 
 } // namespace QSnd
 
