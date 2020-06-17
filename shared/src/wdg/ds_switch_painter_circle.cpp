@@ -10,6 +10,7 @@
 #include "wdg/ds_widget_types.hpp"
 #include <QImage>
 #include <QPainter>
+#include <QPainterPath>
 #include <QRadialGradient>
 #include <QScopedPointer>
 

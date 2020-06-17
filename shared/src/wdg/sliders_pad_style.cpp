@@ -4,7 +4,9 @@
 #include "sliders_pad_style.hpp"
 #include "sliders_pad_data.hpp"
 #include "sliders_pad_header_data.hpp"
+#include <QPainterPath>
 #include <QPicture>
+
 #define _USE_MATH_DEFINES
 #include <climits>
 #include <cmath>

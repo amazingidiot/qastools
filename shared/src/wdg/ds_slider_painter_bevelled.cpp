@@ -13,6 +13,7 @@
 #include <QImage>
 #include <QLinearGradient>
 #include <QPainter>
+#include <QPainterPath>
 #include <QRadialGradient>
 #include <QScopedPointer>
 #include <cmath>
