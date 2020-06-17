@@ -1,7 +1,11 @@
 # --- Find modules
 
-FIND_PACKAGE ( Qt5Widgets )
-FIND_PACKAGE ( Qt5Svg )
+FIND_PACKAGE (
+  Qt5
+  COMPONENTS
+    Widgets
+    Svg
+  REQUIRED )
 FIND_PACKAGE ( ALSA REQUIRED )
 
 # TODO: FIND_PACKAGE

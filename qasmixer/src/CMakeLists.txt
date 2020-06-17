@@ -1,9 +1,13 @@
 # --- Find modules
 
-FIND_PACKAGE ( Qt5Core REQUIRED )
-FIND_PACKAGE ( Qt5Widgets REQUIRED )
-FIND_PACKAGE ( Qt5Svg REQUIRED )
-FIND_PACKAGE ( Qt5Network REQUIRED )
+FIND_PACKAGE (
+  Qt5
+  COMPONENTS
+    Core
+    Widgets
+    Svg
+    Network
+  REQUIRED )
 FIND_PACKAGE ( ALSA REQUIRED )
 
 # TODO: FIND_PACKAGE
