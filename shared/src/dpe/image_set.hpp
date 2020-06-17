@@ -7,11 +7,8 @@
 #include "image.hpp"
 #include <vector>
 
-
-
 namespace dpe
 {
-
 
 /// @brief Image_Set
 ///
@@ -20,99 +17,71 @@ namespace dpe
 ///
 class Image_Set
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Image_Set ( unsigned int num_images_n );
 
-	Image_Set (
-		unsigned int num_images_n );
+  virtual ~Image_Set ();
 
-	virtual
-	~Image_Set ( );
+  void
+  convert_to_pixmap ();
 
+  QPixmap *
+  convert_to_pixmap ( unsigned int idx_n );
 
-	void
-	convert_to_pixmap ( );
+  // Number of images
 
-	QPixmap *
-	convert_to_pixmap (
-		unsigned int idx_n );
+  unsigned int
+  num_images () const;
 
+  unsigned int
+  byte_count () const;
 
-	// Number of images
+  const ::dpe::Image &
+  image ( unsigned int index_n ) const;
 
-	unsigned int
-	num_images ( ) const;
+  ::dpe::Image &
+  image ( unsigned int index_n );
 
-	unsigned int
-	byte_count ( ) const;
+  QPixmap *
+  pixmap ( unsigned int index_n );
 
-	const ::dpe::Image &
-	image (
-		unsigned int index_n ) const;
-
-
-	::dpe::Image &
-	image (
-		unsigned int index_n );
-
-	QPixmap *
-	pixmap (
-		unsigned int index_n );
-
-
-	// Private attributes
-	private:
-
-	unsigned int _num_images;
-	QScopedArrayPointer < ::dpe::Image > _images;
+  // Private attributes
+  private:
+  unsigned int _num_images;
+  QScopedArrayPointer<::dpe::Image > _images;
 };
 
-
-inline
-unsigned int
-Image_Set::num_images ( ) const
+inline unsigned int
+Image_Set::num_images () const
 {
-	return _num_images;
+  return _num_images;
 }
 
-
-inline
-const ::dpe::Image &
-Image_Set::image (
-	unsigned int index_n ) const
+inline const ::dpe::Image &
+Image_Set::image ( unsigned int index_n ) const
 {
-	return _images[index_n];
+  return _images[ index_n ];
 }
 
-
-inline
-::dpe::Image &
-Image_Set::image (
-	unsigned int index_n )
+inline ::dpe::Image &
+Image_Set::image ( unsigned int index_n )
 {
-	return _images[index_n];
+  return _images[ index_n ];
 }
 
-
-inline
-QPixmap *
-Image_Set::pixmap (
-	unsigned int index_n )
+inline QPixmap *
+Image_Set::pixmap ( unsigned int index_n )
 {
-	return image ( index_n ).pixmap();
+  return image ( index_n ).pixmap ();
 }
 
-
-inline
-QPixmap *
-Image_Set::convert_to_pixmap (
-	unsigned int idx_n )
+inline QPixmap *
+Image_Set::convert_to_pixmap ( unsigned int idx_n )
 {
-	return image ( idx_n ).convert_to_pixmap();
+  return image ( idx_n ).convert_to_pixmap ();
 }
 
-
-} // End of namespace
-
+} // namespace dpe
 
 #endif

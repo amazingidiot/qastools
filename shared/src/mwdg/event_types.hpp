@@ -6,7 +6,6 @@
 
 #include <QEvent>
 
-
 namespace MWdg
 {
 
@@ -16,12 +15,9 @@ extern ::QEvent::Type evt_separation;
 extern ::QEvent::Type evt_values_changed;
 extern ::QEvent::Type evt_refresh_data;
 
-
 void
-init_event_types ( );
+init_event_types ();
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

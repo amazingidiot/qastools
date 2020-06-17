@@ -6,48 +6,35 @@
 
 #include <QStyledItemDelegate>
 
-
 namespace MWdg
 {
 
-
 /// @brief Controls_Delegate
 ///
-class Controls_Delegate :
-	public QStyledItemDelegate
+class Controls_Delegate : public QStyledItemDelegate
 {
-	Q_OBJECT
+  Q_OBJECT
 
+  // Public methods
+  public:
+  Controls_Delegate ( QObject * parent_n = 0 );
 
-	// Public methods
-	public:
+  QSize
+  sizeHint ( const QStyleOptionViewItem & option_n,
+             const QModelIndex & index_n ) const;
 
-	Controls_Delegate (
-		QObject * parent_n = 0 );
+  void
+  paint ( QPainter * painter_n,
+          const QStyleOptionViewItem & option_n,
+          const QModelIndex & index_n ) const;
 
-
-	QSize
-	sizeHint (
-		const QStyleOptionViewItem & option_n,
-		const QModelIndex & index_n ) const;
-
-	void
-	paint (
-		QPainter * painter_n,
-		const QStyleOptionViewItem & option_n,
-		const QModelIndex & index_n ) const;
-
-
-	// Private attributes
-	private:
-
-	unsigned int _hmargin;
-	unsigned int _vmargin;
-	unsigned int _vspace;
+  // Private attributes
+  private:
+  unsigned int _hmargin;
+  unsigned int _vmargin;
+  unsigned int _vspace;
 };
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

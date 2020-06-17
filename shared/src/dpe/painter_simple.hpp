@@ -6,34 +6,26 @@
 
 #include "painter.hpp"
 
-
 namespace dpe
 {
 
-
 /// @brief Painter_Simple
 ///
-class Painter_Simple :
-	public ::dpe::Painter
+class Painter_Simple : public ::dpe::Painter
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Painter_Simple ();
 
-	Painter_Simple ( );
+  ~Painter_Simple ();
 
-	~Painter_Simple ( );
+  int
+  paint_image ( ::dpe::Paint_Job * pjob_n );
 
-	int
-	paint_image (
-		::dpe::Paint_Job * pjob_n );
-
-
-	// Private attributes
-	private:
+  // Private attributes
+  private:
 };
 
-
-} // End of namespace
-
+} // namespace dpe
 
 #endif

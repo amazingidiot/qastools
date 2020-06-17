@@ -3,15 +3,12 @@
 
 #include "settings_dialog_setup.hpp"
 
-
 namespace Views
 {
 
-
-Settings_Dialog_Setup::Settings_Dialog_Setup ( ) :
-page ( 0 )
+Settings_Dialog_Setup::Settings_Dialog_Setup ()
+: page ( 0 )
 {
 }
 
-
-} // End of namespace
+} // namespace Views

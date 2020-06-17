@@ -6,10 +6,8 @@
 
 #include <QEvent>
 
-
 namespace QSnd
 {
-
 
 extern QEvent::Type evt_update_values_request;
 extern QEvent::Type evt_update_values;
@@ -17,12 +15,9 @@ extern QEvent::Type evt_update_values;
 extern QEvent::Type evt_reload_request;
 extern QEvent::Type evt_reload;
 
-
 void
-init_event_types ( );
+init_event_types ();
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

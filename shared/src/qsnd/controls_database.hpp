@@ -5,102 +5,84 @@
 #define __INC_qsnd_controls_database_hpp__
 
 #include "qsnd/ctl_format.hpp"
-#include <QObject>
 #include <QList>
+#include <QObject>
 
 namespace QSnd
 {
 
-
 /// @brief Controls_Database
 ///
-class Controls_Database :
-	public QObject
+class Controls_Database : public QObject
 {
-	Q_OBJECT;
+  Q_OBJECT;
 
+  // Public methods
+  public:
+  Controls_Database ();
 
-	// Public methods
-	public:
+  ~Controls_Database ();
 
-	Controls_Database ( );
+  // Control plugins
 
-	~Controls_Database ( );
+  unsigned int
+  num_controls () const;
 
+  const ::QSnd::CTL_Format &
+  control_format ( unsigned int index_n ) const;
 
-	// Control plugins
+  const ::QSnd::CTL_Format *
+  find_control_format ( const QString & ctl_name_n ) const;
 
-	unsigned int
-	num_controls ( ) const;
+  // Signals
+  signals:
 
-	const ::QSnd::CTL_Format &
-	control_format (
-		unsigned int index_n ) const;
+  void
+  sig_change_coming ();
 
-	const ::QSnd::CTL_Format *
-	find_control_format (
-		const QString & ctl_name_n ) const;
+  void
+  sig_change_done ();
 
+  void
+  sig_reload_required ();
 
-	// Signals
-	signals:
+  // Public slots
+  public slots:
 
-	void
-	sig_change_coming ( );
+  void
+  clear ();
 
-	void
-	sig_change_done ( );
+  void
+  clear_silent ();
 
-	void
-	sig_reload_required ( );
+  void
+  reload ();
 
+  void
+  reload_silent ();
 
-	// Public slots
-	public slots:
+  // Protected methods
+  protected:
+  void
+  load_plugins ();
 
-	void
-	clear ( );
-
-	void
-	clear_silent ( );
-
-	void
-	reload ( );
-
-	void
-	reload_silent ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	load_plugins ( );
-
-
-	// Private attributes
-	private:
-
-	QList < ::QSnd::CTL_Format > _ctl_formats;
+  // Private attributes
+  private:
+  QList<::QSnd::CTL_Format > _ctl_formats;
 };
 
-
-inline
-unsigned int
-Controls_Database::num_controls ( ) const
+inline unsigned int
+Controls_Database::num_controls () const
 {
-	return _ctl_formats.size();
+  return _ctl_formats.size ();
 }
 
-inline
-const ::QSnd::CTL_Format &
-Controls_Database::control_format (
-	unsigned int index_n ) const
+inline const ::QSnd::CTL_Format &
+Controls_Database::control_format ( unsigned int index_n ) const
 {
-	return _ctl_formats[index_n];
+  return _ctl_formats[ index_n ];
 }
 
-
-} // End of namespace
+} // namespace QSnd
 
 #endif

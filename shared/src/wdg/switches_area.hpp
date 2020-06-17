@@ -7,53 +7,38 @@
 #include <QFrame>
 #include <QScrollArea>
 
-
 namespace Wdg
 {
 
-
 /// @brief Switches_Area
 ///
-class Switches_Area :
-	public QScrollArea
+class Switches_Area : public QScrollArea
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Switches_Area ( QWidget * parent_n = 0 );
 
-	Switches_Area (
-		QWidget * parent_n = 0 );
+  QSize
+  minimumSizeHint () const;
 
+  QSize
+  sizeHint () const;
 
-	QSize
-	minimumSizeHint ( ) const;
+  void
+  set_widget ( QWidget * wdg_n );
 
-	QSize
-	sizeHint ( ) const;
+  QWidget *
+  take_widget ();
 
+  // Protected methods
+  protected:
+  void
+  resizeEvent ( QResizeEvent * event_n );
 
-	void
-	set_widget (
-		QWidget * wdg_n );
-
-	QWidget *
-	take_widget ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	resizeEvent (
-		QResizeEvent * event_n );
-
-	bool
-	eventFilter (
-		QObject * watched_n,
-		QEvent * event_n );
+  bool
+  eventFilter ( QObject * watched_n, QEvent * event_n );
 };
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

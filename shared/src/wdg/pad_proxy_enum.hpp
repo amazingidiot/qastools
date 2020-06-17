@@ -6,90 +6,66 @@
 
 #include "wdg/pad_proxy.hpp"
 
-
 namespace Wdg
 {
 
-
 /// @brief Pad_Proxy_Enum
 ///
-class Pad_Proxy_Enum :
-	public ::Wdg::Pad_Proxy
+class Pad_Proxy_Enum : public ::Wdg::Pad_Proxy
 {
-	Q_OBJECT
+  Q_OBJECT
 
+  // Public methods
+  public:
+  Pad_Proxy_Enum ();
 
-	// Public methods
-	public:
+  int
+  enum_num_items () const;
 
-	Pad_Proxy_Enum ( );
+  void
+  set_enum_num_items ( int num_n );
 
+  virtual QString
+  enum_item_name ( int idx_n );
 
-	int
-	enum_num_items ( ) const;
+  int
+  enum_index () const;
 
-	void
-	set_enum_num_items (
-		int num_n );
+  // Public slots
+  public slots:
 
-	virtual
-	QString
-	enum_item_name (
-		int idx_n );
+  void
+  set_enum_index ( int idx_n );
 
-	int
-	enum_index ( ) const;
+  // Signals
+  signals:
 
+  void
+  sig_enum_index_changed ( int value_n );
 
-	// Public slots
-	public slots:
+  // Protected methods
+  protected:
+  virtual void
+  enum_index_changed ();
 
-	void
-	set_enum_index (
-		int idx_n );
-
-
-	// Signals
-	signals:
-
-	void
-	sig_enum_index_changed (
-		int value_n );
-
-
-	// Protected methods
-	protected:
-
-	virtual
-	void
-	enum_index_changed ( );
-
-
-	// Private attributes
-	private:
-
-	int _enum_num_items;
-	int _enum_index;
+  // Private attributes
+  private:
+  int _enum_num_items;
+  int _enum_index;
 };
 
-
-inline
-int
-Pad_Proxy_Enum::enum_num_items ( ) const
+inline int
+Pad_Proxy_Enum::enum_num_items () const
 {
-	return _enum_num_items;
+  return _enum_num_items;
 }
 
-
-inline
-int
-Pad_Proxy_Enum::enum_index ( ) const
+inline int
+Pad_Proxy_Enum::enum_index () const
 {
-	return _enum_index;
+  return _enum_index;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

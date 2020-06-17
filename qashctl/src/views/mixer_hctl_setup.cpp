@@ -3,15 +3,12 @@
 
 #include "mixer_hctl_setup.hpp"
 
-
 namespace Views
 {
 
-
-Mixer_HCTL_Setup::Mixer_HCTL_Setup ( ) :
-elem_grp_index ( 9999 )
+Mixer_HCTL_Setup::Mixer_HCTL_Setup ()
+: elem_grp_index ( 9999 )
 {
 }
 
-
-} // End of namespace
+} // namespace Views

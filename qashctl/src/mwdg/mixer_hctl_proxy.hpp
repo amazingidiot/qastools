@@ -6,160 +6,121 @@
 
 #include <QObject>
 
-
 // Forward declaration
-namespace QSnd {
-	class Mixer_HCTL_Elem;
+namespace QSnd
+{
+class Mixer_HCTL_Elem;
 }
-
 
 namespace MWdg
 {
 
-
 /// @brief Mixer_HCTL_Proxy
 ///
-class Mixer_HCTL_Proxy :
-	public QObject
+class Mixer_HCTL_Proxy : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
+  // Public methods
+  public:
+  Mixer_HCTL_Proxy ( QObject * parent_n = 0 );
 
-	// Public methods
-	public:
+  virtual ~Mixer_HCTL_Proxy ();
 
-	Mixer_HCTL_Proxy (
-		QObject * parent_n = 0 );
+  // Snd element
 
-	virtual
-	~Mixer_HCTL_Proxy ( );
+  ::QSnd::Mixer_HCTL_Elem *
+  snd_elem () const;
 
+  void
+  set_snd_elem ( ::QSnd::Mixer_HCTL_Elem * elem_n );
 
-	// Snd element
+  // Snd element index
 
-	::QSnd::Mixer_HCTL_Elem *
-	snd_elem ( ) const;
+  unsigned int
+  elem_idx () const;
 
-	void
-	set_snd_elem (
-		::QSnd::Mixer_HCTL_Elem * elem_n );
+  void
+  set_elem_idx ( unsigned int idx_n );
 
+  // Enabled
 
-	// Snd element index
+  bool
+  is_enabled () const;
 
-	unsigned int
-	elem_idx ( ) const;
+  void
+  set_enabled ( bool flag_n );
 
-	void
-	set_elem_idx (
-		unsigned int idx_n );
+  // Joined
 
+  bool
+  is_joined () const;
 
-	// Enabled
+  void
+  set_joined ( bool flag_n );
 
-	bool
-	is_enabled ( ) const;
+  bool
+  joined_by_key () const;
 
-	void
-	set_enabled (
-		bool flag_n );
+  // Focus
 
+  bool
+  has_focus () const;
 
-	// Joined
+  bool
+  eventFilter ( QObject * obj_n, QEvent * event_n );
 
-	bool
-	is_joined ( ) const;
+  // Signals
+  signals:
 
-	void
-	set_joined (
-		bool flag_n );
+  void
+  sig_enabled_changed ( bool flag_n );
 
-	bool
-	joined_by_key ( ) const;
+  // Public slots
+  public:
+  virtual void
+  update_value_from_source ();
 
+  // Private attributes
+  private:
+  ::QSnd::Mixer_HCTL_Elem * _snd_elem;
+  unsigned int _elem_idx;
 
-	// Focus
-
-	bool
-	has_focus ( ) const;
-
-
-	bool
-	eventFilter (
-		QObject * obj_n,
-		QEvent * event_n );
-
-
-	// Signals
-	signals:
-
-	void
-	sig_enabled_changed (
-		bool flag_n );
-
-
-	// Public slots
-	public:
-
-	virtual
-	void
-	update_value_from_source ( );
-
-
-	// Private attributes
-	private:
-
-	::QSnd::Mixer_HCTL_Elem * _snd_elem;
-	unsigned int _elem_idx;
-
-	bool _is_enabled;
-	bool _is_joined;
-	bool _has_focus;
+  bool _is_enabled;
+  bool _is_joined;
+  bool _has_focus;
 };
 
-
-inline
-::QSnd::Mixer_HCTL_Elem *
-Mixer_HCTL_Proxy::snd_elem ( ) const
+inline ::QSnd::Mixer_HCTL_Elem *
+Mixer_HCTL_Proxy::snd_elem () const
 {
-	return _snd_elem;
+  return _snd_elem;
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Proxy::elem_idx ( ) const
+inline unsigned int
+Mixer_HCTL_Proxy::elem_idx () const
 {
-	return _elem_idx;
+  return _elem_idx;
 }
 
-
-
-inline
-bool
-Mixer_HCTL_Proxy::is_joined ( ) const
+inline bool
+Mixer_HCTL_Proxy::is_joined () const
 {
-	return _is_joined;
+  return _is_joined;
 }
 
-
-inline
-bool
-Mixer_HCTL_Proxy::is_enabled ( ) const
+inline bool
+Mixer_HCTL_Proxy::is_enabled () const
 {
-	return _is_enabled;
+  return _is_enabled;
 }
 
-
-inline
-bool
-Mixer_HCTL_Proxy::has_focus ( ) const
+inline bool
+Mixer_HCTL_Proxy::has_focus () const
 {
-	return _has_focus;
+  return _has_focus;
 }
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

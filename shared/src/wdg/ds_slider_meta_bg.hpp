@@ -6,46 +6,37 @@
 
 #include "dpe/image_set_meta.hpp"
 
-
 namespace Wdg
 {
 
-
 /// @brief DS_Slider_Meta_Bg
 ///
-class DS_Slider_Meta_Bg :
-	public ::dpe::Image_Set_Meta
+class DS_Slider_Meta_Bg : public ::dpe::Image_Set_Meta
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  DS_Slider_Meta_Bg ( unsigned int num_images_n,
+                      unsigned int group_type_n,
+                      unsigned int type_id_n );
 
-	DS_Slider_Meta_Bg (
-		unsigned int num_images_n,
-		unsigned int group_type_n,
-		unsigned int type_id_n );
+  ~DS_Slider_Meta_Bg ();
 
-	~DS_Slider_Meta_Bg ( );
+  bool
+  matches ( const ::dpe::Image_Set_Meta * meta_n ) const;
 
-	bool
-	matches (
-		const ::dpe::Image_Set_Meta * meta_n ) const;
+  ::dpe::Image_Set_Meta *
+  new_copy () const;
 
-	::dpe::Image_Set_Meta *
-	new_copy ( ) const;
+  // Public attributes
+  unsigned int ticks_max_idx;
+  int ticks_range_max_idx;
+  int ticks_range_start;
 
-
-	// Public attributes
-	unsigned int ticks_max_idx;
-	int ticks_range_max_idx;
-	int ticks_range_start;
-
-	// Style
-	int bg_show_image;
-	unsigned int bg_tick_min_idx; // Which tick has the minimum width
+  // Style
+  int bg_show_image;
+  unsigned int bg_tick_min_idx; // Which tick has the minimum width
 };
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

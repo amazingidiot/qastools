@@ -8,262 +8,204 @@
 #include <QPalette>
 #include <QWidget>
 
-
 // Forward declaration
-namespace Wdg {
-	class Pad_Proxy_Style;
-	class Pad_Proxies_Column;
-	class Pad_Proxies_Group;
-}
-
+namespace Wdg
+{
+class Pad_Proxy_Style;
+class Pad_Proxies_Column;
+class Pad_Proxies_Group;
+} // namespace Wdg
 
 namespace Wdg
 {
 
-
 /// @brief Pad_Proxy
 ///
-class Pad_Proxy :
-	public QObject
+class Pad_Proxy : public QObject
 {
-	Q_OBJECT;
+  Q_OBJECT;
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Pad_Proxy ( unsigned char index_n = 0 );
 
-	Pad_Proxy (
-		unsigned char index_n = 0 );
+  virtual ~Pad_Proxy ();
 
-	virtual
-	~Pad_Proxy ( );
+  ::Wdg::Pad_Proxies_Column *
+  column () const;
 
+  ::Wdg::Pad_Proxies_Group *
+  group () const;
 
-	::Wdg::Pad_Proxies_Column *
-	column ( ) const;
+  // Position index
 
-	::Wdg::Pad_Proxies_Group *
-	group ( ) const;
+  /// @brief The position index in the parent column
+  ///
+  unsigned char
+  index () const;
 
+  void
+  set_index ( unsigned char idx_n );
 
-	// Position index
+  // Focus flag
 
-	/// @brief The position index in the parent column
-	///
-	unsigned char
-	index ( ) const;
+  bool
+  has_focus () const;
 
-	void
-	set_index (
-		unsigned char idx_n );
+  void
+  set_has_focus ( bool flag_n );
 
+  // Enabled flag
 
-	// Focus flag
+  bool
+  is_enabled () const;
 
-	bool
-	has_focus ( ) const;
+  void
+  set_enabled ( bool flag_n );
 
-	void
-	set_has_focus (
-		bool flag_n );
+  // Widget
 
+  QWidget *
+  widget () const;
 
-	// Enabled flag
+  void
+  set_widget ( QWidget * wdg_n );
 
-	bool
-	is_enabled ( ) const;
+  // Item name
 
-	void
-	set_enabled (
-		bool flag_n );
+  const QString &
+  item_name () const;
 
+  void
+  set_item_name ( const QString & name_n );
 
-	// Widget
+  // Group name
 
-	QWidget *
-	widget ( ) const;
+  const QString &
+  group_name () const;
 
-	void
-	set_widget (
-		QWidget * wdg_n );
+  void
+  set_group_name ( const QString & name_n );
 
+  // Tool tip
 
-	// Item name
+  const QString &
+  tool_tip () const;
 
-	const QString &
-	item_name ( ) const;
+  void
+  set_tool_tip ( const QString & tip_n );
 
-	void
-	set_item_name (
-		const QString & name_n );
+  // Style information
 
+  unsigned int
+  variant_id () const;
 
-	// Group name
+  void
+  set_variant_id ( unsigned int id_n );
 
-	const QString &
-	group_name ( ) const;
+  unsigned int
+  style_id () const;
 
-	void
-	set_group_name (
-		const QString & name_n );
+  void
+  set_style_id ( unsigned int id_n );
 
+  const ::Wdg::Pad_Proxy_Style *
+  style () const;
 
-	// Tool tip
+  void
+  set_style ( ::Wdg::Pad_Proxy_Style * style_n );
 
-	const QString &
-	tool_tip ( ) const;
+  bool
+  eventFilter ( QObject * obj_n, QEvent * event_n );
 
-	void
-	set_tool_tip (
-		const QString & tip_n );
+  // Signals
+  signals:
 
+  void
+  sig_enabled_changed ( bool flag_n );
 
-	// Style information
+  // Public slots
+  public slots:
 
-	unsigned int
-	variant_id ( ) const;
+  virtual void
+  update_value_from_source ();
 
-	void
-	set_variant_id (
-		unsigned int id_n );
+  // Private attributes
+  private:
+  unsigned char _index;
+  bool _has_focus;
+  bool _is_enabled;
 
+  QString _item_name;
+  QString _group_name;
+  QString _tool_tip;
+  unsigned int _variant_id;
+  unsigned int _style_id;
 
-	unsigned int
-	style_id ( ) const;
-
-	void
-	set_style_id (
-		unsigned int id_n );
-
-
-	const ::Wdg::Pad_Proxy_Style *
-	style ( ) const;
-
-	void
-	set_style (
-		::Wdg::Pad_Proxy_Style * style_n );
-
-
-	bool
-	eventFilter (
-		QObject * obj_n,
-		QEvent * event_n );
-
-
-	// Signals
-	signals:
-
-	void
-	sig_enabled_changed (
-		bool flag_n );
-
-
-	// Public slots
-	public slots:
-
-	virtual
-	void
-	update_value_from_source ( );
-
-
-	// Private attributes
-	private:
-
-	unsigned char _index;
-	bool _has_focus;
-	bool _is_enabled;
-
-	QString _item_name;
-	QString _group_name;
-	QString _tool_tip;
-	unsigned int _variant_id;
-	unsigned int _style_id;
-
-	QWidget * _widget;
-	::Wdg::Pad_Proxy_Style * _style;
+  QWidget * _widget;
+  ::Wdg::Pad_Proxy_Style * _style;
 };
 
-
-inline
-unsigned char
-Pad_Proxy::index ( ) const
+inline unsigned char
+Pad_Proxy::index () const
 {
-	return _index;
+  return _index;
 }
 
-
-inline
-bool
-Pad_Proxy::has_focus ( ) const
+inline bool
+Pad_Proxy::has_focus () const
 {
-	return _has_focus;
+  return _has_focus;
 }
 
-
-inline
-bool
-Pad_Proxy::is_enabled ( ) const
+inline bool
+Pad_Proxy::is_enabled () const
 {
-	return _is_enabled;
+  return _is_enabled;
 }
 
-
-inline
-QWidget *
-Pad_Proxy::widget ( ) const
+inline QWidget *
+Pad_Proxy::widget () const
 {
-	return _widget;
+  return _widget;
 }
 
-
-inline
-const QString &
-Pad_Proxy::item_name ( ) const
+inline const QString &
+Pad_Proxy::item_name () const
 {
-	return _item_name;
+  return _item_name;
 }
 
-
-inline
-const QString &
-Pad_Proxy::group_name ( ) const
+inline const QString &
+Pad_Proxy::group_name () const
 {
-	return _group_name;
+  return _group_name;
 }
 
-
-inline
-const QString &
-Pad_Proxy::tool_tip ( ) const
+inline const QString &
+Pad_Proxy::tool_tip () const
 {
-	return _tool_tip;
+  return _tool_tip;
 }
 
-
-inline
-unsigned int
-Pad_Proxy::variant_id ( ) const
+inline unsigned int
+Pad_Proxy::variant_id () const
 {
-	return _variant_id;
+  return _variant_id;
 }
 
-
-inline
-unsigned int
-Pad_Proxy::style_id ( ) const
+inline unsigned int
+Pad_Proxy::style_id () const
 {
-	return _style_id;
+  return _style_id;
 }
 
-
-inline
-const ::Wdg::Pad_Proxy_Style *
-Pad_Proxy::style ( ) const
+inline const ::Wdg::Pad_Proxy_Style *
+Pad_Proxy::style () const
 {
-	return _style;
+  return _style;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

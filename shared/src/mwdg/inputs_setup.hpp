@@ -7,39 +7,33 @@
 #include <QKeySequence>
 #include <QString>
 
-
 namespace MWdg
 {
 
-
 class Inputs_Setup
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Inputs_Setup ();
 
-	Inputs_Setup ( );
+  void
+  update_translation ();
 
-	void
-	update_translation ( );
+  // Public attributes
+  public:
+  unsigned int wheel_degrees;
 
+  QKeySequence ks_toggle_joined;
+  QKeySequence ks_level_channels;
+  QKeySequence ks_mute_volumes;
 
-	// Public attributes
-	public:
+  QKeySequence ks_toggle_vis_stream[ 2 ];
 
-	unsigned int wheel_degrees;
-
-	QKeySequence ks_toggle_joined;
-	QKeySequence ks_level_channels;
-	QKeySequence ks_mute_volumes;
-
-	QKeySequence ks_toggle_vis_stream[2];
-
-	QString ts_split_channels;
-	QString ts_join_channels;
-	QString ts_level_channels;
+  QString ts_split_channels;
+  QString ts_join_channels;
+  QString ts_level_channels;
 };
 
-
-} // End of namespace
+} // namespace MWdg
 
 #endif

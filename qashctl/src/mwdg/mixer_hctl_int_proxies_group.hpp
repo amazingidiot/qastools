@@ -6,90 +6,73 @@
 
 #include "wdg/pad_proxies_group.hpp"
 
-
 // Forward declaration
-namespace QSnd {
-	class Mixer_HCTL_Elem;
+namespace QSnd
+{
+class Mixer_HCTL_Elem;
 }
-namespace MWdg {
-	class Mixer_HCTL_Int_Proxy_Column;
+namespace MWdg
+{
+class Mixer_HCTL_Int_Proxy_Column;
 }
-
 
 namespace MWdg
 {
 
-
 /// @brief Mixer_HCTL_Int_Proxies_Group
 ///
-class Mixer_HCTL_Int_Proxies_Group :
-	public ::Wdg::Pad_Proxies_Group
+class Mixer_HCTL_Int_Proxies_Group : public ::Wdg::Pad_Proxies_Group
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_HCTL_Int_Proxies_Group ( ::QSnd::Mixer_HCTL_Elem * snd_elem_n,
+                                 QObject * parent_n );
 
-	Mixer_HCTL_Int_Proxies_Group (
-		::QSnd::Mixer_HCTL_Elem * snd_elem_n,
-		QObject * parent_n );
+  ~Mixer_HCTL_Int_Proxies_Group ();
 
-	~Mixer_HCTL_Int_Proxies_Group ( );
+  // Notify parent on value change
 
+  bool
+  notify_value_change () const;
 
-	// Notify parent on value change
+  void
+  set_notify_value_change ( bool flag_n );
 
-	bool
-	notify_value_change ( ) const;
+  bool
+  is_joined () const;
 
-	void
-	set_notify_value_change (
-		bool flag_n );
+  bool
+  volumes_equal () const;
 
+  Mixer_HCTL_Int_Proxy_Column *
+  mcolumn ( unsigned int idx_n ) const;
 
-	bool
-	is_joined ( ) const;
+  // Public slots
+  public slots:
 
-	bool
-	volumes_equal ( ) const;
+  void
+  set_joined ( bool flag_n );
 
-	Mixer_HCTL_Int_Proxy_Column *
-	mcolumn (
-		unsigned int idx_n ) const;
+  void
+  level_volumes ( unsigned int column_n = 0 );
 
+  void
+  update_values ();
 
-	// Public slots
-	public slots:
-
-	void
-	set_joined (
-		bool flag_n );
-
-	void
-	level_volumes (
-		unsigned int column_n = 0 );
-
-	void
-	update_values ( );
-
-
-	// Private attributes
-	private:
-
-	::QSnd::Mixer_HCTL_Elem * _snd_elem;
-	bool _notify_value_change;
+  // Private attributes
+  private:
+  ::QSnd::Mixer_HCTL_Elem * _snd_elem;
+  bool _notify_value_change;
 };
 
-
-inline
-bool
-Mixer_HCTL_Int_Proxies_Group::notify_value_change ( ) const
+inline bool
+Mixer_HCTL_Int_Proxies_Group::notify_value_change () const
 {
-	return _notify_value_change;
+  return _notify_value_change;
 }
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

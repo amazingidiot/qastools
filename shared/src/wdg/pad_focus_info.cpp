@@ -3,26 +3,21 @@
 
 #include "pad_focus_info.hpp"
 
-
 namespace Wdg
 {
 
-
-Pad_Focus_Info::Pad_Focus_Info ( )
+Pad_Focus_Info::Pad_Focus_Info ()
 {
-	clear();
+  clear ();
 }
-
 
 void
-Pad_Focus_Info::clear ( )
+Pad_Focus_Info::clear ()
 {
-	has_focus = false;
-	group_idx = 0;
-	column_idx = 0;
-	row_idx = 0;
+  has_focus = false;
+  group_idx = 0;
+  column_idx = 0;
+  row_idx = 0;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg

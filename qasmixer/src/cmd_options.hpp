@@ -6,24 +6,21 @@
 
 #include <QString>
 
-
 /// @brief Command (line) options
 ///
 /// These can come from the command line or from a second instance
-class CMD_Options {
+class CMD_Options
+{
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  CMD_Options ();
 
-	CMD_Options ( );
-
-	// Public attributes
-	public:
-
-	bool start_tray_minimized;
-	bool start_single_instance;
-	QString start_ctl_address;
+  // Public attributes
+  public:
+  bool start_tray_minimized;
+  bool start_single_instance;
+  QString start_ctl_address;
 };
-
 
 #endif

@@ -4,91 +4,69 @@
 #ifndef __INC_mixer_hctl_proxies_group_hpp__
 #define __INC_mixer_hctl_proxies_group_hpp__
 
-#include <QObject>
 #include "mixer_hctl_proxy.hpp"
-
+#include <QObject>
 
 namespace MWdg
 {
 
-
 ///
 /// @brief Mixer_HCTL_Proxies_Group
 ///
-class Mixer_HCTL_Proxies_Group :
-	public QObject
+class Mixer_HCTL_Proxies_Group : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_HCTL_Proxies_Group ( QObject * parent_n );
 
-	Mixer_HCTL_Proxies_Group (
-		QObject * parent_n );
+  ~Mixer_HCTL_Proxies_Group ();
 
-	~Mixer_HCTL_Proxies_Group ( );
+  unsigned int
+  num_proxies () const;
 
+  Mixer_HCTL_Proxy *
+  proxy ( unsigned int idx_n ) const;
 
-	unsigned int
-	num_proxies ( ) const;
+  void
+  append_proxy ( Mixer_HCTL_Proxy * proxy_n );
 
-	Mixer_HCTL_Proxy *
-	proxy (
-		unsigned int idx_n ) const;
+  // Public slots
+  public slots:
 
-	void
-	append_proxy (
-		Mixer_HCTL_Proxy * proxy_n );
+  void
+  update_values ();
 
+  void
+  set_joined ( bool flag_n );
 
-	// Public slots
-	public slots:
-
-	void
-	update_values ( );
-
-	void
-	set_joined (
-		bool flag_n );
-
-
-	// Private attributes
-	private:
-
-	QList < Mixer_HCTL_Proxy * > _proxies;
+  // Private attributes
+  private:
+  QList< Mixer_HCTL_Proxy * > _proxies;
 };
 
-
-inline
-unsigned int
-Mixer_HCTL_Proxies_Group::num_proxies ( ) const
+inline unsigned int
+Mixer_HCTL_Proxies_Group::num_proxies () const
 {
-	return _proxies.size();
+  return _proxies.size ();
 }
 
-
-inline
-Mixer_HCTL_Proxy *
-Mixer_HCTL_Proxies_Group::proxy (
-	unsigned int idx_n ) const
+inline Mixer_HCTL_Proxy *
+Mixer_HCTL_Proxies_Group::proxy ( unsigned int idx_n ) const
 {
-	return _proxies[idx_n];
+  return _proxies[ idx_n ];
 }
 
-
-inline
-void
-Mixer_HCTL_Proxies_Group::append_proxy (
-	Mixer_HCTL_Proxy * proxy_n )
+inline void
+Mixer_HCTL_Proxies_Group::append_proxy ( Mixer_HCTL_Proxy * proxy_n )
 {
-	if ( proxy_n != 0 ) {
-		_proxies.append ( proxy_n );
-		proxy_n->setParent ( this );
-	}
+  if ( proxy_n != 0 ) {
+    _proxies.append ( proxy_n );
+    proxy_n->setParent ( this );
+  }
 }
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

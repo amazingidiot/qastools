@@ -6,19 +6,15 @@
 
 #include <QEvent>
 
-
 namespace Wdg
 {
 
 extern ::QEvent::Type evt_pass_event_focus;
 extern ::QEvent::Type evt_pass_event_key;
 
-
 void
-init_event_types ( );
+init_event_types ();
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

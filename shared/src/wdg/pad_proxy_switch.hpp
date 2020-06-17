@@ -6,74 +6,55 @@
 
 #include "wdg/pad_proxy.hpp"
 
-
 namespace Wdg
 {
 
-
 /// @brief Pad_Proxy_Switch
 ///
-class Pad_Proxy_Switch :
-	public ::Wdg::Pad_Proxy
+class Pad_Proxy_Switch : public ::Wdg::Pad_Proxy
 {
-	Q_OBJECT;
+  Q_OBJECT;
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Pad_Proxy_Switch ();
 
-	Pad_Proxy_Switch ( );
+  ~Pad_Proxy_Switch ();
 
-	~Pad_Proxy_Switch ( );
+  bool
+  switch_state () const;
 
+  // Signals
+  signals:
 
-	bool
-	switch_state ( ) const;
+  void
+  sig_switch_state_changed ( bool state_n );
 
+  // Public slots
+  public slots:
 
+  void
+  set_switch_state ( bool state_n );
 
-	// Signals
-	signals:
+  void
+  toggle_switch_state ();
 
-	void
-	sig_switch_state_changed (
-		bool state_n );
+  // Protected methods
+  protected:
+  virtual void
+  switch_state_changed ();
 
-
-	// Public slots
-	public slots:
-
-	void
-	set_switch_state (
-		bool state_n );
-
-	void
-	toggle_switch_state ( );
-
-
-	// Protected methods
-	protected:
-
-	virtual
-	void
-	switch_state_changed ( );
-
-
-	// Private attributes
-	private:
-
-	bool _switch_state;
+  // Private attributes
+  private:
+  bool _switch_state;
 };
 
-
-inline
-bool
-Pad_Proxy_Switch::switch_state ( ) const
+inline bool
+Pad_Proxy_Switch::switch_state () const
 {
-	return _switch_state;
+  return _switch_state;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

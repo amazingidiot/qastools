@@ -4,63 +4,52 @@
 #ifndef __INC_qsnd_udev_device_lookout_hpp__
 #define __INC_qsnd_udev_device_lookout_hpp__
 
+#include <libudev.h>
 #include <QObject>
 #include <string>
-#include <libudev.h>
 
 namespace QSnd
 {
 
-
 /// @brief UDev_Device_Lookout
 ///
-class UDev_Device_Lookout :
-	public QObject
+class UDev_Device_Lookout : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  UDev_Device_Lookout ( QObject * parent_n = 0 );
 
-	UDev_Device_Lookout (
-		QObject * parent_n = 0 );
+  ~UDev_Device_Lookout ();
 
-	~UDev_Device_Lookout ( );
+  // Signals
+  signals:
 
+  void
+  sig_change ();
 
-	// Signals
-	signals:
+  // Protected slots
+  protected slots:
 
-	void
-	sig_change ( );
+  void
+  udev_process ();
 
+  // Private methods
+  private:
+  void
+  udev_init ();
 
-	// Protected slots
-	protected slots:
+  void
+  udev_close ();
 
-	void
-	udev_process ( );
-
-
-	// Private methods
-	private:
-
-	void
-	udev_init ( );
-
-	void
-	udev_close ( );
-
-
-	// Private attributes
-	private:
-
-	// udev device detection
-	::udev * _udev;
-	::udev_monitor * _udev_mon;
+  // Private attributes
+  private:
+  // udev device detection
+  ::udev * _udev;
+  ::udev_monitor * _udev_mon;
 };
 
-
-} // End of namespace
+} // namespace QSnd
 
 #endif

@@ -8,10 +8,8 @@
 #include "wdg/ds_imaging.hpp"
 #include <QAbstractButton>
 
-
 namespace Wdg
 {
-
 
 /// @brief Dynamic sized switch
 ///
@@ -39,88 +37,67 @@ namespace Wdg
 /// by setting setCheckable ( false ).
 /// Push buttons don't require the images 4-7.
 ///
-class DS_Switch :
-	public QAbstractButton
+class DS_Switch : public QAbstractButton
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  DS_Switch ( QWidget * parent_n = 0, ::dpe::Image_Allocator * alloc_n = 0 );
 
-	DS_Switch (
-		QWidget * parent_n = 0,
-		::dpe::Image_Allocator * alloc_n = 0 );
+  ~DS_Switch ();
 
-	~DS_Switch ( );
+  QSize
+  sizeHint () const;
 
+  QSize
+  minimumSizeHint () const;
 
-	QSize
-	sizeHint ( ) const;
+  // Image allocator and style id
 
-	QSize
-	minimumSizeHint ( ) const;
+  void
+  set_image_alloc ( ::dpe::Image_Allocator * alloc_n );
 
+  void
+  set_variant_id ( unsigned int id_n );
 
-	// Image allocator and style id
+  void
+  set_style_id ( unsigned int id_n );
 
-	void
-	set_image_alloc (
-		::dpe::Image_Allocator * alloc_n );
+  // Protected methods
+  protected:
+  void
+  changeEvent ( QEvent * event_n );
 
-	void
-	set_variant_id (
-		unsigned int id_n );
+  void
+  enterEvent ( QEvent * );
 
-	void
-	set_style_id (
-		unsigned int id_n );
+  void
+  leaveEvent ( QEvent * );
 
+  void
+  resizeEvent ( QResizeEvent * event );
 
-	// Protected methods
-	protected:
+  void
+  paintEvent ( QPaintEvent * event );
 
-	void
-	changeEvent (
-		QEvent * event_n );
+  void
+  update_pixmaps ();
 
-	void
-	enterEvent (
-		QEvent * );
+  // Private attributes
+  private:
+  static const unsigned int num_images_bg = 4;
+  static const unsigned int num_images_handle = 10;
 
-	void
-	leaveEvent (
-		QEvent * );
+  ::Wdg::DS_Imaging _dsi;
 
-	void
-	resizeEvent (
-		QResizeEvent * event );
+  QRect _pxmap_rect;
+  bool _update_pixmaps_pending;
 
-	void
-	paintEvent (
-		QPaintEvent * event );
-
-
-	void
-	update_pixmaps ( );
-
-
-	// Private attributes
-	private:
-
-	static const unsigned int num_images_bg = 4;
-	static const unsigned int num_images_handle = 10;
-
-	::Wdg::DS_Imaging _dsi;
-
-	QRect _pxmap_rect;
-	bool _update_pixmaps_pending;
-
-	::dpe::Image_Set_Meta _meta_bg;
-	::dpe::Image_Set_Meta _meta_handle;
+  ::dpe::Image_Set_Meta _meta_bg;
+  ::dpe::Image_Set_Meta _meta_handle;
 };
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

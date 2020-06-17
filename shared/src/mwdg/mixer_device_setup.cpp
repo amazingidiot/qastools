@@ -3,14 +3,9 @@
 
 #include "mixer_device_setup.hpp"
 
-
 namespace MWdg
 {
 
+Mixer_Device_Setup::Mixer_Device_Setup () {}
 
-Mixer_Device_Setup::Mixer_Device_Setup ( )
-{
-}
-
-
-} // End of namespace
+} // namespace MWdg

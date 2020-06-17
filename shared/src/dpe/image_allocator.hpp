@@ -7,112 +7,90 @@
 #include "is_buffer.hpp"
 #include <QTimer>
 
-
 // Forward declaration
-namespace dpe {
-	class Image_Set_Group;
-	class Image_Request;
-	class Painter;
-	class Painter_Thread;
-	class Painter_Thread_Shared;
-}
-
+namespace dpe
+{
+class Image_Set_Group;
+class Image_Request;
+class Painter;
+class Painter_Thread;
+class Painter_Thread_Shared;
+} // namespace dpe
 
 namespace dpe
 {
 
-
 /// @brief Image_Set_Group allocator
 ///
-class Image_Allocator :
-	public QObject
+class Image_Allocator : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Image_Allocator ();
 
-	Image_Allocator ( );
+  ~Image_Allocator ();
 
-	~Image_Allocator ( );
+  void
+  install_painter ( ::dpe::Painter * painter_n );
 
+  // Multithreading
 
-	void
-	install_painter (
-		::dpe::Painter * painter_n );
+  bool
+  multithreading_is_safe () const;
 
+  bool
+  multithread () const;
 
-	// Multithreading
+  void
+  set_multithread ( bool flag_n );
 
-	bool
-	multithreading_is_safe ( ) const;
+  void
+  send_request ( ::dpe::Image_Request * request_n );
 
-	bool
-	multithread ( ) const;
+  void
+  return_group ( ::dpe::Image_Set_Group * group_n );
 
-	void
-	set_multithread (
-		bool flag_n );
+  // Private slots
+  private slots:
 
+  void
+  stop_timeout ();
 
-	void
-	send_request (
-		::dpe::Image_Request * request_n );
+  // Private methods
+  private:
+  void
+  start_threads ();
 
-	void
-	return_group (
-		::dpe::Image_Set_Group * group_n );
+  void
+  stop_threads ();
 
+  void
+  process_handle ( ::dpe::IS_Buffer_Handle * handle_n );
 
-	// Private slots
-	private slots:
+  void
+  render_handle ( ::dpe::IS_Buffer_Handle * handle_n );
 
-	void
-	stop_timeout ( );
+  void
+  enqueue_handle ( ::dpe::IS_Buffer_Handle * handle_n );
 
+  // Private attributes
+  private:
+  ::dpe::IS_Buffer _buffer;
+  ::dpe::Painter_Thread_Shared * _shared;
+  QList<::dpe::Painter_Thread * > _threads;
+  bool _multithread;
 
-	// Private methods
-	private:
-
-	void
-	start_threads ( );
-
-	void
-	stop_threads ( );
-
-	void
-	process_handle (
-		::dpe::IS_Buffer_Handle * handle_n );
-
-	void
-	render_handle (
-		::dpe::IS_Buffer_Handle * handle_n );
-
-	void
-	enqueue_handle (
-		::dpe::IS_Buffer_Handle * handle_n );
-
-
-	// Private attributes
-	private:
-
-	::dpe::IS_Buffer _buffer;
-	::dpe::Painter_Thread_Shared * _shared;
-	QList < ::dpe::Painter_Thread * > _threads;
-	bool _multithread;
-
-	QTimer _stop_timer;
+  QTimer _stop_timer;
 };
 
-
-inline
-bool
-Image_Allocator::multithread ( ) const
+inline bool
+Image_Allocator::multithread () const
 {
-	return _multithread;
+  return _multithread;
 }
 
-
-} // End of namespace
+} // namespace dpe
 
 #endif

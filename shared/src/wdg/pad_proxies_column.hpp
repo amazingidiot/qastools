@@ -4,238 +4,186 @@
 #ifndef __INC_wdg_pad_proxies_column_hpp__
 #define __INC_wdg_pad_proxies_column_hpp__
 
+#include "wdg/pad_proxy.hpp"
 #include <QObject>
 
-#include "wdg/pad_proxy.hpp"
-
-
 // Forward declaration
-namespace Wdg {
-	class Pad_Proxies_Group;
-	class Pad_Proxy_Slider;
-	class Pad_Proxy_Switch;
-	class Pad_Proxy_Enum;
-}
+namespace Wdg
+{
+class Pad_Proxies_Group;
+class Pad_Proxy_Slider;
+class Pad_Proxy_Switch;
+class Pad_Proxy_Enum;
+} // namespace Wdg
 
 namespace Wdg
 {
 
-
-class Pad_Proxies_Column :
-	public QObject
+class Pad_Proxies_Column : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Pad_Proxies_Column ( unsigned int col_idx_n = 0 );
 
-	Pad_Proxies_Column (
-		unsigned int col_idx_n = 0 );
+  virtual ~Pad_Proxies_Column ();
 
-	virtual
-	~Pad_Proxies_Column ( );
+  ::Wdg::Pad_Proxies_Group *
+  group () const;
 
+  // Column index
 
-	::Wdg::Pad_Proxies_Group *
-	group ( ) const;
+  unsigned int
+  column_index () const;
 
+  void
+  set_column_index ( unsigned int idx_n );
 
-	// Column index
+  void
+  clear_proxies ();
 
-	unsigned int
-	column_index ( ) const;
+  // Slider proxy
 
-	void
-	set_column_index (
-		unsigned int idx_n );
+  ::Wdg::Pad_Proxy_Slider *
+  slider_proxy () const;
 
+  void
+  set_slider_proxy ( ::Wdg::Pad_Proxy_Slider * proxy_n );
 
-	void
-	clear_proxies ( );
+  // Switch proxy
 
+  ::Wdg::Pad_Proxy_Switch *
+  switch_proxy () const;
 
-	// Slider proxy
+  void
+  set_switch_proxy ( ::Wdg::Pad_Proxy_Switch * proxy_n );
 
-	::Wdg::Pad_Proxy_Slider *
-	slider_proxy ( ) const;
+  // Enum proxy
 
-	void
-	set_slider_proxy (
-		::Wdg::Pad_Proxy_Slider * proxy_n );
+  ::Wdg::Pad_Proxy_Enum *
+  enum_proxy () const;
 
+  void
+  set_enum_proxy ( ::Wdg::Pad_Proxy_Enum * proxy_n );
 
-	// Switch proxy
+  // Show value string
 
-	::Wdg::Pad_Proxy_Switch *
-	switch_proxy ( ) const;
+  void
+  set_show_value_string ( bool flag_n );
 
-	void
-	set_switch_proxy (
-		::Wdg::Pad_Proxy_Switch * proxy_n );
+  bool
+  show_value_string () const;
 
+  // State info
 
-	// Enum proxy
+  bool
+  has_slider () const;
 
-	::Wdg::Pad_Proxy_Enum *
-	enum_proxy ( ) const;
+  bool
+  has_switch () const;
 
-	void
-	set_enum_proxy (
-		::Wdg::Pad_Proxy_Enum * proxy_n );
+  bool
+  has_enum () const;
 
+  bool
+  has_focus () const;
 
-	// Show value string
+  // Value string
 
-	void
-	set_show_value_string (
-		bool flag_n );
+  virtual QString
+  value_string () const;
 
-	bool
-	show_value_string ( ) const;
+  virtual QString
+  value_min_string () const;
 
+  virtual QString
+  value_max_string () const;
 
-	// State info
+  // Event handling
 
-	bool
-	has_slider ( ) const;
+  bool
+  event ( QEvent * event_n );
 
-	bool
-	has_switch ( ) const;
+  // Signals
+  signals:
 
-	bool
-	has_enum ( ) const;
+  void
+  sig_value_string_changed ();
 
-	bool
-	has_focus ( ) const;
+  // Protected methods
+  protected:
+  virtual void
+  slider_proxy_changed ();
 
+  virtual void
+  switch_proxy_changed ();
 
-	// Value string
+  virtual void
+  enum_proxy_changed ();
 
-	virtual
-	QString
-	value_string ( ) const;
+  virtual void
+  show_value_string_changed ();
 
-	virtual
-	QString
-	value_min_string ( ) const;
+  // Private attributes
+  private:
+  unsigned int _column_index;
+  ::Wdg::Pad_Proxy_Slider * _proxy_slider;
+  ::Wdg::Pad_Proxy_Switch * _proxy_switch;
+  ::Wdg::Pad_Proxy_Enum * _proxy_enum;
 
-	virtual
-	QString
-	value_max_string ( ) const;
-
-
-	// Event handling
-
-	bool
-	event (
-		QEvent * event_n );
-
-
-	// Signals
-	signals:
-
-	void
-	sig_value_string_changed ( );
-
-
-	// Protected methods
-	protected:
-
-	virtual
-	void
-	slider_proxy_changed ( );
-
-	virtual
-	void
-	switch_proxy_changed ( );
-
-	virtual
-	void
-	enum_proxy_changed ( );
-
-	virtual
-	void
-	show_value_string_changed ( );
-
-
-	// Private attributes
-	private:
-
-	unsigned int _column_index;
-	::Wdg::Pad_Proxy_Slider * _proxy_slider;
-	::Wdg::Pad_Proxy_Switch * _proxy_switch;
-	::Wdg::Pad_Proxy_Enum   * _proxy_enum;
-
-	bool _has_focus;
-	bool _show_value_string;
+  bool _has_focus;
+  bool _show_value_string;
 };
 
-
-inline
-unsigned int
-Pad_Proxies_Column::column_index ( ) const
+inline unsigned int
+Pad_Proxies_Column::column_index () const
 {
-	return _column_index;
+  return _column_index;
 }
 
-
-inline
-::Wdg::Pad_Proxy_Slider *
-Pad_Proxies_Column::slider_proxy ( ) const
+inline ::Wdg::Pad_Proxy_Slider *
+Pad_Proxies_Column::slider_proxy () const
 {
-	return _proxy_slider;
+  return _proxy_slider;
 }
 
-
-inline
-::Wdg::Pad_Proxy_Switch *
-Pad_Proxies_Column::switch_proxy ( ) const
+inline ::Wdg::Pad_Proxy_Switch *
+Pad_Proxies_Column::switch_proxy () const
 {
-	return _proxy_switch;
+  return _proxy_switch;
 }
 
-
-inline
-::Wdg::Pad_Proxy_Enum *
-Pad_Proxies_Column::enum_proxy ( ) const
+inline ::Wdg::Pad_Proxy_Enum *
+Pad_Proxies_Column::enum_proxy () const
 {
-	return _proxy_enum;
+  return _proxy_enum;
 }
 
-
-inline
-bool
-Pad_Proxies_Column::has_slider ( ) const
+inline bool
+Pad_Proxies_Column::has_slider () const
 {
-	return ( _proxy_slider != 0 );
+  return ( _proxy_slider != 0 );
 }
 
-
-inline
-bool
-Pad_Proxies_Column::has_switch ( ) const
+inline bool
+Pad_Proxies_Column::has_switch () const
 {
-	return ( _proxy_switch != 0 );
+  return ( _proxy_switch != 0 );
 }
 
-
-inline
-bool
-Pad_Proxies_Column::has_enum ( ) const
+inline bool
+Pad_Proxies_Column::has_enum () const
 {
-	return ( _proxy_enum != 0 );
+  return ( _proxy_enum != 0 );
 }
 
-
-inline
-bool
-Pad_Proxies_Column::show_value_string ( ) const
+inline bool
+Pad_Proxies_Column::show_value_string () const
 {
-	return _show_value_string;
+  return _show_value_string;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

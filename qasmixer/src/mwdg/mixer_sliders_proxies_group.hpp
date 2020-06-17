@@ -4,186 +4,145 @@
 #ifndef __INC_mixer_sliders_proxies_group_hpp__
 #define __INC_mixer_sliders_proxies_group_hpp__
 
+#include "mixer_sliders_proxies_column.hpp"
+#include "wdg/pad_proxies_group.hpp"
 #include <QString>
 #include <QTimer>
-
-#include "wdg/pad_proxies_group.hpp"
-#include "mixer_sliders_proxies_column.hpp"
-
 
 namespace MWdg
 {
 
-
 /// @brief Mixer_Sliders_Proxies_Group
 ///
-class Mixer_Sliders_Proxies_Group :
-	public ::Wdg::Pad_Proxies_Group
+class Mixer_Sliders_Proxies_Group : public ::Wdg::Pad_Proxies_Group
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_Sliders_Proxies_Group ( QObject * parent_n = 0 );
 
-	Mixer_Sliders_Proxies_Group (
-		QObject * parent_n = 0 );
+  // Mixer_Simple_Elem
 
+  ::QSnd::Mixer_Simple_Elem *
+  mixer_simple_elem () const;
 
-	// Mixer_Simple_Elem
+  virtual void
+  set_mixer_simple_elem ( ::QSnd::Mixer_Simple_Elem * selem_n );
 
-	::QSnd::Mixer_Simple_Elem *
-	mixer_simple_elem ( ) const;
+  // Snd dir
 
-	virtual
-	void
-	set_mixer_simple_elem (
-		::QSnd::Mixer_Simple_Elem * selem_n );
+  unsigned char
+  snd_dir () const;
 
+  void
+  set_snd_dir ( unsigned char dir_n );
 
-	// Snd dir
+  // Joined flag
 
-	unsigned char
-	snd_dir ( ) const;
+  bool
+  is_joined () const;
 
-	void
-	set_snd_dir (
-		unsigned char dir_n );
+  void
+  set_is_joined ( bool flag_n );
 
+  // If true then the corresponding widget is visible
 
-	// Joined flag
+  bool
+  is_visible () const;
 
-	bool
-	is_joined ( ) const;
+  void
+  set_is_visible ( bool flag_n );
 
-	void
-	set_is_joined (
-		bool flag_n );
+  // Notify parent on value change
 
+  bool
+  notify_value_change () const;
 
-	// If true then the corresponding widget is visible
+  void
+  set_notify_value_change ( bool flag_n );
 
-	bool
-	is_visible ( ) const;
+  // Separation info
 
-	void
-	set_is_visible (
-		bool flag_n );
+  bool
+  can_be_separated () const;
 
+  bool
+  should_be_separated () const;
 
-	// Notify parent on value change
+  bool
+  needs_separation () const;
 
-	bool
-	notify_value_change ( ) const;
+  bool
+  separation_request () const;
 
-	void
-	set_notify_value_change (
-		bool flag_n );
+  void
+  set_separation_request ( bool flag_n );
 
+  // Public slots
+  public slots:
 
-	// Separation info
+  void
+  update_mixer_values ();
 
-	bool
-	can_be_separated ( ) const;
+  // Protected slots
+  protected slots:
 
-	bool
-	should_be_separated ( ) const;
+  void
+  timer_separation_check ();
 
-	bool
-	needs_separation ( ) const;
+  // Protected methods
+  protected:
+  bool
+  event ( QEvent * event_n );
 
-
-	bool
-	separation_request ( ) const;
-
-	void
-	set_separation_request (
-		bool flag_n );
-
-
-	// Public slots
-	public slots:
-
-	void
-	update_mixer_values ( );
-
-
-	// Protected slots
-	protected slots:
-
-	void
-	timer_separation_check ( );
-
-
-	// Protected methods
-	protected:
-
-	bool
-	event (
-		QEvent * event_n );
-
-
-	// Private attributes
-	private:
-
-	::QSnd::Mixer_Simple_Elem * _mixer_simple_elem;
-	unsigned char _snd_dir;
-	bool _is_joined;
-	bool _is_visible;
-	bool _notify_value_change;
-	bool _separation_request;
-	QTimer _separation_timer;
+  // Private attributes
+  private:
+  ::QSnd::Mixer_Simple_Elem * _mixer_simple_elem;
+  unsigned char _snd_dir;
+  bool _is_joined;
+  bool _is_visible;
+  bool _notify_value_change;
+  bool _separation_request;
+  QTimer _separation_timer;
 };
 
-
-inline
-::QSnd::Mixer_Simple_Elem *
-Mixer_Sliders_Proxies_Group::mixer_simple_elem ( ) const
+inline ::QSnd::Mixer_Simple_Elem *
+Mixer_Sliders_Proxies_Group::mixer_simple_elem () const
 {
-	return _mixer_simple_elem;
+  return _mixer_simple_elem;
 }
 
-
-inline
-unsigned char
-Mixer_Sliders_Proxies_Group::snd_dir ( ) const
+inline unsigned char
+Mixer_Sliders_Proxies_Group::snd_dir () const
 {
-	return _snd_dir;
+  return _snd_dir;
 }
 
-
-inline
-bool
-Mixer_Sliders_Proxies_Group::is_joined ( ) const
+inline bool
+Mixer_Sliders_Proxies_Group::is_joined () const
 {
-	return _is_joined;
+  return _is_joined;
 }
 
-
-inline
-bool
-Mixer_Sliders_Proxies_Group::is_visible ( ) const
+inline bool
+Mixer_Sliders_Proxies_Group::is_visible () const
 {
-	return _is_visible;
+  return _is_visible;
 }
 
-
-inline
-bool
-Mixer_Sliders_Proxies_Group::notify_value_change ( ) const
+inline bool
+Mixer_Sliders_Proxies_Group::notify_value_change () const
 {
-	return _notify_value_change;
+  return _notify_value_change;
 }
 
-
-inline
-bool
-Mixer_Sliders_Proxies_Group::separation_request ( ) const
+inline bool
+Mixer_Sliders_Proxies_Group::separation_request () const
 {
-	return _separation_request;
+  return _separation_request;
 }
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

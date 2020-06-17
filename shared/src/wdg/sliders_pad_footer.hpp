@@ -6,31 +6,23 @@
 
 #include "sliders_pad_header.hpp"
 
-
 namespace Wdg
 {
-
 
 ///
 /// @brief Sliders_Pad_Footer
 ///
-class Sliders_Pad_Footer :
-	public Sliders_Pad_Header
+class Sliders_Pad_Footer : public Sliders_Pad_Header
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
-
-	Sliders_Pad_Footer (
-		Sliders_Pad_Data * sp_data_n,
-		Sliders_Pad_Style * sp_style_n,
-		QWidget * parent_n = 0 );
-
+  // Public methods
+  public:
+  Sliders_Pad_Footer ( Sliders_Pad_Data * sp_data_n,
+                       Sliders_Pad_Style * sp_style_n,
+                       QWidget * parent_n = 0 );
 };
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

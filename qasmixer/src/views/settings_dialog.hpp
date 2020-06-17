@@ -4,21 +4,20 @@
 #ifndef __INC_views_settings_dialog_hpp__
 #define __INC_views_settings_dialog_hpp__
 
-#include <QLabel>
-#include <QCheckBox>
-#include <QRadioButton>
-#include <QButtonGroup>
-#include <QComboBox>
-#include <QLineEdit>
-#include <QSpinBox>
-#include <QDoubleSpinBox>
-#include <QSlider>
-#include <QStackedLayout>
-#include <QModelIndex>
-#include <QListView>
-#include <QStandardItem>
-
 #include "views/multi_page_dialog.hpp"
+#include <QButtonGroup>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QDoubleSpinBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QListView>
+#include <QModelIndex>
+#include <QRadioButton>
+#include <QSlider>
+#include <QSpinBox>
+#include <QStackedLayout>
+#include <QStandardItem>
 
 // Forward declaration
 class Desktop_Items_Setup;
@@ -26,156 +25,136 @@ class Desktop_Items_Setup;
 namespace Views
 {
 
-
 /// @brief Settings_Dialog
 ///
-class Settings_Dialog :
-	public ::Views::Multi_Page_Dialog
+class Settings_Dialog : public ::Views::Multi_Page_Dialog
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Settings_Dialog ( QWidget * parent_n = 0, Qt::WindowFlags flags_n = 0 );
 
-	Settings_Dialog (
-		QWidget * parent_n = 0,
-		Qt::WindowFlags flags_n = 0 );
+  ~Settings_Dialog ();
 
-	~Settings_Dialog ( );
+  void
+  set_setup ( ::Desktop_Items_Setup * setup_n );
 
+  // Signals
+  signals:
 
-	void
-	set_setup (
-		::Desktop_Items_Setup * setup_n );
+  void
+  sig_change_mixer_view ();
 
+  void
+  sig_change_input ();
 
-	// Signals
-	signals:
+  void
+  sig_change_tray_view ();
 
-	void
-	sig_change_mixer_view ( );
+  void
+  sig_change_tray_mdev ();
 
-	void
-	sig_change_input ( );
+  void
+  sig_change_tray_balloon ();
 
-	void
-	sig_change_tray_view ( );
+  void
+  sig_close ();
 
-	void
-	sig_change_tray_mdev ( );
+  // Protected slots
+  protected slots:
 
-	void
-	sig_change_tray_balloon ( );
+  void
+  change_startup ();
 
+  void
+  change_appearance ();
 
-	void
-	sig_close ( );
+  void
+  change_input ();
 
+  void
+  change_tray_view ();
 
-	// Protected slots
-	protected slots:
+  void
+  change_tray_mdev ();
 
-	void
-	change_startup ( );
+  void
+  change_tray_balloon ();
 
-	void
-	change_appearance ( );
+  void
+  wheel_turns_changed ( int value_n );
 
-	void
-	change_input ( );
+  void
+  wheel_turns_changed ( double value_n );
 
-	void
-	change_tray_view ( );
+  // Protected methods
+  protected:
+  void
+  init_page_startup ();
 
-	void
-	change_tray_mdev ( );
+  void
+  init_page_appearance ();
 
-	void
-	change_tray_balloon ( );
+  void
+  init_page_input ();
 
+  void
+  init_page_sys_tray ();
 
-	void
-	wheel_turns_changed (
-		int value_n );
+  void
+  update_inputs_values ();
 
-	void
-	wheel_turns_changed (
-		double value_n );
+  void
+  update_inputs_vis_state ();
 
+  // Private attributes
+  private:
+  ::Desktop_Items_Setup * _dsetup;
 
-	// Protected methods
-	protected:
+  // Pages
+  QWidget * _page_startup;
+  QWidget * _page_appearance;
+  QWidget * _page_input;
+  QWidget * _page_sys_tray;
 
-	void
-	init_page_startup ( );
+  // Page: Startup
+  QButtonGroup * _start_btn_grp_device;
+  QRadioButton * _start_btn_device[ 3 ];
+  QWidget * _start_dev_user;
+  QLineEdit * _start_dev_user_edit;
 
-	void
-	init_page_appearance ( );
+  // Page: Appearance
+  QCheckBox * _btn_show_sliders_labels;
 
-	void
-	init_page_input ( );
+  // Page: Input
+  QString _mwheel_degrees_mask;
+  QDoubleSpinBox * _mwheel_turns_input;
+  QSlider * _mwheel_turns_slider;
 
-	void
-	init_page_sys_tray ( );
+  // Page: System tray usage
+  QWidget * _tray_minimize;
+  QCheckBox * _tray_btn_on_close;
+  QCheckBox * _tray_btn_show_icon;
 
+  QWidget * _tray_wdg_grp_ballon;
+  QCheckBox * _tray_btn_balloon_show;
+  QWidget * _tray_balloon_time;
+  QSpinBox * _tray_balloon_time_input;
 
-	void
-	update_inputs_values ( );
+  QWidget * _tray_wdg_grp_device;
+  QButtonGroup * _tray_btn_grp_device;
+  QRadioButton * _tray_btn_device[ 3 ];
 
-	void
-	update_inputs_vis_state ( );
+  QWidget * _tray_dev_user;
+  QLineEdit * _tray_dev_user_edit;
 
-
-	// Private attributes
-	private:
-
-	::Desktop_Items_Setup * _dsetup;
-
-	// Pages
-	QWidget * _page_startup;
-	QWidget * _page_appearance;
-	QWidget * _page_input;
-	QWidget * _page_sys_tray;
-
-	// Page: Startup
-	QButtonGroup * _start_btn_grp_device;
-	QRadioButton * _start_btn_device[3];
-	QWidget * _start_dev_user;
-	QLineEdit * _start_dev_user_edit;
-
-	// Page: Appearance
-	QCheckBox * _btn_show_sliders_labels;
-
-	// Page: Input
-	QString _mwheel_degrees_mask;
-	QDoubleSpinBox * _mwheel_turns_input;
-	QSlider * _mwheel_turns_slider;
-
-	// Page: System tray usage
-	QWidget * _tray_minimize;
-	QCheckBox * _tray_btn_on_close;
-	QCheckBox * _tray_btn_show_icon;
-
-	QWidget * _tray_wdg_grp_ballon;
-	QCheckBox * _tray_btn_balloon_show;
-	QWidget * _tray_balloon_time;
-	QSpinBox * _tray_balloon_time_input;
-
-	QWidget * _tray_wdg_grp_device;
-	QButtonGroup * _tray_btn_grp_device;
-	QRadioButton * _tray_btn_device[3];
-
-	QWidget * _tray_dev_user;
-	QLineEdit * _tray_dev_user_edit;
-
-	// Layout & Styling
-	QLocale loc;
-	bool _updating_values;
-	unsigned int _vspace;
+  // Layout & Styling
+  QLocale loc;
+  bool _updating_values;
+  unsigned int _vspace;
 };
 
-
-} // End of namespace
-
+} // namespace Views
 
 #endif

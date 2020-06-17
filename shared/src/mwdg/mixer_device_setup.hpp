@@ -6,29 +6,22 @@
 
 #include <QString>
 
-
 namespace MWdg
 {
-
 
 /// @brief Mixer_Device_Setup
 ///
 class Mixer_Device_Setup
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_Device_Setup ();
 
-	Mixer_Device_Setup ( );
-
-
-	// Public attributes
-	public:
-
-	QString ctl_addr;
+  // Public attributes
+  public:
+  QString ctl_addr;
 };
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

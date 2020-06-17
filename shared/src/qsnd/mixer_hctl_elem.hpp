@@ -6,644 +6,507 @@
 
 #include "qsnd/alsa.hpp"
 #include "qsnd/mixer_hctl_info_db.hpp"
-
-#include <vector>
 #include <QObject>
 #include <QString>
-
+#include <vector>
 
 namespace QSnd
 {
-
 
 /// @brief Mixer_HCTL_Elem
 ///
 /// Brings Qt and ALSA objects together but without
 /// any GUI objects
 ///
-class Mixer_HCTL_Elem :
-    public QObject
+class Mixer_HCTL_Elem : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public typedefs
-	public:
+  // Public typedefs
+  public:
+  typedef ::std::vector< QString > Enum_Names_Buffer;
 
-	typedef ::std::vector < QString > Enum_Names_Buffer;
+  // Public methods
+  public:
+  Mixer_HCTL_Elem ( const Mixer_HCTL_Info_Db & info_db_n,
+                    QObject * parent_n = 0,
+                    snd_hctl_t * hctl_n = 0,
+                    snd_hctl_elem_t * hctl_elem_n = 0 );
 
+  ~Mixer_HCTL_Elem ();
 
-	// Public methods
-	public:
+  void
+  clear ();
 
-	Mixer_HCTL_Elem (
-		const Mixer_HCTL_Info_Db & info_db_n,
-		QObject * parent_n = 0,
-		snd_hctl_t * hctl_n = 0,
-		snd_hctl_elem_t * hctl_elem_n = 0 );
+  // Alsa hctl
 
-	~Mixer_HCTL_Elem ( );
+  snd_hctl_t *
+  snd_hctl () const;
 
-	void
-	clear ( );
+  void
+  set_snd_hctl ( snd_hctl_t * hctl_n );
 
+  // Alsa hctl elem
 
-	// Alsa hctl
+  void
+  set_snd_hctl_elem ( snd_hctl_elem_t * hctl_elem_n );
 
-	snd_hctl_t *
-	snd_hctl ( ) const;
+  snd_hctl_elem_t *
+  snd_hctl_elem () const;
 
-	void
-	set_snd_hctl (
-		snd_hctl_t * hctl_n );
+  // Alsa snd_ctl_elem_info_t
 
+  const snd_ctl_elem_info_t *
+  snd_ctl_info () const;
 
-	// Alsa hctl elem
+  const QString &
+  display_name () const;
 
-	void
-	set_snd_hctl_elem (
-		snd_hctl_elem_t * hctl_elem_n );
+  void
+  set_display_name ( const QString & name_n );
 
-	snd_hctl_elem_t *
-	snd_hctl_elem ( ) const;
+  const char *
+  elem_name () const;
 
+  unsigned int
+  elem_numid () const;
 
-	// Alsa snd_ctl_elem_info_t
+  unsigned int
+  elem_index () const;
 
-	const snd_ctl_elem_info_t *
-	snd_ctl_info ( ) const;
+  unsigned int
+  device () const;
 
+  unsigned int
+  subdevice () const;
 
-	const QString &
-	display_name ( ) const;
+  snd_ctl_elem_iface_t
+  iface () const;
 
-	void
-	set_display_name (
-		const QString & name_n );
+  unsigned int
+  iface_type_idx () const;
 
+  const QString &
+  iface_name () const;
 
-	const char *
-	elem_name ( ) const;
+  const QString &
+  iface_display_name () const;
 
-	unsigned int
-	elem_numid ( ) const;
+  unsigned int
+  count () const;
 
-	unsigned int
-	elem_index ( ) const;
+  // Type
 
+  snd_ctl_elem_type_t
+  elem_type () const;
 
-	unsigned int
-	device ( ) const;
+  const QString &
+  elem_type_name () const;
 
-	unsigned int
-	subdevice ( ) const;
+  const QString &
+  elem_type_display_name () const;
 
+  bool
+  is_boolean () const;
 
-	snd_ctl_elem_iface_t
-	iface ( ) const;
+  bool
+  is_integer () const;
 
-	unsigned int
-	iface_type_idx ( ) const;
+  bool
+  is_enumerated () const;
 
-	const QString &
-	iface_name ( ) const;
+  bool
+  is_bytes () const;
 
-	const QString &
-	iface_display_name ( ) const;
+  bool
+  is_IEC958 () const;
 
+  bool
+  is_integer64 () const;
 
-	unsigned int
-	count ( ) const;
+  // State flags
 
+  bool
+  is_volatile () const;
 
-	// Type
+  bool
+  is_readable () const;
 
-	snd_ctl_elem_type_t
-	elem_type ( ) const;
+  bool
+  is_writable () const;
 
-	const QString &
-	elem_type_name ( ) const;
+  bool
+  is_active () const;
 
-	const QString &
-	elem_type_display_name ( ) const;
+  // Boolean type
 
-	bool
-	is_boolean ( ) const;
+  bool
+  switch_state ( unsigned int idx_n ) const;
 
-	bool
-	is_integer ( ) const;
+  bool
+  switches_equal () const;
 
-	bool
-	is_enumerated ( ) const;
+  void
+  set_switch_state ( unsigned int idx_n, bool state_n );
 
-	bool
-	is_bytes ( ) const;
+  void
+  set_switch_all ( bool state_n );
 
-	bool
-	is_IEC958 ( ) const;
+  void
+  invert_switch_state ( unsigned int idx_n );
 
-	bool
-	is_integer64 ( ) const;
+  void
+  invert_switch_all ();
 
+  void
+  level_switches ();
 
-	// State flags
+  // Integer type
 
-	bool
-	is_volatile ( ) const;
+  long
+  integer_min () const;
 
-	bool
-	is_readable ( ) const;
+  long
+  integer_max () const;
 
-	bool
-	is_writable ( ) const;
+  long
+  integer_value ( unsigned int idx_n ) const;
 
-	bool
-	is_active ( ) const;
+  bool
+  integers_equal () const;
 
+  void
+  set_integer ( unsigned int idx_n, long value_n );
 
-	// Boolean type
+  void
+  set_integer_all ( long value_n );
 
-	bool
-	switch_state (
-		unsigned int idx_n ) const;
+  void
+  level_integers ();
 
-	bool
-	switches_equal ( ) const;
+  // Decibel
 
-	void
-	set_switch_state (
-		unsigned int idx_n,
-		bool state_n );
+  bool
+  has_dB () const;
 
-	void
-	set_switch_all (
-		bool state_n );
+  /// @return < 0 on error
+  int
+  dB_range ( long * min_n, long * max_n ) const;
 
-	void
-	invert_switch_state (
-		unsigned int idx_n );
+  long
+  dB_value ( unsigned int idx_n ) const;
 
-	void
-	invert_switch_all ( );
+  long
+  ask_dB_from_int ( long int_value_n ) const;
 
-	void
-	level_switches ( );
+  long
+  ask_int_from_dB ( long value_n, int round_dir_n = 0 ) const;
 
+  // Enum type
 
-	// Integer type
+  unsigned int
+  enum_num_items () const;
 
-	long
-	integer_min ( ) const;
+  const char *
+  enum_item_name ( unsigned int enum_idx_n ) const;
 
-	long
-	integer_max ( ) const;
+  QString
+  enum_item_display_name ( unsigned int enum_idx_n ) const;
 
-	long
-	integer_value (
-		unsigned int idx_n ) const;
+  unsigned int
+  enum_index ( unsigned int channel_idx_n ) const;
 
-	bool
-	integers_equal ( ) const;
+  bool
+  enum_idices_equal () const;
 
-	void
-	set_integer (
-		unsigned int idx_n,
-		long value_n );
+  void
+  set_enum_index ( unsigned int channel_idx_n, unsigned int enum_idx_n );
 
-	void
-	set_integer_all (
-		long value_n );
+  void
+  set_enum_index_all ( unsigned int enum_idx_n );
 
-	void
-	level_integers ( );
+  void
+  level_enums ();
 
+  // General
 
-	// Decibel
+  bool
+  values_equal () const;
 
-	bool
-	has_dB ( ) const;
+  void
+  level_values ();
 
-	/// @return < 0 on error
-	int
-	dB_range (
-		long * min_n,
-		long * max_n ) const;
+  bool
+  values_changed () const;
 
-	long
-	dB_value (
-		unsigned int idx_n ) const;
+  /// @brief Reads all value from alsa
+  void
+  update_value ();
 
-	long
-	ask_dB_from_int (
-		long int_value_n ) const;
+  // Callback methods
 
-	long
-	ask_int_from_dB (
-		long value_n,
-		int round_dir_n = 0 ) const;
+  /// @brief Reads all value from alsa and flags a change
+  void
+  update_value_mark ();
 
+  void
+  signalize_changes ();
 
-	// Enum type
+  /// @brief Signalizes the parent that this element changed
+  void
+  signalize_element_changed ();
 
-	unsigned int
-	enum_num_items ( ) const;
+  // Alsa callbacks
 
-	const char *
-	enum_item_name (
-		unsigned int enum_idx_n ) const;
+  static int
+  alsa_callback_hctl_elem ( snd_hctl_elem_t * elem_n, unsigned int mask_n );
 
-	QString
-	enum_item_display_name (
-		unsigned int enum_idx_n ) const;
+  // Signals
+  signals:
 
-	unsigned int
-	enum_index (
-		unsigned int channel_idx_n ) const;
+  /// @brief Gets emitted when a value was set
+  void
+  sig_values_changed ();
 
-	bool
-	enum_idices_equal ( ) const;
+  // Protected methods
+  protected:
+  void
+  value_was_set ();
 
-	void
-	set_enum_index (
-		unsigned int channel_idx_n,
-		unsigned int enum_idx_n );
+  // Private attributes
+  private:
+  const Mixer_HCTL_Info_Db & _info_db;
 
-	void
-	set_enum_index_all (
-		unsigned int enum_idx_n );
+  snd_hctl_t * _snd_hctl;
+  snd_hctl_elem_t * _snd_hctl_elem;
+  snd_ctl_elem_info_t * _snd_ctl_elem_info;
+  snd_ctl_elem_value_t * _snd_ctl_elem_value;
 
-	void
-	level_enums ( );
+  bool _values_changed;
 
-
-	// General
-
-	bool
-	values_equal ( ) const;
-
-	void
-	level_values ( );
-
-	bool
-	values_changed ( ) const;
-
-
-	/// @brief Reads all value from alsa
-	void
-	update_value ( );
-
-
-	// Callback methods
-
-	/// @brief Reads all value from alsa and flags a change
-	void
-	update_value_mark ( );
-
-	void
-	signalize_changes ( );
-
-	/// @brief Signalizes the parent that this element changed
-	void
-	signalize_element_changed ( );
-
-
-	// Alsa callbacks
-
-	static
-	int
-	alsa_callback_hctl_elem (
-		snd_hctl_elem_t * elem_n,
-		unsigned int mask_n );
-
-
-	// Signals
-	signals:
-
-	/// @brief Gets emitted when a value was set
-	void
-	sig_values_changed ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	value_was_set ( );
-
-
-	// Private attributes
-	private:
-
-	const Mixer_HCTL_Info_Db & _info_db;
-
-	snd_hctl_t * _snd_hctl;
-	snd_hctl_elem_t * _snd_hctl_elem;
-	snd_ctl_elem_info_t * _snd_ctl_elem_info;
-	snd_ctl_elem_value_t * _snd_ctl_elem_value;
-
-	bool _values_changed;
-
-	QString _display_name;
-	Enum_Names_Buffer _enum_item_names;
+  QString _display_name;
+  Enum_Names_Buffer _enum_item_names;
 };
 
-
-
-inline
-snd_hctl_t *
-Mixer_HCTL_Elem::snd_hctl ( ) const
+inline snd_hctl_t *
+Mixer_HCTL_Elem::snd_hctl () const
 {
-	return _snd_hctl;
+  return _snd_hctl;
 }
 
-
-inline
-snd_hctl_elem_t *
-Mixer_HCTL_Elem::snd_hctl_elem ( ) const
+inline snd_hctl_elem_t *
+Mixer_HCTL_Elem::snd_hctl_elem () const
 {
-	return _snd_hctl_elem;
+  return _snd_hctl_elem;
 }
 
-
-inline
-const snd_ctl_elem_info_t *
-Mixer_HCTL_Elem::snd_ctl_info ( ) const
+inline const snd_ctl_elem_info_t *
+Mixer_HCTL_Elem::snd_ctl_info () const
 {
-	return _snd_ctl_elem_info;
+  return _snd_ctl_elem_info;
 }
 
-
-inline
-const QString &
-Mixer_HCTL_Elem::display_name ( ) const
+inline const QString &
+Mixer_HCTL_Elem::display_name () const
 {
-	return _display_name;
+  return _display_name;
 }
 
-
-inline
-const char *
-Mixer_HCTL_Elem::elem_name ( ) const
+inline const char *
+Mixer_HCTL_Elem::elem_name () const
 {
-	return snd_ctl_elem_info_get_name ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_name ( _snd_ctl_elem_info );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::elem_numid ( ) const
+inline unsigned int
+Mixer_HCTL_Elem::elem_numid () const
 {
-	return snd_ctl_elem_info_get_numid ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_numid ( _snd_ctl_elem_info );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::elem_index ( ) const
+inline unsigned int
+Mixer_HCTL_Elem::elem_index () const
 {
-	return snd_ctl_elem_info_get_index ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_index ( _snd_ctl_elem_info );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::device ( ) const
+inline unsigned int
+Mixer_HCTL_Elem::device () const
 {
-	return snd_ctl_elem_info_get_device ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_device ( _snd_ctl_elem_info );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::subdevice ( ) const
+inline unsigned int
+Mixer_HCTL_Elem::subdevice () const
 {
-	return snd_ctl_elem_info_get_subdevice ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_subdevice ( _snd_ctl_elem_info );
 }
 
-
-inline
-snd_ctl_elem_iface_t
-Mixer_HCTL_Elem::iface ( ) const
+inline snd_ctl_elem_iface_t
+Mixer_HCTL_Elem::iface () const
 {
-	return snd_ctl_elem_info_get_interface ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_interface ( _snd_ctl_elem_info );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::iface_type_idx ( ) const
+inline unsigned int
+Mixer_HCTL_Elem::iface_type_idx () const
 {
-	return _info_db.iface_type_idx ( iface() );
+  return _info_db.iface_type_idx ( iface () );
 }
 
-
-inline
-const QString &
-Mixer_HCTL_Elem::iface_name ( ) const
+inline const QString &
+Mixer_HCTL_Elem::iface_name () const
 {
-	return _info_db.iface_name ( iface() );
+  return _info_db.iface_name ( iface () );
 }
 
-
-inline
-const QString &
-Mixer_HCTL_Elem::iface_display_name ( ) const
+inline const QString &
+Mixer_HCTL_Elem::iface_display_name () const
 {
-	return _info_db.iface_display_name ( iface() );
+  return _info_db.iface_display_name ( iface () );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::count ( ) const
+inline unsigned int
+Mixer_HCTL_Elem::count () const
 {
-	return snd_ctl_elem_info_get_count ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_count ( _snd_ctl_elem_info );
 }
-
 
 // Type
 
-inline
-snd_ctl_elem_type_t
-Mixer_HCTL_Elem::elem_type ( ) const
+inline snd_ctl_elem_type_t
+Mixer_HCTL_Elem::elem_type () const
 {
-	return snd_ctl_elem_info_get_type ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_type ( _snd_ctl_elem_info );
 }
 
-
-inline
-const QString &
-Mixer_HCTL_Elem::elem_type_name ( ) const
+inline const QString &
+Mixer_HCTL_Elem::elem_type_name () const
 {
-	return _info_db.elem_type_name ( elem_type() );
+  return _info_db.elem_type_name ( elem_type () );
 }
 
-
-inline
-const QString &
-Mixer_HCTL_Elem::elem_type_display_name ( ) const
+inline const QString &
+Mixer_HCTL_Elem::elem_type_display_name () const
 {
-	return _info_db.elem_type_display_name ( elem_type() );
+  return _info_db.elem_type_display_name ( elem_type () );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_boolean ( ) const
+inline bool
+Mixer_HCTL_Elem::is_boolean () const
 {
-	return ( elem_type() == SND_CTL_ELEM_TYPE_BOOLEAN );
+  return ( elem_type () == SND_CTL_ELEM_TYPE_BOOLEAN );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_integer ( ) const
+inline bool
+Mixer_HCTL_Elem::is_integer () const
 {
-	return ( elem_type() == SND_CTL_ELEM_TYPE_INTEGER );
+  return ( elem_type () == SND_CTL_ELEM_TYPE_INTEGER );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_enumerated ( ) const
+inline bool
+Mixer_HCTL_Elem::is_enumerated () const
 {
-	return ( elem_type() == SND_CTL_ELEM_TYPE_ENUMERATED );
+  return ( elem_type () == SND_CTL_ELEM_TYPE_ENUMERATED );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_bytes ( ) const
+inline bool
+Mixer_HCTL_Elem::is_bytes () const
 {
-	return ( elem_type() == SND_CTL_ELEM_TYPE_BYTES );
+  return ( elem_type () == SND_CTL_ELEM_TYPE_BYTES );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_IEC958 ( ) const
+inline bool
+Mixer_HCTL_Elem::is_IEC958 () const
 {
-	return ( elem_type() == SND_CTL_ELEM_TYPE_IEC958 );
+  return ( elem_type () == SND_CTL_ELEM_TYPE_IEC958 );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_integer64 ( ) const
+inline bool
+Mixer_HCTL_Elem::is_integer64 () const
 {
-	return ( elem_type() == SND_CTL_ELEM_TYPE_INTEGER64 );
+  return ( elem_type () == SND_CTL_ELEM_TYPE_INTEGER64 );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_volatile ( ) const
+inline bool
+Mixer_HCTL_Elem::is_volatile () const
 {
-	return snd_ctl_elem_info_is_volatile ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_is_volatile ( _snd_ctl_elem_info );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_readable ( ) const
+inline bool
+Mixer_HCTL_Elem::is_readable () const
 {
-	return snd_ctl_elem_info_is_readable ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_is_readable ( _snd_ctl_elem_info );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_writable ( ) const
+inline bool
+Mixer_HCTL_Elem::is_writable () const
 {
-	return snd_ctl_elem_info_is_writable ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_is_writable ( _snd_ctl_elem_info );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::is_active ( ) const
+inline bool
+Mixer_HCTL_Elem::is_active () const
 {
-	return ( snd_ctl_elem_info_is_inactive ( _snd_ctl_elem_info ) == 0 );
+  return ( snd_ctl_elem_info_is_inactive ( _snd_ctl_elem_info ) == 0 );
 }
-
 
 // Integer type
 
-inline
-long
-Mixer_HCTL_Elem::integer_min ( ) const
+inline long
+Mixer_HCTL_Elem::integer_min () const
 {
-	return snd_ctl_elem_info_get_min ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_min ( _snd_ctl_elem_info );
 }
 
-
-inline
-long
-Mixer_HCTL_Elem::integer_max ( ) const
+inline long
+Mixer_HCTL_Elem::integer_max () const
 {
-	return snd_ctl_elem_info_get_max ( _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_max ( _snd_ctl_elem_info );
 }
 
-
-inline
-long
-Mixer_HCTL_Elem::integer_value (
-	unsigned int idx_n ) const
+inline long
+Mixer_HCTL_Elem::integer_value ( unsigned int idx_n ) const
 {
-	return snd_ctl_elem_value_get_integer ( _snd_ctl_elem_value, idx_n );
+  return snd_ctl_elem_value_get_integer ( _snd_ctl_elem_value, idx_n );
 }
-
 
 // Switch value
 
-inline
-bool
-Mixer_HCTL_Elem::switch_state (
-	unsigned int idx_n ) const
+inline bool
+Mixer_HCTL_Elem::switch_state ( unsigned int idx_n ) const
 {
-	return snd_ctl_elem_value_get_boolean (
-		_snd_ctl_elem_value, idx_n );
+  return snd_ctl_elem_value_get_boolean ( _snd_ctl_elem_value, idx_n );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::enum_num_items ( ) const
+inline unsigned int
+Mixer_HCTL_Elem::enum_num_items () const
 {
-	return snd_ctl_elem_info_get_items (
-		_snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_items ( _snd_ctl_elem_info );
 }
 
-
-inline
-const char *
-Mixer_HCTL_Elem::enum_item_name (
-	unsigned int enum_idx_n ) const
+inline const char *
+Mixer_HCTL_Elem::enum_item_name ( unsigned int enum_idx_n ) const
 {
-	snd_ctl_elem_info_set_item ( _snd_ctl_elem_info, enum_idx_n );
-	snd_hctl_elem_info ( snd_hctl_elem(), _snd_ctl_elem_info );
-	return snd_ctl_elem_info_get_item_name ( _snd_ctl_elem_info );
+  snd_ctl_elem_info_set_item ( _snd_ctl_elem_info, enum_idx_n );
+  snd_hctl_elem_info ( snd_hctl_elem (), _snd_ctl_elem_info );
+  return snd_ctl_elem_info_get_item_name ( _snd_ctl_elem_info );
 }
 
-
-inline
-unsigned int
-Mixer_HCTL_Elem::enum_index (
-	unsigned int channel_idx_n ) const
+inline unsigned int
+Mixer_HCTL_Elem::enum_index ( unsigned int channel_idx_n ) const
 {
-	return snd_ctl_elem_value_get_enumerated (
-		_snd_ctl_elem_value, channel_idx_n );
+  return snd_ctl_elem_value_get_enumerated ( _snd_ctl_elem_value,
+                                             channel_idx_n );
 }
 
-
-inline
-bool
-Mixer_HCTL_Elem::values_changed ( ) const
+inline bool
+Mixer_HCTL_Elem::values_changed () const
 {
-	return _values_changed;
+  return _values_changed;
 }
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

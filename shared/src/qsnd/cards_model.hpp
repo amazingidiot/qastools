@@ -10,91 +10,67 @@
 namespace QSnd
 {
 
-
 /// @brief Cards_Model
 ///
-class Cards_Model :
-	public QStandardItemModel
+class Cards_Model : public QStandardItemModel
 {
-	Q_OBJECT;
+  Q_OBJECT;
 
-	// Public types
-	public:
+  // Public types
+  public:
+  typedef QList<::QSnd::Card_Info > Card_Infos;
 
-	typedef QList < ::QSnd::Card_Info > Card_Infos;
+  // Public methods
+  public:
+  Cards_Model ( QObject * parent_n = 0 );
 
+  ~Cards_Model ();
 
-	// Public methods
-	public:
+  unsigned int
+  num_cards () const;
 
-	Cards_Model (
-		QObject * parent_n = 0 );
+  const ::QSnd::Card_Info &
+  card_info ( unsigned int index_n ) const;
 
-	~Cards_Model ( );
+  const ::QSnd::Card_Info *
+  card_info_by_card_id ( unsigned int id_n );
 
+  // Control definition access
 
-	unsigned int
-	num_cards ( ) const;
+  const ::QSnd::Card_Info *
+  card_info_by_model_index ( const QModelIndex & idx_n ) const;
 
-	const ::QSnd::Card_Info &
-	card_info (
-		unsigned int index_n ) const;
+  QModelIndex
+  model_index_by_card_id ( const QString & id_str_n ) const;
 
-	const ::QSnd::Card_Info *
-	card_info_by_card_id (
-		unsigned int id_n );
+  // Public slots
+  public slots:
 
+  void
+  reload ();
 
-	// Control definition access
+  // Protected methods
+  protected:
+  void
+  load_cards ( Card_Infos & card_infos_n );
 
-	const ::QSnd::Card_Info *
-	card_info_by_model_index (
-		const QModelIndex & idx_n ) const;
-
-	QModelIndex
-	model_index_by_card_id (
-		const QString & id_str_n ) const;
-
-
-	// Public slots
-	public slots:
-
-	void
-	reload ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	load_cards (
-		Card_Infos & card_infos_n );
-
-
-	// Private attributes
-	private:
-
-	Card_Infos _card_infos;
+  // Private attributes
+  private:
+  Card_Infos _card_infos;
 };
 
-
-inline
-unsigned int
-Cards_Model::num_cards ( ) const
+inline unsigned int
+Cards_Model::num_cards () const
 {
-	return _card_infos.size();
+  return _card_infos.size ();
 }
 
-inline
-const ::QSnd::Card_Info &
-Cards_Model::card_info (
-	unsigned int index_n ) const
+inline const ::QSnd::Card_Info &
+Cards_Model::card_info ( unsigned int index_n ) const
 {
-	return _card_infos[index_n];
+  return _card_infos[ index_n ];
 }
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

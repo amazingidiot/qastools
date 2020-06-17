@@ -1,7 +1,6 @@
 /// QasTools: Desktop toolset for the Linux sound system ALSA.
 /// \copyright See COPYING file.
 
-
 #ifndef __INC_tree_view_kv_hpp__
 #define __INC_tree_view_kv_hpp__
 
@@ -10,84 +9,61 @@
 namespace Wdg
 {
 
-
 ///
 /// @brief Tree_View_KV
 ///
-class Tree_View_KV :
-	public QTreeView
+class Tree_View_KV : public QTreeView
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Tree_View_KV ( QWidget * parent = 0 );
 
-	Tree_View_KV (
-		QWidget * parent = 0 );
+  void
+  setModel ( QAbstractItemModel * model_n );
 
-	void
-	setModel (
-		QAbstractItemModel * model_n );
+  // Activate current
 
+  bool
+  activate_current () const;
 
-	// Activate current
+  void
+  set_activate_current ( bool flag_n );
 
-	bool
-	activate_current ( ) const;
+  // Public slots
+  public slots:
 
-	void
-	set_activate_current (
-		bool flag_n );
+  void
+  set_expanded_recursive ( const QModelIndex & index_n,
+                           int depth_n,
+                           bool expanded_n );
 
+  void
+  expand_recursive ( const QModelIndex & index_n, int depth_n );
 
-	// Public slots
-	public slots:
+  void
+  collapse_recursive ( const QModelIndex & index_n, int depth_n );
 
-	void
-	set_expanded_recursive (
-		const QModelIndex & index_n,
-		int depth_n,
-		bool expanded_n );
+  void
+  adjust_first_column_width ();
 
-	void
-	expand_recursive (
-		const QModelIndex & index_n,
-		int depth_n );
+  // Protected methods
+  protected:
+  void
+  currentChanged ( const QModelIndex & current, const QModelIndex & previous );
 
-	void
-	collapse_recursive (
-		const QModelIndex & index_n,
-		int depth_n );
-
-	void
-	adjust_first_column_width ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	currentChanged (
-		const QModelIndex & current,
-		const QModelIndex & previous );
-
-
-	// Private attributes
-	private:
-
-	bool _activate_current;
-
+  // Private attributes
+  private:
+  bool _activate_current;
 };
 
-
-inline
-bool
-Tree_View_KV::activate_current ( ) const
+inline bool
+Tree_View_KV::activate_current () const
 {
-	return _activate_current;
+  return _activate_current;
 }
 
-
-} // End of namespace
+} // namespace Wdg
 
 #endif

@@ -4,155 +4,131 @@
 #ifndef __INC_main_window_hpp__
 #define __INC_main_window_hpp__
 
-#include "qastools_config.hpp"
 #include "main_window_setup.hpp"
-
+#include "qastools_config.hpp"
 #include <QAction>
 #include <QActionGroup>
 #include <QMainWindow>
-#include <QSplitter>
 #include <QScopedPointer>
+#include <QSplitter>
 
 // Forward declaration
-namespace Views {
-	class Mixer_Simple;
-	class Device_Selection_View;
-}
-
-
-class Main_Window :
-	public QMainWindow
+namespace Views
 {
-	Q_OBJECT
+class Mixer_Simple;
+class Device_Selection_View;
+} // namespace Views
 
-	// Public methods
-	public:
+class Main_Window : public QMainWindow
+{
+  Q_OBJECT
 
-	Main_Window (
-		QWidget * parent_n = 0,
-		Qt::WindowFlags flags_n = 0 );
+  // Public methods
+  public:
+  Main_Window ( QWidget * parent_n = 0, Qt::WindowFlags flags_n = 0 );
 
-	~Main_Window ( );
+  ~Main_Window ();
 
-	QSize
-	sizeHint ( ) const;
+  QSize
+  sizeHint () const;
 
-	void
-	set_window_setup (
-		Main_Window_Setup * setup_n );
+  void
+  set_window_setup ( Main_Window_Setup * setup_n );
 
-	void
-	select_ctl (
-		const QString & ctl_n );
+  void
+  select_ctl ( const QString & ctl_n );
 
+  // Signals
+  signals:
 
-	// Signals
-	signals:
+  void
+  sig_show_settings ();
 
-	void
-	sig_show_settings ( );
+  void
+  sig_show_info ();
 
-	void
-	sig_show_info ( );
+  void
+  sig_control_changed ();
 
-	void
-	sig_control_changed ( );
+  void
+  sig_quit ();
 
+  // Public slots
+  public slots:
 
-	void
-	sig_quit ( );
+  // Snd control selection
 
+  void
+  select_ctl_from_side_iface ();
 
-	// Public slots
-	public slots:
+  void
+  reload_mixer_device ();
 
-	// Snd control selection
+  void
+  reload_mixer_inputs ();
 
-	void
-	select_ctl_from_side_iface ( );
+  void
+  reload_mixer_view ();
 
-	void
-	reload_mixer_device ( );
+  void
+  refresh_views ();
 
-	void
-	reload_mixer_inputs ( );
+  /// @brief Sets/unsets fullscreen mode
+  ///
+  void
+  set_fullscreen ( bool flag_n );
 
-	void
-	reload_mixer_view ( );
+  // Device selection
 
-	void
-	refresh_views ( );
+  void
+  show_device_selection ( bool flag_n );
 
+  void
+  toggle_device_selection ();
 
-	/// @brief Sets/unsets fullscreen mode
-	///
-	void
-	set_fullscreen (
-		bool flag_n );
+  /// @brief Save state to the setup tree
+  ///
+  void
+  save_state ();
 
+  // Protected methods
+  protected:
+  void
+  update_fullscreen_action ();
 
-	// Device selection
+  // Event handlers
 
-	void
-	show_device_selection (
-		bool flag_n );
+  void
+  changeEvent ( QEvent * event_n );
 
-	void
-	toggle_device_selection ( );
+  void
+  keyPressEvent ( QKeyEvent * event_n );
 
+  void
+  init_menus ();
 
-	/// @brief Save state to the setup tree
-	///
-	void
-	save_state ( );
+  void
+  init_widgets ();
 
+  // Private attributes
+  private:
+  Main_Window_Setup * _win_setup;
 
-	// Protected methods
-	protected:
+  // Base widgets
+  QScopedPointer< QSplitter > _splitter;
+  ::Views::Mixer_Simple * _mixer_simple;
+  ::Views::Device_Selection_View * _dev_select;
 
-	void
-	update_fullscreen_action ( );
+  // Menubar
+  QMenu * _menu_mixer;
+  QAction * _act_show_dev_select;
+  QAction * _act_fullscreen;
 
-
-	// Event handlers
-
-	void
-	changeEvent (
-		QEvent * event_n );
-
-	void
-	keyPressEvent (
-		QKeyEvent * event_n );
-
-
-	void
-	init_menus ( );
-
-	void
-	init_widgets ( );
-
-
-	// Private attributes
-	private:
-
-	Main_Window_Setup * _win_setup;
-
-	// Base widgets
-	QScopedPointer < QSplitter > _splitter;
-	::Views::Mixer_Simple * _mixer_simple;
-	::Views::Device_Selection_View * _dev_select;
-
-	// Menubar
-	QMenu * _menu_mixer;
-	QAction * _act_show_dev_select;
-	QAction * _act_fullscreen;
-
-	// Strings and icons
-	QString _str_fscreen_enable;
-	QString _str_fscreen_disable;
-	QIcon _icon_fscreen_enable;
-	QIcon _icon_fscreen_disable;
+  // Strings and icons
+  QString _str_fscreen_enable;
+  QString _str_fscreen_disable;
+  QIcon _icon_fscreen_enable;
+  QIcon _icon_fscreen_disable;
 };
-
 
 #endif

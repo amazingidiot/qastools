@@ -9,52 +9,40 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-
 namespace Views
 {
 
-
 /// @brief Basic_Dialog
 ///
-class Basic_Dialog :
-	public QDialog
+class Basic_Dialog : public QDialog
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Basic_Dialog ( QWidget * parent_n = 0, Qt::WindowFlags flags_n = 0 );
 
-	Basic_Dialog (
-		QWidget * parent_n = 0,
-		Qt::WindowFlags flags_n = 0 );
+  ~Basic_Dialog ();
 
-	~Basic_Dialog ( );
+  void
+  set_title_str ( const QString & str_n );
 
-	void
-	set_title_str (
-		const QString & str_n );
+  void
+  set_central_widget ( QWidget * wdg_n );
 
-	void
-	set_central_widget (
-		QWidget * wdg_n );
+  QLabel *
+  create_title_widget ( const QString & txt_n );
 
-	QLabel *
-	create_title_widget (
-		const QString & txt_n );
+  QPushButton *
+  create_close_button ();
 
-	QPushButton *
-	create_close_button ( );
-
-
-	// Private attributes
-	private:
-
-	// Pages
-	QLabel * _lbl_title;
-	QVBoxLayout * _lay_main;
+  // Private attributes
+  private:
+  // Pages
+  QLabel * _lbl_title;
+  QVBoxLayout * _lay_main;
 };
 
-
-} // End of namespace
+} // namespace Views
 
 #endif

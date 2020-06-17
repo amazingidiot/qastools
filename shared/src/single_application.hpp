@@ -5,135 +5,109 @@
 #define __INC_single_application_hpp__
 
 #include <QApplication>
-#include <QLocalServer>
 #include <QLinkedList>
+#include <QLocalServer>
 #include <QPointer>
 
-
-class Single_Application :
-	public QApplication
+class Single_Application : public QApplication
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Single_Application ( int & argc,
+                       char * argv[],
+                       const QString & unique_key_n = QString () );
 
-	Single_Application (
-		int & argc,
-		char *argv[],
-		const QString & unique_key_n = QString() );
+  ~Single_Application ();
 
-	~Single_Application ( );
+  // Unique key
 
+  const QString &
+  unique_key () const;
 
-	// Unique key
+  bool
+  set_unique_key ( const QString & unique_key_n );
 
-	const QString &
-	unique_key ( ) const;
+  bool
+  is_running () const;
 
-	bool
-	set_unique_key (
-		const QString & unique_key_n );
+  // Message
 
+  bool
+  send_message ( const QString & msg_n );
 
-	bool
-	is_running ( ) const;
+  const QString
+  latest_message () const;
 
+  // Session management
 
-	// Message
+  void
+  commitData ( QSessionManager & manager_n );
 
-	bool
-	send_message (
-		const QString & msg_n );
+  void
+  saveState ( QSessionManager & manager_n );
 
-	const QString
-	latest_message ( ) const;
+  // Signals
+  signals:
 
+  void
+  sig_message_available ( QString mesg_n );
 
-	// Session management
+  // Protected slots
+  protected slots:
 
-	void
-	commitData (
-		QSessionManager & manager_n );
+  void
+  new_client ();
 
-	void
-	saveState (
-		QSessionManager & manager_n );
+  void
+  read_clients_data ();
 
+  void
+  clear_dead_clients ();
 
-	// Signals
-	signals:
+  // Protected methods
+  protected:
+  void
+  publish_message ( QByteArray & data_n );
 
-	void
-	sig_message_available (
-		QString mesg_n );
+  // Private attributes
+  private:
+  bool _is_running;
+  QString _unique_key;
+  QString _com_key;
+  QString _com_file;
+  QString _latest_message;
 
+  QLocalServer * _local_server;
 
-	// Protected slots
-	protected slots:
+  struct Client
+  {
+    QPointer< QLocalSocket > socket;
+    QByteArray data;
+  };
 
-	void
-	new_client ( );
+  QLinkedList< Client > _clients;
 
-	void
-	read_clients_data ( );
-
-	void
-	clear_dead_clients ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	publish_message (
-		QByteArray & data_n );
-
-
-	// Private attributes
-	private:
-
-	bool _is_running;
-	QString _unique_key;
-	QString _com_key;
-	QString _com_file;
-	QString _latest_message;
-
-	QLocalServer * _local_server;
-
-	struct Client {
-		QPointer < QLocalSocket > socket;
-		QByteArray data;
-	};
-
-	QLinkedList < Client > _clients;
-
-	const unsigned int _timeout;
+  const unsigned int _timeout;
 };
 
-
-inline
-bool
-Single_Application::is_running ( ) const
+inline bool
+Single_Application::is_running () const
 {
-	return _is_running;
+  return _is_running;
 }
 
-
-inline
-const QString &
-Single_Application::unique_key ( ) const
+inline const QString &
+Single_Application::unique_key () const
 {
-	return _unique_key;
+  return _unique_key;
 }
 
-
-inline
-const QString
-Single_Application::latest_message ( ) const
+inline const QString
+Single_Application::latest_message () const
 {
-	return _latest_message;
+  return _latest_message;
 }
-
 
 #endif

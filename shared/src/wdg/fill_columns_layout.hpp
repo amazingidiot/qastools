@@ -1,7 +1,6 @@
 /// QasTools: Desktop toolset for the Linux sound system ALSA.
 /// \copyright See COPYING file.
 
-
 #ifndef __INC_fill_columns_layout_hpp__
 #define __INC_fill_columns_layout_hpp__
 
@@ -9,154 +8,122 @@
 #include <QList>
 #include <QStyle>
 
-
 namespace Wdg
 {
 
-
 class Fill_Columns_Layout_Item
 {
-	public:
+  public:
+  Fill_Columns_Layout_Item ();
 
-	Fill_Columns_Layout_Item ( );
+  QLayoutItem * item;
 
-	QLayoutItem * item;
+  QSize min_size;
 
-	QSize min_size;
-
-	QRect rect;
+  QRect rect;
 };
 
-
-inline
-Fill_Columns_Layout_Item::Fill_Columns_Layout_Item ( ) :
-item ( 0 )
+inline Fill_Columns_Layout_Item::Fill_Columns_Layout_Item ()
+: item ( 0 )
 {
 }
 
-
-class Fill_Columns_Layout :
-	public QLayout
+class Fill_Columns_Layout : public QLayout
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Fill_Columns_Layout ( QWidget * parent_n = 0 );
 
-	Fill_Columns_Layout (
-		QWidget * parent_n = 0 );
+  ~Fill_Columns_Layout ();
 
-	~Fill_Columns_Layout ( );
+  // Size hints
 
+  QSize
+  sizeHint () const;
 
-	// Size hints
+  QSize
+  minimumSize () const;
 
-	QSize
-	sizeHint ( ) const;
+  bool
+  hasHeightForWidth () const;
 
-	QSize
-	minimumSize ( ) const;
+  int
+  heightForWidth ( int width ) const;
 
+  // Spacings
 
-	bool
-	hasHeightForWidth ( ) const;
+  int
+  horizontal_spacing () const;
 
-	int
-	heightForWidth (
-		int width ) const;
+  int
+  vertical_spacing () const;
 
+  unsigned int
+  horizontal_spacing_default () const;
 
-	// Spacings
+  unsigned int
+  vertical_spacing_default () const;
 
-	int
-	horizontal_spacing ( ) const;
+  unsigned int
+  spacing_default ( Qt::Orientation orient_n ) const;
 
-	int
-	vertical_spacing ( ) const;
+  // Viewport geometry
 
+  const QRect &
+  viewport_geometry () const;
 
-	unsigned int
-	horizontal_spacing_default ( ) const;
+  void
+  set_viewport_geometry ( const QRect & rect_n );
 
-	unsigned int
-	vertical_spacing_default ( ) const;
+  // Layout methods
 
-	unsigned int
-	spacing_default (
-		Qt::Orientation orient_n ) const;
+  QLayoutItem *
+  itemAt ( int index_n ) const;
 
+  int
+  count () const;
 
-	// Viewport geometry
+  void
+  addItem ( QLayoutItem * item_n );
 
-	const QRect &
-	viewport_geometry ( ) const;
+  QLayoutItem *
+  takeAt ( int index_n );
 
-	void
-	set_viewport_geometry (
-		const QRect & rect_n );
+  void
+  invalidate ();
 
+  void
+  setGeometry ( const QRect & rect_n );
 
-	// Layout methods
+  // Protected methods
+  protected:
+  void
+  update_cache_const () const;
 
-	QLayoutItem *
-	itemAt (
-		int index_n ) const;
+  void
+  update_cache ();
 
-	int
-	count ( ) const;
+  QSize
+  calc_columns ( unsigned int width_n, unsigned int height_n );
 
-	void
-	addItem (
-		QLayoutItem * item_n );
+  // Private attributes
+  private:
+  QList< Fill_Columns_Layout_Item > _items;
 
-	QLayoutItem	*
-	takeAt (
-		int index_n );
+  QRect _viewport;
 
-	void
-	invalidate ( );
+  int _hspace;
+  int _vspace;
 
-	void
-	setGeometry (
-		const QRect & rect_n );
-
-
-
-	// Protected methods
-	protected:
-
-	void
-	update_cache_const ( ) const;
-
-	void
-	update_cache ( );
-
-	QSize
-	calc_columns (
-		unsigned int width_n,
-		unsigned int height_n );
-
-
-	// Private attributes
-	private:
-
-	QList < Fill_Columns_Layout_Item > _items;
-
-	QRect _viewport;
-
-	int _hspace;
-	int _vspace;
-
-	bool _cache_dirty;
+  bool _cache_dirty;
 };
 
-
-inline
-const QRect &
-Fill_Columns_Layout::viewport_geometry ( ) const
+inline const QRect &
+Fill_Columns_Layout::viewport_geometry () const
 {
-	return _viewport;
+  return _viewport;
 }
 
-
-} // End of namespace
+} // namespace Wdg
 
 #endif

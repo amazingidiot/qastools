@@ -6,36 +6,29 @@
 
 #include <QString>
 
-
 namespace QSnd
 {
-
 
 /// @brief CTL_Address_Argument
 ///
 class CTL_Address_Argument
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  CTL_Address_Argument ();
 
-	CTL_Address_Argument ( );
+  CTL_Address_Argument ( const QString & name_n,
+                         const QString & value_n = QString () );
 
-	CTL_Address_Argument (
-		const QString & name_n,
-		const QString & value_n = QString() );
+  void
+  clear ();
 
-	void
-	clear ( );
+  // Public attributes
 
-
-	// Public attributes
-
-	QString arg_name;
-	QString arg_value;
+  QString arg_name;
+  QString arg_value;
 };
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

@@ -6,138 +6,104 @@
 
 #include "qsnd/ctl_address.hpp"
 #include "qsnd/ctl_format_argument.hpp"
-#include <QString>
 #include <QList>
-
+#include <QString>
 
 namespace QSnd
 {
-
 
 /// @brief CTL_Format
 ///
 class CTL_Format
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  CTL_Format ( const char * ctl_str_n = 0 );
 
-	CTL_Format (
-		const char * ctl_str_n = 0 );
+  CTL_Format ( const QString & ctl_str_n );
 
-	CTL_Format (
-		const QString & ctl_str_n );
+  CTL_Format ( const CTL_Format & ctl_format_n );
 
-	CTL_Format (
-		const CTL_Format & ctl_format_n );
+  ~CTL_Format ();
 
-	~CTL_Format ( );
+  // Clear
 
+  void
+  clear ();
 
-	// Clear
+  bool
+  is_valid () const;
 
-	void
-	clear ( );
+  // Control name
 
-	bool
-	is_valid ( ) const;
+  const QString &
+  ctl_name () const;
 
+  void
+  set_ctl_name ( const QString & name_n );
 
-	// Control name
+  // Control arguments
 
-	const QString &
-	ctl_name ( ) const;
+  unsigned int
+  num_args () const;
 
-	void
-	set_ctl_name (
-		const QString & name_n );
+  const ::QSnd::CTL_Format_Argument &
+  arg ( unsigned int idx_n ) const;
 
+  void
+  append_arg ( const ::QSnd::CTL_Format_Argument & arg_n );
 
-	// Control arguments
+  // Comparison
 
-	unsigned int
-	num_args ( ) const;
+  bool
+  match ( const ::QSnd::CTL_Address & ctl_addr_n ) const;
 
-	const ::QSnd::CTL_Format_Argument &
-	arg (
-		unsigned int idx_n ) const;
+  // Operators
 
-	void
-	append_arg (
-		const ::QSnd::CTL_Format_Argument & arg_n );
+  CTL_Format &
+  operator= ( const ::QSnd::CTL_Format & ctl_format_n );
 
+  bool
+  operator== ( const ::QSnd::CTL_Format & ctl_format_n ) const;
 
-	// Comparison
+  bool
+  operator!= ( const ::QSnd::CTL_Format & ctl_format_n ) const;
 
-	bool
-	match (
-		const ::QSnd::CTL_Address & ctl_addr_n ) const;
+  // Private methods
+  private:
+  void
+  clone_def ( const ::QSnd::CTL_Format & ctl_format_n );
 
-
-	// Operators
-
-	CTL_Format &
-	operator = (
-		const ::QSnd::CTL_Format & ctl_format_n );
-
-	bool
-	operator == (
-		const ::QSnd::CTL_Format & ctl_format_n ) const;
-
-	bool
-	operator != (
-		const ::QSnd::CTL_Format & ctl_format_n ) const;
-
-
-	// Private methods
-	private:
-
-	void
-	clone_def (
-		const ::QSnd::CTL_Format & ctl_format_n );
-
-
-	// Private attributes
-	private:
-
-	QString _ctl_name;
-	QList < ::QSnd::CTL_Format_Argument > _args;
+  // Private attributes
+  private:
+  QString _ctl_name;
+  QList<::QSnd::CTL_Format_Argument > _args;
 };
 
-
-inline
-bool
-CTL_Format::is_valid ( ) const
+inline bool
+CTL_Format::is_valid () const
 {
-	return !_ctl_name.isEmpty();
+  return !_ctl_name.isEmpty ();
 }
 
-
-inline
-const QString &
-CTL_Format::ctl_name ( ) const
+inline const QString &
+CTL_Format::ctl_name () const
 {
-	return _ctl_name;
+  return _ctl_name;
 }
 
-
-inline
-unsigned int
-CTL_Format::num_args ( ) const
+inline unsigned int
+CTL_Format::num_args () const
 {
-	return _args.size();
+  return _args.size ();
 }
 
-
-inline
-const ::QSnd::CTL_Format_Argument &
-CTL_Format::arg (
-	unsigned int idx_n ) const
+inline const ::QSnd::CTL_Format_Argument &
+CTL_Format::arg ( unsigned int idx_n ) const
 {
-	return _args[idx_n];
+  return _args[ idx_n ];
 }
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

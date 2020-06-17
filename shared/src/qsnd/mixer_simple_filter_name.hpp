@@ -6,70 +6,51 @@
 
 #include "qsnd/mixer_simple_filter.hpp"
 
-
 namespace QSnd
 {
-
 
 /// @brief Mixer_Simple_Filter
 ///
 /// Filters mixer elements from a list by their name
 ///
-class Mixer_Simple_Filter_Name :
-	public ::QSnd::Mixer_Simple_Filter
+class Mixer_Simple_Filter_Name : public ::QSnd::Mixer_Simple_Filter
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_Simple_Filter_Name ( bool blacklist_n = true );
 
-	Mixer_Simple_Filter_Name (
-		bool blacklist_n = true );
+  virtual ~Mixer_Simple_Filter_Name ();
 
-	virtual
-	~Mixer_Simple_Filter_Name ( );
+  /// @brief true if this is a blacklist. false if it is a whitelist.
+  ///
+  bool
+  blacklist () const;
 
+  void
+  set_blacklist ( bool flag_n );
 
-	/// @brief true if this is a blacklist. false if it is a whitelist.
-	///
-	bool
-	blacklist ( ) const;
+  void
+  append_name ( const QString & name_n );
 
-	void
-	set_blacklist (
-		bool flag_n );
+  void
+  append_names ( const QList< QString > & names_n );
 
+  unsigned int
+  filter ( QList<::QSnd::Mixer_Simple_Elem * > & accept_n,
+           QList<::QSnd::Mixer_Simple_Elem * > & drop_n );
 
-	void
-	append_name (
-		const QString & name_n );
-
-	void
-	append_names (
-		const QList < QString > & names_n );
-
-
-	unsigned int
-	filter (
-		QList < ::QSnd::Mixer_Simple_Elem * > & accept_n,
-		QList < ::QSnd::Mixer_Simple_Elem * > & drop_n );
-
-
-	// Private attributes
-	private:
-
-	QList < QString > _names;
-	bool _blacklist;
+  // Private attributes
+  private:
+  QList< QString > _names;
+  bool _blacklist;
 };
 
-
-inline
-bool
-Mixer_Simple_Filter_Name::blacklist ( ) const
+inline bool
+Mixer_Simple_Filter_Name::blacklist () const
 {
-	return _blacklist;
+  return _blacklist;
 }
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

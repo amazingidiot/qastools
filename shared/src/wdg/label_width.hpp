@@ -1,58 +1,44 @@
 /// QasTools: Desktop toolset for the Linux sound system ALSA.
 /// \copyright See COPYING file.
 
-
 #ifndef __INC_label_width_hpp__
 #define __INC_label_width_hpp__
 
-#include <QString>
 #include <QLabel>
-
+#include <QString>
 
 namespace Wdg
 {
 
-
-class Label_Width :
-	public QLabel
+class Label_Width : public QLabel
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Label_Width ( QWidget * parent = 0 );
 
-	Label_Width (
-		QWidget * parent = 0 );
+  const QString &
+  min_text () const;
 
+  void
+  set_min_text ( const QString txt_n );
 
-	const QString &
-	min_text ( ) const;
+  QSize
+  minimumSizeHint () const;
 
-	void
-	set_min_text (
-		const QString txt_n );
+  QSize
+  sizeHint () const;
 
-
-	QSize
-	minimumSizeHint ( ) const;
-
-	QSize
-	sizeHint ( ) const;
-
-
-	// Private attributes
-	private:
-
-	QString _min_text;
+  // Private attributes
+  private:
+  QString _min_text;
 };
 
-
-inline
-const QString &
-Label_Width::min_text ( ) const
+inline const QString &
+Label_Width::min_text () const
 {
-	return _min_text;
+  return _min_text;
 }
 
-
-} // End of namespace
+} // namespace Wdg
 
 #endif

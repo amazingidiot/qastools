@@ -4,258 +4,203 @@
 #ifndef __INC_wdg_pad_proxies_group_hpp__
 #define __INC_wdg_pad_proxies_group_hpp__
 
-#include <QObject>
 #include <QList>
-
+#include <QObject>
 
 // Forward declaration
-namespace Wdg {
-	class Pad_Proxies_Column;
+namespace Wdg
+{
+class Pad_Proxies_Column;
 }
-
 
 namespace Wdg
 {
 
-
-class Pad_Proxies_Group :
-	public QObject
+class Pad_Proxies_Group : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
+  // Public methods
+  public:
+  Pad_Proxies_Group ( QObject * parent_n = 0 );
 
-	// Public methods
-	public:
+  virtual ~Pad_Proxies_Group ();
 
-	Pad_Proxies_Group (
-		QObject * parent_n = 0 );
+  /// @brief The pad object
+  /// Gets set by the pad and shouldn't be set manually
+  QObject *
+  pad () const;
 
-	virtual
-	~Pad_Proxies_Group ( );
+  void
+  set_pad ( QObject * pad_n );
 
+  // Group index
 
-	/// @brief The pad object
-	/// Gets set by the pad and shouldn't be set manually
-	QObject *
-	pad ( ) const;
+  /// @brief The group index
+  /// Gets set by the sliders pad and shouldn't be set manually
+  unsigned int
+  group_index () const;
 
-	void
-	set_pad (
-		QObject * pad_n );
+  void
+  set_group_index ( unsigned int idx_n );
 
+  // Group name
 
-	// Group index
+  const QString &
+  group_name () const;
 
-	/// @brief The group index
-	/// Gets set by the sliders pad and shouldn't be set manually
-	unsigned int
-	group_index ( ) const;
+  void
+  set_group_name ( const QString & name_n );
 
-	void
-	set_group_index (
-		unsigned int idx_n );
+  // Tool tip
 
+  const QString &
+  tool_tip () const;
 
-	// Group name
+  void
+  set_tool_tip ( const QString & tip_n );
 
-	const QString &
-	group_name ( ) const;
+  // Style id
 
-	void
-	set_group_name (
-		const QString & name_n );
+  unsigned int
+  style_id () const;
 
+  void
+  set_style_id ( unsigned int style_id_n );
 
-	// Tool tip
+  // Proxies columns
 
-	const QString &
-	tool_tip ( ) const;
+  unsigned int
+  num_columns () const;
 
-	void
-	set_tool_tip (
-		const QString & tip_n );
+  void
+  append_column ( ::Wdg::Pad_Proxies_Column * column_n );
 
+  void
+  clear_columns ();
 
-	// Style id
+  ::Wdg::Pad_Proxies_Column *
+  column ( unsigned int idx_n ) const;
 
-	unsigned int
-	style_id ( ) const;
+  // Statistics
 
-	void
-	set_style_id (
-		unsigned int style_id_n );
+  unsigned int
+  num_sliders () const;
 
+  unsigned int
+  num_switches () const;
 
-	// Proxies columns
+  // Focus
 
-	unsigned int
-	num_columns ( ) const;
+  unsigned char
+  focus_column () const;
 
-	void
-	append_column (
-		::Wdg::Pad_Proxies_Column * column_n );
+  unsigned char
+  focus_row () const;
 
-	void
-	clear_columns ( );
+  bool
+  has_focus () const;
 
-	::Wdg::Pad_Proxies_Column *
-	column (
-		unsigned int idx_n ) const;
+  /// @return true when the focus was taken - false when already has focus or
+  /// invalid column
+  bool
+  take_focus ( unsigned int column_n, unsigned int row_n );
 
+  // Protected methods
+  protected:
+  bool
+  event ( QEvent * event_n );
 
-	// Statistics
+  // Private attributes
+  private:
+  QObject * _pad;
+  unsigned int _group_index;
+  unsigned int _style_id;
 
-	unsigned int
-	num_sliders ( ) const;
+  QList<::Wdg::Pad_Proxies_Column * > _columns;
 
-	unsigned int
-	num_switches ( ) const;
+  QString _group_name;
+  QString _tool_tip;
 
-
-	// Focus
-
-	unsigned char
-	focus_column ( ) const;
-
-	unsigned char
-	focus_row ( ) const;
-
-	bool
-	has_focus ( ) const;
-
-	/// @return true when the focus was taken - false when already has focus or invalid column
-	bool
-	take_focus (
-		unsigned int column_n,
-		unsigned int row_n );
-
-
-	// Protected methods
-	protected:
-
-	bool
-	event (
-		QEvent * event_n );
-
-
-	// Private attributes
-	private:
-
-	QObject * _pad;
-	unsigned int _group_index;
-	unsigned int _style_id;
-
-	QList < ::Wdg::Pad_Proxies_Column * > _columns;
-
-	QString _group_name;
-	QString _tool_tip;
-
-	unsigned int _num_sliders;
-	unsigned int _num_switches;
-	unsigned char _focus_column;
-	unsigned char _focus_row;
-	bool _has_focus;
+  unsigned int _num_sliders;
+  unsigned int _num_switches;
+  unsigned char _focus_column;
+  unsigned char _focus_row;
+  bool _has_focus;
 };
 
-
-inline
-QObject *
-Pad_Proxies_Group::pad ( ) const
+inline QObject *
+Pad_Proxies_Group::pad () const
 {
-	return _pad;
+  return _pad;
 }
 
-
-inline
-unsigned int
-Pad_Proxies_Group::group_index ( ) const
+inline unsigned int
+Pad_Proxies_Group::group_index () const
 {
-	return _group_index;
+  return _group_index;
 }
 
-
-inline
-unsigned int
-Pad_Proxies_Group::num_columns ( ) const
+inline unsigned int
+Pad_Proxies_Group::num_columns () const
 {
-	return _columns.size();
+  return _columns.size ();
 }
 
-
-inline
-::Wdg::Pad_Proxies_Column *
-Pad_Proxies_Group::column (
-	unsigned int idx_n ) const
+inline ::Wdg::Pad_Proxies_Column *
+Pad_Proxies_Group::column ( unsigned int idx_n ) const
 {
-	return _columns[idx_n];
+  return _columns[ idx_n ];
 }
 
-
-inline
-const QString &
-Pad_Proxies_Group::group_name ( ) const
+inline const QString &
+Pad_Proxies_Group::group_name () const
 {
-	return _group_name;
+  return _group_name;
 }
 
-
-inline
-const QString &
-Pad_Proxies_Group::tool_tip ( ) const
+inline const QString &
+Pad_Proxies_Group::tool_tip () const
 {
-	return _tool_tip;
+  return _tool_tip;
 }
 
-
-inline
-unsigned int
-Pad_Proxies_Group::style_id ( ) const
+inline unsigned int
+Pad_Proxies_Group::style_id () const
 {
-	return _style_id;
+  return _style_id;
 }
 
-
-inline
-unsigned int
-Pad_Proxies_Group::num_sliders ( ) const
+inline unsigned int
+Pad_Proxies_Group::num_sliders () const
 {
-	return _num_sliders;
+  return _num_sliders;
 }
 
-
-inline
-unsigned int
-Pad_Proxies_Group::num_switches ( ) const
+inline unsigned int
+Pad_Proxies_Group::num_switches () const
 {
-	return _num_switches;
+  return _num_switches;
 }
 
-
-inline
-unsigned char
-Pad_Proxies_Group::focus_column ( ) const
+inline unsigned char
+Pad_Proxies_Group::focus_column () const
 {
-	return _focus_column;
+  return _focus_column;
 }
 
-
-inline
-unsigned char
-Pad_Proxies_Group::focus_row ( ) const
+inline unsigned char
+Pad_Proxies_Group::focus_row () const
 {
-	return _focus_row;
+  return _focus_row;
 }
 
-
-inline
-bool
-Pad_Proxies_Group::has_focus ( ) const
+inline bool
+Pad_Proxies_Group::has_focus () const
 {
-	return _has_focus;
+  return _has_focus;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

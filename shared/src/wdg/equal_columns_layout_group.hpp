@@ -1,12 +1,10 @@
 /// QasTools: Desktop toolset for the Linux sound system ALSA.
 /// \copyright See COPYING file.
 
-
 #ifndef __INC_equal_columns_layout_group_hpp__
 #define __INC_equal_columns_layout_group_hpp__
 
 #include <QLayoutItem>
-
 
 namespace Wdg
 {
@@ -16,458 +14,348 @@ namespace Wdg
 ///
 class Equal_Columns_Layout_Row
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Equal_Columns_Layout_Row ( unsigned int row_idx_n );
 
-	Equal_Columns_Layout_Row (
-		unsigned int row_idx_n );
+  // Row index
 
+  unsigned int
+  row_index () const;
 
-	// Row index
+  void
+  set_row_index ( unsigned int row_idx_n );
 
-	unsigned int
-	row_index ( ) const;
+  // Layout item
 
-	void
-	set_row_index (
-		unsigned int row_idx_n );
+  QLayoutItem *
+  item () const;
 
+  void
+  set_item ( QLayoutItem * item_n );
 
-	// Layout item
+  // Private attributes
+  private:
+  unsigned int _row_index;
 
-	QLayoutItem *
-	item ( ) const;
-
-	void
-	set_item (
-		QLayoutItem * item_n );
-
-
-	// Private attributes
-	private:
-
-	unsigned int _row_index;
-
-	QLayoutItem * _item;
+  QLayoutItem * _item;
 };
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Row::row_index ( ) const
+inline unsigned int
+Equal_Columns_Layout_Row::row_index () const
 {
-	return _row_index;
+  return _row_index;
 }
 
-
-inline
-void
-Equal_Columns_Layout_Row::set_row_index (
-	unsigned int row_idx_n )
+inline void
+Equal_Columns_Layout_Row::set_row_index ( unsigned int row_idx_n )
 {
-	_row_index = row_idx_n;
+  _row_index = row_idx_n;
 }
 
-
-inline
-QLayoutItem *
-Equal_Columns_Layout_Row::item ( ) const
+inline QLayoutItem *
+Equal_Columns_Layout_Row::item () const
 {
-	return _item;
+  return _item;
 }
 
-
-inline
-void
-Equal_Columns_Layout_Row::set_item (
-	QLayoutItem * item_n )
+inline void
+Equal_Columns_Layout_Row::set_item ( QLayoutItem * item_n )
 {
-	_item = item_n;
+  _item = item_n;
 }
-
 
 ///
 /// @brief Equal_Columns_Layout_Column
 ///
 class Equal_Columns_Layout_Column
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Equal_Columns_Layout_Column ( unsigned int column_idx_n );
 
-	Equal_Columns_Layout_Column (
-		unsigned int column_idx_n );
+  virtual ~Equal_Columns_Layout_Column ();
 
-	virtual
-	~Equal_Columns_Layout_Column ( );
+  // Column index
 
+  unsigned int
+  column_index () const;
 
-	// Column index
+  void
+  set_column_index ( unsigned int idx_n );
 
-	unsigned int
-	column_index ( ) const;
+  // Active rows
 
-	void
-	set_column_index (
-		unsigned int idx_n );
+  unsigned int
+  active_rows () const;
 
+  void
+  set_active_rows ( unsigned int num_n );
 
-	// Active rows
+  // Column position
 
-	unsigned int
-	active_rows ( ) const;
+  unsigned int
+  column_pos () const;
 
-	void
-	set_active_rows (
-		unsigned int num_n );
+  void
+  set_column_pos ( unsigned int pos_n );
 
+  // Column width
 
-	// Column position
+  unsigned int
+  column_width () const;
 
-	unsigned int
-	column_pos ( ) const;
+  void
+  set_column_width ( unsigned int pos_n );
 
-	void
-	set_column_pos (
-		unsigned int pos_n );
+  // Rows
 
+  void
+  clear_rows ();
 
-	// Column width
+  void
+  append_row ( Equal_Columns_Layout_Row * item_n );
 
-	unsigned int
-	column_width ( ) const;
+  void
+  remove_empty_rows_at_back ();
 
-	void
-	set_column_width (
-		unsigned int pos_n );
+  unsigned int
+  num_rows () const;
 
+  const Equal_Columns_Layout_Row *
+  row ( unsigned int idx_n ) const;
 
-	// Rows
+  Equal_Columns_Layout_Row *
+  row ( unsigned int idx_n );
 
-	void
-	clear_rows ( );
+  // Private attributes
+  private:
+  unsigned int _column_index;
 
-	void
-	append_row (
-		Equal_Columns_Layout_Row * item_n );
+  unsigned int _active_rows;
 
-	void
-	remove_empty_rows_at_back ( );
+  unsigned int _column_pos;
 
-	unsigned int
-	num_rows ( ) const;
+  unsigned int _column_width;
 
-	const Equal_Columns_Layout_Row *
-	row (
-		unsigned int idx_n ) const;
-
-	Equal_Columns_Layout_Row *
-	row (
-		unsigned int idx_n );
-
-
-	// Private attributes
-	private:
-
-	unsigned int _column_index;
-
-	unsigned int _active_rows;
-
-	unsigned int _column_pos;
-
-	unsigned int _column_width;
-
-	QList < Equal_Columns_Layout_Row * > _rows;
+  QList< Equal_Columns_Layout_Row * > _rows;
 };
 
-
-
-inline
-unsigned int
-Equal_Columns_Layout_Column::column_index ( ) const
+inline unsigned int
+Equal_Columns_Layout_Column::column_index () const
 {
-	return _column_index;
+  return _column_index;
 }
 
-
-inline
-void
-Equal_Columns_Layout_Column::set_column_index (
-	unsigned int idx_n )
+inline void
+Equal_Columns_Layout_Column::set_column_index ( unsigned int idx_n )
 {
-	_column_index = idx_n;
+  _column_index = idx_n;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Column::active_rows ( ) const
+inline unsigned int
+Equal_Columns_Layout_Column::active_rows () const
 {
-	return _active_rows;
+  return _active_rows;
 }
 
-
-inline
-void
-Equal_Columns_Layout_Column::set_active_rows (
-	unsigned int num_n )
+inline void
+Equal_Columns_Layout_Column::set_active_rows ( unsigned int num_n )
 {
-	_active_rows = num_n;
+  _active_rows = num_n;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Column::column_pos ( ) const
+inline unsigned int
+Equal_Columns_Layout_Column::column_pos () const
 {
-	return _column_pos;
+  return _column_pos;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Column::column_width ( ) const
+inline unsigned int
+Equal_Columns_Layout_Column::column_width () const
 {
-	return _column_width;
+  return _column_width;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Column::num_rows ( ) const
+inline unsigned int
+Equal_Columns_Layout_Column::num_rows () const
 {
-	return _rows.size();
+  return _rows.size ();
 }
 
-
-inline
-const Equal_Columns_Layout_Row *
-Equal_Columns_Layout_Column::row (
-	unsigned int idx_n ) const
+inline const Equal_Columns_Layout_Row *
+Equal_Columns_Layout_Column::row ( unsigned int idx_n ) const
 {
-	return _rows[idx_n];
+  return _rows[ idx_n ];
 }
 
-
-inline
-Equal_Columns_Layout_Row *
-Equal_Columns_Layout_Column::row (
-	unsigned int idx_n )
+inline Equal_Columns_Layout_Row *
+Equal_Columns_Layout_Column::row ( unsigned int idx_n )
 {
-	return _rows[idx_n];
+  return _rows[ idx_n ];
 }
-
 
 ///
 /// @brief Equal_Columns_Layout_Group
 ///
 class Equal_Columns_Layout_Group
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Equal_Columns_Layout_Group ( unsigned int group_idx_n );
 
-	Equal_Columns_Layout_Group (
-		unsigned int group_idx_n );
+  virtual ~Equal_Columns_Layout_Group ();
 
-	virtual
-	~Equal_Columns_Layout_Group ( );
+  // Group index
 
+  unsigned int
+  group_index () const;
 
-	// Group index
+  void
+  set_group_index ( unsigned int idx_n );
 
-	unsigned int
-	group_index ( ) const;
+  // Active columns
 
-	void
-	set_group_index (
-		unsigned int idx_n );
+  unsigned int
+  active_columns () const;
 
+  void
+  set_active_columns ( unsigned int num_n );
 
-	// Active columns
+  // Group pos
 
-	unsigned int
-	active_columns ( ) const;
+  unsigned int
+  group_pos () const;
 
-	void
-	set_active_columns (
-		unsigned int num_n );
+  void
+  set_group_pos ( unsigned int pos_n );
 
+  // Group width
 
-	// Group pos
+  unsigned int
+  group_width () const;
 
-	unsigned int
-	group_pos ( ) const;
+  void
+  set_group_width ( unsigned int pos_n );
 
-	void
-	set_group_pos (
-		unsigned int pos_n );
+  // Columns
 
+  void
+  clear_columns ();
 
-	// Group width
+  void
+  append_column ( Equal_Columns_Layout_Column * column_n );
 
-	unsigned int
-	group_width ( ) const;
+  void
+  remove_empty_columns_at_back ();
 
-	void
-	set_group_width (
-		unsigned int pos_n );
+  unsigned int
+  num_columns () const;
 
+  const Equal_Columns_Layout_Column *
+  column ( unsigned int idx_n ) const;
 
-	// Columns
+  Equal_Columns_Layout_Column *
+  column ( unsigned int idx_n );
 
-	void
-	clear_columns ( );
+  // Row statistics
 
-	void
-	append_column (
-		Equal_Columns_Layout_Column * column_n );
+  QList< unsigned int > &
+  row_stats ();
 
-	void
-	remove_empty_columns_at_back ( );
+  unsigned int
+  num_rows () const;
 
-	unsigned int
-	num_columns ( ) const;
+  unsigned int
+  row_stat ( unsigned int idx_n ) const;
 
-	const Equal_Columns_Layout_Column *
-	column (
-		unsigned int idx_n ) const;
+  // Private attributes
+  private:
+  unsigned int _group_index;
 
-	Equal_Columns_Layout_Column *
-	column (
-		unsigned int idx_n );
+  unsigned int _active_columns;
 
+  unsigned int _group_pos;
 
-	// Row statistics
+  unsigned int _group_width;
 
-	QList < unsigned int > &
-	row_stats ( );
+  QList< Equal_Columns_Layout_Column * > _columns;
 
-	unsigned int
-	num_rows ( ) const;
-
-	unsigned int
-	row_stat (
-		unsigned int idx_n ) const;
-
-
-	// Private attributes
-	private:
-
-	unsigned int _group_index;
-
-	unsigned int _active_columns;
-
-	unsigned int _group_pos;
-
-	unsigned int _group_width;
-
-	QList < Equal_Columns_Layout_Column * > _columns;
-
-	QList < unsigned int > _row_stats;
+  QList< unsigned int > _row_stats;
 };
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Group::group_index ( ) const
+inline unsigned int
+Equal_Columns_Layout_Group::group_index () const
 {
-	return _group_index;
+  return _group_index;
 }
 
-
-inline
-void
-Equal_Columns_Layout_Group::set_group_index (
-	unsigned int idx_n )
+inline void
+Equal_Columns_Layout_Group::set_group_index ( unsigned int idx_n )
 {
-	_group_index = idx_n;
+  _group_index = idx_n;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Group::active_columns ( ) const
+inline unsigned int
+Equal_Columns_Layout_Group::active_columns () const
 {
-	return _active_columns;
+  return _active_columns;
 }
 
-
-inline
-void
-Equal_Columns_Layout_Group::set_active_columns (
-	unsigned int num_n )
+inline void
+Equal_Columns_Layout_Group::set_active_columns ( unsigned int num_n )
 {
-	_active_columns = num_n;
+  _active_columns = num_n;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Group::group_pos ( ) const
+inline unsigned int
+Equal_Columns_Layout_Group::group_pos () const
 {
-	return _group_pos;
+  return _group_pos;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Group::group_width ( ) const
+inline unsigned int
+Equal_Columns_Layout_Group::group_width () const
 {
-	return _group_width;
+  return _group_width;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Group::num_columns ( ) const
+inline unsigned int
+Equal_Columns_Layout_Group::num_columns () const
 {
-	return _columns.size();
+  return _columns.size ();
 }
 
-
-inline
-const Equal_Columns_Layout_Column *
-Equal_Columns_Layout_Group::column (
-	unsigned int idx_n ) const
+inline const Equal_Columns_Layout_Column *
+Equal_Columns_Layout_Group::column ( unsigned int idx_n ) const
 {
-	return _columns[idx_n];
+  return _columns[ idx_n ];
 }
 
-
-inline
-Equal_Columns_Layout_Column *
-Equal_Columns_Layout_Group::column (
-	unsigned int idx_n )
+inline Equal_Columns_Layout_Column *
+Equal_Columns_Layout_Group::column ( unsigned int idx_n )
 {
-	return _columns[idx_n];
+  return _columns[ idx_n ];
 }
 
-
-inline
-QList < unsigned int > &
-Equal_Columns_Layout_Group::row_stats ( )
+inline QList< unsigned int > &
+Equal_Columns_Layout_Group::row_stats ()
 {
-	return _row_stats;
+  return _row_stats;
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Group::num_rows ( ) const
+inline unsigned int
+Equal_Columns_Layout_Group::num_rows () const
 {
-	return _row_stats.size();
+  return _row_stats.size ();
 }
 
-
-inline
-unsigned int
-Equal_Columns_Layout_Group::row_stat (
-	unsigned int idx_n ) const
+inline unsigned int
+Equal_Columns_Layout_Group::row_stat ( unsigned int idx_n ) const
 {
-	return _row_stats[idx_n];
+  return _row_stats[ idx_n ];
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

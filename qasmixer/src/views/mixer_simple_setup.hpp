@@ -6,28 +6,21 @@
 
 #include "views/view_base_setup.hpp"
 
-
 namespace Views
 {
 
-
-class Mixer_Simple_Setup :
-	public ::Views::View_Base_Setup
+class Mixer_Simple_Setup : public ::Views::View_Base_Setup
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_Simple_Setup ();
 
-	Mixer_Simple_Setup ( );
-
-
-	// Public attributes
-	public:
-
-	bool show_slider_value_labels;
-	bool show_stream[2];
+  // Public attributes
+  public:
+  bool show_slider_value_labels;
+  bool show_stream[ 2 ];
 };
 
-
-} // End of namespace
+} // namespace Views
 
 #endif

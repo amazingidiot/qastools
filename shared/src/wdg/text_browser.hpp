@@ -4,53 +4,40 @@
 #ifndef __INC_text_browser_hpp__
 #define __INC_text_browser_hpp__
 
+#include <QScrollBar>
+#include <QString>
 #include <QTextBrowser>
 #include <QTextFrame>
-#include <QString>
-#include <QScrollBar>
-
 
 namespace Wdg
 {
 
-
-class Text_Browser :
-	public QTextBrowser
+class Text_Browser : public QTextBrowser
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Text_Browser ( QWidget * parent = 0 );
 
-	Text_Browser (
-		QWidget * parent = 0 );
+  void
+  setPlainText ( const QString & txt_n );
 
+  void
+  setHtml ( const QString & txt_n );
 
-	void
-	setPlainText (
-		const QString & txt_n );
+  QSize
+  sizeHint () const;
 
-	void
-	setHtml (
-		const QString & txt_n );
+  // Protected methods
+  protected:
+  void
+  update_size_hint ();
 
-	QSize
-	sizeHint ( ) const;
-
-
-	// Protected methods
-	protected:
-
-	void
-	update_size_hint ( );
-
-
-	// Private attributes
-	private:
-
-	int _hint_width;
-	int _hint_height;
+  // Private attributes
+  private:
+  int _hint_width;
+  int _hint_height;
 };
 
-
-} // Enf of namespace
+} // namespace Wdg
 
 #endif

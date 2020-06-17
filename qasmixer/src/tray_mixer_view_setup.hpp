@@ -6,29 +6,24 @@
 
 #include "dpe/image_allocator.hpp"
 
-
 /// @brief Tray_Mixer_View_Setup
 ///
 class Tray_Mixer_View_Setup
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Tray_Mixer_View_Setup ();
 
-	Tray_Mixer_View_Setup ( );
+  // Public attributes
+  public:
+  /// @brief Balloon lifetime in ms
+  unsigned int balloon_lifetime;
+  /// @brief Mouse wheel degrees for slider widgets
+  unsigned int wheel_degrees;
+  /// @brief Whether to show the balloon
+  bool show_balloon;
 
-
-	// Public attributes
-	public:
-
-	/// @brief Balloon lifetime in ms
-	unsigned int balloon_lifetime;
-	/// @brief Mouse wheel degrees for slider widgets
-	unsigned int wheel_degrees;
-	/// @brief Whether to show the balloon
-	bool show_balloon;
-
-	::dpe::Image_Allocator * image_alloc;
+  ::dpe::Image_Allocator * image_alloc;
 };
-
 
 #endif

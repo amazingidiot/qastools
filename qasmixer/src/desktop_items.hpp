@@ -6,20 +6,16 @@
 
 #include "cmd_options.hpp"
 #include "desktop_items_setup.hpp"
-
 #include "dpe/image_allocator.hpp"
 #include "mwdg/mixer_style.hpp"
-
-#include <QObject>
 #include <QDialog>
+#include <QObject>
 #include <QPointer>
-
 
 // Forward declaration
 class Tray_Mixer;
 class Main_Window;
 class Dialog_Settings;
-
 
 /// @brief Manages all items that appear on the desktop
 ///
@@ -31,208 +27,177 @@ class Dialog_Settings;
 /// The setup tree gets initialized in the constructor
 /// and on calling init_settings().
 /// On destruction it gets written to the storage (disk).
-class Desktop_Items :
-	public QObject
+class Desktop_Items : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Desktop_Items ( QObject * parent_n = 0 );
 
-	Desktop_Items (
-		QObject * parent_n = 0 );
+  ~Desktop_Items ();
 
-	~Desktop_Items ( );
+  /// @brief Options that came from the command line or a second instance
+  ///
+  const CMD_Options &
+  cmd_opts () const;
 
+  /// @brief Reads options from storage and command line
+  ///
+  /// @return A negative value on an error
+  int
+  init_settings ( int argc, char * argv[] );
 
-	/// @brief Options that came from the command line or a second instance
-	///
-	const CMD_Options &
-	cmd_opts ( ) const;
+  /// @brief Message to be sent to an other instance
+  ///
+  /// @return The message
+  QString
+  message_to_other_instance () const;
 
+  /// @brief Start the mixer window and/or tray icon
+  ///
+  void
+  start ( bool restore_session_n = false );
 
-	/// @brief Reads options from storage and command line
-	///
-	/// @return A negative value on an error
-	int
-	init_settings (
-		int argc,
-		char * argv[] );
+  // Event handling
 
-	/// @brief Message to be sent to an other instance
-	///
-	/// @return The message
-	QString
-	message_to_other_instance ( ) const;
+  bool
+  event ( QEvent * event_n );
 
-	/// @brief Start the mixer window and/or tray icon
-	///
-	void
-	start (
-		bool restore_session_n = false );
+  bool
+  eventFilter ( QObject * obj_n, QEvent * event_n );
 
+  // Signals
+  signals:
 
-	// Event handling
+  void
+  sig_quit ();
 
-	bool
-	event (
-		QEvent * event_n );
+  // Public slots
+  public slots:
 
-	bool
-	eventFilter (
-		QObject * obj_n,
-		QEvent * event_n );
+  /// @brief Reads messages from other instances
+  ///
+  void
+  parse_message ( QString msg_n );
 
+  // Main mixer minimize / raise
 
-	// Signals
-	signals:
+  void
+  main_mixer_raise ();
 
-	void
-	sig_quit ( );
+  void
+  main_mixer_close ();
 
+  void
+  main_mixer_toggle_by_tray ();
 
-	// Public slots
-	public slots:
+  // Dialogs
 
-	/// @brief Reads messages from other instances
-	///
-	void
-	parse_message (
-		QString msg_n );
+  void
+  show_dialog_info ();
 
+  void
+  show_dialog_settings ();
 
-	// Main mixer minimize / raise
+  /// @brief Closes and destroy all widgets
+  void
+  shutdown ();
 
-	void
-	main_mixer_raise ( );
+  /// @brief Shuts down and emits sig_quit()
+  void
+  quit ();
 
-	void
-	main_mixer_close ( );
+  // Protected slots
+  protected slots:
 
-	void
-	main_mixer_toggle_by_tray ( );
+  void
+  main_mixer_reload_view ();
 
+  /// @brief Lets widgets reload the inputs setup from the setup tree
+  ///
+  void
+  reload_inputs_setup ();
 
-	// Dialogs
+  /// @return true if the tray icon is visible
+  ///
+  void
+  tray_mixer_update_visibility ();
 
-	void
-	show_dialog_info ( );
+  void
+  tray_mixer_reload_mdev ();
 
-	void
-	show_dialog_settings ( );
+  void
+  tray_mixer_reload_current_mdev ();
 
+  void
+  tray_mixer_update_balloon_setup ();
 
-	/// @brief Closes and destroy all widgets
-	void
-	shutdown ( );
+  // Private methods
+  private:
+  /// @brief Creates a new main mixer window
+  ///
+  void
+  main_mixer_create ();
 
-	/// @brief Shuts down and emits sig_quit()
-	void
-	quit ( );
+  /// @brief Destroys the main mixer window
+  ///
+  void
+  main_mixer_destroy ();
 
+  /// @brief True if the main mixer exists and is visible
+  ///
+  bool
+  main_mixer_visible ();
 
-	// Protected slots
-	protected slots:
+  /// @brief Will be called shortly after the mixer window was closed
+  ///
+  void
+  main_mixer_closed ();
 
-	void
-	main_mixer_reload_view ( );
+  /// @brief Creates a tray mixer instance
+  ///
+  void
+  tray_mixer_create ();
 
-	/// @brief Lets widgets reload the inputs setup from the setup tree
-	///
-	void
-	reload_inputs_setup();
+  void
+  tray_mixer_destroy ();
 
+  bool
+  tray_mixer_visible ();
 
-	/// @return true if the tray icon is visible
-	///
-	void
-	tray_mixer_update_visibility ( );
+  /// @brief Command line option parser
+  ///
+  /// @return A negative value on an error
+  int
+  parse_cmd_options ( int argc, char * argv[] );
 
-	void
-	tray_mixer_reload_mdev ( );
+  // Private attributes
+  private:
+  Desktop_Items_Setup _dsetup;
 
-	void
-	tray_mixer_reload_current_mdev ( );
+  QPointer< Tray_Mixer > _tray_mixer;
+  QPointer< Main_Window > _main_mixer;
 
-	void
-	tray_mixer_update_balloon_setup ( );
+  // Shared storages and settings
+  ::MWdg::Mixer_Style _mixer_style;
+  ::Wdg::DS_Widget_Style_Db _wdg_style_db;
+  ::dpe::Image_Allocator _image_alloc;
 
+  // Dialogs
+  QPointer< QDialog > _dialog_settings;
+  QPointer< QDialog > _dialog_info;
 
-	// Private methods
-	private:
-
-	/// @brief Creates a new main mixer window
-	///
-	void
-	main_mixer_create ( );
-
-	/// @brief Destroys the main mixer window
-	///
-	void
-	main_mixer_destroy ( );
-
-	/// @brief True if the main mixer exists and is visible
-	///
-	bool
-	main_mixer_visible ( );
-
-	/// @brief Will be called shortly after the mixer window was closed
-	///
-	void
-	main_mixer_closed ( );
-
-
-	/// @brief Creates a tray mixer instance
-	///
-	void
-	tray_mixer_create ( );
-
-	void
-	tray_mixer_destroy ( );
-
-	bool
-	tray_mixer_visible ( );
-
-
-	/// @brief Command line option parser
-	///
-	/// @return A negative value on an error
-	int
-	parse_cmd_options (
-		int argc,
-		char * argv[] );
-
-
-	// Private attributes
-	private:
-
-	Desktop_Items_Setup _dsetup;
-
-	QPointer < Tray_Mixer > _tray_mixer;
-	QPointer < Main_Window > _main_mixer;
-
-	// Shared storages and settings
-	::MWdg::Mixer_Style _mixer_style;
-	::Wdg::DS_Widget_Style_Db _wdg_style_db;
-	::dpe::Image_Allocator _image_alloc;
-
-	// Dialogs
-	QPointer < QDialog > _dialog_settings;
-	QPointer < QDialog > _dialog_info;
-
-	CMD_Options _cmd_opts;
-	int _evt_mixer_closed;
-	bool _started;
-	bool _shutdown;
+  CMD_Options _cmd_opts;
+  int _evt_mixer_closed;
+  bool _started;
+  bool _shutdown;
 };
 
-
-inline
-const CMD_Options &
-Desktop_Items::cmd_opts ( ) const
+inline const CMD_Options &
+Desktop_Items::cmd_opts () const
 {
-	return _cmd_opts;
+  return _cmd_opts;
 }
-
 
 #endif

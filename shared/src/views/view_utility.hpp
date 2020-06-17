@@ -10,31 +10,23 @@
 namespace Views
 {
 
+void
+load_translators ( QApplication * app_n );
 
 void
-load_translators (
-	QApplication * app_n );
-
-void
-load_application_icon (
-	QApplication * app_n,
-	const QString & fallback_n );
+load_application_icon ( QApplication * app_n, const QString & fallback_n );
 
 /// @return true on successful size determination
 bool
-win_default_geometry (
-	QRect & rect_n );
+win_default_geometry ( QRect & rect_n );
 
 /// @return true on successful size determination
 bool
-win_default_size (
-	QSize & size_n );
+win_default_size ( QSize & size_n );
 
 void
-resize_to_default (
-	QMainWindow * mwin_n );
+resize_to_default ( QMainWindow * mwin_n );
 
-
-} // End of namespace
+} // namespace Views
 
 #endif

@@ -4,109 +4,83 @@
 #ifndef __INC_qsnd_alsa_config_model_hpp__
 #define __INC_qsnd_alsa_config_model_hpp__
 
-#include "static_tree_model.hpp"
 #include "qsnd/alsa.hpp"
+#include "static_tree_model.hpp"
 
 namespace QSnd
 {
 
-
 /// @brief Alsa_Config_Model
 ///
-class Alsa_Config_Model :
-	public Static_Tree_Model
+class Alsa_Config_Model : public Static_Tree_Model
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Alsa_Config_Model ();
 
-	Alsa_Config_Model ( );
+  ~Alsa_Config_Model ();
 
-	~Alsa_Config_Model ( );
+  // Model methods
 
+  QVariant
+  headerData ( int section,
+               Qt::Orientation orientation,
+               int role = Qt::DisplayRole ) const;
 
-	// Model methods
+  Qt::ItemFlags
+  flags ( const QModelIndex & index_n ) const;
 
-	QVariant
-	headerData (
-		int section,
-		Qt::Orientation orientation,
-		int role = Qt::DisplayRole ) const;
+  QVariant
+  data ( const QModelIndex & index_n, int role = Qt::DisplayRole ) const;
 
-	Qt::ItemFlags
-	flags (
-		const QModelIndex & index_n ) const;
+  QString
+  index_address_str ( const QModelIndex & index_n );
 
-	QVariant
-	data (
-		const QModelIndex & index_n,
-		int role = Qt::DisplayRole ) const;
+  QModelIndex
+  index_from_address ( const QString & addr_n );
 
+  // Public slots
+  public slots:
 
-	QString
-	index_address_str (
-		const QModelIndex & index_n );
+  int
+  reload ();
 
-	QModelIndex
-	index_from_address (
-		const QString & addr_n );
+  // Private methods
+  private:
+  void
+  clear_config ();
 
+  int
+  load_config ();
 
-	// Public slots
-	public slots:
+  int
+  add_children_recursively ( Node * node_n, snd_config_t * cfg_n );
 
-	int
-	reload ( );
+  snd_config_t *
+  cfg_struct ( const Node * node_n ) const;
 
+  snd_config_t *
+  cfg_struct ( const QModelIndex & index_n ) const;
 
-	// Private methods
-	private:
+  int
+  cfg_count_children ( snd_config_t * cfg_n ) const;
 
-	void
-	clear_config ( );
+  snd_config_t *
+  cfg_child ( snd_config_t * cfg_n, unsigned int index_n ) const;
 
-	int
-	load_config ( );
+  QString
+  cfg_id_string ( snd_config_t * cfg_n ) const;
 
-	int
-	add_children_recursively (
-		Node * node_n,
-		snd_config_t * cfg_n );
+  QString
+  cfg_value_string ( snd_config_t * cfg_n ) const;
 
-	snd_config_t *
-	cfg_struct (
-		const Node * node_n ) const;
-
-	snd_config_t *
-	cfg_struct (
-		const QModelIndex & index_n ) const;
-
-	int
-	cfg_count_children (
-		snd_config_t * cfg_n ) const;
-
-	snd_config_t *
-	cfg_child (
-		snd_config_t * cfg_n,
-		unsigned int index_n ) const;
-
-	QString
-	cfg_id_string (
-		snd_config_t * cfg_n ) const;
-
-	QString
-	cfg_value_string (
-		snd_config_t * cfg_n ) const;
-
-
-	// Private attributes
-	private:
-
-	snd_config_t * _snd_cfg_root;
+  // Private attributes
+  private:
+  snd_config_t * _snd_cfg_root;
 };
 
-
-} // End of namespace
+} // namespace QSnd
 
 #endif

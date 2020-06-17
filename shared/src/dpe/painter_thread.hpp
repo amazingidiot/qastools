@@ -6,45 +6,34 @@
 
 #include <QThread>
 
-
 // Forward declaration
-namespace dpe {
-	class Painter_Thread_Shared;
-	class Paint_Job;
-}
-
+namespace dpe
+{
+class Painter_Thread_Shared;
+class Paint_Job;
+} // namespace dpe
 
 namespace dpe
 {
 
-
 /// @brief Painter_Thread
 ///
-class Painter_Thread :
-	public QThread
+class Painter_Thread : public QThread
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Painter_Thread ( ::dpe::Painter_Thread_Shared & shared_n );
 
-	Painter_Thread (
-		::dpe::Painter_Thread_Shared & shared_n );
+  // Protected methods
+  protected:
+  void
+  run ();
 
-
-	// Protected methods
-	protected:
-
-	void
-	run ( );
-
-
-	// Private attributes
-	private:
-
-	::dpe::Painter_Thread_Shared & _shared;
+  // Private attributes
+  private:
+  ::dpe::Painter_Thread_Shared & _shared;
 };
 
-
-} // End of namespace
-
+} // namespace dpe
 
 #endif

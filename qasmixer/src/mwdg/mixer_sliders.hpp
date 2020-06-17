@@ -4,277 +4,229 @@
 #ifndef __INC_mwdg_mixer_sliders_hpp__
 #define __INC_mwdg_mixer_sliders_hpp__
 
-#include <QString>
 #include <QAction>
 #include <QMenu>
 #include <QPointer>
-
+#include <QString>
 
 // Forward declaration
-namespace MWdg {
-	class Inputs_Setup;
-	class Mixer_Simple_Setup;
-	class Mixer_Sliders_Proxies_Group;
-	class Mixer_GUI_State;
-	class Mixer_GUI_State_Proxy;
-}
-namespace Wdg {
-	class Sliders_Pad;
-	class Pad_Proxies_Group;
-	class Scroll_Area_Horizontal;
-}
-
+namespace MWdg
+{
+class Inputs_Setup;
+class Mixer_Simple_Setup;
+class Mixer_Sliders_Proxies_Group;
+class Mixer_GUI_State;
+class Mixer_GUI_State_Proxy;
+} // namespace MWdg
+namespace Wdg
+{
+class Sliders_Pad;
+class Pad_Proxies_Group;
+class Scroll_Area_Horizontal;
+} // namespace Wdg
 
 namespace MWdg
 {
 
-
 /// @brief Mixer_Sliders
 ///
-class Mixer_Sliders :
-	public QWidget
+class Mixer_Sliders : public QWidget
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_Sliders ( QWidget * parent_n = 0 );
 
-	Mixer_Sliders (
-		QWidget * parent_n = 0 );
+  ~Mixer_Sliders ();
 
-	~Mixer_Sliders ( );
+  // Mixer setup
 
+  const ::MWdg::Mixer_Simple_Setup *
+  mixer_setup () const;
 
-	// Mixer setup
+  void
+  set_mixer_setup ( const ::MWdg::Mixer_Simple_Setup * setup_n );
 
-	const ::MWdg::Mixer_Simple_Setup *
-	mixer_setup ( ) const;
+  // Inputs setup
 
-	void
-	set_mixer_setup (
-		const ::MWdg::Mixer_Simple_Setup * setup_n );
+  const ::MWdg::Inputs_Setup *
+  inputs_setup () const;
 
+  void
+  set_inputs_setup ( const ::MWdg::Inputs_Setup * setup_n );
 
-	// Inputs setup
+  /// @brief Number of visualized proxies groups
+  ///
+  unsigned int
+  num_visible () const;
 
-	const ::MWdg::Inputs_Setup *
-	inputs_setup ( ) const;
+  ::Wdg::Sliders_Pad *
+  sliders_pad ();
 
-	void
-	set_inputs_setup (
-		const ::MWdg::Inputs_Setup * setup_n  );
+  // Event handling
 
+  bool
+  event ( QEvent * event_n );
 
-	/// @brief Number of visualized proxies groups
-	///
-	unsigned int
-	num_visible ( ) const;
+  bool
+  eventFilter ( QObject * watched, QEvent * event );
 
+  // Signals
+  signals:
 
-	::Wdg::Sliders_Pad *
-	sliders_pad ( );
+  void
+  sig_footer_label_selected ( unsigned int group_idx_n,
+                              unsigned int column_idx_n );
 
+  // Protected slots
+  protected slots:
 
-	// Event handling
+  void
+  action_toggle_joined ();
 
-	bool
-	event (
-		QEvent * event_n );
+  void
+  action_level_volumes ();
 
-	bool
-	eventFilter (
-		QObject * watched,
-		QEvent * event );
+  void
+  action_toggle_mute ();
 
+  void
+  update_focus_proxies ();
 
-	// Signals
-	signals:
+  void
+  context_menu_cleanup_behind ();
 
-	void
-	sig_footer_label_selected (
-		unsigned int group_idx_n,
-		unsigned int column_idx_n );
+  // Protected methods
+  protected:
+  // Proxy group creation / deletion
 
+  void
+  clear_proxies_groups ();
 
-	// Protected slots
-	protected slots:
+  void
+  create_proxies_groups ();
 
-	void
-	action_toggle_joined ( );
+  void
+  setup_proxies_group_joined ( ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
 
-	void
-	action_level_volumes ( );
+  void
+  setup_proxies_group_separate ( ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
 
-	void
-	action_toggle_mute ( );
+  bool
+  create_proxies_group ( ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n,
+                         unsigned int channel_idx_n );
 
-	void
-	update_focus_proxies ( );
+  // Proxy group manipulation
 
-	void
-	context_menu_cleanup_behind ( );
+  bool
+  should_be_visible (
+      const ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n ) const;
 
+  void
+  toggle_joined_separated ( ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
 
-	// Protected methods
-	protected:
+  void
+  join_proxies_group ( ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
 
+  void
+  separate_proxies_group ( ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
 
-	// Proxy group creation / deletion
+  // Proxy group showing hiding
 
-	void
-	clear_proxies_groups ( );
+  void
+  show_visible_proxies_sets ( bool flag_n );
 
-	void
-	create_proxies_groups ( );
+  // Proxy group updating
 
-	void
-	setup_proxies_group_joined (
-		::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
+  void
+  separate_where_requested ();
 
-	void
-	setup_proxies_group_separate (
-		::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
+  void
+  rebuild_visible_proxies_list ();
 
-	bool
-	create_proxies_group (
-		::MWdg::Mixer_Sliders_Proxies_Group * mspg_n,
-		unsigned int channel_idx_n );
+  // Focus proxy
 
+  void
+  acquire_gui_state ( ::MWdg::Mixer_GUI_State_Proxy & state_n );
 
-	// Proxy group manipulation
+  void
+  restore_gui_state ( const ::MWdg::Mixer_GUI_State_Proxy & state_n );
 
-	bool
-	should_be_visible (
-		const ::MWdg::Mixer_Sliders_Proxies_Group * mspg_n ) const;
+  Mixer_Sliders_Proxies_Group *
+  find_visible_proxy ( const ::MWdg::Mixer_GUI_State_Proxy & prox_id_n );
 
-	void
-	toggle_joined_separated (
-		::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
+  // Context menu
 
-	void
-	join_proxies_group (
-		::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
+  bool
+  context_menu_start ( const QPoint & pos_n );
 
-	void
-	separate_proxies_group (
-		::MWdg::Mixer_Sliders_Proxies_Group * mspg_n );
+  /// @return The number of visible actions
+  unsigned int
+  context_menu_update ();
 
+  // Private attributes
+  private:
+  const ::MWdg::Mixer_Simple_Setup * _mixer_setup;
+  const ::MWdg::Inputs_Setup * _inputs_setup;
 
-	// Proxy group showing hiding
+  QList<::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups;
+  QList<::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups_vis;
+  QList<::Wdg::Pad_Proxies_Group * > _proxies_groups_pass;
 
-	void
-	show_visible_proxies_sets (
-		bool flag_n );
+  ::Wdg::Scroll_Area_Horizontal * _sliders_area;
+  ::Wdg::Sliders_Pad * _sliders_pad;
 
+  // Flags
+  bool _separation_requested;
 
-	// Proxy group updating
+  // Action focus proxy
+  QPointer< Mixer_Sliders_Proxies_Group > _act_proxies_group;
+  unsigned int _act_proxies_column;
 
-	void
-	separate_where_requested ( );
+  // Context menu
+  QMenu _cmenu;
+  QAction _act_toggle_joined;
+  QAction _act_level_channels;
+  QAction _act_separator_channels;
+  QAction _act_toggle_mute;
 
-	void
-	rebuild_visible_proxies_list ( );
+  // Strings and Icons
+  QString _act_str_mute[ 2 ];
+  QString _act_str_unmute[ 2 ];
+  QString _act_str_toggle_mute;
+  QString _ttip_slider[ 2 ];
+  QString _ttip_switch[ 2 ];
 
-
-	// Focus proxy
-
-	void
-	acquire_gui_state (
-		::MWdg::Mixer_GUI_State_Proxy & state_n );
-
-	void
-	restore_gui_state (
-		const ::MWdg::Mixer_GUI_State_Proxy & state_n );
-
-	Mixer_Sliders_Proxies_Group *
-	find_visible_proxy (
-		const ::MWdg::Mixer_GUI_State_Proxy & prox_id_n );
-
-
-	// Context menu
-
-	bool
-	context_menu_start (
-		const QPoint & pos_n );
-
-	/// @return The number of visible actions
-	unsigned int
-	context_menu_update ( );
-
-
-	// Private attributes
-	private:
-
-	const ::MWdg::Mixer_Simple_Setup * _mixer_setup;
-	const ::MWdg::Inputs_Setup * _inputs_setup;
-
-	QList < ::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups;
-	QList < ::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups_vis;
-	QList < ::Wdg::Pad_Proxies_Group * > _proxies_groups_pass;
-
-	::Wdg::Scroll_Area_Horizontal * _sliders_area;
-	::Wdg::Sliders_Pad * _sliders_pad;
-
-	// Flags
-	bool _separation_requested;
-
-	// Action focus proxy
-	QPointer < Mixer_Sliders_Proxies_Group > _act_proxies_group;
-	unsigned int _act_proxies_column;
-
-	// Context menu
-	QMenu _cmenu;
-	QAction _act_toggle_joined;
-	QAction _act_level_channels;
-	QAction _act_separator_channels;
-	QAction _act_toggle_mute;
-
-	// Strings and Icons
-	QString _act_str_mute[2];
-	QString _act_str_unmute[2];
-	QString _act_str_toggle_mute;
-	QString _ttip_slider[2];
-	QString _ttip_switch[2];
-
-	QIcon _icon_vol_high;
-	QIcon _icon_vol_med;
-	QIcon _icon_muted;
+  QIcon _icon_vol_high;
+  QIcon _icon_vol_med;
+  QIcon _icon_muted;
 };
 
-
-inline
-const Mixer_Simple_Setup *
-Mixer_Sliders::mixer_setup ( ) const
+inline const Mixer_Simple_Setup *
+Mixer_Sliders::mixer_setup () const
 {
-	return _mixer_setup;
+  return _mixer_setup;
 }
 
-
-inline
-const ::MWdg::Inputs_Setup *
-Mixer_Sliders::inputs_setup ( ) const
+inline const ::MWdg::Inputs_Setup *
+Mixer_Sliders::inputs_setup () const
 {
-	return _inputs_setup;
+  return _inputs_setup;
 }
 
-
-inline
-unsigned int
-Mixer_Sliders::num_visible ( ) const
+inline unsigned int
+Mixer_Sliders::num_visible () const
 {
-	return _proxies_groups_vis.size();
+  return _proxies_groups_vis.size ();
 }
 
-
-inline
-::Wdg::Sliders_Pad *
-Mixer_Sliders::sliders_pad ( )
+inline ::Wdg::Sliders_Pad *
+Mixer_Sliders::sliders_pad ()
 {
-	return _sliders_pad;
+  return _sliders_pad;
 }
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

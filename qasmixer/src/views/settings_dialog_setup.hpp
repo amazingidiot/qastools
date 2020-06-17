@@ -4,28 +4,22 @@
 #ifndef __INC_views_settings_dialog_setup_hpp__
 #define __INC_views_settings_dialog_setup_hpp__
 
-
 namespace Views
 {
-
 
 /// @brief Settings_Dialog_Setup
 ///
 class Settings_Dialog_Setup
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Settings_Dialog_Setup ();
 
-	Settings_Dialog_Setup ( );
-
-
-	// Public attributes
-	public:
-
-	unsigned int page;
+  // Public attributes
+  public:
+  unsigned int page;
 };
 
-
-} // End of namespace
+} // namespace Views
 
 #endif

@@ -6,20 +6,12 @@
 
 #include <QColor>
 
-
 namespace Wdg
 {
 
-
 QColor
-col_mix (
-	const QColor & col_1,
-	const QColor & col_2,
-	int w_1,
-	int w_2 );
+col_mix ( const QColor & col_1, const QColor & col_2, int w_1, int w_2 );
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

@@ -4,74 +4,59 @@
 #ifndef __INC_main_window_hpp__
 #define __INC_main_window_hpp__
 
-#include <QMainWindow>
-#include <QDialog>
-#include <QPointer>
-
 #include "qsnd/alsa_config_model.hpp"
 #include "views/alsa_config_view.hpp"
-
+#include <QDialog>
+#include <QMainWindow>
+#include <QPointer>
 
 /// @brief Main_Window
 ///
-class Main_Window :
-	public QMainWindow
+class Main_Window : public QMainWindow
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Main_Window ();
 
-	Main_Window ( );
+  QSize
+  sizeHint () const;
 
-	QSize
-	sizeHint ( ) const;
+  void
+  restore_state ();
 
+  void
+  save_state ();
 
-	void
-	restore_state ( );
+  // Public slots
+  private slots:
 
-	void
-	save_state ( );
+  void
+  refresh ();
 
+  // Protected methods
+  protected:
+  void
+  closeEvent ( QCloseEvent * event_n );
 
-	// Public slots
-	private slots:
+  // Private slots
+  private slots:
 
-	void
-	refresh ( );
+  void
+  show_info_dialog ();
 
+  // Private methods
+  private:
+  void
+  init_menu_bar ();
 
-	// Protected methods
-	protected:
+  // Private attributes
+  private:
+  ::QSnd::Alsa_Config_Model _alsa_cfg_model;
+  ::Views::Alsa_Config_View _alsa_cfg_view;
 
-	void
-	closeEvent (
-		QCloseEvent * event_n );
-
-
-	// Private slots
-	private slots:
-
-	void
-	show_info_dialog ( );
-
-
-	// Private methods
-	private:
-
-	void
-	init_menu_bar ( );
-
-
-	// Private attributes
-	private:
-
-	::QSnd::Alsa_Config_Model _alsa_cfg_model;
-	::Views::Alsa_Config_View _alsa_cfg_view;
-
-	QPointer < QDialog > _info_dialog;
+  QPointer< QDialog > _info_dialog;
 };
-
 
 #endif

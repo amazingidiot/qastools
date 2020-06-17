@@ -3,8 +3,7 @@
 
 #include "main_window_setup.hpp"
 
-
-Main_Window_Setup::Main_Window_Setup ( ) :
-show_dev_select ( false )
+Main_Window_Setup::Main_Window_Setup ()
+: show_dev_select ( false )
 {
 }

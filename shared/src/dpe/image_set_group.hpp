@@ -6,54 +6,45 @@
 
 #include <vector>
 
-
 // Forward declaration
-namespace dpe {
-	class Image_Set;
+namespace dpe
+{
+class Image_Set;
 }
-
 
 namespace dpe
 {
-
 
 /// @brief Image_Set_Group
 ///
 class Image_Set_Group
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Image_Set_Group ( unsigned int num_sets_n = 0 );
 
-	Image_Set_Group (
-		unsigned int num_sets_n = 0 );
+  bool
+  ready () const;
 
-	bool
-	ready ( ) const;
+  void
+  convert_to_pixmap ();
 
-	void
-	convert_to_pixmap ( );
-
-
-	// Public attributes
-	public:
-
-	::std::vector < ::dpe::Image_Set * > img_sets;
+  // Public attributes
+  public:
+  ::std::vector<::dpe::Image_Set * > img_sets;
 };
 
-
-inline
-bool
-Image_Set_Group::ready ( ) const
+inline bool
+Image_Set_Group::ready () const
 {
-	for ( unsigned int ii=0; ii < img_sets.size(); ++ii ) {
-		if ( img_sets[ii] == 0 ) {
-			return false;
-		}
-	}
-	return true;
+  for ( unsigned int ii = 0; ii < img_sets.size (); ++ii ) {
+    if ( img_sets[ ii ] == 0 ) {
+      return false;
+    }
+  }
+  return true;
 }
 
-} // End of namespace
-
+} // namespace dpe
 
 #endif

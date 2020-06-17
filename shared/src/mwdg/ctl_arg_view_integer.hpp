@@ -7,47 +7,34 @@
 #include "mwdg/ctl_arg_view.hpp"
 #include <QLineEdit>
 
-
 namespace MWdg
 {
 
-
 /// @brief CTL_Arg_View_Integer
 ///
-class CTL_Arg_View_Integer :
-	public ::MWdg::CTL_Arg_View
+class CTL_Arg_View_Integer : public ::MWdg::CTL_Arg_View
 {
-	Q_OBJECT
+  Q_OBJECT
 
+  // Public methods
+  public:
+  CTL_Arg_View_Integer ( QWidget * parent_n = 0 );
 
-	// Public methods
-	public:
+  void
+  set_arg_string ( const QString & str_n );
 
-	CTL_Arg_View_Integer (
-		QWidget * parent_n = 0 );
+  // Protected slots
+  protected slots:
 
+  void
+  input_string_changed ();
 
-	void
-	set_arg_string (
-		const QString & str_n );
-
-
-	// Protected slots
-	protected slots:
-
-	void
-	input_string_changed ( );
-
-
-	// Private attributes
-	private:
-
-	QLineEdit * _ledit;
-	bool _ledit_signal_block;
+  // Private attributes
+  private:
+  QLineEdit * _ledit;
+  bool _ledit_signal_block;
 };
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

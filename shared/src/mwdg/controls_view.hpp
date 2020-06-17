@@ -6,75 +6,56 @@
 
 #include <QListView>
 
-
 namespace MWdg
 {
 
-
 /// @brief Controls_View
 ///
-class Controls_View :
-	public QListView
+class Controls_View : public QListView
 {
-	Q_OBJECT
+  Q_OBJECT
 
+  // Public methods
+  public:
+  Controls_View ( QWidget * parent_n = 0 );
 
-	// Public methods
-	public:
+  ~Controls_View ();
 
-	Controls_View (
-		QWidget * parent_n = 0 );
+  QSize
+  minimumSizeHint () const;
 
-	~Controls_View ( );
+  QSize
+  sizeHint () const;
 
+  void
+  setModel ( QAbstractItemModel * model_n );
 
-	QSize
-	minimumSizeHint ( ) const;
+  bool
+  event ( QEvent * event_n );
 
-	QSize
-	sizeHint ( ) const;
+  // Protected slots
+  protected slots:
 
+  void
+  maximum_height_update_request ();
 
-	void
-	setModel (
-		QAbstractItemModel * model_n );
+  // Protected methods
+  protected:
+  void
+  changeEvent ( QEvent * event_n );
 
+  void
+  maximum_height_update ();
 
-	bool
-	event (
-		QEvent * event_n );
+  // Private attributes
+  private:
+  int _show_rows_min;
+  int _show_rows_avrg;
+  int _min_chars_vis;
 
-
-	// Protected slots
-	protected slots:
-
-	void
-	maximum_height_update_request ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	changeEvent (
-		QEvent * event_n );
-
-	void
-	maximum_height_update ( );
-
-
-	// Private attributes
-	private:
-
-	int _show_rows_min;
-	int _show_rows_avrg;
-	int _min_chars_vis;
-
-	bool _maximum_update_requested;
+  bool _maximum_update_requested;
 };
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

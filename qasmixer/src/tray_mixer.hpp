@@ -4,139 +4,118 @@
 #ifndef __INC_tray_mixer_hpp__
 #define __INC_tray_mixer_hpp__
 
-#include <QObject>
 #include <QIcon>
+#include <QObject>
 #include <QScopedPointer>
-
 
 // Forward declaration
 class Tray_Mixer_MDev_Setup;
 class Tray_Mixer_View_Setup;
 class Tray_Mixer_Balloon;
 class Tray_Mixer_Icon;
-namespace QSnd {
-	class Mixer_Simple;
-	class Mixer_Simple_Elem;
-}
-
+namespace QSnd
+{
+class Mixer_Simple;
+class Mixer_Simple_Elem;
+} // namespace QSnd
 
 /// @brief Tray_Mixer
 ///
-class Tray_Mixer :
-	public QObject
+class Tray_Mixer : public QObject
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Tray_Mixer ( QObject * parent_n = 0 );
 
-	Tray_Mixer (
-		QObject * parent_n = 0 );
+  ~Tray_Mixer ();
 
-	~Tray_Mixer ( );
+  void
+  set_mdev_setup ( Tray_Mixer_MDev_Setup * setup_n );
 
+  void
+  set_view_setup ( Tray_Mixer_View_Setup * setup_n );
 
-	void
-	set_mdev_setup (
-		Tray_Mixer_MDev_Setup * setup_n );
+  void
+  update_balloon_setup ();
 
-	void
-	set_view_setup (
-		Tray_Mixer_View_Setup * setup_n );
+  bool
+  is_visible () const;
 
-	void
-	update_balloon_setup ( );
+  bool
+  event ( QEvent * event_n );
 
-	bool
-	is_visible ( ) const;
+  // Public signals
+  signals:
 
+  void
+  sig_toggle_mixer ();
 
-	bool
-	event (
-		QEvent * event_n );
+  void
+  sig_quit ();
 
+  // Protected slots
+  protected slots:
 
-	// Public signals
-	signals:
+  void
+  mixer_values_changed ();
 
-	void
-	sig_toggle_mixer ( );
+  void
+  mixer_toggle_switch ();
 
-	void
-	sig_quit ( );
+  void
+  mouse_wheel_delta ( int wheel_delta_n );
 
+  void
+  raise_balloon ();
 
-	// Protected slots
-	protected slots:
+  void
+  close_balloon ();
 
-	void
-	mixer_values_changed ( );
+  // Private methods
+  private:
+  void
+  init_icons ();
 
-	void
-	mixer_toggle_switch ( );
+  void
+  update_tray_icon ();
 
-	void
-	mouse_wheel_delta (
-		int wheel_delta_n );
+  bool
+  update_volume_permille ();
 
+  void
+  update_volume_widgets ();
 
-	void
-	raise_balloon ( );
+  void
+  load_mixer ();
 
-	void
-	close_balloon ( );
+  void
+  close_mixer ();
 
+  // Private attributes
+  private:
+  Tray_Mixer_MDev_Setup * _mdev_setup;
+  Tray_Mixer_View_Setup * _view_setup;
 
-	// Private methods
-	private:
+  // Mixer
+  ::QSnd::Mixer_Simple * _snd_mixer;
+  ::QSnd::Mixer_Simple_Elem * _mx_elem;
+  unsigned int _volume_permille;
 
-	void
-	init_icons ( );
+  // Icons and pixmaps
+  /// 0: default
+  /// 1: muted
+  /// 2...: volumes
+  unsigned int _icon_idx;
+  QList< QIcon > _icons_volume;
 
+  // State flags
+  bool _volume_muted;
+  bool _updating_scheduled;
 
-	void
-	update_tray_icon ( );
-
-	bool
-	update_volume_permille ( );
-
-	void
-	update_volume_widgets ( );
-
-
-	void
-	load_mixer ( );
-
-	void
-	close_mixer ( );
-
-
-	// Private attributes
-	private:
-
-	Tray_Mixer_MDev_Setup * _mdev_setup;
-	Tray_Mixer_View_Setup * _view_setup;
-
-	// Mixer
-	::QSnd::Mixer_Simple * _snd_mixer;
-	::QSnd::Mixer_Simple_Elem * _mx_elem;
-	unsigned int _volume_permille;
-
-
-	// Icons and pixmaps
-	/// 0: default
-	/// 1: muted
-	/// 2...: volumes
-	unsigned int _icon_idx;
-	QList < QIcon > _icons_volume;
-
-	// State flags
-	bool _volume_muted;
-	bool _updating_scheduled;
-
-	Tray_Mixer_Icon * _tray_icon;
-	QScopedPointer < Tray_Mixer_Balloon > _balloon;
+  Tray_Mixer_Icon * _tray_icon;
+  QScopedPointer< Tray_Mixer_Balloon > _balloon;
 };
-
 
 #endif

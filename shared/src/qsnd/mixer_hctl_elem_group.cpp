@@ -3,16 +3,13 @@
 
 #include "mixer_hctl_elem_group.hpp"
 
-
 namespace QSnd
 {
 
-
 void
-Mixer_HCTL_Elem_Group::clear ( )
+Mixer_HCTL_Elem_Group::clear ()
 {
-	_snd_elems.clear();
+  _snd_elems.clear ();
 }
 
-
-} // End of namespace
+} // namespace QSnd

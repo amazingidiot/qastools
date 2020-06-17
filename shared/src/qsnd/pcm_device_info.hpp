@@ -6,94 +6,72 @@
 
 #include "qsnd/alsa.hpp"
 #include "qsnd/pcm_subdevices_info.hpp"
-
-#include <QString>
 #include <QList>
-
+#include <QString>
 
 namespace QSnd
 {
-
 
 /// @brief PCM_Device_Info
 ///
 class PCM_Device_Info
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  PCM_Device_Info ();
 
-	PCM_Device_Info ( );
+  int
+  dev_index () const;
 
+  const QString &
+  dev_id () const;
 
-	int
-	dev_index ( ) const;
+  const QString &
+  dev_name () const;
 
-	const QString &
-	dev_id ( ) const;
+  const ::QSnd::PCM_Subdevices_Info &
+  subdevices_info ( unsigned int idx_n ) const;
 
-	const QString &
-	dev_name ( ) const;
+  void
+  clear ();
 
+  int
+  acquire_device_info ( snd_ctl_t * snd_ctl_handle, int device_idx_n );
 
-	const ::QSnd::PCM_Subdevices_Info &
-	subdevices_info (
-		unsigned int idx_n ) const;
+  // Private attributes
+  private:
+  int _dev_index;
 
+  QString _dev_id;
+  QString _dev_name;
 
-	void
-	clear ( );
-
-	int
-	acquire_device_info (
-		snd_ctl_t * snd_ctl_handle,
-		int device_idx_n );
-
-
-	// Private attributes
-	private:
-
-	int _dev_index;
-
-	QString _dev_id;
-	QString _dev_name;
-
-	::QSnd::PCM_Subdevices_Info _sdevs_info[2];
+  ::QSnd::PCM_Subdevices_Info _sdevs_info[ 2 ];
 };
 
-
-inline
-int
-PCM_Device_Info::dev_index ( ) const
+inline int
+PCM_Device_Info::dev_index () const
 {
-	return _dev_index;
+  return _dev_index;
 }
 
-
-inline
-const QString &
-PCM_Device_Info::dev_id ( ) const
+inline const QString &
+PCM_Device_Info::dev_id () const
 {
-	return _dev_id;
+  return _dev_id;
 }
 
-
-inline
-const QString &
-PCM_Device_Info::dev_name ( ) const
+inline const QString &
+PCM_Device_Info::dev_name () const
 {
-	return _dev_name;
+  return _dev_name;
 }
 
-
-inline
-const ::QSnd::PCM_Subdevices_Info &
-PCM_Device_Info::subdevices_info (
-	unsigned int stream_dir_n ) const
+inline const ::QSnd::PCM_Subdevices_Info &
+PCM_Device_Info::subdevices_info ( unsigned int stream_dir_n ) const
 {
-	return _sdevs_info[stream_dir_n];
+  return _sdevs_info[ stream_dir_n ];
 }
 
-
-} // End of namespace
+} // namespace QSnd
 
 #endif

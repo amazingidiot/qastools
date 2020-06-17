@@ -6,10 +6,6 @@
 namespace dpe
 {
 
-Paint_Job::Paint_Job ( )
-{
-}
+Paint_Job::Paint_Job () {}
 
-
-} // End of namespace
-
+} // namespace dpe

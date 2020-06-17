@@ -4,16 +4,14 @@
 #ifndef __INC_sliders_pad_layout_hpp__
 #define __INC_sliders_pad_layout_hpp__
 
-#include <QPen>
-#include <QObject>
-#include <QWidget>
-#include <QList>
-#include <QLayout>
-#include <QScopedPointer>
-
 #include "sliders_pad_data.hpp"
 #include "sliders_pad_header_data.hpp"
-
+#include <QLayout>
+#include <QList>
+#include <QObject>
+#include <QPen>
+#include <QScopedPointer>
+#include <QWidget>
 
 namespace Wdg
 {
@@ -21,191 +19,148 @@ namespace Wdg
 // Forward declarations
 class Equal_Columns_Layout;
 
-
 ///
 /// @brief Sliders_Pad_Layout
 ///
-class Sliders_Pad_Layout :
-	public QLayout
+class Sliders_Pad_Layout : public QLayout
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Sliders_Pad_Layout ( Sliders_Pad_Data * sp_data_n, QWidget * parent_n = 0 );
 
-	Sliders_Pad_Layout (
-		Sliders_Pad_Data * sp_data_n,
-		QWidget * parent_n = 0 );
+  ~Sliders_Pad_Layout ();
 
-	~Sliders_Pad_Layout ( );
+  //
+  // Size hints
+  //
 
+  QSize
+  minimumSize () const;
 
-	//
-	// Size hints
-	//
+  QSize
+  sizeHint () const;
 
-	QSize
-	minimumSize ( ) const;
+  // Header specific
 
-	QSize
-	sizeHint ( ) const;
+  Sliders_Pad_Header_Data *
+  header_data () const;
 
+  Sliders_Pad_Header_Data *
+  footer_data () const;
 
-	// Header specific
+  // Header labels
 
-	Sliders_Pad_Header_Data *
-	header_data ( ) const;
+  unsigned int
+  num_header_labels () const;
 
-	Sliders_Pad_Header_Data *
-	footer_data ( ) const;
+  const Sliders_Pad_Header_Label &
+  header_label ( unsigned int idx_n ) const;
 
+  Sliders_Pad_Header_Label &
+  header_label ( unsigned int idx_n );
 
-	// Header labels
+  //
+  // QLayout methods
+  //
 
-	unsigned int
-	num_header_labels ( ) const;
+  void
+  set_header_item ( QLayoutItem * item_n );
 
-	const Sliders_Pad_Header_Label &
-	header_label (
-		unsigned int idx_n ) const;
+  void
+  set_header_widget ( QWidget * wdg_n );
 
-	Sliders_Pad_Header_Label &
-	header_label (
-		unsigned int idx_n );
+  void
+  set_footer_item ( QLayoutItem * item_n );
 
+  void
+  set_footer_widget ( QWidget * wdg_n );
 
-	//
-	// QLayout methods
-	//
+  int
+  add_group_widget ( QWidget * wdg_n,
+                     unsigned int group_idx,
+                     unsigned int column_idx,
+                     unsigned int row_idx_n );
 
-	void
-	set_header_item (
-		QLayoutItem * item_n );
+  void
+  addItem ( QLayoutItem * item_n );
 
-	void
-	set_header_widget (
-		QWidget * wdg_n );
+  QLayoutItem *
+  itemAt ( int index_n ) const;
 
-	void
-	set_footer_item (
-		QLayoutItem * item_n );
+  QLayoutItem *
+  takeAt ( int index_n );
 
-	void
-	set_footer_widget (
-		QWidget * wdg_n );
+  int
+  count () const;
 
-	int
-	add_group_widget (
-		QWidget * wdg_n,
-		unsigned int group_idx,
-		unsigned int column_idx,
-		unsigned int row_idx_n );
+  void
+  setGeometry ( const QRect & rect_n );
 
+  // Protected methods
+  protected:
+  bool
+  extra_sub_slider_spacing () const;
 
-	void
-	addItem (
-		QLayoutItem * item_n );
+  unsigned int
+  header_height_hint ( const QLayoutItem * item_n,
+                       const Sliders_Pad_Header_Data * hdata_n ) const;
 
-	QLayoutItem *
-	itemAt (
-		int index_n ) const;
+  void
+  calc_column_widths_sync ( unsigned int width_n );
 
-	QLayoutItem *
-	takeAt (
-		int index_n );
+  void
+  calc_label_angle ( Sliders_Pad_Header_Data * hdata_n,
+                     unsigned int lbl_hor_dist_n,
+                     bool min_angle_n );
 
-	int
-	count ( ) const;
+  double
+  calc_label_x_center ( const Sliders_Pad_Header_Data * hdata_n,
+                        const Sliders_Pad_Data_Group * sp_grp_n,
+                        const Sliders_Pad_Data_Column * sp_col_n );
 
-	void
-	setGeometry (
-		const QRect & rect_n );
+  unsigned int
+  calc_labels_max_x ( const Sliders_Pad_Header_Data * hdata_n );
 
+  void
+  calc_columns_sizes ( unsigned int area_width_n, unsigned int area_height_n );
 
-	// Protected methods
-	protected:
+  void
+  post_adjust_row_heights ();
 
-	bool
-	extra_sub_slider_spacing ( ) const;
+  void
+  set_geometries ( const QRect & crect_n );
 
-	unsigned int
-	header_height_hint (
-		const QLayoutItem * item_n,
-		const Sliders_Pad_Header_Data * hdata_n ) const;
+  void
+  update_labels_transforms ( Sliders_Pad_Header_Data * hdata_n,
+                             const QRect & hrect_n );
 
+  // Private attributes;
+  private:
+  QScopedPointer< QLayoutItem > _header_item;
+  QScopedPointer< Equal_Columns_Layout > _lay_eqc;
+  QScopedPointer< QLayoutItem > _footer_item;
 
-	void
-	calc_column_widths_sync (
-		unsigned int width_n );
+  unsigned int _num_items;
+  QLayoutItem * _items[ 3 ];
 
-	void
-	calc_label_angle (
-		Sliders_Pad_Header_Data * hdata_n,
-		unsigned int lbl_hor_dist_n,
-		bool min_angle_n );
+  Sliders_Pad_Header_Data * _header_data;
+  Sliders_Pad_Header_Data * _footer_data;
 
-	double
-	calc_label_x_center (
-		const Sliders_Pad_Header_Data * hdata_n,
-		const Sliders_Pad_Data_Group * sp_grp_n,
-		const Sliders_Pad_Data_Column * sp_col_n );
-
-	unsigned int
-	calc_labels_max_x (
-		const Sliders_Pad_Header_Data * hdata_n );
-
-	void
-	calc_columns_sizes (
-		unsigned int area_width_n,
-		unsigned int area_height_n );
-
-	void
-	post_adjust_row_heights ( );
-
-
-
-	void
-	set_geometries (
-		const QRect & crect_n );
-
-	void
-	update_labels_transforms (
-		Sliders_Pad_Header_Data * hdata_n,
-		const QRect & hrect_n );
-
-
-	// Private attributes;
-	private:
-
-	QScopedPointer < QLayoutItem > _header_item;
-	QScopedPointer < Equal_Columns_Layout > _lay_eqc;
-	QScopedPointer < QLayoutItem > _footer_item;
-
-	unsigned int _num_items;
-	QLayoutItem * _items[3];
-
-	Sliders_Pad_Header_Data * _header_data;
-	Sliders_Pad_Header_Data * _footer_data;
-
-	Sliders_Pad_Data * _sp_data;
+  Sliders_Pad_Data * _sp_data;
 };
 
-
-inline
-Sliders_Pad_Header_Data *
-Sliders_Pad_Layout::header_data ( ) const
+inline Sliders_Pad_Header_Data *
+Sliders_Pad_Layout::header_data () const
 {
-	return _header_data;
+  return _header_data;
 }
 
-
-inline
-Sliders_Pad_Header_Data *
-Sliders_Pad_Layout::footer_data ( ) const
+inline Sliders_Pad_Header_Data *
+Sliders_Pad_Layout::footer_data () const
 {
-	return _footer_data;
+  return _footer_data;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

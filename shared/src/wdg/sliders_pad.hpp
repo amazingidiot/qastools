@@ -5,314 +5,251 @@
 #define __INC_wdg_sliders_pad_hpp__
 
 #include "wdg/pad_focus_info.hpp"
-
-#include <QWidget>
 #include <QList>
+#include <QWidget>
 
 // Forward declaration
-namespace dpe { class Image_Allocator; }
-namespace Wdg {
-	class Sliders_Pad_Data;
-	class Sliders_Pad_Data_Group;
-	class Sliders_Pad_Data_Column;
-	class Sliders_Pad_Header_Data;
-	class Sliders_Pad_Header;
-	class Sliders_Pad_Footer;
-	class Sliders_Pad_Style;
-	class Pad_Proxies_Group;
-	class DS_Widget_Style_Db;
+namespace dpe
+{
+class Image_Allocator;
 }
-
+namespace Wdg
+{
+class Sliders_Pad_Data;
+class Sliders_Pad_Data_Group;
+class Sliders_Pad_Data_Column;
+class Sliders_Pad_Header_Data;
+class Sliders_Pad_Header;
+class Sliders_Pad_Footer;
+class Sliders_Pad_Style;
+class Pad_Proxies_Group;
+class DS_Widget_Style_Db;
+} // namespace Wdg
 
 namespace Wdg
 {
 
-
 /// @brief Sliders_Pad
 ///
-class Sliders_Pad :
-	public QWidget
+class Sliders_Pad : public QWidget
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Sliders_Pad ( QWidget * parent_n = 0,
+                ::dpe::Image_Allocator * isg_alloc_n = 0 );
 
-	Sliders_Pad (
-		QWidget * parent_n = 0,
-		::dpe::Image_Allocator * isg_alloc_n = 0 );
+  ~Sliders_Pad ();
 
-	~Sliders_Pad ( );
+  // Proxies groups list
 
+  const QList< Pad_Proxies_Group * > &
+  proxies_groups () const;
 
-	// Proxies groups list
+  void
+  set_proxies_groups ( const QList< Pad_Proxies_Group * > & list_n );
 
-	const QList < Pad_Proxies_Group * > &
-	proxies_groups ( ) const;
+  void
+  clear_proxies_groups ();
 
-	void
-	set_proxies_groups (
-		const QList < Pad_Proxies_Group * > & list_n );
+  // Proxies group access
 
-	void
-	clear_proxies_groups ( );
+  unsigned int
+  num_proxies_groups () const;
 
+  Pad_Proxies_Group *
+  proxies_group ( unsigned int idx_n );
 
-	// Proxies group access
+  // Widget style database
 
-	unsigned int
-	num_proxies_groups ( ) const;
+  const ::Wdg::DS_Widget_Style_Db *
+  wdg_style_db () const;
 
-	Pad_Proxies_Group *
-	proxies_group (
-		unsigned int idx_n );
+  void
+  set_wdg_style_db ( const ::Wdg::DS_Widget_Style_Db * style_db_n );
 
+  // Image_Set_Group allocator
 
-	// Widget style database
+  void
+  set_image_alloc ( ::dpe::Image_Allocator * alloc_n );
 
-	const ::Wdg::DS_Widget_Style_Db *
-	wdg_style_db ( ) const;
+  ::dpe::Image_Allocator *
+  image_alloc () const;
 
-	void
-	set_wdg_style_db (
-		const ::Wdg::DS_Widget_Style_Db * style_db_n );
+  // Show footer
 
+  bool
+  footer_visible () const;
 
-	// Image_Set_Group allocator
+  void
+  set_footer_visible ( bool flag_n );
 
-	void
-	set_image_alloc (
-		::dpe::Image_Allocator * alloc_n );
+  // Wheel degrees
 
-	::dpe::Image_Allocator *
-	image_alloc ( ) const;
+  void
+  set_wheel_degrees ( unsigned int delta_n );
 
+  unsigned int
+  wheel_degrees () const;
 
-	// Show footer
+  // Widgets
 
-	bool
-	footer_visible ( ) const;
+  QWidget *
+  header ();
 
-	void
-	set_footer_visible (
-		bool flag_n );
+  QWidget *
+  footer ();
 
+  ::Wdg::Sliders_Pad_Header *
+  header_cast ();
 
-	// Wheel degrees
+  ::Wdg::Sliders_Pad_Footer *
+  footer_cast ();
 
-	void
-	set_wheel_degrees (
-		unsigned int delta_n );
+  ::Wdg::Sliders_Pad_Header_Data *
+  header_data ();
 
-	unsigned int
-	wheel_degrees ( ) const;
+  ::Wdg::Sliders_Pad_Header_Data *
+  footer_data ();
 
+  unsigned int
+  num_widgets () const;
 
-	// Widgets
+  QWidget *
+  widget ( unsigned int idx_n );
 
-	QWidget *
-	header ( );
+  // Focus info
 
-	QWidget *
-	footer ( );
+  const Pad_Focus_Info &
+  focus_info () const;
 
+  /// @brief Event handler reimplementation
+  bool
+  event ( QEvent * event_n );
 
-	::Wdg::Sliders_Pad_Header *
-	header_cast ( );
+  // Public signals
+  signals:
 
-	::Wdg::Sliders_Pad_Footer *
-	footer_cast ( );
+  void
+  sig_focus_changed ();
 
+  void
+  sig_footer_label_selected ( unsigned int group_idx_n,
+                              unsigned int column_idx_n );
 
-	::Wdg::Sliders_Pad_Header_Data *
-	header_data ( );
+  // Public slots
+  public slots:
 
-	::Wdg::Sliders_Pad_Header_Data *
-	footer_data ( );
+  bool
+  set_focus_proxy ( unsigned int group_idx_n );
 
+  bool
+  set_focus_proxy ( unsigned int group_idx_n,
+                    unsigned int column_idx_n,
+                    unsigned int row_idx_n );
 
-	unsigned int
-	num_widgets ( ) const;
+  // Protected methods
+  protected:
+  void
+  clear_widgets ();
 
-	QWidget *
-	widget (
-		unsigned int idx_n );
+  void
+  create_widgets ();
 
+  // Event methods
 
-	// Focus info
+  void
+  resizeEvent ( QResizeEvent * event );
 
-	const Pad_Focus_Info &
-	focus_info ( ) const;
+  void
+  paintEvent ( QPaintEvent * event );
 
+  // Protected slots
+  protected slots:
 
-	/// @brief Event handler reimplementation
-	bool
-	event (
-		QEvent * event_n );
+  void
+  header_label_selected ( unsigned int group_idx_n, unsigned int column_idx_n );
 
+  void
+  footer_label_selected ( unsigned int group_idx_n, unsigned int column_idx_n );
 
-	// Public signals
-	signals:
+  // Private methods
+  private:
+  void
+  update_colors ();
 
-	void
-	sig_focus_changed ( );
+  // Private attributes
+  private:
+  QList<::Wdg::Pad_Proxies_Group * > _proxies_groups;
+  ::Wdg::Sliders_Pad_Data * _sp_data;
 
-	void
-	sig_footer_label_selected (
-		unsigned int group_idx_n,
-		unsigned int column_idx_n );
+  QList< QWidget * > _widgets;
+  ::Wdg::Pad_Focus_Info _focus_info;
 
+  bool _update_decoration;
 
-	// Public slots
-	public slots:
+  unsigned int _wheel_degrees;
 
-	bool
-	set_focus_proxy (
-		unsigned int group_idx_n );
-
-	bool
-	set_focus_proxy (
-		unsigned int group_idx_n,
-		unsigned int column_idx_n,
-		unsigned int row_idx_n );
-
-
-	// Protected methods
-	protected:
-
-	void
-	clear_widgets ( );
-
-	void
-	create_widgets ( );
-
-
-	// Event methods
-
-	void
-	resizeEvent (
-		QResizeEvent * event );
-
-	void
-	paintEvent (
-		QPaintEvent * event );
-
-
-	// Protected slots
-	protected slots:
-
-	void
-	header_label_selected (
-		unsigned int group_idx_n,
-		unsigned int column_idx_n );
-
-	void
-	footer_label_selected (
-		unsigned int group_idx_n,
-		unsigned int column_idx_n );
-
-
-	// Private methods
-	private:
-
-	void
-	update_colors ( );
-
-
-	// Private attributes
-	private:
-
-	QList < ::Wdg::Pad_Proxies_Group * > _proxies_groups;
-	::Wdg::Sliders_Pad_Data * _sp_data;
-
-	QList < QWidget * > _widgets;
-	::Wdg::Pad_Focus_Info _focus_info;
-
-	bool _update_decoration;
-
-	unsigned int _wheel_degrees;
-
-	::Wdg::Sliders_Pad_Style * _sp_style; // Paints decoration graphics
-	const ::Wdg::DS_Widget_Style_Db * _wdg_style_db;
-	::dpe::Image_Allocator * _image_alloc;
+  ::Wdg::Sliders_Pad_Style * _sp_style; // Paints decoration graphics
+  const ::Wdg::DS_Widget_Style_Db * _wdg_style_db;
+  ::dpe::Image_Allocator * _image_alloc;
 };
 
-
-inline
-unsigned int
-Sliders_Pad::wheel_degrees ( ) const
+inline unsigned int
+Sliders_Pad::wheel_degrees () const
 {
-	return _wheel_degrees;
+  return _wheel_degrees;
 }
 
-
-inline
-const QList < ::Wdg::Pad_Proxies_Group * > &
-Sliders_Pad::proxies_groups ( ) const
+inline const QList<::Wdg::Pad_Proxies_Group * > &
+Sliders_Pad::proxies_groups () const
 {
-	return _proxies_groups;
+  return _proxies_groups;
 }
 
-
-inline
-unsigned int
-Sliders_Pad::num_proxies_groups ( ) const
+inline unsigned int
+Sliders_Pad::num_proxies_groups () const
 {
-	return _proxies_groups.size();
+  return _proxies_groups.size ();
 }
 
-
-inline
-Pad_Proxies_Group *
-Sliders_Pad::proxies_group (
-	unsigned int idx_n )
+inline Pad_Proxies_Group *
+Sliders_Pad::proxies_group ( unsigned int idx_n )
 {
-	return _proxies_groups[idx_n];
+  return _proxies_groups[ idx_n ];
 }
 
-
-inline
-const ::Wdg::DS_Widget_Style_Db *
-Sliders_Pad::wdg_style_db ( ) const
+inline const ::Wdg::DS_Widget_Style_Db *
+Sliders_Pad::wdg_style_db () const
 {
-	return _wdg_style_db;
+  return _wdg_style_db;
 }
 
-
-inline
-::dpe::Image_Allocator *
-Sliders_Pad::image_alloc ( ) const
+inline ::dpe::Image_Allocator *
+Sliders_Pad::image_alloc () const
 {
-	return _image_alloc;
+  return _image_alloc;
 }
 
-
-inline
-unsigned int
-Sliders_Pad::num_widgets ( ) const
+inline unsigned int
+Sliders_Pad::num_widgets () const
 {
-	return _widgets.size();
+  return _widgets.size ();
 }
 
-
-inline
-QWidget *
-Sliders_Pad::widget (
-	unsigned int idx_n )
+inline QWidget *
+Sliders_Pad::widget ( unsigned int idx_n )
 {
-	return _widgets[idx_n];
+  return _widgets[ idx_n ];
 }
 
-
-inline
-const Pad_Focus_Info &
-Sliders_Pad::focus_info ( ) const
+inline const Pad_Focus_Info &
+Sliders_Pad::focus_info () const
 {
-	return _focus_info;
+  return _focus_info;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

@@ -7,10 +7,8 @@
 #include <QPixmap>
 #include <QScopedPointer>
 
-
 namespace dpe
 {
-
 
 /// @brief Image
 ///
@@ -19,101 +17,87 @@ namespace dpe
 ///
 class Image
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Image ();
 
-	Image ( );
+  ~Image ();
 
-	~Image ( );
+  void
+  clear ();
 
-	void
-	clear ( );
+  void
+  set_size ( unsigned int width_n,
+             unsigned int height_n,
+             unsigned int stride_n );
 
-	void
-	set_size (
-		unsigned int width_n,
-		unsigned int height_n,
-		unsigned int stride_n );
+  unsigned int
+  width () const;
 
-	unsigned int
-	width ( ) const;
+  unsigned int
+  height () const;
 
-	unsigned int
-	height ( ) const;
+  unsigned int
+  stride () const;
 
-	unsigned int
-	stride ( ) const;
+  unsigned int
+  byte_count () const;
 
-	unsigned int
-	byte_count ( ) const;
+  QPixmap *
+  convert_to_pixmap ();
 
+  QPixmap *
+  pixmap () const;
 
-	QPixmap *
-	convert_to_pixmap ( );
+  QImage &
+  qimage ();
 
-	QPixmap *
-	pixmap ( ) const;
+  // Private attributes
+  private:
+  QScopedPointer< QPixmap > _pixmap;
+  QImage _qimage;
 
-	QImage &
-	qimage ( );
-
-
-	// Private attributes
-	private:
-
-	QScopedPointer < QPixmap > _pixmap;
-	QImage _qimage;
-
-	unsigned int _width;
-	unsigned int _height;
-	unsigned int _stride;
+  unsigned int _width;
+  unsigned int _height;
+  unsigned int _stride;
 };
 
-
-inline
-unsigned int
-Image::width ( ) const
+inline unsigned int
+Image::width () const
 {
-	return _width;
+  return _width;
 }
 
-inline
-unsigned int
-Image::height ( ) const
+inline unsigned int
+Image::height () const
 {
-	return _height;
+  return _height;
 }
 
-inline
-unsigned int
-Image::stride ( ) const
+inline unsigned int
+Image::stride () const
 {
-	return _stride;
+  return _stride;
 }
 
-inline
-unsigned int
-Image::byte_count ( ) const
+inline unsigned int
+Image::byte_count () const
 {
-	return height()*stride();
+  return height () * stride ();
 }
 
-inline
-QPixmap *
-Image::pixmap ( ) const
+inline QPixmap *
+Image::pixmap () const
 {
-	return _pixmap.data();
+  return _pixmap.data ();
 }
 
-
-inline
-QImage &
-Image::qimage ( )
+inline QImage &
+Image::qimage ()
 {
-	return _qimage;
+  return _qimage;
 }
 
-
-} // End of namespace
+} // namespace dpe
 
 #endif

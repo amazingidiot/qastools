@@ -1,70 +1,52 @@
 /// QasTools: Desktop toolset for the Linux sound system ALSA.
 /// \copyright See COPYING file.
 
-
 #ifndef __INC_ds_slider_test_hpp__
 #define __INC_ds_slider_test_hpp__
 
-#include <QLabel>
-
 #include "namespace_wdg.hpp"
 #include "qslider.hpp"
-
+#include <QLabel>
 #include <iostream>
-
 
 namespace Wdg
 {
 
-
-class DS_Slider_Test :
-	public QWidget
+class DS_Slider_Test : public QWidget
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	public:
+  public:
+  DS_Slider_Test ( QWidget * parent_n = 0 );
 
-	DS_Slider_Test (
-		QWidget * parent_n = 0 );
+  ~DS_Slider_Test ();
 
-	~DS_Slider_Test ( );
+  DS_Slider *
+  slider ();
 
-	DS_Slider *
-	slider ( );
+  protected slots:
 
+  void
+  value_changed ( int value_n );
 
-	protected slots:
+  void
+  range_changed ( int min_n, int max_n );
 
-	void
-	value_changed (
-		int value_n );
+  // Private attributes
+  private:
+  DS_Slider _slider;
 
-	void
-	range_changed (
-		int min_n,
-		int max_n );
+  QLabel _value;
 
-
-	// Private attributes
-	private:
-
-	DS_Slider _slider;
-
-	QLabel _value;
-
-	QLabel _range;
+  QLabel _range;
 };
 
-
-inline
-DS_Slider *
-DS_Slider_Test::slider ( )
+inline DS_Slider *
+DS_Slider_Test::slider ()
 {
-	return &_slider;
+  return &_slider;
 }
 
-
-} // End of namespace
-
+} // namespace Wdg
 
 #endif

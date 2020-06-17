@@ -7,57 +7,45 @@
 #include "mwdg/mixer_hctl_editor.hpp"
 #include <QList>
 
-
 namespace MWdg
 {
-
 
 // Forward declaration
 class Mixer_HCTL_Proxies_Group;
 
-
 /// @brief Mixer_HCTL_Edit_Enum
 ///
-class Mixer_HCTL_Edit_Enum :
-	public Mixer_HCTL_Editor
+class Mixer_HCTL_Edit_Enum : public Mixer_HCTL_Editor
 {
-	Q_OBJECT
+  Q_OBJECT
 
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_HCTL_Edit_Enum ( Mixer_HCTL_Editor_Data * data_n,
+                         QWidget * parent_n = 0 );
 
-	Mixer_HCTL_Edit_Enum (
-		Mixer_HCTL_Editor_Data * data_n,
-		QWidget * parent_n = 0 );
+  ~Mixer_HCTL_Edit_Enum ();
 
-	~Mixer_HCTL_Edit_Enum ( );
+  void
+  setup_single ();
 
-	void
-	setup_single ( );
+  void
+  setup_multi ();
 
-	void
-	setup_multi ( );
+  Mixer_HCTL_Proxies_Group *
+  create_proxies_group ( ::QSnd::Mixer_HCTL_Elem * elem_n );
 
-	Mixer_HCTL_Proxies_Group *
-	create_proxies_group (
-		::QSnd::Mixer_HCTL_Elem * elem_n );
+  // Public slots
+  public slots:
 
+  void
+  update_proxies_values ();
 
-	// Public slots
-	public slots:
-
-	void
-	update_proxies_values ( );
-
-
-	// Private attributes
-	private:
-
-	QList < Mixer_HCTL_Proxies_Group * > _proxies_groups;
+  // Private attributes
+  private:
+  QList< Mixer_HCTL_Proxies_Group * > _proxies_groups;
 };
 
-
-} // End of namespace
-
+} // namespace MWdg
 
 #endif

@@ -6,101 +6,79 @@
 
 #include <QStandardItemModel>
 
-
 // Forward declaration
-namespace QSnd {
-	class CTL_Format;
-	class Controls_Database;
-}
-
+namespace QSnd
+{
+class CTL_Format;
+class Controls_Database;
+} // namespace QSnd
 
 namespace QSnd
 {
 
-
 /// @brief Controls_Model
 ///
-class Controls_Model :
-	public QStandardItemModel
+class Controls_Model : public QStandardItemModel
 {
-	Q_OBJECT;
+  Q_OBJECT;
 
+  // Public methods
+  public:
+  Controls_Model ( QObject * parent_n = 0 );
 
-	// Public methods
-	public:
+  ~Controls_Model ();
 
-	Controls_Model (
-		QObject * parent_n = 0 );
+  // Controls database
 
-	~Controls_Model ( );
+  ::QSnd::Controls_Database *
+  controls_db () const;
 
+  void
+  set_controls_db ( ::QSnd::Controls_Database * ctl_db_n );
 
-	// Controls database
+  // Control definition access
 
-	::QSnd::Controls_Database *
-	controls_db ( ) const;
+  const ::QSnd::CTL_Format *
+  ctl_format ( const QModelIndex & idx_n ) const;
 
-	void
-	set_controls_db (
-		::QSnd::Controls_Database * ctl_db_n );
+  void
+  ctl_format ( ::QSnd::CTL_Format & ctl_format_n,
+               const QModelIndex & idx_n ) const;
 
+  QModelIndex
+  ctl_format_index ( const QString & ctl_addr_n ) const;
 
-	// Control definition access
+  // Public slots
+  public slots:
 
-	const ::QSnd::CTL_Format *
-	ctl_format (
-		const QModelIndex & idx_n ) const;
+  void
+  reload ();
 
-	void
-	ctl_format (
-		::QSnd::CTL_Format & ctl_format_n,
-		const QModelIndex & idx_n ) const;
+  // Protected slots
+  protected slots:
 
-	QModelIndex
-	ctl_format_index (
-		const QString & ctl_addr_n ) const;
+  void
+  reload_begin ();
 
+  void
+  reload_finish ();
 
-	// Public slots
-	public slots:
+  // Protected methods
+  protected:
+  void
+  load_data ();
 
-	void
-	reload ( );
-
-
-	// Protected slots
-	protected slots:
-
-	void
-	reload_begin ( );
-
-	void
-	reload_finish ( );
-
-
-	// Protected methods
-	protected:
-
-	void
-	load_data ( );
-
-
-	// Private attributes
-	private:
-
-	::QSnd::Controls_Database * _ctl_db;
+  // Private attributes
+  private:
+  ::QSnd::Controls_Database * _ctl_db;
 };
 
-
-inline
-::QSnd::Controls_Database *
-Controls_Model::controls_db ( ) const
+inline ::QSnd::Controls_Database *
+Controls_Model::controls_db () const
 {
-	return _ctl_db;
+  return _ctl_db;
 }
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

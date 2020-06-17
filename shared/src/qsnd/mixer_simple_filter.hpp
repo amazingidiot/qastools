@@ -6,14 +6,14 @@
 
 #include <QList>
 
-
 // Forward declaration
-namespace QSnd { class Mixer_Simple_Elem; }
-
+namespace QSnd
+{
+class Mixer_Simple_Elem;
+}
 
 namespace QSnd
 {
-
 
 /// @brief Mixer_Simple_Filter
 ///
@@ -21,27 +21,20 @@ namespace QSnd
 ///
 class Mixer_Simple_Filter
 {
-	// Public methods
-	public:
+  // Public methods
+  public:
+  Mixer_Simple_Filter ();
 
-	Mixer_Simple_Filter ( );
+  virtual ~Mixer_Simple_Filter ();
 
-	virtual
-	~Mixer_Simple_Filter ( );
-
-
-	/// @brief Filters certain elements from accent_n to drop_n
-	///
-	/// @return The number of dropped elements
-	virtual
-	unsigned int
-	filter (
-		QList < ::QSnd::Mixer_Simple_Elem * > & accept_n,
-		QList < ::QSnd::Mixer_Simple_Elem * > & drop_n ) = 0;
+  /// @brief Filters certain elements from accent_n to drop_n
+  ///
+  /// @return The number of dropped elements
+  virtual unsigned int
+  filter ( QList<::QSnd::Mixer_Simple_Elem * > & accept_n,
+           QList<::QSnd::Mixer_Simple_Elem * > & drop_n ) = 0;
 };
 
-
-} // End of namespace
-
+} // namespace QSnd
 
 #endif

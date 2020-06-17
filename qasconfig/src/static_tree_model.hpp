@@ -4,110 +4,83 @@
 #ifndef __INC_static_tree_model_hpp__
 #define __INC_static_tree_model_hpp__
 
-#include <QAbstractItemModel>
 #include "static_tree.hpp"
-
+#include <QAbstractItemModel>
 
 /// @brief Static_Tree_Model
 ///
-class Static_Tree_Model :
-	public QAbstractItemModel
+class Static_Tree_Model : public QAbstractItemModel
 {
-	// Public typedefs
-	public:
+  // Public typedefs
+  public:
+  typedef Static_Tree::Index_Type Node_Index;
+  typedef Static_Tree::Node Node;
 
-	typedef Static_Tree::Index_Type Node_Index;
-	typedef Static_Tree::Node Node;
+  // Public methods
+  public:
+  Static_Tree_Model ();
 
+  ~Static_Tree_Model ();
 
-	// Public methods
-	public:
+  int
+  num_columns () const;
 
-	Static_Tree_Model ( );
+  void
+  set_num_columns ( int num_n );
 
-	~Static_Tree_Model ( );
+  const Node *
+  get_node ( const QModelIndex & index_n ) const;
 
+  QModelIndex
+  index ( const Node * node_n ) const;
 
-	int
-	num_columns ( ) const;
+  // Model methods
 
-	void
-	set_num_columns (
-		int num_n );
+  QModelIndex
+  index ( int row,
+          int column = 0,
+          const QModelIndex & parent = QModelIndex () ) const;
 
+  QModelIndex
+  parent ( const QModelIndex & index ) const;
 
-	const Node *
-	get_node (
-		const QModelIndex & index_n ) const;
+  int
+  rowCount ( const QModelIndex & parent = QModelIndex () ) const;
 
-	QModelIndex
-	index (
-		const Node * node_n ) const;
+  int
+  columnCount ( const QModelIndex & parent = QModelIndex () ) const;
 
+  // Protected methods
+  protected:
+  Static_Tree &
+  stree ();
 
-	// Model methods
+  const Static_Tree &
+  stree () const;
 
-	QModelIndex
-	index (
-		int row,
-		int column = 0,
-		const QModelIndex & parent = QModelIndex() ) const;
+  // Private attributes
+  private:
+  Static_Tree _stree;
 
-	QModelIndex
-	parent (
-		const QModelIndex & index ) const;
-
-	int
-	rowCount (
-		const QModelIndex & parent = QModelIndex() ) const;
-
-	int
-	columnCount (
-		const QModelIndex & parent = QModelIndex() ) const;
-
-
-
-	// Protected methods
-	protected:
-
-	Static_Tree &
-	stree ( );
-
-	const Static_Tree &
-	stree ( ) const;
-
-
-	// Private attributes
-	private:
-
-	Static_Tree _stree;
-
-	int _num_columns;
+  int _num_columns;
 };
 
-
-inline
-int
-Static_Tree_Model::num_columns ( ) const
+inline int
+Static_Tree_Model::num_columns () const
 {
-	return _num_columns;
+  return _num_columns;
 }
 
-
-inline
-Static_Tree &
-Static_Tree_Model::stree ( )
+inline Static_Tree &
+Static_Tree_Model::stree ()
 {
-	return _stree;
+  return _stree;
 }
 
-
-inline
-const Static_Tree &
-Static_Tree_Model::stree ( ) const
+inline const Static_Tree &
+Static_Tree_Model::stree () const
 {
-	return _stree;
+  return _stree;
 }
-
 
 #endif
