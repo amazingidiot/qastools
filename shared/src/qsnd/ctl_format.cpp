@@ -8,7 +8,7 @@ namespace QSnd
 
 CTL_Format::CTL_Format ( const char * addr_str_n )
 {
-  if ( addr_str_n != 0 ) {
+  if ( addr_str_n != nullptr ) {
     _ctl_name = addr_str_n;
   }
 }
@@ -18,15 +18,11 @@ CTL_Format::CTL_Format ( const QString & addr_str_n )
 {
 }
 
-CTL_Format::CTL_Format ( const CTL_Format & ctl_format_n )
-{
-  clone_def ( ctl_format_n );
-}
+CTL_Format::CTL_Format ( const CTL_Format & ctl_format_n ) = default;
 
-CTL_Format::~CTL_Format ()
-{
-  clear ();
-}
+CTL_Format::CTL_Format ( CTL_Format && ctl_format_n ) = default;
+
+CTL_Format::~CTL_Format () = default;
 
 void
 CTL_Format::clear ()
@@ -44,78 +40,59 @@ CTL_Format::set_ctl_name ( const QString & name_n )
 void
 CTL_Format::append_arg ( const ::QSnd::CTL_Format_Argument & arg_n )
 {
-  _args.append ( arg_n );
+  _args.push_back ( arg_n );
+}
+
+void
+CTL_Format::append_arg ( ::QSnd::CTL_Format_Argument && arg_n )
+{
+  _args.push_back ( std::move ( arg_n ) );
 }
 
 bool
 CTL_Format::match ( const ::QSnd::CTL_Address & ctl_addr_n ) const
 {
-  bool res ( true );
   if ( ctl_addr_n.ctl_name ().isEmpty () ) {
-    res = false;
+    return false;
   }
-  if ( res && ( ctl_addr_n.ctl_name () != ctl_name () ) ) {
-    res = false;
+  if ( ctl_addr_n.ctl_name () != ctl_name () ) {
+    return false;
   }
-  if ( res && ( ctl_addr_n.num_args () > num_args () ) ) {
-    res = false;
+  if ( ctl_addr_n.num_args () > num_args () ) {
+    return false;
   }
-  if ( res ) {
-    for ( unsigned int ii = 0; ii < ctl_addr_n.num_args (); ++ii ) {
-      const ::QSnd::CTL_Address_Argument & arga ( ctl_addr_n.arg ( ii ) );
-      if ( !arga.arg_name.isEmpty () ) {
-        const ::QSnd::CTL_Format_Argument & argd ( arg ( ii ) );
-        if ( arga.arg_name != argd.arg_name ) {
-          res = false;
-          break;
-        }
-      }
+
+  for ( std::size_t ii = 0; ii != ctl_addr_n.num_args (); ++ii ) {
+    const auto & arga = ctl_addr_n.arg ( ii );
+    if ( arga.arg_name.isEmpty () ) {
+      continue;
+    }
+    const auto & argd = arg ( ii );
+    if ( arga.arg_name != argd.arg_name ) {
+      return false;
     }
   }
-  return res;
+
+  return true;
 }
 
 CTL_Format &
-CTL_Format::operator= ( const ::QSnd::CTL_Format & ctl_format_n )
-{
-  clear ();
-  clone_def ( ctl_format_n );
-  return *this;
-}
+CTL_Format::operator= ( const ::QSnd::CTL_Format & ctl_format_n ) = default;
+
+CTL_Format &
+CTL_Format::operator= ( ::QSnd::CTL_Format && ctl_format_n ) = default;
 
 bool
 CTL_Format::operator== ( const ::QSnd::CTL_Format & ctl_format_n ) const
 {
-  bool res;
-  res = ( _ctl_name == ctl_format_n.ctl_name () );
-  res = res && ( num_args () == ctl_format_n.num_args () );
-  if ( res ) {
-    for ( unsigned int ii = 0; ii < ctl_format_n.num_args (); ++ii ) {
-      const ::QSnd::CTL_Format_Argument & arg1 ( arg ( ii ) );
-      const ::QSnd::CTL_Format_Argument & arg2 ( ctl_format_n.arg ( ii ) );
-      if ( ( arg1.arg_name != arg2.arg_name ) ||
-           ( arg1.arg_type != arg2.arg_type ) ) {
-        res = false;
-        break;
-      }
-    }
-  }
-  return res;
+  return ( _ctl_name == ctl_format_n._ctl_name ) &&
+         ( _args == ctl_format_n._args );
 }
 
 bool
 CTL_Format::operator!= ( const ::QSnd::CTL_Format & ctl_format_n ) const
 {
   return !operator== ( ctl_format_n );
-}
-
-void
-CTL_Format::clone_def ( const ::QSnd::CTL_Format & ctl_format_n )
-{
-  _ctl_name = ctl_format_n.ctl_name ();
-  for ( unsigned int ii = 0; ii < ctl_format_n.num_args (); ++ii ) {
-    _args.append ( ctl_format_n.arg ( ii ) );
-  }
 }
 
 } // namespace QSnd

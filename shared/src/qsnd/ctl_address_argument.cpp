@@ -6,7 +6,7 @@
 namespace QSnd
 {
 
-CTL_Address_Argument::CTL_Address_Argument () {}
+CTL_Address_Argument::CTL_Address_Argument () = default;
 
 CTL_Address_Argument::CTL_Address_Argument ( const QString & name_n,
                                              const QString & value_n )

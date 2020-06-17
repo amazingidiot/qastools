@@ -15,105 +15,97 @@ namespace QSnd
 ///
 class CTL_Address
 {
-  // Public methods
   public:
+  // -- Construction
+
   CTL_Address ( const char * ctl_str_n = 0 );
 
   CTL_Address ( const QString & ctl_str_n );
 
   CTL_Address ( const CTL_Address & ctl_addr_n );
 
+  CTL_Address ( CTL_Address && ctl_addr_n );
+
   ~CTL_Address ();
 
-  // Clear
+  // -- Clear
 
   void
   clear ();
 
   bool
-  is_valid () const;
+  is_valid () const
+  {
+    return !_ctl_name.isEmpty ();
+  }
 
-  // Control name
+  // -- Control name
 
   const QString &
-  ctl_name () const;
+  ctl_name () const
+  {
+    return _ctl_name;
+  }
 
   void
   set_ctl_name ( const QString & name_n );
 
-  // Address string
+  // -- Address string
 
   const QString &
-  addr_str () const;
+  addr_str () const
+  {
+    return _addr_str;
+  }
 
   void
   set_addr_str ( const QString & id_n );
 
-  // Control arguments
+  // -- Control arguments
 
-  unsigned int
-  num_args () const;
+  std::size_t
+  num_args () const
+  {
+    return _args.size ();
+  }
 
   const ::QSnd::CTL_Address_Argument &
-  arg ( unsigned int idx_n ) const;
+  arg ( std::size_t idx_n ) const
+  {
+    return _args[ idx_n ];
+  }
 
   void
   append_arg ( const ::QSnd::CTL_Address_Argument & arg_n );
 
-  // Comparison
+  void
+  append_arg ( ::QSnd::CTL_Address_Argument && arg_n );
+
+  // -- Comparison
 
   bool
   match ( const ::QSnd::CTL_Address & ctl_addr_n ) const;
 
-  // Operators
+  // -- Assignment operators
 
   ::QSnd::CTL_Address &
   operator= ( const ::QSnd::CTL_Address & ctl_addr_n );
 
-  // Private methods
+  ::QSnd::CTL_Address &
+  operator= ( ::QSnd::CTL_Address && ctl_addr_n );
+
   private:
-  void
-  clone_addr ( const ::QSnd::CTL_Address & ctl_addr_n );
+  // -- Utility
 
   void
   update_addr_str ();
 
-  // Private attributes
   private:
+  // -- Attributes
   QString _addr_str;
   QString _ctl_name;
-  QList<::QSnd::CTL_Address_Argument > _args;
+  std::vector<::QSnd::CTL_Address_Argument > _args;
 };
-
-inline bool
-CTL_Address::is_valid () const
-{
-  return !_ctl_name.isEmpty ();
-}
-
-inline const QString &
-CTL_Address::ctl_name () const
-{
-  return _ctl_name;
-}
-
-inline unsigned int
-CTL_Address::num_args () const
-{
-  return _args.size ();
-}
-
-inline const ::QSnd::CTL_Address_Argument &
-CTL_Address::arg ( unsigned int idx_n ) const
-{
-  return _args[ idx_n ];
-}
-
-inline const QString &
-CTL_Address::addr_str () const
-{
-  return _addr_str;
-}
 
 } // namespace QSnd
 

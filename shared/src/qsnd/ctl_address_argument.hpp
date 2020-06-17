@@ -13,8 +13,9 @@ namespace QSnd
 ///
 class CTL_Address_Argument
 {
-  // Public methods
   public:
+  // -- Construction
+
   CTL_Address_Argument ();
 
   CTL_Address_Argument ( const QString & name_n,
@@ -23,8 +24,7 @@ class CTL_Address_Argument
   void
   clear ();
 
-  // Public attributes
-
+  // -- Attributes
   QString arg_name;
   QString arg_value;
 };

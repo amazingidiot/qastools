@@ -6,8 +6,8 @@
 
 #include "qsnd/ctl_address.hpp"
 #include "qsnd/ctl_format_argument.hpp"
-#include <QList>
 #include <QString>
+#include <vector>
 
 namespace QSnd
 {
@@ -16,52 +16,75 @@ namespace QSnd
 ///
 class CTL_Format
 {
-  // Public methods
   public:
-  CTL_Format ( const char * ctl_str_n = 0 );
+  // -- Construction
+
+  CTL_Format ( const char * ctl_str_n = nullptr );
 
   CTL_Format ( const QString & ctl_str_n );
 
   CTL_Format ( const CTL_Format & ctl_format_n );
 
+  CTL_Format ( CTL_Format && ctl_format_n );
+
   ~CTL_Format ();
 
-  // Clear
+  // -- Clear
 
   void
   clear ();
 
   bool
-  is_valid () const;
+  is_valid () const
+  {
+    return !_ctl_name.isEmpty ();
+  }
 
-  // Control name
+  // -- Control name
 
   const QString &
-  ctl_name () const;
+  ctl_name () const
+  {
+    return _ctl_name;
+  }
 
   void
   set_ctl_name ( const QString & name_n );
 
-  // Control arguments
+  // -- Control arguments
 
-  unsigned int
-  num_args () const;
+  std::size_t
+  num_args () const
+  {
+    return _args.size ();
+  }
 
   const ::QSnd::CTL_Format_Argument &
-  arg ( unsigned int idx_n ) const;
+  arg ( std::size_t idx_n ) const
+  {
+    return _args[ idx_n ];
+  }
 
   void
   append_arg ( const ::QSnd::CTL_Format_Argument & arg_n );
 
-  // Comparison
+  void
+  append_arg ( ::QSnd::CTL_Format_Argument && arg_n );
+
+  // -- Address matching
 
   bool
   match ( const ::QSnd::CTL_Address & ctl_addr_n ) const;
 
-  // Operators
+  // -- Assignment Operators
 
   CTL_Format &
   operator= ( const ::QSnd::CTL_Format & ctl_format_n );
+
+  CTL_Format &
+  operator= ( ::QSnd::CTL_Format && ctl_format_n );
+
+  // -- Comparison operators
 
   bool
   operator== ( const ::QSnd::CTL_Format & ctl_format_n ) const;
@@ -69,40 +92,11 @@ class CTL_Format
   bool
   operator!= ( const ::QSnd::CTL_Format & ctl_format_n ) const;
 
-  // Private methods
   private:
-  void
-  clone_def ( const ::QSnd::CTL_Format & ctl_format_n );
-
-  // Private attributes
-  private:
+  // -- Attributes
   QString _ctl_name;
-  QList<::QSnd::CTL_Format_Argument > _args;
+  std::vector<::QSnd::CTL_Format_Argument > _args;
 };
-
-inline bool
-CTL_Format::is_valid () const
-{
-  return !_ctl_name.isEmpty ();
-}
-
-inline const QString &
-CTL_Format::ctl_name () const
-{
-  return _ctl_name;
-}
-
-inline unsigned int
-CTL_Format::num_args () const
-{
-  return _args.size ();
-}
-
-inline const ::QSnd::CTL_Format_Argument &
-CTL_Format::arg ( unsigned int idx_n ) const
-{
-  return _args[ idx_n ];
-}
 
 } // namespace QSnd
 

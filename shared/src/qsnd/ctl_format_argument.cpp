@@ -28,13 +28,7 @@ CTL_Format_Argument::clear ()
 bool
 CTL_Format_Argument::is_valid () const
 {
-  bool res ( true );
-  if ( arg_name.isEmpty () ) {
-    res = false;
-  } else if ( arg_type.isEmpty () ) {
-    res = false;
-  }
-  return res;
+  return !arg_name.isEmpty () && !arg_type.isEmpty ();
 }
 
 bool

@@ -13,8 +13,9 @@ namespace QSnd
 ///
 class CTL_Format_Argument
 {
-  // Public methods
   public:
+  // -- Construction
+
   CTL_Format_Argument ();
 
   CTL_Format_Argument ( const QString & name_n,
@@ -26,14 +27,16 @@ class CTL_Format_Argument
   bool
   is_valid () const;
 
+  // -- Comparison operators
+
   bool
   operator== ( const ::QSnd::CTL_Format_Argument & ctl_arg_n ) const;
 
   bool
   operator!= ( const ::QSnd::CTL_Format_Argument & ctl_arg_n ) const;
 
-  // Public attributes
   public:
+  // -- Attributes
   QString arg_name;
   QString arg_type;
 };
