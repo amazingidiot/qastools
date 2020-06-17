@@ -4,7 +4,9 @@
 #ifndef __INC_qsnd_controls_model_hpp__
 #define __INC_qsnd_controls_model_hpp__
 
-#include <QStandardItemModel>
+#include <QAbstractListModel>
+#include <memory>
+#include <vector>
 
 // Forward declaration
 namespace QSnd
@@ -18,7 +20,7 @@ namespace QSnd
 
 /// @brief Controls_Model
 ///
-class Controls_Model : public QStandardItemModel
+class Controls_Model : public QAbstractListModel
 {
   Q_OBJECT;
 
@@ -27,13 +29,16 @@ class Controls_Model : public QStandardItemModel
 
   enum Extra_Roles
   {
-    ROLE_DB_INDEX = ( Qt::UserRole + 1 ),
-    ROLE_L10N_ARGS = ( Qt::UserRole + 2 )
+    ROLE_L10N_ARGS = ( Qt::UserRole + 1 )
   };
+
+  // -- Properties
+
+  Q_PROPERTY ( int count READ count NOTIFY countChanged )
 
   // -- Construction
 
-  Controls_Model ( QObject * parent_n = 0 );
+  Controls_Model ( QObject * parent_n = nullptr );
 
   ~Controls_Model ();
 
@@ -50,19 +55,37 @@ class Controls_Model : public QStandardItemModel
 
   // -- Control definition access
 
-  const ::QSnd::CTL_Format *
-  ctl_format ( const QModelIndex & idx_n ) const;
+  int
+  count () const
+  {
+    return _controls.size ();
+  }
 
+  Q_SIGNAL
   void
-  ctl_format ( ::QSnd::CTL_Format & ctl_format_n,
-               const QModelIndex & idx_n ) const;
+  countChanged ();
+
+  const ::QSnd::CTL_Format *
+  control_by_index ( const QModelIndex & idx_n ) const;
 
   QModelIndex
-  ctl_format_index ( const QString & ctl_addr_n ) const;
+  control_index ( const QString & ctl_addr_n ) const;
 
   Q_SLOT
   void
   reload ();
+
+  // -- Model inteface
+
+  QHash< int, QByteArray >
+  roleNames () const override;
+
+  int
+  rowCount ( const QModelIndex & parent_n = QModelIndex () ) const override;
+
+  QVariant
+  data ( const QModelIndex & index_n,
+         int role_n = Qt::DisplayRole ) const override;
 
   protected:
   // -- Utility
@@ -81,6 +104,7 @@ class Controls_Model : public QStandardItemModel
   private:
   // -- Attributes
   ::QSnd::Controls_Database * _ctl_db = nullptr;
+  std::vector< std::shared_ptr< const ::QSnd::CTL_Format > > _controls;
 };
 
 } // namespace QSnd

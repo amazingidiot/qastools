@@ -45,9 +45,9 @@ Device_Selection_View::Device_Selection_View ( QWidget * parent_n )
 
   // Controls database
   connect ( &_controls_db,
-            SIGNAL ( sig_reload_required () ),
+            &::QSnd::Controls_Database::sig_reload_required,
             this,
-            SLOT ( reload_database () ) );
+            &Device_Selection_View::reload_database );
 
   // Control selection model and view
   {
@@ -117,15 +117,14 @@ Device_Selection_View::compile_ctl_address ( ::QSnd::CTL_Address & ctl_addr_n )
   // ctl_addr_n.addr_str().toLocal8Bit().data() << "\n";
 
   const QModelIndex & cidx ( _controls_view->currentIndex () );
-  const ::QSnd::CTL_Format * ctl_format (
-      _controls_model->ctl_format ( cidx ) );
-  if ( ctl_format != 0 ) {
+  auto * ctl_format = _controls_model->control_by_index ( cidx );
+  if ( ctl_format != nullptr ) {
     // Control name
     ctl_addr_n.set_ctl_name ( ctl_format->ctl_name () );
     // Control arguments
-    for ( int ii = 0; ii < _arg_views.size (); ++ii ) {
-      const QString & arg_name ( _arg_views[ ii ]->ctl_arg ().arg_name );
-      const QString & arg_str ( _arg_views[ ii ]->arg_string () );
+    for ( auto & view : _arg_views ) {
+      const QString & arg_name = view->ctl_arg ().arg_name;
+      const QString & arg_str = view->arg_string ();
       if ( !arg_str.isEmpty () ) {
         ctl_addr_n.append_arg (
             ::QSnd::CTL_Address_Argument ( arg_name, arg_str ) );
@@ -150,8 +149,8 @@ Device_Selection_View::silent_select_ctl (
     _controls_view->clearSelection ();
 
     // Find control format model index from name
-    const QModelIndex midx (
-        _controls_model->ctl_format_index ( ctl_addr_n.ctl_name () ) );
+    const QModelIndex midx =
+        _controls_model->control_index ( ctl_addr_n.ctl_name () );
 
     // It's safer to set a current index even if it is invalid.
     // Otherwise Qt may pick the first index just to have one selected.
@@ -160,10 +159,9 @@ Device_Selection_View::silent_select_ctl (
       // The address in the database will be used by the arg view restore
       selection_db_commit ( ctl_addr_n );
       {
-        ::QSnd::CTL_Format format;
-        _controls_model->ctl_format ( format, midx );
-        if ( format.is_valid () ) {
-          _selected_ctl_format = format;
+        auto * format = _controls_model->control_by_index ( midx );
+        if ( format != nullptr ) {
+          _selected_ctl_format = *format;
         }
       }
 
@@ -223,27 +221,28 @@ void
 Device_Selection_View::control_changed ( const QModelIndex & idx_n )
 {
   //::std::cout << "Device_Selection_View::control_changed " << "\n";
+  if ( _silent_ctl_change ) {
+    return;
+  }
 
-  if ( !_silent_ctl_change ) {
-    {
-      ::QSnd::CTL_Format ctl_format;
-      _controls_model->ctl_format ( ctl_format, idx_n );
-      if ( _selected_ctl_format != ctl_format ) {
-        // Clear argument inputs
-        clear_arg_views ();
-        // Update format
-        _selected_ctl_format = ctl_format;
-        // Create new argument inputs on demand
-        if ( _selected_ctl_format.is_valid () ) {
-          _silent_arg_change = true;
-          create_arg_views ();
-          restore_arg_views ();
-          _silent_arg_change = false;
-        }
+  {
+    auto * ctl_format = _controls_model->control_by_index ( idx_n );
+    if ( ( ctl_format != nullptr ) &&
+         ( _selected_ctl_format != *ctl_format ) ) {
+      // Clear argument inputs
+      clear_arg_views ();
+      // Update format
+      _selected_ctl_format = *ctl_format;
+      // Create new argument inputs on demand
+      if ( _selected_ctl_format.is_valid () ) {
+        _silent_arg_change = true;
+        create_arg_views ();
+        restore_arg_views ();
+        _silent_arg_change = false;
       }
     }
-    update_selected_ctl ();
   }
+  update_selected_ctl ();
 }
 
 void

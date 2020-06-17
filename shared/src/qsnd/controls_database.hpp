@@ -5,8 +5,9 @@
 #define __INC_qsnd_controls_database_hpp__
 
 #include "qsnd/ctl_format.hpp"
-#include <QList>
 #include <QObject>
+#include <memory>
+#include <vector>
 
 namespace QSnd
 {
@@ -17,31 +18,47 @@ class Controls_Database : public QObject
 {
   Q_OBJECT;
 
-  // Public methods
+  // -- Types
   public:
+  using Const_Handle = std::shared_ptr< const ::QSnd::CTL_Format >;
+
+  // -- Construction
+
   Controls_Database ();
 
   ~Controls_Database ();
 
-  // Control plugins
+  // -- Control plugins
 
-  unsigned int
-  num_controls () const;
+  std::size_t
+  num_controls () const
+  {
+    return _controls.size ();
+  }
 
-  const ::QSnd::CTL_Format &
-  control_format ( unsigned int index_n ) const;
+  const std::vector< Const_Handle > &
+  controls () const
+  {
+    return _controls;
+  }
 
-  const ::QSnd::CTL_Format *
+  const Const_Handle &
+  control_format ( std::size_t index_n ) const
+  {
+    return _controls[ index_n ];
+  }
+
+  Const_Handle
   find_control_format ( const QString & ctl_name_n ) const;
 
   // Signals
   signals:
 
   void
-  sig_change_coming ();
+  sig_reload_begin ();
 
   void
-  sig_change_done ();
+  sig_reload_end ();
 
   void
   sig_reload_required ();
@@ -61,27 +78,16 @@ class Controls_Database : public QObject
   void
   reload_silent ();
 
-  // Protected methods
   protected:
+  // -- Utility
+
   void
   load_plugins ();
 
-  // Private attributes
   private:
-  QList<::QSnd::CTL_Format > _ctl_formats;
+  // -- Attributes
+  std::vector< Const_Handle > _controls;
 };
-
-inline unsigned int
-Controls_Database::num_controls () const
-{
-  return _ctl_formats.size ();
-}
-
-inline const ::QSnd::CTL_Format &
-Controls_Database::control_format ( unsigned int index_n ) const
-{
-  return _ctl_formats[ index_n ];
-}
 
 } // namespace QSnd
 

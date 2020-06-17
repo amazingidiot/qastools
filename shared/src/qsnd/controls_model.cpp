@@ -13,7 +13,7 @@ namespace QSnd
 {
 
 Controls_Model::Controls_Model ( QObject * parent_n )
-: QStandardItemModel ( parent_n )
+: QAbstractListModel ( parent_n )
 {
 }
 
@@ -27,72 +27,49 @@ Controls_Model::set_controls_db ( ::QSnd::Controls_Database * ctl_db_n )
   }
 
   reload_begin ();
-  if ( _ctl_db != nullptr ) {
-    disconnect ( _ctl_db, 0, this, 0 );
-  }
-  _ctl_db = ctl_db_n;
-  if ( _ctl_db != nullptr ) {
-    connect ( _ctl_db,
-              SIGNAL ( sig_change_coming () ),
-              this,
-              SLOT ( reload_begin () ) );
-    connect ( _ctl_db,
-              SIGNAL ( sig_change_done () ),
-              this,
-              SLOT ( reload_finish () ) );
+  {
+    if ( _ctl_db != nullptr ) {
+      disconnect ( _ctl_db, 0, this, 0 );
+    }
+    _ctl_db = ctl_db_n;
+    if ( _ctl_db != nullptr ) {
+      connect ( _ctl_db,
+                &QSnd::Controls_Database::sig_reload_begin,
+                this,
+                &Controls_Model::reload_begin );
+      connect ( _ctl_db,
+                &QSnd::Controls_Database::sig_reload_end,
+                this,
+                &Controls_Model::reload_finish );
+    }
   }
   reload_finish ();
 }
 
 const ::QSnd::CTL_Format *
-Controls_Model::ctl_format ( const QModelIndex & idx_n ) const
+Controls_Model::control_by_index ( const QModelIndex & idx_n ) const
 {
-  const ::QSnd::CTL_Format * res ( 0 );
-  if ( ( _ctl_db != 0 ) && ( idx_n.isValid () ) ) {
-    const QVariant & idata ( data ( idx_n, ROLE_DB_INDEX ) );
-    if ( idata.type () == QVariant::UInt ) {
-      const unsigned int ctl_idx ( idata.toUInt () );
-      if ( ctl_idx < _ctl_db->num_controls () ) {
-        res = &_ctl_db->control_format ( ctl_idx );
-      }
-    }
+  if ( ( _ctl_db == nullptr ) || ( !idx_n.isValid () ) ||
+       ( idx_n.parent ().isValid () ) || ( idx_n.column () != 0 ) ||
+       ( idx_n.row () < 0 ) ||
+       ( idx_n.row () >= static_cast< int > ( _controls.size () ) ) ) {
+    return nullptr;
   }
-  return res;
-}
 
-void
-Controls_Model::ctl_format ( ::QSnd::CTL_Format & ctl_format_n,
-                             const QModelIndex & idx_n ) const
-{
-  const ::QSnd::CTL_Format * format ( ctl_format ( idx_n ) );
-  if ( format != 0 ) {
-    ctl_format_n = *format;
-  } else {
-    ctl_format_n.clear ();
-  }
+  return _controls[ idx_n.row () ].get ();
 }
 
 QModelIndex
-Controls_Model::ctl_format_index ( const QString & ctl_addr_n ) const
+Controls_Model::control_index ( const QString & ctl_addr_n ) const
 {
-  QModelIndex res;
-
-  if ( _ctl_db != 0 ) {
-    const int num_rows ( rowCount () );
-    for ( int row = 0; row < num_rows; ++row ) {
-      QModelIndex midx ( index ( row, 0 ) );
-      const QVariant & idata ( data ( midx, ROLE_DB_INDEX ) );
-      const unsigned int ctl_idx ( idata.toUInt () );
-      if ( ctl_idx < _ctl_db->num_controls () ) {
-        if ( _ctl_db->control_format ( ctl_idx ).match ( ctl_addr_n ) ) {
-          res = midx;
-          break;
-        }
-      }
+  int row = 0;
+  for ( const auto & item : _controls ) {
+    if ( item->match ( ctl_addr_n ) ) {
+      return index ( row, 0 );
     }
+    ++row;
   }
-
-  return res;
+  return QModelIndex ();
 }
 
 void
@@ -106,7 +83,6 @@ void
 Controls_Model::reload_begin ()
 {
   beginResetModel ();
-  removeRows ( 0, rowCount () );
 }
 
 void
@@ -114,6 +90,7 @@ Controls_Model::reload_finish ()
 {
   load_data ();
   endResetModel ();
+  emit countChanged ();
 }
 
 void
@@ -126,36 +103,75 @@ Controls_Model::load_data ()
     return;
   }
 
-  for ( unsigned int ii = 0; ii != _ctl_db->num_controls (); ++ii ) {
-    const ::QSnd::CTL_Format & ctl_format ( _ctl_db->control_format ( ii ) );
-    // Create standard item and append
-    QStandardItem * sitem ( new QStandardItem );
-    sitem->setText ( ctl_format.ctl_name () );
-    sitem->setEditable ( false );
-    sitem->setSelectable ( true );
-    sitem->setData ( QVariant ( ii ), ROLE_DB_INDEX );
-    QString ttip ( ctl_format.ctl_name () );
-    QStringList args_l10n;
-    if ( ctl_format.num_args () != 0 ) {
-      ttip.append ( ":" );
-      for ( unsigned int jj = 0; jj != ctl_format.num_args (); ++jj ) {
-        const ::QSnd::CTL_Format_Argument & arg ( ctl_format.arg ( jj ) );
-        if ( jj > 0 ) {
-          ttip.append ( "," );
-        }
-        ttip.append ( arg.arg_name );
-        QString str_l10n ( QCoreApplication::translate (
-            "ALSA::CTL_Arg_Name", arg.arg_name.toUtf8 ().constData () ) );
-        args_l10n.append ( str_l10n );
-      }
-    }
-    sitem->setData ( QVariant ( args_l10n ), ROLE_L10N_ARGS );
-    sitem->setToolTip ( ttip );
-    appendRow ( sitem );
+  // Copy controls
+  _controls = _ctl_db->controls ();
+
+  // Sort controls
+  using Const_Handle = Controls_Database::Const_Handle;
+  std::sort ( _controls.begin (),
+              _controls.end (),
+              [] ( const Const_Handle & a_n, const Const_Handle & b_n ) {
+                return a_n->ctl_name () < b_n->ctl_name ();
+              } );
+}
+
+QHash< int, QByteArray >
+Controls_Model::roleNames () const
+{
+  auto res = QAbstractListModel::roleNames ();
+  res.insert ( ROLE_L10N_ARGS, "argsL10N" );
+  return res;
+}
+
+int
+Controls_Model::rowCount ( const QModelIndex & parent_n ) const
+{
+  if ( parent_n.isValid () ) {
+    return 0;
+  }
+  return _controls.size ();
+}
+
+QVariant
+Controls_Model::data ( const QModelIndex & index_n, int role_n ) const
+{
+  auto control = control_by_index ( index_n );
+  if ( !control ) {
+    return QVariant ();
   }
 
-  // Sort items
-  sort ( 0 );
+  switch ( role_n ) {
+  case Qt::DisplayRole:
+    return QVariant ( control->ctl_name () );
+
+  case Qt::ToolTipRole: {
+    QString ttip ( control->ctl_name () );
+    for ( std::size_t ii = 0; ii != control->num_args (); ++ii ) {
+      if ( ii == 0 ) {
+        ttip.append ( ":" );
+      } else {
+        ttip.append ( "," );
+      }
+      ttip.append ( control->arg ( ii ).arg_name );
+    }
+    return QVariant ( ttip );
+  }
+
+  case ROLE_L10N_ARGS: {
+    QStringList args_l10n;
+    for ( std::size_t ii = 0; ii != control->num_args (); ++ii ) {
+      args_l10n.append ( QCoreApplication::translate (
+          "ALSA::CTL_Arg_Name",
+          control->arg ( ii ).arg_name.toUtf8 ().constData () ) );
+    }
+    return QVariant ( args_l10n );
+  }
+
+  default:
+    break;
+  }
+
+  return QVariant ();
 }
 
 } // namespace QSnd
