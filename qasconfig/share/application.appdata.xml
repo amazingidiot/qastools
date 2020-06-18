@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component>
+  <id>${PROGRAM_NAME}.desktop</id>
+  <metadata_license>MIT</metadata_license>
+  <name>${PROGRAM_NAME}</name>
+  <summary>ALSA configuration viewer</summary>
+  <description>
+    <p>
+      ${PROGRAM_TITLE} provides a graphical ALSA
+      configuration tree viewer.
+    </p>
+  </description>
+  <url type="homepage">https://gitlab.com/sebholt/qastools</url>
+  <url type="bugtracker">https://gitlab.com/sebholt/qastools</url>
+</component>
