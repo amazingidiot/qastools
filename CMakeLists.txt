@@ -4,41 +4,24 @@ PROJECT ( QasTools
     LANGUAGES CXX )
 
 
-# Default build type
+# Build type
 
-IF ( NOT CMAKE_BUILD_TYPE )
-  SET ( CMAKE_BUILD_TYPE Release )
-ENDIF ( NOT CMAKE_BUILD_TYPE )
-
-IF ( NOT BUILD_LIST )
-  SET ( BUILD_LIST "qascommon,qasconfig,qashctl,qasmixer" )
-ENDIF ( NOT BUILD_LIST )
+SET ( CMAKE_BUILD_TYPE "Release" CACHE STRING "CMake build type" )
+SET ( BUILD_LIST "qascommon,qasconfig,qashctl,qasmixer" CACHE STRING
+      "List of parts to build" )
 
 
 # program/package/version suffix
 
-IF ( NOT PROGRAM_SUFFIX )
-  SET ( PROGRAM_SUFFIX "" )
-ENDIF ( NOT PROGRAM_SUFFIX )
-
-IF ( NOT VERSION_SUFFIX )
-  SET ( VERSION_SUFFIX "-beta" )
-ENDIF ( NOT VERSION_SUFFIX )
-
-IF ( NOT PACKAGE_SUFFIX )
-  SET ( PACKAGE_SUFFIX "" )
-ENDIF ( NOT PACKAGE_SUFFIX )
+SET ( PROGRAM_SUFFIX "" CACHE STRING "Program suffix" )
+SET ( VERSION_SUFFIX "-beta" CACHE STRING "Version suffix" )
+SET ( PACKAGE_SUFFIX "" CACHE STRING "Package suffix" )
 
 
 # Package name
 
-IF ( NOT PACKAGE_TITLE )
-  SET ( PACKAGE_TITLE "QasTools" )
-ENDIF ( NOT PACKAGE_TITLE )
-
-IF ( NOT PACKAGE_NAME )
-  SET ( PACKAGE_NAME "qastools${PACKAGE_SUFFIX}" )
-ENDIF ( NOT PACKAGE_NAME )
+SET ( PACKAGE_TITLE "QasTools" CACHE STRING "Package title" )
+SET ( PACKAGE_NAME "qastools${PACKAGE_SUFFIX}" CACHE STRING "Package name" )
 
 
 # Package version
@@ -53,61 +36,37 @@ SET ( PACKAGE_VERSION
 
 # Installation directories
 
-IF ( NOT INSTALL_DIR_BIN )
-  SET ( INSTALL_DIR_BIN "bin" )
-ENDIF ( NOT INSTALL_DIR_BIN )
+SET ( INSTALL_DIR_BIN "bin" CACHE STRING
+      "Installation directory for binaries" )
+SET ( INSTALL_DIR_MAN "share/man/man1" CACHE STRING
+      "Installation directory for manpages" )
+SET ( INSTALL_DIR_APPSTREAM "share/metainfo" CACHE STRING
+      "Installation directory for AppStream metadata" )
+SET ( INSTALL_DIR_DESKTOP "share/applications" CACHE STRING
+      "Installation directory for desktop files" )
 
-IF ( NOT INSTALL_DIR_MAN )
-  SET ( INSTALL_DIR_MAN "share/man/man1" )
-ENDIF ( NOT INSTALL_DIR_MAN )
-
-IF ( NOT INSTALL_DIR_APPSTREAM )
-  SET ( INSTALL_DIR_APPSTREAM "share/metainfo" )
-ENDIF ( NOT INSTALL_DIR_APPSTREAM )
-
-IF ( NOT INSTALL_DIR_DESKTOP )
-  SET ( INSTALL_DIR_DESKTOP "share/applications" )
-ENDIF ( NOT INSTALL_DIR_DESKTOP )
-
-
-IF ( NOT INSTALL_DIR_DATA )
-  SET ( INSTALL_DIR_DATA "share/${PACKAGE_NAME}" )
-ENDIF ( NOT INSTALL_DIR_DATA )
-
-IF ( NOT INSTALL_DIR_L10N )
-  SET ( INSTALL_DIR_L10N "${INSTALL_DIR_DATA}/l10n" )
-ENDIF ( NOT INSTALL_DIR_L10N )
-
-IF ( NOT INSTALL_DIR_APP_ICONS )
-  SET ( INSTALL_DIR_APP_ICONS "${INSTALL_DIR_DATA}/icons" )
-ENDIF ( NOT INSTALL_DIR_APP_ICONS )
-
-IF ( NOT INSTALL_DIR_WIDGETS_GRAPHICS )
-  SET ( INSTALL_DIR_WIDGETS_GRAPHICS "${INSTALL_DIR_DATA}/widgets" )
-ENDIF ( NOT INSTALL_DIR_WIDGETS_GRAPHICS )
+SET ( INSTALL_DIR_DATA "share/${PACKAGE_NAME}" CACHE STRING
+      "Installation directory for application data" )
+SET ( INSTALL_DIR_L10N "${INSTALL_DIR_DATA}/l10n" CACHE STRING
+      "Installation directory for localization files" )
+SET ( INSTALL_DIR_APP_ICONS "${INSTALL_DIR_DATA}/icons" CACHE STRING
+      "Installation directory for application icons" )
+SET ( INSTALL_DIR_WIDGETS_GRAPHICS "${INSTALL_DIR_DATA}/widgets" CACHE STRING
+      "Installation directory for widget graphics" )
 
 
 # Icon installation directories
 
-IF ( NOT INSTALL_DIR_ICONS_PNG_16 )
-  SET ( INSTALL_DIR_ICONS_PNG_16 "share/icons/hicolor/16x16/apps" )
-ENDIF ( NOT INSTALL_DIR_ICONS_PNG_16 )
-
-IF ( NOT INSTALL_DIR_ICONS_PNG_32 )
-  SET ( INSTALL_DIR_ICONS_PNG_32 "share/icons/hicolor/32x32/apps" )
-ENDIF ( NOT INSTALL_DIR_ICONS_PNG_32 )
-
-IF ( NOT INSTALL_DIR_ICONS_PNG_48 )
-  SET ( INSTALL_DIR_ICONS_PNG_48 "share/icons/hicolor/48x48/apps" )
-ENDIF ( NOT INSTALL_DIR_ICONS_PNG_48 )
-
-IF ( NOT INSTALL_DIR_ICONS_PNG_64 )
-  SET ( INSTALL_DIR_ICONS_PNG_64 "share/icons/hicolor/64x64/apps" )
-ENDIF ( NOT INSTALL_DIR_ICONS_PNG_64 )
-
-IF ( NOT INSTALL_DIR_ICONS_SVG )
-  SET ( INSTALL_DIR_ICONS_SVG "share/icons/hicolor/scalable/apps" )
-ENDIF ( NOT INSTALL_DIR_ICONS_SVG )
+SET ( INSTALL_DIR_ICONS_PNG_16 "share/icons/hicolor/16x16/apps" CACHE STRING
+      "Installation directory for application icons (16x16)" )
+SET ( INSTALL_DIR_ICONS_PNG_32 "share/icons/hicolor/32x32/apps" CACHE STRING
+      "Installation directory for application icons (32x32)" )
+SET ( INSTALL_DIR_ICONS_PNG_48 "share/icons/hicolor/48x48/apps" CACHE STRING
+      "Installation directory for application icons (48x48)" )
+SET ( INSTALL_DIR_ICONS_PNG_64 "share/icons/hicolor/64x64/apps" CACHE STRING
+      "Installation directory for application icons (64x64)" )
+SET ( INSTALL_DIR_ICONS_SVG "share/icons/hicolor/scalable/apps" CACHE STRING
+      "Installation directory for application icons (scalable)" )
 
 
 # Localization file prefix
