@@ -14,7 +14,7 @@ SET ( BUILD_LIST "qascommon,qasconfig,qashctl,qasmixer" CACHE STRING
 # program/package/version suffix
 
 SET ( PROGRAM_SUFFIX "" CACHE STRING "Program suffix" )
-SET ( VERSION_SUFFIX "-beta" CACHE STRING "Version suffix" )
+SET ( VERSION_SUFFIX "" CACHE STRING "Version suffix" )
 SET ( PACKAGE_SUFFIX "" CACHE STRING "Package suffix" )
 
 

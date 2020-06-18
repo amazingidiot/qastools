@@ -1,4 +1,16 @@
-2010-10-03      Sebastian Holtermann  <sebholt@web.de>
+2020-06-18      Sebastian Holtermann  <sebholt@web.de>
+	* Apps: Add AppStream .appdata.xml meta information files
+	* Code: Modernize CTL_Address and CTL_Format
+	* Code: Make Controls_Model QAbstractListModel based
+	* Code: Make Cards_Model QAbstractListModel based
+	* Code: Fix missing includes (QPainterPath)
+	* Code: Fix compiler warnings (QStyleOptionViewItemV4, fall through)
+	* Code: Use clang-format for source code formatting
+	* Remove non functional Makefile
+	* CMake: Modernize CMakeLists.txt
+	* Release version 0.23
+
+2019-10-03      Sebastian Holtermann  <sebholt@web.de>
 	* Switch to MIT license
 	* Remove xwmw.org references
 	* CMake: Modernize CMakeLists.txt
