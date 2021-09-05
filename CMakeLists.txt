@@ -73,13 +73,11 @@ SET ( INSTALL_DIR_ICONS_SVG "share/icons/hicolor/scalable/apps" CACHE STRING
 
 SET ( L10N_PREFIX "${PACKAGE_NAME}_" )
 
-
 # Shared resources
 
 SET ( SHARED_RES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/shared" )
 SET ( SHARED_SRC_DIR "${SHARED_RES_DIR}/src" )
 SET ( SHARED_INC_DIR "${SHARED_RES_DIR}/src" )
-
 
 # Installation
 
