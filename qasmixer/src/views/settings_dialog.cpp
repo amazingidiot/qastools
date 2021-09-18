@@ -354,18 +354,30 @@ Settings_Dialog::init_page_oscserver ()
   QGroupBox * box_osc ( new QGroupBox );
   box_osc->setTitle ( tr ( "Open Sound Control" ) );
   {
-    _osc_check_server_enabled = new QCheckBox ();
+      _osc_check_server_enabled = new QCheckBox();
 
-    QFormLayout * lay_osc = new QFormLayout ();
+      connect(
+          _osc_check_server_enabled,
+          SIGNAL(stateChanged(int)),
+          this,
+          SLOT(change_osc_server()));
 
-    _osc_spin_port = new QSpinBox ();
-    _osc_spin_port->setMinimum ( 1 );
-    _osc_spin_port->setMaximum ( 65535 );
+      QFormLayout* lay_osc = new QFormLayout();
 
-    lay_osc->addRow ( tr ( "OSC server enabled" ), _osc_check_server_enabled );
-    lay_osc->addRow ( tr ( "Listen to OSC messages on port" ), _osc_spin_port );
+      _osc_spin_port = new QSpinBox();
+      _osc_spin_port->setMinimum(1);
+      _osc_spin_port->setMaximum(65535);
 
-    box_osc->setLayout ( lay_osc );
+      connect(
+          _osc_spin_port,
+          SIGNAL(valueChanged(int)),
+          this,
+          SLOT(change_osc_server()));
+
+      lay_osc->addRow(tr("OSC server enabled"), _osc_check_server_enabled);
+      lay_osc->addRow(tr("Listen to OSC messages on port"), _osc_spin_port);
+
+      box_osc->setLayout(lay_osc);
   }
 
   // Container widget
@@ -624,6 +636,30 @@ Settings_Dialog::change_tray_balloon ()
     update_inputs_vis_state ();
     emit sig_change_tray_balloon ();
   }
+}
+
+void Settings_Dialog::change_osc_server()
+{
+    if ((_dsetup == 0) || _updating_values) {
+        return;
+    }
+
+    bool changed(false);
+
+    if (_osc_check_server_enabled->isChecked() != _dsetup->osc_server_enabled) {
+        _dsetup->osc_server_enabled = _osc_check_server_enabled->isChecked();
+        changed = true;
+    }
+
+    if (_osc_spin_port->value() != _dsetup->osc_server_port) {
+        _dsetup->osc_server_port = _osc_spin_port->value();
+        changed = true;
+    }
+
+    if (changed) {
+        update_inputs_vis_state();
+        emit sig_change_osc_server();
+    }
 }
 
 void

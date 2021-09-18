@@ -56,10 +56,13 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
   sig_change_tray_mdev ();
 
   void
-  sig_change_tray_balloon ();
+  sig_change_tray_balloon();
 
   void
-  sig_close ();
+  sig_change_osc_server();
+
+  void
+  sig_close();
 
   // Protected slots
   protected slots:
@@ -80,7 +83,10 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
   change_tray_mdev ();
 
   void
-  change_tray_balloon ();
+  change_tray_balloon();
+
+  void
+  change_osc_server();
 
   void
   wheel_turns_changed ( int value_n );
