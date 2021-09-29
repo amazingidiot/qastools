@@ -156,7 +156,7 @@ Controls_Delegate::paint ( QPainter * painter_n,
     QRect re_t2;
     {
       int hspace ( fmet.averageCharWidth () * 3 / 4 );
-      re_t0.setWidth ( fmet.width ( "9:" ) );
+      re_t0.setWidth(fmet.horizontalAdvance("9:"));
       re_t0.setHeight ( fmet.height () );
       re_t0.moveLeft ( opt.rect.left () + _hmargin );
       re_t0.moveTop ( opt.rect.top () + _vmargin );
