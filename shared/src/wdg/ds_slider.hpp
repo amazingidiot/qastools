@@ -10,6 +10,7 @@
 #include "wdg/ds_slider_meta_bg.hpp"
 #include "wdg/uint_mapper.hpp"
 #include <QBrush>
+#include <QElapsedTimer>
 #include <QPen>
 #include <QTime>
 #include <QTimer>
@@ -310,7 +311,7 @@ class DS_Slider : public QWidget
   // Animation
   QTimer _anim_timer;
 
-  QTime _anim_snap_time;
+  QElapsedTimer _anim_snap_time;
   unsigned int _anim_snap_msec_max;
   ::Wdg::Cubic_Curve _cubic_curve;
 

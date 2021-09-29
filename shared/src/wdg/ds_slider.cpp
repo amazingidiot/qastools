@@ -1041,12 +1041,12 @@ DS_Slider::anim_snap_start ()
     double v_x0 ( 0.0 );
 
     if ( _anim_run_snap ) {
-      // A snapping annimation is already running.
-      unsigned int msec ( ::std::abs ( _anim_snap_time.elapsed () ) );
-      if ( msec < _anim_snap_msec_max ) {
-        // Acquire the current speed
-        v_x0 = double ( msec ) / 1000.0;
-        v_x0 = _cubic_curve.eval_speed ( v_x0 );
+        // A snapping animation is already running.
+        unsigned int msec(::std::abs(_anim_snap_time.elapsed()));
+        if (msec < _anim_snap_msec_max) {
+            // Acquire the current speed
+            v_x0 = double(msec) / 1000.0;
+            v_x0 = _cubic_curve.eval_speed(v_x0);
       } else {
         msec = _anim_snap_msec_max;
       }
