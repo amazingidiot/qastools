@@ -4,11 +4,11 @@
 #include "view_utility.hpp"
 #include "qastools_config.hpp"
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QFileInfo>
 #include <QLabel>
 #include <QLibraryInfo>
 #include <QLocale>
+#include <QScreen>
 #include <QTranslator>
 
 namespace Views
@@ -75,7 +75,7 @@ bool
 win_default_geometry ( QRect & rect_n )
 {
   const unsigned int aspect[ 2 ] = {16, 9};
-  const QRect ravail ( QApplication::desktop ()->availableGeometry () );
+  const QRect ravail(QApplication::primaryScreen()->availableGeometry());
   const bool res ( ravail.isValid () );
   if ( res ) {
     QSize rsize;
