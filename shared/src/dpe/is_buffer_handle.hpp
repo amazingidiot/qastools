@@ -4,7 +4,7 @@
 #ifndef __INC_dpe_is_buffer_handle_hpp__
 #define __INC_dpe_is_buffer_handle_hpp__
 
-#include <QTime>
+#include <QElapsedTimer>
 
 // Forward declaration
 namespace dpe
@@ -31,7 +31,7 @@ class IS_Buffer_Handle
   ::dpe::Image_Set_Meta * meta;
 
   unsigned int num_users;
-  QTime remove_time;
+  QElapsedTimer remove_time;
 
   ::dpe::Image_Set_State * state;
 };

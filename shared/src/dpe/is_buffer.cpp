@@ -129,8 +129,7 @@ IS_Buffer::return_img_set ( ::dpe::Image_Set * img_set_n )
       //"\n";
       if ( byte_count () <= _storage_limit ) {
         // Delete later
-        handle->remove_time.start ();
-        handle->remove_time = handle->remove_time.addMSecs ( 1000 );
+        handle->remove_time.start();
         if ( !_remove_poll_timer.isActive () ) {
           _remove_poll_timer.start ();
         }
@@ -150,23 +149,20 @@ IS_Buffer::remove_poll ()
 {
   unsigned int pending ( 0 );
 
-  QTime time_now;
-  time_now.start ();
-
   int idx ( 0 );
   while ( idx < _handles.size () ) {
     ::dpe::IS_Buffer_Handle * handle ( _handles[ idx ] );
     bool do_remove ( false );
 
-    if ( handle->num_users == 0 ) {
-      QTime & remove_time ( handle->remove_time );
-      if ( remove_time.isValid () ) {
-        if ( remove_time <= time_now ) {
-          do_remove = true;
-        } else {
-          ++pending;
+    if (handle->num_users == 0) {
+        QElapsedTimer& remove_time(handle->remove_time);
+        if (remove_time.isValid()) {
+            if (remove_time.hasExpired(1000)) {
+                do_remove = true;
+            } else {
+                ++pending;
+            }
         }
-      }
     }
 
     if ( do_remove ) {

@@ -5,7 +5,9 @@
 #define __INC_dpe_image_set_buffer_hpp__
 
 #include "is_buffer_handle.hpp"
+#include <QElapsedTimer>
 #include <QObject>
+#include <QTime>
 #include <QTimer>
 
 namespace dpe
