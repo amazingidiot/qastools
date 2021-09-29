@@ -5,7 +5,7 @@
 #define __INC_single_application_hpp__
 
 #include <QApplication>
-#include <QLinkedList>
+#include <QList>
 #include <QLocalServer>
 #include <QPointer>
 
@@ -87,7 +87,7 @@ class Single_Application : public QApplication
     QByteArray data;
   };
 
-  QLinkedList< Client > _clients;
+  QList<Client> _clients;
 
   const unsigned int _timeout;
 };
