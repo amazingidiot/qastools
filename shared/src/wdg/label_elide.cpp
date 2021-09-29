@@ -23,8 +23,8 @@ Label_Elide::minimumSizeHint () const
 QSize
 Label_Elide::sizeHint () const
 {
-  QSize res ( fontMetrics ().width ( text () ), fontMetrics ().height () );
-  return res;
+    QSize res(fontMetrics().horizontalAdvance(text()), fontMetrics().height());
+    return res;
 }
 
 void

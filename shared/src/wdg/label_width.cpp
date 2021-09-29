@@ -16,7 +16,7 @@ Label_Width::minimumSizeHint () const
 {
   QSize res ( QLabel::minimumSizeHint () );
 
-  int w_min ( fontMetrics ().width ( _min_text ) );
+  int w_min(fontMetrics().horizontalAdvance(_min_text));
   res.setWidth ( qMax ( res.width (), w_min ) );
 
   return res;
@@ -27,7 +27,7 @@ Label_Width::sizeHint () const
 {
   QSize res ( QLabel::sizeHint () );
 
-  int w_min ( fontMetrics ().width ( _min_text ) );
+  int w_min(fontMetrics().horizontalAdvance(_min_text));
   {
     QMargins mg ( contentsMargins () );
     w_min += mg.left ();
