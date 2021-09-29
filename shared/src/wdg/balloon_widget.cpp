@@ -4,10 +4,10 @@
 #include "balloon_widget.hpp"
 #include <QApplication>
 #include <QBitmap>
-#include <QDesktopWidget>
 #include <QImage>
 #include <QPainter>
 #include <QPixmap>
+#include <QScreen>
 #include <QVBoxLayout>
 #include <iostream>
 
@@ -86,9 +86,10 @@ Balloon_Widget::update_geometry ()
   QRect srect;
   QRect arect;
   {
-    QDesktopWidget * desk_wdg ( QApplication::desktop () );
-    srect = desk_wdg->screenGeometry ( ti_tl );
-    arect = desk_wdg->availableGeometry ( ti_tl );
+      QScreen* screen = QApplication::screenAt(ti_tl);
+
+      srect = screen->geometry();
+      arect = screen->availableGeometry();
   }
 
   QSize nsize ( minimumSizeHint () );
