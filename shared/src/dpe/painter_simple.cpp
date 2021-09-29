@@ -7,6 +7,7 @@
 #include "paint_job.hpp"
 #include <QColor>
 #include <QImage>
+#include <QRandomGenerator>
 
 namespace dpe
 {
@@ -32,11 +33,7 @@ Painter_Simple::paint_image ( ::dpe::Paint_Job * pjob_n )
   {
     QColor col;
     {
-      unsigned int seed ( pjob_n->img_set->num_images () +
-                          pjob_n->img_idx * 10 );
-      seed += time ( 0 );
-      qsrand ( seed );
-      col.setRgb ( qrand () % 256, qrand () % 256, qrand () % 256, 128 );
+        col.setRgb(QRandomGenerator::system()->bounded(256), QRandomGenerator::system()->bounded(256), QRandomGenerator::system()->bounded(256), 128);
     }
     img.qimage ().fill ( col.rgba () );
   }
