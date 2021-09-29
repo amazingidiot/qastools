@@ -7,6 +7,7 @@
 #include "dpe/image_set_meta.hpp"
 #include "wdg/ds_imaging.hpp"
 #include <QAbstractButton>
+#include <QEnterEvent>
 
 namespace Wdg
 {
@@ -70,7 +71,7 @@ class DS_Switch : public QAbstractButton
   changeEvent ( QEvent * event_n );
 
   void
-  enterEvent ( QEvent * );
+  enterEvent(QEnterEvent* event_n);
 
   void
   leaveEvent ( QEvent * );

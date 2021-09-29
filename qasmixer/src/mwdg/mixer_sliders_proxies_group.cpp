@@ -179,7 +179,7 @@ Mixer_Sliders_Proxies_Group::event ( QEvent * event_n )
           if ( spp_sw->widget () != 0 ) {
             const bool old_focus ( spp_sw->has_focus () );
             spp_sw->set_has_focus ( spp_sl->has_focus () );
-            QCoreApplication::sendEvent ( spp_sw->widget (), &ev_kp->ev_key );
+            QCoreApplication::sendEvent(spp_sw->widget(), event_n);
             spp_sw->set_has_focus ( old_focus );
           }
         }

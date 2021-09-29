@@ -6,6 +6,7 @@
 #include "dpe/image_request.hpp"
 #include "dpe/image_set.hpp"
 #include "wdg/ds_widget_types.hpp"
+#include <QEnterEvent>
 #include <QEvent>
 #include <QPainter>
 #include <iostream>
@@ -87,11 +88,10 @@ DS_Switch::changeEvent ( QEvent * event_n )
   }
 }
 
-void
-DS_Switch::enterEvent ( QEvent * event_n )
+void DS_Switch::enterEvent(QEnterEvent* event_n)
 {
-  QAbstractButton::enterEvent ( event_n );
-  update ();
+    QAbstractButton::enterEvent(event_n);
+    update();
 }
 
 void

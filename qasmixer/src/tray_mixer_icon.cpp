@@ -66,7 +66,7 @@ Tray_Mixer_Icon::event ( QEvent * event_n )
   switch ( event_n->type () ) {
   case QEvent::Wheel: {
     QWheelEvent * wev ( static_cast< QWheelEvent * > ( event_n ) );
-    emit sig_wheel_delta ( wev->delta () );
+    emit sig_wheel_delta(wev->hasPixelDelta() ? wev->pixelDelta().y() : wev->angleDelta().y());
     res = true;
   } break;
   case QEvent::ToolTip:

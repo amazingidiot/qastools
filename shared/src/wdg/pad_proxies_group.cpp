@@ -135,7 +135,7 @@ Pad_Proxies_Group::event ( QEvent * event_n )
 
     _focus_column = ev_fp->column_idx;
     _focus_row = ev_fp->row_idx;
-    _has_focus = ev_fp->ev_focus.gotFocus ();
+    _has_focus = ev_fp->ev_focus->gotFocus();
 
     if ( pad () != 0 ) {
       ev_fp->group_idx = group_index ();

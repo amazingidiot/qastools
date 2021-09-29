@@ -33,12 +33,12 @@ class Pass_Event_Focus : public ::Wdg::Pass_Event
 {
   // Public methods
   public:
-  Pass_Event_Focus ( const QFocusEvent & event_n,
-                     unsigned int group_idx_n = 0,
-                     unsigned int column_idx_n = 0,
-                     unsigned int row_idx_n = 0 );
+      Pass_Event_Focus(const QFocusEvent& event_n,
+          unsigned int group_idx_n = 0,
+          unsigned int column_idx_n = 0,
+          unsigned int row_idx_n = 0);
 
-  QFocusEvent ev_focus;
+      const QFocusEvent* ev_focus;
 };
 
 /// @brief Pass_Event_Key
@@ -47,12 +47,12 @@ class Pass_Event_Key : public ::Wdg::Pass_Event
 {
   // Public methods
   public:
-  Pass_Event_Key ( const QKeyEvent & event_n,
-                   unsigned int group_idx_n = 0,
-                   unsigned int column_idx_n = 0,
-                   unsigned int row_idx_n = 0 );
+      Pass_Event_Key(const QKeyEvent& event_n,
+          unsigned int group_idx_n = 0,
+          unsigned int column_idx_n = 0,
+          unsigned int row_idx_n = 0);
 
-  QKeyEvent ev_key;
+      const QKeyEvent* ev_key;
 };
 
 } // namespace Wdg

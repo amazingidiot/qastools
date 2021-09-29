@@ -13,11 +13,11 @@
 #include "wdg/ds_switch_painter_close.hpp"
 #include "wdg/ds_switch_painter_svg.hpp"
 #include "wdg/ds_widget_types.hpp"
-#include <getopt.h>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QScreen>
+#include <getopt.h>
 #include <iostream>
 #include <sstream>
 
@@ -193,7 +193,7 @@ Desktop_Items::parse_message ( QString msg_n )
 {
   //::std::cout << "Desktop_Items::parse_message " << "\n";
 
-  QStringList rows ( msg_n.split ( "\n", QString::SkipEmptyParts ) );
+  QStringList rows(msg_n.split("\n", Qt::SkipEmptyParts));
 
   for ( int ii = 0; ii < rows.size (); ++ii ) {
     const QString & row ( rows[ ii ] );

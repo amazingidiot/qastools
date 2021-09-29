@@ -60,10 +60,10 @@ Controls_View::minimumSizeHint () const
   // Height
   {
     int rh0 ( sizeHintForRow ( 0 ) );
-    rh0 = qMax ( rh0,
-                 itemDelegate ()
-                     ->sizeHint ( viewOptions (), QModelIndex () )
-                     .height () );
+    rh0 = qMax(rh0,
+        itemDelegate()
+            ->sizeHint(QStyleOptionViewItem(), QModelIndex())
+            .height());
     if ( spacing () > 0 ) {
       rh0 += spacing () * 2;
     }
@@ -103,10 +103,10 @@ Controls_View::sizeHint () const
   // Height
   {
     int rh0 ( sizeHintForRow ( 0 ) );
-    rh0 = qMax ( rh0,
-                 itemDelegate ()
-                     ->sizeHint ( viewOptions (), QModelIndex () )
-                     .height () );
+    rh0 = qMax(rh0,
+        itemDelegate()
+            ->sizeHint(QStyleOptionViewItem(), QModelIndex())
+            .height());
     if ( spacing () > 0 ) {
       rh0 += spacing () * 2;
     }

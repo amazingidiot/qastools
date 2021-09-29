@@ -6,10 +6,10 @@
 #include "qastools_config.hpp"
 #include "single_application.hpp"
 #include "views/view_utility.hpp"
-#include <QDesktopWidget>
 #include <QFile>
 #include <QFileInfo>
 #include <QIcon>
+#include <QScreen>
 #include <QString>
 #include <iostream>
 #include <memory>

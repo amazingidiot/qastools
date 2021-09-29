@@ -11,9 +11,11 @@
 #include "wdg/uint_mapper.hpp"
 #include <QBrush>
 #include <QElapsedTimer>
+#include <QEnterEvent>
 #include <QPen>
 #include <QTime>
 #include <QTimer>
+#include <QWheelEvent>
 #include <QWidget>
 
 // Forward declaration
@@ -208,7 +210,7 @@ class DS_Slider : public QWidget
   // Enter events
 
   void
-  enterEvent ( QEvent * event_n );
+  enterEvent(QEnterEvent* event_n);
 
   void
   leaveEvent ( QEvent * event_n );

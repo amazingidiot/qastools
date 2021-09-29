@@ -293,11 +293,10 @@ Switches_Pad::event ( QEvent * event_n )
         static_cast<::Wdg::Pass_Event_Focus * > ( event_n ) );
 
     _focus_info.clear ();
-    if ( ev_fp->ev_focus.gotFocus () &&
-         ( ev_fp->group_idx < num_proxies_groups () ) ) {
-      _focus_info.has_focus = true;
-      _focus_info.group_idx = ev_fp->group_idx;
-      _focus_info.column_idx = ev_fp->column_idx;
+    if (ev_fp->ev_focus->gotFocus() && (ev_fp->group_idx < num_proxies_groups())) {
+        _focus_info.has_focus = true;
+        _focus_info.group_idx = ev_fp->group_idx;
+        _focus_info.column_idx = ev_fp->column_idx;
     }
 
     emit sig_focus_changed ();

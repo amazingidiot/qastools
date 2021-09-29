@@ -120,25 +120,24 @@ Tray_Mixer_Balloon::eventFilter ( QObject * obj_n, QEvent * event_n )
   bool res ( ::Wdg::Balloon_Widget::eventFilter ( obj_n, event_n ) );
 
   if ( obj_n == _lbl_icon ) {
-    if ( event_n->type () == QEvent::Wheel ) {
-      QWheelEvent * ev_wheel ( static_cast< QWheelEvent * > ( event_n ) );
-      emit sig_wheel_delta ( ev_wheel->delta () );
-      res = true;
-    } else if ( ( event_n->type () == QEvent::MouseButtonPress ) ||
-                ( event_n->type () == QEvent::MouseButtonDblClick ) ) {
-      res = true;
-      QMouseEvent * ev_mouse ( static_cast< QMouseEvent * > ( event_n ) );
-      switch ( ev_mouse->button () ) {
-      case Qt::LeftButton:
-        emit sig_activated ();
-        break;
-      case Qt::MidButton:
-        emit sig_middle_click ();
-        break;
-      default:
-        break;
+      if (event_n->type() == QEvent::Wheel) {
+          QWheelEvent* wev(static_cast<QWheelEvent*>(event_n));
+          emit sig_wheel_delta(wev->hasPixelDelta() ? wev->pixelDelta().y() : wev->angleDelta().y());
+          res = true;
+      } else if ((event_n->type() == QEvent::MouseButtonPress) || (event_n->type() == QEvent::MouseButtonDblClick)) {
+          res = true;
+          QMouseEvent* ev_mouse(static_cast<QMouseEvent*>(event_n));
+          switch (ev_mouse->button()) {
+          case Qt::LeftButton:
+              emit sig_activated();
+              break;
+          case Qt::MiddleButton:
+              emit sig_middle_click();
+              break;
+          default:
+              break;
+          }
       }
-    }
   }
 
   return res;

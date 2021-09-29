@@ -3,15 +3,15 @@
 
 #include "single_application.hpp"
 #include "unix_signal_handler.hpp"
-#include <pwd.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <QFile>
 #include <QLocalSocket>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QSessionManager>
 #include <iostream>
+#include <pwd.h>
 #include <sstream>
+#include <stdlib.h>
+#include <unistd.h>
 
 Single_Application::Single_Application ( int & argc,
                                          char * argv[],
@@ -82,7 +82,7 @@ Single_Application::set_unique_key ( const QString & unique_key_n )
   // Adjust com key
   _com_key.replace ( "-", "_" );
   _com_key.replace ( ".", "_" );
-  _com_key.replace ( QRegExp ( "[^A-Za-z0-9_]" ), QString () );
+  _com_key.replace(QRegularExpression("[^A-Za-z0-9_]"), QString());
   {
     QString com_suff ( "_" );
 
@@ -169,7 +169,7 @@ Single_Application::clear_dead_clients ()
 {
   //::std::cout << "Single_Application::clear_dead_clients\n";
 
-  QLinkedList< Client >::iterator iter ( _clients.begin () );
+  QList<Client>::iterator iter(_clients.begin());
   while ( iter != _clients.end () ) {
     bool remove ( false );
 
@@ -196,7 +196,7 @@ Single_Application::read_clients_data ()
 {
   //::std::cout << "Single_Application::read_clients_data\n";
 
-  QLinkedList< Client >::iterator iter ( _clients.begin () );
+  QList<Client>::iterator iter(_clients.begin());
   while ( iter != _clients.end () ) {
     Client & cln ( *iter );
     if ( cln.socket != 0 ) {

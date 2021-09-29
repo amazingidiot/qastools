@@ -173,7 +173,7 @@ Pad_Proxies_Column::event ( QEvent * event_n )
     ::Wdg::Pass_Event_Focus * ev_fp (
         static_cast<::Wdg::Pass_Event_Focus * > ( event_n ) );
 
-    _has_focus = ev_fp->ev_focus.gotFocus ();
+    _has_focus = ev_fp->ev_focus->gotFocus();
     if ( parent () != 0 ) {
       ev_fp->column_idx = column_index ();
       QCoreApplication::sendEvent ( parent (), event_n );

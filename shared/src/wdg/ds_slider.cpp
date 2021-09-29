@@ -501,8 +501,7 @@ DS_Slider::focusOutEvent ( QFocusEvent * event_n )
   update ();
 }
 
-void
-DS_Slider::enterEvent ( QEvent * event_n )
+void DS_Slider::enterEvent(QEnterEvent* event_n)
 {
   //::std::cout << "DS_Slider::enterEvent" << "\n";
 
@@ -647,32 +646,32 @@ DS_Slider::wheelEvent ( QWheelEvent * event_n )
 
   QWidget::wheelEvent ( event_n );
 
-  if ( rect ().contains ( event_n->pos () ) ) {
-    event_n->accept ();
-    setFocus ();
+  if (rect().contains(QPoint(event_n->position().x(), event_n->position().y()))) {
+      event_n->accept();
+      setFocus();
 
-    long delta;
-    {
-      double amount ( maximum_index () / double ( _wheel_degrees ) );
-      amount *= ( event_n->delta () / 8.0 );
-      if ( amount > 0 ) {
-        delta = ::std::ceil ( amount );
-      } else {
-        delta = ::std::floor ( amount );
+      long delta;
+      {
+          double amount(maximum_index() / double(_wheel_degrees));
+          amount *= (event_n->angleDelta().y() / 8.0);
+          if (amount > 0) {
+              delta = ::std::ceil(amount);
+          } else {
+              delta = ::std::floor(amount);
+          }
       }
-    }
-    if ( delta == 0 ) {
-      if ( event_n->delta () > 0 ) {
-        delta = 1;
-      } else {
-        delta = -1;
+      if (delta == 0) {
+          if (event_n->angleDelta().y() > 0) {
+              delta = 1;
+          } else {
+              delta = -1;
+          }
       }
-    }
 
-    adjust_current_index ( delta );
+      adjust_current_index(delta);
 
   } else {
-    event_n->ignore ();
+      event_n->ignore();
   }
 }
 
@@ -1040,20 +1039,20 @@ DS_Slider::anim_snap_start ()
     // Current speed
     double v_x0 ( 0.0 );
 
-    if ( _anim_run_snap ) {
+    if (_anim_run_snap) {
         // A snapping animation is already running.
         unsigned int msec(::std::abs(_anim_snap_time.elapsed()));
         if (msec < _anim_snap_msec_max) {
             // Acquire the current speed
             v_x0 = double(msec) / 1000.0;
             v_x0 = _cubic_curve.eval_speed(v_x0);
-      } else {
-        msec = _anim_snap_msec_max;
-      }
-      // Do a anim tick
-      anim_snap_tick ( msec );
+        } else {
+            msec = _anim_snap_msec_max;
+        }
+        // Do a anim tick
+        anim_snap_tick(msec);
     } else {
-      _anim_run_snap = true;
+        _anim_run_snap = true;
     }
 
     _anim_snap_time.start ();
