@@ -72,7 +72,6 @@ Desktop_Items::parse_cmd_options ( int argc, char * argv[] )
 
   QString card_idx;
   QString ctl_address;
-  QString cmd_osc_port;
 
   bool flag_print_version ( false );
   bool flag_print_help ( false );

@@ -152,6 +152,8 @@ SET ( SRC_GUI
   views/settings_dialog_setup.cpp
   views/settings_dialog.cpp
 
+  osc_server.cpp
+
   tray_mixer_mdev_setup.cpp
   tray_mixer_view_setup.cpp
   tray_mixer_icon.cpp
