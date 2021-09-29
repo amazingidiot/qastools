@@ -59,7 +59,7 @@ unsigned int
 Sliders_Pad_Header::label_str_length_px_max ( const QString & str_n ) const
 {
   unsigned int res;
-  res = ::std::ceil ( fontMetrics ().width ( str_n ) );
+  res = ::std::ceil(fontMetrics().horizontalAdvance(str_n));
   res = qMin ( res, hd_data ().max_str_length_px );
   return res;
 }
