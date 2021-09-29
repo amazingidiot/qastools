@@ -1,7 +1,7 @@
 # --- Find modules
 
 FIND_PACKAGE (
-  Qt5
+  Qt6
   COMPONENTS
     Widgets
     Svg
@@ -173,8 +173,8 @@ ADD_EXECUTABLE ( ${PROGRAM_NAME}
 )
 SET_TARGET_PROPERTIES ( ${PROGRAM_NAME} PROPERTIES AUTOMOC ON )
 TARGET_LINK_LIBRARIES ( ${PROGRAM_NAME}
-  Qt5::Widgets
-  Qt5::Svg
+  Qt6::Widgets
+  Qt6::Svg
   ${ALSA_LIBRARIES}
   ${UDEV_LIBRARIES}
 )

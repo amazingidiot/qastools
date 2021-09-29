@@ -99,14 +99,16 @@ Info_Dialog::Info_Dialog(QWidget* parent_n)
     // Contributors
     {
       txt += hmask.arg ( tr ( "Contributors" ) );
-      const char * names[] = {"Jose Lencioni",
-                              "elcorreodelcoco@gmail.com",
-                              "Ivan Sorokin",
-                              "vanyacpp@gmail.com",
-                              "Fernando Auil ",
-                              "auil@usp.br",
-                              0,
-                              0};
+      const char* names[] = { "Jose Lencioni",
+          "elcorreodelcoco@gmail.com",
+          "Ivan Sorokin",
+          "vanyacpp@gmail.com",
+          "Fernando Auil ",
+          "auil@usp.br",
+          "Oliver Sahr",
+          "oli.sahr@gmail.com",
+          0,
+          0 };
       for ( const char ** ptr ( &names[ 0 ] ); *ptr != 0; ptr += 2 ) {
         txt += pdivmask.arg ( ptr[ 0 ], ptr[ 1 ] );
       }
