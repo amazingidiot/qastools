@@ -14,9 +14,8 @@
 namespace Views
 {
 
-Multi_Page_Dialog::Multi_Page_Dialog ( QWidget * parent_n,
-                                       Qt::WindowFlags flags_n )
-: ::Views::Basic_Dialog ( parent_n, flags_n )
+Multi_Page_Dialog::Multi_Page_Dialog(QWidget* parent_n)
+    : ::Views::Basic_Dialog(parent_n)
 {
   {
     _pages_model = new QStandardItemModel ( this );

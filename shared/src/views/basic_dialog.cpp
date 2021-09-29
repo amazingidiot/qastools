@@ -7,8 +7,8 @@
 namespace Views
 {
 
-Basic_Dialog::Basic_Dialog ( QWidget * parent_n, Qt::WindowFlags flags_n )
-: QDialog ( parent_n, flags_n )
+Basic_Dialog::Basic_Dialog(QWidget* parent_n)
+    : QDialog(parent_n)
 {
   _lay_main = new QVBoxLayout;
   setLayout ( _lay_main );

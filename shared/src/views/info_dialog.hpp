@@ -17,9 +17,9 @@ class Info_Dialog : public ::Views::Multi_Page_Dialog
 
   // Public methods
   public:
-  Info_Dialog ( QWidget * parent_n = 0, Qt::WindowFlags flags_n = 0 );
+      Info_Dialog(QWidget* parent_n = 0);
 
-  // Protected methods
+      // Protected methods
   protected:
   bool
   read_utf8_file ( const QString & filename_n, QString & txt_n ) const;

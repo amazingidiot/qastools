@@ -33,14 +33,14 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
 
   // Public methods
   public:
-  Settings_Dialog ( QWidget * parent_n = 0, Qt::WindowFlags flags_n = 0 );
+      Settings_Dialog(QWidget* parent_n = 0);
 
-  ~Settings_Dialog ();
+      ~Settings_Dialog();
 
-  void
-  set_setup ( ::Desktop_Items_Setup * setup_n );
+      void
+      set_setup(::Desktop_Items_Setup* setup_n);
 
-  // Signals
+      // Signals
   signals:
 
   void

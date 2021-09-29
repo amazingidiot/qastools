@@ -14,8 +14,8 @@
 namespace Views
 {
 
-Info_Dialog::Info_Dialog ( QWidget * parent_n, Qt::WindowFlags flags_n )
-: ::Views::Multi_Page_Dialog ( parent_n, flags_n )
+Info_Dialog::Info_Dialog(QWidget* parent_n)
+    : ::Views::Multi_Page_Dialog(parent_n)
 {
   // Window title
   {

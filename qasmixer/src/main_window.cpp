@@ -14,11 +14,11 @@
 #include <QVBoxLayout>
 #include <iostream>
 
-Main_Window::Main_Window ( QWidget * parent_n, Qt::WindowFlags flags_n )
-: QMainWindow ( parent_n, flags_n )
-, _win_setup ( 0 )
-, _mixer_simple ( 0 )
-, _dev_select ( 0 )
+Main_Window::Main_Window(QWidget* parent_n)
+    : QMainWindow(parent_n)
+    , _win_setup(0)
+    , _mixer_simple(0)
+    , _dev_select(0)
 {
   setWindowTitle ( PROGRAM_TITLE );
   setObjectName ( PROGRAM_TITLE );

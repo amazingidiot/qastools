@@ -17,10 +17,10 @@
 namespace Views
 {
 
-Settings_Dialog::Settings_Dialog ( QWidget * parent_n, Qt::WindowFlags flags_n )
-: ::Views::Multi_Page_Dialog ( parent_n, flags_n )
-, _dsetup ( 0 )
-, _updating_values ( false )
+Settings_Dialog::Settings_Dialog(QWidget* parent_n)
+    : ::Views::Multi_Page_Dialog(parent_n)
+    , _dsetup(0)
+    , _updating_values(false)
 {
   {
     QString title_str ( tr ( "Settings" ) );

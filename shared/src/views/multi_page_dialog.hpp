@@ -23,26 +23,26 @@ class Multi_Page_Dialog : public ::Views::Basic_Dialog
 
   // Public methods
   public:
-  Multi_Page_Dialog ( QWidget * parent_n = 0, Qt::WindowFlags flags_n = 0 );
+      Multi_Page_Dialog(QWidget* parent_n = 0);
 
-  ~Multi_Page_Dialog ();
+      ~Multi_Page_Dialog();
 
-  void
-  add_page_vscroll ( const QString & name_n, QWidget * wdg_n );
+      void
+      add_page_vscroll(const QString& name_n, QWidget* wdg_n);
 
-  void
-  add_page ( const QString & name_n, QWidget * wdg_n );
+      void
+      add_page(const QString& name_n, QWidget* wdg_n);
 
-  unsigned int
-  num_pages () const;
+      unsigned int
+      num_pages() const;
 
-  int
-  current_page_idx () const;
+      int
+      current_page_idx() const;
 
-  void
-  set_current_page_idx ( int idx_n );
+      void
+      set_current_page_idx(int idx_n);
 
-  // Protected slots
+      // Protected slots
   protected slots:
 
   void
