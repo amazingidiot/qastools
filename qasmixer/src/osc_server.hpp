@@ -3,8 +3,7 @@
 
 #include <QObject>
 
-class osc_server
-{
+class osc_server : QObject {
     Q_OBJECT
         public:
                  osc_server();
