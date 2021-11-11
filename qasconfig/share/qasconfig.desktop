@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Application
+Name=QasConfig
+GenericName=ALSA configuration
+GenericName[de]=ALSA-Konfiguration
+GenericName[he]=תצורת ALSA
+GenericName[it]=Configurazione ALSA
+GenericName[ru]=Конфигурация ALSA
+Exec=qasconfig
+Icon=qasconfig
+StartupNotify=false
+Terminal=false
+Categories=AudioVideo;Audio;Mixer;Qt;
+Keywords=ALSA;Audio;Configuration;Qt;
+Comment=ALSA configuration browser
+Comment[cs]=Prohlížeč nastavení ALSA
+Comment[de]=ALSA-Konfigurationsbetrachter
+Comment[he]=סייר תצורת ALSA
+Comment[it]=Configuratore sistema ALSA
+Comment[ru]=Просмотрщик конфигурации звуковой системы ALSA

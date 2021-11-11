@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component>
+  <id>qasmixer.desktop</id>
+  <metadata_license>MIT</metadata_license>
+  <name>qasmixer</name>
+  <summary>Audio mixer for the Linux sound system ALSA</summary>
+  <description>
+    <p>
+      QasMixer provides a graphical audio mixer
+      for the Linux sound system ALSA.
+    </p>
+  </description>
+  <url type="homepage">https://gitlab.com/sebholt/qastools</url>
+  <url type="bugtracker">https://gitlab.com/sebholt/qastools</url>
+</component>

@@ -1,0 +1,21 @@
+[Desktop Entry]
+Type=Application
+Name=QasMixer
+GenericName=Sound volume mixer
+GenericName[de]=Klanglautstärkenregler
+GenericName[he]=מערבל צלילי עוצמת שמע
+GenericName[it]=Mixer volume audio
+GenericName[ru]=Микшер для звуковой системы
+Exec=qasmixer
+Icon=qasmixer
+StartupNotify=false
+Terminal=false
+Categories=AudioVideo;Audio;Mixer;Qt;
+Keywords=ALSA;Audio;Mixer;Qt;
+Comment=Graphical mixer application for the ALSA
+Comment[cs]=Grafický směšovač pro ALSA
+Comment[de]=Graphische Mixeranwendung für ALSA
+Comment[es]=Mezclador gráfico para ALSA
+Comment[he]=יישום מערבל גרפי עבור ALSA
+Comment[it]=Mixer grafico per ALSA
+Comment[ru]=Графический микшер для звуковой системы ALSA

@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Application
+Name=QasHctl
+GenericName=ALSA HCTL mixer
+GenericName[de]=ALSA HCTL mixer
+GenericName[he]=מערבל ALSA HCTL
+GenericName[it]=ALSA HCTL mixer
+GenericName[ru]=ALSA HCTL микшер
+Exec=qashctl
+Icon=qashctl
+StartupNotify=false
+Terminal=false
+Categories=AudioVideo;Audio;Mixer;Qt;
+Keywords=ALSA;Audio;Mixer;Qt;
+Comment=ALSA HCTL mixer
+Comment[de]=ALSA HCTL mixer
+Comment[he]=מערבל ALSA HCTL
+Comment[it]=ALSA HCTL mixer
+Comment[ru]=ALSA HCTL микшер
