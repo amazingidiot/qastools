@@ -72,6 +72,7 @@ Desktop_Items::parse_cmd_options ( int argc, char * argv[] )
 
   QString card_idx;
   QString ctl_address;
+  QString cmd_osc_port;
 
   bool flag_print_version ( false );
   bool flag_print_help ( false );
@@ -81,16 +82,17 @@ Desktop_Items::parse_cmd_options ( int argc, char * argv[] )
 
   while ( scan_further ) {
 
-    static struct option long_opts[] = {{"help", no_argument, 0, 'h'},
-                                        {"card", required_argument, 0, 'c'},
-                                        {"device", required_argument, 0, 'D'},
+    static struct option long_opts[] = {
+        { "help", no_argument, 0, 'h' },
+        { "card", required_argument, 0, 'c' },
+        { "device", required_argument, 0, 'D' },
 
-                                        {"tray", no_argument, 0, 't'},
-                                        {"no-single", no_argument, 0, 'n'},
+        { "tray", no_argument, 0, 't' },
+        { "no-single", no_argument, 0, 'n' },
 
-                                        {"copying", no_argument, 0, 'i'},
-                                        {"version", no_argument, 0, 'v'},
-                                        {0, 0, 0, 0}};
+        { "copying", no_argument, 0, 'i' },
+        { "version", no_argument, 0, 'v' },
+        { 0, 0, 0, 0 } };
 
     // getopt_long stores the option index here.
     int long_opts_idx ( 0 );
@@ -304,7 +306,7 @@ Desktop_Items::start ( bool restore_session_n )
   }
   // Switch painter SVG
   {
-    QScopedPointer<::Wdg::Painter::DS_Switch_Painter_SVG > pnt (
+    QScopedPointer< ::Wdg::Painter::DS_Switch_Painter_SVG > pnt (
         new ::Wdg::Painter::DS_Switch_Painter_SVG );
     pnt->set_group_variant ( ::Wdg::DS_SVG_JOINED );
     pnt->set_wdg_style_db ( &_wdg_style_db );

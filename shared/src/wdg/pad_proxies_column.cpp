@@ -36,7 +36,7 @@ Pad_Proxies_Column::group () const
   ::Wdg::Pad_Proxies_Group * res ( 0 );
   QObject * par ( parent () );
   if ( par != 0 ) {
-    res = dynamic_cast<::Wdg::Pad_Proxies_Group * > ( par );
+    res = dynamic_cast< ::Wdg::Pad_Proxies_Group * > ( par );
   }
   return res;
 }
@@ -171,7 +171,7 @@ Pad_Proxies_Column::event ( QEvent * event_n )
 {
   if ( event_n->type () == ::Wdg::evt_pass_event_focus ) {
     ::Wdg::Pass_Event_Focus * ev_fp (
-        static_cast<::Wdg::Pass_Event_Focus * > ( event_n ) );
+        static_cast< ::Wdg::Pass_Event_Focus * > ( event_n ) );
 
     _has_focus = ev_fp->ev_focus->gotFocus();
     if ( parent () != 0 ) {

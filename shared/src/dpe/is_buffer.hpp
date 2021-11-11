@@ -61,7 +61,7 @@ class IS_Buffer : public QObject
 
   // Private attributes
   private:
-  QList<::dpe::IS_Buffer_Handle * > _handles;
+  QList< ::dpe::IS_Buffer_Handle * > _handles;
   QTimer _remove_poll_timer;
 
   unsigned int _storage_limit;

@@ -158,7 +158,7 @@ class Mixer_Simple : public QObject
   snd_hctl_t * _snd_hctl;
   snd_mixer_t * _snd_mixer;
 
-  QList<::QSnd::Mixer_Simple_Elem * > _mixer_elems;
+  QList< ::QSnd::Mixer_Simple_Elem * > _mixer_elems;
   ::std::vector< pollfd > _pollfds;
   QList< QSocketNotifier * > _socket_notifiers;
 
@@ -173,7 +173,7 @@ class Mixer_Simple : public QObject
   QString _err_func;
   QString _err_message;
 
-  QList<::QSnd::Mixer_Simple_Filter * > _elem_filters;
+  QList< ::QSnd::Mixer_Simple_Filter * > _elem_filters;
 };
 
 inline bool

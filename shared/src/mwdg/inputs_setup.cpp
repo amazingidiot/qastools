@@ -19,7 +19,7 @@ Inputs_Setup::update_translation ()
 
   //: "s" is an abbreviation for "split" or "separate".
   //: Something like "j" for "joined" or "c" for "channel" may be appropriate,
-  //too.
+  // too.
   ks_toggle_joined = QCoreApplication::translate ( "MWdg::Inputs_Setup", "s" );
 
   //: "l" is an abbreviation for "level"

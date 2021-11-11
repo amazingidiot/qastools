@@ -88,7 +88,7 @@ DS_Widget_Style_Db::color_group ( ::Wdg::DS_Widget_State state_n ) const
 inline QPalette::ColorGroup
 DS_Widget_Style_Db::color_group ( unsigned int state_n ) const
 {
-  return color_group ( ( ::Wdg::DS_Widget_State)state_n );
+  return color_group ( (::Wdg::DS_Widget_State)state_n );
 }
 
 } // namespace Wdg

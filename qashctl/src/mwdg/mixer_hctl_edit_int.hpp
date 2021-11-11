@@ -105,22 +105,22 @@ class Mixer_HCTL_Edit_Int : public Mixer_HCTL_Editor
 
   // Private attributes
   private:
-  QList<::MWdg::Mixer_HCTL_Int_Proxy_Slider * > _proxies_slider;
-  QList<::Wdg::Pad_Proxies_Group * > _proxies_groups;
+  QList< ::MWdg::Mixer_HCTL_Int_Proxy_Slider * > _proxies_slider;
+  QList< ::Wdg::Pad_Proxies_Group * > _proxies_groups;
 
-  QScopedPointer<::Wdg::Sliders_Pad > _sliders_pad;
-  QScopedPointer<::Wdg::Scroll_Area_Horizontal > _scroll_area;
+  QScopedPointer< ::Wdg::Sliders_Pad > _sliders_pad;
+  QScopedPointer< ::Wdg::Scroll_Area_Horizontal > _scroll_area;
 
   // Slider status widget
-  QPointer<::MWdg::Mixer_HCTL_Slider_Status_Widget > _status_wdg;
+  QPointer< ::MWdg::Mixer_HCTL_Slider_Status_Widget > _status_wdg;
   unsigned int _status_group_idx;
   unsigned int _status_column_idx;
 
   // Context menu
-  QPointer<::MWdg::Mixer_HCTL_Int_Proxies_Group > _focus_proxies_group;
+  QPointer< ::MWdg::Mixer_HCTL_Int_Proxies_Group > _focus_proxies_group;
   unsigned int _focus_proxy_column;
 
-  QPointer<::MWdg::Mixer_HCTL_Int_Proxies_Group > _act_proxies_group;
+  QPointer< ::MWdg::Mixer_HCTL_Int_Proxies_Group > _act_proxies_group;
   unsigned int _act_proxy_column;
 
   QMenu _cmenu;

@@ -181,7 +181,7 @@ class Sliders_Pad : public QWidget
 
   // Private attributes
   private:
-  QList<::Wdg::Pad_Proxies_Group * > _proxies_groups;
+  QList< ::Wdg::Pad_Proxies_Group * > _proxies_groups;
   ::Wdg::Sliders_Pad_Data * _sp_data;
 
   QList< QWidget * > _widgets;
@@ -202,7 +202,7 @@ Sliders_Pad::wheel_degrees () const
   return _wheel_degrees;
 }
 
-inline const QList<::Wdg::Pad_Proxies_Group * > &
+inline const QList< ::Wdg::Pad_Proxies_Group * > &
 Sliders_Pad::proxies_groups () const
 {
   return _proxies_groups;

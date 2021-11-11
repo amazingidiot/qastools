@@ -95,7 +95,7 @@ class CTL_Format
   private:
   // -- Attributes
   QString _ctl_name;
-  std::vector<::QSnd::CTL_Format_Argument > _args;
+  std::vector< ::QSnd::CTL_Format_Argument > _args;
 };
 
 } // namespace QSnd

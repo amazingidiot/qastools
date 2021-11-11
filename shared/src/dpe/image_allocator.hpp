@@ -79,7 +79,7 @@ class Image_Allocator : public QObject
   private:
   ::dpe::IS_Buffer _buffer;
   ::dpe::Painter_Thread_Shared * _shared;
-  QList<::dpe::Painter_Thread * > _threads;
+  QList< ::dpe::Painter_Thread * > _threads;
   bool _multithread;
 
   QTimer _stop_timer;

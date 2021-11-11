@@ -273,7 +273,7 @@ Mixer_HCTL_Table_Model::load ()
     return;
   }
 
-  QList<::QSnd::Mixer_HCTL_Elem * > new_elems;
+  QList< ::QSnd::Mixer_HCTL_Elem * > new_elems;
 
   //
   // Filter elements

@@ -161,7 +161,7 @@ Mixer_Sliders_Proxies_Group::event ( QEvent * event_n )
 {
   if ( event_n->type () == ::Wdg::evt_pass_event_key ) {
     ::Wdg::Pass_Event_Key * ev_kp (
-        static_cast<::Wdg::Pass_Event_Key * > ( event_n ) );
+        static_cast< ::Wdg::Pass_Event_Key * > ( event_n ) );
 
     if ( ev_kp->column_idx < num_columns () ) {
       ::Wdg::Pad_Proxies_Column * col ( column ( ev_kp->column_idx ) );

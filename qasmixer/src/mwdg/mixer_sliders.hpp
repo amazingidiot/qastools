@@ -170,9 +170,9 @@ class Mixer_Sliders : public QWidget
   const ::MWdg::Mixer_Simple_Setup * _mixer_setup;
   const ::MWdg::Inputs_Setup * _inputs_setup;
 
-  QList<::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups;
-  QList<::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups_vis;
-  QList<::Wdg::Pad_Proxies_Group * > _proxies_groups_pass;
+  QList< ::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups;
+  QList< ::MWdg::Mixer_Sliders_Proxies_Group * > _proxies_groups_vis;
+  QList< ::Wdg::Pad_Proxies_Group * > _proxies_groups_pass;
 
   ::Wdg::Scroll_Area_Horizontal * _sliders_area;
   ::Wdg::Sliders_Pad * _sliders_pad;

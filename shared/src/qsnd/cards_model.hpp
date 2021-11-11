@@ -21,7 +21,7 @@ class Cards_Model : public QAbstractListModel
   public:
   // -- Types
 
-  using Info_Handle = std::shared_ptr<::QSnd::Card_Info >;
+  using Info_Handle = std::shared_ptr< ::QSnd::Card_Info >;
   using Const_Info_Handle = std::shared_ptr< const ::QSnd::Card_Info >;
   using Card_Infos = std::vector< Const_Info_Handle >;
 

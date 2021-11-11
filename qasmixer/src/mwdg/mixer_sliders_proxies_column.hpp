@@ -77,13 +77,15 @@ class Mixer_Sliders_Proxies_Column : public ::Wdg::Pad_Proxies_Column
 inline ::MWdg::Mixer_Sliders_Proxy_Slider *
 Mixer_Sliders_Proxies_Column::mslider_proxy () const
 {
-  return static_cast<::MWdg::Mixer_Sliders_Proxy_Slider * > ( slider_proxy () );
+  return static_cast< ::MWdg::Mixer_Sliders_Proxy_Slider * > (
+      slider_proxy () );
 }
 
 inline ::MWdg::Mixer_Sliders_Proxy_Switch *
 Mixer_Sliders_Proxies_Column::mswitch_proxy () const
 {
-  return static_cast<::MWdg::Mixer_Sliders_Proxy_Switch * > ( switch_proxy () );
+  return static_cast< ::MWdg::Mixer_Sliders_Proxy_Switch * > (
+      switch_proxy () );
 }
 
 } // namespace MWdg

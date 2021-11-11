@@ -31,9 +31,11 @@ class Layout_Weights
   void
   normalize ( unsigned long weight_normal_n = 4096 );
 
-  unsigned long operator[] ( unsigned int idx_n ) const;
+  unsigned long
+  operator[] ( unsigned int idx_n ) const;
 
-  unsigned long & operator[] ( unsigned int idx_n );
+  unsigned long &
+  operator[] ( unsigned int idx_n );
 
   // Private attributes
   private:
@@ -72,12 +74,14 @@ inline Layout_Weights::Layout_Weights ( unsigned long value_all_n )
   }
 }
 
-inline unsigned long Layout_Weights::operator[] ( unsigned int idx_n ) const
+inline unsigned long
+Layout_Weights::operator[] ( unsigned int idx_n ) const
 {
   return _weights[ idx_n ];
 }
 
-inline unsigned long & Layout_Weights::operator[] ( unsigned int idx_n )
+inline unsigned long &
+Layout_Weights::operator[] ( unsigned int idx_n )
 {
   return _weights[ idx_n ];
 }

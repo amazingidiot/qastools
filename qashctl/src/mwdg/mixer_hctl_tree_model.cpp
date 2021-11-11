@@ -372,7 +372,7 @@ Mixer_HCTL_Tree_Model::load ()
 
 void
 Mixer_HCTL_Tree_Model::compress_group_list (
-    QList<::QSnd::Mixer_HCTL_Elem_Group * > & lst_n )
+    QList< ::QSnd::Mixer_HCTL_Elem_Group * > & lst_n )
 {
   QString span_name;
   ::QSnd::Mixer_HCTL_Elem_Group * span_grp ( 0 );

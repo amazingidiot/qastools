@@ -25,28 +25,45 @@ load_translators (QApplication *app_n)
     {
       QString l10n_db ("qt_");
       l10n_db.append (QLocale::system ().name ());
+<<<<<<< HEAD
       if (trans_qt->load (l10n_db,
                           QLibraryInfo::path (QLibraryInfo::TranslationsPath)))
         {
           app_n->installTranslator (trans_qt);
         }
+=======
+      trans_qt->load (l10n_db,
+                      QLibraryInfo::location (QLibraryInfo::TranslationsPath));
+>>>>>>> e0dc133 (rebase to qt6 based master branch)
     }
     {
       QString l10n_db (L10N_PREFIX);
       l10n_db.append ("default");
+<<<<<<< HEAD
       if (trans_default->load (l10n_db, INSTALL_DIR_L10N))
         {
           app_n->installTranslator (trans_default);
         }
+=======
+      trans_default->load (l10n_db, INSTALL_DIR_L10N);
+>>>>>>> e0dc133 (rebase to qt6 based master branch)
     }
     {
       QString l10n_db (L10N_PREFIX);
       l10n_db.append (QLocale::system ().name ());
+<<<<<<< HEAD
       if (trans_local->load (l10n_db, INSTALL_DIR_L10N))
         {
           app_n->installTranslator (trans_local);
         }
     }
+=======
+      trans_local->load (l10n_db, INSTALL_DIR_L10N);
+    }
+    app_n->installTranslator (trans_qt);
+    app_n->installTranslator (trans_default);
+    app_n->installTranslator (trans_local);
+>>>>>>> e0dc133 (rebase to qt6 based master branch)
   }
 }
 

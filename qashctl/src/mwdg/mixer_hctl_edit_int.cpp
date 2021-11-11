@@ -464,7 +464,7 @@ Mixer_HCTL_Edit_Int::footer_label_selected ( unsigned int group_idx_n,
                                              unsigned int column_idx_n )
 {
   //::std::cout << "Footer label selected " << group_idx_n << " " <<
-  //column_idx_n << "\n";
+  // column_idx_n << "\n";
   bool keep_indices ( true );
   if ( _status_wdg == 0 ) {
     // Create new status widget

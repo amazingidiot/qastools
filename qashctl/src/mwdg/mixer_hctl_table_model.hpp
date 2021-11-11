@@ -76,7 +76,7 @@ class Mixer_HCTL_Table_Model : public QAbstractTableModel
   private:
   ::QSnd::Mixer_HCTL * _snd_mixer;
 
-  QList<::QSnd::Mixer_HCTL_Elem * > _elems;
+  QList< ::QSnd::Mixer_HCTL_Elem * > _elems;
 
   unsigned int _iface_type_idx;
 

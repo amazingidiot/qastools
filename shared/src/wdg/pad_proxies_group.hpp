@@ -117,7 +117,7 @@ class Pad_Proxies_Group : public QObject
   unsigned int _group_index;
   unsigned int _style_id;
 
-  QList<::Wdg::Pad_Proxies_Column * > _columns;
+  QList< ::Wdg::Pad_Proxies_Column * > _columns;
 
   QString _group_name;
   QString _tool_tip;

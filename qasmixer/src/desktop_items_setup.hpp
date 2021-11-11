@@ -50,6 +50,9 @@ class Desktop_Items_Setup
   bool tray_on_close;
   bool tray_show_icon;
   bool tray_is_minimized;
+
+  bool osc_server_enabled;
+  quint16 osc_server_port;
 };
 
 #endif

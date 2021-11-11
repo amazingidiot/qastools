@@ -187,7 +187,7 @@ Mixer_HCTL::set_view_setup ( ::Views::View_Base_Setup * setup_n )
     _mixer_hctl->set_wdg_style_db ( 0 );
   }
 
-  _view_setup = dynamic_cast<::Views::Mixer_HCTL_Setup * > ( setup_n );
+  _view_setup = dynamic_cast< ::Views::Mixer_HCTL_Setup * > ( setup_n );
 
   if ( _view_setup != 0 ) {
     _mixer_hctl->set_wdg_style_db ( _view_setup->wdg_style_db );

@@ -40,8 +40,8 @@ Mixer_Simple::Mixer_Simple ( QWidget * parent_n )
   _act_stream_ttip[ 1 ] = tr ( "Show capture elements" );
 
   {
-    const char * fd_app[ 3 ] = {"show-playback", "show-capture"};
-    const char * fd_def[ 3 ] = {"media-playback-start", "media-record"};
+    const char * fd_app[ 3 ] = { "show-playback", "show-capture" };
+    const char * fd_def[ 3 ] = { "media-playback-start", "media-record" };
 
     QString icon_path_base ( INSTALL_DIR_APP_ICONS );
     icon_path_base.append ( "/" );
@@ -187,7 +187,7 @@ void
 Mixer_Simple::set_view_setup ( ::Views::View_Base_Setup * setup_n )
 {
   clear_view ();
-  _view_setup = dynamic_cast<::Views::Mixer_Simple_Setup * > ( setup_n );
+  _view_setup = dynamic_cast< ::Views::Mixer_Simple_Setup * > ( setup_n );
   setup_view ();
 }
 
@@ -426,7 +426,7 @@ Mixer_Simple::footer_label_selected ( unsigned int group_idx_n,
                                       unsigned int column_idx_n )
 {
   //::std::cout << "Footer label selected " << group_idx_n << " " <<
-  //column_idx_n << "\n";
+  // column_idx_n << "\n";
   bool keep_indices ( true );
   if ( _status_wdg == 0 ) {
     show_slider_value_widget ();

@@ -31,7 +31,7 @@ class Image_Set_Group
 
   // Public attributes
   public:
-  ::std::vector<::dpe::Image_Set * > img_sets;
+  ::std::vector< ::dpe::Image_Set * > img_sets;
 };
 
 inline bool

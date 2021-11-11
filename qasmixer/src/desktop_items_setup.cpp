@@ -132,6 +132,17 @@ Desktop_Items_Setup::read_from_storage ()
     settings.endGroup ();
   }
 
+  // OSC server
+  {
+    settings.beginGroup ( "osc_server" );
+
+    osc_server_enabled =
+        settings.value ( "osc_server_enabled", osc_server_enabled ).toBool ();
+    osc_server_port =
+        settings.value ( "osc_server_port", osc_server_port ).toUInt ();
+
+    settings.endGroup ();
+  }
   // Sanitize values
 
   if ( main_window.inputs.wheel_degrees == 0 ) {
@@ -245,6 +256,16 @@ Desktop_Items_Setup::write_to_storage ()
     settings.beginGroup ( "settings_dialog" );
 
     settings.setValue ( "page", settings_dialog.page );
+
+    settings.endGroup ();
+  }
+
+  // OSC server
+  {
+    settings.beginGroup ( "osc_server" );
+
+    settings.setValue ( "osc_server_enabled", osc_server_enabled );
+    settings.setValue ( "osc_server_port", osc_server_port );
 
     settings.endGroup ();
   }

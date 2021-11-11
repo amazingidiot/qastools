@@ -49,7 +49,7 @@ class Image_Set
   // Private attributes
   private:
   unsigned int _num_images;
-  QScopedArrayPointer<::dpe::Image > _images;
+  QScopedArrayPointer< ::dpe::Image > _images;
 };
 
 inline unsigned int

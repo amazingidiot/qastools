@@ -132,7 +132,7 @@ class Device_Selection_View : public QWidget
 
   ::QSnd::Controls_Model * _controls_model;
   ::MWdg::Controls_View * _controls_view;
-  QList<::MWdg::CTL_Arg_View * > _arg_views;
+  QList< ::MWdg::CTL_Arg_View * > _arg_views;
   QVBoxLayout * _lay_arg_views;
 
   // Selection state

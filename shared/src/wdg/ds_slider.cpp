@@ -915,12 +915,12 @@ DS_Slider::paintEvent ( QPaintEvent * )
       const double yym ( ( yy1 + yy2 ) / 2.0 );
 
       const int num_pts ( 6 );
-      QPointF pts[ num_pts ] = {QPointF ( x_mid + dx1, yy1 ),
-                                QPointF ( x_mid, yym ),
-                                QPointF ( x_mid + dx1, yy2 ),
-                                QPointF ( x_mid - dx1, yy2 ),
-                                QPointF ( x_mid, yym ),
-                                QPointF ( x_mid - dx1, yy1 )};
+      QPointF pts[ num_pts ] = { QPointF ( x_mid + dx1, yy1 ),
+                                 QPointF ( x_mid, yym ),
+                                 QPointF ( x_mid + dx1, yy2 ),
+                                 QPointF ( x_mid - dx1, yy2 ),
+                                 QPointF ( x_mid, yym ),
+                                 QPointF ( x_mid - dx1, yy1 ) };
       painter.setPen ( _snap_pen );
       painter.setBrush ( _snap_brush );
       painter.drawPolygon ( pts, num_pts );

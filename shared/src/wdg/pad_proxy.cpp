@@ -36,7 +36,7 @@ Pad_Proxy::column () const
   ::Wdg::Pad_Proxies_Column * res ( 0 );
   QObject * par ( parent () );
   if ( par != 0 ) {
-    res = dynamic_cast<::Wdg::Pad_Proxies_Column * > ( par );
+    res = dynamic_cast< ::Wdg::Pad_Proxies_Column * > ( par );
   }
   return res;
 }

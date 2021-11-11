@@ -165,9 +165,9 @@ class Mixer_Switches : public QWidget
   const ::MWdg::Mixer_Simple_Setup * _mixer_setup;
   const ::MWdg::Inputs_Setup * _inputs_setup;
 
-  QList<::MWdg::Mixer_Switches_Proxies_Group * > _proxies_groups;
-  QList<::MWdg::Mixer_Switches_Proxies_Group * > _proxies_groups_vis;
-  QList<::Wdg::Pad_Proxies_Group * > _proxies_groups_pass;
+  QList< ::MWdg::Mixer_Switches_Proxies_Group * > _proxies_groups;
+  QList< ::MWdg::Mixer_Switches_Proxies_Group * > _proxies_groups_vis;
+  QList< ::Wdg::Pad_Proxies_Group * > _proxies_groups_pass;
 
   ::Wdg::Switches_Area * _switches_area;
   ::Wdg::Switches_Pad * _switches_pad;
@@ -176,7 +176,7 @@ class Mixer_Switches : public QWidget
   bool _separation_requested;
 
   // Action focus proxy
-  QPointer<::MWdg::Mixer_Switches_Proxies_Group > _act_proxies_group;
+  QPointer< ::MWdg::Mixer_Switches_Proxies_Group > _act_proxies_group;
   unsigned int _act_proxies_column;
 
   // Context menu

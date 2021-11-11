@@ -131,7 +131,7 @@ Pad_Proxies_Group::event ( QEvent * event_n )
 {
   if ( event_n->type () == ::Wdg::evt_pass_event_focus ) {
     ::Wdg::Pass_Event_Focus * ev_fp (
-        static_cast<::Wdg::Pass_Event_Focus * > ( event_n ) );
+        static_cast< ::Wdg::Pass_Event_Focus * > ( event_n ) );
 
     _focus_column = ev_fp->column_idx;
     _focus_row = ev_fp->row_idx;

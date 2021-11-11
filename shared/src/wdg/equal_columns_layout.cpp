@@ -271,7 +271,7 @@ Equal_Columns_Layout::minimumSize () const
   }
 
   //::std::cout << "Equal_Columns_Layout::minimumSize " << res.width() << ":" <<
-  //res.height() << "\n";
+  // res.height() << "\n";
 
   return res;
 }
@@ -919,7 +919,7 @@ Equal_Columns_Layout::set_geometry_row (
   }
 
   //::std::cout << "re_wdg " << re_wdg.left() << " " << re_wdg.top() << " " <<
-  //re_wdg.width() << " " << re_wdg.height() << "\n";
+  // re_wdg.width() << " " << re_wdg.height() << "\n";
 
   row_n->item ()->setGeometry ( re_wdg );
 }

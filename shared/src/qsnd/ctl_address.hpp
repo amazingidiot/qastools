@@ -104,7 +104,7 @@ class CTL_Address
   // -- Attributes
   QString _addr_str;
   QString _ctl_name;
-  std::vector<::QSnd::CTL_Address_Argument > _args;
+  std::vector< ::QSnd::CTL_Address_Argument > _args;
 };
 
 } // namespace QSnd

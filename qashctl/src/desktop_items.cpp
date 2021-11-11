@@ -36,10 +36,10 @@ Desktop_Items::parse_cmd_options ( int argc, char * argv[] )
 
   while ( scan_further ) {
 
-    static struct option long_opts[] = {{"help", no_argument, 0, 'h'},
-                                        {"copying", no_argument, 0, 'i'},
-                                        {"version", no_argument, 0, 'v'},
-                                        {0, 0, 0, 0}};
+    static struct option long_opts[] = { { "help", no_argument, 0, 'h' },
+                                         { "copying", no_argument, 0, 'i' },
+                                         { "version", no_argument, 0, 'v' },
+                                         { 0, 0, 0, 0 } };
 
     // getopt_long stores the option index here.
     int long_opts_idx ( 0 );

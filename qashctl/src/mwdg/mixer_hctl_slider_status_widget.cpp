@@ -31,7 +31,7 @@ Mixer_HCTL_Slider_Status_Widget::select_slider ( unsigned int grp_idx_n,
           sliders_pad ()->proxies_group ( grp_idx_n ) );
 
       if ( col_idx_n < pgroup->num_sliders () ) {
-        proxy_new = dynamic_cast<::MWdg::Mixer_HCTL_Int_Proxy_Slider * > (
+        proxy_new = dynamic_cast< ::MWdg::Mixer_HCTL_Int_Proxy_Slider * > (
             pgroup->column ( col_idx_n )->slider_proxy () );
       }
     }
@@ -50,7 +50,7 @@ Mixer_HCTL_Slider_Status_Widget::set_slider_proxy (
     Mixer_HCTL_Int_Proxy_Slider * proxy_n )
 {
   //::std::cout << "Mixer_HCTL_Slider_Status_Widget::set_slider_proxy " <<
-  //proxy_n  << "\n";
+  // proxy_n  << "\n";
 
   if ( _proxy_slider != proxy_n ) {
 

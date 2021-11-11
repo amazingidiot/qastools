@@ -183,7 +183,7 @@ void
 Mixer_HCTL_Elem::set_integer ( unsigned int idx_n, long value_n )
 {
   //::std::cout << "Mixer_HCTL_Elem::set_integer " << idx_n << " value " <<
-  //value_n << "\n";
+  // value_n << "\n";
 
   snd_ctl_elem_value_set_integer ( _snd_ctl_elem_value, idx_n, value_n );
   value_was_set ();

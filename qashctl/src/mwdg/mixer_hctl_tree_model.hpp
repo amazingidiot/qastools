@@ -63,7 +63,7 @@ class Mixer_HCTL_Tree_Model : public QStandardItemModel
   struct Type_Group
   {
     unsigned int iface_type_idx;
-    QList<::QSnd::Mixer_HCTL_Elem_Group * > list;
+    QList< ::QSnd::Mixer_HCTL_Elem_Group * > list;
   };
 
   // Private methods
@@ -75,7 +75,7 @@ class Mixer_HCTL_Tree_Model : public QStandardItemModel
   load ();
 
   void
-  compress_group_list ( QList<::QSnd::Mixer_HCTL_Elem_Group * > & lst_n );
+  compress_group_list ( QList< ::QSnd::Mixer_HCTL_Elem_Group * > & lst_n );
 
   QBrush
   get_foreground ( const QString & name_n );

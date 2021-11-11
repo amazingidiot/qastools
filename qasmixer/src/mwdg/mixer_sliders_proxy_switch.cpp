@@ -46,7 +46,7 @@ void
 Mixer_Sliders_Proxy_Switch::switch_state_changed ()
 {
   //::std::cout << "Mixer_Sliders_Proxy_Switch::switch_state_changed " <<
-  //switch_state() << "\n";
+  // switch_state() << "\n";
 
   if ( ( mixer_simple_elem () != 0 ) && ( !_alsa_updating ) ) {
     bool key_mod (

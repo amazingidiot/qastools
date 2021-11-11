@@ -23,7 +23,7 @@ class Device_Selection_View_Setup
 {
   // Public types
   public:
-  typedef QList<::QSnd::CTL_Address > Selection_DB;
+  typedef QList< ::QSnd::CTL_Address > Selection_DB;
 
   // Public methods
   public:

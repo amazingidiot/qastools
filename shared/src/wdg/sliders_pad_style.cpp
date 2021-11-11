@@ -443,9 +443,9 @@ Sliders_Pad_Style::dheader_stem ( QPainter & pnt_n,
       double stem_x1 = grp_x_mid - stem_dx;
       double stem_h1 ( stem_height - stem_h2 );
 
-      QPointF pts[ 3 ] = {QPointF ( grp_x_mid, stem_bottom - stem_height ),
-                          QPointF ( stem_x1, stem_bottom - stem_h1 ),
-                          QPointF ( stem_x1, stem_bottom )};
+      QPointF pts[ 3 ] = { QPointF ( grp_x_mid, stem_bottom - stem_height ),
+                           QPointF ( stem_x1, stem_bottom - stem_h1 ),
+                           QPointF ( stem_x1, stem_bottom ) };
 
       QPointF pmid[ 2 ];
       pmid[ 0 ] = ( pts[ 0 ] * 1.0 + pts[ 1 ] * 2.0 ) / 3.0;

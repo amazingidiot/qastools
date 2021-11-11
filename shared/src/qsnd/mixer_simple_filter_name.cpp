@@ -35,8 +35,8 @@ Mixer_Simple_Filter_Name::append_names ( const QList< QString > & names_n )
 
 unsigned int
 Mixer_Simple_Filter_Name::filter (
-    QList<::QSnd::Mixer_Simple_Elem * > & accept_n,
-    QList<::QSnd::Mixer_Simple_Elem * > & drop_n )
+    QList< ::QSnd::Mixer_Simple_Elem * > & accept_n,
+    QList< ::QSnd::Mixer_Simple_Elem * > & drop_n )
 {
   unsigned int cnt ( 0 );
 

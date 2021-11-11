@@ -89,7 +89,7 @@ Cards_Model::reload ()
     auto itf =
         std::find_if ( cards.cbegin (),
                        cards.cend (),
-                       [& card = *it] ( const Const_Info_Handle & card_n ) {
+                       [ &card = *it ] ( const Const_Info_Handle & card_n ) {
                          return *card == *card_n;
                        } );
     if ( itf != cards.cend () ) {
@@ -109,7 +109,7 @@ Cards_Model::reload ()
   for ( const auto & card : cards ) {
     auto itf = std::find_if ( _cards.cbegin (),
                               _cards.cend (),
-                              [&card] ( const Const_Info_Handle & card_n ) {
+                              [ &card ] ( const Const_Info_Handle & card_n ) {
                                 return *card == *card_n;
                               } );
     if ( itf != _cards.cend () ) {
@@ -137,7 +137,7 @@ Cards_Model::load_cards ( Card_Infos & card_infos_n )
       break;
     }
     card_infos_n.emplace_back (
-        std::make_shared<::QSnd::Card_Info > ( card_idx ) );
+        std::make_shared< ::QSnd::Card_Info > ( card_idx ) );
   }
   card_infos_n.shrink_to_fit ();
 }

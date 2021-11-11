@@ -56,7 +56,7 @@ class Painter_Thread_Shared
 
   // Public attributes
   public:
-  QList<::dpe::Painter * > painters;
+  QList< ::dpe::Painter * > painters;
   /// @brief Fallback painter
   ::dpe::Painter * painter_def;
 
@@ -66,7 +66,7 @@ class Painter_Thread_Shared
   // Private attributes;
   private:
   QMutex _queue_mutex;
-  QQueue<::dpe::Paint_Job * > _queue;
+  QQueue< ::dpe::Paint_Job * > _queue;
   QWaitCondition _queue_cond;
 
   bool _finished;

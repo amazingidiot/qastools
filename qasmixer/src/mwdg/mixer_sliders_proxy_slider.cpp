@@ -117,7 +117,7 @@ void
 Mixer_Sliders_Proxy_Slider::dB_value_changed ()
 {
   //::std::cout << "Mixer_Sliders_Proxy_Slider::dB_value_changed " <<
-  //slider_value() << "\n";
+  // slider_value() << "\n";
 
   if ( ( mixer_simple_elem () != 0 ) && ( !_alsa_updating ) ) {
     if ( is_joined () ) {
@@ -135,7 +135,7 @@ void
 Mixer_Sliders_Proxy_Slider::volume_value_changed ()
 {
   //::std::cout << "Mixer_Sliders_Proxy_Slider::volume_value_changed " <<
-  //volume_value() << "\n";
+  // volume_value() << "\n";
   {
     unsigned long idx (
         ::Wdg::integer_distance ( volume_min (), volume_value () ) );
@@ -159,7 +159,7 @@ void
 Mixer_Sliders_Proxy_Slider::slider_index_changed ()
 {
   //::std::cout << "Mixer_Sliders_Proxy_Slider::slider_index_changed " <<
-  //slider_index() << "\n";
+  // slider_index() << "\n";
 
   {
     long vol ( _volume_min );

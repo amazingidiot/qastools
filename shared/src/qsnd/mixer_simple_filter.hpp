@@ -31,8 +31,8 @@ class Mixer_Simple_Filter
   ///
   /// @return The number of dropped elements
   virtual unsigned int
-  filter ( QList<::QSnd::Mixer_Simple_Elem * > & accept_n,
-           QList<::QSnd::Mixer_Simple_Elem * > & drop_n ) = 0;
+  filter ( QList< ::QSnd::Mixer_Simple_Elem * > & accept_n,
+           QList< ::QSnd::Mixer_Simple_Elem * > & drop_n ) = 0;
 };
 
 } // namespace QSnd

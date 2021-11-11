@@ -36,8 +36,8 @@ class Mixer_Simple_Filter_Name : public ::QSnd::Mixer_Simple_Filter
   append_names ( const QList< QString > & names_n );
 
   unsigned int
-  filter ( QList<::QSnd::Mixer_Simple_Elem * > & accept_n,
-           QList<::QSnd::Mixer_Simple_Elem * > & drop_n );
+  filter ( QList< ::QSnd::Mixer_Simple_Elem * > & accept_n,
+           QList< ::QSnd::Mixer_Simple_Elem * > & drop_n );
 
   // Private attributes
   private:

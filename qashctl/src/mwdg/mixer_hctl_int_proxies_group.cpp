@@ -47,7 +47,7 @@ Mixer_HCTL_Int_Proxies_Group::is_joined () const
 inline Mixer_HCTL_Int_Proxy_Column *
 Mixer_HCTL_Int_Proxies_Group::mcolumn ( unsigned int idx_n ) const
 {
-  return static_cast<::MWdg::Mixer_HCTL_Int_Proxy_Column * > (
+  return static_cast< ::MWdg::Mixer_HCTL_Int_Proxy_Column * > (
       column ( idx_n ) );
 }
 

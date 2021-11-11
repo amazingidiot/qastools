@@ -135,7 +135,7 @@ DS_Slider_Painter_Bevelled::paint_bg ( ::dpe::Paint_Job * pjob_n, PData & pd )
 {
   //::std::cout << "DS_Slider_Painter_Bevelled::paint_bg " << "\n";
 
-  pd.meta_bg = dynamic_cast<::Wdg::DS_Slider_Meta_Bg * > ( pjob_n->meta );
+  pd.meta_bg = dynamic_cast< ::Wdg::DS_Slider_Meta_Bg * > ( pjob_n->meta );
   if ( pd.meta_bg == 0 ) {
     return -1;
   }
@@ -448,15 +448,15 @@ DS_Slider_Painter_Bevelled::paint_bg_tick ( PData & pd,
     const unsigned int num_pts ( 9 );
     double xl ( tick_start - 0.5 );
     double xr ( tick_start + tick_width_n + 0.5 );
-    const QPointF points[ num_pts ] = {QPointF ( xl, tick_pos_n - 1 ),
-                                       QPointF ( xr, tick_pos_n - 1 ),
-                                       QPointF ( xr + 1, tick_pos_n ),
-                                       QPointF ( xr + 1, tick_pos_n + 1 ),
-                                       QPointF ( xr, tick_pos_n + 2 ),
-                                       QPointF ( xl, tick_pos_n + 2 ),
-                                       QPointF ( xl - 1, tick_pos_n + 1 ),
-                                       QPointF ( xl - 1, tick_pos_n ),
-                                       QPointF ( xl, tick_pos_n - 1 )};
+    const QPointF points[ num_pts ] = { QPointF ( xl, tick_pos_n - 1 ),
+                                        QPointF ( xr, tick_pos_n - 1 ),
+                                        QPointF ( xr + 1, tick_pos_n ),
+                                        QPointF ( xr + 1, tick_pos_n + 1 ),
+                                        QPointF ( xr, tick_pos_n + 2 ),
+                                        QPointF ( xl, tick_pos_n + 2 ),
+                                        QPointF ( xl - 1, tick_pos_n + 1 ),
+                                        QPointF ( xl - 1, tick_pos_n ),
+                                        QPointF ( xl, tick_pos_n - 1 ) };
 
     pd.qpnt.drawPolygon ( points, num_pts );
   }
@@ -515,15 +515,15 @@ DS_Slider_Painter_Bevelled::paint_marker_current ( PData & pd )
     const double y2 ( pd.height () - bevel );
     const double y3 ( pd.height () );
 
-    const QPointF points[ num_pts ] = {QPointF ( x0, y1 ),
-                                       QPointF ( x1, y0 ),
-                                       QPointF ( x2, y0 ),
-                                       QPointF ( x3, y1 ),
-                                       QPointF ( x3, y2 ),
-                                       QPointF ( x2, y3 ),
-                                       QPointF ( x1, y3 ),
-                                       QPointF ( x0, y2 ),
-                                       QPointF ( x0, y1 )};
+    const QPointF points[ num_pts ] = { QPointF ( x0, y1 ),
+                                        QPointF ( x1, y0 ),
+                                        QPointF ( x2, y0 ),
+                                        QPointF ( x3, y1 ),
+                                        QPointF ( x3, y2 ),
+                                        QPointF ( x2, y3 ),
+                                        QPointF ( x1, y3 ),
+                                        QPointF ( x0, y2 ),
+                                        QPointF ( x0, y1 ) };
 
     {
       QColor col ( pd.pal.color ( QPalette::WindowText ) );
@@ -553,15 +553,15 @@ DS_Slider_Painter_Bevelled::paint_marker_current ( PData & pd )
     const double y2 ( pd.height () - y1 );
     const double y3 ( pd.height () - y0 );
 
-    const QPointF points[ num_pts ] = {QPointF ( x0, y1 ),
-                                       QPointF ( x1, y0 ),
-                                       QPointF ( x2, y0 ),
-                                       QPointF ( x3, y1 ),
-                                       QPointF ( x3, y2 ),
-                                       QPointF ( x2, y3 ),
-                                       QPointF ( x1, y3 ),
-                                       QPointF ( x0, y2 ),
-                                       QPointF ( x0, y1 )};
+    const QPointF points[ num_pts ] = { QPointF ( x0, y1 ),
+                                        QPointF ( x1, y0 ),
+                                        QPointF ( x2, y0 ),
+                                        QPointF ( x3, y1 ),
+                                        QPointF ( x3, y2 ),
+                                        QPointF ( x2, y3 ),
+                                        QPointF ( x1, y3 ),
+                                        QPointF ( x0, y2 ),
+                                        QPointF ( x0, y1 ) };
 
     {
       const QColor & col ( pd.pal.color ( QPalette::WindowText ) );
@@ -947,8 +947,8 @@ DS_Slider_Painter_Bevelled::papp_bevel_area ( QPainterPath & ppath_n,
   double ds ( indent_n );
   double db ( bevel_n + angle_tan * indent_n );
 
-  double xl[ 2 ] = {area_n.left (), area_n.left () + area_n.width ()};
-  double yl[ 2 ] = {area_n.top (), area_n.top () + area_n.height ()};
+  double xl[ 2 ] = { area_n.left (), area_n.left () + area_n.width () };
+  double yl[ 2 ] = { area_n.top (), area_n.top () + area_n.height () };
 
   ppath_n.moveTo ( xl[ 0 ] + ds, yl[ 0 ] + db ),
       ppath_n.lineTo ( xl[ 0 ] + db, yl[ 0 ] + ds ),

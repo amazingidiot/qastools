@@ -182,7 +182,7 @@ Controls_Database::load_plugins ()
     while ( iter != iter_end ) {
       snd_config_t * scfg = snd_config_iterator_entry ( iter );
       {
-        auto ctl_format = std::make_shared<::QSnd::CTL_Format > ();
+        auto ctl_format = std::make_shared< ::QSnd::CTL_Format > ();
         if ( setup_ctl_format ( *ctl_format, scfg ) ) {
           _controls.push_back ( std::move ( ctl_format ) );
         }

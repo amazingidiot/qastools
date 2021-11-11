@@ -57,7 +57,7 @@ Main_Window::Main_Window ()
   }
   // Switch painter SVG
   {
-    QScopedPointer<::Wdg::Painter::DS_Switch_Painter_SVG > pnt (
+    QScopedPointer< ::Wdg::Painter::DS_Switch_Painter_SVG > pnt (
         new ::Wdg::Painter::DS_Switch_Painter_SVG );
     pnt->set_group_variant ( ::Wdg::DS_SVG_JOINED );
     pnt->set_wdg_style_db ( &_wdg_style_db );

@@ -66,7 +66,7 @@ void
 Mixer_HCTL_Int_Proxy_Slider::integer_value_changed ()
 {
   //::std::cout << "Mixer_HCTL_Int_Proxy_Slider::integer_value_changed " <<
-  //integer_value() << "\n";
+  // integer_value() << "\n";
 
   if ( snd_elem () != 0 ) {
     set_slider_index ( integer_to_index ( integer_value () ) );
@@ -85,7 +85,7 @@ void
 Mixer_HCTL_Int_Proxy_Slider::slider_index_changed ()
 {
   //::std::cout << "Mixer_HCTL_Int_Proxy_Slider::slider_index_changed " <<
-  //integer_index() << "\n";
+  // integer_index() << "\n";
 
   if ( snd_elem () != 0 ) {
     set_integer_value ( index_to_integer ( slider_index () ) );

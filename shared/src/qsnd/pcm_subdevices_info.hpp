@@ -48,7 +48,7 @@ class PCM_Subdevices_Info
   unsigned int _num_sdevs;
   unsigned int _num_sdevs_avail;
 
-  QList<::QSnd::PCM_Subdevice_Info * > _sdevs_info;
+  QList< ::QSnd::PCM_Subdevice_Info * > _sdevs_info;
 };
 
 inline unsigned int

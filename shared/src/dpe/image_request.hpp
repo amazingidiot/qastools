@@ -37,8 +37,8 @@ class Image_Request
   // Public attributes
   public:
   ::dpe::Image_Set_Group * group;
-  ::std::vector<::dpe::Image_Set_Meta * > meta;
-  ::std::vector<::dpe::Image_Set_State * > states;
+  ::std::vector< ::dpe::Image_Set_Meta * > meta;
+  ::std::vector< ::dpe::Image_Set_State * > states;
 };
 
 } // namespace dpe

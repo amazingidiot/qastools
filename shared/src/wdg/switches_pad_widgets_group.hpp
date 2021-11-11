@@ -22,7 +22,7 @@ class Switches_Pad_Widgets_Group : public QWidget
 {
   // Public typedefs
   public:
-  typedef QList<::Wdg::Switches_Pad_Widgets * > Widgets_List;
+  typedef QList< ::Wdg::Switches_Pad_Widgets * > Widgets_List;
 
   // Public methods
   public:
@@ -120,7 +120,7 @@ Switches_Pad_Widgets_Group::set_stem_pen ( const QPen & pen_n )
   _stem_pen = pen_n;
 }
 
-typedef QList<::Wdg::Switches_Pad_Widgets_Group * >
+typedef QList< ::Wdg::Switches_Pad_Widgets_Group * >
     Switches_Pad_Widgets_Group_List;
 
 } // namespace Wdg

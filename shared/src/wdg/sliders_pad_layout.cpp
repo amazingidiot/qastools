@@ -53,7 +53,7 @@ Sliders_Pad_Layout::set_header_widget ( QWidget * wdg_n )
 {
   if ( wdg_n != 0 ) {
     ::Wdg::Sliders_Pad_Header * header (
-        dynamic_cast<::Wdg::Sliders_Pad_Header * > ( wdg_n ) );
+        dynamic_cast< ::Wdg::Sliders_Pad_Header * > ( wdg_n ) );
     if ( header != 0 ) {
       set_header_item ( new QWidgetItem ( wdg_n ) );
       _header_data = &header->hd_data ();
@@ -82,7 +82,7 @@ Sliders_Pad_Layout::set_footer_widget ( QWidget * wdg_n )
 {
   if ( wdg_n != 0 ) {
     ::Wdg::Sliders_Pad_Header * header (
-        dynamic_cast<::Wdg::Sliders_Pad_Header * > ( wdg_n ) );
+        dynamic_cast< ::Wdg::Sliders_Pad_Header * > ( wdg_n ) );
     if ( header != 0 ) {
       set_footer_item ( new QWidgetItem ( wdg_n ) );
       _footer_data = &header->hd_data ();
@@ -173,7 +173,7 @@ Sliders_Pad_Layout::minimumSize () const
   }
 
   //::std::cout << "Sliders_Pad_Layout::minimumSize " << res.width() << ":" <<
-  //res.height() << "\n";
+  // res.height() << "\n";
   return res;
 }
 

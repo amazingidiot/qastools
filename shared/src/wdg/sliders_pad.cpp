@@ -92,7 +92,7 @@ Sliders_Pad::set_image_alloc ( ::dpe::Image_Allocator * alloc_n )
     QWidget * wdg ( widget ( ii ) );
 
     {
-      ::Wdg::DS_Slider * swdg ( dynamic_cast<::Wdg::DS_Slider * > ( wdg ) );
+      ::Wdg::DS_Slider * swdg ( dynamic_cast< ::Wdg::DS_Slider * > ( wdg ) );
       if ( swdg != 0 ) {
         swdg->set_image_alloc ( image_alloc () );
         continue;
@@ -100,7 +100,7 @@ Sliders_Pad::set_image_alloc ( ::dpe::Image_Allocator * alloc_n )
     }
 
     {
-      ::Wdg::DS_Switch * swdg ( dynamic_cast<::Wdg::DS_Switch * > ( wdg ) );
+      ::Wdg::DS_Switch * swdg ( dynamic_cast< ::Wdg::DS_Switch * > ( wdg ) );
       if ( swdg != 0 ) {
         swdg->set_image_alloc ( image_alloc () );
         continue;
@@ -174,7 +174,7 @@ Sliders_Pad::set_wheel_degrees ( unsigned int delta_n )
   unsigned int num ( num_widgets () );
   for ( unsigned int ii = 0; ii < num; ++ii ) {
     ::Wdg::DS_Slider * slider (
-        dynamic_cast<::Wdg::DS_Slider * > ( widget ( ii ) ) );
+        dynamic_cast< ::Wdg::DS_Slider * > ( widget ( ii ) ) );
     if ( slider != 0 ) {
       slider->set_wheel_degrees ( wheel_degrees () );
     }
@@ -320,7 +320,7 @@ Sliders_Pad::create_widgets ()
         lbl.col_fg = palette ().color ( QPalette::WindowText );
       }
       {
-        unsigned int llength[ 2 ] = {0, 0};
+        unsigned int llength[ 2 ] = { 0, 0 };
         llength[ 0 ] = footer_cast ()->label_str_length_px_max (
             sppc->value_min_string () );
         llength[ 1 ] = footer_cast ()->label_str_length_px_max (
@@ -433,7 +433,7 @@ Sliders_Pad::create_widgets ()
 
 void
 Sliders_Pad::set_proxies_groups (
-    const QList<::Wdg::Pad_Proxies_Group * > & list_n )
+    const QList< ::Wdg::Pad_Proxies_Group * > & list_n )
 {
   bool do_update ( false );
   if ( _proxies_groups.size () > 0 ) {
@@ -518,7 +518,7 @@ Sliders_Pad::event ( QEvent * event_n )
 {
   if ( event_n->type () == ::Wdg::evt_pass_event_focus ) {
     ::Wdg::Pass_Event_Focus * ev_fp (
-        static_cast<::Wdg::Pass_Event_Focus * > ( event_n ) );
+        static_cast< ::Wdg::Pass_Event_Focus * > ( event_n ) );
 
     _focus_info.clear ();
     if (ev_fp->ev_focus->gotFocus() && (ev_fp->group_idx < num_proxies_groups())) {

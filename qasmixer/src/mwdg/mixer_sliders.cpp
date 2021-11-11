@@ -437,13 +437,13 @@ Mixer_Sliders::action_level_volumes ()
         col_idx = _act_proxies_column;
       }
 
-      mspc = static_cast<::MWdg::Mixer_Sliders_Proxies_Column * > (
+      mspc = static_cast< ::MWdg::Mixer_Sliders_Proxies_Column * > (
           mspg->column ( col_idx ) );
     }
 
     ::MWdg::Mixer_Sliders_Proxy_Slider * msps ( 0 );
     if ( mspc != 0 ) {
-      msps = static_cast<::MWdg::Mixer_Sliders_Proxy_Slider * > (
+      msps = static_cast< ::MWdg::Mixer_Sliders_Proxy_Slider * > (
           mspc->slider_proxy () );
     }
 

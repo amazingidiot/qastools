@@ -32,7 +32,7 @@ Switches_Area::minimumSizeHint () const
   // Height
   {
     ::Wdg::Switches_Pad * sw_pad (
-        dynamic_cast<::Wdg::Switches_Pad * > ( widget () ) );
+        dynamic_cast< ::Wdg::Switches_Pad * > ( widget () ) );
 
     const ::Wdg::Fill_Columns_Layout * lay_cols (
         dynamic_cast< const ::Wdg::Fill_Columns_Layout * > (
@@ -131,7 +131,7 @@ Switches_Area::resizeEvent ( QResizeEvent * event_n )
 {
   if ( widget () != 0 ) {
     ::Wdg::Switches_Pad * spad (
-        dynamic_cast<::Wdg::Switches_Pad * > ( widget () ) );
+        dynamic_cast< ::Wdg::Switches_Pad * > ( widget () ) );
     if ( spad != 0 ) {
       spad->set_viewport_geometry ( viewport ()->contentsRect () );
     }

@@ -36,11 +36,11 @@ class Switches_Pad : public QWidget
 
   // Proxies groups
 
-  const QList<::Wdg::Pad_Proxies_Group * > &
+  const QList< ::Wdg::Pad_Proxies_Group * > &
   proxies_groups () const;
 
   void
-  set_proxies_groups ( const QList<::Wdg::Pad_Proxies_Group * > & groups_n );
+  set_proxies_groups ( const QList< ::Wdg::Pad_Proxies_Group * > & groups_n );
 
   void
   clear_proxies_groups ();
@@ -92,8 +92,8 @@ class Switches_Pad : public QWidget
 
   // Private attributes
   private:
-  QList<::Wdg::Pad_Proxies_Group * > _proxies_groups;
-  QList<::Wdg::Switches_Pad_Widgets_Group * > _widgets_groups;
+  QList< ::Wdg::Pad_Proxies_Group * > _proxies_groups;
+  QList< ::Wdg::Switches_Pad_Widgets_Group * > _widgets_groups;
 
   QRect _viewport;
   Pad_Focus_Info _focus_info;
@@ -101,7 +101,7 @@ class Switches_Pad : public QWidget
   QPen _stem_pen;
 };
 
-inline const QList<::Wdg::Pad_Proxies_Group * > &
+inline const QList< ::Wdg::Pad_Proxies_Group * > &
 Switches_Pad::proxies_groups () const
 {
   return _proxies_groups;

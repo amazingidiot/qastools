@@ -6,6 +6,7 @@
 #include "qastools_config.hpp"
 #include "wdg/scroll_area_vertical.hpp"
 #include <QCheckBox>
+#include <QFormLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QPushButton>
@@ -35,6 +36,7 @@ Settings_Dialog::Settings_Dialog ( QWidget * parent_n )
   init_page_appearance ();
   init_page_input ();
   init_page_sys_tray ();
+  init_page_oscserver ();
 
   // Update states
   update_inputs_vis_state ();
@@ -347,6 +349,40 @@ Settings_Dialog::init_page_sys_tray ()
 }
 
 void
+Settings_Dialog::init_page_oscserver ()
+{
+  QGroupBox * box_osc ( new QGroupBox );
+  box_osc->setTitle ( tr ( "Open Sound Control" ) );
+  {
+    _osc_check_server_enabled = new QCheckBox ();
+
+    QFormLayout * lay_osc = new QFormLayout ();
+
+    _osc_spin_port = new QSpinBox ();
+    _osc_spin_port->setMinimum ( 1 );
+    _osc_spin_port->setMaximum ( 65535 );
+
+    lay_osc->addRow ( tr ( "OSC server enabled" ), _osc_check_server_enabled );
+    lay_osc->addRow ( tr ( "Listen to OSC messages on port" ), _osc_spin_port );
+
+    box_osc->setLayout ( lay_osc );
+  }
+
+  // Container widget
+  QWidget * wdg_all ( new QWidget );
+  {
+    QVBoxLayout * lay_wdg ( new QVBoxLayout );
+    lay_wdg->setContentsMargins ( 0, 0, 0, 0 );
+    lay_wdg->addWidget ( box_osc );
+    lay_wdg->addStretch ( 1 );
+    wdg_all->setLayout ( lay_wdg );
+  }
+
+  _page_oscserver = wdg_all;
+  add_page_vscroll ( tr ( "Open Sound Control" ), _page_oscserver );
+}
+
+void
 Settings_Dialog::set_setup ( ::Desktop_Items_Setup * setup_n )
 {
   if ( _dsetup != 0 ) {
@@ -411,6 +447,14 @@ Settings_Dialog::update_inputs_values ()
   }
   _tray_dev_user_edit->setText ( _dsetup->tray_mdev.user_device );
 
+  _osc_spin_port->setValue ( _dsetup->osc_server_port );
+
+  if ( _dsetup->osc_server_enabled ) {
+    _osc_check_server_enabled->setCheckState ( Qt::Checked );
+  } else {
+    _osc_check_server_enabled->setCheckState ( Qt::Unchecked );
+  }
+
   update_inputs_vis_state ();
 
   _updating_values = false;
@@ -423,6 +467,7 @@ Settings_Dialog::update_inputs_vis_state ()
   _page_appearance->setEnabled ( has_setup );
   _page_input->setEnabled ( has_setup );
   _page_sys_tray->setEnabled ( has_setup );
+  _page_oscserver->setEnabled ( has_setup );
 
   if ( !has_setup ) {
     return;

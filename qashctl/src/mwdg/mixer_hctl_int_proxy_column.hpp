@@ -69,7 +69,7 @@ class Mixer_HCTL_Int_Proxy_Column : public ::Wdg::Pad_Proxies_Column
 inline ::MWdg::Mixer_HCTL_Int_Proxy_Slider *
 Mixer_HCTL_Int_Proxy_Column::mslider_proxy () const
 {
-  return static_cast<::MWdg::Mixer_HCTL_Int_Proxy_Slider * > (
+  return static_cast< ::MWdg::Mixer_HCTL_Int_Proxy_Slider * > (
       slider_proxy () );
 }
 

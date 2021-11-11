@@ -107,7 +107,7 @@ class Mixer_Simple : public ::Views::View_Base
   QPushButton * _btn_stream[ 2 ];
   ::MWdg::Mixer_Switches * _mixer_switches;
 
-  QPointer<::MWdg::Mixer_Sliders_Status_Widget > _status_wdg;
+  QPointer< ::MWdg::Mixer_Sliders_Status_Widget > _status_wdg;
   unsigned int _status_group_idx;
   unsigned int _status_column_idx;
 

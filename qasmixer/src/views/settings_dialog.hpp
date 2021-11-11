@@ -103,6 +103,9 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
   init_page_sys_tray ();
 
   void
+  init_page_oscserver ();
+
+  void
   update_inputs_values ();
 
   void
@@ -117,6 +120,7 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
   QWidget * _page_appearance;
   QWidget * _page_input;
   QWidget * _page_sys_tray;
+  QWidget * _page_oscserver;
 
   // Page: Startup
   QButtonGroup * _start_btn_grp_device;
@@ -136,6 +140,10 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
   QWidget * _tray_minimize;
   QCheckBox * _tray_btn_on_close;
   QCheckBox * _tray_btn_show_icon;
+
+  // Page: OSC server
+  QSpinBox * _osc_spin_port;
+  QCheckBox * _osc_check_server_enabled;
 
   QWidget * _tray_wdg_grp_ballon;
   QCheckBox * _tray_btn_balloon_show;

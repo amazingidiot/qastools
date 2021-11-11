@@ -59,7 +59,7 @@ Mixer_Switches_Proxy_Enum::enum_index_changed ()
 {
   if ( ( mixer_simple_elem () != 0 ) && ( !_alsa_updating ) ) {
     //::std::cout << "Mixer_Switches_Proxy_Enum::enum_index_changed " <<
-    //enum_index() << "\n";
+    // enum_index() << "\n";
 
     if ( is_joined () ) {
       mixer_simple_elem ()->set_enum_index_all ( snd_dir (), enum_index () );

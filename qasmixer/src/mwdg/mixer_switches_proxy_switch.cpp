@@ -47,7 +47,7 @@ Mixer_Switches_Proxy_Switch::switch_state_changed ()
 {
   if ( ( mixer_simple_elem () != 0 ) && ( !_alsa_updating ) ) {
     //::std::cout << "Mixer_Switches_Proxy_Switch::switch_state_changed " <<
-    //switch_state() << "\n";
+    // switch_state() << "\n";
 
     if ( is_joined () ) {
       mixer_simple_elem ()->set_switch_all ( snd_dir (), switch_state () );

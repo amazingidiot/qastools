@@ -44,7 +44,7 @@ Switches_Pad::set_viewport_geometry ( const QRect & rect_n )
 
     if ( layout () != 0 ) {
       ::Wdg::Fill_Columns_Layout * lay_cols (
-          static_cast<::Wdg::Fill_Columns_Layout * > ( layout () ) );
+          static_cast< ::Wdg::Fill_Columns_Layout * > ( layout () ) );
       lay_cols->set_viewport_geometry ( _viewport );
     }
   }
@@ -52,7 +52,7 @@ Switches_Pad::set_viewport_geometry ( const QRect & rect_n )
 
 void
 Switches_Pad::set_proxies_groups (
-    const QList<::Wdg::Pad_Proxies_Group * > & groups_n )
+    const QList< ::Wdg::Pad_Proxies_Group * > & groups_n )
 {
   if ( _proxies_groups.size () > 0 ) {
     clear_widgets_groups ();
@@ -69,7 +69,7 @@ void
 Switches_Pad::clear_proxies_groups ()
 {
   if ( _proxies_groups.size () > 0 ) {
-    set_proxies_groups ( QList<::Wdg::Pad_Proxies_Group * > () );
+    set_proxies_groups ( QList< ::Wdg::Pad_Proxies_Group * > () );
   }
 }
 
@@ -120,7 +120,7 @@ Switches_Pad::create_widgets_groups ()
     sppg->set_pad ( this );
     sppg->set_group_index ( ii );
 
-    QScopedPointer<::Wdg::Switches_Pad_Widgets_Group > spwg (
+    QScopedPointer< ::Wdg::Switches_Pad_Widgets_Group > spwg (
         new ::Wdg::Switches_Pad_Widgets_Group );
 
     if ( sppg->num_columns () > 1 ) {
@@ -290,7 +290,7 @@ Switches_Pad::event ( QEvent * event_n )
 {
   if ( event_n->type () == ::Wdg::evt_pass_event_focus ) {
     ::Wdg::Pass_Event_Focus * ev_fp (
-        static_cast<::Wdg::Pass_Event_Focus * > ( event_n ) );
+        static_cast< ::Wdg::Pass_Event_Focus * > ( event_n ) );
 
     _focus_info.clear ();
     if (ev_fp->ev_focus->gotFocus() && (ev_fp->group_idx < num_proxies_groups())) {
