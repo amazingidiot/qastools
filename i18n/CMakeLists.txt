@@ -1,5 +1,6 @@
 # Find modules
-FIND_PACKAGE ( Qt6LinguistTools )
+#FIND_PACKAGE ( Qt6LinguistTools )
+find_package(Qt6 COMPONENTS LinguistTools)
 
 # Find translations source files
 FILE ( GLOB ts_files "ts/*.ts" )

@@ -17,10 +17,10 @@
 namespace Views
 {
 
-Settings_Dialog::Settings_Dialog(QWidget* parent_n)
-    : ::Views::Multi_Page_Dialog(parent_n)
-    , _dsetup(0)
-    , _updating_values(false)
+Settings_Dialog::Settings_Dialog ( QWidget * parent_n )
+: ::Views::Multi_Page_Dialog ( parent_n )
+, _dsetup ( 0 )
+, _updating_values ( false )
 {
   {
     QString title_str ( tr ( "Settings" ) );
@@ -68,7 +68,7 @@ Settings_Dialog::init_page_startup ()
     QLabel * lbl_example ( new QLabel ( tr ( "e.g. hw:0" ) ) );
 
     connect ( _start_btn_grp_device,
-              SIGNAL ( buttonClicked ( int ) ),
+              SIGNAL ( buttonClicked ( QAbstractButton * ) ),
               this,
               SLOT ( change_startup () ) );
 
@@ -150,7 +150,7 @@ Settings_Dialog::init_page_input ()
     QLabel * lbl_info ( new QLabel (
         tr ( "Number of turns for a slider change from 0% to 100%" ) ) );
 
-    const unsigned int range[ 2 ] = {1, 150};
+    const unsigned int range[ 2 ] = { 1, 150 };
 
     _mwheel_turns_input = new QDoubleSpinBox;
     _mwheel_turns_input->setRange ( range[ 0 ] / 10.0, range[ 1 ] / 10.0 );
@@ -249,7 +249,7 @@ Settings_Dialog::init_page_sys_tray ()
       //: ms - abbreviation for milliseconds
       QLabel * lbl_ms ( new QLabel ( tr ( "ms" ) ) );
 
-      const int range[ 2 ] = {100, 10000};
+      const int range[ 2 ] = { 100, 10000 };
 
       _tray_balloon_time_input = new QSpinBox;
       _tray_balloon_time_input->setRange ( range[ 0 ], range[ 1 ] );
@@ -298,7 +298,7 @@ Settings_Dialog::init_page_sys_tray ()
     QLabel * lbl_example ( new QLabel ( tr ( "e.g. hw:0" ) ) );
 
     connect ( _tray_btn_grp_device,
-              SIGNAL ( buttonClicked ( int ) ),
+              SIGNAL ( buttonClicked ( QAbstractButton * ) ),
               this,
               SLOT ( change_tray_mdev () ) );
 
