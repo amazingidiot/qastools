@@ -136,11 +136,11 @@ Desktop_Items_Setup::read_from_storage ()
   {
     settings.beginGroup ( "osc_server" );
 
-    osc_server_enabled =
-        settings.value ( "osc_server_enabled", osc_server_enabled ).toBool ();
-    osc_server_port =
-        settings.value ( "osc_server_port", osc_server_port ).toUInt ();
-
+    osc_server.setEnabled (
+        settings.value ( "osc_server_enabled", osc_server.enabled () )
+            .toBool () );
+    osc_server.setPort (
+        settings.value ( "osc_server_port", osc_server.port () ).toUInt () );
     settings.endGroup ();
   }
   // Sanitize values
@@ -264,8 +264,8 @@ Desktop_Items_Setup::write_to_storage ()
   {
     settings.beginGroup ( "osc_server" );
 
-    settings.setValue ( "osc_server_enabled", osc_server_enabled );
-    settings.setValue ( "osc_server_port", osc_server_port );
+    settings.setValue ( "osc_server_enabled", osc_server.enabled () );
+    settings.setValue ( "osc_server_port", osc_server.port () );
 
     settings.endGroup ();
   }

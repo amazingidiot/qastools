@@ -5,11 +5,11 @@
 #define __INC_desktop_items_setup_hpp__
 
 #include "main_window_setup.hpp"
+#include "osc_server.hpp"
 #include "tray_mixer_mdev_setup.hpp"
 #include "tray_mixer_view_setup.hpp"
 #include "views/device_selection_view.hpp"
 #include "views/settings_dialog_setup.hpp"
-#include "osc_server.hpp"
 #include <QString>
 
 /// @brief Desktop_Items_Setup
@@ -52,9 +52,6 @@ class Desktop_Items_Setup
   bool tray_on_close;
   bool tray_show_icon;
   bool tray_is_minimized;
-
-  bool osc_server_enabled;
-  quint16 osc_server_port;
 };
 
 #endif

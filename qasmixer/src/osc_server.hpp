@@ -16,8 +16,8 @@ class Osc_Server : public QObject
   private:
   QSnd::Cards_Model * _cards_model;
   QUdpSocket * _socket;
-  bool _enabled;
-  quint16 _port;
+  bool _enabled = false;
+  quint16 _port = 1;
 
   public:
   Osc_Server ();

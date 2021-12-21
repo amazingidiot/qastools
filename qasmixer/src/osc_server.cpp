@@ -82,33 +82,31 @@ Osc::Osc_Server::sendDatagram ( Osc::Osc_Message * message )
   datagram.setDestination ( message->destinationAddress,
                             message->destinationPort );
 
-  QByteArray data;
-
-  data.append ( message->address.toUtf8 () );
-  data.append ( ',' );
-  data.append ( message->format.toUtf8 () );
+  datagram.data ().append ( message->address.toUtf8 () );
+  datagram.data ().append ( ',' );
+  datagram.data ().append ( message->format.toUtf8 () );
 
   for ( int i = 0; i < message->values.count (); i++ ) {
     QVariant value = message->values.at ( i );
 
-    switch ( value.type () ) {
+    switch ( value.userType () ) {
     case ( QMetaType::Int ): {
-      data.append ( value.toInt () );
+      datagram.data ().append ( value.toInt () );
     } break;
     case ( QMetaType::Float ): {
-      data.append ( value.toFloat () );
+      datagram.data ().append ( value.toFloat () );
     } break;
     case ( QMetaType::QString ): {
       QByteArray string_value = value.toString ().toLocal8Bit ();
 
-      for ( int j = 0; i < ( 4 - string_value.length () % 4 ); i++ ) {
-        string_value.append ( '0' );
+      for ( int j = 0; j < ( 4 - ( string_value.length () % 4 ) ); j++ ) {
+        string_value.append ( QChar::Null );
       }
 
-      data.append ( string_value );
+      datagram.data ().append ( string_value );
     } break;
     case ( QMetaType::QByteArray ): {
-      data.append ( value.toByteArray () );
+      datagram.data ().append ( value.toByteArray () );
     } break;
     }
   }
