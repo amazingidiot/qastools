@@ -9,6 +9,7 @@
 #include "tray_mixer_view_setup.hpp"
 #include "views/device_selection_view.hpp"
 #include "views/settings_dialog_setup.hpp"
+#include "osc_server.hpp"
 #include <QString>
 
 /// @brief Desktop_Items_Setup
@@ -46,6 +47,7 @@ class Desktop_Items_Setup
   ::Main_Window_Setup main_window;
   ::Views::Device_Selection_View_Setup device_selection_view;
   ::Views::Settings_Dialog_Setup settings_dialog;
+  ::Osc::Osc_Server osc_server;
 
   bool tray_on_close;
   bool tray_show_icon;

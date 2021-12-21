@@ -70,7 +70,11 @@ Settings_Dialog::init_page_startup ()
     QLabel * lbl_example ( new QLabel ( tr ( "e.g. hw:0" ) ) );
 
     connect ( _start_btn_grp_device,
+<<<<<<< HEAD
               SIGNAL ( buttonClicked ( QAbstractButton * ) ),
+=======
+              SIGNAL ( buttonClicked ( QAbstractButton * ) ),
+>>>>>>> af8e739 (stashing or something)
               this,
               SLOT ( change_startup () ) );
 
@@ -354,30 +358,28 @@ Settings_Dialog::init_page_oscserver ()
   QGroupBox * box_osc ( new QGroupBox );
   box_osc->setTitle ( tr ( "Open Sound Control" ) );
   {
-      _osc_check_server_enabled = new QCheckBox();
+    _osc_check_server_enabled = new QCheckBox ();
 
-      connect(
-          _osc_check_server_enabled,
-          SIGNAL(stateChanged(int)),
-          this,
-          SLOT(change_osc_server()));
+    connect ( _osc_check_server_enabled,
+              SIGNAL ( stateChanged ( int ) ),
+              this,
+              SLOT ( change_osc_server () ) );
 
-      QFormLayout* lay_osc = new QFormLayout();
+    QFormLayout * lay_osc = new QFormLayout ();
 
-      _osc_spin_port = new QSpinBox();
-      _osc_spin_port->setMinimum(1);
-      _osc_spin_port->setMaximum(65535);
+    _osc_spin_port = new QSpinBox ();
+    _osc_spin_port->setMinimum ( 1 );
+    _osc_spin_port->setMaximum ( 65535 );
 
-      connect(
-          _osc_spin_port,
-          SIGNAL(valueChanged(int)),
-          this,
-          SLOT(change_osc_server()));
+    connect ( _osc_spin_port,
+              SIGNAL ( valueChanged ( int ) ),
+              this,
+              SLOT ( change_osc_server () ) );
 
-      lay_osc->addRow(tr("OSC server enabled"), _osc_check_server_enabled);
-      lay_osc->addRow(tr("Listen to OSC messages on port"), _osc_spin_port);
+    lay_osc->addRow ( tr ( "OSC server enabled" ), _osc_check_server_enabled );
+    lay_osc->addRow ( tr ( "Listen to OSC messages on port" ), _osc_spin_port );
 
-      box_osc->setLayout(lay_osc);
+    box_osc->setLayout ( lay_osc );
   }
 
   // Container widget
@@ -459,9 +461,9 @@ Settings_Dialog::update_inputs_values ()
   }
   _tray_dev_user_edit->setText ( _dsetup->tray_mdev.user_device );
 
-  _osc_spin_port->setValue ( _dsetup->osc_server_port );
+  _osc_spin_port->setValue ( _dsetup->osc_server.port () );
 
-  if ( _dsetup->osc_server_enabled ) {
+  if ( _dsetup->osc_server.enabled () ) {
     _osc_check_server_enabled->setCheckState ( Qt::Checked );
   } else {
     _osc_check_server_enabled->setCheckState ( Qt::Unchecked );
@@ -638,28 +640,30 @@ Settings_Dialog::change_tray_balloon ()
   }
 }
 
-void Settings_Dialog::change_osc_server()
+void
+Settings_Dialog::change_osc_server ()
 {
-    if ((_dsetup == 0) || _updating_values) {
-        return;
-    }
+  if ( ( _dsetup == 0 ) || _updating_values ) {
+    return;
+  }
 
-    bool changed(false);
+  bool changed ( false );
 
-    if (_osc_check_server_enabled->isChecked() != _dsetup->osc_server_enabled) {
-        _dsetup->osc_server_enabled = _osc_check_server_enabled->isChecked();
-        changed = true;
-    }
+  if ( _osc_check_server_enabled->isChecked () !=
+       _dsetup->osc_server_enabled ) {
+    _dsetup->osc_server_enabled = _osc_check_server_enabled->isChecked ();
+    changed = true;
+  }
 
-    if (_osc_spin_port->value() != _dsetup->osc_server_port) {
-        _dsetup->osc_server_port = _osc_spin_port->value();
-        changed = true;
-    }
+  if ( _osc_spin_port->value () != _dsetup->osc_server_port ) {
+    _dsetup->osc_server_port = _osc_spin_port->value ();
+    changed = true;
+  }
 
-    if (changed) {
-        update_inputs_vis_state();
-        emit sig_change_osc_server();
-    }
+  if ( changed ) {
+    update_inputs_vis_state ();
+    emit sig_change_osc_server ();
+  }
 }
 
 void
@@ -688,6 +692,16 @@ Settings_Dialog::change_tray_mdev ()
     //::std::cout << "sig_change_tray_mdev()\n";
     update_inputs_vis_state ();
     emit sig_change_tray_mdev ();
+  }
+}
+
+void
+Settings_Dialog::set_spin_port_enabled ( int state )
+{
+  if ( state == Qt::Checked ) {
+    _osc_spin_port->setEnabled ( false );
+  } else {
+    _osc_spin_port->setEnabled ( true );
   }
 }
 

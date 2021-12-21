@@ -33,18 +33,21 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
 
   // Public methods
   public:
-      Settings_Dialog(QWidget* parent_n = 0);
+  Settings_Dialog ( QWidget * parent_n = 0 );
 
-      ~Settings_Dialog();
+  ~Settings_Dialog ();
 
-      void
-      set_setup(::Desktop_Items_Setup* setup_n);
+  void
+  set_setup ( ::Desktop_Items_Setup * setup_n );
 
-      // Signals
+  // Signals
   signals:
 
   void
   sig_change_mixer_view ();
+
+  void
+  sig_change_oscserver ();
 
   void
   sig_change_input ();
@@ -93,6 +96,9 @@ class Settings_Dialog : public ::Views::Multi_Page_Dialog
 
   void
   wheel_turns_changed ( double value_n );
+
+  void
+  set_spin_port_enabled ( int state );
 
   // Protected methods
   protected:
