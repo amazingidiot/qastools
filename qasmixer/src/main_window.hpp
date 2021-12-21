@@ -25,20 +25,20 @@ class Main_Window : public QMainWindow
 
   // Public methods
   public:
-      Main_Window(QWidget* parent_n = 0);
+  Main_Window ( QWidget * parent_n = 0 );
 
-      ~Main_Window();
+  ~Main_Window ();
 
-      QSize
-      sizeHint() const;
+  QSize
+  sizeHint () const;
 
-      void
-      set_window_setup(Main_Window_Setup* setup_n);
+  void
+  set_window_setup ( Main_Window_Setup * setup_n );
 
-      void
-      select_ctl(const QString& ctl_n);
+  void
+  select_ctl ( const QString & ctl_n );
 
-      // Signals
+  // Signals
   signals:
 
   void
@@ -72,6 +72,9 @@ class Main_Window : public QMainWindow
 
   void
   refresh_views ();
+
+  void
+  about ();
 
   /// @brief Sets/unsets fullscreen mode
   ///

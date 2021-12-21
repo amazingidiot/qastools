@@ -10,15 +10,16 @@
 #include <QIcon>
 #include <QLabel>
 #include <QMenuBar>
+#include <QMessageBox>
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <iostream>
 
-Main_Window::Main_Window(QWidget* parent_n)
-    : QMainWindow(parent_n)
-    , _win_setup(0)
-    , _mixer_simple(0)
-    , _dev_select(0)
+Main_Window::Main_Window ( QWidget * parent_n )
+: QMainWindow ( parent_n )
+, _win_setup ( 0 )
+, _mixer_simple ( 0 )
+, _dev_select ( 0 )
 {
   setWindowTitle ( PROGRAM_TITLE );
   setObjectName ( PROGRAM_TITLE );
@@ -71,6 +72,9 @@ Main_Window::init_menus ()
   act_info->setShortcut ( QKeySequence ( QKeySequence::HelpContents ) );
   act_info->setIcon ( QIcon::fromTheme ( "help-about" ) );
 
+  // Action: About Qt
+  QAction * act_about_qt = new QAction ( tr ( "About" ), this );
+
   // Menus
   {
     QMenu * cmenu = menuBar ()->addMenu ( tr ( "&File" ) );
@@ -88,6 +92,7 @@ Main_Window::init_menus ()
   {
     QMenu * cmenu = menuBar ()->addMenu ( tr ( "&Help" ) );
     cmenu->addAction ( act_info );
+    cmenu->addAction ( act_about_qt );
   }
 
   // Connect actions
@@ -118,6 +123,8 @@ Main_Window::init_menus ()
 
   connect (
       act_info, SIGNAL ( triggered () ), this, SIGNAL ( sig_show_info () ) );
+
+  connect ( act_about_qt, SIGNAL ( triggered () ), this, SLOT ( about () ) );
 }
 
 void
@@ -352,4 +359,10 @@ Main_Window::keyPressEvent ( QKeyEvent * event_n )
       toggle_device_selection ();
     }
   }
+}
+
+void
+Main_Window::about ()
+{
+  QMessageBox::aboutQt ( this );
 }
