@@ -1,6 +1,7 @@
 #ifndef OSC_MESSAGE_H
 #define OSC_MESSAGE_H
 
+#include <QByteArray>
 #include <QHostAddress>
 #include <QList>
 #include <QNetworkDatagram>
@@ -17,7 +18,7 @@ class Osc_Message
                 QHostAddress sourceAddress,
                 quint16 sourcePort,
                 QString address,
-                QVariantList values );
+                QList< QVariant > values );
 
   QHostAddress sourceAddress;
   quint16 sourcePort;
@@ -27,8 +28,12 @@ class Osc_Message
 
   QString address;
 
-  QString format;
+  QString
+  format ();
   QVariantList values;
+
+  QByteArray
+  toByteArray ();
 };
 } // namespace Osc
 #endif

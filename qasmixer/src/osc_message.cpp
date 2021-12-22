@@ -17,7 +17,6 @@ Osc::Osc_Message::Osc_Message ( QNetworkDatagram * datagram )
 
   for ( int i = format_start + 1; i < format_end; i++ ) {
     char currentFormat = datagram->data ().at ( i );
-    this->format.append ( currentFormat );
 
     switch ( currentFormat ) {
     case 'i': {
@@ -85,10 +84,6 @@ Osc::Osc_Message::Osc_Message ( QNetworkDatagram * datagram )
     } break;
     }
   }
-
-  qDebug () << this->format;
-  qDebug () << this->address;
-  qDebug () << this->values;
 }
 
 Osc::Osc_Message::Osc_Message ( QHostAddress destinationAddress,
@@ -96,7 +91,7 @@ Osc::Osc_Message::Osc_Message ( QHostAddress destinationAddress,
                                 QHostAddress sourceAddress,
                                 quint16 sourcePort,
                                 QString address,
-                                QVariantList values )
+                                QList< QVariant > values )
 {
   this->destinationAddress = destinationAddress;
   this->destinationPort = destinationPort;
@@ -105,4 +100,101 @@ Osc::Osc_Message::Osc_Message ( QHostAddress destinationAddress,
 
   this->address = address;
   this->values = values;
+}
+
+QString
+Osc::Osc_Message::format ()
+{
+  QVariant element;
+  QString format;
+
+  foreach ( element, values ) {
+    switch ( element.userType () ) {
+    case ( QMetaType::Int ): {
+      format.append ( 'i' );
+    } break;
+    case ( QMetaType::Float ): {
+      format.append ( 'f' );
+    } break;
+    case ( QMetaType::QString ): {
+      format.append ( 's' );
+    } break;
+    case ( QMetaType::QByteArray ): {
+      format.append ( 'b' );
+    } break;
+    }
+  }
+
+  return format;
+}
+
+QByteArray
+Osc::Osc_Message::toByteArray ()
+{
+  QByteArray data;
+  {
+    QByteArray address = this->address.toLatin1 ();
+    address.append ( QChar::Null );
+
+    while ( address.length () % 4 > 0 ) {
+      address.append ( QChar::Null );
+    }
+
+    data.append ( address );
+  }
+  {
+    QByteArray format;
+
+    format.append ( ',' );
+    format.append ( this->format ().toLatin1 () );
+    format.append ( QChar::Null );
+
+    while ( format.length () % 4 > 0 ) {
+      format.append ( QChar::Null );
+    };
+
+    data.append ( format );
+  }
+
+  QVariant element;
+
+  foreach ( element, values ) {
+    switch ( element.userType () ) {
+    case ( QMetaType::Int ): {
+      QByteArray int_value;
+      QDataStream stream ( &int_value, QIODevice::WriteOnly );
+      stream << element.toInt ();
+      data.append ( int_value );
+    } break;
+    case ( QMetaType::Float ): {
+      QByteArray float_value;
+      QDataStream stream ( &float_value, QIODevice::WriteOnly );
+      stream.setFloatingPointPrecision ( QDataStream::SinglePrecision );
+      stream << element.toFloat ();
+      data.append ( float_value );
+    } break;
+    case ( QMetaType::QString ): {
+      QByteArray string_value = element.toString ().toLatin1 ();
+      string_value.append ( QChar::Null );
+
+      while ( string_value.length () % 4 > 0 ) {
+        string_value.append ( QChar::Null );
+      };
+
+      data.append ( string_value );
+    } break;
+    case ( QMetaType::QByteArray ): {
+      QByteArray blob_value = element.toByteArray ();
+      blob_value.append ( QChar::Null );
+
+      while ( blob_value.length () % 4 > 0 ) {
+        blob_value.append ( QChar::Null );
+      };
+
+      data.append ( blob_value );
+    } break;
+    }
+  }
+
+  return data;
 }

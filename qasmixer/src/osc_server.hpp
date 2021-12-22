@@ -39,7 +39,7 @@ class Osc_Server : public QObject
   receiveDatagram ();
 
   void
-  sendDatagram ( Osc::Osc_Message * message );
+  sendOscMessage ( Osc::Osc_Message * message );
 
   signals:
   void

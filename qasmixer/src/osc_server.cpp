@@ -1,5 +1,6 @@
 #include "osc_server.hpp"
-#include "QDebug"
+#include <QDebug>
+#include <QScopedPointer>
 
 Osc::Osc_Server::Osc_Server ()
 {
@@ -70,11 +71,28 @@ Osc::Osc_Server::receiveDatagram ()
     QNetworkDatagram datagram = _socket->receiveDatagram ();
     qDebug () << "Received" << datagram.data ().length () << "bytes from"
               << datagram.senderAddress ();
+
+    qDebug () << datagram.data ();
+
+    QScopedPointer< Osc::Osc_Message > received_message (
+        new Osc::Osc_Message ( &datagram ) );
+
+    qDebug () << received_message.get ()->values;
+
+    QScopedPointer< Osc::Osc_Message > message (
+        new Osc::Osc_Message ( QHostAddress::LocalHost,
+                               10023,
+                               QHostAddress::LocalHost,
+                               _port,
+                               received_message.get ()->address,
+                               received_message.get ()->values ) );
+
+    sendOscMessage ( message.get () );
   }
 }
 
 void
-Osc::Osc_Server::sendDatagram ( Osc::Osc_Message * message )
+Osc::Osc_Server::sendOscMessage ( Osc::Osc_Message * message )
 {
   QNetworkDatagram datagram;
 
@@ -82,34 +100,7 @@ Osc::Osc_Server::sendDatagram ( Osc::Osc_Message * message )
   datagram.setDestination ( message->destinationAddress,
                             message->destinationPort );
 
-  datagram.data ().append ( message->address.toUtf8 () );
-  datagram.data ().append ( ',' );
-  datagram.data ().append ( message->format.toUtf8 () );
-
-  for ( int i = 0; i < message->values.count (); i++ ) {
-    QVariant value = message->values.at ( i );
-
-    switch ( value.userType () ) {
-    case ( QMetaType::Int ): {
-      datagram.data ().append ( value.toInt () );
-    } break;
-    case ( QMetaType::Float ): {
-      datagram.data ().append ( value.toFloat () );
-    } break;
-    case ( QMetaType::QString ): {
-      QByteArray string_value = value.toString ().toLocal8Bit ();
-
-      for ( int j = 0; j < ( 4 - ( string_value.length () % 4 ) ); j++ ) {
-        string_value.append ( QChar::Null );
-      }
-
-      datagram.data ().append ( string_value );
-    } break;
-    case ( QMetaType::QByteArray ): {
-      datagram.data ().append ( value.toByteArray () );
-    } break;
-    }
-  }
+  datagram.setData ( message->toByteArray () );
 
   _socket->writeDatagram ( datagram );
 }

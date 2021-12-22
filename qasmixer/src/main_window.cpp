@@ -73,7 +73,7 @@ Main_Window::init_menus ()
   act_info->setIcon ( QIcon::fromTheme ( "help-about" ) );
 
   // Action: About Qt
-  QAction * act_about_qt = new QAction ( tr ( "About" ), this );
+  QAction * act_about_qt = new QAction ( tr ( "About Qt" ), this );
 
   // Menus
   {

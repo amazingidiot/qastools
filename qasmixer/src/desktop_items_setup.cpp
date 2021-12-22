@@ -136,11 +136,11 @@ Desktop_Items_Setup::read_from_storage ()
   {
     settings.beginGroup ( "osc_server" );
 
+    osc_server.setPort (
+        settings.value ( "osc_server_port", osc_server.port () ).toUInt () );
     osc_server.setEnabled (
         settings.value ( "osc_server_enabled", osc_server.enabled () )
             .toBool () );
-    osc_server.setPort (
-        settings.value ( "osc_server_port", osc_server.port () ).toUInt () );
     settings.endGroup ();
   }
   // Sanitize values
