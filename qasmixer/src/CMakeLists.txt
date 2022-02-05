@@ -1,5 +1,6 @@
 # --- Find modules
 
+
 FIND_PACKAGE (
   Qt6
   COMPONENTS
@@ -154,6 +155,7 @@ SET ( SRC_GUI
 
   osc_server.cpp
   osc_message.cpp
+  osc_action.cpp
 
   tray_mixer_mdev_setup.cpp
   tray_mixer_view_setup.cpp

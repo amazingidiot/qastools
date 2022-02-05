@@ -9,16 +9,17 @@
 
 namespace Osc
 {
-class Osc_Message
+class Message
 {
   public:
-  Osc_Message ( QNetworkDatagram * datagram );
-  Osc_Message ( QHostAddress destinationAddress,
-                quint16 destinationPort,
-                QHostAddress sourceAddress,
-                quint16 sourcePort,
-                QString address,
-                QList< QVariant > values );
+  Message ( QNetworkDatagram * datagram );
+  Message ( QHostAddress destinationAddress,
+            quint16 destinationPort,
+            QHostAddress sourceAddress,
+            quint16 sourcePort,
+            QString address,
+            QList< QVariant > values );
+  Message ( QString address, QList< QVariant > values );
 
   QHostAddress sourceAddress;
   quint16 sourcePort;

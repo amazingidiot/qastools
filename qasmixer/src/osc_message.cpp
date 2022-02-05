@@ -1,6 +1,6 @@
 #include "osc_message.hpp"
 
-Osc::Osc_Message::Osc_Message ( QNetworkDatagram * datagram )
+Osc::Message::Message ( QNetworkDatagram * datagram )
 {
   this->address = QString ( datagram->data ().constData () );
 
@@ -86,12 +86,12 @@ Osc::Osc_Message::Osc_Message ( QNetworkDatagram * datagram )
   }
 }
 
-Osc::Osc_Message::Osc_Message ( QHostAddress destinationAddress,
-                                quint16 destinationPort,
-                                QHostAddress sourceAddress,
-                                quint16 sourcePort,
-                                QString address,
-                                QList< QVariant > values )
+Osc::Message::Message ( QHostAddress destinationAddress,
+                        quint16 destinationPort,
+                        QHostAddress sourceAddress,
+                        quint16 sourcePort,
+                        QString address,
+                        QList< QVariant > values )
 {
   this->destinationAddress = destinationAddress;
   this->destinationPort = destinationPort;
@@ -102,8 +102,14 @@ Osc::Osc_Message::Osc_Message ( QHostAddress destinationAddress,
   this->values = values;
 }
 
+Osc::Message::Message ( QString address, QList< QVariant > values )
+{
+  this->address = address;
+  this->values = values;
+}
+
 QString
-Osc::Osc_Message::format ()
+Osc::Message::format ()
 {
   QVariant element;
   QString format;
@@ -129,7 +135,7 @@ Osc::Osc_Message::format ()
 }
 
 QByteArray
-Osc::Osc_Message::toByteArray ()
+Osc::Message::toByteArray ()
 {
   QByteArray data;
   {

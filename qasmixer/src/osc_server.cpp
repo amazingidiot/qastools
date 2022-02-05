@@ -1,40 +1,76 @@
 #include "osc_server.hpp"
 #include <QDebug>
-#include <QScopedPointer>
+#include <memory>
 
-Osc::Osc_Server::Osc_Server ()
+Osc::Server::Server ()
 {
-  qDebug () << "Created Osc_Server instance";
-
   _socket = new QUdpSocket ( this );
 
-  connect (
-      _socket, &QUdpSocket::readyRead, this, &Osc_Server::receiveDatagram );
+  connect ( _socket, &QUdpSocket::readyRead, this, &Server::receiveDatagram );
 
   _cards_model = new QSnd::Cards_Model ( this );
+
+  actions.append ( Osc::Action (
+      QRegularExpression ( "/echo" ),
+      [] ( Osc::Server * server, Osc::Message * message ) {
+        Osc::Message echo_reply ( message->address, message->values );
+
+        echo_reply.destinationAddress = message->sourceAddress;
+        echo_reply.destinationPort = message->sourcePort;
+
+        server->sendOscMessage ( &echo_reply );
+        return true;
+      } ) );
+  actions.append ( Osc::Action (
+      QRegularExpression ( "/alsa/device$" ),
+      [] ( Osc::Server * server, Osc::Message * message ) {
+        for ( int i = 0; i < server->_cards_model->count (); i++ ) {
+          QList< QVariant > values;
+
+          values.append (
+              server->_cards_model->card_info_by_card_index ( i )->index () );
+          values.append (
+              server->_cards_model->card_info_by_card_index ( i )->id () );
+          values.append (
+              server->_cards_model->card_info_by_card_index ( i )->name () );
+          values.append ( server->_cards_model->card_info_by_card_index ( i )
+                              ->mixer_name () );
+          values.append ( server->_cards_model->card_info_by_card_index ( i )
+                              ->long_name () );
+          values.append (
+              server->_cards_model->card_info_by_card_index ( i )->driver () );
+          values.append ( server->_cards_model->card_info_by_card_index ( i )
+                              ->components () );
+
+          Osc::Message response ( "/alsa/device", values );
+
+          response.destinationAddress = message->sourceAddress;
+          response.destinationPort = message->sourcePort;
+
+          server->sendOscMessage ( &response );
+        }
+
+        return true;
+      } ) );
 }
 
-Osc::Osc_Server::~Osc_Server ()
+Osc::Server::~Server ()
 {
-  qDebug () << "Destroyed Osc_Server instance";
-
   _socket->close ();
 
   _socket->deleteLater ();
 }
 
 bool
-Osc::Osc_Server::enabled ()
+Osc::Server::enabled ()
 {
   return _enabled;
 }
 
 void
-Osc::Osc_Server::setEnabled ( bool value )
+Osc::Server::setEnabled ( bool value )
 {
   if ( value != _enabled ) {
-    qDebug () << "Set osc_server enabled to" << value;
-
     _enabled = value;
 
     if ( _enabled ) {
@@ -47,17 +83,15 @@ Osc::Osc_Server::setEnabled ( bool value )
 }
 
 quint16
-Osc::Osc_Server::port ()
+Osc::Server::port ()
 {
   return _port;
 }
 
 void
-Osc::Osc_Server::setPort ( quint16 value )
+Osc::Server::setPort ( quint16 value )
 {
   if ( value != _port ) {
-    qDebug () << "Port changed!";
-
     _port = value;
 
     emit portChanged ( _port );
@@ -65,34 +99,25 @@ Osc::Osc_Server::setPort ( quint16 value )
 }
 
 void
-Osc::Osc_Server::receiveDatagram ()
+Osc::Server::receiveDatagram ()
 {
   while ( _socket->hasPendingDatagrams () ) {
     QNetworkDatagram datagram = _socket->receiveDatagram ();
-    qDebug () << "Received" << datagram.data ().length () << "bytes from"
-              << datagram.senderAddress ();
 
-    qDebug () << datagram.data ();
+    std::unique_ptr< Osc::Message > received_message (
+        new Osc::Message ( &datagram ) );
 
-    QScopedPointer< Osc::Osc_Message > received_message (
-        new Osc::Osc_Message ( &datagram ) );
-
-    qDebug () << received_message.get ()->values;
-
-    QScopedPointer< Osc::Osc_Message > message (
-        new Osc::Osc_Message ( QHostAddress::LocalHost,
-                               10023,
-                               QHostAddress::LocalHost,
-                               _port,
-                               received_message.get ()->address,
-                               received_message.get ()->values ) );
-
-    sendOscMessage ( message.get () );
+    foreach ( auto & action, actions ) {
+      if ( action.address.match ( received_message.get ()->address )
+               .hasMatch () ) {
+        action.run ( this, received_message.get () );
+      }
+    }
   }
 }
 
 void
-Osc::Osc_Server::sendOscMessage ( Osc::Osc_Message * message )
+Osc::Server::sendOscMessage ( Osc::Message * message )
 {
   QNetworkDatagram datagram;
 

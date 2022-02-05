@@ -1,27 +1,41 @@
 #ifndef OSC_SERVER_H
 #define OSC_SERVER_H
 
+#include "osc_action.hpp"
 #include "osc_message.hpp"
 #include "qsnd/cards_model.hpp"
+#include "qsnd/controls_database.hpp"
+#include "qsnd/controls_model.hpp"
+#include "qsnd/ctl_address.hpp"
+#
+#include <QList>
 #include <QNetworkDatagram>
 #include <QObject>
+#include <QRegularExpression>
 #include <QUdpSocket>
 
 namespace Osc
 {
-class Osc_Server : public QObject
+class Action;
+
+class Server : public QObject
 {
   Q_OBJECT
 
+  friend Osc::Action;
+
   private:
-  QSnd::Cards_Model * _cards_model;
+  ::QSnd::Cards_Model * _cards_model;
+
   QUdpSocket * _socket;
   bool _enabled = false;
   quint16 _port = 1;
 
+  QList< Osc::Action > actions;
+
   public:
-  Osc_Server ();
-  ~Osc_Server ();
+  Server ();
+  ~Server ();
 
   quint16
   port ();
@@ -39,7 +53,7 @@ class Osc_Server : public QObject
   receiveDatagram ();
 
   void
-  sendOscMessage ( Osc::Osc_Message * message );
+  sendOscMessage ( Osc::Message * message );
 
   signals:
   void

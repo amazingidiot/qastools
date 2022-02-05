@@ -47,7 +47,7 @@ class Desktop_Items_Setup
   ::Main_Window_Setup main_window;
   ::Views::Device_Selection_View_Setup device_selection_view;
   ::Views::Settings_Dialog_Setup settings_dialog;
-  ::Osc::Osc_Server osc_server;
+  ::Osc::Server osc_server;
 
   bool tray_on_close;
   bool tray_show_icon;
