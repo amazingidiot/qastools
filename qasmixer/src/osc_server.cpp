@@ -21,6 +21,69 @@ Osc::Server::Server ()
         server->sendOscMessage ( &echo_reply );
         return true;
       } ) );
+
+  actions
+      .append ( Osc::Action (
+          QRegularExpression ( "/alsa/device/\\d/parameter" ),
+          [] ( Osc::Server * server, Osc::Message * message ) {
+            int device_index =
+                message->address.split ( '/' ).at ( 2 ).toInt ( nullptr, 10 );
+
+            QList< QVariant > values;
+
+            Osc::Message response (
+                QString ( "/alsa/device/%1/parameter" ).arg ( device_index ),
+                values );
+
+            response.destinationAddress = message->sourceAddress;
+            response.destinationPort = message->sourcePort;
+
+            server->sendOscMessage ( &response );
+
+            return true;
+          } ) )
+
+          actions.append ( Osc::Action (
+              QRegularExpression ( "/alsa/device/\\d$" ),
+              [] ( Osc::Server * server, Osc::Message * message ) {
+                int device_index =
+                    message->address.split ( '/' ).at ( 2 ).toInt ( nullptr,
+                                                                    10 );
+
+                QList< QVariant > values;
+
+                values.append ( server->_cards_model
+                                    ->card_info_by_card_index ( device_index )
+                                    ->index () );
+                values.append ( server->_cards_model
+                                    ->card_info_by_card_index ( device_index )
+                                    ->id () );
+                values.append ( server->_cards_model
+                                    ->card_info_by_card_index ( device_index )
+                                    ->name () );
+                values.append ( server->_cards_model
+                                    ->card_info_by_card_index ( device_index )
+                                    ->mixer_name () );
+                values.append ( server->_cards_model
+                                    ->card_info_by_card_index ( device_index )
+                                    ->long_name () );
+                values.append ( server->_cards_model
+                                    ->card_info_by_card_index ( device_index )
+                                    ->driver () );
+                values.append ( server->_cards_model
+                                    ->card_info_by_card_index ( device_index )
+                                    ->components () );
+
+                Osc::Message response (
+                    QString ( "/alsa/device/%1" ).arg ( device_index ),
+                    values );
+
+                response.destinationAddress = message->sourceAddress;
+                response.destinationPort = message->sourcePort;
+
+                server->sendOscMessage ( &response );
+                return true;
+              } ) );
   actions.append ( Osc::Action (
       QRegularExpression ( "/alsa/device$" ),
       [] ( Osc::Server * server, Osc::Message * message ) {
