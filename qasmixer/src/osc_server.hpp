@@ -4,10 +4,9 @@
 #include "osc_action.hpp"
 #include "osc_message.hpp"
 #include "qsnd/cards_model.hpp"
-#include "qsnd/controls_database.hpp"
-#include "qsnd/controls_model.hpp"
-#include "qsnd/ctl_address.hpp"
-#
+#include "qsnd/mixer_simple.hpp"
+#include "qsnd/mixer_simple_elem.hpp"
+#include <QHash>
 #include <QList>
 #include <QNetworkDatagram>
 #include <QObject>
@@ -26,6 +25,8 @@ class Server : public QObject
 
   private:
   ::QSnd::Cards_Model * _cards_model;
+
+  QHash< int, ::QSnd::Mixer_Simple * > _mixers;
 
   QUdpSocket * _socket;
   bool _enabled = false;

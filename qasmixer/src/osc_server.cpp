@@ -1,4 +1,7 @@
 #include "osc_server.hpp"
+#include "qsnd/card_info.hpp"
+#include "qsnd/controls_database.hpp"
+#include "qsnd/controls_model.hpp"
 #include <QDebug>
 #include <memory>
 
@@ -9,6 +12,26 @@ Osc::Server::Server ()
   connect ( _socket, &QUdpSocket::readyRead, this, &Server::receiveDatagram );
 
   _cards_model = new QSnd::Cards_Model ( this );
+
+  for ( uint16_t i = 0; i < _cards_model->count (); i++ ) {
+    ::QSnd::Mixer_Simple * mixer = new ::QSnd::Mixer_Simple ();
+
+    mixer->open ( QString ( "hw:%1" ).arg ( i ) );
+
+    qInfo () << "Mixer" << i << "is_open:" << mixer->is_open ();
+
+    for ( uint16_t j = 0; j < mixer->num_elems (); j++ ) {
+      ::QSnd::Mixer_Simple_Elem * elem = mixer->elem ( j );
+      qInfo () << "Mixerelement" << j << ":" << elem->display_name ();
+      if ( elem->has_volume ( 0 ) && elem->has_dB ( 0 ) ) {
+        qInfo () << "Playback volume:"
+                 << ( 100 * elem->volume ( 0, 0 ) /
+                      ( elem->volume_max ( 0 ) - elem->volume_min ( 0 ) ) )
+                 << "%";
+      }
+    }
+    _mixers[ i ] = mixer;
+  }
 
   actions.append ( Osc::Action (
       QRegularExpression ( "/echo" ),
@@ -22,96 +45,220 @@ Osc::Server::Server ()
         return true;
       } ) );
 
-  actions
-      .append ( Osc::Action (
-          QRegularExpression ( "/alsa/device/\\d/parameter" ),
-          [] ( Osc::Server * server, Osc::Message * message ) {
-            int device_index =
-                message->address.split ( '/' ).at ( 2 ).toInt ( nullptr, 10 );
-
-            QList< QVariant > values;
-
-            Osc::Message response (
-                QString ( "/alsa/device/%1/parameter" ).arg ( device_index ),
-                values );
-
-            response.destinationAddress = message->sourceAddress;
-            response.destinationPort = message->sourcePort;
-
-            server->sendOscMessage ( &response );
-
-            return true;
-          } ) )
-
-          actions.append ( Osc::Action (
-              QRegularExpression ( "/alsa/device/\\d$" ),
-              [] ( Osc::Server * server, Osc::Message * message ) {
-                int device_index =
-                    message->address.split ( '/' ).at ( 2 ).toInt ( nullptr,
-                                                                    10 );
-
-                QList< QVariant > values;
-
-                values.append ( server->_cards_model
-                                    ->card_info_by_card_index ( device_index )
-                                    ->index () );
-                values.append ( server->_cards_model
-                                    ->card_info_by_card_index ( device_index )
-                                    ->id () );
-                values.append ( server->_cards_model
-                                    ->card_info_by_card_index ( device_index )
-                                    ->name () );
-                values.append ( server->_cards_model
-                                    ->card_info_by_card_index ( device_index )
-                                    ->mixer_name () );
-                values.append ( server->_cards_model
-                                    ->card_info_by_card_index ( device_index )
-                                    ->long_name () );
-                values.append ( server->_cards_model
-                                    ->card_info_by_card_index ( device_index )
-                                    ->driver () );
-                values.append ( server->_cards_model
-                                    ->card_info_by_card_index ( device_index )
-                                    ->components () );
-
-                Osc::Message response (
-                    QString ( "/alsa/device/%1" ).arg ( device_index ),
-                    values );
-
-                response.destinationAddress = message->sourceAddress;
-                response.destinationPort = message->sourcePort;
-
-                server->sendOscMessage ( &response );
-                return true;
-              } ) );
   actions.append ( Osc::Action (
-      QRegularExpression ( "/alsa/device$" ),
+      QRegularExpression ( "^/alsa/get_devices$" ),
       [] ( Osc::Server * server, Osc::Message * message ) {
+        qInfo () << "Received /alsa/get_devices";
+
+        QList< QVariant > values;
+
         for ( int i = 0; i < server->_cards_model->count (); i++ ) {
-          QList< QVariant > values;
-
-          values.append (
-              server->_cards_model->card_info_by_card_index ( i )->index () );
-          values.append (
-              server->_cards_model->card_info_by_card_index ( i )->id () );
-          values.append (
-              server->_cards_model->card_info_by_card_index ( i )->name () );
-          values.append ( server->_cards_model->card_info_by_card_index ( i )
-                              ->mixer_name () );
-          values.append ( server->_cards_model->card_info_by_card_index ( i )
-                              ->long_name () );
-          values.append (
-              server->_cards_model->card_info_by_card_index ( i )->driver () );
-          values.append ( server->_cards_model->card_info_by_card_index ( i )
-                              ->components () );
-
-          Osc::Message response ( "/alsa/device", values );
-
-          response.destinationAddress = message->sourceAddress;
-          response.destinationPort = message->sourcePort;
-
-          server->sendOscMessage ( &response );
+          values.append ( server->_cards_model
+                              ->card_info_by_model_index (
+                                  server->_cards_model->index ( i, 0 ) )
+                              ->index () );
         }
+
+        Osc::Message response ( "/alsa/get_devices", values );
+
+        response.destinationAddress = message->sourceAddress;
+        response.destinationPort = message->sourcePort;
+
+        server->sendOscMessage ( &response );
+
+        return true;
+      } ) );
+
+  actions.append ( Osc::Action (
+      QRegularExpression ( "^/alsa/get_device$" ),
+      [] ( Osc::Server * server, Osc::Message * message ) {
+        if ( message->values.count () != 1 ) {
+          qInfo () << "Invalid argument count for '/alsa/get_device':"
+                   << message->values.count ();
+
+          return false;
+        }
+
+        bool device_index_valid = false;
+
+        uint16_t device_index =
+            message->values[ 0 ].toInt ( &device_index_valid );
+
+        if ( !device_index_valid ) {
+          qInfo () << device_index << "is not a valid index";
+          return false;
+        }
+
+        QList< QVariant > values;
+
+        auto card_info =
+            server->_cards_model->card_info_by_card_index ( device_index );
+
+        if ( card_info == 0 ) {
+          qInfo () << "Could not get card_info for index" << device_index;
+
+          return true;
+        }
+
+        values.append ( device_index );
+
+        values.append (
+            server->_cards_model->card_info_by_card_index ( device_index )
+                ->index () );
+        values.append (
+            server->_cards_model->card_info_by_card_index ( device_index )
+                ->id () );
+        values.append (
+            server->_cards_model->card_info_by_card_index ( device_index )
+                ->name () );
+        values.append (
+            server->_cards_model->card_info_by_card_index ( device_index )
+                ->mixer_name () );
+        values.append (
+            server->_cards_model->card_info_by_card_index ( device_index )
+                ->long_name () );
+        values.append (
+            server->_cards_model->card_info_by_card_index ( device_index )
+                ->driver () );
+        values.append (
+            server->_cards_model->card_info_by_card_index ( device_index )
+                ->components () );
+
+        Osc::Message response ( "/alsa/get_device", values );
+
+        response.destinationAddress = message->sourceAddress;
+        response.destinationPort = message->sourcePort;
+
+        server->sendOscMessage ( &response );
+
+        return true;
+      } ) );
+
+  actions.append ( Osc::Action (
+      QRegularExpression ( "^/alsa/get_mixer_element_count$" ),
+      [] ( Osc::Server * server, Osc::Message * message ) {
+        if ( message->values.count () != 1 ) {
+          qInfo ()
+              << "Invalid argument count for '/alsa/get_mixer_element_count':"
+              << message->values.count ();
+
+          return false;
+        }
+        // get device index from arg 0
+        bool device_index_valid = false;
+
+        uint16_t device_index =
+            message->values[ 0 ].toInt ( &device_index_valid );
+
+        if ( !device_index_valid ) {
+          qInfo () << device_index << "is not a valid index";
+          return false;
+        }
+
+        ::QSnd::Mixer_Simple * mixer = server->_mixers[ device_index ];
+
+        if ( mixer == nullptr ) {
+          qInfo () << "Mixer for device" << device_index
+                   << "not yet opened, attempting to open.";
+
+          mixer = new QSnd::Mixer_Simple ();
+
+          mixer->open ( QString ( "hw:%1" ).arg ( device_index ) );
+
+          if ( !mixer->is_open () ) {
+            qInfo () << "Could not open mixer for device" << device_index;
+            return false;
+          }
+
+          server->_mixers[ device_index ] = mixer;
+
+          qInfo () << "Mixer for device" << device_index
+                   << "successfully opened";
+        } else {
+          qInfo () << "Mixer for device" << device_index << "already opened";
+        }
+
+        qInfo () << "Found" << mixer->num_elems () << "mixer elements";
+
+        QList< QVariant > values;
+
+        values.append ( static_cast< int > ( mixer->num_elems () ) );
+
+        Osc::Message response ( "/alsa/get_mixer_element_count", values );
+
+        response.destinationAddress = message->sourceAddress;
+        response.destinationPort = message->sourcePort;
+
+        server->sendOscMessage ( &response );
+
+        return true;
+      } ) );
+  actions.append ( Osc::Action (
+      QRegularExpression ( "^/alsa/get_mixer_element$" ),
+      [] ( Osc::Server * server, Osc::Message * message ) {
+        if ( message->values.count () != 2 ) {
+          qInfo ()
+              << "Invalid argument count for '/alsa/get_mixer_element_count':"
+              << message->values.count ();
+
+          return false;
+        }
+        // get device index from arg 0
+        bool device_index_valid = false;
+
+        uint16_t device_index =
+            message->values[ 0 ].toInt ( &device_index_valid );
+
+        if ( !device_index_valid ) {
+          qInfo () << device_index << "is not a valid index";
+          return false;
+        }
+
+        bool element_index_valid = false;
+
+        uint16_t element_index =
+            message->values[ 1 ].toInt ( &element_index_valid );
+
+        if ( !element_index_valid ) {
+          qInfo () << element_index << "is not a valid index";
+          return false;
+        }
+
+        ::QSnd::Mixer_Simple * mixer = server->_mixers[ device_index ];
+
+        if ( mixer == nullptr ) {
+          qInfo () << "Mixer for device" << device_index
+                   << "not yet opened, attempting to open.";
+
+          mixer = new QSnd::Mixer_Simple ();
+
+          mixer->open ( QString ( "hw:%1" ).arg ( device_index ) );
+
+          if ( !mixer->is_open () ) {
+            qInfo () << "Could not open mixer for device" << device_index;
+            return false;
+          }
+
+          server->_mixers[ device_index ] = mixer;
+
+          qInfo () << "Mixer for device" << device_index
+                   << "successfully opened";
+        } else {
+          qInfo () << "Mixer for device" << device_index << "already opened";
+        }
+
+        qInfo () << "Found" << mixer->num_elems () << "mixer elements";
+
+        QList< QVariant > values;
+
+        values.append ( static_cast< int > ( mixer->num_elems () ) );
+
+        Osc::Message response ( "/alsa/get_mixer_element", values );
+
+        response.destinationAddress = message->sourceAddress;
+        response.destinationPort = message->sourcePort;
+
+        server->sendOscMessage ( &response );
 
         return true;
       } ) );
