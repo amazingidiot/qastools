@@ -82,6 +82,9 @@ Osc::Message::Message ( QNetworkDatagram * datagram )
     case 'F': {
       this->values.append ( false );
     } break;
+    case 'N': {
+      this->values.append ( QChar::Null );
+    } break;
     }
   }
 }
@@ -116,8 +119,12 @@ Osc::Message::format ()
 
   foreach ( element, values ) {
     switch ( element.userType () ) {
+    case ( QMetaType::UInt ):
     case ( QMetaType::Int ): {
       format.append ( 'i' );
+    } break;
+    case ( QMetaType::Bool ): {
+      format.append ( element.toBool () ? 'T' : 'F' );
     } break;
     case ( QMetaType::Float ): {
       format.append ( 'f' );
@@ -166,6 +173,12 @@ Osc::Message::toByteArray ()
 
   foreach ( element, values ) {
     switch ( element.userType () ) {
+    case ( QMetaType::UInt ): {
+      QByteArray uint_value;
+      QDataStream stream ( &uint_value, QIODevice::WriteOnly );
+      stream << element.toUInt ();
+      data.append ( uint_value );
+    } break;
     case ( QMetaType::Int ): {
       QByteArray int_value;
       QDataStream stream ( &int_value, QIODevice::WriteOnly );

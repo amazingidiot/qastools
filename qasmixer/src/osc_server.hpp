@@ -2,6 +2,7 @@
 #define OSC_SERVER_H
 
 #include "osc_action.hpp"
+#include "osc_client.hpp"
 #include "osc_message.hpp"
 #include "qsnd/cards_model.hpp"
 #include "qsnd/mixer_simple.hpp"
@@ -11,6 +12,7 @@
 #include <QNetworkDatagram>
 #include <QObject>
 #include <QRegularExpression>
+#include <QTimer>
 #include <QUdpSocket>
 
 namespace Osc
@@ -33,6 +35,12 @@ class Server : public QObject
   quint16 _port = 1;
 
   QList< Osc::Action > actions;
+
+  QSnd::Mixer_Simple *
+  get_mixer ( int32_t index );
+
+  QList< Osc::Client > _clients;
+  QTimer _subscription_timer;
 
   public:
   Server ();
